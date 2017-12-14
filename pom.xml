@@ -157,9 +157,10 @@
 		<module>risk-rule-api</module>
 		<module>risk-rule-service</module>
 		<module>risk-agent</module>
-		<module>risk-gate</module>
 		<module>risk-monitor</module>
 		<module>risk-ui</module>
 		<module>risk-rule-center</module>
+		<module>risk-gate</module>
+		
 	</modules>
 </project>
