@@ -23,6 +23,19 @@
 		<maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
 		<maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
 		<spring-boot-starter>1.5.9.RELEASE</spring-boot-starter>
+
+		<!-- mybatisplus 搭建版本号 -->
+		<mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
+		<mybatisplus.version>2.1.6</mybatisplus.version>
+
+		<swagger2.version>2.6.1</swagger2.version>
+
+		<!-- 依赖版本 -->
+		<mapper.version>3.3.6</mapper.version>
+		<mybatis.version>3.3.1</mybatis.version>
+		<mybatis.spring.version>1.2.4</mybatis.spring.version>
+		<pagehelper.version>4.1.1</pagehelper.version>
+		<mybatis.boot.version>1.3.1</mybatis.boot.version>
 	</properties>
 
 
@@ -161,6 +174,10 @@
 		<module>risk-ui</module>
 		<module>risk-rule-center</module>
 		<module>risk-gate</module>
-		
-	</modules>
+		<module>risk-common</module>
+		<module>admin-common</module>
+        <module>admin-service</module>
+
+
+    </modules>
 </project>
