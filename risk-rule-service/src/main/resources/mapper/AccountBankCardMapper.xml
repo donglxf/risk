@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tdw.cams.account.mapper.AccountBankCardMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tdw.cams.account.entity.AccountBankCard">
+        <id column="account_bank_id" property="accountBankId" />
+        <result column="account_id" property="accountId" />
+        <result column="bank_card_no" property="bankCardNo" />
+        <result column="open_bank" property="openBank" />
+        <result column="open_sub_bank" property="openSubBank" />
+        <result column="bank_province" property="bankProvince" />
+        <result column="bank_city" property="bankCity" />
+        <result column="phone_number" property="phoneNumber" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="status_flag" property="statusFlag" />
+        <result column="remark" property="remark" />
+        <result column="main_flag" property="mainFlag" />
+        <result column="cunguan_flag" property="cunguanFlag" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        account_bank_id AS accountBankId, account_id AS accountId, bank_card_no AS bankCardNo, open_bank AS openBank, open_sub_bank AS openSubBank, bank_province AS bankProvince, bank_city AS bankCity, phone_number AS phoneNumber, create_user AS createUser, create_time AS createTime, update_user AS updateUser, update_time AS updateTime, status_flag AS statusFlag, remark, main_flag AS mainFlag, cunguan_flag AS cunguanFlag
+    </sql>
+
+</mapper>
