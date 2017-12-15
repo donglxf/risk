@@ -4,7 +4,7 @@
  * 创建人 汤孝松
  * 创建时间 2017/11/21  10:12
  */
-package com.tdw.risk.config;
+package com.ht.risk.rule.config;
 
 import javax.annotation.PostConstruct;
 
@@ -14,7 +14,7 @@ import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
-import com.tdw.risk.common.util.StringToDateConverter;
+import com.ht.risk.common.util.StringToDateConverter;
 
 /**
  * @author 汤孝松

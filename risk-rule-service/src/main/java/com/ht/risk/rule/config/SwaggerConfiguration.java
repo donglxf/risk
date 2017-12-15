@@ -1,4 +1,4 @@
-package com.tdw.risk.config;
+package com.ht.risk.rule.config;
 
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;

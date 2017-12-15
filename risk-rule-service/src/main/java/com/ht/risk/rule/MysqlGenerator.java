@@ -1,27 +1,18 @@
-package com.ht.risk.common.generator;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+package com.ht.risk.rule;
 
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.FileOutConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+
+import java.io.File;
+import java.util.*;
 
 /**
  *code is far away from bug with the animal protecting
@@ -49,12 +40,12 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  *   @Date : Create in 2017/9/19 14:48　
  */
 public class MysqlGenerator {
-    private static String projectName = "rike-rule-service";
+    private static String projectName = "risk-rule-service";
     private static String packageName="rule";    //文件路径
     private static String authorName="张鹏";     //作者
-    private static String table="rule_action_info";                  //table名字
+    private static String table="rule_variable";                  //table名字
     private static String prefix="rule_";                     //table前缀
-    private static File file = new File(packageName);
+    private static File file = new File(projectName);
     private static String path = file.getAbsolutePath();
 
     public static void main(String[] args) {
@@ -72,7 +63,7 @@ public class MysqlGenerator {
                         .setEnableCache(false)// XML 二级缓存
                         .setBaseResultMap(true)// XML ResultMap
                         .setBaseColumnList(true)// XML columList
-                        .setOpen(true)//生成后打开文件夹
+                        .setOpen(false)//生成后打开文件夹
                         .setAuthor(authorName)
                 // 自定义文件命名，注意 %s 会自动填充表实体属性！
                  .setMapperName("%sMapper")
@@ -97,8 +88,8 @@ public class MysqlGenerator {
                         })
                         .setDriverName("com.mysql.jdbc.Driver")
                         .setUsername("root")
-                        .setPassword("tuandai_bm2015")
-                        .setUrl("jdbc:mysql://10.110.1.240:3306/tuandai_bm_core?characterEncoding=utf8")
+                        .setPassword("root")
+                        .setUrl("jdbc:mysql://127.0.0.1:3306/drools_rule?characterEncoding=utf8")
         ).setStrategy(
                 // 策略配置
                 new StrategyConfig()
@@ -115,11 +106,11 @@ public class MysqlGenerator {
                         //.setSuperEntityColumns(new String[]{"test_id"})
                         .setTableFillList(tableFillList)
                 // 自定义 mapper 父类
-                 .setSuperMapperClass("com.tdw.cams.account.SuperMapper")
+                 .setSuperMapperClass("com.ht.risk.common.mapper.SuperMapper")
                 // 自定义 service 父类
-                 .setSuperServiceClass("com.tdw.cams.common.service.BaseService")
+                 .setSuperServiceClass("com.ht.risk.common.service.BaseService")
                 // 自定义 service 实现类父类
-                 .setSuperServiceImplClass("com.tdw.cams.common.service.impl.BaseServiceImpl")
+                 .setSuperServiceImplClass("com.ht.risk.common.service.impl.BaseServiceImpl")
                 // 自定义 controller 父类
                // .setSuperControllerClass("com.tdx."+packageName+".controller.AbstractController")
                 // 【实体】是否生成字段常量（默认 false）

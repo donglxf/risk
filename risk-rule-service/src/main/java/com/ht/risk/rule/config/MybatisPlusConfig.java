@@ -1,4 +1,4 @@
-package com.tdw.risk.config;
+package com.ht.risk.rule.config;
 
 import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.slf4j.Logger;
