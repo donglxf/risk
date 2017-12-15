@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ht.risk.rule.mapper.ActionRuleRelMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.ActionRuleRel">
+        <id column="rule_action_rel_id" property="ruleActionRelId" />
+        <result column="action_id" property="actionId" />
+        <result column="rule_id" property="ruleId" />
+        <result column="is_effect" property="isEffect" />
+        <result column="cre_user_id" property="creUserId" />
+        <result column="cre_time" property="creTime" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        rule_action_rel_id AS ruleActionRelId, action_id AS actionId, rule_id AS ruleId, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
+    </sql>
+
+</mapper>

@@ -1,9 +1,9 @@
 package com.ht.risk.common.util;
 
+import com.ht.risk.common.vo.TreeNode;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.ht.risk.common.vo.TreeNode;
 
 /**
  * Created by Ace on 2017/6/12.

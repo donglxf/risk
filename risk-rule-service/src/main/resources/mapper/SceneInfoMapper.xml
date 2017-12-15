@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ht.risk.rule.mapper.SceneInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.SceneInfo">
+        <id column="scene_id" property="sceneId" />
+        <result column="scene_identify" property="sceneIdentify" />
+        <result column="scene_type" property="sceneType" />
+        <result column="scene_name" property="sceneName" />
+        <result column="scene_desc" property="sceneDesc" />
+        <result column="is_effect" property="isEffect" />
+        <result column="cre_user_id" property="creUserId" />
+        <result column="cre_time" property="creTime" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        scene_id AS sceneId, scene_identify AS sceneIdentify, scene_type AS sceneType, scene_name AS sceneName, scene_desc AS sceneDesc, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
+    </sql>
+
+</mapper>

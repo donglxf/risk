@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ht.risk.rule.mapper.EntityInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.EntityInfo">
+        <id column="entity_id" property="entityId" />
+        <result column="entity_name" property="entityName" />
+        <result column="entity_desc" property="entityDesc" />
+        <result column="entity_identify" property="entityIdentify" />
+        <result column="pkg_name" property="pkgName" />
+        <result column="cre_user_id" property="creUserId" />
+        <result column="cre_time" property="creTime" />
+        <result column="is_effect" property="isEffect" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        entity_id AS entityId, entity_name AS entityName, entity_desc AS entityDesc, entity_identify AS entityIdentify, pkg_name AS pkgName, cre_user_id AS creUserId, cre_time AS creTime, is_effect AS isEffect, remark
+    </sql>
+
+</mapper>
