@@ -1,221 +1,406 @@
-﻿<!DOCTYPE html>
-<html>
+<div class="kit-table">
+    <form class="layui-form" lay-filter="kit-search-form">
+        <div class="kit-table-header">
+            <div class="kit-search-btns">
+                <a href="javascript:;" data-action="add" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe608;</i> 新增</a>
+                <a href="javascript:;" data-action="del-bulk" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i> 批量删除</a>
+            </div>
+            <div class="kit-search-inputs">
+                <div class="kit-search-keyword">
+                    <input type="text" class="layui-input" name="keyword" placeholder="搜索关键字.." />
+                    <button lay-submit lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
+                </div>
+                <div class="kit-search-more" id="kit-search-more">更多筛选<i class="layui-icon">&#xe61a;</i></div>
+            </div>
+        </div>
+        <div class="kit-search-mored layui-anim layui-anim-upbit">
+            <div class="kit-search-body">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">输入框</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">验证手机</label>
+                        <div class="layui-input-inline">
+                            <input type="tel" name="phone" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">验证邮箱</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="email" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">范围</label>
+                        <div class="layui-input-inline" style="width: 100px;">
+                            <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid">-</div>
+                        <div class="layui-input-inline" style="width: 100px;">
+                            <input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">单行选择框</label>
+                    <div class="layui-input-block">
+                        <select name="interest" lay-filter="aihao">
+                            <option value=""></option>
+                            <option value="0">写作</option>
+                            <option value="1" selected="">阅读</option>
+                            <option value="2">游戏</option>
+                            <option value="3">音乐</option>
+                            <option value="4">旅行</option>
+                          </select>
+                    </div>
+                </div>
+            </div>
+            <div class="kit-search-footer">
+                <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary kit-btn">重置</button>
+                <button lay-submit lay-filter="search" class="layui-btn layui-btn-sm kit-btn">确定</button>
+            </div>
+        </div>
+    </form>
+    <div class="kit-table-body">
+        <table id="demo" lay-filter="demo"></table>
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
+    </div>
+</div>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>Table</title>
-		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
-		<link rel="stylesheet" href="css/global.css" media="all">
-		<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="css/table.css" />
-	</head>
 
-	<body>
-		<div class="admin-main">
+<script type="text/html" id="edit-tpl">
+    <div style="margin:10px">
+        <form class="layui-form" action="" lay-filter="form-edit">
+            <input type="hidden" name="id" value="{{d.user.id}}" />
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="username" required lay-verify="required" value="{{d.user.username}}" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码框</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">辅助文字</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">单选框</label>
+                <div class="layui-input-block">
+                    {{# var woman = d.user.sex === 0?'checked':'';}} {{# var man = d.user.sex === 1?'checked':'';}}
+                    <input type="radio" name="sex" value="男" title="男" {{man}} />
+                    <input type="radio" name="sex" value="女" title="女" {{woman}} />
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">城市</label>
+                <div class="layui-input-block">
+                    <select name="city" lay-verify="required">
+                      <option value=""></option>
+                      {{# layui.each(d.citys,function(index,item){ }}                      
+                      {{# if(item.id===d.user.city){}}
+                      <option value="{{item.id}}" selected>{{item.name}}</option>
+                      {{#}else{}}
+                      <option value="{{item.id}}">{{item.name}}</option>
+                      {{#};}}
+                      {{# }); }}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">积分</label>
+                <div class="layui-input-block">
+                    <input type="number" name="experience" required lay-verify="required" value="{{d.user.experience}}" placeholder="请输入积分" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">评分</label>
+                <div class="layui-input-block">
+                    <input type="number" name="score" required lay-verify="required" value="{{d.user.score}}" placeholder="请输入评分" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">财富</label>
+                <div class="layui-input-block">
+                    <input type="number" name="wealth" required lay-verify="required" value="{{d.user.wealth}}" placeholder="请输入财富" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">职业</label>
+                <div class="layui-input-block">
+                    <select name="classify" lay-verify="required">
+                        <option value=""></option>                        
+                      {{# layui.each(d.classifies,function(index,item){ }}
+                      {{# if(item.id===d.user.classify){}}
+                      <option value="{{item.id}}" selected>{{item.name}}</option>
+                      {{#}else{}}
+                      <option value="{{item.id}}">{{item.name}}</option>
+                      {{#};}}
+                      {{# }); }}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">签名</label>
+                <div class="layui-input-block">
+                    <textarea name="sign" placeholder="请输入个性签名" class="layui-textarea">{{d.user.sign}}</textarea>
+                </div>
+            </div>
+            <div class="layui-form-item" style="display:none;">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formEdit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
 
-			<blockquote class="layui-elem-quote">
-				<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
-					<i class="layui-icon">&#xe608;</i> 添加信息
-				</a>
-				<a href="#" class="layui-btn layui-btn-small" id="import">
-					<i class="layui-icon">&#xe608;</i> 导入信息
-				</a>
-				<a href="#" class="layui-btn layui-btn-small">
-					<i class="fa fa-shopping-cart" aria-hidden="true"></i> 导出信息
-				</a>
-				<a href="#" class="layui-btn layui-btn-small" id="getSelected">
-					<i class="fa fa-shopping-cart" aria-hidden="true"></i> 获取全选信息
-				</a>
-				<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-					<i class="layui-icon">&#xe615;</i> 搜索
-				</a>
-			</blockquote>
-			<fieldset class="layui-elem-field">
-				<legend>数据列表</legend>
-				<div class="layui-field-box layui-form">
-					<table class="layui-table admin-table">
-						<thead>
-							<tr>
-								<th style="width: 30px;"><input type="checkbox" lay-filter="allselector" lay-skin="primary"></th>
-								<th>姓名</th>
-								<th>年龄</th>
-								<th>创建时间</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<tbody id="content">
-						</tbody>
-					</table>
-				</div>
-			</fieldset>
-			<div class="admin-table-page">
-				<div id="paged" class="page">
-				</div>
-			</div>
-		</div>
-		<!--模板-->
-		<script type="text/html" id="tpl">
-			{{# layui.each(d.list, function(index, item){ }}
-			<tr>
-				<td><input type="checkbox" lay-skin="primary"></td>
-				<td>{{ item.name }}</td>
-				<td>{{ item.age }}</td>
-				<td>{{ item.createtime }}</td>
-				<td>
-					<a href="/detail-1" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
-					<a href="javascript:;" data-name="{{ item.name }}" data-opt="edit" class="layui-btn layui-btn-mini">编辑</a>
-					<a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
-				</td>
-			</tr>
-			{{# }); }}
-		</script>
-		<script type="text/javascript" src="plugins/layui/layui.js"></script>
-		<script>
-			layui.config({
-				base: 'js/'
-			});
+<script>
+    layui.use(['table'], function() {
+        var table = layui.table,
+            $ = layui.jquery,
+            layer = layui.layer,
+            form = layui.form,
+            laytpl = layui.laytpl;
+        var tableIns = table.render({
+            elem: '#demo',
+            height: 'full-135', //容器高度
+            url: 'table.json',
+            page: true,
+            id: 'demo',
+            cols: [
+                [{
+                    checkbox: true,
+                    fixed: true
+                }, {
+                    field: 'id',
+                    title: 'ID',
+                    width: 80
+                }, {
+                    field: 'username',
+                    title: '用户名',
+                    width: 80
+                }, {
+                    field: 'sex',
+                    title: '性别',
+                    width: 80
+                }, {
+                    field: 'city',
+                    title: '城市',
+                    width: 80
+                }, {
+                    field: 'sign',
+                    title: '签名',
+                    width: 177
+                }, {
+                    field: 'experience',
+                    title: '积分',
+                    width: 80
+                }, {
+                    field: 'score',
+                    title: '评分',
+                    width: 80
+                }, {
+                    field: 'classify',
+                    title: '职业',
+                    width: 80
+                }, {
+                    field: 'wealth',
+                    title: '财富',
+                    width: 135,
+                    sort: true
+                }, {
+                    fixed: 'right',
+                    title: '操作',
+                    width: 150,
+                    align: 'center',
+                    toolbar: '#barDemo'
+                }]
+            ],
+            done: function(res, curr, count) {
+                //如果是异步请求数据方式，res即为你接口返回的信息。
+                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                // console.log(res);
+                // //得到当前页码
+                // console.log(curr);
+                // //得到数据总量
+                // console.log(count);
+            },
+            loading: true,
+            //method: 'post'
+        });
+        var staticData = {
+            citys: [{
+                id: 0,
+                name: '北京'
+            }, {
+                id: 1,
+                name: '广州'
+            }, {
+                id: 2,
+                name: '深圳'
+            }, {
+                id: 3,
+                name: '杭州'
+            }],
+            classifies: [{
+                id: 0,
+                name: '词人'
+            }, {
+                id: 1,
+                name: '诗人'
+            }, {
+                id: 2,
+                name: '作家'
+            }, {
+                id: 3,
+                name: '酱油'
+            }]
+        };
+        //监听搜索表单提交
+        form.on('submit(search)', function(data) {
+            console.log(data.field);
+            layer.msg(JSON.stringify(data.field));
+            //带条件查询
+            tableIns.reload({
+                where: data.field
+            });
+            return false;
+        });
+        //监听工具条
+        table.on('tool(demo)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
 
-			layui.use(['paging', 'form'], function() {
-				var $ = layui.jquery,
-					paging = layui.paging(),
-					layerTips = parent.layer === undefined ? layui.layer : parent.layer, //获取父窗口的layer对象
-					layer = layui.layer, //获取当前窗口的layer对象
-					form = layui.form();
-
-                paging.init({
-                    openWait: true,
-                    url: 'datas/laytpl_laypage_data.json?v=' + new Date().getTime(), //地址
-					elem: '#content', //内容容器
-					params: { //发送到服务端的参数
-					},
-					type: 'GET',
-					tempElem: '#tpl', //模块容器
-					pageConfig: { //分页参数配置
-						elem: '#paged', //分页容器
-						pageSize: 3 //分页大小
-					},
-					success: function() { //渲染成功的回调
-						//alert('渲染成功');
-					},
-					fail: function(msg) { //获取数据失败的回调
-						//alert('获取数据失败')
-					},
-					complate: function() { //完成的回调
-						//alert('处理完成');
-						//重新渲染复选框
-						form.render('checkbox');
-						form.on('checkbox(allselector)', function(data) {
-							var elem = data.elem;
-
-							$('#content').children('tr').each(function() {
-								var $that = $(this);
-								//全选或反选
-								$that.children('td').eq(0).children('input[type=checkbox]')[0].checked = elem.checked;
-								form.render('checkbox');
-							});
-						});
-
-						//绑定所有编辑按钮事件						
-						$('#content').children('tr').each(function() {
-							var $that = $(this);
-							$that.children('td:last-child').children('a[data-opt=edit]').on('click', function() {
-								layer.msg($(this).data('name'));
-							});
-
-						});
-
-					},
-				});
-				//获取所有选择的列
-				$('#getSelected').on('click', function() {
-					var names = '';
-					$('#content').children('tr').each(function() {
-						var $that = $(this);
-						var $cbx = $that.children('td').eq(0).children('input[type=checkbox]')[0].checked;
-						if($cbx) {
-							var n = $that.children('td:last-child').children('a[data-opt=edit]').data('name');
-							names += n + ',';
-						}
-					});
-					layer.msg('你选择的名称有：' + names);
-				});
-
-				$('#search').on('click', function() {
-					parent.layer.alert('你点击了搜索按钮')
-				});
-
-				var addBoxIndex = -1;
-				$('#add').on('click', function() {
-					if(addBoxIndex !== -1)
-						return;
-					//本表单通过ajax加载 --以模板的形式，当然你也可以直接写在页面上读取
-					$.get('temp/edit-form.html', null, function(form) {
-						addBoxIndex = layer.open({
-							type: 1,
-							title: '添加表单',
-							content: form,
-							btn: ['保存', '取消'],
-							shade: false,
-							offset: ['100px', '30%'],
-							area: ['600px', '400px'],
-							zIndex: 19950924,
-							maxmin: true,
-							yes: function(index) {
-								//触发表单的提交事件
-								$('form.layui-form').find('button[lay-filter=edit]').click();
-							},
-							full: function(elem) {
-								var win = window.top === window.self ? window : parent.window;
-								$(win).on('resize', function() {
-									var $this = $(this);
-									elem.width($this.width()).height($this.height()).css({
-										top: 0,
-										left: 0
-									});
-									elem.children('div.layui-layer-content').height($this.height() - 95);
-								});
-							},
-							success: function(layero, index) {
-								//弹出窗口成功后渲染表单
-								var form = layui.form();
-								form.render();
-								form.on('submit(edit)', function(data) {
-									console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
-									console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
-									console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
-									//调用父窗口的layer对象
-									layerTips.open({
-										title: '这里面是表单的信息',
-										type: 1,
-										content: JSON.stringify(data.field),
-										area: ['500px', '300px'],
-										btn: ['关闭并刷新', '关闭'],
-										yes: function(index, layero) {
-											layerTips.msg('你点击了关闭并刷新');
-											layerTips.close(index);
-											location.reload(); //刷新
-										}
-
-									});
-									//这里可以写ajax方法提交表单
-									return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。									
-								});
-								//console.log(layero, index);
-							},
-							end: function() {
-								addBoxIndex = -1;
-							}
-						});
-					});
-				});
-
-				$('#import').on('click', function() {
-					var that = this;
-					var index = layer.tips('只想提示地精准些', that, { tips: [1, 'white'] });
-					$('#layui-layer' + index).children('div.layui-layer-content').css('color', '#000000');
-				});
-			});
-		</script>
-	</body>
-
-</html>
+            if (layEvent === 'detail') { //查看
+                console.log(table.checkStatus('demo'));
+                //do somehing
+            } else if (layEvent === 'del') { //删除
+                layer.confirm('真的删除行么', function(index) {
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            } else if (layEvent === 'edit') { //编辑
+                var d = {
+                    user: data,
+                    citys: staticData.citys,
+                    classifies: staticData.classifies
+                };
+                //do something
+                laytpl($('#edit-tpl').html()).render(d, function(html) {
+                    layer.open({
+                        type: 1,
+                        title: '表单',
+                        content: html,
+                        area: ['800px', '600px'],
+                        btn: ['提交', '重置', '取消'],
+                        yes: function(index, layero) {
+                            editIndex = index;
+                            $('form[lay-filter="form-edit"]').find('button[lay-submit]').click();
+                        },
+                        btn2: function(index, layero) {
+                            $('form[lay-filter="form-edit"]').find('button[type="reset"]').click();
+                            return false;
+                        },
+                        success: function() {
+                            form.render(null, 'form-edit');
+                        }
+                    });
+                });
+                //同步更新缓存对应的值
+                // obj.update({
+                //     username: '123',
+                //     title: 'xxx'
+                // });
+            }
+        });
+        form.render(null, 'kit-search-form');
+        $('#kit-search-more').on('click', function() {
+            $('.kit-search-mored').toggle();
+        });
+        var editIndex;
+        form.on('submit(formEdit)', function(data) {
+            layer.msg('formEdit');
+            editIndex && layer.close(editIndex); //关闭弹出层
+            return false;
+        });
+        $('.kit-search-btns').children('a').off('click').on('click', function() {
+            var $that = $(this),
+                action = $that.data('action');
+            switch (action) {
+                case 'add':
+                    var d = {
+                        user: {
+                            sign: '',
+                            city: '',
+                            classify: '',
+                            experience: '',
+                            id: 0,
+                            logins: '',
+                            score: '',
+                            sex: 1,
+                            sign: '',
+                            username: '',
+                            wealth: ''
+                        },
+                        citys: staticData.citys,
+                        classifies: staticData.classifies
+                    };
+                    //渲染
+                    laytpl($('#edit-tpl').html()).render(d,
+                        function(html) {
+                            layer.open({
+                                type: 1,
+                                title: '表单',
+                                content: html,
+                                area: ['800px', '600px'],
+                                btn: ['提交', '重置', '取消'],
+                                yes: function(index, layero) {
+                                    editIndex = index;
+                                    $('form[lay-filter="form-edit"]').find('button[lay-submit]').click();
+                                },
+                                btn2: function(index, layero) {
+                                    $('form[lay-filter="form-edit"]').find('button[type="reset"]').click();
+                                    return false;
+                                },
+                                success: function() {
+                                    form.render(null, 'form-edit');
+                                }
+                            });
+                        });
+                    break;
+                case 'del-bulk':
+                    var d = table.checkStatus('demo');
+                    if (d.data.length === 0) {
+                        layer.msg('请选择要删除的数据');
+                        return;
+                    }
+                    var data = d.data,
+                        names = [],
+                        ids = [];
+                    layui.each(data, function(index, item) {
+                        console.log(item);
+                        names.push(item.username);
+                        ids.push(item.id);
+                    });
+                    layer.msg(names.join(','));
+                    console.log(ids.join(','));
+                    break;
+            }
+        });
+    });
+</script>

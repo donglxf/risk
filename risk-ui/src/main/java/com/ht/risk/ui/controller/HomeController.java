@@ -17,6 +17,20 @@ public class HomeController {
     public String index(){
         return "index";
     }
+
+    @RequestMapping(value = "login",method = RequestMethod.GET)
+    public String login(){
+        return "login";
+    }
+
+
+
+
+    @RequestMapping(value = "rule/entity",method = RequestMethod.GET)
+    public String ruleEntity(){
+        return "rule/rule-entity";
+    }
+
     @RequestMapping(value = "about",method = RequestMethod.GET)
     public String about(){
         return "about";
@@ -25,10 +39,12 @@ public class HomeController {
     public String user(){
         return "user/list";
     }
+
     @RequestMapping(value = "user/edit",method = RequestMethod.GET)
     public String userEdit(){
         return "user/edit";
     }
+
     @RequestMapping(value = "menu",method = RequestMethod.GET)
     public String menu(){
         return "menu/list";
@@ -53,9 +69,9 @@ public class HomeController {
     public String groupType(){
         return "groupType/list";
     }
-    @RequestMapping(value = "groupType/edit",method = RequestMethod.GET)
+    @RequestMapping(value = "ztree",method = RequestMethod.GET)
     public String groupTypeEdit(){
-        return "groupType/edit";
+        return "ztree";
     }
 
 }

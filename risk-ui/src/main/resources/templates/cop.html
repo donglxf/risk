@@ -1,79 +1,37 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Navbar组件</title>
+    <link rel="stylesheet" href="./plugins/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="./plugins/font-awesome/css/font-awesome.min.css" media="all">
 </head>
 
-<body>
-    <div style="width: 400px;margin: 0 auto;">
-        <button id="add" class="layui-btn">向选项卡添加一个tab</button>
-        <button id="remove" class="layui-btn">移除当前选项卡</button>
-    </div>
+<body style="margin:15px;">
+    <a href="javascript:;" class="layui-btn" data-title="编辑一" data-url="edit1.html" data-icon="fa-edit" data-id="1"><i class="fa fa-edit" aria-hidden="true"></i> 编辑一</a>
+    <a href="javascript:;" class="layui-btn" data-title="编辑二" data-url="edit2.html" data-icon="fa-edit" data-id="2"><i class="fa fa-edit" aria-hidden="true"></i> 编辑二</a>
 
-    <script type="text/javascript" src="plugins/layui/layui.js"></script>
+    <script src="./plugins/layui/layui.js"></script>
     <script>
-        //循环获取父层的tab对象，为什么用循环呢？因为子层加载完，父层还不一定加载完了。所以获取到的是undefined
-        /*var index = setInterval(function() {
-            if(typeof parent.tab !== 'undefined') {
-                //如果获取到tab对象，则停止循环
-                clearInterval(index);
-                //通过调用父层的tab组件里的tabAdd方法添加一个tab选项卡
-                parent.tab.tabAdd({
-                    href: 'https://www.baidu.com', //地址
-                    icon: 'fa-user',
-                    title: '这是在子窗口打开的tab选项卡'
-                });
-            }
-        }, 20);*/
-        //如果需要在些页面上获取到父页面的变量，需要把变量设置为全局，
-        /**
-         * 例：
-         * var tab;
-         * layui.use('tab',function(){
-         * 	   tab = layui.tab(setting);
-         * });
-         */
-        //上面那个是页面渲染完就添加的
-        layui.use(['layer'], function () {
-            var $ = layui.jquery,
-                layer = layui.layer;
+        layui.use(['layer'], function() {
+            var layer = layui.layer,
+                $ = layui.jquery;
 
-            //移除当前的选项卡
-            $('#remove').on('click', function () {
-                var tab = parent.tab;
+            var tab = parent.tab;
 
-                tab.deleteTab(tab.getCurrentTabId());
+            $('a').off('click').on('click', function() {
+                var _that = $(this),
+                    _data = {
+                        title: _that.data('title'),
+                        icon: _that.data('icon'),
+                        id: _that.data('id'),
+                        url: _that.data('url')
+                    };
+                tab.tabAdd(_data);
             });
-
-            //这个是点击之后才添加的。
-            $('#add').on('click', function () {
-                var con = '<div style="padding:10px;"><input type="text" class="layui-input" style="margin-bottom:5px;" name="url" placeholder="地址" />' +
-                    '<input type="text" class="layui-input" style="margin-bottom:5px;" name="title" placeholder="标题" />' +
-                    '<input type="text" class="layui-input" name="icon" placeholder="图标" /></div>';
-
-                layer.open({
-                    type: 1,
-                    title: '确认框',
-                    content: con,
-                    btn: ['确定', '取消'],
-                    area: ['350px', '250px'],
-                    yes: function (index, layero) {
-                        //这是核心的代码。
-                        parent.tab.tabAdd({
-                            href: $(layero).find('input[name=url]').val(), //地址
-                            icon: $(layero).find('input[name=icon]').val(),
-                            title: $(layero).find('input[name=title]').val()
-                        });
-                    },
-                    shade: false,
-                    maxmin: true
-                });
-
-            });
-
         });
     </script>
 </body>

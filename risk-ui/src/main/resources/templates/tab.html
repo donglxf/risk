@@ -1,153 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-	<head>
-		<meta charset="utf-8">
-		<title>Paging</title>
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="format-detection" content="telephone=no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Navbar组件</title>
+    <link rel="stylesheet" href="./plugins/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="./build/css/doc.css" media="all">
+</head>
 
-		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
-		<link rel="stylesheet" href="css/global.css" media="all">
-		<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
-	</head>
-
-	<body>
-		<div style="margin: 15px;">
-			<blockquote class="layui-elem-quote">
-				<h1>Tab 组件说明文档</h1></blockquote>
-			<fieldset class="layui-elem-field">
-				<legend>参数</legend>
-				<div class="layui-field-box">
-					<table class="layui-table">
-						<thead>
-							<tr>
-								<th>属性名称</th>
-								<th>类型</th>
-								<th>默认值</th>
-								<th>描述</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td style="text-align: center;">elem</td>
-								<td style="text-align: center;">string</td>
-								<td style="text-align: center;">undefined</td>
-								<td>
-									<p>内容容器. 1/id选择器 : #id 2/类选择器：.class</p>
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">closed</td>
-								<td style="text-align: center;">boolean</td>
-								<td style="text-align: center;">true</td>
-								<td>
-									<p>关闭</p>
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">autoRefresh</td>
-								<td style="text-align: center;">boolean</td>
-								<td style="text-align: center;">false</td>
-								<td>
-									<p>自动刷新</p>
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">contextMenu</td>
-								<td style="text-align: center;">boolean</td>
-								<td style="text-align: center;">false</td>
-								<td>
-									<p>右键菜单</p>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</fieldset>
-			<fieldset class="layui-elem-field">
-				<legend>方法</legend>
-				<div class="layui-field-box">
-					<table class="layui-table">
-						<thead>
-							<tr>
-								<th>名称</th>
-								<th>参数说明</th>
-								<th>描述</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td style="text-align: center;">exists</td>
-								<td style="text-align: center;">
-									<p>参数名：title</p>
-									<p>类型：string</p>
-								</td>
-								<td>
-									<p>检索tab选择卡是否存在，如果存在则返回索引值，不存在返回-1</p>
-									<p>示例</p>
-									<p>
-										<pre class="layui-code">
-var index = tab.exists('用户中心');
-//e.g. 
-//result:1
-										</pre>
-									</p>
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">getTabId</td>
-								<td style="text-align: center;">
-									<p>参数名：title</p>
-									<p>类型：string</p>
-								</td>
-								<td>
-									<p>获取tab选项卡id</p>
-									<p>示例</p>
-									<p>
-										<pre class="layui-code">
-var id = tab.getTabId('用户中心');		
-//e.g. 
-//result:1488434851738
-										</pre>
-									</p>
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">tabAdd</td>
-								<td style="text-align: center;">
-									<p>参数名：data</p>
-									<p>类型：object</p>
-								</td>
-								<td>
-									<p>参数说明</p>
-									<p>data.href //需要加载的地址</p>
-									<p>data.icon //图标</p>
-									<p>data.title //标题</p>
-									<br/>
-									<p>添加一个tab选择卡，如果tab选择卡存在则获取焦点</p>
-									<p>示例</p>
-									<p>
-										<pre class="layui-code">
-var id = tab.tabAdd({
-	href:'http://fly.zhengjinfan.cn/',
-	icon:'fa-user',
-	title:'百度'
-});
-										</pre>
-									</p>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</fieldset>
-		</div>
-		<script type="text/javascript" src="plugins/layui/layui.js"></script>
-	</body>
+<body>
+    <div class="kit-doc">
+        <blockquote class="layui-elem-quote">Tab组件是基于<a href="http://www.layui.com/doc/element/tab.html" target="_blank">layui选项卡</a> 封装的组件，配合
+            <a href="navbar.html">Navbar组件</a>能完成多开页面的操作</blockquote>
+        <div class="kit-doc-title">
+            <fieldset>
+                <legend><a name="blockquote">可用的方法</a></legend>
+            </fieldset>
+        </div>
+        <table class="layui-table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col width="150">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>参数</th>
+                    <th>返回值</th>
+                    <th>描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>set(options)</td>
+                    <td><a href="#options">options</a>/object</td>
+                    <td>this/object</td>
+                    <td>配置一些全局参数,返回当前tab对象，以便于链式调用
+                        <p>Example:</p>
+                        <pre class="layui-code">
+tab.set({
+    elem:'#container'
+});</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>render()</td>
+                    <td>null</td>
+                    <td>void</td>
+                    <td>渲染tab选项卡到页面</td>
+                </tr>
+                <tr>
+                    <td>tabAdd(params)</td>
+                    <td>params/object</td>
+                    <td>void</td>
+                    <td>添加一个选项卡
+                        <p>Example:</p>
+                        <pre class="layui-code">
+tab.tabAdd({
+    icon:'fa-user',
+    id:'11',
+    title:'新选项卡',
+    url:'newtab.html'
+});</pre> 与navbar配合着用
+                        <p>Example:</p>
+                        <pre class="layui-code">
+navbar.bind(function(data) {//bind方法为navbar组件提供的方法
+    tab.tabAdd(data);
+});</pre>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="kit-doc-title">
+            <fieldset>
+                <legend><a name="blockquote" id="options">options参数说明</a></legend>
+            </fieldset>
+        </div>
+        <table class="layui-table">
+            <colgroup>
+                <col width="150">
+                <col width="150">
+                <col width="150">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>类型</th>
+                    <td>默认值</td>
+                    <th>描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>elem</td>
+                    <td>string</td>
+                    <td>#container</td>
+                    <td>容器DOM，支持id选择器和类选择器</td>
+                </tr>
+                <tr>
+                    <td>mainUrl</td>
+                    <td>string</td>
+                    <td>main.html</td>
+                    <td>控制面板的链接</td>
+                </tr>
+                <tr>
+                    <td>onSwitch</td>
+                    <td>function</td>
+                    <td>undefined</td>
+                    <td>选择卡切换时将触发该事件<br/> 示例:
+                        <pre class="layui-code">
+tab.set({
+    onSwitch: function(data) { //选项卡切换时触发
+        //console.log(data.layId); //lay-id值
+        //console.log(data.index); //得到当前Tab的所在下标
+        //console.log(data.elem); //得到当前的Tab大容器
+}});                        </pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>closeBefore</td>
+                    <td>function</td>
+                    <td>undefined</td>
+                    <td>关闭选项卡之前触发该事件<br/> 示例:
+                        <pre class="layui-code">
+tab.set({
+    closeBefore: function(data) { //关闭选项卡之前触发
+        // console.log(data);
+        // console.log(data.icon); //显示的图标
+        // console.log(data.id); //lay-id
+        // console.log(data.title); //显示的标题
+        // console.log(data.url); //跳转的地址
+        return true; //返回true则关闭
+}});                        </pre>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote class="layui-elem-quote">这个文档就先写到这里吧，后面新增了再补充啦。</blockquote>
+    </div>
+    <script src="./plugins/layui/layui.js"></script>
+</body>
 
 </html>
