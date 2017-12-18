@@ -177,7 +177,8 @@
 		<module>risk-common</module>
 		<module>admin-common</module>
         <module>admin-service</module>
+		<module>admin-ui</module>
 
 
-    </modules>
+	</modules>
 </project>
