@@ -1,0 +1,158 @@
+package com.ht.risk.rule.entity;
+
+import java.io.Serializable;
+
+import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+/**
+ * <p>
+ * 动作参数对应的属性值信息表
+ * </p>
+ *
+ * @author 张鹏
+ * @since 2017-12-15
+ */
+@ApiModel
+@TableName("rule_action_param_value_info")
+public class ActionParamValueInfo extends Model<ActionParamValueInfo> {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 主键
+     */
+    @TableId("action_param_value_id")
+	@ApiModelProperty(required= true,value = "主键")
+	private Long actionParamValueId;
+    /**
+     * 动作规则关系主键
+     */
+	@TableField("rule_action_rel_id")
+	@ApiModelProperty(required= true,value = "动作规则关系主键")
+	private Long ruleActionRelId;
+    /**
+     * 动作参数
+     */
+	@TableField("action_param_id")
+	@ApiModelProperty(required= true,value = "动作参数")
+	private Long actionParamId;
+    /**
+     * 参数值
+     */
+	@TableField("param_value")
+	@ApiModelProperty(required= true,value = "参数值")
+	private String paramValue;
+    /**
+     * 是否有效
+     */
+	@TableField("is_effect")
+	@ApiModelProperty(required= true,value = "是否有效")
+	private Integer isEffect;
+    /**
+     * 创建人
+     */
+	@TableField("cre_user_id")
+	@ApiModelProperty(required= true,value = "创建人")
+	private Long creUserId;
+    /**
+     * 创建时间
+     */
+	@TableField("cre_time")
+	@ApiModelProperty(required= true,value = "创建时间")
+	private Date creTime;
+    /**
+     * 备注
+     */
+	@ApiModelProperty(required= true,value = "备注")
+	private String remark;
+
+
+	public Long getActionParamValueId() {
+		return actionParamValueId;
+	}
+
+	public void setActionParamValueId(Long actionParamValueId) {
+		this.actionParamValueId = actionParamValueId;
+	}
+
+	public Long getRuleActionRelId() {
+		return ruleActionRelId;
+	}
+
+	public void setRuleActionRelId(Long ruleActionRelId) {
+		this.ruleActionRelId = ruleActionRelId;
+	}
+
+	public Long getActionParamId() {
+		return actionParamId;
+	}
+
+	public void setActionParamId(Long actionParamId) {
+		this.actionParamId = actionParamId;
+	}
+
+	public String getParamValue() {
+		return paramValue;
+	}
+
+	public void setParamValue(String paramValue) {
+		this.paramValue = paramValue;
+	}
+
+	public Integer getIsEffect() {
+		return isEffect;
+	}
+
+	public void setIsEffect(Integer isEffect) {
+		this.isEffect = isEffect;
+	}
+
+	public Long getCreUserId() {
+		return creUserId;
+	}
+
+	public void setCreUserId(Long creUserId) {
+		this.creUserId = creUserId;
+	}
+
+	public Date getCreTime() {
+		return creTime;
+	}
+
+	public void setCreTime(Date creTime) {
+		this.creTime = creTime;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	@Override
+	protected Serializable pkVal() {
+		return this.actionParamValueId;
+	}
+
+	@Override
+	public String toString() {
+		return "ActionParamValueInfo{" +
+			"actionParamValueId=" + actionParamValueId +
+			", ruleActionRelId=" + ruleActionRelId +
+			", actionParamId=" + actionParamId +
+			", paramValue=" + paramValue +
+			", isEffect=" + isEffect +
+			", creUserId=" + creUserId +
+			", creTime=" + creTime +
+			", remark=" + remark +
+			"}";
+	}
+}
