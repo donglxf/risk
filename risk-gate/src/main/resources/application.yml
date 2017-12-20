@@ -18,7 +18,7 @@ zuul:
     admin-service:
       path: /back/**
     rule-ui:
-      path: /ui/** #匹配/techouse/usersystem/** 均路由到cloud-client
+      path: /rule/ui/** #匹配/techouse/usersystem/** 均路由到cloud-client
     rule-service:
       path: /rule/service/**
 
