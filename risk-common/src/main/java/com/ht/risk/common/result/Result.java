@@ -28,6 +28,13 @@ public class Result<T> {
 	 */
 	@ApiModelProperty(required = true, value = "错误描述")
 	private String msg;
+
+	/**
+	 * 记录总数"
+	 */
+	@ApiModelProperty(required = true, value = "记录总数")
+	private int count;
+
 	/**
 	 * 传递给请求者的数据
 	 */
@@ -87,6 +94,15 @@ public class Result<T> {
 		Result<T> result = new Result<T>();
 		result.setCode(code);
 		result.setMsg(msg);
+		return result;
+	}
+
+	public static <T> Result<T> build(String code, String msg, T data,int count) {
+		Result<T> result = new Result<T>();
+		result.setCode(code);
+		result.setMsg(msg);
+		result.setData(data);
+		result.setCount(count);
 		return result;
 	}
 
@@ -157,4 +173,11 @@ public class Result<T> {
 		this.data = data;
 	}
 
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
 }
