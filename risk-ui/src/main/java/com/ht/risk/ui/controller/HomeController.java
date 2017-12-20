@@ -30,8 +30,21 @@ public class HomeController {
 
     @RequestMapping(value = "rule/entity",method = RequestMethod.GET)
     public String ruleEntity(){
-        return "rule/rule-entity";
+        return "rule/rule_entity";
     }
+
+    @RequestMapping(value = "rule/entity/edit",method = RequestMethod.GET)
+    public String ruleEntityEdit(){
+        return "rule/rule_entity_edit";
+    }
+
+    @RequestMapping(value = "rule/entityItem/edit",method = RequestMethod.GET)
+    public String ruleEntityItemEdit(){
+        return "rule/rule_entity_item_edit";
+    }
+
+
+
 
     @RequestMapping(value = "about",method = RequestMethod.GET)
     public String about(){

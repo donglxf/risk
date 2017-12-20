@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+
+import com.ht.risk.rule.entity.enums.DataTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 /**
@@ -42,9 +44,9 @@ public class EntityItemInfo extends Model<EntityItemInfo> {
 	@TableField("item_name")
 	@ApiModelProperty(required= true,value = "字段名称")
 	private String itemName;
-    /**
-     * 字段标识
-     */
+
+
+
 	@TableField("item_identify")
 	@ApiModelProperty(required= true,value = "字段标识")
 	private String itemIdentify;
@@ -54,7 +56,24 @@ public class EntityItemInfo extends Model<EntityItemInfo> {
 	@TableField("item_desc")
 	@ApiModelProperty(required= true,value = "属性描述")
 	private String itemDesc;
-    /**
+
+	public DataTypeEnum getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(DataTypeEnum dataType) {
+		this.dataType = dataType;
+	}
+
+	@TableField("data_type")
+
+	private DataTypeEnum dataType;
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	/**
      * 创建人
      */
 	@TableField("cre_user_id")
@@ -155,7 +174,6 @@ public class EntityItemInfo extends Model<EntityItemInfo> {
 	protected Serializable pkVal() {
 		return this.itemId;
 	}
-
 	@Override
 	public String toString() {
 		return "EntityItemInfo{" +
