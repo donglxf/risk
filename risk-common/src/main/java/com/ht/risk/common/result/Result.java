@@ -101,7 +101,7 @@ public class Result<T> {
 		return result;
 	}
 
-	public static <T> Result<T> build(String code, String msg, T data,int count) {
+	public static <T> Result<T> build(int code, String msg, T data,int count) {
 		Result<T> result = new Result<T>();
 		result.setCode(code);
 		result.setMsg(msg);

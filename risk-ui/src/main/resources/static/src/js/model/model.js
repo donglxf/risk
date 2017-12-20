@@ -42,12 +42,11 @@ layui.use('table', function(){
 });
 
 function showdetail(modelId){
-    console.log(modelId);
     var layIndex = layer.open({
         type: 2,
         shade: false,
         title:false,
-        content: '/ui/modelDetail?modelId='+modelId+"&date="+new Date(),
+        content: '/rule/ui/modelDetail?modelId='+modelId+"&date="+new Date(),
         zIndex: layer.zIndex, //重点1
         success: function(layero){
             layer.setTop(layero); //重点2
@@ -62,7 +61,7 @@ function addModel(){
         shade: false,
         title:"",
         area: ['800px','400px'],
-        content: '/ui/model/addView',
+        content: '/rule/ui/model/addView',
         zIndex: layer.zIndex, //重点1
         success: function(layero){
             layer.setTop(layero); //重点2

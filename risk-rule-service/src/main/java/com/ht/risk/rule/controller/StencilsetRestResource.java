@@ -29,9 +29,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class StencilsetRestResource {
-    @RequestMapping(value = "/editor/stencilset", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
-    public @ResponseBody
-    String getStencilset() {
+    @RequestMapping(value = "/editor/stencilset")
+    @ResponseBody
+    public String getStencilset() {
         InputStream stencilsetStream = this.getClass().getClassLoader().getResourceAsStream("stencilset.json");
         try {
             return IOUtils.toString(stencilsetStream, "utf-8");
