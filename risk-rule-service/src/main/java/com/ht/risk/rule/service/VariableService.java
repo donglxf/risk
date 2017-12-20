@@ -1,7 +1,10 @@
 package com.ht.risk.rule.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.rule.entity.Variable;
 import com.ht.risk.common.service.BaseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,6 @@ import com.ht.risk.common.service.BaseService;
  * @since 2017-12-15
  */
 public interface VariableService extends BaseService<Variable> {
+
 
 }

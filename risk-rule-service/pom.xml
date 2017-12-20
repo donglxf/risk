@@ -22,6 +22,7 @@
         <pagehelper.version>4.1.1</pagehelper.version>
         <mybatisplus.version>2.1.6</mybatisplus.version>
         <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
+        <org.drools>7.0.0.Final</org.drools>
     </properties>
 
     <dependencies>
@@ -87,6 +88,36 @@
             <version>${spring-boot-starter}</version>
             <optional>true</optional>
         </dependency>
+
+
+        <!-- drools start -->
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-core</artifactId>
+            <version>${org.drools}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-compiler</artifactId>
+            <version>${org.drools}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-decisiontables</artifactId>
+            <version>${org.drools}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-templates</artifactId>
+            <version>${org.drools}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kie</groupId>
+            <artifactId>kie-api</artifactId>
+            <version>${org.drools}</version>
+        </dependency>
+        <!-- drools end -->
+
 
         <!-- activiti start -->
 

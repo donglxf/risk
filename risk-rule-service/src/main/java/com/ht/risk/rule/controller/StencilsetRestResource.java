@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class StencilsetRestResource {
-    @RequestMapping(value = "/editor/stencilset")
+    @RequestMapping(value="/editor/stencilset")
     @ResponseBody
     public String getStencilset() {
         InputStream stencilsetStream = this.getClass().getClassLoader().getResourceAsStream("stencilset.json");

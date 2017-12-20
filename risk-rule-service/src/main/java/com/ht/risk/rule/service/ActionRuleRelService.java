@@ -1,5 +1,6 @@
 package com.ht.risk.rule.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.rule.entity.ActionRuleRel;
 import com.ht.risk.common.service.BaseService;
 
@@ -12,5 +13,6 @@ import com.ht.risk.common.service.BaseService;
  * @since 2017-12-15
  */
 public interface ActionRuleRelService extends BaseService<ActionRuleRel> {
+
 
 }

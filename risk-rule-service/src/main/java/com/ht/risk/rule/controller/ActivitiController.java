@@ -2,6 +2,7 @@ package com.ht.risk.rule.controller;
 
 import javax.annotation.Resource;
 
+import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ModelParamter;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
@@ -50,7 +51,8 @@ public class ActivitiController {
 	 */
 	@GetMapping(value = "addModeler")
 	@ResponseBody
-	public ModelParamter addModel(ModelParamter paramter) {
+	public Result<ModelParamter> addModel(ModelParamter paramter) {
+		Result<ModelParamter> data = null;
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			ObjectNode editorNode = objectMapper.createObjectNode();
@@ -72,10 +74,12 @@ public class ActivitiController {
 			// 存入ACT_GE_BYTEARRAY
 			repositoryService.addModelEditorSource(modelData.getId(), editorNode.toString().getBytes("utf-8"));
 			paramter.setModelId(modelData.getId());
+			data = Result.success(paramter);
 		} catch (Exception e) {
 			logger.error("创建模型失败：", e);
+			data = Result.error(1,"创建模型失败");
 		}
-		return paramter;
+		return data;
 	}
 
 	/**

@@ -2,6 +2,9 @@ package com.ht.risk.rule.mapper;
 
 import com.ht.risk.rule.entity.ConditionInfo;
 import com.ht.risk.common.mapper.SuperMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,23 @@ import com.ht.risk.common.mapper.SuperMapper;
  * @since 2017-12-15
  */
 public interface ConditionInfoMapper extends SuperMapper<ConditionInfo> {
+
+    /**
+     * Date 2017/7/24
+     * Author lihao [lihao@sinosoft.com]
+     *
+     * 方法说明: 根据规则获取规则条件信息
+     * @param baseRuleConditionInfo 参数
+     */
+    List<ConditionInfo> findBaseRuleConditionInfoList(ConditionInfo baseRuleConditionInfo);
+
+    /**
+     * Date 2017/7/26
+     * Author lihao [lihao@sinosoft.com]
+     *
+     * 方法说明: 根据规则获取对应的条件信息
+     * @param ruleId 规则id
+     */
+    List<ConditionInfo> findRuleConditionInfoByRuleId(@Param("ruleId") Long ruleId, @Param("relFlag") Integer relFlag);
 
 }

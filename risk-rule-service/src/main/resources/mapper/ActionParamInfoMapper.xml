@@ -20,4 +20,40 @@
         action_param_id AS actionParamId, action_id AS actionId, action_param_name AS actionParamName, action_param_desc AS actionParamDesc, param_identify AS paramIdentify, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
     </sql>
 
+    <sql id="BaseFindParamSql">
+        T.ACTION_PARAM_ID,
+        T.ACTION_ID,
+        T.ACTION_PARAM_NAME,
+        T.ACTION_PARAM_DESC,
+        T.PARAM_IDENTIFY,
+        T.IS_EFFECT,
+        T.CRE_USER_ID,
+        T.CRE_TIME,
+        T.REMARK
+    </sql>
+    <select id="findBaseRuleActionParamInfoList" parameterType="com.ht.risk.rule.entity.ActionParamInfo"
+            resultType="com.ht.risk.rule.entity.ActionParamInfo">
+
+        SELECT DISTINCT
+        <include refid="BaseFindParamSql"></include>
+        FROM
+        RULE_ACTION_PARAM_INFO T
+        WHERE
+        1 = 1
+        <if test="actionId != null">
+            AND T.ACTION_ID = #{actionId}
+        </if>
+
+    </select>
+    <select id="findRuleActionParamByActionId" resultType="com.ht.risk.rule.entity.ActionParamInfo">
+        SELECT DISTINCT
+        <include refid="BaseFindParamSql"></include>
+        FROM
+        RULE_ACTION_PARAM_INFO T
+        WHERE
+        1 = 1
+        AND T.IS_EFFECT = 1
+        AND T.ACTION_ID = #{actionId}
+    </select>
+
 </mapper>
