@@ -22,7 +22,7 @@ public class Result<T> {
 	 * 错误代码
 	 */
 	@ApiModelProperty(required = true, value = "错误代码")
-	private String code;
+	private int code;
 	/**
 	 * 错误描述
 	 */
@@ -33,6 +33,10 @@ public class Result<T> {
 	 */
 	@ApiModelProperty(value = "传递给请求者的数据")
 	private T data;
+
+
+
+
 
 	public Result() {
 		super();
@@ -48,7 +52,7 @@ public class Result<T> {
 	 */
 	public static <T> Result<T> success() {
 		Result<T> result = new Result<T>();
-		result.setCode("1");
+		result.setCode(0);
 		result.setMsg("请求成功！");
 		return result;
 	}
@@ -65,7 +69,7 @@ public class Result<T> {
 	 */
 	public static <T> Result<T> success(T data) {
 		Result<T> result = new Result<T>();
-		result.setCode("1");
+		result.setCode(0);
 		result.setMsg("请求成功！");
 		result.setData(data);
 		return result;
@@ -83,7 +87,7 @@ public class Result<T> {
 	 * @return 请求的结果对象
 	 * @since cams-common 1.0-SNAPSHOT
 	 */
-	public static <T> Result<T> error(String code, String msg) {
+	public static <T> Result<T> error(int code, String msg) {
 		Result<T> result = new Result<T>();
 		result.setCode(code);
 		result.setMsg(msg);
@@ -104,7 +108,7 @@ public class Result<T> {
 	 * @return 请求的结果对象
 	 * @since cams-common 1.0-SNAPSHOT
 	 */
-	public static <T> Result<T> build(String code, String msg, T data) {
+	public static <T> Result<T> build(int code, String msg, T data) {
 		Result<T> result = new Result<T>();
 		result.setCode(code);
 		result.setMsg(msg);
@@ -115,7 +119,7 @@ public class Result<T> {
 	/**
 	 * @return the code
 	 */
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
 
@@ -123,7 +127,7 @@ public class Result<T> {
 	 * @param code
 	 *            the code to set
 	 */
-	public void setCode(String code) {
+	public void setCode(int code) {
 		this.code = code;
 	}
 
