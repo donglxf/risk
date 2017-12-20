@@ -34,7 +34,7 @@ public class ActReModelController {
     @ApiOperation(value = "查询所有的对象")
     public Result<List<ActReModel>> list(Page<ActReModel> page) {
         Page<ActReModel> pages =  actReModelService.selectPage(page);
-        Result<List<ActReModel>> result = Result.build("0","",pages.getRecords(),pages.getTotal());
+        Result<List<ActReModel>> result = Result.build(0,"",pages.getRecords(),pages.getTotal());
         return result;
     }
 
