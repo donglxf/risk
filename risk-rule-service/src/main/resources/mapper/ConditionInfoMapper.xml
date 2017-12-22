@@ -20,4 +20,40 @@
         condition_id AS conditionId, rule_id AS ruleId, condition_name AS conditionName, condition_expression AS conditionExpression, condition_desc AS conditionDesc, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
     </sql>
 
+    <sql id="BaseFindListSql">
+        T.CONDITION_ID,
+        T.RULE_ID,
+        T.CONDITION_NAME,
+        T.CONDITION_EXPRESSION,
+        T.CONDITION_DESC,
+        T.IS_EFFECT,
+        T.CRE_USER_ID,
+        T.CRE_TIME,
+        T.REMARK
+    </sql>
+    <select id="findBaseRuleConditionInfoList" parameterType="com.ht.risk.rule.entity.ConditionInfo"
+            resultType="com.ht.risk.rule.entity.ConditionInfo">
+        SELECT DISTINCT
+        <include refid="BaseFindListSql"></include>
+        FROM
+        RULE_CONDITION_INFO T
+        WHERE
+        1 = 1
+        <if test="ruleId != null">
+            AND T.RULE_ID = #{ruleId}
+        </if>
+
+    </select>
+    <select id="findRuleConditionInfoByRuleId" resultType="com.ht.risk.rule.entity.ConditionInfo">
+        SELECT DISTINCT
+        <include refid="BaseFindListSql"></include>
+        FROM
+        RULE_CONDITION_INFO T
+        WHERE
+        1 = 1
+        <if test="ruleId != null">
+            AND T.RULE_ID = #{ruleId}
+        </if>
+    </select>
+
 </mapper>

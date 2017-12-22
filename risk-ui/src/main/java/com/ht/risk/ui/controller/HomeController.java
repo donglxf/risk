@@ -1,8 +1,10 @@
 package com.ht.risk.ui.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * ${DESCRIPTION}
@@ -85,6 +87,12 @@ public class HomeController {
     @RequestMapping(value = "ztree",method = RequestMethod.GET)
     public String groupTypeEdit(){
         return "ztree";
+    }
+
+    @RequestMapping(value = "/modelDetail",method = RequestMethod.GET)
+    public String model(Model model,@RequestParam String modelId){
+        model.addAttribute("modelId",modelId);
+        return "modeler";
     }
 
 }

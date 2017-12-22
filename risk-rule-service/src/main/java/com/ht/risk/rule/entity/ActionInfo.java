@@ -170,4 +170,13 @@ public class ActionInfo extends Model<ActionInfo> {
 			", remark=" + remark +
 			"}";
 	}
+
+	/**
+	 * 获取实体标识(例如：com.sky.bluesky.model.TestRule  最后得到 testRule)
+	 */
+	public String getActionClazzIdentify() {
+		int index = actionClass.lastIndexOf(".");
+		return actionClass.substring(index + 1).substring(0, 1).toLowerCase() +
+				actionClass.substring(index + 1).substring(1);
+	}
 }

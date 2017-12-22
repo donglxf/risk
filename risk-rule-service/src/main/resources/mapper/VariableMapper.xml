@@ -21,4 +21,38 @@
         variable_id AS variableId, variable_name AS variableName, variable_type AS variableType, default_value AS defaultValue, value_type AS valueType, variable_value AS variableValue, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
     </sql>
 
+    <select id="findBaseRuleVariableInfoList" parameterType="com.ht.risk.rule.entity.Variable"
+            resultType="com.ht.risk.rule.entity.Variable">
+        SELECT DISTINCT
+        T.VARIABLE_ID,
+        T.VARIABLE_NAME,
+        T.VARIABLE_TYPE,
+        T.DEFAULT_VALUE,
+        T.VALUE_TYPE,
+        T.VARIABLE_VALUE,
+        T.IS_EFFECT,
+        T.CRE_USER_ID,
+        T.CRE_TIME,
+        T.REMARK
+        FROM
+        RULE_VARIABLE T
+        WHERE
+        1 = 1
+        <choose>
+            <when test="isEffect == 0">
+                AND T.IS_EFFECT = 0
+            </when>
+            <otherwise>
+                AND T.IS_EFFECT = 1
+            </otherwise>
+        </choose>
+        <if test="variableType != null">
+            AND T.VARIABLE_TYPE = #{variableType}
+        </if>
+        <if test="valueType != null">
+            AND T.VALUE_TYPE = #{valueType}
+        </if>
+
+    </select>
+
 </mapper>

@@ -18,4 +18,25 @@
         rule_action_rel_id AS ruleActionRelId, action_id AS actionId, rule_id AS ruleId, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
     </sql>
 
+    <select id="findBaseRuleActionRuleRelInfoList" parameterType="com.ht.risk.rule.entity.ActionRuleRel"
+            resultType="com.ht.risk.rule.entity.ActionRuleRel">
+
+        SELECT DISTINCT
+        T.RULE_ACTION_REL_ID,
+        T.ACTION_ID,
+        T.RULE_ID,
+        T.IS_EFFECT,
+        T.CRE_USER_ID,
+        T.CRE_TIME,
+        T.REMARK
+        FROM
+        RULE_ACTION_RULE_REL T
+        WHERE
+        1 = 1
+        <if test="ruleId != null">
+            AND T.RULE_ID = #{ruleId}
+        </if>
+
+    </select>
+
 </mapper>

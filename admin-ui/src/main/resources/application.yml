@@ -1,9 +1,8 @@
 spring:
     application:
-        name: risk-ui
+        name: admin-ui
     thymeleaf:
         mode: LEGACYHTML5
         cache: false
-
 server:
-    port: 8766
+    port: 8771

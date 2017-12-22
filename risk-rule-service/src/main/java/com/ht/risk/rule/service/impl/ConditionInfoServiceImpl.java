@@ -6,6 +6,9 @@ import com.ht.risk.rule.service.ConditionInfoService;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * <p>
  * 规则条件信息表 服务实现类
@@ -16,5 +19,24 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ConditionInfoServiceImpl extends BaseServiceImpl<ConditionInfoMapper, ConditionInfo> implements ConditionInfoService {
+
+    @Resource
+    private ConditionInfoMapper conditionInfoMapper;
+
+    /**
+     * Date 2017/7/26
+     * Author lihao [lihao@sinosoft.com]
+     * <p>
+     * 方法说明: 根据规则id获取规则条件信息
+     *
+     * @param ruleId 规则id
+     */
+    @Override
+    public List<ConditionInfo> findRuleConditionInfoByRuleId(Long ruleId) throws Exception {
+        if(null == ruleId){
+            throw new NullPointerException("参数缺失");
+        }
+        return this.conditionInfoMapper.findRuleConditionInfoByRuleId(ruleId,null);
+    }
 
 }

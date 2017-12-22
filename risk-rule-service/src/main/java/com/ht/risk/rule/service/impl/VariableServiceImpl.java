@@ -6,6 +6,9 @@ import com.ht.risk.rule.service.VariableService;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * <p>
  * 规则引擎常用变量 服务实现类
@@ -16,5 +19,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class VariableServiceImpl extends BaseServiceImpl<VariableMapper, Variable> implements VariableService {
+
 
 }
