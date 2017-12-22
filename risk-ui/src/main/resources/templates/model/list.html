@@ -17,11 +17,20 @@
 </div>
 
 
+<script type="text/html" id="deployTpl">
+    {{#  if(d.deploymentId != '' && d.deploymentId != null){ }}
+    <span>已发布【{{d.deploymentId}}】</span>
+    {{#  } else { }}
+    <span>未发布</span>
+    {{#  } }}
+</script>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="deploy">发布</a>
+    <a class="layui-btn layui-btn-xs" lay-event="start">启动</a>
 </script>
 
 

@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/model")
 public class ModelController {
 
-    @RequestMapping(value = "/listView",method = RequestMethod.GET)
-    public String listView(){
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    public String unDeployList(){
         return "model/list";
+    }
+
+    @RequestMapping(value = "/deployList",method = RequestMethod.GET)
+    public String deployList(){
+        return "model/deploy_list";
     }
 
     @RequestMapping(value = "/addView",method = RequestMethod.GET)

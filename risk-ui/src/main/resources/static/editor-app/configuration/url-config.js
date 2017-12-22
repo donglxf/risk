@@ -28,6 +28,10 @@ KISBPM.URL = {
         return ACTIVITI.CONFIG.contextRoot + '/editor/stencilset?version=' + Date.now();
     },
 
+    getNewStencilSet: function() {
+        return "/rule/ui/datas/stencilset.json";
+    },
+
     putModel: function(modelId) {
         return ACTIVITI.CONFIG.contextRoot + '/model/' + modelId + '/save';
     }
