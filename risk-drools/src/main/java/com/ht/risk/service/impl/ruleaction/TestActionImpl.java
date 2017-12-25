@@ -29,13 +29,18 @@ public class TestActionImpl implements DroolsActionService {
      */
     @Override
     public void execute(RuleExecutionObject fact, RuleExecutionResult result) {
-        //遍历map信息
+    	//遍历map信息
         for (Map.Entry<String, Object> entry : result.getMap().entrySet()) {
             System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
         }
-        TestRule t = (TestRule) fact.getFactObjectList().get(0);
-        System.out.println(t.getScore());
-        System.out.println(t.getAmount());
-        System.out.println(t.getMessage());
+        
+        Map<String,Object> t = (Map<String,Object>) fact.getFactObjectList().get(0);
+        for(Map.Entry<String, Object> item:t.entrySet()){
+        	System.out.println(item.getKey()+">>>>"+item.getValue());
+        }
+//        TestRule t = (TestRule) fact.getFactObjectList().get(0);
+//        System.out.println(t.getScore());
+//        System.out.println(t.getAmount());
+//        System.out.println(t.getMessage());
     }
 }

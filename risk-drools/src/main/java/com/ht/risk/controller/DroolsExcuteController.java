@@ -30,11 +30,11 @@ public class DroolsExcuteController {
             System.out.println(JSON.toJSONString(paramter));
         	 RuleExecutionObject object = new RuleExecutionObject();
         	 Map<String,Object> mapData = paramter.getData();
-             TestRule test = new TestRule();
-             test.setAmount(100);
-             test.setScore(20);
-             test.setMessage("lihao");
-             object.addFactObject(test);
+//             TestRule test = new TestRule();
+//             test.setAmount(100);
+//             test.setScore(20);
+//             test.setMessage("lihao");
+//             object.addFactObject(test);
              object.addFactObject(mapData);
              RuleExecutionResult result = new RuleExecutionResult();
              object.setGlobal("_result",result);
