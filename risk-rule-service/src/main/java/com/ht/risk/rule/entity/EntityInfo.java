@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
+import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -81,6 +82,10 @@ public class EntityInfo extends Model<EntityInfo> {
      */
     @ApiModelProperty(required = true, value = "备注")
     private String remark;
+
+    @TableField(exist=false)
+    @ApiModelProperty(required = false, value = "变量集合")
+    private List<EntityItemInfo> items;
 
 
     public Long getEntityId() {
@@ -155,6 +160,14 @@ public class EntityInfo extends Model<EntityInfo> {
         this.remark = remark;
     }
 
+    public List<EntityItemInfo> getItems() {
+        return items;
+    }
+
+    public void setItems(List<EntityItemInfo> items) {
+        this.items = items;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.entityId;
@@ -179,7 +192,8 @@ public class EntityInfo extends Model<EntityInfo> {
      * 方法说明:获取实体类名称
      */
     public String getEntityClazz() {
-        int index = pkgName.lastIndexOf(".");
-        return pkgName.substring(index + 1);
+       // int index = pkgName.lastIndexOf(".");
+      //  return pkgName.substring(index + 1);
+        return "11";
     }
 }

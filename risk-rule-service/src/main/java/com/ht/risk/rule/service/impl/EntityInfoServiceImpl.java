@@ -6,6 +6,7 @@ import com.ht.risk.rule.service.EntityInfoService;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,7 +25,7 @@ public class EntityInfoServiceImpl extends BaseServiceImpl<EntityInfoMapper, Ent
 
     Logger logger = LoggerFactory.getLogger(EntityInfoServiceImpl.class);
 
-    @Resource
+    @Autowired
     private EntityInfoMapper entityInfoMapper;
 
 

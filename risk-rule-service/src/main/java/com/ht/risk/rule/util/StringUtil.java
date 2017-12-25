@@ -3,6 +3,7 @@ package com.ht.risk.rule.util;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -86,5 +87,20 @@ public class StringUtil {
         return sdf.format(date);
     }
 
+    /**
+     * 描述：去除重复项
+     *
+     * @param * @param null
+     * @return a
+     * @autor 张鹏
+     * @date 2017/12/25 9:34
+     */
+    public static List<String> removeRe(List<String> entityS) {
 
+        HashSet h = new HashSet(entityS);
+        entityS.clear();
+        entityS.addAll(h);
+
+        return entityS;
+    }
 }

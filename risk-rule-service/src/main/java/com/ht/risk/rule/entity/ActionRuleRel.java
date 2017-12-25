@@ -24,7 +24,9 @@ public class ActionRuleRel extends Model<ActionRuleRel> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
+    @TableField(exist = false)
+    private ActionInfo actionInfo;
+	/**
      * 主键
      */
     @TableId("rule_action_rel_id")
@@ -66,7 +68,13 @@ public class ActionRuleRel extends Model<ActionRuleRel> {
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
 
+	public ActionInfo getActionInfo() {
+		return actionInfo;
+	}
 
+	public void setActionInfo(ActionInfo actionInfo) {
+		this.actionInfo = actionInfo;
+	}
 	public Long getRuleActionRelId() {
 		return ruleActionRelId;
 	}

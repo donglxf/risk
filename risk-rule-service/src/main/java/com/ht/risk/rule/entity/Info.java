@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 /**
@@ -24,7 +26,12 @@ public class Info extends Model<Info> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
+	@TableField(exist = false)
+    private List<ConditionInfo> cons;
+	@TableField(exist = false)
+	private List<ActionRuleRel> actionRels;
+
+	/**
      * 主键
      */
     @TableId("rule_id")
@@ -149,6 +156,21 @@ public class Info extends Model<Info> {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public List<ConditionInfo> getCons() {
+		return cons;
+	}
+
+	public void setCons(List<ConditionInfo> cons) {
+		this.cons = cons;
+	}
+
+	public List<ActionRuleRel> getActionRels() {
+		return actionRels;
+	}
+
+	public void setActionRels(List<ActionRuleRel> actionRels) {
+		this.actionRels = actionRels;
 	}
 
 	@Override

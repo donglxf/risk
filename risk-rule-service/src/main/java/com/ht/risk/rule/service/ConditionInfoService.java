@@ -26,5 +26,7 @@ public interface ConditionInfoService extends BaseService<ConditionInfo> {
      * @param ruleId 规则id
      */
     List<ConditionInfo> findRuleConditionInfoByRuleId(final Long ruleId) throws Exception;
+
+    void add(ConditionInfo conditionInfo, Long ruleId);
 }
 

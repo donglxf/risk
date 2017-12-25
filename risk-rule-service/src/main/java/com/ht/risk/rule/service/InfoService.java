@@ -1,6 +1,5 @@
 package com.ht.risk.rule.service;
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.rule.entity.Info;
 import com.ht.risk.common.service.BaseService;
 import com.ht.risk.rule.entity.PropertyInfo;
@@ -46,4 +45,11 @@ public interface InfoService extends BaseService<Info> {
      */
     List<Info> findBaseRuleListByScene(SceneInfo baseRuleSceneInfo)throws Exception;
 
+    void clearBySceneId(Long sceneId);
+
+    /**
+     * 添加规则
+     * @param sceneId
+     */
+    Info addRule(Long sceneId);
 }

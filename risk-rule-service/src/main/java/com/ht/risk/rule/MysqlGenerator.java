@@ -43,11 +43,11 @@ public class MysqlGenerator {
     private static String projectName = "risk-rule-service";
     private static String packageName="rule";    //文件路径
     private static String authorName="张鹏";     //作者
-    private static String table="act_re_model";                  //table名字
+    private static String table="rule_scene_item_rel";                  //table名字
     private static String prefix="rule_";                     //table前缀
     private static File file = new File(projectName);
-    //private static String path = file.getAbsolutePath();
-    private static String path = "D:/";
+    private static String path = file.getAbsolutePath();
+    //private static String path = "D:/";
 
     public static void main(String[] args) {
     	
@@ -89,8 +89,8 @@ public class MysqlGenerator {
                         })
                         .setDriverName("com.mysql.jdbc.Driver")
                         .setUsername("root")
-                        .setPassword("zhangzhen")
-                        .setUrl("jdbc:mysql://127.0.0.1:3306/activiti?characterEncoding=utf8")
+                        .setPassword("root")
+                        .setUrl("jdbc:mysql://127.0.0.1:3306/drools_rule?characterEncoding=utf8")
         ).setStrategy(
                 // 策略配置
                 new StrategyConfig()

@@ -13,6 +13,7 @@
         <result column="cre_user_id" property="creUserId" />
         <result column="cre_time" property="creTime" />
         <result column="remark" property="remark" />
+        <result column="val" property="val" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -29,6 +30,7 @@
         T.IS_EFFECT,
         T.CRE_USER_ID,
         T.CRE_TIME,
+         T.VAL,
         T.REMARK
     </sql>
     <select id="findBaseRuleConditionInfoList" parameterType="com.ht.risk.rule.entity.ConditionInfo"

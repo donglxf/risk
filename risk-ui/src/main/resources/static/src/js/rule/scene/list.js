@@ -1,3 +1,4 @@
+var tableNoDataPt = document.getElementById('table').innerHTML;
 /**
  * 设置表单值
  * @param el
@@ -52,7 +53,9 @@ scene.queryParams = function (params) {
 ///////////////////////////////////////////////////////////////////////
 var layer,sceneTable,table,active;
 var sceneId ;
-layui.use(['table','form'], function() {
+
+layui.use(['table','form','laytpl'], function() {
+    var laytpl = layui.laytpl;
     /**
      * 公共方法：保存
      * @param url
@@ -65,7 +68,7 @@ layui.use(['table','form'], function() {
                 title: '保存信息',
                 maxmin: true,
                 shadeClose: false, // 点击遮罩关闭层
-                area: ['550px', '360px'],
+                area: ['550px', '460px'],
                 content: form,
                 btnAlign: 'c',
                 btn: ['保存', '取消'],
@@ -88,7 +91,7 @@ layui.use(['table','form'], function() {
     //第一个实例
     sceneTable.render({
         elem: '#'+scene.tableId
-        , height: 'full-200'
+        , height: 'full'
         , cellMinWidth: 40
         , url: scene.baseUrl + 'page/' //数据接口
         // data:[{"sceneId":1,"sceneName":"测试规则","sceneDesc":"测试规则引擎","sceneIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
@@ -130,11 +133,37 @@ layui.use(['table','form'], function() {
         } else if (obj.event === 'setItem') {
             //选择实体对象的id
             sceneId = data.sceneId;
+            var tr = obj.tr;
+            $("table>tbody>tr").removeClass("select");
+            tr.addClass("select");
+            getRuleData(sceneId);
             //itemActive.reload(data.sceneId);
         }
     });
 
-
+    function getRuleData(sceneId) {
+        $.get('/rule/service/rule/getAll',{'sceneId':sceneId},function(data){
+            console.log(data);
+            if(data.code == '0'){
+                var result = data.data;
+                console.log(result);
+                var getTpl = tableTp.innerHTML
+                    ,view = document.getElementById('table');
+                laytpl(getTpl).render(result, function(html){
+                    view.innerHTML = html;
+                });
+                //初始化 实体类的值
+                dataEntityInit();
+                // dataInit(sceneId);
+                init();
+            }else{
+                $("#table").html(tableNoDataPt);
+                init();
+                //layer.msg("数据异常");
+            }
+        },'json');
+        
+    }
     //新增
     $("#scene_btn_add").on('click', function () {
         save(scene.uiUrl, null);

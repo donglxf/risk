@@ -13,6 +13,9 @@
         .layui-table td, .layui-table th {
             text-align: center;
         }
+        #table{
+            width: inherit;
+        }
         #table tr th {
             min-width: 130px;
         }
@@ -22,9 +25,15 @@
         #table .val{
             color: #ffb122;
         }
-        #table .action{
+        #table .actionType{
+            color: #1e9fff;
+        }
+        #table .actionVal{
             color: red;
             font-weight: bold;
+        }
+        .layui-table .select {
+            background-color: #d2d2d2;
         }
     </style>
 </head>
@@ -32,9 +41,9 @@
 <div class="admin-main">
     <div class="layui-row" style="margin-top: 10px;">
 
-        <div class="layui-col-xs3">
+        <div class="layui-col-md3">
             <fieldset class="layui-elem-field">
-                <legend>决策管理</legend>
+                <legend class="lay-legend">决策管理</legend>
                 <div class="layui-field-box">
                     <form  class="layui-form layui-form-pane" onsubmit="javascript:return false;">
                         <div class="layui-form-item" style="margin-bottom:0px;">
@@ -57,10 +66,10 @@
 
 
         </div>
-        <div class="layui-col-xs9" style="overflow: scroll" >
+        <div class="layui-col-md9" style="overflow-x: auto" >
             <fieldset class="layui-elem-field">
                 <legend>规则编辑</legend>
-                <div class="layui-field-box" style="min-height: 250px">
+                <div class="layui-field-box" style="min-height: 350px;">
                     <div class="layui-row" >
                         <div class="layui-col-xs3">
                             <div class="layui-btn-group">
@@ -79,7 +88,7 @@
                                 <button class="layui-btn layui-btn " onclick="addActionCol()" id="action_btn_add">
                                     <i class="layui-icon">&#xe654;</i>新增动作
                                 </button>
-                                <button class="layui-btn layui-btn-normal ">
+                                <button class="layui-btn layui-btn-normal " onclick="sub();">
                                     <i class="layui-icon">&#xe609;</i>保存
                                 </button>
                             </div>
@@ -88,13 +97,13 @@
                     <table class="layui-table"   id="table">
                         <colgroup>
                             <col width="150">
-                            <col width="200">
+                            <col width="150">
                             <col width="80px">
                         </colgroup>
                         <thead>
                         <tr>
                             <th class="contion ">
-                                <a href="#" class="entityC" data-value="2" id="entityC">销售部</a>.
+                                <a href="#" class="entityC" data-value="" id="entityC">对象</a>.
                                 <a href="#" class="itemC" id="itemC">变量</a>
                                 <a href="javascript:void(0); " class="del" onclick="deleteCol(this)"> <i
                                         class="layui-icon">&#xe640;</i></a>
@@ -110,12 +119,13 @@
                                 <a href="#" class="val">值</a>
                             </td>
                             <td>
-                                <a href="#" class="action">值</a>
+                                <a href="#" data-value="" class="actionType">动作类型</a>&nbsp;
+                                <a href="#" class="actionVal">值</a>
                             </td>
                             <td>
                                 <div class="layui-btn-group">
-                                    <button class="layui-btn layui-btn-primary layui-btn-sm saveRow" onclick="hb();"><i
-                                            class="layui-icon">&#xe618;</i></button>
+                                    <!--<button class="layui-btn layui-btn-primary layui-btn-sm saveRow" onclick="hb();"><i
+                                            class="layui-icon">&#xe618;</i></button>-->
                                     <button class="layui-btn layui-btn-primary layui-btn-sm addRow" onclick="addRow(this)"><i
                                             class="layui-icon">&#xe654;</i></button>
                                     <button class="layui-btn layui-btn-primary layui-btn-sm deleteRow" onclick="deleteRow(this)"><i
@@ -139,7 +149,62 @@
     </div>
 </div>
 
-<script>
+<script id="tableTp" type="text/html">
+    <colgroup>
+        {{#  layui.each(d.itemTables, function(index, item){    }}
+        <col width="150">
+        {{#  });  }}
+        <col width="80px">
+    </colgroup>
+    <thead>
+    <tr>
+        {{#  layui.each(d.itemTables, function(index, item){    }}
+        <th class="contion ">
+
+            <a href="#" class="entityC" data-value="" id="entityC">{{item.entityName}}</a>.
+            <a href="#" class="itemC" id="itemC">{{item.itemName}}</a>
+            <a href="javascript:void(0); " class="del" onclick="deleteCol(this)"> <i
+                    class="layui-icon">&#xe640;</i></a>
+        </th>
+        {{#  });  }}
+        {{#  for (var i=0;i<d.actionCounts;i++) {  }}
+        <th class="th-action  ">动作</th>
+        {{#  }  }}
+        <th class="" >操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#  layui.each(d.rules, function(index, rule){    }}
+    <tr>
+        {{#  layui.each(rule.cons, function(i, con){    }}
+        <td>
+            <a href="#" data-value="{{con.ysf}}" class="con">{{con.ysfText}}</a>&nbsp;
+            <a href="#" data-value="{{con.val}}" class="val">{{con.val}}</a>
+        </td>
+        {{#  });  }}
+        {{#  layui.each(rule.actionRels, function(j, action ){    }}
+        <td>
+            <a href="#" data-value="{{action.actionInfo.actionId}}" class="actionType">{{action.actionInfo.actionName}}</a>&nbsp;
+            {{#  layui.each(action.actionInfo.paramValueInfoList, function(m, actionVal){ }}
+            <a href="#" class="actionVal" actionParamId = "{{actionVal.actionParamId}}">{{actionVal.paramValue}}</a>
+            {{# }); }}
+        </td>
+        {{#  });  }}
+        <td>
+            <div class="layui-btn-group">
+                <!--<button class="layui-btn layui-btn-primary layui-btn-sm saveRow" onclick="hb();"><i
+                        class="layui-icon">&#xe618;</i></button>-->
+                <button class="layui-btn layui-btn-primary layui-btn-sm addRow" onclick="addRow(this)"><i
+                        class="layui-icon">&#xe654;</i></button>
+                <button class="layui-btn layui-btn-primary layui-btn-sm deleteRow" onclick="deleteRow(this)"><i
+                        class="layui-icon">&#xe640;</i></button>
+            </div>
+        </td>
+    </tr>
+
+    {{#  });  }}
+
+    </tbody>
 
 </script>
 <!--操作-->
@@ -156,8 +221,8 @@
 <div style="display: none;" id="tpl">
     <table>
         <colgroup>
-            <col width="200">
-            <col width="200">
+            <col width="150">
+            <col width="150">
         </colgroup>
         <tr>
             <th class="contion">
@@ -175,13 +240,15 @@
                 <a href="#" class="val" >值</a>
             </td>
             <td class="td-action">
-                <a href="#" class="action">值</a>
+                <a href="#" data-value="" class="actionType">动作类型</a>&nbsp;
+                <a href="#" class="actionVal">值</a>
             </td>
         </tr>
     </table>
 
 
 </div>
+
 </body>
 
 <script src="/rule/ui/plugins/layui/layui.js"></script>
