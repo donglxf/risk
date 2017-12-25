@@ -107,7 +107,7 @@ activitiModeler
             }
             
             function getModel(modelId){
-            	return "/rule/service/model/"+modelId+"/json";
+            	return "/activiti/model/"+modelId+"/json";
             }
             
             function initScrollHandling() {
