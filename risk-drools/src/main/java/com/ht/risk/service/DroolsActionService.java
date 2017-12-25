@@ -1,7 +1,7 @@
-package com.ht.risk.rule.service;
+package com.ht.risk.service;
 
-import com.ht.risk.rule.entity.RuleExecutionObject;
-import com.ht.risk.rule.entity.RuleExecutionResult;
+import com.ht.risk.model.fact.RuleExecutionObject;
+import com.ht.risk.model.fact.RuleExecutionResult;
 
 /**
  * 描述： drools 实现类动作接口

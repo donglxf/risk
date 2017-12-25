@@ -68,7 +68,7 @@
         </if>
     </select>
 
-    <select id="findRulePropertyListByRuleId" resultType="com.ht.risk.rule.entity.PropertyRel">
+    <select id="findRulePropertyListByRuleId" resultType="com.ht.risk.rule.entity.PropertyInfo">
         SELECT DISTINCT
         RPR.RULE_PRO_REL_ID,
         RPR.RULE_ID,

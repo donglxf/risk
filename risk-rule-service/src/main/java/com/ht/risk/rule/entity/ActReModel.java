@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 /**
@@ -41,9 +43,11 @@ public class ActReModel extends Model<ActReModel> {
 	private String category;
 	@TableField("CREATE_TIME_")
 	@ApiModelProperty(required= true,value = "")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date createTime;
 	@TableField("LAST_UPDATE_TIME_")
 	@ApiModelProperty(required= true,value = "")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date lastUpdateTime;
 	@TableField("VERSION_")
 	@ApiModelProperty(required= true,value = "")

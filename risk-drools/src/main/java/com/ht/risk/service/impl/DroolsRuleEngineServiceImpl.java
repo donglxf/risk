@@ -1,10 +1,5 @@
-package com.ht.risk.rule.service.impl;
+package com.ht.risk.service.impl;
 
-
-import com.ht.risk.rule.util.DroolsUtil;
-import com.ht.risk.rule.util.RuleUtils;
-import com.ht.risk.rule.util.SpringContextHolder;
-import com.ht.risk.rule.util.StringUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.drools.core.base.RuleNameStartsWithAgendaFilter;
 import org.kie.api.runtime.KieSession;
@@ -12,15 +7,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.ht.risk.model.*;
+import com.ht.risk.model.fact.RuleExecutionObject;
+import com.ht.risk.service.*;
+import com.ht.risk.util.DroolsUtil;
+import com.ht.risk.util.RuleUtils;
+import com.ht.risk.util.SpringContextHolder;
+import com.ht.risk.util.StringUtil;
+
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
-import com.ht.risk.rule.service.*;
-import com.ht.risk.rule.entity.*;
 
 /**
  * 描述：
- * CLASSPATH: com.sky.bluesky.service.impl.DroolsRuleEngineService
  * VERSION:   1.0
  * Created by lihao
  * DATE:      2017/7/25
@@ -31,21 +31,21 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     private Logger logger = LoggerFactory.getLogger(DroolsRuleEngineServiceImpl.class);
 
     @Resource
-    private SceneEntityRelService sceneEntityRelService;
+    private RuleSceneEntityRelService ruleSceneEntityRelService;
     @Resource
-    private InfoService infoService;
+    private RuleInfoService ruleInfoService;
     @Resource
-    private ActionInfoService actionInfoService;
+    private RuleActionService ruleActionService;
     @Resource
-    private ConditionInfoService conditionInfoService;
+    private RuleConditionService ruleConditionService;
     @Resource
-    private EntityItemInfoService entityItemInfoService;
+    private RuleEntityItemService ruleEntityItemService;
     @Resource
-    private EntityInfoService entityInfoService;
+    private RuleEntityService ruleEntityService;
     @Resource
-    private ActionParamInfoService actionParamInfoService;
+    private RuleActionParamService ruleActionParamService;
     @Resource
-    private ActionParamValueInfoService actionParamValueInfoService;
+    private RuleActionParamValueService ruleActionParamValueService;
 
     //换行符
     private static final String lineSeparator = System.getProperty("line.separator");
@@ -110,11 +110,11 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             // 2.2将 ruleExecutionObject 也插入到规则中，回调使用
             session.insert(ruleExecutionObject);
             // 3.将规则涉及的所有动作实现类插入到规则中(如果没有，则不处理)
-            SceneInfo sceneInfo = new SceneInfo();
+            BaseRuleSceneInfo sceneInfo = new BaseRuleSceneInfo();
             sceneInfo.setSceneIdentify(scene);
             //根据场景获取所有的动作信息
-            List<ActionInfo> actionList = this.actionInfoService.findRuleActionListByScene(sceneInfo);
-            for (ActionInfo action : actionList) {
+            List<BaseRuleActionInfo> actionList = this.ruleActionService.findRuleActionListByScene(sceneInfo);
+            for (BaseRuleActionInfo action : actionList) {
                 try {
                     //只处理实现类动作
                     if (action.getActionType() == 1) {
@@ -131,7 +131,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             //执行规则
             //1,是否全部执行
             if (ruleExecutionObject.isExecuteAll()) {
-                session.fireAllRules();
+                int count =  session.fireAllRules();
+                System.out.println("命中规则条数："+count);
             } else {
                 //2,执行以 ruleExecutionObject里规则名开头的规则
                 session.fireAllRules(new RuleNameStartsWithAgendaFilter(ruleExecutionObject.getRuleName()));
@@ -190,25 +191,27 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         droolRuleStr.append("package com.drools.rules").append("").append(lineSeparator);
         // 2.引入global全局对象
         // TODO 暂时只设定一个
-        droolRuleStr.append("import com.sky.bluesky.model.fact.RuleExecutionResult").append("").append(lineSeparator);
+        //droolRuleStr.append("import com.sky.bluesky.model.fact.RuleExecutionResult").append("").append(lineSeparator);
+        droolRuleStr.append("import com.ht.risk.model.fact.RuleExecutionResult").append("").append(lineSeparator);
         droolRuleStr.append("global RuleExecutionResult _result").append("").append(lineSeparator);
         //将 RuleExecutionObject 也引入进来
-        droolRuleStr.append("import com.sky.bluesky.model.fact.RuleExecutionObject").append("").append(lineSeparator);
+        //droolRuleStr.append("import com.sky.bluesky.model.fact.RuleExecutionObject").append("").append(lineSeparator);
+        droolRuleStr.append("import com.ht.risk.model.fact.RuleExecutionObject").append("").append(lineSeparator);
         // 3.引入实体信息（根据场景获取相关的实体信息）
         //传参
-        SceneInfo sceneInfo = new SceneInfo();
+        BaseRuleSceneInfo sceneInfo = new BaseRuleSceneInfo();
         sceneInfo.setSceneIdentify(scene);
-        List<EntityInfo> entityList = this.sceneEntityRelService.findBaseRuleEntityListByScene(sceneInfo);
+        List<BaseRuleEntityInfo> entityList = this.ruleSceneEntityRelService.findBaseRuleEntityListByScene(sceneInfo);
         logger.info("场景对应的实体个数为:{}", entityList.size());
         // 4.根据场景加载可用的规则信息
-        List<Info> infos = this.infoService.findBaseRuleListByScene(sceneInfo);
-        logger.info("场景可用规则个数为:{}", infos.size());
+        List<BaseRuleInfo> ruleList = this.ruleInfoService.findBaseRuleListByScene(sceneInfo);
+        logger.info("场景可用规则个数为:{}", ruleList.size());
         // 5.根据实体信息先组合drools的import语句
         droolRuleStr = this.insertImportInfo(droolRuleStr, entityList, sceneInfo);
         // 6.遍历并拼出每个规则的执行drools串
-        for (Info info : infos) {
+        for (BaseRuleInfo ruleInfo : ruleList) {
             StringBuffer ruleTemp;
-            ruleTemp = this.getDroolsInfoByRule(info);
+            ruleTemp = this.getDroolsInfoByRule(ruleInfo);
             droolRuleStr.append(ruleTemp);
         }
 
@@ -226,17 +229,17 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * <p>
      * 方法说明: 组装规则信息
      *
-     * @param info 规则
+     * @param ruleInfo 规则
      */
-    private StringBuffer getDroolsInfoByRule(Info info) throws Exception {
+    private StringBuffer getDroolsInfoByRule(BaseRuleInfo ruleInfo) throws Exception {
         //拼接规则字符串
         StringBuffer sb = new StringBuffer();
         // 1.拼接规则自身属性信息
-        sb = this.insertRuleInfo(sb, info);
+        sb = this.insertRuleInfo(sb, ruleInfo);
         // 2.拼接条件
-        sb = this.insertRuleCondition(sb, info);
+        sb = this.insertRuleCondition(sb, ruleInfo);
         // 3.拼接动作
-        sb = this.insertRuleActionInfo(sb, info);
+        sb = this.insertRuleActionInfo(sb, ruleInfo);
 
         return sb;
     }
@@ -248,20 +251,20 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * 方法说明: 根据规则拼接规则自身相关的属性信息
      *
      * @param ruleStr  规则字符串
-     * @param info 规则
+     * @param ruleInfo 规则
      */
-    private StringBuffer insertRuleInfo(StringBuffer ruleStr, Info info) throws Exception {
+    private StringBuffer insertRuleInfo(StringBuffer ruleStr, BaseRuleInfo ruleInfo) throws Exception {
         // 1.拼接规则名称(默认带双引号)
-        ruleStr.append(lineSeparator).append("rule").append(" ").append("\"").append(info.getRuleName()).append("\"").append(lineSeparator);
+        ruleStr.append(lineSeparator).append("rule").append(" ").append("\"").append(ruleInfo.getRuleName()).append("\"").append(lineSeparator);
         // 2.拼接自身属性
-        List<PropertyInfo> rulePropertyList = this.infoService.findRulePropertyListByRuleId(info.getRuleId());
+        List<BaseRulePropertyRelInfo> rulePropertyList = this.ruleInfoService.findRulePropertyListByRuleId(ruleInfo.getRuleId());
         if (StringUtil.listIsNotNull(rulePropertyList)) {
-            for (PropertyInfo pro : rulePropertyList) {
+            for (BaseRulePropertyRelInfo pro : rulePropertyList) {
                 //如果配置的属性参数是字符串，则单独处理
                 if (ArrayUtils.contains(arr, pro.getRulePropertyIdentify())) {
-                    ruleStr.append("    ").append(pro.getRulePropertyIdentify()).append(" ").append("\"").append(pro.getDefaultValue()).append("\"").append(lineSeparator);
+                    ruleStr.append("    ").append(pro.getRulePropertyIdentify()).append(" ").append("\"").append(pro.getRulePropertyValue()).append("\"").append(lineSeparator);
                 } else {
-                    ruleStr.append("    ").append(pro.getRulePropertyIdentify()).append(" ").append(pro.getDefaultValue()).append(lineSeparator);
+                    ruleStr.append("    ").append(pro.getRulePropertyIdentify()).append(" ").append(pro.getRulePropertyValue()).append(lineSeparator);
                 }
             }
         }
@@ -275,20 +278,20 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * 方法说明: 拼接规则条件信息
      *
      * @param ruleStr  规则字符串
-     * @param info 规则
+     * @param ruleInfo 规则
      */
-    private StringBuffer insertRuleCondition(StringBuffer ruleStr, Info info) throws Exception {
+    private StringBuffer insertRuleCondition(StringBuffer ruleStr, BaseRuleInfo ruleInfo) throws Exception {
         // 1.拼接when
         ruleStr.append(lineSeparator).append("when").append(lineSeparator);
         //参数
         ruleStr.append(lineSeparator).append("$fact:RuleExecutionObject()").append(lineSeparator);
         // 2.拼接实现类的动作条件(如果有实现类的动作，此处拼接动作接口)
-        Integer count = this.actionInfoService.findRuleActionCountByRuleIdAndActionType(info.getRuleId());
+        Integer count = this.ruleActionService.findRuleActionCountByRuleIdAndActionType(ruleInfo.getRuleId());
         if (count > 0) {
             ruleStr.append("$action").append(":").append("DroolsActionService()").append(lineSeparator);
         }
         // 3.根据规则id获取条件信息
-        List<ConditionInfo> conList = this.conditionInfoService.findRuleConditionInfoByRuleId(info.getRuleId());
+        List<BaseRuleConditionInfo> conList = this.ruleConditionService.findRuleConditionInfoByRuleId(ruleInfo.getRuleId());
         //如果没有找到条件信息，则默认永远满足
         if (StringUtil.listIsNotNull(conList)) {
             ruleStr = this.insertRuleConditionFromList(ruleStr, conList);
@@ -309,7 +312,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param ruleStr 规则串
      * @param conList 条件集合
      */
-    private StringBuffer insertRuleConditionFromList(StringBuffer ruleStr, List<ConditionInfo> conList) throws Exception {
+    private StringBuffer insertRuleConditionFromList(StringBuffer ruleStr, List<BaseRuleConditionInfo> conList) throws Exception {
 
         //只保存条件内容
         StringBuilder sb = new StringBuilder();
@@ -319,7 +322,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         String relation = "&&";
         //TODO 暂时先按照多个条件处理（目前只实现&&关系条件）
         for (int c = 0; c < conList.size(); c++) {
-            ConditionInfo conditionInfo = conList.get(c);
+            BaseRuleConditionInfo conditionInfo = conList.get(c);
             //表达式
             String expression = conditionInfo.getConditionExpression();
             //先处理==、>=、<=、>、<、！=后面的变量
@@ -333,7 +336,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             //TODO 目前只会有一条
             for (String itemId : list) {
                 // 2.根据itemId获取实体属性信息
-                EntityItemInfo itemInfo = this.entityItemInfoService.findBaseRuleEntityItemInfoById(Long.valueOf(itemId));
+                BaseRuleEntityItemInfo itemInfo = this.ruleEntityItemService.findBaseRuleEntityItemInfoById(Long.valueOf(itemId));
                 if (null == entityId || !entityId.equals(itemInfo.getEntityId())) {
                     entityId = itemInfo.getEntityId();
                 }
@@ -350,7 +353,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         }
 
         //获取实体
-        EntityInfo entityInfo = this.entityInfoService.findBaseRuleEntityInfoById(entityId);
+        BaseRuleEntityInfo entityInfo = this.ruleEntityService.findBaseRuleEntityInfoById(entityId);
         // 5.拼接实体类,完成条件拼接（例如：$User( age > 20 && sex==1) ）
         //TODO 日期格式需要单独处理
         ruleStr.append("$").append(entityInfo.getEntityIdentify()).append(":").append(entityInfo.getEntityClazz()).append("(").append(sb).append(")").append(lineSeparator);
@@ -365,13 +368,13 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * 方法说明: 拼接规则动作部分
      *
      * @param ruleStr  规则串
-     * @param info 规则
+     * @param ruleInfo 规则
      */
-    private StringBuffer insertRuleActionInfo(StringBuffer ruleStr, Info info) throws Exception {
+    private StringBuffer insertRuleActionInfo(StringBuffer ruleStr, BaseRuleInfo ruleInfo) throws Exception {
         // 1.拼接then
         ruleStr.append(lineSeparator).append("then").append(lineSeparator);
         // 2.根据规则获取动作信息
-        List<ActionInfo> actionList = this.actionInfoService.findRuleActionListByRule(info.getRuleId());
+        List<BaseRuleActionInfo> actionList = this.ruleActionService.findRuleActionListByRule(ruleInfo.getRuleId());
         //如果没有获取到动作信息，则默认动作部分为空
         if (!StringUtil.listIsNotNull(actionList)) {
             ruleStr.append(lineSeparator).append("end").append(lineSeparator);
@@ -380,21 +383,21 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             //是否有实现类动作
             Boolean implFlag = false;
             //临时动作对象
-            ActionInfo action;
+            BaseRuleActionInfo action;
             //动作参数对象
-            ActionParamInfo paramInfo;
+            BaseRuleActionParamInfo paramInfo;
             //动作参数值
-            ActionParamValueInfo paramValue;
+            BaseRuleActionParamValueInfo paramValue;
             // 3.循环处理每一个动作
-            for (ActionInfo actionTemp : actionList) {
+            for (BaseRuleActionInfo actionTemp : actionList) {
                 //动作实体
                 action = actionTemp;
                 // 4.获取动作参数信息
-                List<ActionParamInfo> paraList = this.actionParamInfoService.findRuleActionParamByActionId(action.getActionId());
-                for (ActionParamInfo paramTemp : paraList) {
+                List<BaseRuleActionParamInfo> paraList = this.ruleActionParamService.findRuleActionParamByActionId(action.getActionId());
+                for (BaseRuleActionParamInfo paramTemp : paraList) {
                     paramInfo = paramTemp;
                     // 5.获取动作参数值信息
-                    paramValue = this.actionParamValueInfoService.findRuleParamValueByActionParamId(paramInfo.getActionParamId());
+                    paramValue = this.ruleActionParamValueService.findRuleParamValueByActionParamId(paramInfo.getActionParamId());
                     /*
                       6.1 动作实现类；
                       如果value值包含##（例如：#3# * 5），那么就认为是： 获取item属性等于3 的实体属性，然后 乘以 5, 然后放进全局map里
@@ -415,9 +418,9 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                         for (String itemId : strList) {
                             sb = new StringBuilder();
                             //获取item属性
-                            EntityItemInfo itemInfo = this.entityItemInfoService.findBaseRuleEntityItemInfoById(Long.valueOf(itemId));
+                            BaseRuleEntityItemInfo itemInfo = this.ruleEntityItemService.findBaseRuleEntityItemInfoById(Long.valueOf(itemId));
                             //获取实体
-                            EntityInfo entityInfo = this.entityInfoService.findBaseRuleEntityInfoById(itemInfo.getEntityId());
+                            BaseRuleEntityInfo entityInfo = this.ruleEntityService.findBaseRuleEntityInfoById(itemInfo.getEntityId());
                             //获取真是value表达式
                             sb.append("$").append(entityInfo.getEntityIdentify()).append(".").append(RuleUtils.getMethodByProperty(itemInfo.getItemIdentify()));
                             //将表达式 #3# * 5 替换成  order.setMoney(order.getMoney() * 5)
@@ -467,11 +470,11 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param droolRuleStr 规则串
      * @param entityList   实体信息
      */
-    private StringBuffer insertImportInfo(StringBuffer droolRuleStr, List<EntityInfo> entityList,
-                                          SceneInfo sceneInfo) throws Exception {
+    private StringBuffer insertImportInfo(StringBuffer droolRuleStr, List<BaseRuleEntityInfo> entityList,
+                                          BaseRuleSceneInfo sceneInfo) throws Exception {
 
         // 1.导入场景对应的实体类
-        for (EntityInfo entityInfo : entityList) {
+        for (BaseRuleEntityInfo entityInfo : entityList) {
             droolRuleStr.append("import").append(" ").append(entityInfo.getPkgName()).append(";").append(lineSeparator);
         }
         // 2.导入基本类
@@ -480,12 +483,12 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         droolRuleStr.append("import").append(" ").append("java.util.List").append("").append(lineSeparator);
         // 3.导入动作类
         //根据场景获取动作类信息
-        List<ActionInfo> actionList = this.actionInfoService.findRuleActionListByScene(sceneInfo);
+        List<BaseRuleActionInfo> actionList = this.ruleActionService.findRuleActionListByScene(sceneInfo);
         if (StringUtil.listIsNotNull(actionList)) {
             //是否有实现类动作
             Boolean implFlag = false;
             //循环处理
-            for (ActionInfo actionInfo : actionList) {
+            for (BaseRuleActionInfo actionInfo : actionList) {
 
                 if (!implFlag) {
                     //如果是实现动作类，则先打标记
@@ -498,7 +501,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             }
             //如果有实现类，则把实现类接口拼装进去
             if (implFlag) {
-                droolRuleStr.append("import").append(" ").append("com.sky.bluesky.service.DroolsActionService").append("").append(lineSeparator);
+            	 droolRuleStr.append("import").append(" ").append("com.ht.risk.service.DroolsActionService").append("").append(lineSeparator);
+               // droolRuleStr.append("import").append(" ").append("com.sky.bluesky.service.DroolsActionService").append("").append(lineSeparator);
             }
         }
         return droolRuleStr;

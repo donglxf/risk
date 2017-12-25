@@ -1,4 +1,4 @@
-package com.ht.risk.rule.entity;
+package com.ht.risk.model.fact;
 
 import java.io.Serializable;
 import java.util.ArrayList;
