@@ -5,7 +5,7 @@ layui.use(['table','jquery'], function(){
     table.render({
         elem: '#model_list'
         ,height: 'auto'
-        ,url: '/rule/service/activiti/list' //数据接口
+        ,url: '/rule/service/model/list' //数据接口
         ,page: true //开启分页
         ,cols: [[ //表头\
             {checkbox: true, width:"5%"}
@@ -28,7 +28,7 @@ layui.use(['table','jquery'], function(){
             $.ajax({
                 cache : true,
                 type : "GET",
-                url : '/rule/service/activiti/modelDeploy?modelId='+modelId,
+                url : '/activiti/modelDeploy?modelId='+modelId,
                 async : false,
                 error : function(request) {
                     layer.msg("发布失败！");
@@ -47,7 +47,7 @@ layui.use(['table','jquery'], function(){
             $.ajax({
                 cache : true,
                 type : "GET",
-                url : '/rule/service/activiti/start?key=process',
+                url : '/activiti/start?key=process',
                 async : false,
                 error : function(request) {
                     layer.msg("启动失败！");
@@ -68,7 +68,7 @@ layui.use(['table','jquery'], function(){
                 $.ajax({
                     cache : true,
                     type : "GET",
-                    url : '/rule/service/activiti/deleteModel?modelId='+modelId,
+                    url : '/activiti/deleteModel?modelId='+modelId,
                     async : false,
                     error : function(request) {
                         layer.msg("删除失败！");

@@ -38,7 +38,7 @@
         1 = 1
     </select>
     <select id="findRuleActionListByScene" parameterType="com.ht.risk.rule.entity.SceneInfo"
-            resultType="com.ht.risk.rule.entity.SceneInfo">
+            resultType="com.ht.risk.rule.entity.ActionInfo">
         SELECT DISTINCT
         A.ACTION_ID,
         A.ACTION_TYPE,

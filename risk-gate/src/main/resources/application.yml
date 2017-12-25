@@ -21,6 +21,10 @@ zuul:
       path: /rule/ui/** #匹配/techouse/usersystem/** 均路由到cloud-client
     rule-service:
       path: /rule/service/**
+    risk-activiti:
+      path: /activiti/**
+    risk-drools:
+      path: /drools/**
 
 ribbon:
   eureka:
@@ -38,6 +42,15 @@ admin-ui:
 admin-service:
   ribbon:
     listOfServers: 127.0.0.1:8772
+
+risk-activiti:
+  ribbon:
+    listOfServers: 127.0.0.1:8763
+
+risk-drools:
+  ribbon:
+    listOfServers: 127.0.0.1:8764
+
 
 
 eureka:

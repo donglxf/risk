@@ -56,7 +56,7 @@
 			<!-- Maven 自带的中央仓库使用的Id为central 如果其他的仓库声明也是用该Id 就会覆盖中央仓库的配置 -->
 			<id>central</id>
 			<name>maven-central</name>
-			<url>http://10.110.1.240:8081/repository/maven-central/</url>
+			<url>http://10.110.1.240:8081/repository/maven-public/</url>
 			<layout>default</layout>
 			<releases>
 				<enabled>true</enabled>
@@ -174,11 +174,13 @@
 		<module>risk-ui</module>
 		<module>risk-rule-center</module>
 		<module>risk-gate</module>
-		<module>risk-common</module>
 		<module>admin-common</module>
         <module>admin-service</module>
 		<module>admin-ui</module>
 
 
+		
+		<module>risk-drools</module>
+		<module>risk-activiti</module>
 	</modules>
 </project>
