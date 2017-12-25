@@ -21,7 +21,6 @@ import java.util.Map;
 
 /**
  * 描述：
- * CLASSPATH: com.sky.bluesky.service.impl.DroolsRuleEngineService
  * VERSION:   1.0
  * Created by lihao
  * DATE:      2017/7/25

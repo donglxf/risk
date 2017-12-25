@@ -4,7 +4,6 @@ import com.ht.risk.model.fact.RuleExecutionObject;
 
 /**
  * 描述：
- * CLASSPATH: com.sky.DroolsRuleEngineService
  * VERSION:   1.0
  * Created by lihao
  * DATE:      2017/7/25

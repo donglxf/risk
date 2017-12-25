@@ -180,5 +180,7 @@
 		<module>admin-ui</module>
 
 
+		
+		<module>risk-drools</module>
 	</modules>
 </project>
