@@ -14,16 +14,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableDiscoveryClient
 @SpringBootApplication
 @MapperScan("com.ht.risk.mapper")
-public class Application extends SpringBootServletInitializer {
+public class DroolsServiceApplication extends SpringBootServletInitializer {
 
-	static Logger logger = LoggerFactory.getLogger(Application.class);
+	static Logger logger = LoggerFactory.getLogger(DroolsServiceApplication.class);
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(Application.class);
+		return application.sources(DroolsServiceApplication.class);
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(DroolsServiceApplication.class, args);
 	}
 }
