@@ -23,7 +23,7 @@ public class DroolsExcuteController {
 
 
     @RequestMapping("/excuteDroolsScene")
-    public Result<RuleExecutionObject> excuteDroolsScene(DroolsParamter paramter){
+    public Result<RuleExecutionObject> excuteDroolsScene(@RequestBody DroolsParamter paramter){
         Result<RuleExecutionObject> data = null;
         // 业务数据转化
         try {
