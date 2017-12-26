@@ -15,6 +15,35 @@
         <result column="remark" property="remark" />
     </resultMap>
 
+    <resultMap type="com.ht.risk.rule.vo.ActionInfoVo" id="action">
+        <id column="action_id" property="value" />
+        <result column="action_type" property="actionType" />
+        <result column="action_name" property="text" />
+        <result column="action_desc" property="actionDesc" />
+        <result column="action_class" property="actionClass" />
+        <result column="is_effect" property="isEffect" />
+        <result column="cre_user_id" property="creUserId" />
+        <result column="cre_time" property="creTime" />
+        <result column="remark" property="remark" />
+        <!-- 一对多查询 -->
+        <collection property="paramInfoList"  ofType="com.ht.risk.rule.vo.ActionParamInfoVo">
+            <!-- id:唯一标识
+                    property：要将订单明细的唯一标识映射到com.mybatis.entity.OrderDetail的那个属性
+                -->
+            <id column="action_param_id" property="value" />
+            <result column="action_id" property="actionId" />
+          <!--  <result column="action_id" property="actionId" />-->
+            <result column="action_param_name" property="text" />
+            <!--  <result column="action_param_id" property="value" />
+          <result column="action_param_id" property="actionParamId" />
+            <result column="action_param_name" property="actionParamName" />-->
+
+            <result column="action_param_desc" property="actionParamDesc" />
+            <result column="param_identify" property="paramIdentify" />
+        </collection>
+
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         action_id AS actionId, action_type AS actionType, action_name AS actionName, action_desc AS actionDesc, action_class AS actionClass, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
@@ -100,6 +129,18 @@
         AND AR.IS_EFFECT = 1
         AND A.ACTION_TYPE = 1
         AND AR.RULE_ID = #{ruleId}
+    </select>
+    <!--通过id查询集合-->
+    <select id="findByIds" resultMap="action">
+        SELECT
+        a.*, p.action_param_id,
+	      p.param_identify,
+	    p.action_param_name
+        FROM
+        rule_action_info a ,rule_action_param_info p
+        WHERE
+        a.action_id = p.action_id
+        AND a.action_id in (${ids})
     </select>
 
 </mapper>

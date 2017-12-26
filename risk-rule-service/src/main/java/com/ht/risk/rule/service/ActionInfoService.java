@@ -1,9 +1,10 @@
 package com.ht.risk.rule.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.ht.risk.rule.entity.ActionInfo;
 import com.ht.risk.common.service.BaseService;
+import com.ht.risk.rule.entity.ActionInfo;
 import com.ht.risk.rule.entity.SceneInfo;
+import com.ht.risk.rule.vo.ActionInfoVo;
 
 import java.util.List;
 
@@ -58,4 +59,11 @@ public interface ActionInfoService extends BaseService<ActionInfo> {
      */
     Integer findRuleActionCountByRuleIdAndActionType(final Long ruleId);
 
+    /**
+     * 描述：通过in的id 查询出相关的动作库集合，包括了参数集合
+     * @param * @param ids
+     * @auhor 张鹏
+     * @date 2017/12/26 11:22
+     */
+    List<ActionInfoVo> findByIds(String ids);
 }

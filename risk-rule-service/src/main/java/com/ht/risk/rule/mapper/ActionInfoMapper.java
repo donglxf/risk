@@ -1,9 +1,10 @@
 package com.ht.risk.rule.mapper;
 
-import com.ht.risk.rule.entity.ActionInfo;
 import com.ht.risk.common.mapper.SuperMapper;
-import org.apache.ibatis.annotations.Param;
+import com.ht.risk.rule.entity.ActionInfo;
 import com.ht.risk.rule.entity.SceneInfo;
+import com.ht.risk.rule.vo.ActionInfoVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -58,5 +59,12 @@ public interface ActionInfoMapper extends SuperMapper<ActionInfo> {
      */
     Integer findRuleActionCountByRuleIdAndActionType(@Param("ruleId") Long ruleId);
 
-
+    /**
+     * 描述：通过id查询动作 且包含了参数信息
+     * @param * @param null
+     * @return a
+     * @autor 张鹏
+     * @date 2017/12/26 11:24
+     */
+    List<ActionInfoVo> findByIds( @Param("ids") String ids);
 }

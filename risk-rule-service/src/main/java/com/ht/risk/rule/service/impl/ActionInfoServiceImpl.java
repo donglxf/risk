@@ -1,13 +1,13 @@
 package com.ht.risk.rule.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.ActionInfo;
 import com.ht.risk.rule.entity.SceneInfo;
-import com.ht.risk.rule.entity.*;
 import com.ht.risk.rule.mapper.ActionInfoMapper;
 import com.ht.risk.rule.service.ActionInfoService;
-import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.util.StringUtil;
+import com.ht.risk.rule.vo.ActionInfoVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -90,5 +90,13 @@ public class ActionInfoServiceImpl extends BaseServiceImpl<ActionInfoMapper, Act
             throw new NullPointerException("参数缺失");
         }
         return this.actionInfoMapper.findRuleActionCountByRuleIdAndActionType(ruleId);
+    }
+
+    @Override
+    public List<ActionInfoVo> findByIds(String ids) {
+        if (null == ids) {
+            throw new NullPointerException("参数缺失");
+        }
+        return this.actionInfoMapper.findByIds(ids);
     }
 }

@@ -158,6 +158,7 @@ layui.use(['table','form','laytpl'], function() {
                 });
                 //初始化 实体类的值
                 dataEntityInit();
+                dataActionInit();
                 // dataInit(sceneId);
                 init();
             }else{

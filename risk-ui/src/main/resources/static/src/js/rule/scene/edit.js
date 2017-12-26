@@ -119,6 +119,7 @@ var entitys = [
 var items = [
 
 ];
+var actions = [];
 var condata = [
     { value: "==", text: "等于" },
     { value: "!=", text: "不等于" },
@@ -157,10 +158,10 @@ function init(){
     });
     $('.actionVal').editable({
         type: "text",                //编辑框的类型。支持text|textarea|select|date|checklist等
-        title: "结果",              //编辑框的标题
+        title: "值",              //编辑框的标题
         disabled: false,             //是否禁用编辑
         emptytext: "空文本",          //空值的默认文本
-        mode: "inline",              //编辑框的模式：支持popup和inline两种模式，默认是popup
+        mode: "popup",              //编辑框的模式：支持popup和inline两种模式，默认是popup
         validate: function (value) { //字段验证
             if (!$.trim(value)) {
                 return '不能为空';
@@ -182,6 +183,7 @@ function init(){
             if (!$.trim(value)) {
                 return '不能为空';
             }
+
             $(this).attr("data-value",value);
             setItemSelect(value,this);
             //触发变量的选择
@@ -204,16 +206,24 @@ function init(){
     });
     $('.actionType').editable({
         type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
-        source: actionTypes,
-        title: "选择类型",           //编辑框的标题
+        source: actions,
+        title: "动作类型",           //编辑框的标题
         disabled: false,           //是否禁用编辑
-        emptytext: "选择类型",       //空值的默认文本
+        emptytext: "动作类型",       //空值的默认文本
         mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
         validate: function (value) { //字段验证
             if (!$.trim(value)) {
                 return '不能为空';
             }
-            $(this).attr("data-value",value);
+            var actionId = value;
+            //动作参数值
+            for(var i = 0; i < actions.length;i++){
+                if(actions[i].value == actionId){
+                    $(this).attr("data-value",actions[i].paramInfoList[0].value);
+                    break;
+                }
+            }
+
         }
     });
 
@@ -237,6 +247,32 @@ function  dataEntityInit() {
             success : function(da) {
                 if (da.code == 0) {
                     entitys = da.data;
+                } else {
+                    layer.msg(data.msg);
+                }
+            }
+        });
+    }
+
+}
+/**
+ * 数据初始哈哈
+ * @param sceneId
+ */
+function  dataActionInit() {
+    if(actions  == [] || actions.length < 1){
+        $.ajax({
+            cache : true,
+            type : "get",
+            url : '/rule/service/actionInfo/getByIds',
+            data : {ids:'1,2,3,4,5,6,7'},// 你的formid
+            async : false,
+            error : function(request) {
+                alert("Connection error");
+            },
+            success : function(da) {
+                if (da.code == 0) {
+                    actions = da.data;
                 } else {
                     layer.msg(data.msg);
                 }
@@ -415,6 +451,9 @@ function sub() {
         contentType: "application/json; charset=utf-8",
         success: function (message) {
             console.log(message);
+            if(message.code == ''){
+                layer.msg("恭喜保存成功");
+            }
         },
         error: function (message) {
             $("#request-process-patent").html("提交数据失败！");
@@ -427,7 +466,10 @@ $(function () {
 
     //初始化 实体类的值
     dataEntityInit();
-   // dataInit(sceneId);
+    //动作
+    dataActionInit();
+    console.log(actions);
+    // dataInit(sceneId);
     init();
 
 });
