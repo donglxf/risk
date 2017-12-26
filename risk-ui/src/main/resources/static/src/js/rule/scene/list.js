@@ -27,7 +27,11 @@ scene.cols = function () {
         {field: 'sceneName',
             event: 'setItem',
             align:'center',
-            title: '名称'}
+            title: '名称'},
+        {field: 'sceneIdentify',
+            event: 'setItem',
+            align:'center',
+            title: '标识'}
         ,{field: 'sceneId',
             title: '操作',
             fixed: 'right',
