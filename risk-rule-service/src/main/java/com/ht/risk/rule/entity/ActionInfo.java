@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 /**
@@ -25,6 +27,20 @@ public class ActionInfo extends Model<ActionInfo> {
     private static final long serialVersionUID = 1L;
 
     /**
+	 * 参数值
+	 */
+	@TableField(exist = false)
+    private List<ActionParamValueInfo> paramValueInfoList;
+
+	public List<ActionParamValueInfo> getParamValueInfoList() {
+		return paramValueInfoList;
+	}
+
+	public void setParamValueInfoList(List<ActionParamValueInfo> paramValueInfoList) {
+		this.paramValueInfoList = paramValueInfoList;
+	}
+
+	/**
      * 主键
      */
     @TableId("action_id")

@@ -48,6 +48,22 @@ public class RuleUtils {
     }
 
     /**
+     * Date 2017/7/26
+     * Author lihao [lihao@sinosoft.com]
+     * <p>
+     * 方法说明: 获取运算符
+     *
+     * @param str 字符串
+     */
+    public static String getCondition(String str,String val) {
+
+        Matcher m = Pattern.compile("\\$(.*?)"+val).matcher(str.substring(1));
+        while (m.find()) {
+            return m.group(1);
+        }
+        return null;
+    }
+    /**
      * Date 2017/7/27
      * Author lihao [lihao@sinosoft.com]
      * <p>
@@ -172,9 +188,8 @@ public class RuleUtils {
     }
 
     public static void main(String[] args) {
-        String name = "money";
-        System.out.println(name);
-        System.out.println("\n");
-        System.out.println(name);
+     //   String aa = "$11$==100"
+        System.out.print( getCondition("$11$==100","100"));
+
     }
 }

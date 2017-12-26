@@ -1,12 +1,17 @@
 package com.ht.risk.rule.service.impl;
 
+import com.ht.risk.rule.entity.ActionParamInfo;
 import com.ht.risk.rule.entity.ActionParamValueInfo;
+import com.ht.risk.rule.entity.ActionRuleRel;
+import com.ht.risk.rule.mapper.ActionParamInfoMapper;
 import com.ht.risk.rule.mapper.ActionParamValueInfoMapper;
+import com.ht.risk.rule.mapper.ActionRuleRelMapper;
 import com.ht.risk.rule.service.ActionParamValueInfoService;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +28,12 @@ public class ActionParamValueInfoServiceImpl extends BaseServiceImpl<ActionParam
     @Resource
     private ActionParamValueInfoMapper actionParamValueInfoMapper;
 
+    @Resource
+    private ActionRuleRelMapper actionRuleRelMapper;
+
+    @Resource
+    private ActionParamInfoMapper actionParamInfoMapper;
+
 
     /**
      * Date 2017/7/27
@@ -38,6 +49,32 @@ public class ActionParamValueInfoServiceImpl extends BaseServiceImpl<ActionParam
             throw new NullPointerException("参数缺失");
         }
         return this.actionParamValueInfoMapper.findRuleParamValueByActionParamId(paramId);
+    }
+
+    @Override
+    public void add(ActionParamValueInfo actionValue, Long ruleId) {
+        //获取参数
+        ActionParamInfo paramInfo = actionParamInfoMapper.selectById(actionValue.getActionParamId());
+        //添加动作规则中间表
+        ActionRuleRel rel = new ActionRuleRel();
+        rel.setRuleId(ruleId);
+        rel.setActionId(paramInfo.getActionId());
+        rel.setCreTime(new Date());
+        rel.setIsEffect(1);
+        rel.setCreUserId(creUser);
+        actionRuleRelMapper.insert(rel);
+        //添加值得表
+        actionValue.setCreTime(new Date());
+        actionValue.setCreUserId(creUser);
+        actionValue.setIsEffect(1);
+        actionValue.setRuleActionRelId(rel.getRuleActionRelId());
+        actionParamValueInfoMapper.insert(actionValue);
+
+    }
+
+    @Override
+    public List<ActionParamValueInfo> findActionParamValByRuleId(Long ruleId) {
+        return null;
     }
 
 }

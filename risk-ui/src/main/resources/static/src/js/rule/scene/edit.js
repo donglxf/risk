@@ -112,20 +112,31 @@ function deleteCol(t) {
 function hb(){
     $("#table").rowspan(0); //以第一列合并可用，但是会影响后面的新增，或删除操作
 }
+var en ={value:'',text:'',sons:[]}
+var entitys = [
+  //  en
+];
+var items = [
 
+];
 var condata = [
-    { value: "&&==", text: "等于" },
-    { value: "&&!=", text: "不等于" },
-    {value: "&&<",text:"小于"},
-    {value:"&&<=",text:"小于或等于"},
-    {value:"&&>",text:"大于"},
-    {value:"&&>=",text:"大于或等于"},
-    {value:"&&in",text:"包含"},
-    {value:"&&not in",text:"不包含"},
-    {value:"&&like%",text:"开始以"},
-    {value:"&&%like",text:"结束以"},
+    { value: "==", text: "等于" },
+    { value: "!=", text: "不等于" },
+    {value: "<",text:"小于"},
+    {value:"<=",text:"小于或等于"},
+    {value:">",text:"大于"},
+    {value:">=",text:"大于或等于"},
+    {value:"in",text:"包含"},
+    {value:"not in",text:"不包含"},
+    {value:"like%",text:"开始以"},
+    {value:"%like",text:"结束以"},
+];
+var actionTypes = [
+    { value: "3", text: "得分" },
 ];
 function init(){
+
+   // headItem();
     $("#table thead tr th.contion ").hover(function () {
         $(this).find(".del").show();
     },function () {
@@ -141,9 +152,10 @@ function init(){
             if (!$.trim(value)) {
                 return '不能为空';
             }
+            $(this).attr("data-value",value);
         }
     });
-    $('.action').editable({
+    $('.actionVal').editable({
         type: "text",                //编辑框的类型。支持text|textarea|select|date|checklist等
         title: "结果",              //编辑框的标题
         disabled: false,             //是否禁用编辑
@@ -153,15 +165,107 @@ function init(){
             if (!$.trim(value)) {
                 return '不能为空';
             }
-        }
-        ,success: function(response, newValue) {
-            alert(newValue);
+            $(this).attr("data-value",value);
         }
     });
-    //测试部门
-    $('.itemC').editable({
+
+    //对象
+    $('.entityC').editable({
         type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
-        source: [{ value: 1, text: "开发部" }, { value: 2, text: "销售部" }, {value:3,text:"行政部"}],
+        // value:'2',
+        source: entitys,
+        title: "选择对象",           //编辑框的标题
+        disabled: false,           //是否禁用编辑
+        emptytext: "选择对象",       //空值的默认文本
+        mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+        validate: function (value) { //字段验证
+            if (!$.trim(value)) {
+                return '不能为空';
+            }
+            $(this).attr("data-value",value);
+            setItemSelect(value,this);
+            //触发变量的选择
+        }
+    });
+    //条件类型
+    $('.con').editable({
+        type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
+        source: condata,
+        title: "选择条件",           //编辑框的标题
+        disabled: false,           //是否禁用编辑
+        emptytext: "选择条件",       //空值的默认文本
+        mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+        validate: function (value) { //字段验证
+            if (!$.trim(value)) {
+                return '不能为空';
+            }
+            $(this).attr("data-value",value);
+        }
+    });
+    $('.actionType').editable({
+        type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
+        source: actionTypes,
+        title: "选择类型",           //编辑框的标题
+        disabled: false,           //是否禁用编辑
+        emptytext: "选择类型",       //空值的默认文本
+        mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+        validate: function (value) { //字段验证
+            if (!$.trim(value)) {
+                return '不能为空';
+            }
+            $(this).attr("data-value",value);
+        }
+    });
+
+}
+
+/**
+ * 数据初始哈哈
+ * @param sceneId
+ */
+function  dataEntityInit() {
+    if(entitys  == [] || entitys.length < 1){
+        $.ajax({
+            cache : true,
+            type : "get",
+            url : '/rule/service/entityInfo/getEntitys',
+            // data : data.field,// 你的formid
+            async : false,
+            error : function(request) {
+                alert("Connection error");
+            },
+            success : function(da) {
+                if (da.code == 0) {
+                    entitys = da.data;
+                } else {
+                    layer.msg(data.msg);
+                }
+            }
+        });
+    }
+
+}
+
+/**
+ * 重置变量集合
+ * @param entityId
+ * @param t
+ */
+function setItemSelect(entityId,t){
+
+    var items = [];
+    for(var i=0;i<entitys.length;i++){
+        var enid = entitys[i].value;
+      //  console.log(enid);
+        if(enid == entityId){
+            items = entitys[i].sons;
+            console.log(entitys[i].sons);
+        }
+    }
+    //变量
+    $(t).parent().find(".itemC").editable({
+        type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
+        source: items,
         title: "选择变量名",           //编辑框的标题
         disabled: false,           //是否禁用编辑
         emptytext: "选择变量",       //空值的默认文本
@@ -171,43 +275,159 @@ function init(){
             if (!$.trim(value)) {
                 return '不能为空';
             }
-        }
-    });
-    $('.entityC').editable({
-        type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
-        // value:'2',
-        source: [{ value: 1, text: "开发部" }, { value: 2, text: "销售部" }, {value:3,text:"行政部"}],
-        title: "选择对象",           //编辑框的标题
-        disabled: false,           //是否禁用编辑
-        emptytext: "选择对象",       //空值的默认文本
-        mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
-        validate: function (value) { //字段验证
-            if (!$.trim(value)) {
-                return '不能为空';
-            }
-        }
-    });
-
-    $('.con').editable({
-        type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
-        source: condata,
-        title: "选择条件",           //编辑框的标题
-        disabled: false,           //是否禁用编辑
-        emptytext: "选择条件",       //空值的默认文本
-        mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
-        validate: function (value) { //字段验证
-            console.log($(this));
-            console.log(value);
-            $(this).attr("val",value);
             $(this).attr("data-value",value);
-            if (!$.trim(value)) {
-                return '不能为空';
-            }
         }
     });
 
 }
+//条件体
+var conditionInfo = {
+    //条件拼接
+    conditionExpression:'',
+    //条件+值 中文描述
+    conditionDesc:'',
+    val:''
+};
+//动作体
+var actionValInfo = {
+    //动作id参数Id
+    actionParamId:'3',
+    //值
+    paramValue:''
+
+};
+var subForm = {
+    //条件集合
+    conditionInfos:[],
+    //动作集合
+    actionInfos:[],
+}
+var itemVals = [];
+var itemTexts = [];
+var entityIds = [];
+/**
+ * 获取变量列表
+ */
+function headItem() {
+     itemVals = [];
+     itemTexts = [];
+    $("#table>thead>tr>th a.itemC").each(function () {
+        itemVals.push($(this).data('value'));
+        itemTexts.push($(this).text());
+    });
+    $("#table>thead>tr>th a.entityC").each(function () {
+        entityIds.push($(this).attr('data-value'));
+    });
+
+
+    return itemVals;
+}
+function getRuleList(){
+    var len = itemVals.length;
+    var subForms = [];
+   var  headLen =  $("#table>thead>tr>th").length;
+    $("#table>tbody>tr").each(function () {
+         subForm = {
+            //条件集合
+            conditionInfos:[],
+            //动作集合
+            actionInfos:[]
+        }
+        var conditionInfos= [];
+        var actionInfos = [];
+        $(this).find("td").each(function (i,e) {
+            //获取条件体
+            if(i < len){
+                //拼条件 的变量 ，运算符 ，值
+                var itemv = itemVals[i];
+                var itemText = itemTexts[i];
+
+                var ysf = $(e).find("a.con").attr("data-value");
+                var ysfText = $(e).find("a.con").text();
+                var val = $(e).find("a.val").attr("data-value");
+                if(val == '' || ysf == '' || itemv == ''){
+                    layer.msg('必选项不能为空');
+                    return null;
+                }
+                var conditionInfo = {
+                   conditionExpression:'$'+itemv+'$'+''+ysf+''+val,
+                   conditionDesc:'$'+itemText+'$'+''+ysfText+''+val,
+                    val:val
+               }
+                conditionInfos.push(conditionInfo);
+            }
+            //结果
+            else if(i < headLen-1){
+                var actionV = $(e).find("a.actionVal").attr("data-value");
+                if(actionV == ''  ){
+                    layer.msg('必选项不能为空');
+                    return null;
+                }
+               var actionValInfo = {
+                    //动作id参数Id
+                    actionParamId:'3',
+                    //值
+                    paramValue:actionV
+                };
+                actionInfos.push(actionValInfo);
+            }
+
+        });
+        subForm.conditionInfos = conditionInfos;
+        subForm.actionInfos = actionInfos;
+        subForms.push(subForm);
+    });
+
+    return subForms;
+}
+/**
+ * 提交数据
+ */
+function sub() {
+
+    var itemVal = headItem();
+    console.info('条件值：'+itemVal);
+    //获取
+    var subForms = getRuleList();
+    console.info(subForms);
+    if(sceneId == ''){
+        layer.msg("必须选中一个场景哦");
+        return;
+    }
+    var form = {
+        //场景id
+        sceneId:sceneId,
+        //变量集合
+        itemVals:itemVals,
+        //实体类集合
+        entityIds :entityIds,
+        //条件 和结果集
+        vos:subForms
+    }
+    //转json
+    var str = JSON.stringify(form);
+    console.log(str);
+    $.ajax({
+        type: "POST",
+        url: "/rule/service/rule/save",
+        data:str,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (message) {
+            console.log(message);
+        },
+        error: function (message) {
+            $("#request-process-patent").html("提交数据失败！");
+        }
+    });
+
+}
+
 $(function () {
+
+    //初始化 实体类的值
+    dataEntityInit();
+   // dataInit(sceneId);
     init();
 
 });

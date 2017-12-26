@@ -42,7 +42,47 @@ public class ConditionInfo extends Model<ConditionInfo> {
 	@TableField("condition_name")
 	@ApiModelProperty(required= true,value = "条件名称")
 	private String conditionName;
-    /**
+	/**
+	 * 值
+	 */
+	@TableField("val")
+	@ApiModelProperty(required= true,value = "值")
+	private String val;
+
+
+	@TableField(exist = false)
+	@ApiModelProperty(required= true,value = "运算符")
+	private String ysfText;
+
+	public String getYsfText() {
+		return ysfText;
+	}
+
+	public void setYsfText(String ysfText) {
+		this.ysfText = ysfText;
+	}
+
+	@TableField(exist = false)
+	@ApiModelProperty(required= true,value = "运算符")
+	private String ysf;
+
+	public String getYsf() {
+		return ysf;
+	}
+
+	public void setYsf(String ysf) {
+		this.ysf = ysf;
+	}
+
+	public String getVal() {
+		return val;
+	}
+
+	public void setVal(String val) {
+		this.val = val;
+	}
+
+	/**
      * 条件表达式
      */
 	@TableField("condition_expression")

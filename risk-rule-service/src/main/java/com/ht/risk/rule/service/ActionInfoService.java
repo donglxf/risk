@@ -58,5 +58,4 @@ public interface ActionInfoService extends BaseService<ActionInfo> {
      */
     Integer findRuleActionCountByRuleIdAndActionType(final Long ruleId);
 
-
 }

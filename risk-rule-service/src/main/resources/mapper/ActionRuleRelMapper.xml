@@ -13,6 +13,31 @@
         <result column="remark" property="remark" />
     </resultMap>
 
+    <resultMap type="com.ht.risk.rule.entity.ActionRuleRel" id="actions">
+        <id column="rule_action_rel_id" property="ruleActionRelId" />
+        <result column="action_id" property="actionId" />
+        <result column="rule_id" property="ruleId" />
+        <result column="is_effect" property="isEffect" />
+        <result column="cre_user_id" property="creUserId" />
+        <result column="cre_time" property="creTime" />
+        <result column="remark" property="remark" />
+
+        <!-- 多对一的关系 -->
+        <!-- property: 指的是属性的值, javaType：指的是属性的类型-->
+        <association property="actionInfo" javaType="com.ht.risk.rule.entity.ActionInfo">
+            <id column="action_id" property="actionId" />
+            <result column="action_type" property="actionType" />
+            <result column="action_name" property="actionName" />
+            <result column="action_desc" property="actionDesc" />
+            <result column="action_class" property="actionClass" />
+            <result column="is_effect" property="isEffect" />
+            <result column="cre_user_id" property="creUserId" />
+            <result column="cre_time" property="creTime" />
+            <result column="remark" property="remark" />
+        </association>
+    </resultMap>
+
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         rule_action_rel_id AS ruleActionRelId, action_id AS actionId, rule_id AS ruleId, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
@@ -20,7 +45,6 @@
 
     <select id="findBaseRuleActionRuleRelInfoList" parameterType="com.ht.risk.rule.entity.ActionRuleRel"
             resultType="com.ht.risk.rule.entity.ActionRuleRel">
-
         SELECT DISTINCT
         T.RULE_ACTION_REL_ID,
         T.ACTION_ID,
@@ -33,6 +57,25 @@
         RULE_ACTION_RULE_REL T
         WHERE
         1 = 1
+        <if test="ruleId != null">
+            AND T.RULE_ID = #{ruleId}
+        </if>
+
+    </select>
+    <select id="findActions" resultMap="actions" >
+      SELECT
+        T.RULE_ACTION_REL_ID,
+        T.ACTION_ID,
+        T.RULE_ID,
+        T.IS_EFFECT,
+        T.CRE_USER_ID,
+        T.CRE_TIME,
+        T.REMARK,
+        a.*
+        FROM
+        RULE_ACTION_RULE_REL T,rule_action_info a
+        WHERE
+        T.ACTION_ID = a.ACTION_ID
         <if test="ruleId != null">
             AND T.RULE_ID = #{ruleId}
         </if>

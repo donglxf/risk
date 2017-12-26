@@ -7,6 +7,7 @@ import com.ht.risk.common.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +38,17 @@ public class ConditionInfoServiceImpl extends BaseServiceImpl<ConditionInfoMappe
             throw new NullPointerException("参数缺失");
         }
         return this.conditionInfoMapper.findRuleConditionInfoByRuleId(ruleId,null);
+    }
+
+    @Override
+    public void add(ConditionInfo conditionInfo, Long ruleId) {
+        long creUid = 111;
+        conditionInfo.setRuleId(ruleId);
+        conditionInfo.setCreTime(new Date());
+        conditionInfo.setCreUserId(creUid);
+        conditionInfo.setIsEffect(1);
+        conditionInfo.setConditionName("我就是个测试");
+        this.conditionInfoMapper.insert(conditionInfo);
     }
 
 }

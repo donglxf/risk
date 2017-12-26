@@ -7,9 +7,12 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.EntityInfo;
+import com.ht.risk.rule.entity.EntityItemInfo;
 import com.ht.risk.rule.entity.Variable;
 import com.ht.risk.rule.service.EntityInfoService;
+import com.ht.risk.rule.service.EntityItemInfoService;
 import com.ht.risk.rule.service.VariableService;
+import com.ht.risk.rule.vo.EntitySelectVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
@@ -18,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,15 +40,47 @@ public class EntityInfoController {
 
     @Autowired
     private EntityInfoService entityInfoService;
+
+    @Autowired
+    private EntityItemInfoService itemInfoService;
     @GetMapping("getAll")
     @ApiOperation(value = "查询所有的对象")
-    public PageResult<List<EntityInfo>> getAll(){
+    public Result<List<EntityInfo>> getAll(){
         List<EntityInfo> list = entityInfoService.selectList(null);
        // Page<EntityInfo> page = new Page<>();
        // page = entityInfoService.selectPage(page);
 
-        return PageResult.success(list,10);
+        return Result.success(list);
     }
+
+    @GetMapping("getEntitys")
+    @ApiOperation(value = "查询所有的对象和变量的集合")
+    public Result<List<EntitySelectVo>> getEntitys(String entityIds){
+        List<EntityInfo> list = entityInfoService.selectList(null);
+
+        List<EntitySelectVo> vos = new ArrayList<>();
+        for (EntityInfo info : list){
+            EntitySelectVo vo = new EntitySelectVo();
+            vo.setValue(info.getEntityId().toString());
+            vo.setText(info.getEntityName());
+            //设置子集
+            List<EntitySelectVo> sons = new ArrayList<>();
+            Wrapper<EntityItemInfo> wrapper = new EntityWrapper<>();
+            wrapper.eq("entity_id",info.getEntityId());
+            List<EntityItemInfo> itemInfos = itemInfoService.selectList(wrapper);
+            for(EntityItemInfo item : itemInfos){
+                EntitySelectVo itemvo = new EntitySelectVo();
+                itemvo.setValue(item.getItemId().toString());
+                itemvo.setText(item.getItemName());
+                sons.add(itemvo);
+            }
+            vo.setSons(sons);
+            //info.setItems(itemInfos);
+            vos.add(vo);
+        }
+        return Result.success(vos);
+    }
+
     @GetMapping("page")
     @ApiOperation(value = "分页查询")
     public PageResult<List<EntityInfo>> page(String key , Integer page , Integer limit){

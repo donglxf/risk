@@ -2,6 +2,7 @@ package com.ht.risk.rule.mapper;
 
 import com.ht.risk.rule.entity.ActionRuleRel;
 import com.ht.risk.common.mapper.SuperMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,4 +25,12 @@ public interface ActionRuleRelMapper extends SuperMapper<ActionRuleRel> {
      */
     List<ActionRuleRel> findBaseRuleActionRuleRelInfoList(ActionRuleRel baseRuleActionRuleRelInfo);
 
+    /**
+     * 描述：通过ruleiD查询 出中间表和动作集合
+     * @param * @param null
+     * @return a
+     * @auhor 张鹏
+     * @date 2017/12/25 17:51
+     */
+    List<ActionRuleRel> findActions(@Param("ruleId") Long ruleId);
 }
