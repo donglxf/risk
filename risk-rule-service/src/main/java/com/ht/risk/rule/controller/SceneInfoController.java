@@ -8,6 +8,7 @@ import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.EntityInfo;
 import com.ht.risk.rule.entity.SceneInfo;
+import com.ht.risk.rule.service.InfoService;
 import com.ht.risk.rule.service.SceneInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +34,9 @@ import java.util.List;
 public class SceneInfoController {
     @Autowired
     private SceneInfoService sceneInfoService;
+
+    @Autowired
+    private InfoService infoService;
 
 
     @GetMapping("page")
@@ -74,6 +78,7 @@ public class SceneInfoController {
     @ApiOperation(value = "通过id删除信息")
     public Result<Integer> delete(@PathVariable(name = "id") Long id){
         sceneInfoService.deleteById(id);
+        infoService.clearBySceneId(id);
         return Result.success(0);
     }
 

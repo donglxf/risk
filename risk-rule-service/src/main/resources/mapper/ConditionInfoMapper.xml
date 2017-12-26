@@ -38,7 +38,7 @@
         SELECT DISTINCT
         <include refid="BaseFindListSql"></include>
         FROM
-        RULE_CONDITION_INFO T
+        rule_condition_info T
         WHERE
         1 = 1
         <if test="ruleId != null">
@@ -50,7 +50,7 @@
         SELECT DISTINCT
         <include refid="BaseFindListSql"></include>
         FROM
-        RULE_CONDITION_INFO T
+        rule_condition_info T
         WHERE
         1 = 1
         <if test="ruleId != null">

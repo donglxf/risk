@@ -33,7 +33,7 @@
         T.CRE_TIME,
         T.REMARK
         FROM
-        RULE_SCENE_INFO T
+        rule_scene_info T
         WHERE	1 = 1
 
     </select>
