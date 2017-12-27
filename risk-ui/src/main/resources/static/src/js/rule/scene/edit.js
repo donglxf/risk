@@ -237,7 +237,7 @@ function init(){
                 if(actions[i].value == actionId){
                     $(this).attr("data-value",actions[i].paramInfoList[0].value);
                     $(this).parent().find(".actionVal").text(actions[i].paramInfoList[0].text);
-                    $(this).parent().find(".actionVal").attr("data-value","");
+                    $(this).parent().find(".actionVal").attr("data-value"," ");
                     break;
                 }
             }

@@ -17,7 +17,7 @@
             width: inherit;
         }
         #table tr th {
-            min-width: 130px;
+            min-width: 220px;
         }
         #table .con{
             color: #1e9fff;
@@ -34,6 +34,14 @@
         }
         .layui-table .select {
             background-color: #d2d2d2;
+        }
+        .del {display: none}
+        .layui-table td, .layui-table th {
+            position: relative;
+            min-height: 20px;
+            line-height: 20px;
+            font-size: 14px;
+            padding: 8px 10px;
         }
     </style>
 </head>
@@ -185,7 +193,13 @@
         {{#  layui.each(rule.cons, function(i, con){    }}
         <td>
             <a href="#" data-value="{{con.ysf}}" class="con">{{con.ysfText}}</a>&nbsp;
+
+            {{# if(con.ysf == '===' || {{con.ysfText}} == '忽略') {   }}
+            <a href="#" data-value="{{con.val}}" class="val"></a>
+            {{#  } }}
+            {{# if(con.ysf != '===') {   }}
             <a href="#" data-value="{{con.val}}" class="val">{{con.val}}</a>
+            {{#  } }}
         </td>
         {{#  });  }}
         {{#  layui.each(rule.actionRels, function(j, action ){    }}
