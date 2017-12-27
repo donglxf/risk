@@ -1,16 +1,8 @@
 package com.ht.risk.rule.controller;
 
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.*;
 import com.ht.risk.rule.service.*;
@@ -21,13 +13,10 @@ import com.ht.risk.rule.vo.RuleItemTable;
 import com.ht.risk.rule.vo.RuleSubmitVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,9 +137,10 @@ public class RuleInfoController {
             i++;
         }
         //添加规则
+        int j = 1;
         for (RuleSubmitVo vo : ruleFormVo.getVos() ){
             //添加规则
-            Info rule = infoService.addRule(sceneId);
+            Info rule = infoService.addRule(sceneId,j);
             Long ruleId = rule.getRuleId();
             /**
              * 添加条件
@@ -164,6 +154,7 @@ public class RuleInfoController {
             for(ActionParamValueInfo actionValue : vo.getActionInfos()){
                 actionParamValueInfoService.add(actionValue,ruleId);
             }
+            j++;
         }
         return Result.success(0);
     }

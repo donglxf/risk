@@ -51,5 +51,5 @@ public interface InfoService extends BaseService<Info> {
      * 添加规则
      * @param sceneId
      */
-    Info addRule(Long sceneId);
+    Info addRule(Long sceneId,int j);
 }
