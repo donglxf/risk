@@ -4,19 +4,27 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.alibaba.fastjson.JSON;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.ActivitiException;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.history.HistoricDetail;
+import org.activiti.engine.history.HistoricDetailQuery;
+import org.activiti.engine.history.HistoricVariableInstance;
+import org.activiti.engine.history.HistoricVariableUpdate;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.PNGTranscoder;
@@ -51,6 +59,8 @@ public class ActivitiController implements ModelDataJsonConstants {
 	private RuntimeService runtimeService;
 	@Resource
 	private ObjectMapper objectMapper;
+	@Resource
+	private HistoryService historyService;
 	/*@Resource
 	private ActReModelService actReModelService;*/
 
@@ -146,23 +156,27 @@ public class ActivitiController implements ModelDataJsonConstants {
 		return data;
 	}
 	@GetMapping(value = "/start")
-	public Result startHireProcess(String key,String ruleData1) throws Exception {
-		Result<ModelParamter> data = null;
+	public Result startHireProcess(String key,String name,String age,String type,String sex,String marry) throws Exception {
+		LOGGER.info("###############模型执行开始");
+		Result<String> data = null;
 		try{
 			Map<String, Object> ruleData = new HashMap<String, Object>();
-			ruleData.put("name","zhangsan");
-			ruleData.put("age","25");
-			ruleData.put("salary","2000");
-			ruleData.put("amount",100);
+			ruleData.put("name",name);
+			ruleData.put("age",age);
+			ruleData.put("type",type);
+			ruleData.put("sex",sex);
+			ruleData.put("marry",marry);
 			Map<String, Object> paramterMap = new HashMap<String, Object>();
 			paramterMap.put("senceData",ruleData);
 			//JSON.parseObject(ruleData, Map.class);
-			runtimeService.startProcessInstanceByKey(key,paramterMap);
-			data = Result.success();
+			LOGGER.info("###############模型执行参数："+ JSON.toJSONString(ruleData));
+			ProcessInstance instance = runtimeService.startProcessInstanceByKey(key,paramterMap);
+			data = Result.success(instance.getProcessInstanceId());
 		}catch (Exception e) {
 			logger.error("启动模型失败：", e);
 			data = Result.error(1,"启动模型失败");
 		}
+		LOGGER.info("###############模型执行结束");
 		return data;
 
 	}
@@ -240,6 +254,18 @@ public class ActivitiController implements ModelDataJsonConstants {
 		} catch (Exception e) {
 			throw new ActivitiException("Error while loading stencil set", e);
 		}
+	}
+	@RequestMapping(value="/getProcessVarByDeployId")
+	public Result getProcessVarByDeployId(String processId){
+		Result<String> data = null;
+		//List<HistoricDetail> list = historyService.createHistoricDetailQuery().processInstanceId(processId).list();
+		List<HistoricVariableInstance> vars = historyService.createHistoricVariableInstanceQuery().processInstanceId(processId).variableName("result").list();
+		String resutStr = null;
+		if(vars != null && vars.size()>0){
+			resutStr =String.valueOf(vars.get(0).getValue());
+		}
+		data = Result.success(resutStr);
+		return data;
 	}
 
 }

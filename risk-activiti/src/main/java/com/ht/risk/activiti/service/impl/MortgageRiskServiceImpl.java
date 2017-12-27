@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 
 @Service("mortgageRiskService")
 public class MortgageRiskServiceImpl implements MortgageRiskService {
@@ -21,8 +23,28 @@ public class MortgageRiskServiceImpl implements MortgageRiskService {
         LOGGER.info("###########房速贷风险策略结果处理开始");
         String sence = (String) expressionValue.getValue(delegateExecution);
         RuleExcuteResult result = (RuleExcuteResult)delegateExecution.getVariable(sence);
-        delegateExecution.setVariable("flag",1);
-        LOGGER.info("###########房速贷风险策略结果:符合进件规则");
+        if(result != null){
+            Map map = result.getData().getGlobalMap();
+            if(map != null){
+                String flag = String.valueOf(map.get("into_pieces_flag"));
+                if("0".equals(flag)){
+                    delegateExecution.setVariable("flag",1);
+                    LOGGER.info("###########房速贷风险策略结果:符合进件规则");
+                }else{
+                    delegateExecution.setVariable("flag",2);
+                    LOGGER.info("###########房速贷风险策略结果:不符合进件规则");
+                    delegateExecution.setVariable("result", "不符合进件规则!");
+                }
+            }
+        }
         LOGGER.info("###########房速贷风险策略结果处理结束");
+    }
+
+    public Expression getExpressionValue() {
+        return expressionValue;
+    }
+
+    public void setExpressionValue(Expression expressionValue) {
+        this.expressionValue = expressionValue;
     }
 }

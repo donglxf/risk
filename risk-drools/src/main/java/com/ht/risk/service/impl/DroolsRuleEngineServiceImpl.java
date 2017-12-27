@@ -71,13 +71,14 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         try {
             //获取ksession
             KieSession ksession = DroolsUtil.getInstance().getDrlSessionInCache(scene);
-            if (ksession != null) {
+           /* if (ksession != null) {
                 //直接执行
                 return executeRuleEngine(ksession, ruleExecutionObject, scene);
             } else {
                 //重新编译规则，然后执行
                 return compileRule(ruleExecutionObject, scene);
-            }
+            }*/
+            return compileRule(ruleExecutionObject, scene);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage(), e);

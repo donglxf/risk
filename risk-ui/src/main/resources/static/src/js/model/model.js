@@ -50,7 +50,7 @@ layui.use(['table','jquery'], function(){
                 type: 2,
                 shade: false,
                 title:"模型启动参数设置",
-                area: ['800px','400px'],
+                area: ['800px','600px'],
                 content: '/rule/ui/model/startView',
                 zIndex: layer.zIndex, //重点1
                 success: function(layero){
@@ -85,6 +85,7 @@ layui.use(['table','jquery'], function(){
                     cache : true,
                     type : "GET",
                     url : '/activiti/deleteModel?modelId='+modelId,
+                    timeout : 6000, //超时时间设置，单位毫秒
                     async : false,
                     error : function(request) {
                         layer.msg("删除失败！");
