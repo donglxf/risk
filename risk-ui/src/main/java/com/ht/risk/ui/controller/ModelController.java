@@ -23,5 +23,10 @@ public class ModelController {
         return "model/add";
     }
 
+    @RequestMapping(value = "/startView",method = RequestMethod.GET)
+    public String startView(){
+        return "model/start";
+    }
+
 
 }
