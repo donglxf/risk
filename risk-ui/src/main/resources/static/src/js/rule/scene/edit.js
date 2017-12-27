@@ -131,6 +131,7 @@ var condata = [
     {value:"not in",text:"不包含"},
     {value:"like%",text:"开始以"},
     {value:"%like",text:"结束以"},
+    {value:"===",text:"忽略"},
 ];
 var actionTypes = [
     { value: "3", text: "得分" },
@@ -201,7 +202,15 @@ function init(){
             if (!$.trim(value)) {
                 return '不能为空';
             }
+            if(value == '==='){
+                $(this).parent().find(".val").text("");
+                $(this).parent().find(".val").attr("data-value","true");
+            }else {
+                $(this).parent().find(".val").text("值");
+                $(this).parent().find(".val").attr("data-value","");
+            }
             $(this).attr("data-value",value);
+
         }
     });
     $('.actionType').editable({

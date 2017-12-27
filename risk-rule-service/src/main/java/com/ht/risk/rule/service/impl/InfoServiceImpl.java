@@ -88,7 +88,7 @@ public class InfoServiceImpl extends BaseServiceImpl<InfoMapper, Info> implement
     }
 
     @Override
-    public void clearBySceneId(Long sceneId) {
+    public void clearBySceneId(Long sceneId ) {
         String ruleIds = "";
         //删除规则
         Wrapper<Info> wrapper = new EntityWrapper<>();
@@ -129,15 +129,15 @@ public class InfoServiceImpl extends BaseServiceImpl<InfoMapper, Info> implement
     }
 
     @Override
-    public Info addRule(Long sceneId) {
+    public Info addRule(Long sceneId,int index) {
         long creUid = 111;
         //添加规则
         Info rule = new Info();
         rule.setCreTime(new Date());
         rule.setCreUserId(creUid);
         rule.setIsEffect(1);
-        rule.setRuleName("规则");
-        rule.setRuleDesc("规则");
+        rule.setRuleName("规则-"+index);
+        rule.setRuleDesc("规则-"+index);
         rule.setRuleEnabled(1);
         rule.setSceneId(sceneId);
         this.infoMapper.insert(rule);
