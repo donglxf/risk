@@ -1,7 +1,8 @@
 package com.ht.risk.rule.mapper;
 
-import com.ht.risk.rule.entity.EntityItemInfo;
 import com.ht.risk.common.mapper.SuperMapper;
+import com.ht.risk.rule.entity.EntityItemInfo;
+import com.ht.risk.rule.vo.RuleItemTable;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -34,5 +35,15 @@ public interface EntityItemInfoMapper extends SuperMapper<EntityItemInfo> {
      * @param id 属性Id
      */
     EntityItemInfo findBaseRuleEntityItemInfoById(@Param("id") Long id);
+
+    /**
+     * Date 2017/7/26
+     * Author lihao [lihao@sinosoft.com]
+     * <p>
+     * 方法说明: 根据id获取对应的属性信息
+     * @param itemId 属性Id
+     */
+    RuleItemTable findRuleItemTableById(@Param("itemId") Long itemId);
+
 
 }

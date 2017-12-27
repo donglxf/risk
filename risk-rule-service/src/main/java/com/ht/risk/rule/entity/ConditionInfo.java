@@ -1,15 +1,15 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
+import com.ht.risk.rule.vo.RuleItemTable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.util.Date;
 /**
  * <p>
  * 规则条件信息表
@@ -23,8 +23,12 @@ import io.swagger.annotations.ApiModelProperty;
 public class ConditionInfo extends Model<ConditionInfo> {
 
     private static final long serialVersionUID = 1L;
+	@TableField(exist = false)
+    private RuleItemTable itemTable;
 
-    /**
+
+
+	/**
      * 主键
      */
     @TableId("condition_id")
@@ -117,7 +121,13 @@ public class ConditionInfo extends Model<ConditionInfo> {
      */
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
+	public RuleItemTable getItemTable() {
+		return itemTable;
+	}
 
+	public void setItemTable(RuleItemTable itemTable) {
+		this.itemTable = itemTable;
+	}
 
 	public Long getConditionId() {
 		return conditionId;

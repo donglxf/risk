@@ -156,24 +156,31 @@
 
 <script id="tableTp" type="text/html">
     <colgroup>
-        {{#  layui.each(d.itemTables, function(index, item){    }}
+        {{#  for (var i=0;i<d.itemHeads;i++) {  }}
         <col width="150">
-        {{#  });  }}
+        {{#  }  }}
+        {{#  for (var i=0;i<d.actionCounts;i++) {  }}
+        <col width="150">
+        {{#  }  }}
         <col width="80px">
     </colgroup>
     <thead>
     <tr>
-        {{#  layui.each(d.itemTables, function(index, item){    }}
+        {{#  for (var i=0;i<d.itemHeads;i++) {  }}
         <th class="contion ">
 
-            <a href="#" class="entityC" data-value="{{item.entityId}}" >{{item.entityName}}</a>.
-            <a href="#" class="itemC" data-value="{{item.itemId}}" >{{item.itemName}}</a>
+           <span>变量</span>
             <a href="javascript:void(0); " class="del" onclick="deleteCol(this)"> <i
                     class="layui-icon">&#xe640;</i></a>
         </th>
-        {{#  });  }}
+        {{#  }  }}
         {{#  for (var i=0;i<d.actionCounts;i++) {  }}
-        <th class="th-action  ">动作</th>
+        <th class="th-action  ">
+            <span>动作</span>
+            <a href="javascript:void(0); " class="del" onclick="deleteCol(this)"> <i
+                    class="layui-icon">&#xe640;</i></a>
+        </th>
+
         {{#  }  }}
         <th class="" >操作</th>
     </tr>
@@ -183,10 +190,8 @@
     <tr>
         {{#  layui.each(rule.cons, function(i, con){    }}
         <td>
-            <a href="#" class="entityC" data-value="" >对象</a>.
-            <a href="#" class="itemC" >变量</a> &nbsp;
-
-
+            <a href="#" class="entityC" data-value="{{con.itemTable.entityId}}" >{{con.itemTable.entityName}}</a>.
+            <a href="#" class="itemC" data-value="{{con.itemTable.itemId}}">{{con.itemTable.itemName}}</a> &nbsp;
             <a href="#" data-value="{{con.ysf}}" class="con">{{con.ysfText}}</a>&nbsp;
             <a href="#" data-value="{{con.val}}" class="val">{{con.val}}</a>
         </td>

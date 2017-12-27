@@ -2,6 +2,7 @@ package com.ht.risk.rule.service;
 
 import com.ht.risk.rule.entity.EntityItemInfo;
 import com.ht.risk.common.service.BaseService;
+import com.ht.risk.rule.vo.RuleItemTable;
 
 import java.util.List;
 
@@ -35,4 +36,13 @@ public interface EntityItemInfoService extends BaseService<EntityItemInfo> {
      */
     EntityItemInfo findBaseRuleEntityItemInfoById(final Long id) throws Exception;
 
+    /**
+     * 描述： 通过变量获取 封装的变量 实体类值
+     *
+     * @param * @param itemId
+     * @return a
+     * @auhor 张鹏
+     * @date 2017/12/27 12:30
+     */
+    RuleItemTable findRuleItemTableById(long itemId);
 }

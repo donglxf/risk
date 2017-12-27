@@ -19,7 +19,13 @@
     <sql id="Base_Column_List">
         item_id AS itemId, entity_id AS entityId, item_name AS itemName, item_identify AS itemIdentify, item_desc AS itemDesc, cre_user_id AS creUserId, cre_time AS creTime, is_effect AS isEffect, remark
     </sql>
-
+    <!--变量中有实体-->
+    <sql id="Base_Table_List">
+        i.item_id AS itemId,
+        i.item_name AS itemName,
+        e.entity_name AS entityName,
+        e.entity_id AS entityId
+    </sql>
     <sql id="BaseFindColumnSql">
         T.ITEM_ID,
         T.ENTITY_ID,
@@ -47,6 +53,15 @@
         rule_entity_item_info T
         WHERE 1=1
         AND T.ITEM_ID = #{id}
+    </select>
+    <select id="findRuleItemTableById" resultType="com.ht.risk.rule.vo.RuleItemTable">
+
+        SELECT  <include refid="Base_Table_List"></include>
+        FROM
+        rule_entity_item_info i
+        LEFT JOIN rule_entity_info e
+        on e.entity_id = i.entity_id
+        WHERE i.item_id = #{itemId}
     </select>
 
 </mapper>

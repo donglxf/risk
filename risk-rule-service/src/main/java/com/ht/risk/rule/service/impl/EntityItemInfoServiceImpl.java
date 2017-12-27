@@ -4,6 +4,7 @@ import com.ht.risk.rule.entity.EntityItemInfo;
 import com.ht.risk.rule.mapper.EntityItemInfoMapper;
 import com.ht.risk.rule.service.EntityItemInfoService;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
+import com.ht.risk.rule.vo.RuleItemTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,11 @@ public class EntityItemInfoServiceImpl extends BaseServiceImpl<EntityItemInfoMap
             throw new NullPointerException("参数缺失");
         }
         return this.entityItemInfoMapper.findBaseRuleEntityItemInfoById(id);
+    }
+
+    @Override
+    public RuleItemTable findRuleItemTableById(long itemId) {
+        return this.entityItemInfoMapper.findRuleItemTableById(itemId);
     }
 
 }
