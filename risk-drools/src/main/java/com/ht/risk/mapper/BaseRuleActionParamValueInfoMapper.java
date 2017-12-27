@@ -34,5 +34,5 @@ public interface BaseRuleActionParamValueInfoMapper {
      *
      * @param paramId 参数id
      */
-    BaseRuleActionParamValueInfo findRuleParamValueByActionParamId(@Param("paramId") Long paramId);
+    BaseRuleActionParamValueInfo findRuleParamValueByActionParamId(@Param("paramId") Long paramId,@Param("ruleActionRelId") Long ruleActionRelId);
 }

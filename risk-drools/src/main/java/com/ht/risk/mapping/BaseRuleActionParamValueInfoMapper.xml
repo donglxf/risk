@@ -16,7 +16,7 @@
         SELECT DISTINCT
         <include refid="BaseFindParamValueSql"></include>
         FROM
-        RULE_ACTION_PARAM_VALUE_INFO T
+        rule_action_param_value_info T
         WHERE
         1 = 1
         <if test="ruleActionRelId != null">
@@ -33,10 +33,11 @@
         SELECT DISTINCT
         <include refid="BaseFindParamValueSql"></include>
         FROM
-        RULE_ACTION_PARAM_VALUE_INFO T
+        rule_action_param_value_info T
         WHERE
         1 = 1
         AND T.IS_EFFECT = 1
         AND T.ACTION_PARAM_ID = #{paramId}
+        and T.rule_action_rel_id= #{ruleActionRelId} 
     </select>
 </mapper>

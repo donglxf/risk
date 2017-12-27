@@ -30,5 +30,5 @@ public interface RuleActionParamValueService {
      *
      * @param paramId 参数id
      */
-    BaseRuleActionParamValueInfo findRuleParamValueByActionParamId(final Long paramId)throws Exception;
+    BaseRuleActionParamValueInfo findRuleParamValueByActionParamId(final Long paramId,final Long ruleActionRelId)throws Exception;
 }

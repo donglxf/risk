@@ -13,8 +13,18 @@ public class BaseRuleInfo extends BaseModel {
     private String ruleName;//名称
     private String ruleDesc;//描述
     private Integer ruleEnabled;//是否启用
+    private Long ruleActionRelId;
+    
 
-    public Long getRuleId() {
+    public Long getRuleActionRelId() {
+		return ruleActionRelId;
+	}
+
+	public void setRuleActionRelId(Long ruleActionRelId) {
+		this.ruleActionRelId = ruleActionRelId;
+	}
+
+	public Long getRuleId() {
         return ruleId;
     }
 

@@ -16,6 +16,9 @@ import com.ht.risk.util.SpringContextHolder;
 import com.ht.risk.util.StringUtil;
 
 import javax.annotation.Resource;
+
+import static org.assertj.core.api.Assertions.linesOf;
+
 import java.util.List;
 import java.util.Map;
 
@@ -243,7 +246,6 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     	droolRuleStr.append("package com.drools.rules").append("").append(lineSeparator);
     	// 2.引入global全局对象
     	// TODO 暂时只设定一个
-    	//droolRuleStr.append("import com.sky.bluesky.model.fact.RuleExecutionResult").append("").append(lineSeparator);
     	droolRuleStr.append("import com.ht.risk.model.fact.RuleExecutionResult").append("").append(lineSeparator);
     	droolRuleStr.append("global RuleExecutionResult _result").append("").append(lineSeparator);
     	// 2.导入基本类
@@ -271,6 +273,17 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     		ruleTemp = this.getDroolsInfoByRule(ruleInfo);
     		droolRuleStr.append(ruleTemp);
     	}
+    	
+//    	droolRuleStr.append(lineSeparator).append("rule abc").append(lineSeparator);
+//    	droolRuleStr.append(lineSeparator).append("no-loop true");
+//    	droolRuleStr.append(lineSeparator).append("lock-on-active true");
+//    	droolRuleStr.append(lineSeparator).append("when").append(lineSeparator);
+//    	droolRuleStr.append(lineSeparator).append("eval(true)").append(lineSeparator);
+//    	droolRuleStr.append(lineSeparator).append("$action:DroolsActionService()").append(lineSeparator);
+//    	droolRuleStr.append(lineSeparator).append("then").append(lineSeparator);
+//    	droolRuleStr.append(lineSeparator).append("$action.statisResult(_result);").append(lineSeparator);
+//    	droolRuleStr.append(lineSeparator).append("end").append(lineSeparator);
+    	
     	
     	logger.info(lineSeparator + "===========================规则串================================" + lineSeparator);
 //        logger.info(droolRuleStr.toString());
@@ -383,38 +396,38 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             BaseRuleConditionInfo conditionInfo = conList.get(c);
             //表达式
             expression = conditionInfo.getConditionExpression();
-            String[] expressionArr=null;
-            boolean contain=false;
-            for(int i =0 ;i<conditionArr.length; i++){ // 判断表达式是否包含数组元素
-            	if(expression.contains(conditionArr[i])){
-            		expressionArr=expression.split(conditionArr[i]);
-            		contain=true;
-            		break;
-            	}
-            }
-            if (contain) {
-    			for(int j=0;j<expressionArr.length;j++){
-        			String express=expressionArr[j];
-        			//先处理==、>=、<=、>、<、！=后面的变量
-                	String conditionVariable = RuleUtils.getConditionOfVariable(express);
-                	//如果是字符串，则拼接 单引号
-                	if (!RuleUtils.checkStyleOfString(conditionVariable)) {
-                		expression = expression.replace(conditionVariable, "'" + conditionVariable + "'");
-                	}
-                	// 1.获取条件参数（比如：$21$ ，21 代表实体属性表id）
-                	List<String> list = RuleUtils.getConditionParamBetweenChar(express);
-                	//TODO 目前只会有一条
-                	for (String itemId : list) {
-                		// 2.根据itemId获取实体属性信息
-                		BaseRuleEntityItemInfo itemInfo = this.ruleEntityItemService.findBaseRuleEntityItemInfoById(Long.valueOf(itemId));
-                		if (null == entityId || !entityId.equals(itemInfo.getEntityId())) {
-                			entityId = itemInfo.getEntityId();
-                		}
-                		// 3.拼接属性字段（例如：$21$ > 20 替换成 age > 20）
-                		expression = expression.replace("$" + itemId + "$", "this[\""+ itemInfo.getItemIdentify()+"\"]");
-                	}
-    			}
-            }else{
+//            String[] expressionArr=null;
+//            boolean contain=false; // 是否包含多条件
+//            for(int i =0 ;i<conditionArr.length; i++){ // 判断表达式是否包含数组元素
+//            	if(expression.contains(conditionArr[i])){
+//            		expressionArr=expression.split(conditionArr[i]);
+//            		contain=true;
+//            		break;
+//            	}
+//            }
+//            if (contain) {
+//    			for(int j=0;j<expressionArr.length;j++){
+//        			String express=expressionArr[j];
+//        			//先处理==、>=、<=、>、<、！=后面的变量
+//                	String conditionVariable = RuleUtils.getConditionOfVariable(express);
+//                	//如果是字符串，则拼接 单引号
+//                	if (!RuleUtils.checkStyleOfString(conditionVariable)) {
+//                		expression = expression.replace(conditionVariable, "'" + conditionVariable + "'");
+//                	}
+//                	// 1.获取条件参数（比如：$21$ ，21 代表实体属性表id）
+//                	List<String> list = RuleUtils.getConditionParamBetweenChar(express);
+//                	//TODO 目前只会有一条
+//                	for (String itemId : list) {
+//                		// 2.根据itemId获取实体属性信息
+//                		BaseRuleEntityItemInfo itemInfo = this.ruleEntityItemService.findBaseRuleEntityItemInfoById(Long.valueOf(itemId));
+//                		if (null == entityId || !entityId.equals(itemInfo.getEntityId())) {
+//                			entityId = itemInfo.getEntityId();
+//                		}
+//                		// 3.拼接属性字段（例如：$21$ > 20 替换成 age > 20）
+//                		expression = expression.replace("$" + itemId + "$", "this[\""+ itemInfo.getItemIdentify()+"\"]");
+//                	}
+//    			}
+//            }else{
             	//先处理==、>=、<=、>、<、！=后面的变量
             	String conditionVariable = RuleUtils.getConditionOfVariable(expression);
             	//如果是字符串，则拼接 单引号
@@ -433,7 +446,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             		// 3.拼接属性字段（例如：$21$ > 20 替换成 age > 20）
             		expression = expression.replace("$" + itemId + "$", "this[\""+ itemInfo.getItemIdentify()+"\"]");
             	}
-            }
+//            }
             
             //如果是最后一个，则不拼接条件之间关系
             if (c == conList.size() - 1) {
@@ -447,9 +460,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         //获取实体
         BaseRuleEntityInfo entityInfo = this.ruleEntityService.findBaseRuleEntityInfoById(entityId);
         // 5.拼接实体类,完成条件拼接（例如：$User( age > 20 && sex==1) ）
-        //TODO 日期格式需要单独处理
-//        ruleStr.append("$").append(entityInfo.getEntityIdentify()).append(":").append(entityInfo.getEntityClazz()).append("(").append(sb).append(")").append(lineSeparator);
-        ruleStr.append("$map").append(":").append("Map(").append(expression) .append(")").append(lineSeparator);
+        ruleStr.append("$map").append(":").append("Map(").append(sb.toString()) .append(")").append(lineSeparator);
 
         return ruleStr;
     }
@@ -463,7 +474,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param ruleStr 规则串
      * @param conList 条件集合
      */
-    private StringBuffer insertRuleConditionFromList_bak(StringBuffer ruleStr, List<BaseRuleConditionInfo> conList) throws Exception {
+    private StringBuffer insertRuleConditionFromList_entity(StringBuffer ruleStr, List<BaseRuleConditionInfo> conList) throws Exception {
 
         //只保存条件内容
         StringBuilder sb = new StringBuilder();
@@ -548,7 +559,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                 for (BaseRuleActionParamInfo paramTemp : paraList) {
                     paramInfo = paramTemp;
                     // 5.获取动作参数值信息
-                    paramValue = this.ruleActionParamValueService.findRuleParamValueByActionParamId(paramInfo.getActionParamId());
+                    paramValue = this.ruleActionParamValueService.findRuleParamValueByActionParamId(paramInfo.getActionParamId(),ruleInfo.getRuleActionRelId());
                     /*
                       6.1 动作实现类；
                       如果value值包含##（例如：#3# * 5），那么就认为是： 获取item属性等于3 的实体属性，然后 乘以 5, 然后放进全局map里
@@ -596,6 +607,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                     if (action.getActionType() == 1) {
                         implFlag = true;
                         ruleStr.append("_result.getMap().put(\"").append(paramInfo.getParamIdentify()).append("\",").append(realValue).append(");").append(lineSeparator);//map.put("key",value)
+//                        _result.setTotal(_result.getTotal()+8);
+                        ruleStr.append("_result").append(".").append("setTotal(_result.getTotal()+"+realValue+");").append(lineSeparator);
                     } /*else {
                         ruleStr.append("$").append(action.getActionClazzIdentify()).append(".").
                                 append(RuleUtils.setMethodByProperty(paramInfo.getParamIdentify())).append("(").append(realValue).append(");").append(lineSeparator);
@@ -606,6 +619,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             // 7.拼接实现类接口
             if (implFlag) {
                 ruleStr.append("$action").append(".").append("execute").append("($fact,_result)").append(";").append(lineSeparator);
+                ruleStr.append("$action").append(".").append("statisResult(_result);").append(lineSeparator);
             }
 
             //TODO 规则执行记录信息
@@ -655,7 +669,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                 for (BaseRuleActionParamInfo paramTemp : paraList) {
                     paramInfo = paramTemp;
                     // 5.获取动作参数值信息
-                    paramValue = this.ruleActionParamValueService.findRuleParamValueByActionParamId(paramInfo.getActionParamId());
+                    paramValue = this.ruleActionParamValueService.findRuleParamValueByActionParamId(paramInfo.getActionParamId(),ruleInfo.getRuleActionRelId());
                     /*
                       6.1 动作实现类；
                       如果value值包含##（例如：#3# * 5），那么就认为是： 获取item属性等于3 的实体属性，然后 乘以 5, 然后放进全局map里
