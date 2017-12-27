@@ -14,7 +14,7 @@
         T.CRE_TIME,
         T.REMARK
         FROM
-        RULE_INFO T
+        rule_info T
         WHERE
         1 = 1
         <if test="sceneId != null">
@@ -38,7 +38,7 @@
         T.IS_EFFECT,
         T.REMARK
         FROM
-        RULE_PROPERTY_INFO T
+        rule_property_info T
         WHERE
         1 = 1
         <if test="rulePropertyIdentify != null">
@@ -62,8 +62,8 @@
         T.IS_EFFECT,
         T.REMARK
         FROM
-        RULE_PROPERTY_INFO T
-        INNER JOIN RULE_PROPERTY_REL RPR ON RPR.RULE_PROPERTY_ID = T.RULE_PROPERTY_ID
+        rule_property_info T
+        INNER JOIN rule_property_rel RPR ON RPR.RULE_PROPERTY_ID = T.RULE_PROPERTY_ID
         WHERE
         1 = 1
         AND T.IS_EFFECT = 1
@@ -83,10 +83,12 @@
         R.IS_EFFECT,
         R.CRE_USER_ID,
         R.CRE_TIME,
+        sr.rule_action_rel_id,
         R.REMARK
         FROM
-        RULE_INFO R
-        INNER JOIN RULE_SCENE_INFO S ON S.SCENE_ID = R.SCENE_ID
+        rule_info R
+        INNER JOIN rule_scene_info S ON S.SCENE_ID = R.SCENE_ID
+        inner join rule_action_rule_rel sr on R.rule_id=sr.rule_id
         WHERE
         1 = 1
         AND S.IS_EFFECT = 1

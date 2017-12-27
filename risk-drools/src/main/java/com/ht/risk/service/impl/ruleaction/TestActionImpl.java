@@ -34,6 +34,7 @@ public class TestActionImpl implements DroolsActionService {
             System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
         }
         
+        
         Map<String,Object> t = (Map<String,Object>) fact.getFactObjectList().get(0);
         for(Map.Entry<String, Object> item:t.entrySet()){
         	System.out.println(item.getKey()+">>>>"+item.getValue());
@@ -43,4 +44,12 @@ public class TestActionImpl implements DroolsActionService {
 //        System.out.println(t.getAmount());
 //        System.out.println(t.getMessage());
     }
+
+	@Override
+	public void statisResult(RuleExecutionResult result) {
+		//遍历map信息
+        System.out.println("》》》》》》》》》》》》》:::"+result.getTotal());
+	}
+    
+    
 }

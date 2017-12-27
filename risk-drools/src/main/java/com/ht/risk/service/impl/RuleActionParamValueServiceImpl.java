@@ -48,10 +48,10 @@ public class RuleActionParamValueServiceImpl implements RuleActionParamValueServ
      * @param paramId 参数id
      */
     @Override
-    public BaseRuleActionParamValueInfo findRuleParamValueByActionParamId(Long paramId) throws Exception {
-        if(null == paramId){
+    public BaseRuleActionParamValueInfo findRuleParamValueByActionParamId(Long paramId,Long ruleActionRelId) throws Exception {
+        if(null == paramId && null==ruleActionRelId){
             throw new NullPointerException("参数缺失");
         }
-        return this.baseRuleActionParamValueInfoMapper.findRuleParamValueByActionParamId(paramId);
+        return this.baseRuleActionParamValueInfoMapper.findRuleParamValueByActionParamId(paramId,ruleActionRelId);
     }
 }
