@@ -12,7 +12,7 @@ function setFromValues(el, data) {
 
 var  scene = {
     baseUrl: "/rule/service/sceneInfo/",
-    uiUrl :"/rule/ui/rule/decision/scene/edit",
+    uiUrl :"/rule/ui/rule/decision/scene/gradeCardEdit",
     entity: "sceneInfo",
     tableId: "sceneInfoTable",
     toolbarId: "#toolbar",
@@ -97,7 +97,7 @@ layui.use(['table','form','laytpl'], function() {
         elem: '#'+scene.tableId
         , height: 'full'
         , cellMinWidth: 40
-        , url: scene.baseUrl + 'page?sceneType=1' //数据接口
+        , url: scene.baseUrl + 'page?sceneType=2' //数据接口
         // data:[{"sceneId":1,"sceneName":"测试规则","sceneDesc":"测试规则引擎","sceneIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
         , page: true //开启分页
         , id: scene.tableId
@@ -113,9 +113,9 @@ layui.use(['table','form','laytpl'], function() {
                     curr: 1 //重新从第 1 页开始
                 }
                 , where: {
-                    key: $('#scene_key_ser').val(),
-                   // sceneType : '1' 无效
-                },
+                    key: $('#scene_key_ser').val()
+                    , sceneType : 2
+                }
             });
         }
     };
