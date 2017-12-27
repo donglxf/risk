@@ -190,6 +190,13 @@ function init(){
             //触发变量的选择
         }
     });
+    //初始化 变量
+    $(".entityC").each(function () {
+        var entityId = $(this).attr("data-value");
+        if(entityId != '' && entityId != undefined){
+            setItemSelect(entityId,this);
+        }
+    });
     //条件类型
     $('.con').editable({
         type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
