@@ -21,7 +21,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2017-12-19
  */
 @ApiModel
-@TableName("act_re_model")
+@TableName("ACT_RE_MODEL")
 public class ActReModel extends Model<ActReModel> {
 
     private static final long serialVersionUID = 1L;
