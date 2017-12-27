@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>模型启动参数设置</title>
+    <link rel="stylesheet" href="/rule/ui/plugins/layui/css/layui.css" media="all">
+</head>
+<body>
+<div style="margin: 15px;">
+    <form class="layui-form" action="#" id="add_model_form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="姓名"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <select name="sex" lay-verify="">
+                    <option value="01">男【01】</option>
+                    <option value="02">女【02】</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">年龄</label>
+            <div class="layui-input-block">
+                <input type="text" name="age" lay-verify="required" autocomplete="off" placeholder="年龄"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">婚姻状态</label>
+            <div class="layui-input-block">
+                <select name="marry" lay-verify="">
+                    <option value="01">已婚、再婚【01】</option>
+                    <option value="02">单身、丧偶【02】</option>
+                    <option value="03">离异【03】</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">抵押物类型</label>
+            <div class="layui-input-block">
+                <select name="type" lay-verify="">
+                    <option value="001">集体用地【001】</option>
+                    <option value="002">宅基地【002	】</option>
+                    <option value="003">性质为租赁【003】</option>
+                    <option value="004">工业用地【004】</option>
+                    <option value="005">公共管理与公共服务设施用地【005】</option>
+                    <option value="006">普通住宅【006】</option>
+                    <option value="007">别墅【007】</option>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" id="processId" name="processId"/>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo" >提交
+                </button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                
+                <button class="layui-btn" lay-submit lay-filter="formDemo_get" >获取执行结果
+                </button>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">执行结果</label>
+            <div class="layui-input-block">
+                <input type="text" id="result"  placeholder=""
+                       class="layui-input">
+            </div>
+        </div>
+    </form>
+    
+    
+    
+</div>
+<script src="/rule/ui/plugins/layui/layui.js"></script>
+<script src="/rule/ui/src/js/model/model.js"></script>
+<script>
+
+    layui.use(['form', 'jquery'], function(){
+        var form = layui.form;
+        var $ = layui.jquery;
+        form.on('submit(formDemo)', function(data){
+            $.ajax({
+                cache : true,
+                type : "GET",
+                url : '/activiti/start?key=process',
+                timeout : 6000, //超时时间设置，单位毫秒
+                data : data.field,// 你的formid
+                async : false,
+                error : function(request) {
+                    layer.msg("网关链接超时！");
+                },
+                success : function(data) {
+                    if(data.code == 0){
+                        layer.msg("启动成功！");
+                        console.log(data);
+                        $("#processId").val(data.data);
+                    }
+                   // parent.layer.closeAll();//关闭弹出的子页面窗口
+                }
+            });
+            return false;
+        });
+        
+        
+        form.on('submit(formDemo_get)', function(data){
+        	  var processInstanceId = $("#processId").val(data.data);
+              $.ajax({
+                  cache : true,
+                  type : "GET",
+                  url : '/activiti/getProcessVarByDeployId',
+                  timeout : 6000, //超时时间设置，单位毫秒
+                  data : data.field,// 你的formid
+                  async : false,
+                  error : function(request) {
+                      layer.msg("网关链接超时！");
+                  },
+                  success : function(data) {
+                      if(data.code == 0){
+                          layer.msg("获取成功！");
+                          $("#result").val();
+                          $("#result").val("执行结果为："+data.data);
+                      }
+                      // parent.layer.closeAll();//关闭弹出的子页面窗口
+                  }
+              }); 
+            return false;
+        });
+
+
+    });
+    
+    
+
+
+</script>
+</body>
+</html>

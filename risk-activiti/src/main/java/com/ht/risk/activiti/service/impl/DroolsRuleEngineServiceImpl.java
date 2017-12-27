@@ -37,7 +37,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         paramter.setData(senceData);
         LOGGER.info("DroolsRuleEngineServiceImpl service paramter:"+ JSON.toJSONString(paramter));
         RuleExcuteResult result = droolsRuleEngineInterface.excuteDroolsScene(paramter);
-        delegateExecution.setVariable("sence",result);
+        delegateExecution.setVariable(sence,result);
         LOGGER.info("###############策略"+sence+"规则运行结束！");
     }
 
