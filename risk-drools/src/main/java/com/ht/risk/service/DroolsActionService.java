@@ -21,4 +21,6 @@ public interface DroolsActionService {
      * @param result 结果集
      */
     void execute(RuleExecutionObject fact, RuleExecutionResult result);
+    
+    void statisResult(RuleExecutionResult result);
 }

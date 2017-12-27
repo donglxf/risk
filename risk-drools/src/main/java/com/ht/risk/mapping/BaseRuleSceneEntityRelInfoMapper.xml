@@ -9,7 +9,7 @@
         T.SCENE_ID,
         T.ENTITY_ID
         FROM
-        RULE_SCENE_ENTITY_REL T
+        rule_scene_entity_rel T
         WHERE
         1 = 1
         <if test="sceneId != null">
@@ -31,9 +31,9 @@
         E.IS_EFFECT,
         E.REMARK
         FROM
-        RULE_ENTITY_INFO E
-        INNER JOIN RULE_SCENE_ENTITY_REL SER ON E.ENTITY_ID = SER.ENTITY_ID
-        INNER JOIN RULE_SCENE_INFO S ON S.SCENE_ID = SER.SCENE_ID
+        rule_entity_info E
+        INNER JOIN rule_scene_entity_rel SER ON E.ENTITY_ID = SER.ENTITY_ID
+        INNER JOIN rule_scene_info S ON S.SCENE_ID = SER.SCENE_ID
         WHERE
         1 = 1
         AND E.IS_EFFECT = 1

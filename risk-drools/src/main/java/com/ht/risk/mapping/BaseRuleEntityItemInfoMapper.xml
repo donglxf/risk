@@ -17,7 +17,7 @@
         SELECT DISTINCT
             <include refid="BaseFindColumnSql"></include>
         FROM
-            RULE_ENTITY_ITEM_INFO T
+            rule_entity_item_info T
         WHERE 1=1
 
     </select>
@@ -25,7 +25,7 @@
         SELECT DISTINCT
         <include refid="BaseFindColumnSql"></include>
         FROM
-        RULE_ENTITY_ITEM_INFO T
+        rule_entity_item_info T
         WHERE 1=1
         AND T.ITEM_ID = #{id}
     </select>

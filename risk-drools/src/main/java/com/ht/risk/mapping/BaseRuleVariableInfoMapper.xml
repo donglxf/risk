@@ -15,7 +15,7 @@
                 T.CRE_TIME,
                 T.REMARK
             FROM
-                RULE_VARIABLE T
+                rule_variable T
             WHERE
                 1 = 1
             <choose>

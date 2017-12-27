@@ -14,7 +14,7 @@
                 T.CRE_TIME,
                 T.REMARK
             FROM
-                RULE_ACTION_INFO T
+                rule_action_info T
             WHERE
                 1 = 1
     </select>
@@ -31,10 +31,10 @@
         A.CRE_TIME,
         A.REMARK
         FROM
-        RULE_ACTION_INFO A
-        INNER JOIN RULE_ACTION_RULE_REL AR ON AR.ACTION_ID = A.ACTION_ID
-        INNER JOIN RULE_INFO R ON R.RULE_ID = AR.RULE_ID
-        INNER JOIN RULE_SCENE_INFO S ON S.SCENE_ID = R.SCENE_ID
+        rule_action_info A
+        INNER JOIN rule_action_rule_rel AR ON AR.ACTION_ID = A.ACTION_ID
+        INNER JOIN rule_info R ON R.RULE_ID = AR.RULE_ID
+        INNER JOIN rule_scene_info S ON S.SCENE_ID = R.SCENE_ID
         WHERE
         1 = 1
         AND A.IS_EFFECT = 1
@@ -62,8 +62,8 @@
                 A.CRE_TIME,
                 A.REMARK
             FROM
-                RULE_ACTION_INFO A
-            INNER JOIN RULE_ACTION_RULE_REL AR ON AR.ACTION_ID = A.ACTION_ID
+                rule_action_info A
+            INNER JOIN rule_action_rule_rel AR ON AR.ACTION_ID = A.ACTION_ID
             WHERE
                 1 = 1
             AND A.IS_EFFECT = 1
@@ -73,8 +73,8 @@
     <select id="findRuleActionCountByRuleIdAndActionType" resultType="java.lang.Integer">
         SELECT COUNT(1)
             FROM
-                RULE_ACTION_INFO A
-            INNER JOIN RULE_ACTION_RULE_REL AR ON AR.ACTION_ID = A.ACTION_ID
+                rule_action_info A
+            INNER JOIN rule_action_rule_rel AR ON AR.ACTION_ID = A.ACTION_ID
             WHERE
                 1 = 1
             AND A.IS_EFFECT = 1

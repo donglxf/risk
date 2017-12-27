@@ -14,7 +14,7 @@ public class BaseRuleActionParamInfo extends BaseModel {
     private String actionParamDesc;//参数描述
     private String paramIdentify;//标识
 
-    public Long getActionParamId() {
+	public Long getActionParamId() {
         return actionParamId;
     }
 
