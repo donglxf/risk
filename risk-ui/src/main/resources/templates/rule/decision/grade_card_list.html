@@ -199,6 +199,7 @@
         {{#  layui.each(rule.actionRels, function(j, action ){    }}
         <td>
             <a href="#" data-value="{{action.actionInfo.actionId}}" class="actionType">{{action.actionInfo.actionName}}</a>&nbsp;
+           {{action.actionInfo.paramValueInfoList}}
             {{#  layui.each(action.actionInfo.paramValueInfoList, function(m, actionVal){ }}
             <a href="#" class="actionVal" data-value="{{actionVal.paramValue}}" actionParamId = "{{actionVal.actionParamId}}">{{actionVal.paramValue}}</a>
             {{# }); }}
