@@ -17,7 +17,6 @@ import com.ht.risk.util.StringUtil;
 
 import javax.annotation.Resource;
 
-import static org.assertj.core.api.Assertions.linesOf;
 
 import java.util.List;
 import java.util.Map;
@@ -260,8 +259,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     	//传参
     	BaseRuleSceneInfo sceneInfo = new BaseRuleSceneInfo();
     	sceneInfo.setSceneIdentify(scene);
-    	List<BaseRuleEntityInfo> entityList = this.ruleSceneEntityRelService.findBaseRuleEntityListByScene(sceneInfo);
-    	logger.info("场景对应的实体个数为:{}", entityList.size());
+    	List<BaseRuleEntityInfo> entityList = null;//this.ruleSceneEntityRelService.findBaseRuleEntityListByScene(sceneInfo);
+    	//logger.info("场景对应的实体个数为:{}", entityList.size());
     	// 4.根据场景加载可用的规则信息
     	List<BaseRuleInfo> ruleList = this.ruleInfoService.findBaseRuleListByScene(sceneInfo);
     	logger.info("场景可用规则个数为:{}", ruleList.size());
@@ -608,7 +607,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                         implFlag = true;
                         ruleStr.append("_result.getMap().put(\"").append(paramInfo.getParamIdentify()).append("\",").append(realValue).append(");").append(lineSeparator);//map.put("key",value)
 //                        _result.setTotal(_result.getTotal()+8);
-                        ruleStr.append("_result").append(".").append("setTotal(_result.getTotal()+"+realValue+");").append(lineSeparator);
+                       // ruleStr.append("_result").append(".").append("setTotal(_result.getTotal()+"+realValue+");").append(lineSeparator);
                     } /*else {
                         ruleStr.append("$").append(action.getActionClazzIdentify()).append(".").
                                 append(RuleUtils.setMethodByProperty(paramInfo.getParamIdentify())).append("(").append(realValue).append(");").append(lineSeparator);
@@ -619,7 +618,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             // 7.拼接实现类接口
             if (implFlag) {
                 ruleStr.append("$action").append(".").append("execute").append("($fact,_result)").append(";").append(lineSeparator);
-                ruleStr.append("$action").append(".").append("statisResult(_result);").append(lineSeparator);
+                //ruleStr.append("$action").append(".").append("statisResult(_result);").append(lineSeparator);
             }
 
             //TODO 规则执行记录信息
