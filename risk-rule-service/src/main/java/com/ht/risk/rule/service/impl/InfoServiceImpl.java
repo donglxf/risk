@@ -108,7 +108,7 @@ public class InfoServiceImpl extends BaseServiceImpl<InfoMapper, Info> implement
             for (ActionRuleRel rel : actionRuleRels){
                 //删除所有相关的值得表
                 Wrapper<ActionParamValueInfo> actionParamValueInfoWrapper = new EntityWrapper<>();
-                actionRuleRelWrapper.eq("rule_action_rel_id",rel.getRuleActionRelId());
+                actionParamValueInfoWrapper.eq("rule_action_rel_id",rel.getRuleActionRelId());
                 actionParamValueInfoMapper.delete(actionParamValueInfoWrapper);
             }
             //删除 规则动作表

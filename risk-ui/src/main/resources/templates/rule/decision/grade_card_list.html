@@ -196,11 +196,10 @@
             <a href="#" data-value="{{con.val}}" class="val">{{con.val}}</a>
         </td>
         {{#  });  }}
-        {{#  layui.each(rule.actionRels, function(j, action ){    }}
+        {{#   layui.each(rule.actionRels, function(j, actions ){    }}
         <td>
-            <a href="#" data-value="{{action.actionInfo.actionId}}" class="actionType">{{action.actionInfo.actionName}}</a>&nbsp;
-           {{action.actionInfo.paramValueInfoList}}
-            {{#  layui.each(action.actionInfo.paramValueInfoList, function(m, actionVal){ }}
+            <a href="#" data-value="{{actions.actionInfo.actionId}}" class="actionType">{{actions.actionInfo.actionName}}</a>&nbsp;
+            {{#   layui.each(actions.actionInfo.paramValueInfoList, function(m, actionVal){ }}
             <a href="#" class="actionVal" data-value="{{actionVal.paramValue}}" actionParamId = "{{actionVal.actionParamId}}">{{actionVal.paramValue}}</a>
             {{# }); }}
         </td>

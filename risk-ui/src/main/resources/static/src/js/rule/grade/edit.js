@@ -184,7 +184,6 @@ function init(){
             if (!$.trim(value)) {
                 return '不能为空';
             }
-
             $(this).attr("data-value",value);
             setItemSelect(value,this);
             //触发变量的选择
@@ -306,7 +305,7 @@ function  dataActionInit() {
  * @param t
  */
 function setItemSelect(entityId,t){
-
+    console.log(entitys);   
     var items = [];
     for(var i=0;i<entitys.length;i++){
         var enid = entitys[i].value;
@@ -325,7 +324,6 @@ function setItemSelect(entityId,t){
         emptytext: "选择变量",       //空值的默认文本
         mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
         validate: function (value) { //字段验证
-
             if (!$.trim(value)) {
                 return '不能为空';
             }
