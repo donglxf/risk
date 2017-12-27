@@ -413,9 +413,7 @@ function getRuleList(){
             //结果
             else if(i < headLen-1){
                 var actionV = $(e).find("a.actionVal").attr("data-value");
-
                 var actionType = $(e).find("a.actionType").attr("data-value");
-
                 if(actionV == ''  ){
                     layer.msg('必选项不能为空');
                     return null;

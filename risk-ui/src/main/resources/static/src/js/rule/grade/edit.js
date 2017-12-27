@@ -313,7 +313,7 @@ function setItemSelect(entityId,t){
       //  console.log(enid);
         if(enid == entityId){
             items = entitys[i].sons;
-            console.log(entitys[i].sons);
+            //console.log(entitys[i].sons);
         }
     }
     //变量
@@ -421,13 +421,14 @@ function getRuleList(){
             //结果
             else if(i < headLen-1){
                 var actionV = $(e).find("a.actionVal").attr("data-value");
+                var actionType = $(e).find("a.actionType").attr("data-value");
                 if(actionV == ''  ){
                     layer.msg('必选项不能为空');
                     return null;
                 }
                var actionValInfo = {
                     //动作id参数Id
-                    actionParamId:'3',
+                    actionParamId:actionType,
                     //值
                     paramValue:actionV
                 };
@@ -475,7 +476,7 @@ function sub() {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (message) {
-            console.log(message);
+            //console.log(message);
             if(message.code == ''){
                 layer.msg("恭喜保存成功");
             }
@@ -493,7 +494,7 @@ $(function () {
     dataEntityInit();
     //动作
     dataActionInit();
-    console.log(actions);
+    //console.log(actions);
     // dataInit(sceneId);
     init();
 
