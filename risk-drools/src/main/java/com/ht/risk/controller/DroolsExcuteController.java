@@ -3,6 +3,7 @@ package com.ht.risk.controller;
 import com.alibaba.fastjson.JSON;
 import com.ht.risk.common.model.DroolsParamter;
 import com.ht.risk.common.model.Result;
+import com.ht.risk.common.model.RuleExcuteResult;
 import com.ht.risk.model.fact.RuleExecutionObject;
 import com.ht.risk.model.fact.RuleExecutionResult;
 import com.ht.risk.model.fact.TestRule;
@@ -23,8 +24,8 @@ public class DroolsExcuteController {
 
 
     @RequestMapping("/excuteDroolsScene")
-    public Result<RuleExecutionObject> excuteDroolsScene(@RequestBody DroolsParamter paramter){
-        Result<RuleExecutionObject> data = null;
+    public RuleExcuteResult excuteDroolsScene(@RequestBody DroolsParamter paramter){
+        RuleExcuteResult data = null;
         // 业务数据转化
         try {
             System.out.println(JSON.toJSONString(paramter));
@@ -39,10 +40,10 @@ public class DroolsExcuteController {
              RuleExecutionResult result = new RuleExecutionResult();
              object.setGlobal("_result",result);
              object = this.droolsRuleEngineService.excute(object,paramter.getSence());
-             data = Result.success(object);
+             data = new RuleExcuteResult(0,"",object);
         }catch (Exception e){
         	e.printStackTrace();
-            data = Result.error(1,"");
+            data = new RuleExcuteResult(1,"执行异常",null);
         }
         return data;
     }
