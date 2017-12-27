@@ -23,9 +23,20 @@ public class RuleController {
         return "rule/decision/scene";
     }
 
+    @RequestMapping(value = "decision/gradeList",method = RequestMethod.GET)
+    public String sceneGradeList(){
+        return "rule/decision/grade_card_list";
+    }
+
+
     @RequestMapping(value = "decision/scene/edit",method = RequestMethod.GET)
     public String sceneEdit(){
         return "rule/decision/scene_edit";
+    }
+
+    @RequestMapping(value = "decision/scene/gradeCardEdit",method = RequestMethod.GET)
+    public String gradeCardEdit(){
+        return "rule/decision/grade_card_edit";
     }
 
 }
