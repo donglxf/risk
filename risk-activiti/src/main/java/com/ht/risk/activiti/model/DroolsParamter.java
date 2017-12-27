@@ -1,8 +1,9 @@
 package com.ht.risk.activiti.model;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class DroolsParamter {
+public class DroolsParamter  implements Serializable {
 
 	
 	/**

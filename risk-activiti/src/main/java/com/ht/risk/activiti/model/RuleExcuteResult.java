@@ -2,7 +2,9 @@ package com.ht.risk.activiti.model;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class RuleExcuteResult {
+import java.io.Serializable;
+
+public class RuleExcuteResult implements Serializable {
 
 
     public RuleExcuteResult(){

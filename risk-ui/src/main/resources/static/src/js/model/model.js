@@ -44,7 +44,23 @@ layui.use(['table','jquery'], function(){
             });
         }
         else if(layEvent === 'start'){
-            $.ajax({
+
+            layer.closeAll();
+            var layIndex = layer.open({
+                type: 2,
+                shade: false,
+                title:"模型启动参数设置",
+                area: ['800px','400px'],
+                content: '/rule/ui/model/startView',
+                zIndex: layer.zIndex, //重点1
+                success: function(layero){
+                    layer.setTop(layero); //重点2
+                }
+            });
+
+
+
+            /*$.ajax({
                 cache : true,
                 type : "GET",
                 url : '/activiti/start?key=process',
@@ -60,7 +76,7 @@ layui.use(['table','jquery'], function(){
                         layer.msg(data.msg);
                     }
                 }
-            });
+            });*/
         }
         else if(layEvent === 'del'){ //删除
             layer.confirm('真的删除行么', function(index){
