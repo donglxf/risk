@@ -53,6 +53,9 @@ public class RuleInfoController {
     @Autowired
     private SceneEntityRelService sceneEntityRelService;
 
+    @Autowired
+    private EntityItemInfoService entityItemInfoService;
+
 
     @Autowired
     private ActionInfoService actionInfoService;
@@ -106,6 +109,58 @@ public class RuleInfoController {
         result.put("actionCounts",actionCounts);
         return Result.success(result);
     }
+
+    @GetMapping("getGradeCardAll")
+    @ApiOperation(value = "查询所有的规则")
+    public Result< Map<String ,Object >> getGradeCardAll(Long sceneId) throws  Exception{
+        Map<String ,Object > result = new HashMap<>();
+        //动作次数
+        int actionCounts = 0;
+        int itemHeads = 0;
+        SceneInfo sceneInfo = sceneInfoService.selectById(sceneId);
+        //获取该场景的规则
+        Wrapper<Info> wrapper = new EntityWrapper<>();
+        wrapper.eq("scene_id",sceneId);
+        List<Info> list = infoService.selectList(wrapper);
+        if(list == null || list.size() < 1){
+            return Result.error(-1,"暂无数据");
+        }
+        //获取实体类集合
+        List<EntityInfo> entityInfos = sceneEntityRelService.findBaseRuleEntityListByScene(sceneInfo);
+        //获取变量集合
+       // List<RuleItemTable> itemTables =  sceneItemRelService.findItemTables(sceneId);
+
+        //规则实际赋值
+        for (Info rule : list){
+            //条件
+            List<ConditionInfo> conts = conditionInfoService.findRuleConditionInfoByRuleId(rule.getRuleId()) ;
+            //转化
+            for (ConditionInfo conditionInfo : conts){
+                String itemIds = RuleUtils.getConditionParamBetweenChar(conditionInfo.getConditionExpression()).get(0);
+                //获取变量
+                RuleItemTable itemTable = entityItemInfoService.findRuleItemTableById(Long.parseLong(itemIds));
+                conditionInfo.setItemTable(itemTable);
+                //设置运算符
+                conditionInfo.setYsf(RuleUtils.getCondition(conditionInfo.getConditionExpression(),conditionInfo.getVal()));
+                //设置中文名 运算符
+                conditionInfo.setYsfText(RuleUtils.getCondition(conditionInfo.getConditionDesc(),conditionInfo.getVal()));
+            }
+            // 动作集合
+            //   List<ActionInfo> actionInfos = actionInfoService.findRuleActionListByRule(rule.getRuleId());
+            //获取 动作中间表和相关的动作信息及参数信息，及值
+            List<ActionRuleRel> rels = actionRuleRelService.findActionVals(rule.getRuleId());
+            actionCounts = rels.size();
+            rule.setCons(conts);
+            rule.setActionRels(rels);
+            itemHeads = conts.size();
+        }
+        // result.put("entityInfos",entityInfos);
+        result.put("itemHeads",itemHeads);
+        result.put("rules",list);
+        //动作个数
+        result.put("actionCounts",actionCounts);
+        return Result.success(result);
+    }
     @PostMapping("save")
     @ApiOperation(value = "规则保存")
     @Transactional(rollbackFor = RuntimeException.class)
@@ -116,6 +171,8 @@ public class RuleInfoController {
         List<String > items = ruleFormVo.getItemVals();
         //去重复
         entityS = StringUtil.removeRe(entityS);
+        items = StringUtil.removeRe(items);
+
         long creUid = 111;
         //先清除 规则 ，及相关联的值
         infoService.clearBySceneId(sceneId);

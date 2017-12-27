@@ -190,6 +190,13 @@ function init(){
             //触发变量的选择
         }
     });
+    //初始化 变量
+    $(".entityC").each(function () {
+        var entityId = $(this).attr("data-value");
+        if(entityId != '' && entityId != undefined){
+            setItemSelect(entityId,this);
+        }
+    });
     //条件类型
     $('.con').editable({
         type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
@@ -406,13 +413,16 @@ function getRuleList(){
             //结果
             else if(i < headLen-1){
                 var actionV = $(e).find("a.actionVal").attr("data-value");
+
+                var actionType = $(e).find("a.actionType").attr("data-value");
+
                 if(actionV == ''  ){
                     layer.msg('必选项不能为空');
                     return null;
                 }
                var actionValInfo = {
                     //动作id参数Id
-                    actionParamId:'3',
+                    actionParamId:actionType,
                     //值
                     paramValue:actionV
                 };

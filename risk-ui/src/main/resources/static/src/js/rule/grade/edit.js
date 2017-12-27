@@ -190,6 +190,13 @@ function init(){
             //触发变量的选择
         }
     });
+    //初始化 变量
+    $(".entityC").each(function () {
+       var entityId = $(this).attr("data-value");
+       if(entityId != '' && entityId != undefined){
+           setItemSelect(entityId,this);
+       }
+    });
     //条件类型
     $('.con').editable({
         type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
@@ -360,19 +367,19 @@ var entityIds = [];
 function headItem() {
      itemVals = [];
      itemTexts = [];
-    $("#table>thead>tr>th a.itemC").each(function () {
+ /*   $("#table>thead>tr>th a.itemC").each(function () {
         itemVals.push($(this).data('value'));
         itemTexts.push($(this).text());
     });
     $("#table>thead>tr>th a.entityC").each(function () {
         entityIds.push($(this).attr('data-value'));
-    });
+    });*/
 
 
     return itemVals;
 }
 function getRuleList(){
-    var len = itemVals.length;
+    var len = $("#table>thead>tr>th.contion").length;
     var subForms = [];
    var  headLen =  $("#table>thead>tr>th").length;
     $("#table>tbody>tr").each(function () {
@@ -389,6 +396,7 @@ function getRuleList(){
             if(i < len){
                 //拼条件 的变量 ，运算符 ，值
                 var itemv = $(e).find("a.itemC").attr("data-value");
+                var entitId = $(e).find("a.entityC").attr("data-value");
                 var itemText = $(e).find("a.itemC").text();
 
                 var ysf = $(e).find("a.con").attr("data-value");
@@ -406,6 +414,8 @@ function getRuleList(){
                //变量值设置
                 itemVals.push(itemv);
                 itemTexts.push(itemText);
+                //实体类
+                entityIds.push(entitId);
                 conditionInfos.push(conditionInfo);
             }
             //结果
@@ -437,12 +447,11 @@ function getRuleList(){
  */
 function sub() {
 
-    var itemVal = headItem();
-    console.info('条件值：'+itemVal);
+  //  var itemVal = headItem();
     //获取
     var subForms = getRuleList();
     console.info(subForms);
-    if(sceneId == ''){
+    if(sceneId == '' || sceneId == undefined){
         layer.msg("必须选中一个场景哦");
         return;
     }

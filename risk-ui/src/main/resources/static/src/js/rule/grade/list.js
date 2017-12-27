@@ -147,7 +147,7 @@ layui.use(['table','form','laytpl'], function() {
     });
 
     function getRuleData(sceneId) {
-        $.get('/rule/service/rule/getAll',{'sceneId':sceneId},function(data){
+        $.get('/rule/service/rule/getGradeCardAll',{'sceneId':sceneId},function(data){
             console.log(data);
             if(data.code == '0'){
                 var result = data.data;
