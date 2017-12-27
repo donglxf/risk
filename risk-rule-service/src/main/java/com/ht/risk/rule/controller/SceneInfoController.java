@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
-import com.ht.risk.rule.entity.EntityInfo;
 import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.rule.service.InfoService;
 import com.ht.risk.rule.service.SceneInfoService;
@@ -41,13 +40,14 @@ public class SceneInfoController {
 
     @GetMapping("page")
     @ApiOperation(value = "分页查询")
-    public PageResult<List<SceneInfo>> page(String key , Integer page , Integer limit){
+    public PageResult<List<SceneInfo>> page(String key , Integer sceneType,Integer page , Integer limit){
         Wrapper<SceneInfo> wrapper = new EntityWrapper<>();
         if(StringUtils.isNotBlank(key)){
             wrapper.like("scene_name",key);
             wrapper.or().like("scene_desc",key);
             wrapper.or().like("scene_identify",key);
         }
+        wrapper.eq("scene_type",sceneType);
         Page<SceneInfo> pages = new Page<>();
         pages.setCurrent(page);
         pages.setSize(limit);
