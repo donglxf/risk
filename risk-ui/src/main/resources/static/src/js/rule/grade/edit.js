@@ -150,6 +150,7 @@ function init(){
         disabled: false,             //是否禁用编辑
         emptytext: "空文本",          //空值的默认文本
         mode: "popup",              //编辑框的模式：支持popup和inline两种模式，默认是popup
+        onblur:"submit",         //取消的时候 提交
         validate: function (value) { //字段验证
             if (!$.trim(value)) {
                 return '不能为空';
@@ -163,6 +164,7 @@ function init(){
         disabled: false,             //是否禁用编辑
         emptytext: "空文本",          //空值的默认文本
         mode: "popup",              //编辑框的模式：支持popup和inline两种模式，默认是popup
+        onblur:"submit",         //取消的时候 提交
         validate: function (value) { //字段验证
             if (!$.trim(value)) {
                 return '不能为空';
@@ -180,11 +182,16 @@ function init(){
         disabled: false,           //是否禁用编辑
         emptytext: "选择对象",       //空值的默认文本
         mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+        onblur:"submit",         //取消的时候 提交
         validate: function (value) { //字段验证
             if (!$.trim(value)) {
                 return '不能为空';
             }
             $(this).attr("data-value",value);
+
+            $(this).parent().find(".itemC").text("请选择");
+            $(this).parent().find(".itemC").attr("data-value","");
+
             setItemSelect(value,this);
             //触发变量的选择
         }
@@ -204,6 +211,7 @@ function init(){
         disabled: false,           //是否禁用编辑
         emptytext: "选择条件",       //空值的默认文本
         mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+        onblur:"submit",         //取消的时候 提交
         validate: function (value) { //字段验证
             if (!$.trim(value)) {
                 return '不能为空';
@@ -226,6 +234,7 @@ function init(){
         disabled: false,           //是否禁用编辑
         emptytext: "动作类型",       //空值的默认文本
         mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+        onblur:"submit",         //取消的时候 提交
         validate: function (value) { //字段验证
             if (!$.trim(value)) {
                 return '不能为空';
@@ -315,6 +324,8 @@ function setItemSelect(entityId,t){
             //console.log(entitys[i].sons);
         }
     }
+
+    $(t).parent().find(".itemC").editable('destroy');
     //变量
     $(t).parent().find(".itemC").editable({
         type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
@@ -323,6 +334,7 @@ function setItemSelect(entityId,t){
         disabled: false,           //是否禁用编辑
         emptytext: "选择变量",       //空值的默认文本
         mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+        onblur:"submit",
         validate: function (value) { //字段验证
             if (!$.trim(value)) {
                 return '不能为空';
