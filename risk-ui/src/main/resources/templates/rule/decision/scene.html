@@ -193,13 +193,7 @@
         {{#  layui.each(rule.cons, function(i, con){    }}
         <td>
             <a href="#" data-value="{{con.ysf}}" class="con">{{con.ysfText}}</a>&nbsp;
-
-            {{# if(con.ysf == '===' || {{con.ysfText}} == '忽略') {   }}
-            <a href="#" data-value="{{con.val}}" class="val"></a>
-            {{#  } }}
-            {{# if(con.ysf != '===') {   }}
             <a href="#" data-value="{{con.val}}" class="val">{{con.val}}</a>
-            {{#  } }}
         </td>
         {{#  });  }}
         {{#  layui.each(rule.actionRels, function(j, action ){    }}
