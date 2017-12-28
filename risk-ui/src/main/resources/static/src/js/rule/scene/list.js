@@ -102,6 +102,20 @@ layui.use(['table','form','laytpl'], function() {
         , page: true //开启分页
         , id: scene.tableId
         , cols: [scene.cols()]
+        ,done: function(res, curr, count){
+            //如果是异步请求数据方式，res即为你接口返回的信息。
+            //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+            if(res.data.length > 0){
+                //设置默认
+                sceneId = res.data[0].sceneId;
+                getRuleData(sceneId);
+            }
+            //getRuleData(sceneId);
+            //得到当前页码
+            console.log(curr);
+            //得到数据总量
+            console.log(count);
+        }
     });
     //重载
     //这里以搜索为例
@@ -147,6 +161,14 @@ layui.use(['table','form','laytpl'], function() {
     });
 
     function getRuleData(sceneId) {
+      //  var index = layer.load(2);
+        var index =   layer.msg("数据加载中", {
+                icon: 16,
+              //   offset: [ "80px", e.elem.offset().left + e.elem.width() / 2 - 90 - T.scrollLeft() + "px"],
+                time: -1,
+                anim: -1,
+                fixed: !1
+            })
         $.get('/rule/service/rule/getAll',{'sceneId':sceneId},function(data){
             console.log(data);
             if(data.code == '0'){
@@ -167,6 +189,7 @@ layui.use(['table','form','laytpl'], function() {
                 init();
                 //layer.msg("数据异常");
             }
+            layer.close(index);
         },'json');
         
     }
