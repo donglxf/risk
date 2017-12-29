@@ -9,10 +9,12 @@ spring:
 server:
     port: 8765 #启动端口
 
+
 zuul:
   #prefix: /techouse #为zuul设置一个公共的前缀
   #ignoredServices: '*'
   routes:
+
     admin-ui:
       path: /admin/** #匹配/techouse/usersystem/** 均路由到cloud-client
     admin-service:
@@ -25,6 +27,8 @@ zuul:
       path: /activiti/**
     risk-drools:
       path: /drools/**
+  host:
+    connect-timeout-millis: 6000
 
 ribbon:
   eureka:

@@ -4,8 +4,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -155,23 +157,25 @@ public class ActivitiController implements ModelDataJsonConstants {
 		}
 		return data;
 	}
-	@GetMapping(value = "/start")
-	public Result startHireProcess(String key,String name,String age,String type,String sex,String marry) throws Exception {
+	@RequestMapping(value = "/start")
+	public Result startHireProcess(@RequestParam Map<String,String> paramter) throws Exception {
 		LOGGER.info("###############模型执行开始");
+		LOGGER.info("###############模型执行参数："+ JSON.toJSONString(paramter));
 		Result<String> data = null;
 		try{
-			Map<String, Object> ruleData = new HashMap<String, Object>();
-			ruleData.put("name",name);
-			ruleData.put("age",age);
-			ruleData.put("type",type);
-			ruleData.put("sex",sex);
-			ruleData.put("marry",marry);
-			Map<String, Object> paramterMap = new HashMap<String, Object>();
-			paramterMap.put("senceData",ruleData);
-			//JSON.parseObject(ruleData, Map.class);
-			LOGGER.info("###############模型执行参数："+ JSON.toJSONString(ruleData));
-			ProcessInstance instance = runtimeService.startProcessInstanceByKey(key,paramterMap);
-			data = Result.success(instance.getProcessInstanceId());
+			if(paramter != null){
+				String instanceByKey = paramter.get("key");
+				if(StringUtils.isNotEmpty(instanceByKey)){
+					paramter.remove("key");
+					Map<String, Object> paramterMap = new HashMap<String, Object>();
+					paramterMap.put("senceData",paramter);
+					LOGGER.info("###############模型执行参数："+ JSON.toJSONString(paramter));
+					ProcessInstance instance = runtimeService.startProcessInstanceByKey(instanceByKey,paramterMap);
+					data = Result.success(instance.getProcessInstanceId());
+					return data;
+				}
+			}
+			data = Result.error(1, "参数异常");
 		}catch (Exception e) {
 			logger.error("启动模型失败：", e);
 			data = Result.error(1,"启动模型失败");

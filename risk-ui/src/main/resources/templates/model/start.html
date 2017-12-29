@@ -12,7 +12,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-block">
-                <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="姓名"
+                <input type="text" name="name" lay-verify="required" value="zhangsan" autocomplete="off" placeholder="姓名"
                        class="layui-input">
             </div>
         </div>
@@ -20,25 +20,43 @@
             <label class="layui-form-label">性别</label>
             <div class="layui-input-block">
                 <select name="sex" lay-verify="">
-                    <option value="01">男【01】</option>
-                    <option value="02">女【02】</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">年龄</label>
             <div class="layui-input-block">
-                <input type="text" name="age" lay-verify="required" autocomplete="off" placeholder="年龄"
+                <input type="text" name="age" lay-verify="required" value="23" autocomplete="off" placeholder="年龄"
                        class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">楼龄</label>
+            <div class="layui-input-block">
+                <input type="text" name="hourseAge" lay-verify="required" autocomplete="off" placeholder="年龄"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">抵押物、户籍、工作地一致性</label>
+            <div class="layui-input-block">
+                <select name="adress" lay-verify="">
+                    <option value="一致">一致</option>
+                    <option value="任意两个一致">任意两个一致</option>
+                    <option value="不一致">不一致</option>
+                    <option value="海外">海外</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">婚姻状态</label>
             <div class="layui-input-block">
                 <select name="marry" lay-verify="">
-                    <option value="01">已婚、再婚【01】</option>
-                    <option value="02">单身、丧偶【02】</option>
-                    <option value="03">离异【03】</option>
+                    <option value="已婚">已婚</option>
+                    <option value="单身">单身</option>
+                    <option value="离异">离异</option>
                 </select>
             </div>
         </div>
@@ -46,13 +64,13 @@
             <label class="layui-form-label">抵押物类型</label>
             <div class="layui-input-block">
                 <select name="type" lay-verify="">
-                    <option value="001">集体用地【001】</option>
-                    <option value="002">宅基地【002	】</option>
-                    <option value="003">性质为租赁【003】</option>
-                    <option value="004">工业用地【004】</option>
-                    <option value="005">公共管理与公共服务设施用地【005】</option>
-                    <option value="006">普通住宅【006】</option>
-                    <option value="007">别墅【007】</option>
+                    <option value="集体用地">集体用地</option>
+                    <option value="宅基地">宅基地</option>
+                    <option value="性质为租赁">性质为租赁</option>
+                    <option value="工业用地">工业用地</option>
+                    <option value="公共管理与公共服务设施用地">公共管理与公共服务设施用地【005】</option>
+                    <option value="普通住宅">普通住宅</option>
+                    <option value="别墅">别墅</option>
                 </select>
             </div>
         </div>
@@ -90,7 +108,7 @@
         form.on('submit(formDemo)', function(data){
             $.ajax({
                 cache : true,
-                type : "GET",
+                type : "POST",
                 url : '/activiti/start?key=process',
                 timeout : 6000, //超时时间设置，单位毫秒
                 data : data.field,// 你的formid

@@ -182,5 +182,6 @@
 		
 		<module>risk-drools</module>
 		<module>risk-activiti</module>
+		<module>risk-esper</module>
 	</modules>
 </project>
