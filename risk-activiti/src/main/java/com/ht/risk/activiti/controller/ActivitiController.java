@@ -158,7 +158,7 @@ public class ActivitiController implements ModelDataJsonConstants {
 		return data;
 	}
 	@RequestMapping(value = "/start")
-	public Result startHireProcess(@RequestParam Map<String,String> paramter) throws Exception {
+	public Result startProcess(@RequestParam Map<String,String> paramter) throws Exception {
 		LOGGER.info("###############模型执行开始");
 		LOGGER.info("###############模型执行参数："+ JSON.toJSONString(paramter));
 		Result<String> data = null;
@@ -182,7 +182,6 @@ public class ActivitiController implements ModelDataJsonConstants {
 		}
 		LOGGER.info("###############模型执行结束");
 		return data;
-
 	}
 
 
