@@ -9,6 +9,7 @@ import com.ht.risk.model.BaseRuleSceneInfo;
 import com.ht.risk.service.RuleInfoService;
 import com.ht.risk.util.StringUtil;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,7 +25,7 @@ import java.util.List;
 @Service
 public class RuleInfoServiceImpl implements RuleInfoService {
 
-    @Resource
+    @Autowired
     private BaseRuleInfoMapper baseRuleInfoMapper;
 
     /**
