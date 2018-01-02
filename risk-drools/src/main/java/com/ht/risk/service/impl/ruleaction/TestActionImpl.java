@@ -28,16 +28,29 @@ public class TestActionImpl implements DroolsActionService {
      * @param result 结果集
      */
     @Override
-    public void execute(RuleExecutionObject fact, RuleExecutionResult result) {
+    public void execute(RuleExecutionObject fact, RuleExecutionResult result,String key) {
     	//遍历map信息
         for (Map.Entry<String, Object> entry : result.getMap().entrySet()) {
             System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
         }
         
-        Map<String,Object> t = (Map<String,Object>) fact.getFactObjectList().get(0);
-        for(Map.Entry<String, Object> item:t.entrySet()){
-        	System.out.println(item.getKey()+">>>>"+item.getValue());
+        int scope=0;
+        Object total= result.getMap() .get("scope");
+        if(null != total){
+        	scope=Integer.parseInt(String.valueOf(total));
         }
+        Object val = result.getMap().get(key);
+        if(null != val){
+        	scope += Integer.parseInt(String.valueOf(val));
+        }
+        result.getMap().put("scope", scope);
+        
+        System.out.println("总得分>>>>>>>>::"+result.getMap().get("scope"));
+        
+//        Map<String,Object> t = (Map<String,Object>) fact.getFactObjectList().get(0);
+//        for(Map.Entry<String, Object> item:t.entrySet()){
+//        	System.out.println(item.getKey()+">>>>"+item.getValue());
+//        }
     }
 
 	@Override

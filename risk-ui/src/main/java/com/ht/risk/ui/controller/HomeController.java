@@ -35,6 +35,21 @@ public class HomeController {
     public String ruleEntity(){
         return "rule/rule_entity";
     }
+    
+    @RequestMapping(value = "rule/constant",method = RequestMethod.GET)
+    public String ruleConstant(){
+    	return "rule/constant/rule_constant";
+    }
+    
+    @RequestMapping(value = "rule/constant/edit",method = RequestMethod.GET)
+    public String ruleConstantEdit(){
+    	return "rule/constant/rule_constant_edit";
+    }
+    
+    @RequestMapping(value = "rule/constant/itemEdit",method = RequestMethod.GET)
+    public String ruleConstantItemEdit(){
+    	return "rule/constant/rule_constant_item_edit";
+    }
 
     @RequestMapping(value = "rule/entity/edit",method = RequestMethod.GET)
     public String ruleEntityEdit(){

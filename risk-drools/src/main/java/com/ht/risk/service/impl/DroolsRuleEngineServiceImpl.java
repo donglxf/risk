@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.ht.risk.constant.DroolsConstant;
 import com.ht.risk.model.*;
 import com.ht.risk.model.fact.RuleExecutionObject;
 import com.ht.risk.service.*;
@@ -71,14 +72,14 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         try {
             //获取ksession
             KieSession ksession = DroolsUtil.getInstance().getDrlSessionInCache(scene);
-           /* if (ksession != null) {
+           if (ksession != null) {
                 //直接执行
                 return executeRuleEngine(ksession, ruleExecutionObject, scene);
             } else {
                 //重新编译规则，然后执行
                 return compileRule(ruleExecutionObject, scene);
-            }*/
-            return compileRule(ruleExecutionObject, scene);
+            }
+//            return compileRule(ruleExecutionObject, scene);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage(), e);
@@ -242,31 +243,22 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     	//拼接规则脚本
     	StringBuffer droolRuleStr = new StringBuffer();
     	logger.info("===================重新拼接规则串======================");
-    	// 1.引入包路径
-    	droolRuleStr.append("package com.drools.rules").append("").append(lineSeparator);
-    	// 2.引入global全局对象
-    	// TODO 暂时只设定一个
-    	droolRuleStr.append("import com.ht.risk.model.fact.RuleExecutionResult").append("").append(lineSeparator);
-    	droolRuleStr.append("global RuleExecutionResult _result").append("").append(lineSeparator);
+    	// 1.引入包路径 、上下文对象、global全局对象
+    	droolRuleStr.append(DroolsConstant.PACKAGE).append(" ").append(DroolsConstant.PACKAGE_NAME).append(lineSeparator);
+    	droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(DroolsConstant.RULE_EXECUTIONR_RESULT).append("").append(lineSeparator);
+    	droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(DroolsConstant.RULE_EXECUTION_OBJECT).append("").append(lineSeparator);
+    	droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(DroolsConstant.DROOLS_ACTION_SERVICE).append("").append(lineSeparator);
+    	droolRuleStr.append(DroolsConstant.GLOBAL).append(" ").append(DroolsConstant.GLOBAL_VARIABLE).append(" ").append(DroolsConstant.GLOBAL_VARIABLE_NAME) .append("").append(lineSeparator);
     	// 2.导入基本类
-        droolRuleStr.append("import").append(" ").append("java.lang.String").append("").append(lineSeparator);
-        droolRuleStr.append("import").append(" ").append("java.util.Map").append("").append(lineSeparator);
-        droolRuleStr.append("import").append(" ").append("java.util.List").append("").append(lineSeparator);
+        droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(DroolsConstant.String).append("").append(lineSeparator);
+        droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(DroolsConstant.MAP).append("").append(lineSeparator);
+        droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(DroolsConstant.LIST).append("").append(lineSeparator);
         
-        //将 RuleExecutionObject 也引入进来
-        droolRuleStr.append("import com.ht.risk.model.fact.RuleExecutionObject").append("").append(lineSeparator);
-        droolRuleStr.append("import com.ht.risk.service.DroolsActionService").append("").append(lineSeparator);
-    	// 3.引入实体信息（根据场景获取相关的实体信息）
-    	//传参
     	BaseRuleSceneInfo sceneInfo = new BaseRuleSceneInfo();
     	sceneInfo.setSceneIdentify(scene);
-    	List<BaseRuleEntityInfo> entityList = null;//this.ruleSceneEntityRelService.findBaseRuleEntityListByScene(sceneInfo);
-    	//logger.info("场景对应的实体个数为:{}", entityList.size());
     	// 4.根据场景加载可用的规则信息
     	List<BaseRuleInfo> ruleList = this.ruleInfoService.findBaseRuleListByScene(sceneInfo);
     	logger.info("场景可用规则个数为:{}", ruleList.size());
-    	// 5.根据实体信息先组合drools的import语句
-//    	droolRuleStr = this.insertImportInfo(droolRuleStr, entityList, sceneInfo);
     	// 6.遍历并拼出每个规则的执行drools串
     	for (BaseRuleInfo ruleInfo : ruleList) {
     		StringBuffer ruleTemp;
@@ -274,19 +266,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     		droolRuleStr.append(ruleTemp);
     	}
     	
-//    	droolRuleStr.append(lineSeparator).append("rule abc").append(lineSeparator);
-//    	droolRuleStr.append(lineSeparator).append("no-loop true");
-//    	droolRuleStr.append(lineSeparator).append("lock-on-active true");
-//    	droolRuleStr.append(lineSeparator).append("when").append(lineSeparator);
-//    	droolRuleStr.append(lineSeparator).append("eval(true)").append(lineSeparator);
-//    	droolRuleStr.append(lineSeparator).append("$action:DroolsActionService()").append(lineSeparator);
-//    	droolRuleStr.append(lineSeparator).append("then").append(lineSeparator);
-//    	droolRuleStr.append(lineSeparator).append("$action.statisResult(_result);").append(lineSeparator);
-//    	droolRuleStr.append(lineSeparator).append("end").append(lineSeparator);
-    	
-    	
     	logger.info(lineSeparator + "===========================规则串================================" + lineSeparator);
-//        logger.info(droolRuleStr.toString());
     	System.out.println(droolRuleStr.toString());
     	logger.info(lineSeparator + "===========================规则串================================" + lineSeparator);
     	// 7.初始化drools，将实体对象扔进引擎
@@ -353,14 +333,9 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     private StringBuffer insertRuleCondition(StringBuffer ruleStr, BaseRuleInfo ruleInfo) throws Exception {
         // 1.拼接when
         ruleStr.append(lineSeparator).append("when").append(lineSeparator);
-        //参数
-        ruleStr.append(lineSeparator).append("$fact:RuleExecutionObject()").append(lineSeparator);
-        // 2.拼接实现类的动作条件(如果有实现类的动作，此处拼接动作接口)
-        Integer count = this.ruleActionService.findRuleActionCountByRuleIdAndActionType(ruleInfo.getRuleId());
-        if (count > 0) {
-            ruleStr.append("$action").append(":").append("DroolsActionService()").append(lineSeparator);
-        }
-        // 3.根据规则id获取条件信息
+        ruleStr.append(lineSeparator).append(DroolsConstant.CONDITION_FACT).append(":").append(DroolsConstant.CONDITION_FACT_VALUE) .append(lineSeparator);
+        ruleStr.append(DroolsConstant.CONDITION_ACTION).append(":").append(DroolsConstant.CONDITION_ACTION_VALUE).append(lineSeparator);
+
         List<BaseRuleConditionInfo> conList = this.ruleConditionService.findRuleConditionInfoByRuleId(ruleInfo.getRuleId());
         //如果没有找到条件信息，则默认永远满足
         if (StringUtil.listIsNotNull(conList)) {
@@ -384,69 +359,29 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      */
     private StringBuffer insertRuleConditionFromList(StringBuffer ruleStr, List<BaseRuleConditionInfo> conList) throws Exception {
 
-        //只保存条件内容
         StringBuilder sb = new StringBuilder();
         //实体id
         Long entityId = null;
-        //默认或的关系
         String relation = "&&";
-        String expression=null;
-        //TODO 暂时先按照多个条件处理（目前只实现&&关系条件）
         for (int c = 0; c < conList.size(); c++) {
             BaseRuleConditionInfo conditionInfo = conList.get(c);
-            //表达式
-            expression = conditionInfo.getConditionExpression();
-//            String[] expressionArr=null;
-//            boolean contain=false; // 是否包含多条件
-//            for(int i =0 ;i<conditionArr.length; i++){ // 判断表达式是否包含数组元素
-//            	if(expression.contains(conditionArr[i])){
-//            		expressionArr=expression.split(conditionArr[i]);
-//            		contain=true;
-//            		break;
-//            	}
-//            }
-//            if (contain) {
-//    			for(int j=0;j<expressionArr.length;j++){
-//        			String express=expressionArr[j];
-//        			//先处理==、>=、<=、>、<、！=后面的变量
-//                	String conditionVariable = RuleUtils.getConditionOfVariable(express);
-//                	//如果是字符串，则拼接 单引号
-//                	if (!RuleUtils.checkStyleOfString(conditionVariable)) {
-//                		expression = expression.replace(conditionVariable, "'" + conditionVariable + "'");
-//                	}
-//                	// 1.获取条件参数（比如：$21$ ，21 代表实体属性表id）
-//                	List<String> list = RuleUtils.getConditionParamBetweenChar(express);
-//                	//TODO 目前只会有一条
-//                	for (String itemId : list) {
-//                		// 2.根据itemId获取实体属性信息
-//                		BaseRuleEntityItemInfo itemInfo = this.ruleEntityItemService.findBaseRuleEntityItemInfoById(Long.valueOf(itemId));
-//                		if (null == entityId || !entityId.equals(itemInfo.getEntityId())) {
-//                			entityId = itemInfo.getEntityId();
-//                		}
-//                		// 3.拼接属性字段（例如：$21$ > 20 替换成 age > 20）
-//                		expression = expression.replace("$" + itemId + "$", "this[\""+ itemInfo.getItemIdentify()+"\"]");
-//                	}
-//    			}
-//            }else{
-            	//先处理==、>=、<=、>、<、！=后面的变量
-            	String conditionVariable = RuleUtils.getConditionOfVariable(expression);
-            	//如果是字符串，则拼接 单引号
-            	if (!RuleUtils.checkStyleOfString(conditionVariable)) {
-            		expression = expression.replace(conditionVariable, "'" + conditionVariable + "'");
-            	}
-            	// 1.获取条件参数（比如：$21$ ，21 代表实体属性表id）
-            	List<String> list = RuleUtils.getConditionParamBetweenChar(conditionInfo.getConditionExpression());
-            	//TODO 目前只会有一条
-            	for (String itemId : list) {
-            		// 2.根据itemId获取实体属性信息
-            		BaseRuleEntityItemInfo itemInfo = this.ruleEntityItemService.findBaseRuleEntityItemInfoById(Long.valueOf(itemId));
-            		if (null == entityId || !entityId.equals(itemInfo.getEntityId())) {
-            			entityId = itemInfo.getEntityId();
-            		}
-            		// 3.拼接属性字段（例如：$21$ > 20 替换成 age > 20）
-            		expression = expression.replace("$" + itemId + "$", "this[\""+ itemInfo.getItemIdentify()+"\"]");
-            	}
-//            }
+            String expression = conditionInfo.getConditionExpression();
+        	//获取 ==、>=、<=、>、<、！=后面的变量
+        	String conditionVariable = RuleUtils.getConditionOfVariable(expression);
+        	if (!RuleUtils.checkStyleOfString(conditionVariable)) {
+        		expression = expression.replace(conditionVariable, "'" + conditionVariable + "'");
+        	}
+        	// 1.获取条件参数（比如：$21$ ，21 代表实体属性表id）
+        	List<String> list = RuleUtils.getConditionParamBetweenChar(conditionInfo.getConditionExpression());
+        	for (String itemId : list) {
+        		// 2.根据itemId获取实体属性信息
+        		BaseRuleEntityItemInfo itemInfo = this.ruleEntityItemService.findBaseRuleEntityItemInfoById(Long.valueOf(itemId));
+        		if (null == entityId || !entityId.equals(itemInfo.getEntityId())) {
+        			entityId = itemInfo.getEntityId();
+        		}
+        		// 3.拼接属性字段（例如：$21$ > 20 替换成 age > 20）
+        		expression = expression.replace("$" + itemId + "$", "this[\""+ itemInfo.getItemIdentify()+"\"]");
+        	}
             
             //如果是最后一个，则不拼接条件之间关系
             if (c == conList.size() - 1) {
@@ -459,8 +394,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
 
         //获取实体
         BaseRuleEntityInfo entityInfo = this.ruleEntityService.findBaseRuleEntityInfoById(entityId);
-        // 5.拼接实体类,完成条件拼接（例如：$User( age > 20 && sex==1) ）
-        ruleStr.append("$map").append(":").append("Map(").append(sb.toString()) .append(")").append(lineSeparator);
+        // 5.拼接map 条件（例如：$map(this["age"]>10) ）
+        ruleStr.append(DroolsConstant.CONDITION_MAP).append(":").append("Map(").append(sb.toString()) .append(")").append(lineSeparator);
 
         return ruleStr;
     }
@@ -533,7 +468,6 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param ruleInfo 规则
      */
     private StringBuffer insertRuleActionInfo(StringBuffer ruleStr, BaseRuleInfo ruleInfo) throws Exception {
-        // 1.拼接then
         ruleStr.append(lineSeparator).append("then").append(lineSeparator);
         // 2.根据规则获取动作信息
         List<BaseRuleActionInfo> actionList = this.ruleActionService.findRuleActionListByRule(ruleInfo.getRuleId());
@@ -547,7 +481,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             //临时动作对象
             BaseRuleActionInfo action;
             //动作参数对象
-            BaseRuleActionParamInfo paramInfo;
+            BaseRuleActionParamInfo paramInfo=null;
             //动作参数值
             BaseRuleActionParamValueInfo paramValue;
             // 3.循环处理每一个动作
@@ -606,9 +540,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                     //如果是实现类动作，则把参数放到全局变量 _result map里
                     if (action.getActionType() == 1) {
                         implFlag = true;
-                        ruleStr.append("_result.getMap().put(\"").append(paramInfo.getParamIdentify()).append("\",").append(realValue).append(");").append(lineSeparator);//map.put("key",value)
-//                        _result.setTotal(_result.getTotal()+8);
-                       // ruleStr.append("_result").append(".").append("setTotal(_result.getTotal()+"+realValue+");").append(lineSeparator);
+                        ruleStr.append(DroolsConstant.GLOBAL_VARIABLE_NAME+".getMap().put(\"").append(paramInfo.getParamIdentify()).append("\",").append(realValue).append(");").append(lineSeparator);
                     } /*else {
                         ruleStr.append("$").append(action.getActionClazzIdentify()).append(".").
                                 append(RuleUtils.setMethodByProperty(paramInfo.getParamIdentify())).append("(").append(realValue).append(");").append(lineSeparator);
@@ -618,12 +550,10 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
 
             // 7.拼接实现类接口
             if (implFlag) {
-                ruleStr.append("$action").append(".").append("execute").append("($fact,_result)").append(";").append(lineSeparator);
-                //ruleStr.append("$action").append(".").append("statisResult(_result);").append(lineSeparator);
+                ruleStr.append(DroolsConstant.CONDITION_ACTION).append(".").append(DroolsConstant.EXECUTE_METHOD).
+                append("("+DroolsConstant.CONDITION_FACT+","+DroolsConstant.GLOBAL_VARIABLE_NAME+",").append("\""+paramInfo.getParamIdentify()+"\"")
+                .append(")").append(";").append(lineSeparator);
             }
-
-            //TODO 规则执行记录信息
-
 
             // 8.拼装结尾标识
             ruleStr.append("end").append(lineSeparator).append(lineSeparator).append(lineSeparator);

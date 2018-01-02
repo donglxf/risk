@@ -20,7 +20,7 @@ public interface DroolsActionService {
      * @param fact 参数
      * @param result 结果集
      */
-    void execute(RuleExecutionObject fact, RuleExecutionResult result);
+    void execute(RuleExecutionObject fact, RuleExecutionResult result,String key);
     
     void statisResult(RuleExecutionResult result);
 }

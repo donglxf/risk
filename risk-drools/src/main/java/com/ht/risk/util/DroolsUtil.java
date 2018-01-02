@@ -13,6 +13,8 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ht.risk.constant.DroolsConstant;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -60,7 +62,7 @@ public class DroolsUtil {
 
             KieServices kieServices = KieServices.Factory.get();
             KieFileSystem kfs = kieServices.newKieFileSystem();
-            kfs.write("src/main/resources/com/drools/rules/" + ruleFileName, rule.getBytes("UTF-8"));
+            kfs.write(DroolsConstant.DRL_PATH  + ruleFileName, rule.getBytes("UTF-8"));
             KieBuilder kieBuilder = kieServices.newKieBuilder(kfs).buildAll();
             if (kieBuilder.getResults().getMessages(Message.Level.ERROR).size() > 0) {
                 throw new RuntimeException(kieBuilder.getResults().getMessages().toString());

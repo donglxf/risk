@@ -14,7 +14,7 @@ public class IntopiecesServiceImpl implements DroolsActionService{
 	private Logger log = LoggerFactory.getLogger(IntopiecesServiceImpl.class);
 	
     @Override
-    public void execute(RuleExecutionObject fact, RuleExecutionResult result) {
+    public void execute(RuleExecutionObject fact, RuleExecutionResult result,String key) {
     	log.info("########进件方法开始执行");
     	String flag = String.valueOf(result.getMap().get("flag"));
     	if("是".equals(flag)){

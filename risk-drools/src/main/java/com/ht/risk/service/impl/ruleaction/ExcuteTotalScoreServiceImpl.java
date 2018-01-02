@@ -15,7 +15,7 @@ public class ExcuteTotalScoreServiceImpl implements DroolsActionService{
 	
 	
     @Override
-    public void execute(RuleExecutionObject fact, RuleExecutionResult result) {
+    public void execute(RuleExecutionObject fact, RuleExecutionResult result,String key) {
     	log.info("########统计方法开始");
     	Object totalObj = fact.getGlobalMap().get("total");
     	Integer total = 0 ; 
