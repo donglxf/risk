@@ -19,4 +19,15 @@ public interface DroolsRuleEngineService {
      * @param scene 场景
      */
     RuleExecutionObject excute(RuleExecutionObject ruleExecutionObject, final String scene) throws Exception;
+    
+    /**
+     * 
+    * @Title: getDroolsString
+    * @Description: 获取规则字符串
+    * @param @param scene 场景名
+    * @param @return    设定文件
+    * @return String    返回类型
+    * @throws
+     */
+    public String getDroolsString(final String scene) throws Exception ;
 }
