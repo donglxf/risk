@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.ht.risk.common.result.Result;
-import com.ht.risk.rule.entity.ActionInfo;
 import com.ht.risk.rule.entity.ActionParamInfo;
 import com.ht.risk.rule.service.ActionParamInfoService;
 

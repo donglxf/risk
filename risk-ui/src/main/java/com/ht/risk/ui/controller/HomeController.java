@@ -29,37 +29,6 @@ public class HomeController {
         return "main";
     }
 
-    @RequestMapping(value = "rule/constant",method = RequestMethod.GET)
-    public String ruleConstant(){
-    	return "rule/constant/rule_constant";
-    }
-    
-    @RequestMapping(value = "rule/ruleAction",method = RequestMethod.GET)
-    public String ruleAction(){
-    	return "rule/action/rule_action";
-    }
-    
-    @RequestMapping(value = "rule/ruleAction/edit",method = RequestMethod.GET)
-    public String ruleActionEdit(){
-    	return "rule/action/rule_action_edit";
-    }
-    @RequestMapping(value = "rule/ruleAction/actionParamEdit",method = RequestMethod.GET)
-    public String ruleActionParamEdit(){
-    	return "rule/action/rule_action_param_edit";
-    }
-    
-    @RequestMapping(value = "rule/constant/edit",method = RequestMethod.GET)
-    public String ruleConstantEdit(){
-    	return "rule/constant/rule_constant_edit";
-    }
-    
-    @RequestMapping(value = "rule/constant/itemEdit",method = RequestMethod.GET)
-    public String ruleConstantItemEdit(){
-    	return "rule/constant/rule_constant_item_edit";
-    }
-
-
-
     @RequestMapping(value = "/modelDetail",method = RequestMethod.GET)
     public String model(Model model,@RequestParam String modelId){
         model.addAttribute("modelId",modelId);

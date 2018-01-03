@@ -33,7 +33,7 @@ layui.use(['table','form'], function(){
         ,id:'demos'
         ,cols: [[ //表头
             //{field: 'conId',  event: 'setItem',title: 'ID',sort: true, fixed: 'left'}
-             {field: 'actionType',  event: 'setItem',title: '动作类型'}
+            {field: 'actionType',  event: 'setItem',title: '动作类型',templet:'#chairConvert'}
             ,{field: 'actionName', event: 'setItem', title: '动作名称'}
             ,{field: 'actionDesc', event: 'setItem', title: '动作描述'}
             ,{field: 'actionClass', event: 'setItem', title: '动作实现类'}
