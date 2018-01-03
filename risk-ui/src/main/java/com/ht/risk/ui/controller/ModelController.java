@@ -13,6 +13,7 @@ public class ModelController {
         return "model/list";
     }
 
+
     @RequestMapping(value = "/deployList",method = RequestMethod.GET)
     public String deployList(){
         return "model/deploy_list";

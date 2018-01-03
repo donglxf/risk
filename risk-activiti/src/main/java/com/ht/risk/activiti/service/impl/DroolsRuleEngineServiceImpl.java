@@ -1,12 +1,10 @@
 package com.ht.risk.activiti.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.ht.risk.activiti.controller.ActivitiController;
 import com.ht.risk.activiti.model.DroolsParamter;
 import com.ht.risk.activiti.model.RuleExcuteResult;
-import com.ht.risk.activiti.outService.DroolsRuleEngineInterface;
+import com.ht.risk.activiti.rpc.DroolsRuleEngineInterface;
 import com.ht.risk.activiti.service.DroolsRuleEngineService;
-import com.ht.risk.common.result.Result;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.ht.risk.ui.Vo;
+package com.ht.risk.ui.vo;
 
 public class Model {
 
