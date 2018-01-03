@@ -190,7 +190,7 @@ layui.use(['table','form'], function(){
                         var dataType = result.actionType;
 
                         layero.find("option:contains('"+dataType+"')").attr("selected",true);
-                        console.log( layero.find("#dataId"));
+                        console.log( layero.find("#actionType"));
                         var form = layui.form;
                         form.render();
                     }
