@@ -39,4 +39,31 @@ public class RuleController {
         return "rule/decision/grade_card_edit";
     }
 
+    /**
+     * 描述：策略管理 - 主要和版本关联了
+     * @param * @param null
+     * @return a
+     * @autor 张鹏
+     * @date 2018/1/3 14:21
+     */
+    @RequestMapping(value = "decision/version/list",method = RequestMethod.GET)
+    public String decisionVersion(){
+        return "rule/decision/version/list";
+    }
+
+    /**
+     * 描述：策略管理 - 主要和版本关联了
+     * @param * @param null
+     * @return a
+     * @autor 张鹏
+     * @date 2018/1/3 14:21
+     */
+        @RequestMapping(value = "decision/version/edit",method = RequestMethod.GET)
+    public String versionEdit(){
+            System.out.print("===================");
+            return "rule/decision/version/edit";
+    }
+
+
+
 }

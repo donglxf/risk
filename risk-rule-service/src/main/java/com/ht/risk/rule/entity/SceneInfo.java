@@ -1,15 +1,14 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.util.Date;
 /**
  * <p>
  * 规则引擎使用场景
@@ -24,6 +23,10 @@ public class SceneInfo extends Model<SceneInfo> {
 
     private static final long serialVersionUID = 1L;
 
+
+	@TableField("version")
+	@ApiModelProperty(required= true,value = "版本号")
+	private String version;
     /**
      * 主键
      */
@@ -78,6 +81,13 @@ public class SceneInfo extends Model<SceneInfo> {
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
 
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
 
 	public Long getSceneId() {
 		return sceneId;

@@ -1,4 +1,3 @@
-var tableNoDataPt = document.getElementById('table').innerHTML;
 /**
  * 设置表单值
  * @param el
@@ -38,23 +37,9 @@ scene.cols = function () {
             align:'center',
             width:130,
             toolbar: scene.toolbarId
-    }
+        }
     ];
 };
-/*
-scene.queryParams = function (params) {
-    if (!params)
-        return {
-            name: $("#name").val()
-        };
-    var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-        limit: params.limit, //页面大小
-        offset: params.offset, //页码
-        name: $("#name").val()
-    };
-    return temp;
-};*/
-///////////////////////////////////////////////////////////////////////
 var layer,sceneTable,table,active;
 var sceneId ;
 
@@ -148,12 +133,7 @@ layui.use(['table','form','laytpl'], function() {
             });
         } else if (obj.event === 'edit') {
             edit(data.sceneId);
-        }
-        //发布
-        else if (obj.event === 'push') {
-            push(data.sceneId);
-        }
-        else if (obj.event === 'setItem') {
+        } else if (obj.event === 'setItem') {
             //选择实体对象的id
             sceneId = data.sceneId;
             var tr = obj.tr;
@@ -164,39 +144,6 @@ layui.use(['table','form','laytpl'], function() {
         }
     });
 
-    function getRuleData(sceneId) {
-        ///var index = layer.load(2);
-        var index2 =   layer.msg("数据加载中", {
-            icon: 16,
-            // offset: [e.elem.offset().top + e.elem.height() / 2 - 35 - T.scrollTop() + "px", e.elem.offset().left + e.elem.width() / 2 - 90 - T.scrollLeft() + "px"],
-            time: -1,
-            anim: -1,
-            fixed: !1
-        });
-        $.get('/rule/service/rule/getGradeCardAll',{'sceneId':sceneId},function(data){
-            console.log(data);
-            if(data.code == '0'){
-                var result = data.data;
-                console.log(result);
-                var getTpl = tableTp.innerHTML
-                    ,view = document.getElementById('table');
-                laytpl(getTpl).render(result, function(html){
-                    view.innerHTML = html;
-                });
-                //初始化 实体类的值
-                dataEntityInit();
-                dataActionInit();
-                // dataInit(sceneId);
-                init();
-            }else{
-                $("#table").html(tableNoDataPt);
-                init();
-                //layer.msg("数据异常");
-            }
-            layer.close(index2);
-        },'json');
-        
-    }
     //新增
     $("#scene_btn_add").on('click', function () {
         save(scene.uiUrl, null);
@@ -208,13 +155,5 @@ layui.use(['table','form','laytpl'], function() {
             var result = data.data;
             save(scene.uiUrl, result);
         }, 'json')
-    }
-
-    //发布
-    function push(id) {
-            var rule_drl ,rule_div;
-            rule_div = $("#table").html();
-            var result = {sceneId:id,rule_div:rule_div,rule_drl:rule_drl};
-            save("/rule/ui/rule/decision/version/edit?id=", result);
     }
 });
