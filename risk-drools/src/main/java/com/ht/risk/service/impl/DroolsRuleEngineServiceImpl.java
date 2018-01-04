@@ -6,8 +6,8 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
+import com.ht.risk.common.util.ObjectUtils;
 import com.ht.risk.constant.DroolsConstant;
 import com.ht.risk.model.*;
 import com.ht.risk.model.fact.RuleExecutionObject;
@@ -725,8 +725,11 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
 		BaseRuleSceneInfo info=new BaseRuleSceneInfo();
 		info.setSceneId(Long.parseLong(id));
 		List<BaseRuleSceneInfo> list=ruleSceneService.findBaseRuleSceneInfiList(info);
-		BaseRuleSceneInfo sinfo=list.get(0);
-		return sinfo.getSceneIdentify();
+		if(ObjectUtils.isNotEmpty(list)){
+			BaseRuleSceneInfo sinfo=list.get(0);
+			return sinfo.getSceneIdentify();
+		}
+		return null;
 	}
 
 }

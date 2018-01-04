@@ -27,6 +27,8 @@ zuul:
       path: /activiti/**
     risk-drools:
       path: /drools/**
+    risk-log:
+      path: /log/**
   host:
     connect-timeout-millis: 6000
 
@@ -46,6 +48,9 @@ admin-ui:
 admin-service:
   ribbon:
     listOfServers: 127.0.0.1:8772
+risk-log:
+  ribbon:
+    listOfServers: 127.0.0.1:8769
 
 risk-activiti:
   ribbon:
