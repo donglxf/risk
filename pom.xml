@@ -167,19 +167,11 @@
 	<modules>
 
 		<module>risk-common</module>
-		<module>risk-rule-api</module>
+		<module>risk-api</module>
 		<module>risk-rule-service</module>
-		<module>risk-agent</module>
-		<module>risk-monitor</module>
 		<module>risk-ui</module>
 		<module>risk-rule-center</module>
 		<module>risk-gate</module>
-		<module>admin-common</module>
-        <module>admin-service</module>
-		<module>admin-ui</module>
-
-
-		
 		<module>risk-drools</module>
 		<module>risk-activiti</module>
 		<module>risk-esper</module>
