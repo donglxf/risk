@@ -34,11 +34,13 @@ public class DroolsVersionController {
 	 */
 	@RequestMapping("/getDroolsVersion/{dev}")
 	@ResponseBody
-	public String getDroolsVersion(@PathVariable(name="dev") String dev){
+	public String getDroolsVersion(@PathVariable(name="dev") String id){
 		String str=null;
         try {
-            System.out.println(dev);
-            str= droolsRuleEngineService.getDroolsString(dev);
+            String identity=droolsRuleEngineService.getSceneIdentifyById(id);
+            System.out.println(identity);
+            
+            str= droolsRuleEngineService.getDroolsString(identity);
         }catch (Exception e){
         	e.printStackTrace();
         }
