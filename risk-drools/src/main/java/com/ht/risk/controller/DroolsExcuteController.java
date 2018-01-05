@@ -2,13 +2,10 @@ package com.ht.risk.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.ht.risk.common.model.DroolsParamter;
-import com.ht.risk.common.model.Result;
 import com.ht.risk.common.model.RuleExcuteResult;
 import com.ht.risk.model.fact.RuleExecutionObject;
 import com.ht.risk.model.fact.RuleExecutionResult;
-import com.ht.risk.model.fact.TestRule;
 import com.ht.risk.service.DroolsRuleEngineService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.ht.risk.common.util.ObjectUtils;
 import com.ht.risk.constant.DroolsConstant;
 import com.ht.risk.model.*;
 import com.ht.risk.model.fact.RuleExecutionObject;
@@ -49,15 +50,14 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     private RuleActionParamService ruleActionParamService;
     @Resource
     private RuleActionParamValueService ruleActionParamValueService;
-
+    @Resource
+    private RuleSceneService ruleSceneService;
+    
     //换行符
     private static final String lineSeparator = System.getProperty("line.separator");
     //特殊处理的规则属性(字符串)
     private static final String[] arr = new String[]{"date-effective", "date-expires", "dialect", "activation-group", "agenda-group", "ruleflow-group"};
 
-    // 条件特殊处理字符串
-    private static final String[] conditionArr = new String[]{"&&", "||"};
-    
     /**
      * Date 2017/7/25
      * Author lihao [lihao@sinosoft.com]
@@ -365,21 +365,21 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * 方法说明: 处理条件部分内容
      *
      * @param ruleStr 规则串
-     * @param conList 条件集合
+     * @param conditionList 条件集合
      */
-    private StringBuffer insertRuleConditionFromList(StringBuffer ruleStr, List<BaseRuleConditionInfo> conList) throws Exception {
+    private StringBuffer insertRuleConditionFromList(StringBuffer ruleStr, List<BaseRuleConditionInfo> conditionList) throws Exception {
 
         StringBuilder sb = new StringBuilder();
         //实体id
         Long entityId = null;
         String relation = "&&";
-        for (int c = 0; c < conList.size(); c++) {
-            BaseRuleConditionInfo conditionInfo = conList.get(c);
+        for (int c = 0; c < conditionList.size(); c++) {
+            BaseRuleConditionInfo conditionInfo = conditionList.get(c);
             String expression = conditionInfo.getConditionExpression();
         	//获取 ==、>=、<=、>、<、！=后面的变量
         	String conditionVariable = RuleUtils.getConditionOfVariable(expression);
         	if (!RuleUtils.checkStyleOfString(conditionVariable)) {
-        		expression = expression.replace(conditionVariable, "'" + conditionVariable + "'");
+        		expression = expression.replace(conditionVariable, "'" + conditionVariable.trim() + "'");
         	}
         	// 1.获取条件参数（比如：$21$ ，21 代表实体属性表id）
         	List<String> list = RuleUtils.getConditionParamBetweenChar(conditionInfo.getConditionExpression());
@@ -390,11 +390,11 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         			entityId = itemInfo.getEntityId();
         		}
         		// 3.拼接属性字段（例如：$21$ > 20 替换成 age > 20）
-        		expression = expression.replace("$" + itemId + "$", "this[\""+ itemInfo.getItemIdentify()+"\"]");
+        		expression = expression.replace("$" + itemId + "$", "this[\""+ itemInfo.getItemIdentify().trim()+"\"]").replace("^", "not ");
         	}
             
             //如果是最后一个，则不拼接条件之间关系
-            if (c == conList.size() - 1) {
+            if (c == conditionList.size() - 1) {
                 relation = "";
             }
             // 4.拼接条件样式 (比如 ： age > 20 && )
@@ -719,5 +719,17 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         }
         return droolRuleStr;
     }
+
+	@Override
+	public String getSceneIdentifyById(String id) throws Exception {
+		BaseRuleSceneInfo info=new BaseRuleSceneInfo();
+		info.setSceneId(Long.parseLong(id));
+		List<BaseRuleSceneInfo> list=ruleSceneService.findBaseRuleSceneInfiList(info);
+		if(ObjectUtils.isNotEmpty(list)){
+			BaseRuleSceneInfo sinfo=list.get(0);
+			return sinfo.getSceneIdentify();
+		}
+		return null;
+	}
 
 }

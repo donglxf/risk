@@ -16,6 +16,8 @@
             FROM
                 rule_scene_info T
             WHERE	1 = 1
-
+		<if test="sceneId != null and sceneId != '' ">
+			and T.scene_id = #{sceneId}
+		</if>
     </select>
 </mapper>

@@ -30,4 +30,15 @@ public interface DroolsRuleEngineService {
     * @throws
      */
     public String getDroolsString(final String scene) throws Exception ;
+    
+    /**
+     * 
+     * @Title: getDroolsString
+     * @Description: 根据id查找场景标识
+     * @param @param scene 场景名
+     * @param @return    设定文件
+     * @return String    返回类型
+     * @throws
+     */
+    public String getSceneIdentifyById(String id) throws Exception ;
 }
