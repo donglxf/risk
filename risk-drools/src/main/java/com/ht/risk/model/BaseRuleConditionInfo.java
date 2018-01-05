@@ -13,8 +13,8 @@ public class BaseRuleConditionInfo extends BaseModel {
     private String conditionName;//条件名称
     private String conditionExpression;//条件表达式
     private String conditionDesc;//条件描述
-
-    public Long getConditionId() {
+    
+	public Long getConditionId() {
         return conditionId;
     }
 

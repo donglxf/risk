@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+//import com.ht.risk.common.comenum.RuleConditionTypeEnum;
 
 /**
  * 描述：规则工具类
@@ -111,12 +112,13 @@ public class RuleUtils {
      */
     public static String getConditionOfVariable(String str) {
 
-        String[] arr = str.split(">(=)?|<(=)?|={1,2}|!=");
+        String[] arr = str.split(">(=)?|<(=)?|={1,2}|!=|contains|memberOf");
         if (arr.length < 2) {
             return "";
         }
         return arr[1];
     }
+    
 
     /**
      * Date 2017/7/27

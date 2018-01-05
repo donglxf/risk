@@ -10,6 +10,9 @@ public class DroolsParamter  implements Serializable {
 	 * 场景code
 	 */
 	private String sence;
+
+	private String processInstanceId;
+
 	/**
 	 * 业务数据
 	 */
@@ -31,4 +34,10 @@ public class DroolsParamter  implements Serializable {
 		this.data = data;
 	}
 
+	public String getProcessInstanceId() {
+		return processInstanceId;
+	}
+	public void setProcessInstanceId(String processInstanceId) {
+		this.processInstanceId = processInstanceId;
+	}
 }

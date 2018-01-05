@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.ht.risk.common.comenum.ActionEnum;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ActionInfo;
@@ -70,46 +71,6 @@ public class ActionInfoController {
 		pages = actionInfoService.selectPage(pages, wrapper);
 		return PageResult.success(pages.getRecords(), pages.getTotal());
 	}
-    
-    enum ActionEnum{
-    	
-    	realize("1","实现"),self("2","自身");
-    	
-    	private String code;
-    	private String name;
-    	
-    	ActionEnum(String code,String name){
-    		this.code=code;
-    		this.name=name;
-    	}
-    	
-    	public String getCode() {
-			return code;
-		}
-
-		public void setCode(String code) {
-			this.code = code;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public static ActionEnum findByName(String key){
-    		ActionEnum[] list=ActionEnum.values();
-    		for (ActionEnum actionEnum : list) {
-				if(key.equals(actionEnum.getName())){
-					return actionEnum ;
-				}
-			}
-    		return null;
-    	}
-    	
-    }
     
     @PostMapping("edit")
 	@ApiOperation(value = "动作新增or修改")

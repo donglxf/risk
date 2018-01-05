@@ -1,12 +1,10 @@
 package com.ht.risk.activiti.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.ht.risk.activiti.controller.ActivitiController;
 import com.ht.risk.activiti.model.DroolsParamter;
 import com.ht.risk.activiti.model.RuleExcuteResult;
-import com.ht.risk.activiti.outService.DroolsRuleEngineInterface;
+import com.ht.risk.activiti.rpc.DroolsRuleEngineInterface;
 import com.ht.risk.activiti.service.DroolsRuleEngineService;
-import com.ht.risk.common.result.Result;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.slf4j.Logger;
@@ -28,6 +26,10 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+
+
+
+
         LOGGER.info("###############策略规则运行开始！");
         String sence = (String) expressionValue.getValue(delegateExecution);
         LOGGER.info("###############策略规则运行开始,策略唯一标识："+sence);
@@ -35,6 +37,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         DroolsParamter paramter = new DroolsParamter();
         paramter.setSence(sence);
         paramter.setData(senceData);
+        paramter.setProcessInstanceId(delegateExecution.getProcessInstanceId());
+
         LOGGER.info("DroolsRuleEngineServiceImpl service paramter:"+ JSON.toJSONString(paramter));
         RuleExcuteResult result = droolsRuleEngineInterface.excuteDroolsScene(paramter);
         delegateExecution.setVariable(sence,result);
