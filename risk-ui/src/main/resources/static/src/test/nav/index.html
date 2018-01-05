@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>layui在线调试</title>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+    </style>
+</head>
+
+<body>
+	<div id="btn">click me</div>
+</body>
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/nav.js"></script>
+    <script>
+		var jsondata = [
+		{
+			value: 'abc', 
+			text: 'efg', 
+			sons: [
+				{value:'abc', text: 'efg'},
+				{value:'abc', text: 'efg'}
+			]
+		},
+		{
+			value: 'abc', 
+			text: 'efg', 
+			sons: [
+				{value:'abc', text: 'efg'},
+				{value:'abc', text: 'efg'},
+				{value:'abc', text: 'efg'},
+				{value:'abc', text: 'efg'},
+				{value:'abc', text: 'efg'}
+			]
+		},
+		{
+			value: 'abc', 
+			text: 'efg', 
+			sons: [
+				{value:'abc', text: 'efg'},
+			]
+		},
+		{value:'abc', text: 'efg'},
+		];
+		$(function(){
+		 $('#btn').submenu();
+		})
+	</script>
+    
+</html>

@@ -166,12 +166,12 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param ruleExecutionObject 参数
      * @param scene               场景
      */
-    private RuleExecutionObject compileRuleAndexEcuteRuleEngine(StringBuffer droolRuleStr, RuleExecutionObject ruleExecutionObject, final String scene) throws Exception {
+    private RuleExecutionObject compileRuleAndexEcuteRuleEngine(String droolRuleStr, RuleExecutionObject ruleExecutionObject, final String scene) throws Exception {
         //KieSession对象
         KieSession session;
         try {
             //编译规则脚本,返回KieSession对象
-            session = DroolsUtil.getInstance().getDrlSession(droolRuleStr.toString(), scene);
+            session = DroolsUtil.getInstance().getDrlSession(droolRuleStr, scene);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Drools初始化失败，请检查Drools语句！");
@@ -227,19 +227,11 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         System.out.println(droolRuleStr.toString());
         logger.info(lineSeparator + "===========================规则串================================" + lineSeparator);
         // 7.初始化drools，将实体对象扔进引擎
-        return this.compileRuleAndexEcuteRuleEngine(droolRuleStr, ruleExecutionObject, scene);
+        return this.compileRuleAndexEcuteRuleEngine(droolRuleStr.toString(), ruleExecutionObject, scene);
     }
     
-    /**
-     * Date 2017/7/26
-     * Author lihao [lihao@sinosoft.com]
-     * <p>
-     * 方法说明: 拼接drools语句
-     *
-     * @param ruleExecutionObject 参数
-     * @param scene               场景
-     */
-    private RuleExecutionObject compileRule(RuleExecutionObject ruleExecutionObject, final String scene) throws Exception {
+    @Override
+    public String getDroolsString(final String scene) throws Exception{
     	//拼接规则脚本
     	StringBuffer droolRuleStr = new StringBuffer();
     	logger.info("===================重新拼接规则串======================");
@@ -266,9 +258,27 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     		droolRuleStr.append(ruleTemp);
     	}
     	
+    	String droolString=droolRuleStr.toString();
+    	
     	logger.info(lineSeparator + "===========================规则串================================" + lineSeparator);
-    	System.out.println(droolRuleStr.toString());
+    	System.out.println(droolString);
     	logger.info(lineSeparator + "===========================规则串================================" + lineSeparator);
+    	
+    	return droolString;
+    }
+    
+    /**
+     * Date 2017/7/26
+     * Author lihao [lihao@sinosoft.com]
+     * <p>
+     * 方法说明: 拼接drools语句
+     *
+     * @param ruleExecutionObject 参数
+     * @param scene               场景
+     */
+    private RuleExecutionObject compileRule(RuleExecutionObject ruleExecutionObject, final String scene) throws Exception {
+    	// 1.生成  规则文件串  
+    	String droolRuleStr=getDroolsString(scene);
     	// 7.初始化drools，将实体对象扔进引擎
     	return this.compileRuleAndexEcuteRuleEngine(droolRuleStr, ruleExecutionObject, scene);
     }
