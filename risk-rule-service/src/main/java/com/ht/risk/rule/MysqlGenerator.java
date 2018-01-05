@@ -40,11 +40,11 @@ import java.util.*;
  *   @Date : Create in 2017/9/19 14:48　
  */
 public class MysqlGenerator {
-    private static String projectName = "risk-rule-service";
+    private static String projectName = "risk_log" ;
     private static String packageName="rule";    //文件路径
     private static String authorName="张鹏";     //作者
-    private static String table="rule_constant_info";                  //table名字
-    private static String prefix="rule_";                     //table前缀
+    private static String table="drools_process_log";                  //table名字
+    private static String prefix="";                     //table前缀
     private static File file = new File(projectName);
 //    private static String path = file.getAbsolutePath();
     private static String path = "D:/";

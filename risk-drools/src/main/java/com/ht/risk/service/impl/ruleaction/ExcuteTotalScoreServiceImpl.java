@@ -1,5 +1,8 @@
 package com.ht.risk.service.impl.ruleaction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -9,7 +12,7 @@ import com.ht.risk.model.fact.RuleExecutionResult;
 import com.ht.risk.service.DroolsActionService;
 
 @Service
-public class ExcuteTotalScoreServiceImpl implements DroolsActionService{
+public class ExcuteTotalScoreServiceImpl extends DroolsActionService{
 	
 	private Logger log = LoggerFactory.getLogger(ExcuteTotalScoreServiceImpl.class);
 	
@@ -29,11 +32,11 @@ public class ExcuteTotalScoreServiceImpl implements DroolsActionService{
     		total += Integer.parseInt(String.valueOf(scoreObj));
     	}
     	fact.getGlobalMap().put("total", total);
+    	
     	log.info("########统计当前结果："+total);
     	log.info("########统计方法结束");
     }
 
-	@Override
 	public void statisResult(RuleExecutionResult result) {
 		
 	}

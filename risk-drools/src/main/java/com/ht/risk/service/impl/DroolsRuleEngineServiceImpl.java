@@ -126,6 +126,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                     //只处理实现类动作
                     if (action.getActionType() == 1) {
                         DroolsActionService actionService = SpringContextHolder.getBean(action.getActionClazzIdentify());
+                        System.out.println("bean:>>>>>>>>"+action.getActionClazzIdentify());
                         session.insert(actionService);
                     }
                 } catch (Exception e) {
@@ -139,6 +140,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             //1,是否全部执行
             if (ruleExecutionObject.isExecuteAll()) {
                 int count =  session.fireAllRules();
+                ruleExecutionObject.getGlobalMap().put("count", count);
                 System.out.println("命中规则条数："+count);
             } else {
                 //2,执行以 ruleExecutionObject里规则名开头的规则
@@ -555,6 +557,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                         ruleStr.append("$").append(action.getActionClazzIdentify()).append(".").
                                 append(RuleUtils.setMethodByProperty(paramInfo.getParamIdentify())).append("(").append(realValue).append(");").append(lineSeparator);
                     }*/
+                    // 记录日志
+                    ruleStr.append(DroolsConstant.GLOBAL_VARIABLE_NAME+".getMap().put(\"").append("rule").append("\",\"").append(ruleInfo.getRuleName()).append("\");").append(lineSeparator);
                 }
             }
 
@@ -564,6 +568,9 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                 append("("+DroolsConstant.CONDITION_FACT+","+DroolsConstant.GLOBAL_VARIABLE_NAME+",").append("\""+paramInfo.getParamIdentify()+"\"")
                 .append(")").append(";").append(lineSeparator);
             }
+            // 记录日志动作
+            ruleStr.append(DroolsConstant.CONDITION_ACTION).append(".").append(DroolsConstant.SAVE_LOG).
+            append("("+DroolsConstant.CONDITION_FACT+","+DroolsConstant.GLOBAL_VARIABLE_NAME).append(")").append(";").append(lineSeparator);
 
             // 8.拼装结尾标识
             ruleStr.append("end").append(lineSeparator).append(lineSeparator).append(lineSeparator);
