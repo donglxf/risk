@@ -5,6 +5,8 @@ var tableNoDataPt = document.getElementById('table').innerHTML;
  * @param data
  */
 function setFromValues(el, data) {
+    {id:1,name=222}
+    $("name=['name']").val(222);
     for (var p in data) {
         el.find(":input[name='" + p + "']").val(data[p]);
     }

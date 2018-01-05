@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @FeignClient("risk-drools")
-interface DroolsRuleRpc {
+public interface DroolsRuleRpc {
 
     @RequestMapping("/getDroolsVersion/{dev}")
     String getDroolsVersion(@PathVariable(name="dev") String dev);

@@ -82,24 +82,7 @@ public class SceneInfoController {
         return Result.success(0);
     }
 
-    @GetMapping("push/{id}")
-    @ApiOperation(value = "版本发布")
-    @Transactional(rollbackFor = RuntimeException.class)
-    public Result<Integer> push(@PathVariable(name = "id") Long id){
 
-        SceneInfo sceneInfo = sceneInfoService.selectById(id);
-
-        if(sceneInfo == null ){
-            return Result.error(-1,"不存在");
-        }
-        //获取当前版本号
-        String version = sceneInfo.getVersion();
-        Double vd = Double.parseDouble(version);
-
-
-        //新增版本号
-        return Result.success(0);
-    }
 
 }
 

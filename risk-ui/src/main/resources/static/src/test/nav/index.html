@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>layui在线调试</title>
+    <title>下拉菜单</title>
     <link rel="stylesheet" href="css/main.css">
     <style>
     </style>
@@ -15,39 +15,81 @@
 </body>
     <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="js/nav.js"></script>
-    <script>
-		var jsondata = [
-		{
-			value: 'abc', 
-			text: 'efg', 
-			sons: [
-				{value:'abc', text: 'efg'},
-				{value:'abc', text: 'efg'}
-			]
-		},
-		{
-			value: 'abc', 
-			text: 'efg', 
-			sons: [
-				{value:'abc', text: 'efg'},
-				{value:'abc', text: 'efg'},
-				{value:'abc', text: 'efg'},
-				{value:'abc', text: 'efg'},
-				{value:'abc', text: 'efg'}
-			]
-		},
-		{
-			value: 'abc', 
-			text: 'efg', 
-			sons: [
-				{value:'abc', text: 'efg'},
-			]
-		},
-		{value:'abc', text: 'efg'},
-		];
+    <script>		
 		$(function(){
-		 $('#btn').submenu();
-		})
+			var jsondata = [{
+					value: '1', 
+					text: 'efg', 
+					sons: [
+						{value:'11', text: 'efg'},
+						{value:'12', text: 'efg'}
+					]
+				},
+				{
+					value: '2', 
+					text: 'efg', 
+					sons: [
+						{value:'21', text: 'efg'},
+						{value:'22', text: 'efg'},
+						{value:'23', text: 'efg'},
+						{value:'24', text: 'efg'},
+						{value:'25', text: 'efg'}
+					]
+				},
+				{
+					value: '3', 
+					text: 'efg', 
+					sons: [
+						{value:'31', text: 'efg'},
+					]
+				},
+				{value:'4', text: 'efg'},
+			];
+            var jsondata2 = [{
+                value: '1',
+                text: 'efg222',
+                sons: [
+                    {value:'11', text: 'efg'},
+                    {value:'12', text: 'efg'}
+                ]
+            },
+                {
+                    value: '2',
+                    text: 'efg',
+                    sons: [
+                        {value:'21', text: 'efg22'},
+                        {value:'22', text: 'efg'},
+                        {value:'23', text: 'efg'},
+                        {value:'24', text: 'efg'},
+                        {value:'25', text: 'efg'}
+                    ]
+                },
+                {
+                    value: '3',
+                    text: 'efg',
+                    sons: [
+                        {value:'31', text: 'efg'},
+                    ]
+                },
+                {value:'4', text: 'efg'},
+            ];
+			
+			 $('#btn').submenu({
+				 data: jsondata,
+				 callback: function (obj, value) {
+					 console.log(obj, value);
+				 }			 
+			 });
+
+
+
+            $('#btn').submenu({
+                data: jsondata2,
+                callback: function (obj, value) {
+                    console.log(obj, value);
+                }
+            });
+	   })
 	</script>
     
 </html>
