@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>模型管理</title>
@@ -24,21 +23,14 @@
                 </div>
                 <button class="layui-btn" data-type="reload">查询</button>
             </div>
-            <table id="model_info_list" lay-filter="model" lay-data="{id: 'idModel'}"></table>
+            <table id="info_list" lay-filter="info" lay-data="{id: 'infoList'}"></table>
         </div>
     </div>
     <div class="layui-col-xs6">
-        <table class="layui-table" lay-data="">
-            <thead>
-            <tr>
-                <th lay-data="{field:'username'}">发布ID</th>
-                <th lay-data="{align:'center'}">版本号</th>
-                <th lay-data="{align:'center'}">发布时间</th>
-            </tr>
-            </thead>
-        </table>
+        <table id="deploy_list" lay-filter="deploy" lay-data="{id: 'deployList'}"></table>
     </div>
 </div>
+
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="deploy">发布</a>

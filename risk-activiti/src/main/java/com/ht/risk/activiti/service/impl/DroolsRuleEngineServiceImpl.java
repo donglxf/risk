@@ -26,6 +26,10 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+
+
+
+
         LOGGER.info("###############策略规则运行开始！");
         String sence = (String) expressionValue.getValue(delegateExecution);
         LOGGER.info("###############策略规则运行开始,策略唯一标识："+sence);
@@ -33,6 +37,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         DroolsParamter paramter = new DroolsParamter();
         paramter.setSence(sence);
         paramter.setData(senceData);
+        paramter.setProcessInstanceId(delegateExecution.getProcessInstanceId());
+
         LOGGER.info("DroolsRuleEngineServiceImpl service paramter:"+ JSON.toJSONString(paramter));
         RuleExcuteResult result = droolsRuleEngineInterface.excuteDroolsScene(paramter);
         delegateExecution.setVariable(sence,result);

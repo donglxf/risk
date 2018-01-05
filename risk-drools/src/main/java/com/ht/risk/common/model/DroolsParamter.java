@@ -9,6 +9,12 @@ public class DroolsParamter {
 	 * 场景code
 	 */
 	private String sence;
+
+	/**
+	 * 流程运行实例id
+	 */
+	private String processInstanceId;
+
 	/**
 	 * 业务数据
 	 */
@@ -30,4 +36,11 @@ public class DroolsParamter {
 		this.data = data;
 	}
 
+	public String getProcessInstanceId() {
+		return processInstanceId;
+	}
+
+	public void setProcessInstanceId(String processInstanceId) {
+		this.processInstanceId = processInstanceId;
+	}
 }

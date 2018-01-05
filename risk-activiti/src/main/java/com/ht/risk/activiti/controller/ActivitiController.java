@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ht.risk.activiti.model.ModelParamter;
+import com.ht.risk.activiti.model.ProcessDefinitionModel;
 import com.ht.risk.common.result.Result;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
@@ -14,6 +15,7 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.history.HistoricVariableInstance;
+import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -33,9 +35,7 @@ import javax.annotation.Resource;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * ${DESCRIPTION}
@@ -262,19 +262,39 @@ public class ActivitiController implements ModelDataJsonConstants {
     }
 
     @RequestMapping(value = "/getDeployVersionList")
-    public Result<List<ProcessDefinition>> getDeployVersionList(String key) {
-        Result<List<ProcessDefinition>> data = null;
+    public Result<List<ProcessDefinitionModel>> getDeployVersionList(String deployId) {
+        LOGGER.info("getDeployVersionList interface start");
+        Result<List<ProcessDefinitionModel>> data = null;
         try {
-            if (StringUtils.isEmpty(key)) {
+            if (StringUtils.isEmpty(deployId)) {
                 data = Result.success();
+                LOGGER.info("getDeployVersionList interface end,paramter deployId is null");
                 return data;
             }
-            List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().processDefinitionKey(key).orderByDeploymentId().list();
-            data = Result.success(list);
+            ProcessDefinitionEntity entity = null;
+            List<ProcessDefinition> definitions = repositoryService.createProcessDefinitionQuery().deploymentId(deployId).list();
+            if(definitions.size()>0){
+                String key = definitions.get(0).getKey();
+                List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().processDefinitionKey(key).orderByDeploymentId().desc().list();
+                ProcessDefinition definition = null;
+                ProcessDefinitionModel definitionModel = null;
+                List<ProcessDefinitionModel> definitionModels = new ArrayList<ProcessDefinitionModel>(list.size());
+                for (Iterator<ProcessDefinition> iterator = list.iterator();iterator.hasNext();){
+                    definition = iterator.next();
+                    definitionModel = new ProcessDefinitionModel(definition);
+                    definitionModels.add(definitionModel);
+                }
+                data = Result.success(definitionModels);
+            }else{
+                data = Result.success();
+                LOGGER.info("getDeployVersionList interface no data!");
+            }
         } catch (Exception e) {
+            e.printStackTrace();
             data = Result.error(1, "查询流程定义信息失败");
             LOGGER.error("查询流程定义信息失败!", e);
         }
+        LOGGER.info("getDeployVersionList interface end");
         return data;
     }
 
