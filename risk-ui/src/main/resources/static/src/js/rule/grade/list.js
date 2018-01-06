@@ -36,7 +36,7 @@ scene.cols = function () {
             title: '操作',
             fixed: 'right',
             align:'center',
-            width:130,
+            width:150,
             toolbar: scene.toolbarId
     }
     ];
@@ -82,7 +82,7 @@ layui.use(['table','form','laytpl'], function() {
                 , yes: function (index) {
                     //触发表单的提交事件
                     $('form.layui-form').find('button[lay-filter=formDemo]').click();
-                    layer.close(index);
+                   // layer.close(index);
                 },
             });
         });
@@ -96,7 +96,7 @@ layui.use(['table','form','laytpl'], function() {
     sceneTable.render({
         elem: '#'+scene.tableId
         , height: 'full'
-        , cellMinWidth: 40
+        , cellMinWidth:80
         , url: scene.baseUrl + 'page?sceneType=2' //数据接口
         // data:[{"sceneId":1,"sceneName":"测试规则","sceneDesc":"测试规则引擎","sceneIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
         , page: true //开启分页

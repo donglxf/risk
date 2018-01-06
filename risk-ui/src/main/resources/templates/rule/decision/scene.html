@@ -13,6 +13,10 @@
         .layui-table td, .layui-table th {
             text-align: center;
         }
+        .layui-table-cell {
+            height: 32px;
+            line-height:32px;
+        }
         #table{
             width: inherit;
         }
@@ -230,6 +234,9 @@
     <button class="layui-btn  layui-btn-primary layui-btn-sm" lay-event="del">
         <i class="layui-icon">&#xe640;</i>
     </button>
+        <button class="layui-btn  layui-btn-primary layui-btn-sm" title="发布" lay-event="push">
+            <i class="layui-icon">&#xe609;</i>
+        </button>
     </div>
 </script>
 <div style="display: none;" id="tpl">

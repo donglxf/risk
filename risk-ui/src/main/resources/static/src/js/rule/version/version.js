@@ -36,14 +36,14 @@ sceneLeft.cols = function () {
             title: '类型',
             width:120,
             templet: '#typeTpl'}
-        /*,{field: 'sceneId',
+        ,{field: 'sceneId',
             title: '操作',
             fixed: 'right',
             event: 'setItem',
             align:'center',sort: true,
             width:130,
             toolbar: sceneLeft.toolbarId
-        }*/
+        }
     ];
 };
 
@@ -247,9 +247,8 @@ layui.use(['table','form','laytpl'], function() {
                     layer.close(index);
                 });
             });
-        } else if (obj.event === 'ruleLook') {
-
-
+        } else if (obj.event === 'push') {
+            push(data.sceneId,data.sceneType);
         }else if (obj.event === 'setItem') {
             //选择实体对象的id
             sceneId = data.sceneId;
@@ -258,4 +257,74 @@ layui.use(['table','form','laytpl'], function() {
             //itemActive.reload(data.sceneId);
         }
     });
+
+    function getRuleData(sceneId,type) {
+        var url = type == 2 ? 'getGradeCardAll':'getAll';
+        $.get('/rule/service/rule/'+url,{'sceneId':sceneId},function(data){
+            if(data.code == '0'){
+                var result = data.data;
+                var getTpl = tableTp1.innerHTML
+                if(type == '2'){
+                    getTpl = tableTp2.innerHTML
+                }
+                var view = document.getElementById('tableView');
+                laytpl(getTpl).render(result, function(html){
+                    view.innerHTML = html;
+                });
+                //设置值了
+                $("input[name='sceneId']").val(sceneId);
+                $("input[name='ruleDiv']").val($("#tableView").html());
+            }else{
+                $("#table").html('');
+            }
+        },'json');
+
+    }
+    /**
+     * 公共方法：保存
+     * @param url
+     * @param result
+     */
+    function save(url, result,id,type) {
+        $.get(url, function (form) {
+            layer.open({
+                type: 1,
+                title: '版本发布',
+                maxmin: true,
+                shadeClose: false, // 点击遮罩关闭层
+                area: ['650px', '560px'],
+                content: form,
+                btnAlign: 'c',
+                btn: ['保存', '取消'],
+                success: function (layero, index) {
+
+                    //设置table内容页
+                    getRuleData(id,type);
+
+                    var rule_div = $("#rule_div").html();
+                }
+                , yes: function (index) {
+                    //触发表单的提交事件
+                    $('form.layui-form').find('button[lay-filter=formDemo]').click();
+                    active.reload();
+                },
+            });
+        });
+    }
+    //发布
+    function push(id,type) {
+        //询问框
+        var index =  layer.confirm('您确定要发布新颁布吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            var rule_drl ,rule_div;
+            rule_div = $("#table").html();
+            var result = {sceneId:id,ruleDiv:rule_div};
+            layer.close(index);
+            save("/rule/ui/rule/decision/version/viewEdit", result,id,type);
+            // layer.msg('的确很重要', {icon: 1});
+
+        }, function(){
+        });
+    }
 });
