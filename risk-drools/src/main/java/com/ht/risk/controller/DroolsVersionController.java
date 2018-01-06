@@ -38,8 +38,6 @@ public class DroolsVersionController {
 		String str=null;
         try {
             String identity=droolsRuleEngineService.getSceneIdentifyById(id);
-            System.out.println(identity);
-            
             str= droolsRuleEngineService.getDroolsString(identity);
         }catch (Exception e){
         	e.printStackTrace();

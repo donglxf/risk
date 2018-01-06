@@ -24,6 +24,7 @@ public class DroolsConstant {
 	public final static String CONDITION_MAP="$map";
 	
 	public final static String EXECUTE_METHOD="execute";
+	public final static String SAVE_LOG="saveLog";
 	
 	public final static String DRL_PATH="src/main/resources/com/drools/rules/";
 	

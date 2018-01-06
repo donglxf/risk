@@ -8,10 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@EnableFeignClients
 @EnableTransactionManagement
-@EnableDiscoveryClient
+@EnableDiscoveryClient 
 @SpringBootApplication
 @MapperScan("com.ht.risk.mapper")
 public class DroolsServiceApplication extends SpringBootServletInitializer {
