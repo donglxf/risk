@@ -48,6 +48,7 @@ public class RuleController {
      */
     @RequestMapping(value = "decision/version/list",method = RequestMethod.GET)
     public String decisionVersion(){
+        System.out.print("===================");
         return "rule/decision/version/list";
     }
 

@@ -45,34 +45,6 @@
 				},
 				{value:'4', text: 'efg'},
 			];
-            var jsondata2 = [{
-                value: '1',
-                text: 'efg222',
-                sons: [
-                    {value:'11', text: 'efg'},
-                    {value:'12', text: 'efg'}
-                ]
-            },
-                {
-                    value: '2',
-                    text: 'efg',
-                    sons: [
-                        {value:'21', text: 'efg22'},
-                        {value:'22', text: 'efg'},
-                        {value:'23', text: 'efg'},
-                        {value:'24', text: 'efg'},
-                        {value:'25', text: 'efg'}
-                    ]
-                },
-                {
-                    value: '3',
-                    text: 'efg',
-                    sons: [
-                        {value:'31', text: 'efg'},
-                    ]
-                },
-                {value:'4', text: 'efg'},
-            ];
 			
 			 $('#btn').submenu({
 				 data: jsondata,
@@ -80,15 +52,7 @@
 					 console.log(obj, value);
 				 }			 
 			 });
-
-
-
-            $('#btn').submenu({
-                data: jsondata2,
-                callback: function (obj, value) {
-                    console.log(obj, value);
-                }
-            });
+			
 	   })
 	</script>
     

@@ -1,32 +1,7 @@
-﻿body,header,footer,section,div,span,p,img,a,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,em,i,b,u,del,menu,nav,fieldset,legend,article,aside,details,figcaption,hgroup,pre,code,from,blockquote,th,td,tr,hr,table,img,figure,button,input,textarea{padding:0;margin:0;-webkit-touch-callout:none;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0);font-family:Microsoft Yahei,Helvetica,Arial;}
-body{background-color:#fff;}
-/* webkit引擎的浏览器取消默认样式(-webkit-appearance) */
-input,textarea{-webkit-user-select:auto !important;user-select:auto !important;/*-webkit-appearance:none;*/}
-:focus{outline:none;}
-img{vertical-align:middle;border:0 none;}
+﻿
 ul{list-style:none;}
-a{text-decoration:none;color:inherit;-webkit-tap-highlight-color:rgba(255,0,0,0);-webkit-tap-highlight-color: transparent}
-section{display:block;}
-header,footer{margin:0 auto;width:100%;}
 em,i{font-style:normal;}
 html,body{width:100%;height:100%;font:12px/1.4 "Microsoft YaHei";}
-button,input{border:0 none;}
-u,del{text-decoration:none;}
-/* webkit引擎的浏览器取消默认样式 */
-input[type="submit"],input[type="reset"],input[type="button"],input[type="password"],input[type="text"],button{-webkit-appearance:none;outline:none;}
-.clearfix::after {
-            content: ".";
-            clear: both;
-            display: block;
-            overflow: hidden;
-            font-size: 0;
-            height: 0;
-        }
-
-.clearfix {
-            zoom: 1;
-        }
-
 
 .xy-dropdown-menu{ display: none; position: absolute; z-index: 1000;min-width: 160px;padding: 5px 0; background-color: #fff;border: 1px solid rgba(0,0,0,.2);font-size: 14px;border-radius: 6px; box-shadow: 0 5px 10px rgba(0,0,0,.2);background-clip: padding-box;text-align: left;}
 .xy-dropdown-menu>li,.xy-dropdown-menu>li ul.m-list li{ display: block;padding: 3px 20px;color: #333;white-space: nowrap;position: relative;}

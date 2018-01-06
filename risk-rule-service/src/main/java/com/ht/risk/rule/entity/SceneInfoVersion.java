@@ -4,11 +4,14 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+
 /**
  * <p>
  * 规则引擎使用场景
@@ -18,16 +21,10 @@ import java.util.Date;
  * @since 2017-12-15
  */
 @ApiModel
-@TableName("rule_scene_info")
-public class SceneInfo extends Model<SceneInfo> {
+@TableName("rule_scene_info s left join rule_scene_version v on v.scene_id = s.scene_id")
+public class SceneInfoVersion extends Model<SceneInfoVersion> {
 
     private static final long serialVersionUID = 1L;
-    /**
-     * 主键
-     */
-    @TableId("scene_id")
-	@ApiModelProperty(required= true,value = "主键")
-	private Long sceneId;
     /**
      * 标识
      */
@@ -59,31 +56,144 @@ public class SceneInfo extends Model<SceneInfo> {
 	@ApiModelProperty(required= true,value = "是否有效")
 	private Integer isEffect;
     /**
-     * 创建人
-     */
-	@TableField("cre_user_id")
-	@ApiModelProperty(required= true,value = "创建人")
-	private Long creUserId;
-    /**
-     * 创建时间
-     */
-	@TableField("cre_time")
-	@ApiModelProperty(required= true,value = "创建时间")
-	private Date creTime;
-    /**
      * 备注
      */
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
 
+	private Integer status ;
+	/**
+	 * 版本记录id
+	 */
+	@TableId(value="version_id", type= IdType.AUTO)
+	@ApiModelProperty(required= true,value = "版本记录id")
+	private Long versionId;
+	/**
+	 * 版本号
+	 */
+	@TableField("v.`version`")
+	@ApiModelProperty(required= true,value = "版本号 ")
+	private String version;
+	/**
+	 * 类型：1决策或评分卡2模型
+	 */
+	@ApiModelProperty(required= true,value = "类型：1决策或评分卡2模型")
+	private Integer type;
+	/**
+	 * 标题
+	 */
+	@ApiModelProperty(required= true,value = "标题")
+	private String title;
+	/**
+	 * 详细描述
+	 */
+	@ApiModelProperty(required= true,value = "详细描述")
+	private String comment;
+	/**
+	 * 业务id
+	 */
+	@TableField("v.scene_id")
+	@ApiModelProperty(required= true,value = "业务id")
+	private String sceneId;
+	/**
+	 * 创建时间
+	 */
+	@TableField("v.cre_time")
 
-	public Long getSceneId() {
+	@ApiModelProperty(required= true,value = "创建时间")
+	private Date creTime;
+	/**
+	 * 创建用户
+	 */
+	@TableField("v.cre_user_id")
+	@ApiModelProperty(required= true,value = "创建用户")
+	private Long creUserId;
+	/**
+	 * 规则html
+	 */
+	@TableField("rule_div")
+	@ApiModelProperty(required= true,value = "规则html")
+	private String ruleDiv;
+	/**
+	 * rule文件内容
+	 */
+	@TableField("rule_drl")
+	@ApiModelProperty(required= true,value = "rule文件内容")
+	private String ruleDrl;
+
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getSceneId() {
 		return sceneId;
 	}
 
-	public void setSceneId(Long sceneId) {
+	public void setSceneId(String sceneId) {
 		this.sceneId = sceneId;
 	}
+	public Long getVersionId() {
+		return versionId;
+	}
+
+	public void setVersionId(Long versionId) {
+		this.versionId = versionId;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+
+	public String getRuleDiv() {
+		return ruleDiv;
+	}
+
+	public void setRuleDiv(String ruleDiv) {
+		this.ruleDiv = ruleDiv;
+	}
+
+	public String getRuleDrl() {
+		return ruleDrl;
+	}
+
+	public void setRuleDrl(String ruleDrl) {
+		this.ruleDrl = ruleDrl;
+	}
+
 
 	public String getSceneIdentify() {
 		return sceneIdentify;
@@ -132,7 +242,7 @@ public class SceneInfo extends Model<SceneInfo> {
 	public void setCreUserId(Long creUserId) {
 		this.creUserId = creUserId;
 	}
-
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getCreTime() {
 		return creTime;
 	}

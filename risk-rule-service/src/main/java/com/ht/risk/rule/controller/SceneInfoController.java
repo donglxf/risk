@@ -47,7 +47,10 @@ public class SceneInfoController {
             wrapper.or().like("scene_desc",key);
             wrapper.or().like("scene_identify",key);
         }
-        wrapper.eq("scene_type",sceneType);
+        if(sceneType != null ){
+            wrapper.eq("scene_type",sceneType);
+        }
+
         Page<SceneInfo> pages = new Page<>();
         pages.setCurrent(page);
         pages.setSize(limit);

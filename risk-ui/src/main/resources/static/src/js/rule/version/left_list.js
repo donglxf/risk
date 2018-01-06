@@ -1,14 +1,3 @@
-var tableNoDataPt = document.getElementById('table').innerHTML;
-/**
- * 设置表单值
- * @param el
- * @param data
- */
-function setFromValues(el, data) {
-    for (var p in data) {
-        el.find(":input[name='" + p + "']").val(data[p]);
-    }
-}
 
 var  scene = {
     baseUrl: "/rule/service/sceneInfo/",
@@ -41,20 +30,6 @@ scene.cols = function () {
     }
     ];
 };
-/*
-scene.queryParams = function (params) {
-    if (!params)
-        return {
-            name: $("#name").val()
-        };
-    var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-        limit: params.limit, //页面大小
-        offset: params.offset, //页码
-        name: $("#name").val()
-    };
-    return temp;
-};*/
-///////////////////////////////////////////////////////////////////////
 var layer,sceneTable,table,active;
 var sceneId ;
 

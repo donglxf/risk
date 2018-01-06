@@ -3,12 +3,10 @@
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 5px;">
     <legend>发布版本</legend>
 </fieldset>
-<form class="layui-form" action="">
+<form class="layui-form sub"  action="">
     <input type="hidden" name="sceneId" >
 
-    <input type="hidden" name="rule_div" >
-
-    <input type="hidden" name="rule_drl" >
+    <input type="hidden" name="ruleDiv" >
 
     <div class="layui-form-item">
         <label class="layui-form-label">标题:</label>
@@ -42,7 +40,7 @@
            $.ajax({
                 cache : true,
                 type : "POST",
-                url : '/rule/service/entityInfo/edit',
+                url : '/rule/service/sceneVersion/push',
                 data : data.field,// 你的formid
                 async : false,
                 error : function(request) {
