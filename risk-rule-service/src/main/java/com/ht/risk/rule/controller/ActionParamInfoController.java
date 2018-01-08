@@ -61,7 +61,6 @@ public class ActionParamInfoController {
 	@GetMapping("getInfoById/{id}")
 	@ApiOperation(value = "通过id查询详细信息")
 	public Result<ActionParamInfo> getDateById(@PathVariable(name = "id") Long id) {
-		System.out.println(">>>>>>>"+id);
 		ActionParamInfo entityInfo = actionParamInfoService.selectById(id);
 		return Result.success(entityInfo);
 	}
