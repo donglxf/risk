@@ -88,7 +88,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param scene               场景
      */
     @Override
-    public RuleExecutionObject excute(RuleExecutionObject ruleExecutionObject, final String scene) throws Exception {
+    public RuleExecutionObject excute(RuleExecutionObject ruleExecutionObject, final String scene,final String version) throws Exception {
         try {
             //获取ksession
             KieSession ksession = DroolsUtil.getInstance().getDrlSessionInCache(scene);
@@ -97,7 +97,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                 return executeRuleEngine(ksession, ruleExecutionObject, scene);
             } else {
                 //重新编译规则，然后执行
-                return compileRule(ruleExecutionObject, scene);
+                return compileRule(ruleExecutionObject, scene,version);
             }
 //            return compileRule(ruleExecutionObject, scene);
         } catch (Exception e) {
@@ -253,7 +253,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     }
     
     @Override
-    public String getDroolsString(final String scene) throws Exception{
+    public String getDroolsString(final String scene,final String version) throws Exception{
     	//拼接规则脚本
     	StringBuffer droolRuleStr = new StringBuffer();
     	logger.info("===================重新拼接规则串======================");
@@ -270,6 +270,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         
     	BaseRuleSceneInfo sceneInfo = new BaseRuleSceneInfo();
     	sceneInfo.setSceneIdentify(scene);
+    	sceneInfo.setVersion(version);
     	// 4.根据场景加载可用的规则信息
     	List<BaseRuleInfo> ruleList = this.ruleInfoService.findBaseRuleListByScene(sceneInfo);
     	logger.info("场景可用规则个数为:{}", ruleList.size());
@@ -298,9 +299,9 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param ruleExecutionObject 参数
      * @param scene               场景
      */
-    private RuleExecutionObject compileRule(RuleExecutionObject ruleExecutionObject, final String scene) throws Exception {
+    private RuleExecutionObject compileRule(RuleExecutionObject ruleExecutionObject, final String scene,final String version) throws Exception {
     	// 1.生成  规则文件串  
-    	String droolRuleStr=getDroolsString(scene);
+    	String droolRuleStr=getDroolsString(scene,version);
     	// 7.初始化drools，将实体对象扔进引擎
     	return this.compileRuleAndexEcuteRuleEngine(droolRuleStr, ruleExecutionObject, scene);
     }

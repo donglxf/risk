@@ -37,13 +37,14 @@ public class DroolsExcuteController {
         // 业务数据转化
         try {
         	 String identity=droolsRuleEngineService.getSceneIdentifyById(paramter.getSence());
+        	 String version="";
 //           System.out.println(JSON.toJSONString(paramter));
         	 RuleExecutionObject object = new RuleExecutionObject();
         	 Map<String,Object> mapData = paramter.getData();
              object.addFactObject(mapData);
              RuleExecutionResult result = new RuleExecutionResult();
              object.setGlobal("_result",result);
-             object = this.droolsRuleEngineService.excute(object,identity);
+             object = this.droolsRuleEngineService.excute(object,identity,version);
              
              
              // 记录日志

@@ -13,8 +13,18 @@ public class BaseRuleSceneInfo extends BaseModel {
     private Integer sceneType;//类型
     private String sceneName;//名称
     private String sceneDesc;//描述
+    private String version ; // 版本
 
-    public Long getSceneId() {
+    
+    public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public Long getSceneId() {
         return sceneId;
     }
 

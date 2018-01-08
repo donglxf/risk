@@ -20,7 +20,17 @@ public class ExcuteTotalScoreServiceImpl extends DroolsActionService{
     @Override
     public void execute(RuleExecutionObject fact, RuleExecutionResult result,String key) {
     	log.info("########统计方法开始");
-    	Object totalObj = fact.getGlobalMap().get("total");
+    	 int scope=0;
+         Object total= result.getMap() .get("scope");
+         if(null != total){
+         	scope=Integer.parseInt(String.valueOf(total));
+         }
+         Object val = result.getMap().get(key);
+         if(null != val){
+         	scope += Integer.parseInt(String.valueOf(val));
+         }
+        result.getMap().put("scope", scope);
+    	/*Object totalObj = fact.getGlobalMap().get("total");
     	Integer total = 0 ; 
     	if(totalObj != null){
     		total =  Integer.parseInt(String.valueOf(totalObj));
@@ -31,9 +41,9 @@ public class ExcuteTotalScoreServiceImpl extends DroolsActionService{
     	if(scoreObj != null){
     		total += Integer.parseInt(String.valueOf(scoreObj));
     	}
-    	fact.getGlobalMap().put("total", total);
+    	fact.getGlobalMap().put("total", total);*/
     	
-    	log.info("########统计当前结果："+total);
+    	log.info("########统计当前结果："+scope);
     	log.info("########统计方法结束");
     }
 

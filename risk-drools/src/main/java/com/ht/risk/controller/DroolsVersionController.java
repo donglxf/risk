@@ -38,7 +38,7 @@ public class DroolsVersionController {
 		String str=null;
         try {
             String identity=droolsRuleEngineService.getSceneIdentifyById(id);
-            str= droolsRuleEngineService.getDroolsString(identity);
+            str= droolsRuleEngineService.getDroolsString(identity,null);
         }catch (Exception e){
         	e.printStackTrace();
         }
