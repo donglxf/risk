@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import com.ht.risk.model.fact.RuleExecutionObject;
 import com.ht.risk.model.fact.RuleExecutionResult;
-import com.ht.risk.service.impl.ruleaction.ExcuteTotalScoreServiceImpl;
 
 /**
  * 描述： drools 实现类动作接口 CLASSPATH: com.sky.DroolsActionService VERSION: 1.0

@@ -118,7 +118,7 @@ layui.use(['table','form'], function(){
             layer.msg('ID：'+ data.actionParamId + ' 的查看操作');
         } else if(obj.event === 'del2'){
             layer.confirm('真的删除行么', function(index){
-                $.get(preUrl+'delete/'+data.actionParamId,function (data) {
+                $.get(preItemUrl+'delete/'+data.actionParamId,function (data) {
                     layer.msg("删除成功！");
                     obj.del();
                     layer.close(index);
@@ -148,7 +148,7 @@ layui.use(['table','form'], function(){
     };
     //新增
     $("#action_btn_add").on('click',function () {
-        $.get('/rule/ui/rule/ruleAction/edit', null, function (form) {
+        $.get('/rule/ui/ruleAction/edit', null, function (form) {
             layer.open({
                 type :1,
                 title : '新增',
@@ -173,7 +173,7 @@ layui.use(['table','form'], function(){
     function  edit(id) {
         $.get(preUrl+"getInfoById/"+id,function (data) {
             var result = data.data;
-            $.get('/rule/ui/rule/ruleAction/edit', null, function (form) {
+            $.get('/rule/ui/ruleAction/edit', null, function (form) {
                 layer.open({
                     type :1,
                     title : '修改',
@@ -213,7 +213,7 @@ layui.use(['table','form'], function(){
             return ;
         }
 
-        $.get('/rule/ui/rule/ruleAction/actionParamEdit', null, function (form) {
+        $.get('/rule/ui/ruleAction/actionParamEdit', null, function (form) {
             layer.open({
                 type :1,
                 title : '新增',
@@ -239,7 +239,7 @@ layui.use(['table','form'], function(){
     function  editItem(id) {
         $.get(preItemUrl+"getInfoById/"+id,function (data) {
             var result = data.data;
-            $.get('/rule/ui/rule/ruleAction/actionParamEdit', null, function (form) {
+            $.get('/rule/ui/ruleAction/actionParamEdit', null, function (form) {
                 layer.open({
                     type :1,
                     title : '修改',

@@ -48,7 +48,6 @@ public class RuleController {
      */
     @RequestMapping(value = "decision/version/list",method = RequestMethod.GET)
     public String decisionVersion(){
-        System.out.print("===================");
         return "rule/decision/version/list";
     }
 
@@ -59,10 +58,14 @@ public class RuleController {
      * @autor 张鹏
      * @date 2018/1/3 14:21
      */
-        @RequestMapping(value = "decision/version/edit",method = RequestMethod.GET)
+    @RequestMapping(value = "decision/version/edit",method = RequestMethod.GET)
     public String versionEdit(){
-            System.out.print("===================");
             return "rule/decision/version/edit";
+    }
+
+    @RequestMapping(value = "decision/version/viewEdit",method = RequestMethod.GET)
+    public String versionViewEdit(){
+        return "rule/decision/version/viewEdit";
     }
 
 

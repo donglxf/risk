@@ -1,5 +1,10 @@
 package com.ht.risk.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.drools.core.base.RuleNameStartsWithAgendaFilter;
 import org.kie.api.runtime.KieSession;
@@ -9,19 +14,31 @@ import org.springframework.stereotype.Service;
 
 import com.ht.risk.common.util.ObjectUtils;
 import com.ht.risk.constant.DroolsConstant;
-import com.ht.risk.model.*;
+import com.ht.risk.model.BaseRuleActionInfo;
+import com.ht.risk.model.BaseRuleActionParamInfo;
+import com.ht.risk.model.BaseRuleActionParamValueInfo;
+import com.ht.risk.model.BaseRuleConditionInfo;
+import com.ht.risk.model.BaseRuleEntityInfo;
+import com.ht.risk.model.BaseRuleEntityItemInfo;
+import com.ht.risk.model.BaseRuleInfo;
+import com.ht.risk.model.BaseRulePropertyRelInfo;
+import com.ht.risk.model.BaseRuleSceneInfo;
 import com.ht.risk.model.fact.RuleExecutionObject;
-import com.ht.risk.service.*;
+import com.ht.risk.service.DroolsActionService;
+import com.ht.risk.service.DroolsRuleEngineService;
+import com.ht.risk.service.RuleActionParamService;
+import com.ht.risk.service.RuleActionParamValueService;
+import com.ht.risk.service.RuleActionService;
+import com.ht.risk.service.RuleConditionService;
+import com.ht.risk.service.RuleEntityItemService;
+import com.ht.risk.service.RuleEntityService;
+import com.ht.risk.service.RuleInfoService;
+import com.ht.risk.service.RuleSceneEntityRelService;
+import com.ht.risk.service.RuleSceneService;
 import com.ht.risk.util.DroolsUtil;
 import com.ht.risk.util.RuleUtils;
 import com.ht.risk.util.SpringContextHolder;
 import com.ht.risk.util.StringUtil;
-
-import javax.annotation.Resource;
-
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 描述：
@@ -52,6 +69,9 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     private RuleActionParamValueService ruleActionParamValueService;
     @Resource
     private RuleSceneService ruleSceneService;
+    
+//    @Resource
+//    private RedisTemplate redisTemplate;
     
     //换行符
     private static final String lineSeparator = System.getProperty("line.separator");

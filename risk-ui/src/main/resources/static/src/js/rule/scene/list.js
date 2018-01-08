@@ -149,7 +149,12 @@ layui.use(['table','form','laytpl'], function() {
             });
         } else if (obj.event === 'edit') {
             edit(data.sceneId);
-        } else if (obj.event === 'setItem') {
+        }
+        //发布
+        else if (obj.event === 'push') {
+            push(data.sceneId);
+        }
+        else if (obj.event === 'setItem') {
             //选择实体对象的id
             sceneId = data.sceneId;
             var tr = obj.tr;
@@ -204,5 +209,24 @@ layui.use(['table','form','laytpl'], function() {
             var result = data.data;
             save(scene.uiUrl, result);
         }, 'json')
+    }
+    //发布
+    function push(id) {
+        getRuleData(id);
+        //询问框
+        var index =  layer.confirm('您确定要发布新颁布吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+
+            var rule_drl ,rule_div;
+            rule_div = $("#table").html();
+            var result = {sceneId:id,ruleDiv:rule_div};
+            layer.close(index);
+            save("/rule/ui/rule/decision/version/edit", result);
+            // layer.msg('的确很重要', {icon: 1});
+
+        }, function(){
+        });
+
     }
 });

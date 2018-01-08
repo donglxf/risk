@@ -8,10 +8,35 @@
     .myform{
         margin-right: 20px;
     }
+    #tableView{
+        width: inherit;
+        margin: 0 auto;
+    }
+    #tableView tr th {
+        min-width: 200px;
+    }
+    #tableView tr th:last-child{
+        display: none;}
+    #tableView tr td:last-child{
+        display: none;}
 
+
+    #tableView .con{
+        color: #1e9fff;
+    }
+    #tableView .val{
+        color: #ffb122;
+    }
+    #tableView .actionType{
+        color: #1e9fff;
+    }
+    #tableView .actionVal{
+        color: red;
+        font-weight: bold;
+    }
 </style>
 <form class="layui-form myform"   >
-    <input type="hidden" name="sceneId" >
+    <input type="hidden" name="sceneId"  >
 
     <input type="hidden" name="ruleDiv" >
 
@@ -35,6 +60,17 @@
         </div>
     </div>
 </form>
+<fieldset class="layui-elem-field">
+    <legend class="lay-legend">规则详情</legend>
+    <div class="layui-field-box">
+
+        <table class="layui-table"   id="tableView">
+
+        </table>
+    </div>
+</fieldset>
+
+
 <script>
     //Demo
     layui.use('form', function(){
@@ -50,7 +86,7 @@
                 type : "POST",
                 url : '/rule/service/sceneVersion/push',
                 data : data.field,// 你的formid
-                //async : false,
+                async : false,
                 error : function(request) {
                     alert("Connection error");
                 },
@@ -65,6 +101,7 @@
                     }
                 }
             });
+
             layer.closeAll();
             return false;
         });
