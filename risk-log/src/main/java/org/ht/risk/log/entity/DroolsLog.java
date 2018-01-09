@@ -67,8 +67,28 @@ public class DroolsLog extends Model<DroolsLog> {
 	@TableField("execute_total")
 	@ApiModelProperty(required= true,value = "命中数目")
 	private Integer executeTotal;
+	/**
+     * 场景code
+     */
+	@TableField("scene_code")
+	@ApiModelProperty(required= true,value = "场景code")
+	private String sceneCode;
+	
+	/**
+     * 场景名
+     */
+	@TableField("scene_name")
+	@ApiModelProperty(required= true,value = "场景名")
+	private String sceneName;
+	
+	/**
+	 * 场景名
+	 */
+	@TableField("model_name")
+	@ApiModelProperty(required= true,value = "模型名")
+	private String modelName;
 
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -137,6 +157,30 @@ public class DroolsLog extends Model<DroolsLog> {
 	protected Serializable pkVal() {
 		return this.id;
 	}
+	
+	public String getSceneCode() {
+		return sceneCode;
+	}
+
+	public void setSceneCode(String sceneCode) {
+		this.sceneCode = sceneCode;
+	}
+
+	public String getSceneName() {
+		return sceneName;
+	}
+
+	public void setSceneName(String sceneName) {
+		this.sceneName = sceneName;
+	}
+	
+	public String getModelName() {
+		return modelName;
+	}
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
 
 	@Override
 	public String toString() {
@@ -149,6 +193,9 @@ public class DroolsLog extends Model<DroolsLog> {
 			", inParam=" + inParam +
 			", result=" + result +
 			", executeTotal=" + executeTotal +
+			", sceneCode=" + sceneCode +
+			", sceneName=" + sceneName +
+			", modelName=" + modelName +
 			"}";
 	}
 }
