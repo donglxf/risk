@@ -20,4 +20,5 @@ public interface RuleSceneService {
      * @param sceneInfo 参数
      */
     List<BaseRuleSceneInfo> findBaseRuleSceneInfiList(BaseRuleSceneInfo sceneInfo) throws Exception;
+    
 }

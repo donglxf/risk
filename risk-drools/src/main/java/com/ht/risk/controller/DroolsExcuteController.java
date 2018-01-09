@@ -14,18 +14,23 @@ import com.alibaba.fastjson.JSON;
 import com.ht.risk.common.model.DroolsParamter;
 import com.ht.risk.common.model.RuleExcuteResult;
 import com.ht.risk.common.util.ObjectUtils;
+import com.ht.risk.model.BaseRuleSceneInfo;
 import com.ht.risk.model.DroolsLog;
 import com.ht.risk.model.DroolsProcessLog;
 import com.ht.risk.model.fact.RuleExecutionObject;
 import com.ht.risk.model.fact.RuleExecutionResult;
 import com.ht.risk.rpc.DroolsLogInterface;
 import com.ht.risk.service.DroolsRuleEngineService;
+import com.ht.risk.service.RuleSceneService;
 
 @RestController
 public class DroolsExcuteController {
 	
 	@Resource
     private DroolsRuleEngineService droolsRuleEngineService;
+	
+	@Resource
+    private RuleSceneService ruleSceneService;
 	
 	@Autowired
 	private DroolsLogInterface droolsLogInterface ;
@@ -36,15 +41,23 @@ public class DroolsExcuteController {
         RuleExcuteResult data = null;
         // 业务数据转化
         try {
-        	 String identity=droolsRuleEngineService.getSceneIdentifyById(paramter.getSence());
-        	 String version="";
+        	Long sceneId=0L;
+        	BaseRuleSceneInfo info=new BaseRuleSceneInfo();
+    		info.setSceneIdentify(paramter.getSence());
+    		info.setVersion("1");
+    		List<BaseRuleSceneInfo> list=ruleSceneService.findBaseRuleSceneInfiList(info);
+    		if(ObjectUtils.isNotEmpty(list)){
+    			sceneId=list.get(0).getSceneId();
+    		}
+//        	 String identity=droolsRuleEngineService.getSceneIdentifyById(paramter.getSence());
+//        	 String version="1";
 //           System.out.println(JSON.toJSONString(paramter));
         	 RuleExecutionObject object = new RuleExecutionObject();
         	 Map<String,Object> mapData = paramter.getData();
              object.addFactObject(mapData);
              RuleExecutionResult result = new RuleExecutionResult();
              object.setGlobal("_result",result);
-             object = this.droolsRuleEngineService.excute(object,identity,version);
+             object = this.droolsRuleEngineService.excute(object,sceneId);
              
              
              // 记录日志

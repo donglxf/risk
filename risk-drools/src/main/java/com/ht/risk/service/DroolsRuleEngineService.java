@@ -18,7 +18,8 @@ public interface DroolsRuleEngineService {
      * @param ruleExecutionObject facr对象信息
      * @param scene 场景
      */
-    RuleExecutionObject excute(RuleExecutionObject ruleExecutionObject, final String scene,final String version) throws Exception;
+//    RuleExecutionObject excute(RuleExecutionObject ruleExecutionObject, final String scene,final String version) throws Exception;
+    RuleExecutionObject excute(RuleExecutionObject ruleExecutionObject, final Long scene) throws Exception;
     
     /**
      * 
@@ -29,7 +30,7 @@ public interface DroolsRuleEngineService {
     * @return String    返回类型
     * @throws
      */
-    public String getDroolsString(final String scene,final String version) throws Exception ;
+    public String getDroolsString(final Long sceneId) throws Exception ;
     
     /**
      * 

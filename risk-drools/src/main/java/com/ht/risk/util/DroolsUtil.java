@@ -52,13 +52,13 @@ public class DroolsUtil {
      * @param rule  规则字符串
      * @param scene 场景标识
      */
-    public KieSession getDrlSession(final String rule, final String scene) throws Exception {
+    public KieSession getDrlSession(final String rule, final Long sceneId) throws Exception {
 
         try {
             // 设置时间格式
             System.setProperty("drools.dateformat", "yyyy-MM-dd");
             //为防止规则文件名字重复，此处加上时间戳( 格式：场景标识+时间戳+.drl)
-            String ruleFileName = scene + System.currentTimeMillis() + ".drl";
+            String ruleFileName = sceneId + ".drl";
 
             KieServices kieServices = KieServices.Factory.get();
             KieFileSystem kfs = kieServices.newKieFileSystem();
@@ -70,7 +70,7 @@ public class DroolsUtil {
             KieContainer kieContainer = kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
             KieBase kBase = kieContainer.getKieBase();
             //放入缓存
-            ruleMap.put(scene, kBase);
+            ruleMap.put(String.valueOf(sceneId), kBase);
             KieSession kieSession = kBase.newKieSession();
             kieSession.addEventListener(new DebugRuleRuntimeEventListener());
             return kieSession;
