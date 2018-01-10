@@ -2,7 +2,7 @@ package com.ht.risk.activiti.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.ht.risk.activiti.service.MortgageRatingCalculationService;
-import com.ht.risk.api.model.RuleExcuteResult;
+import com.ht.risk.api.model.drools.RuleExcuteResult;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.slf4j.Logger;

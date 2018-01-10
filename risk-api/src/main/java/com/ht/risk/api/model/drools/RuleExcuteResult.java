@@ -1,4 +1,4 @@
-package com.ht.risk.api.model;
+package com.ht.risk.api.model.drools;
 
 
 import java.io.Serializable;
