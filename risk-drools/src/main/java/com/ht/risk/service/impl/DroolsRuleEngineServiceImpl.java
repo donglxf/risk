@@ -1,5 +1,10 @@
 package com.ht.risk.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.drools.core.base.RuleNameStartsWithAgendaFilter;
 import org.kie.api.runtime.KieSession;
@@ -9,19 +14,31 @@ import org.springframework.stereotype.Service;
 
 import com.ht.risk.common.util.ObjectUtils;
 import com.ht.risk.constant.DroolsConstant;
-import com.ht.risk.model.*;
+import com.ht.risk.model.BaseRuleActionInfo;
+import com.ht.risk.model.BaseRuleActionParamInfo;
+import com.ht.risk.model.BaseRuleActionParamValueInfo;
+import com.ht.risk.model.BaseRuleConditionInfo;
+import com.ht.risk.model.BaseRuleEntityInfo;
+import com.ht.risk.model.BaseRuleEntityItemInfo;
+import com.ht.risk.model.BaseRuleInfo;
+import com.ht.risk.model.BaseRulePropertyRelInfo;
+import com.ht.risk.model.BaseRuleSceneInfo;
 import com.ht.risk.model.fact.RuleExecutionObject;
-import com.ht.risk.service.*;
+import com.ht.risk.service.DroolsActionService;
+import com.ht.risk.service.DroolsRuleEngineService;
+import com.ht.risk.service.RuleActionParamService;
+import com.ht.risk.service.RuleActionParamValueService;
+import com.ht.risk.service.RuleActionService;
+import com.ht.risk.service.RuleConditionService;
+import com.ht.risk.service.RuleEntityItemService;
+import com.ht.risk.service.RuleEntityService;
+import com.ht.risk.service.RuleInfoService;
+import com.ht.risk.service.RuleSceneEntityRelService;
+import com.ht.risk.service.RuleSceneService;
 import com.ht.risk.util.DroolsUtil;
 import com.ht.risk.util.RuleUtils;
 import com.ht.risk.util.SpringContextHolder;
 import com.ht.risk.util.StringUtil;
-
-import javax.annotation.Resource;
-
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 描述：
@@ -53,6 +70,9 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     @Resource
     private RuleSceneService ruleSceneService;
     
+//    @Resource
+//    private RedisTemplate redisTemplate;
+    
     //换行符
     private static final String lineSeparator = System.getProperty("line.separator");
     //特殊处理的规则属性(字符串)
@@ -68,16 +88,16 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param scene               场景
      */
     @Override
-    public RuleExecutionObject excute(RuleExecutionObject ruleExecutionObject, final String scene) throws Exception {
+    public RuleExecutionObject excute(RuleExecutionObject ruleExecutionObject, final Long sceneId) throws Exception {
         try {
             //获取ksession
-            KieSession ksession = DroolsUtil.getInstance().getDrlSessionInCache(scene);
+            KieSession ksession = DroolsUtil.getInstance().getDrlSessionInCache(String.valueOf(sceneId));
            if (ksession != null) {
                 //直接执行
-                return executeRuleEngine(ksession, ruleExecutionObject, scene);
+                return executeRuleEngine(ksession, ruleExecutionObject, sceneId);
             } else {
                 //重新编译规则，然后执行
-                return compileRule(ruleExecutionObject, scene);
+                return compileRule(ruleExecutionObject, sceneId);
             }
 //            return compileRule(ruleExecutionObject, scene);
         } catch (Exception e) {
@@ -96,7 +116,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param ruleExecutionObject 参数
      * @param scene               场景
      */
-    private RuleExecutionObject executeRuleEngine(KieSession session, RuleExecutionObject ruleExecutionObject, final String scene) throws Exception {
+    private RuleExecutionObject executeRuleEngine(KieSession session, RuleExecutionObject ruleExecutionObject, final Long sceneId) throws Exception {
         try {
             // 1.插入全局对象
             Map<String, Object> globalMap = ruleExecutionObject.getGlobalMap();
@@ -118,7 +138,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             session.insert(ruleExecutionObject);
             // 3.将规则涉及的所有动作实现类插入到规则中(如果没有，则不处理)
             BaseRuleSceneInfo sceneInfo = new BaseRuleSceneInfo();
-            sceneInfo.setSceneIdentify(scene);
+//            sceneInfo.setSceneIdentify(scene);
+            sceneInfo.setSceneId(sceneId);
             //根据场景获取所有的动作信息
             List<BaseRuleActionInfo> actionList = this.ruleActionService.findRuleActionListByScene(sceneInfo);
             for (BaseRuleActionInfo action : actionList) {
@@ -140,6 +161,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             //1,是否全部执行
             if (ruleExecutionObject.isExecuteAll()) {
                 int count =  session.fireAllRules();
+                
                 ruleExecutionObject.getGlobalMap().put("count", count);
                 System.out.println("命中规则条数："+count);
             } else {
@@ -168,18 +190,18 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param ruleExecutionObject 参数
      * @param scene               场景
      */
-    private RuleExecutionObject compileRuleAndexEcuteRuleEngine(String droolRuleStr, RuleExecutionObject ruleExecutionObject, final String scene) throws Exception {
+    private RuleExecutionObject compileRuleAndexEcuteRuleEngine(String droolRuleStr, RuleExecutionObject ruleExecutionObject, final Long sceneId) throws Exception {
         //KieSession对象
         KieSession session;
         try {
             //编译规则脚本,返回KieSession对象
-            session = DroolsUtil.getInstance().getDrlSession(droolRuleStr, scene);
+            session = DroolsUtil.getInstance().getDrlSession(droolRuleStr, sceneId);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Drools初始化失败，请检查Drools语句！");
         }
         //执行规则
-        return this.executeRuleEngine(session, ruleExecutionObject, scene);
+        return this.executeRuleEngine(session, ruleExecutionObject, sceneId);
     }
 
 
@@ -229,11 +251,12 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         System.out.println(droolRuleStr.toString());
         logger.info(lineSeparator + "===========================规则串================================" + lineSeparator);
         // 7.初始化drools，将实体对象扔进引擎
-        return this.compileRuleAndexEcuteRuleEngine(droolRuleStr.toString(), ruleExecutionObject, scene);
+//        return this.compileRuleAndexEcuteRuleEngine(droolRuleStr.toString(), ruleExecutionObject, scene);
+        return null;
     }
     
     @Override
-    public String getDroolsString(final String scene) throws Exception{
+    public String getDroolsString(final Long sceneId) throws Exception{
     	//拼接规则脚本
     	StringBuffer droolRuleStr = new StringBuffer();
     	logger.info("===================重新拼接规则串======================");
@@ -249,7 +272,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(DroolsConstant.LIST).append("").append(lineSeparator);
         
     	BaseRuleSceneInfo sceneInfo = new BaseRuleSceneInfo();
-    	sceneInfo.setSceneIdentify(scene);
+    	sceneInfo.setSceneId(sceneId);
     	// 4.根据场景加载可用的规则信息
     	List<BaseRuleInfo> ruleList = this.ruleInfoService.findBaseRuleListByScene(sceneInfo);
     	logger.info("场景可用规则个数为:{}", ruleList.size());
@@ -278,11 +301,20 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param ruleExecutionObject 参数
      * @param scene               场景
      */
-    private RuleExecutionObject compileRule(RuleExecutionObject ruleExecutionObject, final String scene) throws Exception {
+    private RuleExecutionObject compileRule(RuleExecutionObject ruleExecutionObject, final Long sceneId) throws Exception {
+//    	Long sceneId=0L;
+//    	BaseRuleSceneInfo info=new BaseRuleSceneInfo();
+//		info.setSceneIdentify(scene);
+//		info.setVersion(version);
+//		List<BaseRuleSceneInfo> list=ruleSceneService.findBaseRuleSceneInfiList(info);
+//		if(ObjectUtils.isNotEmpty(list)){
+//			sceneId=list.get(0).getSceneId();
+//		}
+//    	
     	// 1.生成  规则文件串  
-    	String droolRuleStr=getDroolsString(scene);
+    	String droolRuleStr=getDroolsString(sceneId);
     	// 7.初始化drools，将实体对象扔进引擎
-    	return this.compileRuleAndexEcuteRuleEngine(droolRuleStr, ruleExecutionObject, scene);
+    	return this.compileRuleAndexEcuteRuleEngine(droolRuleStr, ruleExecutionObject, sceneId);
     }
 
     /**
@@ -375,12 +407,14 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         //实体id
         Long entityId = null;
         String relation = "&&";
+        String mapCondition = "String.valueOf(";
+        String mapCondition1 = ")";
         for (int c = 0; c < conditionList.size(); c++) {
             BaseRuleConditionInfo conditionInfo = conditionList.get(c);
             String expression = conditionInfo.getConditionExpression();
         	//获取 ==、>=、<=、>、<、！=后面的变量
         	String conditionVariable = RuleUtils.getConditionOfVariable(expression);
-        	if (!RuleUtils.checkStyleOfString(conditionVariable)) {
+        	if (!RuleUtils.checkStyleOfString(conditionVariable.trim())) {
         		expression = expression.replace(conditionVariable, "'" + conditionVariable.trim() + "'");
         	}
         	// 1.获取条件参数（比如：$21$ ，21 代表实体属性表id）
@@ -392,7 +426,10 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         			entityId = itemInfo.getEntityId();
         		}
         		// 3.拼接属性字段（例如：$21$ > 20 替换成 age > 20）
-        		expression = expression.replace("$" + itemId + "$", "this[\""+ itemInfo.getItemIdentify().trim()+"\"]").replace("^", "not ");
+        		if(!expression.contains("contains") && !expression.contains("memberOf")){
+        			mapCondition="";mapCondition1="";
+        		}
+        		expression = expression.replace("$" + itemId + "$", mapCondition+"this[\""+ itemInfo.getItemIdentify().trim()+"\"]"+mapCondition1).replace("^", "not ");
         	}
             
             //如果是最后一个，则不拼接条件之间关系

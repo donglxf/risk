@@ -7,6 +7,26 @@ public class DroolsLog {
 	private String inParam;
 	private String result;
 	private int executeTotal;
+	private String sceneCode;
+	private String sceneName;
+	private String modelName;
+
+	
+	public String getSceneCode() {
+		return sceneCode;
+	}
+
+	public void setSceneCode(String sceneCode) {
+		this.sceneCode = sceneCode;
+	}
+
+	public String getSceneName() {
+		return sceneName;
+	}
+
+	public void setSceneName(String sceneName) {
+		this.sceneName = sceneName;
+	}
 
 	public String getProcInstId() {
 		return procInstId;
@@ -56,4 +76,12 @@ public class DroolsLog {
 		this.executeTotal = executeTotal;
 	}
 
+	public String getModelName() {
+		return modelName;
+	}
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+	
 }

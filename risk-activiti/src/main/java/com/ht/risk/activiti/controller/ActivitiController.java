@@ -3,11 +3,17 @@ package com.ht.risk.activiti.controller;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.ht.risk.activiti.constant.ActivitiConstants;
 import com.ht.risk.activiti.model.ModelParamter;
+import com.ht.risk.activiti.model.ModelSence;
 import com.ht.risk.activiti.model.ProcessDefinitionModel;
+import com.ht.risk.activiti.service.ModelSenceService;
 import com.ht.risk.common.result.Result;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.FieldExtension;
+import org.activiti.bpmn.model.FlowElement;
+import org.activiti.bpmn.model.ServiceTask;
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.ActivitiException;
@@ -56,10 +62,9 @@ public class ActivitiController implements ModelDataJsonConstants {
     private ObjectMapper objectMapper;
     @Resource
     private HistoryService historyService;
-    /*@Resource
-	private ActReModelService actReModelService;*/
+    @Resource
+    private ModelSenceService modelSenceService;
 
-    private static Logger logger = LoggerFactory.getLogger(ActivitiController.class);
 
     /**
      * 新增流程模型
@@ -70,6 +75,7 @@ public class ActivitiController implements ModelDataJsonConstants {
     @GetMapping(value = "/addModeler")
     @ResponseBody
     public Result<ModelParamter> addModel(ModelParamter paramter) {
+        LOGGER.info("添加模型,参数paramter:"+JSON.toJSONString(paramter));
         Result<ModelParamter> data = null;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -94,9 +100,10 @@ public class ActivitiController implements ModelDataJsonConstants {
             paramter.setModelId(modelData.getId());
             data = Result.success(paramter);
         } catch (Exception e) {
-            logger.error("创建模型失败：", e);
+            LOGGER.error("创建模型失败：", e);
             data = Result.error(1, "创建模型失败");
         }
+        LOGGER.info("添加模型结束！");
         return data;
     }
 
@@ -107,12 +114,13 @@ public class ActivitiController implements ModelDataJsonConstants {
      */
     @RequestMapping(value = "/deleteModel")
     public Result<ModelParamter> deleteModel(ModelParamter paramter) {
+        LOGGER.info("添加模型,参数paramter:"+JSON.toJSONString(paramter));
         Result<ModelParamter> data = null;
         try {
             repositoryService.deleteModel(paramter.getModelId());
             data = Result.success(paramter);
         } catch (Exception e) {
-            logger.error("删除模型失败：", e);
+            LOGGER.error("删除模型失败：", e);
             data = Result.error(1, "删除模型失败");
         }
         return data;
@@ -126,6 +134,7 @@ public class ActivitiController implements ModelDataJsonConstants {
     @RequestMapping(value = "/modelDeploy")
     @ResponseBody
     public Result deploy(ModelParamter paramter) {
+        LOGGER.info("部署模型,参数paramter:"+JSON.toJSONString(paramter));
         Result<ModelParamter> data = null;
         try {
             Model modelData = repositoryService.getModel(paramter.getModelId());
@@ -140,15 +149,41 @@ public class ActivitiController implements ModelDataJsonConstants {
                     .addString(processName, new String(bpmnBytes)).deploy();
             modelData.setDeploymentId(deployment.getId());
             repositoryService.saveModel(modelData);
-			/*if(model != null) {
-				Collection<FlowElement> flowElements = model.getMainProcess().getFlowElements();
-				for(FlowElement e : flowElements) {
-					System.out.println("flowelement id:" + e.getId() + "  name:" + e.getName() + "   class:" + e.getClass().toString());
-				}
-			}*/
+            if(model != null) {
+                Collection<FlowElement> flowElements = model.getMainProcess().getFlowElements();
+                ServiceTask task = null;
+                String implementation = null;
+                String implementationType = null;
+                String senceCode = null;
+                String senceName = null;
+                String version = null;
+                List<FieldExtension> fieldExtensions = null;
+                List<ModelSence> modelSences = new ArrayList<ModelSence>();
+                for(FlowElement e : flowElements) {
+                    if(e instanceof ServiceTask){
+                        task = (ServiceTask)e;
+                        implementation =  task.getImplementation();
+                        implementationType = task.getImplementationType();
+                        fieldExtensions = task.getFieldExtensions();
+                        if(ActivitiConstants.DROOL_RULE_SERVICE_NAME.equals(implementation) && ActivitiConstants.DROOL_RULE_SERVICE_TYPE.equals(implementationType) && fieldExtensions.size()>1){
+                            senceCode = fieldExtensions.get(0).getExpression();
+                            version = fieldExtensions.get(1).getExpression();
+                            ModelSence modelSence = new ModelSence();
+                            modelSence.setDeploymentid(deployment.getId());
+                            modelSence.setSencecode(senceCode);
+                            modelSence.setVersion(version);
+                            modelSence.setGenerated(new Date(System.currentTimeMillis()));
+                            modelSences.add(modelSence);
+                        }
+                    }
+                }
+                if(modelSences!= null && modelSences.size()>0){
+                    modelSenceService.insertBatch(modelSences);
+                }
+            }
             data = Result.success();
         } catch (Exception e) {
-            logger.error("部署流程失败!：", e);
+            LOGGER.error("部署流程失败!：", e);
             data = Result.error(1, "部署流程失败!");
         }
         return data;
@@ -156,8 +191,7 @@ public class ActivitiController implements ModelDataJsonConstants {
 
     @RequestMapping(value = "/start")
     public Result startProcess(@RequestParam Map<String, String> paramter) throws Exception {
-        LOGGER.info("###############模型执行开始");
-        LOGGER.info("###############模型执行参数：" + JSON.toJSONString(paramter));
+        LOGGER.info("启动模型,参数paramter:"+JSON.toJSONString(paramter));
         Result<String> data = null;
         try {
             if (paramter != null) {
@@ -174,7 +208,7 @@ public class ActivitiController implements ModelDataJsonConstants {
             }
             data = Result.error(1, "参数异常");
         } catch (Exception e) {
-            logger.error("启动模型失败：", e);
+            LOGGER.error("启动模型失败：", e);
             data = Result.error(1, "启动模型失败");
         }
         LOGGER.info("###############模型执行结束");
@@ -185,6 +219,7 @@ public class ActivitiController implements ModelDataJsonConstants {
     @RequestMapping(value = "/model/{modelId}/json", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public ObjectNode getEditorJson(@PathVariable String modelId) {
+        LOGGER.info("启动模型,参数modelId:"+modelId);
         ObjectNode modelNode = null;
         Model model = repositoryService.getModel(modelId);
         if (model != null) {
@@ -211,6 +246,7 @@ public class ActivitiController implements ModelDataJsonConstants {
     @RequestMapping(value = "/model/{modelId}/save", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void saveModel(@PathVariable String modelId, @RequestBody MultiValueMap<String, String> values) {
+        LOGGER.info("模型定义保存,参数modelId:"+modelId);
         try {
             Model model = repositoryService.getModel(modelId);
             ObjectNode modelJson = (ObjectNode) objectMapper.readTree(model.getMetaInfo());
@@ -231,11 +267,11 @@ public class ActivitiController implements ModelDataJsonConstants {
             final byte[] result = outStream.toByteArray();
             repositoryService.addModelEditorSourceExtra(model.getId(), result);
             outStream.close();
-
         } catch (Exception e) {
             LOGGER.error("Error saving model", e);
             throw new ActivitiException("Error saving model", e);
         }
+        LOGGER.info("模型定义保存成功！");
     }
 
     @RequestMapping(value = "/editor/stencilset")
@@ -263,7 +299,7 @@ public class ActivitiController implements ModelDataJsonConstants {
 
     @RequestMapping(value = "/getDeployVersionList")
     public Result<List<ProcessDefinitionModel>> getDeployVersionList(String deployId) {
-        LOGGER.info("getDeployVersionList interface start");
+        LOGGER.info("getDeployVersionList interface start，paramter deployId:"+deployId);
         Result<List<ProcessDefinitionModel>> data = null;
         try {
             if (StringUtils.isEmpty(deployId)) {

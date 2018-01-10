@@ -1,10 +1,10 @@
 package com.ht.risk.activiti.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.ht.risk.activiti.model.DroolsParamter;
-import com.ht.risk.activiti.model.RuleExcuteResult;
 import com.ht.risk.activiti.rpc.DroolsRuleEngineInterface;
 import com.ht.risk.activiti.service.DroolsRuleEngineService;
+import com.ht.risk.api.model.drools.DroolsParamter;
+import com.ht.risk.api.model.drools.RuleExcuteResult;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.slf4j.Logger;
@@ -26,9 +26,6 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-
-
-
 
         LOGGER.info("###############策略规则运行开始！");
         String sence = (String) expressionValue.getValue(delegateExecution);

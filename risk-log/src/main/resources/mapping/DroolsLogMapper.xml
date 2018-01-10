@@ -12,11 +12,14 @@
         <result column="in_param" property="inParam" />
         <result column="result" property="result" />
         <result column="execute_total" property="executeTotal" />
+        <result column="scene_code" property="sceneCode" />
+        <result column="scene_name" property="sceneName" />
+        <result column="model_name" property="modelName" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, proc_inst_id AS procInstId, scene_id AS sceneId, cre_time AS creTime, droolsversion, in_param AS inParam, result, execute_total AS executeTotal
+        id, proc_inst_id AS procInstId, scene_id AS sceneId, cre_time AS creTime, droolsversion, in_param AS inParam, result, execute_total AS executeTotal,scene_code as sceneCode ,scene_name as sceneName,model_name as modelName 
     </sql>
 
 	

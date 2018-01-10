@@ -12,12 +12,19 @@
                 T.IS_EFFECT,
                 T.CRE_USER_ID,
                 T.CRE_TIME,
-                T.REMARK
+                T.REMARK,
+                T.VERSION
             FROM
                 rule_scene_info T
             WHERE	1 = 1
 		<if test="sceneId != null and sceneId != '' ">
 			and T.scene_id = #{sceneId}
+		</if>
+		<if test="sceneIdentify != null and sceneIdentify != '' ">
+			and T.SCENE_IDENTIFY = #{sceneIdentify}
+		</if>
+		<if test="version != null and version != '' ">
+			and T.VERSION = #{version}
 		</if>
     </select>
 </mapper>

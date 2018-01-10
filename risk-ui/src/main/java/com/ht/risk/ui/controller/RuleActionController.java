@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 * 
 */
 @Controller
-@RequestMapping("/rule")
+@RequestMapping("/ruleAction")
 public class RuleActionController {
 
     
-    @RequestMapping(value = "/ruleAction",method = RequestMethod.GET)
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String ruleAction(){
     	return "rule/action/rule_action";
     }
     
-    @RequestMapping(value = "/ruleAction/edit",method = RequestMethod.GET)
+    @RequestMapping(value = "/edit",method = RequestMethod.GET)
     public String ruleActionEdit(){
     	return "rule/action/rule_action_edit";
     }
-    @RequestMapping(value = "/ruleAction/actionParamEdit",method = RequestMethod.GET)
+    @RequestMapping(value = "/actionParamEdit",method = RequestMethod.GET)
     public String ruleActionParamEdit(){
     	return "rule/action/rule_action_param_edit";
     }
