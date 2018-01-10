@@ -161,6 +161,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             //1,是否全部执行
             if (ruleExecutionObject.isExecuteAll()) {
                 int count =  session.fireAllRules();
+                
                 ruleExecutionObject.getGlobalMap().put("count", count);
                 System.out.println("命中规则条数："+count);
             } else {
@@ -406,12 +407,14 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         //实体id
         Long entityId = null;
         String relation = "&&";
+        String mapCondition = "String.valueOf(";
+        String mapCondition1 = ")";
         for (int c = 0; c < conditionList.size(); c++) {
             BaseRuleConditionInfo conditionInfo = conditionList.get(c);
             String expression = conditionInfo.getConditionExpression();
         	//获取 ==、>=、<=、>、<、！=后面的变量
         	String conditionVariable = RuleUtils.getConditionOfVariable(expression);
-        	if (!RuleUtils.checkStyleOfString(conditionVariable)) {
+        	if (!RuleUtils.checkStyleOfString(conditionVariable.trim())) {
         		expression = expression.replace(conditionVariable, "'" + conditionVariable.trim() + "'");
         	}
         	// 1.获取条件参数（比如：$21$ ，21 代表实体属性表id）
@@ -423,7 +426,10 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         			entityId = itemInfo.getEntityId();
         		}
         		// 3.拼接属性字段（例如：$21$ > 20 替换成 age > 20）
-        		expression = expression.replace("$" + itemId + "$", "this[\""+ itemInfo.getItemIdentify().trim()+"\"]").replace("^", "not ");
+        		if(!expression.contains("contains") && !expression.contains("memberOf")){
+        			mapCondition="";mapCondition1="";
+        		}
+        		expression = expression.replace("$" + itemId + "$", mapCondition+"this[\""+ itemInfo.getItemIdentify().trim()+"\"]"+mapCondition1).replace("^", "not ");
         	}
             
             //如果是最后一个，则不拼接条件之间关系

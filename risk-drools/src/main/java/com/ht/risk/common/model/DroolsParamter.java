@@ -4,11 +4,20 @@ import java.util.Map;
 
 public class DroolsParamter {
 
-	
 	/**
 	 * 场景code
 	 */
 	private String sence;
+
+	/**
+	 * 版本号
+	 */
+	private String version;
+
+	/**
+	 * 模型名
+	 */
+	private String modelName;
 
 	/**
 	 * 流程运行实例id
@@ -43,4 +52,21 @@ public class DroolsParamter {
 	public void setProcessInstanceId(String processInstanceId) {
 		this.processInstanceId = processInstanceId;
 	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public String getModelName() {
+		return modelName;
+	}
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+
 }
