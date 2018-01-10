@@ -9,7 +9,7 @@ import com.ht.risk.model.fact.RuleExecutionResult;
 import com.ht.risk.service.DroolsActionService;
 
 @Service
-public class IntopiecesServiceImpl implements DroolsActionService{
+public class IntopiecesServiceImpl extends DroolsActionService{
 	
 	private Logger log = LoggerFactory.getLogger(IntopiecesServiceImpl.class);
 	
@@ -27,7 +27,6 @@ public class IntopiecesServiceImpl implements DroolsActionService{
     	log.info("########进件方法执行结束");
     }
 
-	@Override
 	public void statisResult(RuleExecutionResult result) {
 		
 	}

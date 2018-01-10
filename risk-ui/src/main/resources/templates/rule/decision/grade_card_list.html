@@ -13,6 +13,10 @@
         .layui-table td, .layui-table th {
             text-align: center;
         }
+        .layui-table-cell {
+            height: 32px;
+            line-height:32px;
+        }
         #table td, .layui-table th {
             font-size: 12px;
             padding: 6px 8px;
@@ -242,12 +246,16 @@
 <!--操作-->
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
-    <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="edit" >
-        <i class="layui-icon">&#xe642;</i>
-    </button>
-    <button class="layui-btn  layui-btn-primary layui-btn-sm" lay-event="del">
-        <i class="layui-icon">&#xe640;</i>
-    </button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="edit">
+            <i class="layui-icon">&#xe642;</i>
+        </button>
+        <button class="layui-btn  layui-btn-primary layui-btn-sm" lay-event="del">
+            <i class="layui-icon">&#xe640;</i>
+        </button>
+
+        <button class="layui-btn  layui-btn-primary layui-btn-sm" title="发布" lay-event="push">
+            <i class="layui-icon">&#xe609;</i>
+        </button>
     </div>
 </script>
 <div style="display: none;" id="tpl">

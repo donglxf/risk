@@ -97,6 +97,9 @@
         <if test="sceneIdentify != null">
             AND S.SCENE_IDENTIFY = #{sceneIdentify}
         </if>
+        <if test="version != null and version != '' ">
+            AND S.version = #{version}
+        </if>
         <if test="sceneId != null">
             AND S.SCENE_ID = #{sceneId}
         </if>

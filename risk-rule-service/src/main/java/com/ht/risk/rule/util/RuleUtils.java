@@ -1,5 +1,7 @@
 package com.ht.risk.rule.util;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -190,6 +192,9 @@ public class RuleUtils {
     public static void main(String[] args) {
      //   String aa = "$11$==100"
         System.out.print( getCondition("$11$==100","100"));
+        int count = 1;
+        double maxVersion = 1.0 + count*0.1;
+        System.out.print(maxVersion);
 
     }
 }

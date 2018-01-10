@@ -36,7 +36,7 @@ scene.cols = function () {
             title: '操作',
             fixed: 'right',
             align:'center',
-            width:130,
+            width:150,
             toolbar: scene.toolbarId
     }
     ];
@@ -82,7 +82,7 @@ layui.use(['table','form','laytpl'], function() {
                 , yes: function (index) {
                     //触发表单的提交事件
                     $('form.layui-form').find('button[lay-filter=formDemo]').click();
-                    layer.close(index);
+                   // layer.close(index);
                 },
             });
         });
@@ -96,7 +96,7 @@ layui.use(['table','form','laytpl'], function() {
     sceneTable.render({
         elem: '#'+scene.tableId
         , height: 'full'
-        , cellMinWidth: 40
+        , cellMinWidth:80
         , url: scene.baseUrl + 'page?sceneType=2' //数据接口
         // data:[{"sceneId":1,"sceneName":"测试规则","sceneDesc":"测试规则引擎","sceneIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
         , page: true //开启分页
@@ -148,7 +148,12 @@ layui.use(['table','form','laytpl'], function() {
             });
         } else if (obj.event === 'edit') {
             edit(data.sceneId);
-        } else if (obj.event === 'setItem') {
+        }
+        //发布
+        else if (obj.event === 'push') {
+            push(data.sceneId);
+        }
+        else if (obj.event === 'setItem') {
             //选择实体对象的id
             sceneId = data.sceneId;
             var tr = obj.tr;
@@ -203,5 +208,25 @@ layui.use(['table','form','laytpl'], function() {
             var result = data.data;
             save(scene.uiUrl, result);
         }, 'json')
+    }
+
+    //发布
+    function push(id) {
+        getRuleData(id);
+        //询问框
+       var index =  layer.confirm('您确定要发布新颁布吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+
+            var rule_drl ,rule_div;
+            rule_div = $("#table").html();
+            var result = {sceneId:id,ruleDiv:rule_div};
+            layer.close(index);
+            save("/rule/ui/rule/decision/version/edit", result);
+           // layer.msg('的确很重要', {icon: 1});
+
+        }, function(){
+        });
+
     }
 });

@@ -61,9 +61,15 @@ public class ActionParamInfoController {
 	@GetMapping("getInfoById/{id}")
 	@ApiOperation(value = "通过id查询详细信息")
 	public Result<ActionParamInfo> getDateById(@PathVariable(name = "id") Long id) {
-		System.out.println(">>>>>>>"+id);
 		ActionParamInfo entityInfo = actionParamInfoService.selectById(id);
 		return Result.success(entityInfo);
+	}
+	
+	@GetMapping("delete/{id}")
+	@ApiOperation(value = "通过id删除信息")
+	public Result<Integer> delete(@PathVariable(name = "id") Long id) {
+		actionParamInfoService.deleteById(id);
+		return Result.success(0);
 	}
 	
 }

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("com.ht.risk.rule.mapper")
 @EnableTransactionManagement 
 @ComponentScan(basePackages= {"com.ht.risk.rule","com.ht.risk.common.exception"})
+//////@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 public class Application {
 	
 	public static void main(String[] args) {
