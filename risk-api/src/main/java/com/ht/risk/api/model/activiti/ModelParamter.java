@@ -1,8 +1,8 @@
-package com.ht.risk.activiti.model;
+package com.ht.risk.api.model.activiti;
 
 import java.io.Serializable;
 
-public class ModelParamter   implements Serializable {
+public class ModelParamter implements Serializable {
 
 	private String modelId;
 	private String key;

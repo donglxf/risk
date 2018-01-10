@@ -1,7 +1,8 @@
-package com.ht.risk.activiti.service.impl;
-import com.ht.risk.activiti.mapper.ModelSenceMapper;
-import com.ht.risk.activiti.model.ModelSence;
-import com.ht.risk.activiti.service.ModelSenceService;
+package com.ht.risk.rule.service.impl;
+
+import com.ht.risk.rule.entity.ModelSence;
+import com.ht.risk.rule.mapper.ModelSenceMapper;
+import com.ht.risk.rule.service.ModelSenceService;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Service;
  *  服务实现类
  * </p>
  *
- * @author 张鹏
- * @since 2018-01-05
+ * @author zhangzhen
+ * @since 2018-01-10
  */
 @Service
 public class ModelSenceServiceImpl extends BaseServiceImpl<ModelSenceMapper, ModelSence> implements ModelSenceService {

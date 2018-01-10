@@ -42,12 +42,12 @@ import java.util.*;
 public class MysqlGenerator {
     private static String projectName = "risk-rule-service";
     private static String packageName="rule";    //文件路径
-    private static String authorName="张鹏";     //作者
-    private static String table="rule_scene_version";                  //table名字
-    private static String prefix="rule_";                     //table前缀
+    private static String authorName="zhangzhen";     //作者
+    private static String[] table={"risk_model_sence","risk_model_release","risk_validate_batch","risk_variable_bind","risk_rule_his_version"};                  //table名字
+    private static String prefix="risk_";                     //table前缀
     private static File file = new File(projectName);
-    private static String path = file.getAbsolutePath();
-  //  private static String path = "D:/";
+    //private static String path = file.getAbsolutePath();
+    private static String path = "D:/";
 
     public static void main(String[] args) {
     	
@@ -89,8 +89,8 @@ public class MysqlGenerator {
                         })
                         .setDriverName("com.mysql.jdbc.Driver")
                         .setUsername("root")
-                        .setPassword("tuandai_bm2015")
-                        .setUrl("jdbc:mysql://10.110.1.240:3306/drools_rule?characterEncoding=utf8")
+                        .setPassword("zhangzhen")
+                        .setUrl("jdbc:mysql://localhost:3306/activiti?characterEncoding=utf8")
         ).setStrategy(
                 // 策略配置
                 new StrategyConfig()
@@ -98,7 +98,7 @@ public class MysqlGenerator {
                         //.setDbColumnUnderline(true)//全局下划线命名
                         .setTablePrefix(new String[]{prefix})// 此处可以修改为您的表前缀
                         .setNaming(NamingStrategy.underline_to_camel)// 表名生成策略
-                        .setInclude(new String[] { table }) // 需要生成的表
+                        .setInclude(table) // 需要生成的表
                         .setRestControllerStyle(true)
                         //.setExclude(new String[]{"test"}) // 排除生成的表
                         // 自定义实体父类

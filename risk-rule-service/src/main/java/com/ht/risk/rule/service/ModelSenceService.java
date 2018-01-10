@@ -1,6 +1,6 @@
-package com.ht.risk.activiti.service;
+package com.ht.risk.rule.service;
 
-import com.ht.risk.activiti.model.ModelSence;
+import com.ht.risk.rule.entity.ModelSence;
 import com.ht.risk.common.service.BaseService;
 
 /**
@@ -8,8 +8,8 @@ import com.ht.risk.common.service.BaseService;
  *  服务类
  * </p>
  *
- * @author 张鹏
- * @since 2018-01-05
+ * @author zhangzhen
+ * @since 2018-01-10
  */
 public interface ModelSenceService extends BaseService<ModelSence> {
 

@@ -3,6 +3,7 @@ package com.ht.risk.activiti.model;
 import org.activiti.engine.repository.ProcessDefinition;
 
 import java.io.Serializable;
+import java.util.Iterator;
 
 public class ProcessDefinitionModel implements Serializable {
 
