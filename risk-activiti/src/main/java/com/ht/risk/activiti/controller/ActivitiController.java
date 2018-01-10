@@ -4,10 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ht.risk.activiti.constant.ActivitiConstants;
-import com.ht.risk.activiti.model.ModelParamter;
-import com.ht.risk.activiti.model.ModelSence;
 import com.ht.risk.activiti.model.ProcessDefinitionModel;
-import com.ht.risk.activiti.service.ModelSenceService;
+import com.ht.risk.api.model.activiti.RpcDeployResult;
+import com.ht.risk.api.model.activiti.ModelParamter;
+import com.ht.risk.api.model.activiti.RpcSenceInfo;
 import com.ht.risk.common.result.Result;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
@@ -62,8 +62,6 @@ public class ActivitiController implements ModelDataJsonConstants {
     private ObjectMapper objectMapper;
     @Resource
     private HistoryService historyService;
-    @Resource
-    private ModelSenceService modelSenceService;
 
 
     /**
@@ -131,11 +129,11 @@ public class ActivitiController implements ModelDataJsonConstants {
      *
      * @param paramter
      */
-    @RequestMapping(value = "/modelDeploy")
+    @RequestMapping(value = "/riskDeploy")
     @ResponseBody
-    public Result deploy(ModelParamter paramter) {
+    public Result<RpcDeployResult> riskDeploy(ModelParamter paramter) {
         LOGGER.info("部署模型,参数paramter:"+JSON.toJSONString(paramter));
-        Result<ModelParamter> data = null;
+        Result<RpcDeployResult> data = null;
         try {
             Model modelData = repositoryService.getModel(paramter.getModelId());
             ObjectNode modelNode;
@@ -149,7 +147,11 @@ public class ActivitiController implements ModelDataJsonConstants {
                     .addString(processName, new String(bpmnBytes)).deploy();
             modelData.setDeploymentId(deployment.getId());
             repositoryService.saveModel(modelData);
-            if(model != null) {
+            List<ProcessDefinition> processDefinitionModels = repositoryService.createProcessDefinitionQuery().deploymentId(deployment.getId()).list();
+            List<RpcSenceInfo> modelSences = new ArrayList<RpcSenceInfo>();
+            RpcDeployResult result = new RpcDeployResult();
+            result.setDeploymentId(deployment.getId());
+            if(model != null && processDefinitionModels.size()>0) {
                 Collection<FlowElement> flowElements = model.getMainProcess().getFlowElements();
                 ServiceTask task = null;
                 String implementation = null;
@@ -158,7 +160,7 @@ public class ActivitiController implements ModelDataJsonConstants {
                 String senceName = null;
                 String version = null;
                 List<FieldExtension> fieldExtensions = null;
-                List<ModelSence> modelSences = new ArrayList<ModelSence>();
+                RpcSenceInfo senceInfo = null;
                 for(FlowElement e : flowElements) {
                     if(e instanceof ServiceTask){
                         task = (ServiceTask)e;
@@ -168,20 +170,17 @@ public class ActivitiController implements ModelDataJsonConstants {
                         if(ActivitiConstants.DROOL_RULE_SERVICE_NAME.equals(implementation) && ActivitiConstants.DROOL_RULE_SERVICE_TYPE.equals(implementationType) && fieldExtensions.size()>1){
                             senceCode = fieldExtensions.get(0).getExpression();
                             version = fieldExtensions.get(1).getExpression();
-                            ModelSence modelSence = new ModelSence();
-                            modelSence.setDeploymentid(deployment.getId());
-                            modelSence.setSencecode(senceCode);
-                            modelSence.setVersion(version);
-                            modelSence.setGenerated(new Date(System.currentTimeMillis()));
-                            modelSences.add(modelSence);
+                            senceInfo = new RpcSenceInfo();
+                            senceInfo.setSenceCode(senceCode);
+                            senceInfo.setSenceVersion(version);
+                            modelSences.add(senceInfo);
                         }
                     }
                 }
-                if(modelSences!= null && modelSences.size()>0){
-                    modelSenceService.insertBatch(modelSences);
-                }
+                result.setProcessDefineId(processDefinitionModels.get(0).getId());
+                result.setSences(modelSences);
             }
-            data = Result.success();
+            data = Result.success(result);
         } catch (Exception e) {
             LOGGER.error("部署流程失败!：", e);
             data = Result.error(1, "部署流程失败!");
