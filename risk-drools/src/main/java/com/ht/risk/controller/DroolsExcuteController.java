@@ -39,19 +39,21 @@ public class DroolsExcuteController {
 	@RequestMapping("/excuteDroolsScene")
     public RuleExcuteResult excuteDroolsScene(@RequestBody DroolsParamter paramter){
         RuleExcuteResult data = null;
-        // 业务数据转化
+        // 业务数据转化 
         try {
+        	
+        	BaseRuleSceneInfo baseRuleInfo=new BaseRuleSceneInfo();
         	Long sceneId=0L;
         	BaseRuleSceneInfo info=new BaseRuleSceneInfo();
     		info.setSceneIdentify(paramter.getSence());
-    		info.setVersion("1");
+    		info.setVersion(paramter.getVersion());
     		List<BaseRuleSceneInfo> list=ruleSceneService.findBaseRuleSceneInfiList(info);
     		if(ObjectUtils.isNotEmpty(list)){
-    			sceneId=list.get(0).getSceneId();
+    			baseRuleInfo=list.get(0);
+    			sceneId=baseRuleInfo.getSceneId();
     		}
 //        	 String identity=droolsRuleEngineService.getSceneIdentifyById(paramter.getSence());
 //        	 String version="1";
-//           System.out.println(JSON.toJSONString(paramter));
         	 RuleExecutionObject object = new RuleExecutionObject();
         	 Map<String,Object> mapData = paramter.getData();
              object.addFactObject(mapData);
@@ -59,17 +61,19 @@ public class DroolsExcuteController {
              object.setGlobal("_result",result);
              object = this.droolsRuleEngineService.excute(object,sceneId);
              
-             
              // 记录日志
              RuleExecutionResult res=(RuleExecutionResult) object.getGlobalMap().get("_result");
              List<String> li=(List<String>) res.getMap().get("ruleList");
              DroolsLog entity=new DroolsLog();
-             entity.setSceneId(paramter.getSence());
+             entity.setSceneId(String.valueOf(baseRuleInfo.getSceneId()));
              entity.setProcInstId(paramter.getProcessInstanceId());
              entity.setInParam(JSON.toJSONString(paramter));
-             entity.setDroolsVersion("");
+             entity.setDroolsVersion(paramter.getVersion());
              entity.setResult(JSON.toJSONString(object));
              entity.setExecuteTotal(Integer.parseInt(String.valueOf(object.getGlobalMap().get("count"))));
+             entity.setSceneCode(baseRuleInfo.getSceneIdentify());
+             entity.setSceneName(baseRuleInfo.getSceneName());
+             entity.setModelName(paramter.getModelName());
              String logId=droolsLogInterface.saveLog(entity);
              if(ObjectUtils.isNotEmpty(li)){
             	 for (String string : li) {
