@@ -1,6 +1,5 @@
-package com.ht.risk.activiti.model;
+package com.ht.risk.api.model.drools;
 
-import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
@@ -17,21 +16,9 @@ public class RuleExcuteResult implements Serializable {
         this.data = data;
     }
 
-    /**
-     * 错误代码
-     */
-    @ApiModelProperty(required = true, value = "错误代码")
     private int code;
-    /**
-     * 错误描述
-     */
-    @ApiModelProperty(required = true, value = "错误描述")
     private String msg;
 
-    /**
-     * 传递给请求者的数据
-     */
-    @ApiModelProperty(value = "传递给请求者的数据")
     private RuleExecutionObject data;
 
 

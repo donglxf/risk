@@ -7,7 +7,6 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>risk-api</artifactId>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>

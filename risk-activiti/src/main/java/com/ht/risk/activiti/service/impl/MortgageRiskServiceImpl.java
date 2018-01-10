@@ -1,7 +1,7 @@
 package com.ht.risk.activiti.service.impl;
 
-import com.ht.risk.activiti.model.RuleExcuteResult;
 import com.ht.risk.activiti.service.MortgageRiskService;
+import com.ht.risk.api.model.drools.RuleExcuteResult;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.slf4j.Logger;
