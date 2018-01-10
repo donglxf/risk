@@ -8,7 +8,6 @@
 	</parent>
 	<artifactId>risk-activiti</artifactId>
 
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- MyBatis Generator -->
@@ -28,6 +27,12 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>com.ht.risk</groupId>
+			<artifactId>risk-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- spring boot cloud -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -55,6 +60,18 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+			<version>1.5.9.RELEASE</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -90,12 +107,7 @@
 			<optional>true</optional>
 		</dependency>
 
-
-
-
 		<!-- activiti start -->
-
-		<!-- activiti 5.220 start -->
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-spring-boot-starter-basic</artifactId>
@@ -284,15 +296,17 @@
 			<artifactId>batik-js</artifactId>
 			<version>1.7</version>
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.43</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>com.ht.risk</groupId>
+			<artifactId>risk-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringCloudApplication
+@EnableTransactionManagement
+@MapperScan("com.ht.risk.activiti.mapper")
+@ComponentScan(basePackages= {"com.ht.risk.activiti","com.ht.risk.common.exception"})
 public class ActivitiServiceApplication {
 	
 	public static void main(String[] args) {

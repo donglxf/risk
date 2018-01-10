@@ -1,7 +1,7 @@
 package com.ht.risk.activiti.rpc;
 
-import com.ht.risk.activiti.model.DroolsParamter;
-import com.ht.risk.activiti.model.RuleExcuteResult;
+import com.ht.risk.api.model.DroolsParamter;
+import com.ht.risk.api.model.RuleExcuteResult;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
