@@ -28,7 +28,7 @@ public class SceneInfoVersion extends Model<SceneInfoVersion> {
     /**
      * 标识
      */
-	@TableField("scene_identify")
+	@TableField("s.scene_identify")
 	@ApiModelProperty(required= true,value = "标识")
 	private String sceneIdentify;
     /**
@@ -53,14 +53,14 @@ public class SceneInfoVersion extends Model<SceneInfoVersion> {
      * 是否有效
      */
 	@TableField("is_effect")
-	@ApiModelProperty(required= true,value = "是否有效")
+	@ApiModelProperty(required= true,value = "策略是否有效")
 	private Integer isEffect;
     /**
      * 备注
      */
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
-
+	@ApiModelProperty(required= true,value = "版本是否有效")
 	private Integer status ;
 	/**
 	 * 版本记录id
@@ -77,7 +77,7 @@ public class SceneInfoVersion extends Model<SceneInfoVersion> {
 	/**
 	 * 类型：1决策或评分卡2模型
 	 */
-	@ApiModelProperty(required= true,value = "类型：1决策或评分卡2模型")
+	@ApiModelProperty(required= true,value = "类型：0测试版 1正式版")
 	private Integer type;
 	/**
 	 * 标题

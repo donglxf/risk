@@ -38,8 +38,9 @@ public class SceneVersion extends Model<SceneVersion> {
     /**
      * 类型：1决策或评分卡2模型
      */
-	@ApiModelProperty(required= true,value = "类型：1决策或评分卡2模型")
+	@ApiModelProperty(required= true,value = "类型：0测试版 1正式版")
 	private Integer type;
+
     /**
      * 标题
      */
@@ -54,8 +55,17 @@ public class SceneVersion extends Model<SceneVersion> {
      * 业务id
      */
 	@TableField("scene_id")
-	@ApiModelProperty(required= true,value = "业务id")
-	private String sceneId;
+	@ApiModelProperty(required= true,value = "场景id")
+	private Long sceneId;
+
+	/**
+	 * 业务id
+	 */
+	@TableField("scene_identify")
+	@ApiModelProperty(required= true,value = "场景code ")
+	private String sceneIdentify;
+
+
     /**
      * 创建时间
      */
@@ -81,8 +91,9 @@ public class SceneVersion extends Model<SceneVersion> {
 	@ApiModelProperty(required= true,value = "rule文件内容")
 	private String ruleDrl;
 	@TableField("status")
-	@ApiModelProperty(required= true,value = "状态1正常 -1 禁用")
+	@ApiModelProperty(required= true,value = "1启用 0 禁用")
 	private Integer status;
+
 
 	public Integer getStatus() {
 		return status;
@@ -132,13 +143,6 @@ public class SceneVersion extends Model<SceneVersion> {
 		this.comment = comment;
 	}
 
-	public String getSceneId() {
-		return sceneId;
-	}
-
-	public void setSceneId(String sceneId) {
-		this.sceneId = sceneId;
-	}
 
 	public Date getCreTime() {
 		return creTime;
@@ -170,6 +174,22 @@ public class SceneVersion extends Model<SceneVersion> {
 
 	public void setRuleDrl(String ruleDrl) {
 		this.ruleDrl = ruleDrl;
+	}
+
+	public Long getSceneId() {
+		return sceneId;
+	}
+
+	public void setSceneId(Long sceneId) {
+		this.sceneId = sceneId;
+	}
+
+	public String getSceneIdentify() {
+		return sceneIdentify;
+	}
+
+	public void setSceneIdentify(String sceneIdentify) {
+		this.sceneIdentify = sceneIdentify;
 	}
 
 	@Override

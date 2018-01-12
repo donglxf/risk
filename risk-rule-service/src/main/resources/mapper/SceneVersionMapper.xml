@@ -15,12 +15,14 @@
         <result column="rule_div" property="ruleDiv" />
         <result column="rule_drl" property="ruleDrl" />
         <result column="status" property="status" />
+        <result column="scene_identify" property="sceneIdentify" />
+
 
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        version_id AS versionId, status,version, type, title, comment, scene_id AS sceneId, cre_time AS creTime, cre_user_id AS creUserId, rule_div AS ruleDiv, rule_drl AS ruleDrl
+        version_id AS versionId, status,version,v.scene_identify AS sceneIdentify, type, title, comment, scene_id AS sceneId, cre_time AS creTime, cre_user_id AS creUserId, rule_div AS ruleDiv, rule_drl AS ruleDrl
     </sql>
 
 
