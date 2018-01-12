@@ -23,6 +23,10 @@
         version_id AS versionId, status,version, type, title, comment, scene_id AS sceneId, cre_time AS creTime, cre_user_id AS creUserId, rule_div AS ruleDiv, rule_drl AS ruleDrl
     </sql>
 
-
+	<select id="getNoBindVariableRecord" parameterType="com.ht.risk.rule.entity.SceneVersion"
+            resultType="com.ht.risk.rule.entity.SceneVersion">
+		select <include refid="Base_Column_List"></include>
+			from rule_scene_version 
+	</select>
 
 </mapper>
