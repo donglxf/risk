@@ -87,7 +87,8 @@ scene.cols = function () {
         ,
         {field: 'status',
             align:'center',
-            title: '状态',sort:true,
+            title: '状态',
+            sort:true,
             templet: '#statusTpl',
         }
         ,
@@ -95,13 +96,14 @@ scene.cols = function () {
             title: '操作',
             fixed: 'right',
             align:'center',
-            width:250,
+            width:150,
             toolbar: scene.toolbarId
         }
     ];
 };
 var layer,sceneTable,table,active,leftActive,leftTable;
 var sceneId,$ ;
+var layerTopIndex;
 
 layui.use(['table','form','laytpl'], function() {
     var laytpl = layui.laytpl;
@@ -287,12 +289,12 @@ layui.use(['table','form','laytpl'], function() {
      */
     function save(url, result,id,type) {
         $.get(url, function (form) {
-            layer.open({
+          layer.open({
                 type: 1,
                 title: '版本发布',
                 maxmin: true,
                 shadeClose: false, // 点击遮罩关闭层
-                area: ['650px', '560px'],
+                area: ['750px', '560px'],
                 content: form,
                 btnAlign: 'c',
                 btn: ['保存', '取消'],
@@ -304,9 +306,11 @@ layui.use(['table','form','laytpl'], function() {
                     var rule_div = $("#rule_div").html();
                 }
                 , yes: function (index) {
+                  layerTopIndex = index;
                     //触发表单的提交事件
                     $('form.layui-form').find('button[lay-filter=formDemo]').click();
-                    active.reload();
+
+
                 },
             });
         });
@@ -314,7 +318,7 @@ layui.use(['table','form','laytpl'], function() {
     //发布
     function push(id,type) {
         //询问框
-        var index =  layer.confirm('您确定要发布新颁布吗？', {
+        var index =  layer.confirm('您确定要发布新的测试版吗？', {
             btn: ['确定','取消'] //按钮
         }, function(){
             var rule_drl ,rule_div;

@@ -99,10 +99,11 @@
                         layer.msg('网络连接异常', {icon: 2,time:1200});
                        //layer.msg(data.msg);
                     }
+                    layer.close(layerTopIndex);
+                    active.reload();
+
                 }
             });
-
-            layer.closeAll();
             return false;
         });
     });

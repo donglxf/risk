@@ -83,7 +83,7 @@ public class SceneVersionController {
     }
 
     @PostMapping ("push")
-    @ApiOperation(value = "版本发布")
+    @ApiOperation(value = "版本发布-测试版")
     @Transactional(rollbackFor = RuntimeException.class)
     public Result<Integer> push(SceneVersion version){
 
@@ -96,16 +96,23 @@ public class SceneVersionController {
         //获取当前总共发布的数量
         Wrapper wrapperCount = new EntityWrapper();
         wrapperCount.eq("scene_id",sceneInfo.getSceneId());
+        wrapperCount.eq("type",0);
         int  count = sceneVersionService.selectCount(wrapperCount);
         //获取最大版本号 以0.1 为单位递增
         double maxVersion = 1.0 + count*0.1;
         version.setVersion(maxVersion+"");
         //获取 规则字符串
         String ruleDrlStr = droolsRuleRpc.getDroolsVersion(sceneInfo.getSceneId()+"");
-        sceneInfo.setSceneId(null);
+
+
+        version.setSceneId(sceneInfo.getSceneId());
+        version.setSceneIdentify(identify);
         version.setCreTime(new Date());
         version.setRuleDrl(ruleDrlStr);
-        //version.setCreUserId();
+        //启用
+        version.setStatus(1);
+        //测试版
+        version.setType(0);
         sceneVersionService.insert(version);
 
         return Result.success(0);
