@@ -23,6 +23,7 @@ import com.ht.risk.model.BaseRuleEntityItemInfo;
 import com.ht.risk.model.BaseRuleInfo;
 import com.ht.risk.model.BaseRulePropertyRelInfo;
 import com.ht.risk.model.BaseRuleSceneInfo;
+import com.ht.risk.model.RuleSceneVersion;
 import com.ht.risk.model.fact.RuleExecutionObject;
 import com.ht.risk.service.DroolsActionService;
 import com.ht.risk.service.DroolsRuleEngineService;
@@ -88,22 +89,41 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param scene               场景
      */
     @Override
-    public RuleExecutionObject excute(RuleExecutionObject ruleExecutionObject, final Long sceneId) throws Exception {
+    public RuleExecutionObject excute1(RuleExecutionObject ruleExecutionObject,RuleSceneVersion ruleSceneInfo) throws Exception {
         try {
-            //获取ksession
-            KieSession ksession = DroolsUtil.getInstance().getDrlSessionInCache(String.valueOf(sceneId));
-           if (ksession != null) {
-                //直接执行
-                return executeRuleEngine(ksession, ruleExecutionObject, sceneId);
-            } else {
-                //重新编译规则，然后执行
-                return compileRule(ruleExecutionObject, sceneId);
-            }
-//            return compileRule(ruleExecutionObject, scene);
+           return this.compileRuleAndexEcuteRuleEngine(ruleSceneInfo.getRuleDrl(), ruleExecutionObject, new Long(ruleSceneInfo.getSceneId()));
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage(), e);
         }
+    }
+    
+    /**
+     * Date 2017/7/25
+     * Author lihao [lihao@sinosoft.com]
+     * <p>
+     * 方法说明: 规则引擎执行方法
+     *
+     * @param ruleExecutionObject facr对象信息
+     * @param scene               场景
+     */
+    @Override
+    public RuleExecutionObject excute(RuleExecutionObject ruleExecutionObject, final Long sceneId) throws Exception {
+    	try {
+    		//获取ksession
+    		KieSession ksession = DroolsUtil.getInstance().getDrlSessionInCache(String.valueOf(sceneId));
+    		if (ksession != null) {
+    			//直接执行
+    			return executeRuleEngine(ksession, ruleExecutionObject, sceneId);
+    		} else {
+    			//重新编译规则，然后执行
+    			return compileRule(ruleExecutionObject, sceneId);
+    		}
+//            return compileRule(ruleExecutionObject, scene);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		throw new RuntimeException(e.getMessage(), e);
+    	}
     }
 
     /**
@@ -140,6 +160,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             BaseRuleSceneInfo sceneInfo = new BaseRuleSceneInfo();
 //            sceneInfo.setSceneIdentify(scene);
             sceneInfo.setSceneId(sceneId);
+            System.out.println(">>>>>>>>"+sceneId);
             //根据场景获取所有的动作信息
             List<BaseRuleActionInfo> actionList = this.ruleActionService.findRuleActionListByScene(sceneInfo);
             for (BaseRuleActionInfo action : actionList) {
@@ -302,15 +323,6 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param scene               场景
      */
     private RuleExecutionObject compileRule(RuleExecutionObject ruleExecutionObject, final Long sceneId) throws Exception {
-//    	Long sceneId=0L;
-//    	BaseRuleSceneInfo info=new BaseRuleSceneInfo();
-//		info.setSceneIdentify(scene);
-//		info.setVersion(version);
-//		List<BaseRuleSceneInfo> list=ruleSceneService.findBaseRuleSceneInfiList(info);
-//		if(ObjectUtils.isNotEmpty(list)){
-//			sceneId=list.get(0).getSceneId();
-//		}
-//    	
     	// 1.生成  规则文件串  
     	String droolRuleStr=getDroolsString(sceneId);
     	// 7.初始化drools，将实体对象扔进引擎

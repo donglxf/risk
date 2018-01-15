@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2018-01-10
  */
 @ApiModel
-@TableName("risk_variable_bind")
+@TableName("RISK_VARIABLE_BIND")
 public class VariableBind extends Model<VariableBind> {
 
     private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class VariableBind extends Model<VariableBind> {
      */
     @TableId("ID")
 	@ApiModelProperty(required= true,value = "主键,流水号")
-	private String id;
+	private Long id;
     /**
      * 決策版本流水
      */
@@ -78,13 +78,14 @@ public class VariableBind extends Model<VariableBind> {
 	@TableField("CREATE_TIME")
 	@ApiModelProperty(required= true,value = "创建时间")
 	private Date createTime;
+	
+	
 
-
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -157,6 +158,7 @@ public class VariableBind extends Model<VariableBind> {
 		return this.id;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "VariableBind{" +

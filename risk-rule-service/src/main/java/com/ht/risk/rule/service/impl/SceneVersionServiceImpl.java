@@ -1,5 +1,10 @@
 package com.ht.risk.rule.service.impl;
 
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.mapper.SqlHelper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -9,8 +14,6 @@ import com.ht.risk.rule.entity.SceneVersion;
 import com.ht.risk.rule.mapper.SceneInfoVersionMapper;
 import com.ht.risk.rule.mapper.SceneVersionMapper;
 import com.ht.risk.rule.service.SceneVersionService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -25,6 +28,9 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
 
     @Autowired
     private SceneInfoVersionMapper versionMapper;
+    
+    @Autowired
+    private SceneVersionMapper sceneVersionMapper;
 
     @Override
     public Page<SceneInfoVersion> selectVersionPage(Page<SceneInfoVersion> pages, Wrapper<SceneInfoVersion> wrapper) {
@@ -32,4 +38,18 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
         pages.setRecords(this.versionMapper.selectPage(pages, wrapper));
         return pages;
     }
+
+	@Override
+	public Page<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages, Wrapper<SceneVersion> wrapper) {
+		SqlHelper.fillWrapper(pages, wrapper);
+        pages.setRecords(sceneVersionMapper.getNoBindVariableRecord(pages, wrapper));
+		return pages;
+	}
+	
+	@Override
+	public Map<String,Object> getMaxTestVersion(Map<String,Object> paramMap) {
+		return sceneVersionMapper.getMaxTestVersion(paramMap);
+	}
+    
+    
 }

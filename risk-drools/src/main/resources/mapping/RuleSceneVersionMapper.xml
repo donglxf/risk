@@ -1,38 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ht.risk.rule.mapper.SceneVersionMapper">
+<mapper namespace="com.ht.risk.mapper.RuleSceneVersionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.SceneVersion">
+    <resultMap id="BaseResultMap" type="com.ht.risk.model.RuleSceneVersion">
         <id column="version_id" property="versionId" />
         <result column="version" property="version" />
         <result column="type" property="type" />
         <result column="title" property="title" />
         <result column="comment" property="comment" />
+        <result column="scene_identify" property="sceneIdentify" />
         <result column="scene_id" property="sceneId" />
         <result column="cre_time" property="creTime" />
         <result column="cre_user_id" property="creUserId" />
         <result column="rule_div" property="ruleDiv" />
         <result column="rule_drl" property="ruleDrl" />
         <result column="status" property="status" />
-        <result column="scene_identify" property="sceneIdentify" />
-
-
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        version_id AS versionId, status,version,scene_identify AS sceneIdentify, type, title, comment, scene_id AS sceneId, cre_time AS creTime, cre_user_id AS creUserId, rule_div AS ruleDiv, rule_drl AS ruleDrl
+        version_id AS versionId, version, type, title, comment, scene_identify AS sceneIdentify, scene_id AS sceneId, cre_time AS creTime, cre_user_id AS creUserId, rule_div AS ruleDiv, rule_drl AS ruleDrl, status
     </sql>
-
-	<select id="getNoBindVariableRecord" parameterType="com.ht.risk.rule.entity.SceneVersion"
-            resultType="com.ht.risk.rule.entity.SceneVersion">
-		select <include refid="Base_Column_List"></include>
-			from rule_scene_version 
-	</select>
 	
-	<select id="getMaxTestVersion" parameterType="map" resultType="map">
-		select max(version) maxVersion from rule_scene_version where scene_id=#{sceneId} and scene_identify = #{sceneIdentify} and type=#{type}
+	<select id="getTestLastVersion" parameterType="map" resultType="com.ht.risk.model.RuleSceneVersion">
+		select <include refid="Base_Column_List" />
+		 from rule_scene_version s 
+inner join  (select max(version) versions from rule_scene_version where scene_identify=#{sceneIdentify} and status='1' and type=#{type}) a 
+on s.version=a.versions
+  where s.scene_identify=#{sceneIdentify} and s.status='1' and s.type=#{type} 
 	</select>
 	
 </mapper>

@@ -1,16 +1,23 @@
 package com.ht.risk.rule.service.impl;
 
-import com.ht.risk.rule.entity.EntityItemInfo;
-import com.ht.risk.rule.mapper.EntityItemInfoMapper;
-import com.ht.risk.rule.service.EntityItemInfoService;
-import com.ht.risk.common.service.impl.BaseServiceImpl;
-import com.ht.risk.rule.vo.RuleItemTable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.List;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.ht.risk.common.service.impl.BaseServiceImpl;
+import com.ht.risk.common.util.ObjectUtils;
+import com.ht.risk.rule.entity.EntityItemInfo;
+import com.ht.risk.rule.mapper.EntityItemInfoMapper;
+import com.ht.risk.rule.service.EntityItemInfoService;
+import com.ht.risk.rule.vo.RuleItemTable;
 
 /**
  * <p>
@@ -61,5 +68,26 @@ public class EntityItemInfoServiceImpl extends BaseServiceImpl<EntityItemInfoMap
     public RuleItemTable findRuleItemTableById(long itemId) {
         return this.entityItemInfoMapper.findRuleItemTableById(itemId);
     }
+
+	@Override
+	public List<EntityItemInfo> findEntityItemBySceneId(String sceneId) {
+		List<Map<String,Object>> map=entityItemInfoMapper.findEntityItemBySceneId(sceneId);
+		if(ObjectUtils.isNotEmpty(map)){
+			List<Long> str=assemblyCondition(map,"conditionExpression");
+			Wrapper<EntityItemInfo> wrapper = new EntityWrapper<>();
+	        wrapper.in("item_id", str);
+	        return entityItemInfoMapper.selectList(wrapper);
+		}
+		return null;
+	}
+	
+	public List<Long> assemblyCondition(List<Map<String,Object>> map,String key){
+		List<Long> list=new ArrayList<Long>();
+		for (Map<String, Object> map2 : map) {
+			String conditionExpression=(String) map2.get(key);
+			list.add(Long.parseLong(conditionExpression.substring(1,conditionExpression.lastIndexOf("$"))));
+		}
+		return list;
+	}
 
 }

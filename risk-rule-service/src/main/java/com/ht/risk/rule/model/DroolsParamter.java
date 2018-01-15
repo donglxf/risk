@@ -1,4 +1,4 @@
-package com.ht.risk.common.model;
+package com.ht.risk.rule.model;
 
 import java.util.Map;
 
