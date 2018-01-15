@@ -65,6 +65,43 @@ public class ActivitiController implements ModelDataJsonConstants {
 
 
     /**
+     * 获取模型信息
+     *
+     * @param paramter
+     * @return
+     */
+    @GetMapping(value = "/getModelInfo")
+    @ResponseBody
+    public Result<ModelParamter> getModelInfo(ModelParamter paramter) {
+        LOGGER.info("获取模型信息,参数paramter:"+JSON.toJSONString(paramter));
+        Result<ModelParamter> data = null;
+        try {
+            if(paramter == null || StringUtils.isEmpty(paramter.getModelId())){
+                LOGGER.error("获取模型失败：参数异常，模型ID为空！");
+                data = Result.error(1, "参数异常，模型ID为空！");
+                return data;
+            }
+            List<Model> models = repositoryService.createModelQuery().modelId(paramter.getModelId()).list();
+            if( models== null || models.size() == 0){
+                LOGGER.error("获取模型失败：没有对应的模型！");
+                data = Result.error(1, "没有对应的模型！");
+                return data;
+            }
+            paramter.setModelId(models.get(0).getId());
+            paramter.setName(models.get(0).getName());
+            paramter.setCategory(models.get(0).getCategory());
+            data = Result.success(paramter);
+        } catch (Exception e) {
+            LOGGER.error("获取模型失败：", e);
+            data = Result.error(1, "获取模型失败");
+        }
+        LOGGER.info("获取模型信息！");
+        return data;
+    }
+
+
+
+    /**
      * 新增流程模型
      *
      * @param paramter
@@ -178,6 +215,7 @@ public class ActivitiController implements ModelDataJsonConstants {
                     }
                 }
                 result.setProcessDefineId(processDefinitionModels.get(0).getId());
+                result.setVersion(String.valueOf(processDefinitionModels.get(0).getVersion()));
                 result.setSences(modelSences);
             }
             data = Result.success(result);
