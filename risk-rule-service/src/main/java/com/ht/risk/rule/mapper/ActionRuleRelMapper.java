@@ -33,4 +33,11 @@ public interface ActionRuleRelMapper extends SuperMapper<ActionRuleRel> {
      * @date 2017/12/25 17:51
      */
     List<ActionRuleRel> findActions(@Param("ruleId") Long ruleId);
+
+    /**
+     * 通过 场景查询所有关联的动作id集合
+     * @param sceneId
+     * @return
+     */
+    String findActionIdsBySceneId(@Param("sceneId") Long sceneId);
 }

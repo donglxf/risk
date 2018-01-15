@@ -263,7 +263,7 @@ function  dataEntityInit() {
         $.ajax({
             cache : true,
             type : "get",
-            url : '/rule/service/entityInfo/getEntitys',
+            url : '/rule/service/entityInfo/getEntitysOld',
             // data : data.field,// 你的formid
             async : false,
             error : function(request) {

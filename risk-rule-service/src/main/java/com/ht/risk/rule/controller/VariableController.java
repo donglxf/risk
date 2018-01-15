@@ -1,6 +1,8 @@
 package com.ht.risk.rule.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.Variable;
 import com.ht.risk.rule.service.VariableService;
@@ -32,6 +34,16 @@ public class VariableController {
     @ApiOperation(value = "查询所有的常量")
     public Result<List<Variable>> getAll(){
         List<Variable> list = variableService.selectList(null);
+        return Result.success(list);
+    }
+
+    @GetMapping("getByIds")
+    @ApiOperation(value = "查询所有的常量")
+    public Result<List<Variable>> getAll(String ids){
+
+        Wrapper<Variable> wrapper = new EntityWrapper<>();
+        wrapper.in("variable_id",ids);
+        List<Variable> list = variableService.selectList(wrapper);
         return Result.success(list);
     }
 

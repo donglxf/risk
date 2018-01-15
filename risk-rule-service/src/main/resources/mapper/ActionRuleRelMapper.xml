@@ -81,5 +81,15 @@
         </if>
 
     </select>
+    <select id="findActionIdsBySceneId" resultType="java.lang.String">
+        SELECT DISTINCT
+            GROUP_CONCAT(a.action_id)
+        FROM
+            `rule_action_rule_rel` r
+            LEFT JOIN rule_info ru ON r.rule_id = ru.rule_id
+            LEFT JOIN rule_action_info a ON a.action_id = r.action_id
+            LEFT JOIN rule_scene_info s ON s.scene_id = ru.scene_id
+        where s.scene_id = #{sceneId}
+    </select>
 
 </mapper>

@@ -15,6 +15,35 @@
         <result column="remark" property="remark" />
     </resultMap>
 
+    <resultMap type="com.ht.risk.rule.entity.EntityInfo" id="entityItemMan">
+        <id column="entity_id" property="entityId" />
+        <result column="entity_name" property="entityName" />
+        <result column="entity_desc" property="entityDesc" />
+        <result column="entity_identify" property="entityIdentify" />
+        <result column="pkg_name" property="pkgName" />
+        <result column="cre_user_id" property="creUserId" />
+        <result column="cre_time" property="creTime" />
+        <result column="is_effect" property="isEffect" />
+        <result column="remark" property="remark" />
+        <!-- 一对多查询 -->
+        <collection property="items"  ofType="com.ht.risk.rule.entity.EntityItemInfo">
+            <!-- id:唯一标识
+                    property：要将订单明细的唯一标识映射到com.mybatis.entity.OrderDetail的那个属性
+                -->
+            <id column="item_id" property="itemId" />
+            <result column="entity_id" property="entityId" />
+            <result column="item_name" property="itemName" />
+            <result column="item_identify" property="itemIdentify" />
+            <result column="item_desc" property="itemDesc" />
+            <result column="cre_user_id" property="creUserId" />
+            <result column="cre_time" property="creTime" />
+            <result column="is_effect" property="isEffect" />
+            <result column="remark" property="remark" />
+        </collection>
+
+    </resultMap>
+
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         entity_id AS entityId, entity_name AS entityName, entity_desc AS entityDesc, entity_identify AS entityIdentify, pkg_name AS pkgName, cre_user_id AS creUserId, cre_time AS creTime, is_effect AS isEffect, remark
@@ -31,6 +60,25 @@
         T.IS_EFFECT,
         T.REMARK
     </sql>
+
+    <sql id="BaseFindColumnSqlMan">
+        T.ENTITY_ID,
+        T.ENTITY_NAME,
+        T.ENTITY_DESC,
+        T.ENTITY_IDENTIFY,
+        T.PKG_NAME,
+        T.CRE_USER_ID,
+        T.CRE_TIME,
+        T.IS_EFFECT,
+        T.REMARK,
+
+       i.ITEM_ID,
+        i.ENTITY_ID,
+        i.ITEM_NAME,
+        i.ITEM_IDENTIFY,
+        i.ITEM_DESC,i.VARIABLE_ID
+    </sql>
+
     <select id="findBaseRuleEntityInfoList" parameterType="com.ht.risk.rule.entity.EntityInfo"
             resultType="com.ht.risk.rule.entity.EntityInfo">
         SELECT DISTINCT
@@ -48,6 +96,16 @@
         rule_entity_info T
         WHERE 1=1
         AND T.ENTITY_ID = #{id}
+    </select>
+    <select id="findRuleEntityIn" resultMap="entityItemMan" >
+
+        SELECT DISTINCT
+        <include refid="BaseFindColumnSqlMan"></include>
+        FROM
+        rule_entity_info T LEFT JOIN rule_entity_item_info i
+        ON T.entity_id = i.entity_id
+        WHERE 1=1
+        AND T.ENTITY_ID IN CONCAT('(',#{id},')')
     </select>
 
 </mapper>

@@ -66,4 +66,11 @@ public interface ActionInfoService extends BaseService<ActionInfo> {
      * @date 2017/12/26 11:22
      */
     List<ActionInfoVo> findByIds(String ids);
+
+    /**
+     *
+     * @param sceneId
+     * @return
+     */
+    List<ActionInfoVo> findActionVos(Long sceneId);
 }

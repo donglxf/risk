@@ -25,6 +25,7 @@
     });
 
 })(jQuery);
+
 /**
  * Name:utils.js
  * Author:Van
@@ -62,31 +63,35 @@ layui.define(['layer'], function (exports) {
     var itemTexts = [];
     var entityIds = [];
 
-
     var sceneUtil = {
             v: '1.0.0',
-            //实体类
-            en: {value: '', text: '', sons: []},
+            sceneId:-1,//场景id
+            data:{
+                //常量库
+                dicBank:[],
+                //动作库
+                actionBank:[],
+                //条件常量
+                condition: [
+                    {value: "==", text: "等于"},
+                    {value: "!=", text: "不等于"},
+                    {value: "<", text: "小于"},
+                    {value: "<=", text: "小于或等于"},
+                    {value: ">", text: "大于"},
+                    {value: ">=", text: "大于或等于"},
+                    {value: "in", text: "包含"},
+                    {value: "not in", text: "不包含"},
+                    {value: "like%", text: "开始以"},
+                    {value: "%like", text: "结束以"},
+                    {value: "===", text: "忽略"},
+                ],
+                //数据对象库
+                entitysBank:[],
+                //变量库
+                itemsBank:[],
+            },
             //实体类集合
             entitys: [],
-            //变量集合
-            items: [],
-            //动作集合
-            actions: [],
-            //条件常量
-            condata: [
-                {value: "==", text: "等于"},
-                {value: "!=", text: "不等于"},
-                {value: "<", text: "小于"},
-                {value: "<=", text: "小于或等于"},
-                {value: ">", text: "大于"},
-                {value: ">=", text: "大于或等于"},
-                {value: "in", text: "包含"},
-                {value: "not in", text: "不包含"},
-                {value: "like%", text: "开始以"},
-                {value: "%like", text: "结束以"},
-                {value: "===", text: "忽略"},
-            ],
             //提交格式设置
             subForm: subForm,
             //动作默认
@@ -189,11 +194,12 @@ layui.define(['layer'], function (exports) {
             hb: function () {
                 $("#table").rowspan(0); //以第一列合并可用，但是会影响后面的新增，或删除操作
             },
-            /**
-             *值的编辑初始化 .val
+            /*
+             *值的编辑初始化 .val -> $('.val')
              */
-            bandValInit: function (obj) {
-                $(obj).editable({
+            bandOneValInit: function (obj) {
+                obj.editable('destroy');
+                obj.editable({
                     type: "text",                //编辑框的类型。支持text|textarea|select|date|checklist等
                     title: "值",              //编辑框的标题
                     disabled: false,             //是否禁用编辑
@@ -208,218 +214,153 @@ layui.define(['layer'], function (exports) {
                     }
                 });
             },
+        /**
+         * 回调方法
+         */
+        callBack:{
+          contion:function(value){
+              if (!$.trim(value)) {
+                  return '不能为空';
+              }
+              if (value == '===') {
+                  $(this).parent().find(".val").text("");
+                  $(this).parent().find(".val").attr("data-value", "true");
+              } else {
+                  $(this).parent().find(".val").text("值");
+                  $(this).parent().find(".val").attr("data-value", "");
+              }
+              $(this).attr("data-value", value);
+          },
+            entity:function(value){
+                if (!$.trim(value)) {
+                    return '不能为空';
+                }
+                $(this).attr("data-value", value);
+                $(this).parent().find(".itemC").text("请选择");
+                $(this).parent().find(".itemC").attr("data-value", "");
+                setItemSelect(value, this);
+                //触发变量的选择
+            }   ,
+            action:function(value){
+                if (!$.trim(value)) {
+                    return '不能为空';
+                }
+                var actionId = value;
+                //动作参数值
+                for (var i = 0; i < actions.length; i++) {
+                    if (actions[i].value == actionId) {
+                        $(this).attr("data-value", actions[i].paramInfoList[0].value);
+                        $(this).parent().find(".actionVal").text(actions[i].paramInfoList[0].text);
+                        $(this).parent().find(".actionVal").attr("data-value", " ");
+                        break;
+                    }
+                }
+            }
+        },
+        /**
+         * 一级下拉
+         * @param obj 对象
+         * @param data 数据
+         * @param text 标题
+         */
+        bandSelectValInit: function (obj,data,text,callback) {
+            //摧毁
+            obj.editable('destroy');
+            obj.editable({
+                type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
+                // value:'2',
+                source: data,
+                title: text,           //编辑框的标题
+                disabled: false,           //是否禁用编辑
+                // emptytext: "选择对象",       //空值的默认文本
+                mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+                onblur: "submit",
+                validate: callback,
+            });
+        },
             /**
              * 初始化方法
              */
-            init: function () {
+            gradeInit: function() {
                 // headItem();
                 $("#table thead tr th.contion ").hover(function () {
                     $(this).find(".del").show();
                 }, function () {
                     $(this).find(".del").hide();
-                })
-                $('.val').editable({
-                    type: "text",                //编辑框的类型。支持text|textarea|select|date|checklist等
-                    title: "值",              //编辑框的标题
-                    disabled: false,             //是否禁用编辑
-                    emptytext: "空文本",          //空值的默认文本
-                    mode: "popup",              //编辑框的模式：支持popup和inline两种模式，默认是popup
-                    onblur: "submit",
-                    validate: function (value) { //字段验证
-                        if (!$.trim(value)) {
-                            return '不能为空';
-                        }
-                        $(this).attr("data-value", value);
-                    }
                 });
-                $('.actionVal').editable({
-                    type: "text",                //编辑框的类型。支持text|textarea|select|date|checklist等
-                    title: "值",              //编辑框的标题
-                    disabled: false,             //是否禁用编辑
-                    emptytext: "空文本",          //空值的默认文本
-                    mode: "popup",              //编辑框的模式：支持popup和inline两种模式，默认是popup
-                    onblur: "submit",
-                    validate: function (value) { //字段验证
-                        if (!$.trim(value)) {
-                            return '不能为空';
-                        }
-                        $(this).attr("data-value", value);
-                    }
-                });
-
-                //对象
-                $('.entityC').editable({
-                    type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
-                    // value:'2',
-                    source: entitys,
-                    title: "选择对象",           //编辑框的标题
-                    disabled: false,           //是否禁用编辑
-                    emptytext: "选择对象",       //空值的默认文本
-                    mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
-                    onblur: "submit",
-                    validate: function (value) { //字段验证
-                        if (!$.trim(value)) {
-                            return '不能为空';
-                        }
-
-                        $(this).attr("data-value", value);
-                        $(this).parent().find(".itemC").text("请选择");
-                        $(this).parent().find(".itemC").attr("data-value", "");
-                        setItemSelect(value, this);
-                        //触发变量的选择
-                    }
-                });
-                //初始化 变量
-                $(".entityC").each(function () {
-                    var entityId = $(this).attr("data-value");
-                    if (entityId != '' && entityId != undefined) {
-                        setItemSelect(entityId, this);
-                    }
-                });
-                //条件类型
-                $('.con').editable({
-                    type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
-                    source: condata,
-                    title: "选择条件",           //编辑框的标题
-                    disabled: false,           //是否禁用编辑
-                    emptytext: "选择条件",       //空值的默认文本
-                    mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
-                    onblur: "submit",
-                    validate: function (value) { //字段验证
-                        if (!$.trim(value)) {
-                            return '不能为空';
-                        }
-                        if (value == '===') {
-                            $(this).parent().find(".val").text("");
-                            $(this).parent().find(".val").attr("data-value", "true");
-                        } else {
-                            $(this).parent().find(".val").text("值");
-                            $(this).parent().find(".val").attr("data-value", "");
-                        }
-                        $(this).attr("data-value", value);
-
-                    }
-                });
-                $('.actionType').editable({
-                    type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
-                    source: actions,
-                    title: "动作类型",           //编辑框的标题
-                    disabled: false,           //是否禁用编辑
-                    emptytext: "动作类型",       //空值的默认文本
-                    onblur: "submit",
-                    mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
-                    validate: function (value) { //字段验证
-                        if (!$.trim(value)) {
-                            return '不能为空';
-                        }
-                        var actionId = value;
-                        //动作参数值
-                        for (var i = 0; i < actions.length; i++) {
-                            if (actions[i].value == actionId) {
-                                $(this).attr("data-value", actions[i].paramInfoList[0].value);
-                                $(this).parent().find(".actionVal").text(actions[i].paramInfoList[0].text);
-                                $(this).parent().find(".actionVal").attr("data-value", " ");
-                                break;
-                            }
-                        }
-
-                    }
-                });
-
-            }
-            ,
-
-            /**
-             * 数据初始哈哈
-             * @param sceneId
-             */
-            dataEntityInit: function () {
-                if (entitys == [] || entitys.length < 1) {
+                //绑定条件输入值得输入方式
+                sceneUtil.bandOneValInit( $('.val'));
+                //绑定动作值得输入框
+                sceneUtil.bandOneValInit( $('.actionVal'));
+                //实体对象绑定
+                sceneUtil.bandSelectValInit($(".entityC"),sceneUtil.entitys,"选择对象",sceneUtil.callBack.entity(value));
+                //条件绑定
+                sceneUtil.bandSelectValInit($(".con"),sceneUtil.conditionInfos,"选择条件",sceneUtil.callBack.contion(value));
+                //动作绑定
+                sceneUtil.bandSelectValInit($(".actionType"),sceneUtil.conditionInfos,"选择动作",sceneUtil.callBack.action(value));
+            },
+        /**
+         * 数据初始化
+         */
+        dataInit: {
+                //数据变量库
+                entityBank:function () {
                     $.ajax({
                         cache: true,
                         type: "get",
-                        url: '/rule/service/entityInfo/getEntitys',
-                        // data : data.field,// 你的formid
+                        url: '/rule/service/entityInfo/getEntitysByScene',
+                        data: {sceneId: sceneUtil.sceneId},// 你的formid
                         async: false,
-                        error: function (request) {
-                            alert("Connection error");
-                        },
                         success: function (da) {
                             if (da.code == 0) {
-                                entitys = da.data;
+                                sceneUtil.data.entitysBank =  da.data;
                             } else {
                                 layer.msg(data.msg);
                             }
                         }
                     });
-                }
-
-            }
-            ,
-            /**
-             * 动作数据初始哈哈
-             * @param sceneId
-             */
-            dataActionInit: function () {
-                if (actions == [] || actions.length < 1) {
+                },
+                //动作库导入
+                actionBank:function () {
                     $.ajax({
                         cache: true,
                         type: "get",
-                        url: '/rule/service/actionInfo/getByIds',
-                        data: {ids: '1,2,3,4,5,6,7'},// 你的formid
+                        url: '/rule/service/actionInfo/getByScene',
+                        data: {sceneId: sceneUtil.sceneId},// 你的formid
                         async: false,
-                        error: function (request) {
-                            alert("Connection error");
-                        },
                         success: function (da) {
                             if (da.code == 0) {
-                                actions = da.data;
+                                sceneUtil.data.actionBank =  da.data;
                             } else {
                                 layer.msg(data.msg);
                             }
                         }
                     });
+                },
+                //常量库导入
+                dicBank:function () {
+                        //if (sceneUtil.data.dicBank == [] || sceneUtil.data.dicBank.length < 1) {
+                            $.ajax({
+                                cache: true,
+                                type: "get",
+                                url: '/rule/service/variable/getByIds',
+                                data: {ids: '1,2,3,4,5,6,7'},
+                                async: false,
+                                error: function (request) {
+                                    alert("Connection error");
+                                },
+                                success: function (da) {
+                                    if (da.code == 0) {
+                                        actions = da.data;
+                                    } else {
+                                        layer.msg(data.msg);
+                                    }
+                                }
+                            });
+                       // }
                 }
 
-            }
-            ,
-
-            /**
-             * 重置变量集合
-             * @param entityId
-             * @param t
-             */
-            setItemSelect: function (entityId, t) {
-
-                var items = [];
-                for (var i = 0; i < entitys.length; i++) {
-                    var enid = entitys[i].value;
-                    //  console.log(enid);
-                    if (enid == entityId) {
-                        items = entitys[i].sons;
-                        console.log(entitys[i].sons);
-                    }
-                }
-                $(t).parent().find(".itemC").editable('destroy');
-                //变量
-                $(t).parent().find(".itemC").editable({
-                    type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
-                    source: items,
-                    title: "选择变量名",           //编辑框的标题
-                    disabled: false,           //是否禁用编辑
-                    emptytext: "选择变量",       //空值的默认文本
-                    mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
-                    onblur: "submit",
-                    validate: function (value) { //字段验证
-
-                        if (!$.trim(value)) {
-                            return '不能为空';
-                        }
-                        $(this).attr("data-value", value);
-                    }
-                });
-            }
-            ,
+            },
             /**
              * 获取变量列表
              */

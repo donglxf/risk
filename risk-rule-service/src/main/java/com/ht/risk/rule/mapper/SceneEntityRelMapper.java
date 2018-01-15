@@ -35,4 +35,10 @@ public interface SceneEntityRelMapper extends SuperMapper<SceneEntityRel> {
      */
     List<EntityInfo> findBaseRuleEntityListByScene(SceneInfo sceneInfo);
 
+    /**
+     * 通过场景查询该所有绑定的实体对象
+     * @param sceneId
+     * @return
+     */
+    String findEntityIdsBySceneId(Long sceneId);
 }

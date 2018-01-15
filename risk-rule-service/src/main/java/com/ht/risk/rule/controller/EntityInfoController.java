@@ -8,14 +8,11 @@ import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.EntityInfo;
 import com.ht.risk.rule.entity.EntityItemInfo;
-import com.ht.risk.rule.entity.Variable;
 import com.ht.risk.rule.service.EntityInfoService;
 import com.ht.risk.rule.service.EntityItemInfoService;
-import com.ht.risk.rule.service.VariableService;
 import com.ht.risk.rule.vo.EntitySelectVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,9 +50,9 @@ public class EntityInfoController {
         return Result.success(list);
     }
 
-    @GetMapping("getEntitys")
+    @GetMapping("getEntitysOld")
     @ApiOperation(value = "查询所有的对象和变量的集合")
-    public Result<List<EntitySelectVo>> getEntitys(String entityIds){
+    public Result<List<EntitySelectVo>> getEntitysOld(String entityIds){
         List<EntityInfo> list = entityInfoService.selectList(null);
 
         List<EntitySelectVo> vos = new ArrayList<>();
@@ -70,8 +67,69 @@ public class EntityInfoController {
             List<EntityItemInfo> itemInfos = itemInfoService.selectList(wrapper);
             for(EntityItemInfo item : itemInfos){
                 EntitySelectVo itemvo = new EntitySelectVo();
+
                 itemvo.setValue(item.getItemId().toString());
                 itemvo.setText(item.getItemName());
+
+                sons.add(itemvo);
+            }
+            vo.setSons(sons);
+            //info.setItems(itemInfos);
+            vos.add(vo);
+        }
+        return Result.success(vos);
+    }
+    @GetMapping("getEntitysByScene")
+    @ApiOperation(value = "查询所有的对象和变量的集合")
+    public Result<List<EntitySelectVo>> getEntitysByScene(Long sceneId){
+
+        List<EntityInfo> list = entityInfoService.findRuleEntityBySceneId(sceneId);
+
+        List<EntitySelectVo> vos = new ArrayList<>();
+        for (EntityInfo info : list){
+            EntitySelectVo vo = new EntitySelectVo();
+            vo.setValue(info.getEntityId().toString());
+            vo.setText(info.getEntityName());
+            //设置子集
+            List<EntitySelectVo> sons = new ArrayList<>();
+            List<EntityItemInfo> itemInfos = info.getItems();
+
+            for(EntityItemInfo item : itemInfos){
+                EntitySelectVo itemvo = new EntitySelectVo();
+
+                itemvo.setValue(item.getItemId().toString());
+                itemvo.setText(item.getItemName());
+
+                sons.add(itemvo);
+            }
+            vo.setSons(sons);
+            //info.setItems(itemInfos);
+            vos.add(vo);
+        }
+        return Result.success(vos);
+    }
+    @GetMapping("getEntitysByIds")
+    @ApiOperation(value = "查询所有的对象和变量的集合")
+    public Result<List<EntitySelectVo>> getEntitysByIds(String ids){
+        List<EntityInfo> list = entityInfoService.selectList(null);
+
+        List<EntitySelectVo> vos = new ArrayList<>();
+        for (EntityInfo info : list){
+            EntitySelectVo vo = new EntitySelectVo();
+            vo.setValue(info.getEntityId().toString());
+            vo.setText(info.getEntityName());
+            //设置子集
+            List<EntitySelectVo> sons = new ArrayList<>();
+            Wrapper<EntityItemInfo> wrapper = new EntityWrapper<>();
+            wrapper.eq("entity_id",info.getEntityId());
+            List<EntityItemInfo> itemInfos = itemInfoService.selectList(wrapper);
+
+            for(EntityItemInfo item : itemInfos){
+                EntitySelectVo itemvo = new EntitySelectVo();
+
+                itemvo.setValue(item.getItemId().toString());
+                itemvo.setText(item.getItemName());
+
                 sons.add(itemvo);
             }
             vo.setSons(sons);

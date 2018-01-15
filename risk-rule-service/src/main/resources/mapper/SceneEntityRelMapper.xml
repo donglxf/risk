@@ -59,5 +59,13 @@
         </if>
 
     </select>
+    <select id="findEntityIdsBySceneId" resultType="java.lang.String">
+        SELECT
+            GROUP_CONCAT(entity_id)
+        FROM
+            `rule_scene_entity_rel`
+        WHERE
+            scene_id =#{sceneId}
+    </select>
 
 </mapper>
