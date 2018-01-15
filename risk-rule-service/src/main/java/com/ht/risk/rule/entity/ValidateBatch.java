@@ -36,6 +36,8 @@ public class ValidateBatch extends Model<ValidateBatch> {
 	@TableField("DEPLOYMEN_TID")
 	@ApiModelProperty(required= true,value = "流程部署ID，与 ACT_RE_PROCDEF.DEPLOYMENT_ID 关联")
 	private String deploymenTid;
+
+	private String procDefId;
     /**
      * 批次大小
      */
@@ -48,6 +50,21 @@ public class ValidateBatch extends Model<ValidateBatch> {
 	@TableField("IS_EFFECT")
 	@ApiModelProperty(required= true,value = "是否生效：0-有效，1-无效")
 	private String isEffect;
+
+	/**
+	 * 是否生效：0-有效，1-无效
+	 */
+	@TableField("STATUS")
+	@ApiModelProperty(required= true,value = "批次状态，0-待执行，1-正在执行，2-执行完成，3-执行异常")
+	private String status;
+
+	/**
+	 * 是否生效：0-有效，1-无效
+	 */
+	@TableField("COUNT")
+	@ApiModelProperty(required= true,value = "执行次数")
+	private int count;
+
     /**
      * 创建时间
      */
@@ -110,6 +127,30 @@ public class ValidateBatch extends Model<ValidateBatch> {
 		this.createUser = createUser;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public String getProcDefId() {
+		return procDefId;
+	}
+
+	public void setProcDefId(String procDefId) {
+		this.procDefId = procDefId;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -118,12 +159,14 @@ public class ValidateBatch extends Model<ValidateBatch> {
 	@Override
 	public String toString() {
 		return "ValidateBatch{" +
-			"id=" + id +
-			", deploymenTid=" + deploymenTid +
-			", batchSize=" + batchSize +
-			", isEffect=" + isEffect +
-			", createTime=" + createTime +
-			", createUser=" + createUser +
-			"}";
+				"id='" + id + '\'' +
+				", deploymenTid='" + deploymenTid + '\'' +
+				", batchSize=" + batchSize +
+				", isEffect='" + isEffect + '\'' +
+				", status='" + status + '\'' +
+				", count=" + count +
+				", createTime=" + createTime +
+				", createUser='" + createUser + '\'' +
+				'}';
 	}
 }
