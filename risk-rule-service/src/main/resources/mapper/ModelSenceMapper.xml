@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ht.risk.rule.mapper.ModelSenceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.ModelSence">
+        <id column="ID" property="id" />
+        <result column="MODEL_PROCDEF_ID" property="modelProcdefId" />
+        <result column="SENCE_VERSION_ID" property="senceVersionId" />
+        <result column="IS_EFFECT" property="isEffect" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="CREATE_USER" property="createUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, MODEL_PROCDEF_ID AS modelProcdefId, SENCE_VERSION_ID AS senceVersionId, IS_EFFECT AS isEffect, CREATE_TIME AS createTime, CREATE_USER AS createUser
+    </sql>
+
+</mapper>

@@ -7,6 +7,7 @@ public class RpcDeployResult implements Serializable {
 
     private String deploymentId;
     private String processDefineId;
+    private String version;
     private List<RpcSenceInfo> sences = null;
 
     public String getDeploymentId() {
@@ -31,5 +32,13 @@ public class RpcDeployResult implements Serializable {
 
     public void setSences(List<RpcSenceInfo> sences) {
         this.sences = sences;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

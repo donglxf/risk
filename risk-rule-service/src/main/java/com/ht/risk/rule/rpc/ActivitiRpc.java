@@ -10,4 +10,7 @@ public interface ActivitiRpc {
 
     @RequestMapping("/modelDeploy")
     Result modelDeploy(ModelParamter paramter);
+
+    @RequestMapping("/getModelInfo")
+    Result<ModelParamter> getModelInfo(ModelParamter paramter);
 }
