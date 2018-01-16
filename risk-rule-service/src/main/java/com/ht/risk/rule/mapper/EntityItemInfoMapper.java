@@ -1,11 +1,13 @@
 package com.ht.risk.rule.mapper;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.ht.risk.common.mapper.SuperMapper;
 import com.ht.risk.rule.entity.EntityItemInfo;
 import com.ht.risk.rule.vo.RuleItemTable;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * <p>
@@ -45,5 +47,14 @@ public interface EntityItemInfoMapper extends SuperMapper<EntityItemInfo> {
      */
     RuleItemTable findRuleItemTableById(@Param("itemId") Long itemId);
 
-
+    /**
+     * 根据sceneId查找对于变量
+    * @Title: findEntityItemBySceneId
+    * @Description: TODO(这里用一句话描述这个方法的作用)
+    * @param @param sceneId
+    * @param @return    设定文件
+    * @return List<Map<String,Object>>    返回类型
+    * @throws
+     */
+    List<Map<String,Object>> findEntityItemBySceneId (String sceneId);
 }

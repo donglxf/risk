@@ -1,6 +1,6 @@
 package org.ht.risk.log.mapper;
 
-import org.ht.risk.log.entity.DroolsLog;
+import org.ht.risk.log.entity.DroolsDetailLog;
 
 import com.ht.risk.common.mapper.SuperMapper;
 
@@ -12,6 +12,6 @@ import com.ht.risk.common.mapper.SuperMapper;
  * @author 张鹏
  * @since 2018-01-10
  */
-public interface DroolsLogMapper extends SuperMapper<DroolsLog> {
+public interface DroolsDetailLogMapper extends SuperMapper<DroolsDetailLog> {
 
 }

@@ -1,6 +1,6 @@
 package org.ht.risk.log.service;
 
-import org.ht.risk.log.entity.DroolsLog;
+import org.ht.risk.log.entity.DroolsDetailLog;
 
 import com.ht.risk.common.service.BaseService;
 
@@ -12,6 +12,6 @@ import com.ht.risk.common.service.BaseService;
  * @author 张鹏
  * @since 2018-01-10
  */
-public interface DroolsLogService extends BaseService<DroolsLog> {
+public interface DroolsDetailLogService extends BaseService<DroolsDetailLog> {
 
 }

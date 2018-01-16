@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ht.risk.rule.mapper.TempDataContainsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.TempDataContains">
+        <id column="id" property="id" />
+        <result column="scene_id" property="sceneId" />
+        <result column="message" property="message" />
+        <result column="amount" property="amount" />
+        <result column="score" property="score" />
+        <result column="age" property="age" />
+        <result column="sex" property="sex" />
+        <result column="xl" property="xl" />
+        <result column="marry" property="marry" />
+        <result column="type" property="type" />
+        <result column="hourseAge" property="hourseAge" />
+        <result column="address" property="address" />
+        <result column="student_name" property="studentName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, scene_id AS sceneId, message, amount, score, age, sex, xl, marry, type, hourseAge, address, student_name AS studentName
+    </sql>
+
+</mapper>

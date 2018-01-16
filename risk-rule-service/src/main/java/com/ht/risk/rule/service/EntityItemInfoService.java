@@ -5,6 +5,7 @@ import com.ht.risk.common.service.BaseService;
 import com.ht.risk.rule.vo.RuleItemTable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -45,4 +46,6 @@ public interface EntityItemInfoService extends BaseService<EntityItemInfo> {
      * @date 2017/12/27 12:30
      */
     RuleItemTable findRuleItemTableById(long itemId);
+    
+    List<EntityItemInfo> findEntityItemBySceneId (String sceneId);
 }

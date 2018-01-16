@@ -1,24 +1,23 @@
 package com.ht.risk.model;
 
 public class DroolsProcessLog {
-	private Long droolsid;
-	private String executeRule;
+	private Long droolsLogid;
+	private String executeRulename;
 
-
-	public Long getDroolsid() {
-		return droolsid;
+	public Long getDroolsLogid() {
+		return droolsLogid;
 	}
 
-	public void setDroolsid(Long droolsid) {
-		this.droolsid = droolsid;
+	public void setDroolsLogid(Long droolsLogid) {
+		this.droolsLogid = droolsLogid;
 	}
 
-	public String getExecuteRule() {
-		return executeRule;
+	public String getExecuteRulename() {
+		return executeRulename;
 	}
 
-	public void setExecuteRule(String executeRule) {
-		this.executeRule = executeRule;
+	public void setExecuteRulename(String executeRulename) {
+		this.executeRulename = executeRulename;
 	}
-	
+
 }

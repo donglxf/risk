@@ -14,6 +14,16 @@
         <result column="is_effect" property="isEffect" />
         <result column="remark" property="remark" />
     </resultMap>
+    
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ResultMap" type="map">
+        <id column="rule_id" property="ruleId" />
+        <result column="condition_expression" property="conditionExpression" />
+        <result column="scene_id" property="sceneId" />
+        <result column="scene_identify" property="sceneIdentify" />
+        <result column="scene_type" property="sceneType" />
+        <result column="condition_id" property="conditionId" />
+    </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
@@ -62,6 +72,13 @@
         LEFT JOIN rule_entity_info e
         on e.entity_id = i.entity_id
         WHERE i.item_id = #{itemId}
+    </select>
+    
+    <select id="findEntityItemBySceneId" resultMap="ResultMap" parameterType="String">
+		select ri.rule_id,rc.condition_expression,ri.scene_id,rs.scene_identify,rs.scene_type,rc.condition_id
+		 from rule_info ri inner join rule_scene_info rs on ri.scene_id = rs.scene_id 
+   inner join rule_condition_info rc on rc.rule_id=ri.rule_id 
+	 where rs.scene_id=#{sceneId} ;
     </select>
 
 </mapper>

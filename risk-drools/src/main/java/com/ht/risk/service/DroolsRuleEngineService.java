@@ -1,5 +1,6 @@
 package com.ht.risk.service;
 
+import com.ht.risk.model.RuleSceneVersion;
 import com.ht.risk.model.fact.RuleExecutionObject;
 
 /**
@@ -21,6 +22,8 @@ public interface DroolsRuleEngineService {
 //    RuleExecutionObject excute(RuleExecutionObject ruleExecutionObject, final String scene,final String version) throws Exception;
     RuleExecutionObject excute(RuleExecutionObject ruleExecutionObject, final Long scene) throws Exception;
     
+    RuleExecutionObject excute1(RuleExecutionObject ruleExecutionObject,RuleSceneVersion ruleSceneInfo) throws Exception;
+
     /**
      * 
     * @Title: getDroolsString

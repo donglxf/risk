@@ -1,87 +1,58 @@
 package com.ht.risk.model;
 
 public class DroolsLog {
-	private String procInstId;
-	private String sceneId;
-	private String droolsVersion;
+	private String procinstId;
+	private String type;
+	private String senceVersionid;
 	private String inParam;
-	private String result;
+	private String outParamter;
 	private int executeTotal;
-	private String sceneCode;
-	private String sceneName;
 	private String modelName;
-
 	
-	public String getSceneCode() {
-		return sceneCode;
+	public String getProcinstId() {
+		return procinstId;
 	}
-
-	public void setSceneCode(String sceneCode) {
-		this.sceneCode = sceneCode;
+	public void setProcinstId(String procinstId) {
+		this.procinstId = procinstId;
 	}
-
-	public String getSceneName() {
-		return sceneName;
+	public String getType() {
+		return type;
 	}
-
-	public void setSceneName(String sceneName) {
-		this.sceneName = sceneName;
+	public void setType(String type) {
+		this.type = type;
 	}
-
-	public String getProcInstId() {
-		return procInstId;
+	public String getSenceVersionid() {
+		return senceVersionid;
 	}
-
-	public void setProcInstId(String procInstId) {
-		this.procInstId = procInstId;
+	public void setSenceVersionid(String senceVersionid) {
+		this.senceVersionid = senceVersionid;
 	}
-
-	public String getSceneId() {
-		return sceneId;
-	}
-
-	public void setSceneId(String sceneId) {
-		this.sceneId = sceneId;
-	}
-
-	public String getDroolsVersion() {
-		return droolsVersion;
-	}
-
-	public void setDroolsVersion(String droolsVersion) {
-		this.droolsVersion = droolsVersion;
-	}
-
 	public String getInParam() {
 		return inParam;
 	}
-
 	public void setInParam(String inParam) {
 		this.inParam = inParam;
 	}
-
-	public String getResult() {
-		return result;
+	public String getOutParamter() {
+		return outParamter;
 	}
-
-	public void setResult(String result) {
-		this.result = result;
+	public void setOutParamter(String outParamter) {
+		this.outParamter = outParamter;
 	}
-
 	public int getExecuteTotal() {
 		return executeTotal;
 	}
-
 	public void setExecuteTotal(int executeTotal) {
 		this.executeTotal = executeTotal;
 	}
-
 	public String getModelName() {
 		return modelName;
 	}
-
 	public void setModelName(String modelName) {
 		this.modelName = modelName;
 	}
+
+	
+	
 	
 }
