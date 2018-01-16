@@ -72,9 +72,10 @@ layui.define(['layer'], function(exports) {
         initOneValible:function(valible){
             var html = "";
             switch (valible.type){
-                case "select":html = this.initSelect(valible.name,valible.optionData);break;
-                case "select":html = this.initInput(valible.name);break;
-                case "select":html = this.initDate(valible.name);break;
+                case "select":html = this.initSelect(valible.submitName,valible.optionData);break;
+                case "input":html = this.initInput(valible.submitName);break;
+                case "date":html = this.initDate(valible.submitName);break;
+                case "time":html = this.initTime(valible.submitName);break;
                 default:break;
             }
             return html;
@@ -88,12 +89,106 @@ layui.define(['layer'], function(exports) {
             for(var i=0;i<count;i++){
                 html+='<div class="layui-form-item">';
                 for(var j=0;j<size && (i+1)*(j+1)<length;j++){
-                    html+this.initLabel(data.cnName);
+                    html+this.initLabel(data.valibaleCn);
                     html+=this.initOneValible(data[(i+1)*(j+1)-1]);
                 }
                 html += '</div>';
             }
             return html;
+        },
+        initModel:function(data){
+            console.log(data);
+            var senceName = data.senceName;
+            var valiableData = data.data;
+            var html = '';
+            html += '<div class="layui-collapse" lay-filter="test">';
+            html += '<div class="layui-colla-item">';
+            html += '<h2 class="layui-colla-title">'+senceName+'</h2>';
+            html += '<div class="layui-colla-content">';
+            html += initDiv(valiableData);
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+        },
+        demo:function(){
+            var data = {
+                "modelName":"房贷模型",
+                "modelVersion":"v1.01",
+                "variableMap":[
+                    {
+                        "senceName": "房贷评分卡",
+                        "data": [
+                            {
+                                "valibaleEn": "name",
+                                "valibaleCn": "姓名",
+                                "submitName": "name",
+                                "type": "input",
+                                "desc": "姓名"
+                            },
+                            {
+                                "valibaleEn": "age",
+                                "valibaleCn": "年龄",
+                                "submitName": "age",
+                                "type": "input",
+                                "desc": "年龄"
+                            },
+                            {
+                                "valibaleEn": "sex",
+                                "valibaleCn": "性别",
+                                "submitName": "sex",
+                                "type": "select",
+                                "desc": "性别",
+                                "optionData":[
+                                    {
+                                        "value":"01",
+                                        "name":"男"
+                                    },{
+                                        "value":"02",
+                                        "name":"女"
+                                    },
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "senceName": "车贷评分卡",
+                        "data": [
+                            {
+                                "valibaleEn": "name",
+                                "valibaleCn": "姓名",
+                                "submitName": "name",
+                                "type": "input",
+                                "desc": "姓名"
+                            },
+                            {
+                                "valibaleEn": "age",
+                                "valibaleCn": "年龄",
+                                "submitName": "age",
+                                "type": "input",
+                                "desc": "年龄"
+                            },
+                            {
+                                "valibaleEn": "sex",
+                                "valibaleCn": "性别",
+                                "submitName": "sex",
+                                "type": "select",
+                                "desc": "性别",
+                                "optionData":[
+                                    {
+                                        "value":"01",
+                                        "name":"男"
+                                    },{
+                                        "value":"02",
+                                        "name":"女"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            };
+            console.log('初始化模型信息！');
+            this.initModel(data);
         }
     };
     exports('htmlUtil', htmlUtil);

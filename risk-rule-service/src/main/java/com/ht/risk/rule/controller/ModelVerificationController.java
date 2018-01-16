@@ -5,11 +5,15 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ActReModel;
 import com.ht.risk.rule.entity.ModelRelease;
+import com.ht.risk.rule.service.ActReModelService;
 import com.ht.risk.rule.service.ModelReleaseService;
 import com.ht.risk.rule.util.StringUtil;
+import com.ht.risk.rule.vo.ModelVerficationVo;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,9 +34,10 @@ import java.util.List;
 public class ModelVerificationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ModelDeployController.class);
-
     @Resource
     private ModelReleaseService modelReleaseService;
+    @Autowired
+    private ActReModelService actReModelService;
 
     /**
      *  查询待验证的模型信息
@@ -49,6 +54,15 @@ public class ModelVerificationController {
         LOGGER.info("查询模型待验证分页信息结束");
         return result;
     }
+
+    @GetMapping("demoPage")
+    @ApiOperation(value = "查询所有的对象")
+    public Result<List<ActReModel>> list(Page<ActReModel> page) {
+        Page<ActReModel> pages =  actReModelService.selectPage(page);
+        Result<List<ActReModel>> result = Result.build(0,"",pages.getRecords(),pages.getTotal());
+        return result;
+    }
+
 
     /**
      * 创建模型验证批次
@@ -132,8 +146,9 @@ public class ModelVerificationController {
     @RequestMapping("queryModelVariable")
     public Result queryModelVariable(ModelRelease modelRelease){
         LOGGER.info("查询模型相关的变量开始");
-        Result<Page<ModelRelease>> result = null;
-        result = Result.success();
+        Result<ModelVerficationVo> result = null;
+        ModelVerficationVo verficationVo = modelReleaseService.queryModelVariable(modelRelease.getId());
+        result = Result.success(verficationVo);
         LOGGER.info("查询模型相关的变量结束");
         return result;
     }

@@ -8,12 +8,12 @@ import com.ht.risk.rule.mapper.ModelReleaseMapper;
 import com.ht.risk.rule.mapper.ValidateBatchMapper;
 import com.ht.risk.rule.service.ModelReleaseService;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
-import com.ht.risk.rule.vo.ModelVerficationDetailVo;
+import com.ht.risk.rule.vo.ModelVerficationVo;
+import com.ht.risk.rule.vo.VariableVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -78,9 +78,19 @@ public class ModelReleaseServiceImpl extends BaseServiceImpl<ModelReleaseMapper,
     }
 
     @Override
-    public ModelVerficationDetailVo queryModelVariable(String id) {
-        ModelVerficationDetailVo modelVerficationDetailVo = new ModelVerficationDetailVo();
-
-        return null;
+    public ModelVerficationVo queryModelVariable(String id) {
+        ModelVerficationVo modelVerficationVo = new ModelVerficationVo();
+        modelVerficationVo.setModelName("房贷评分模型");
+        modelVerficationVo.setModelVersion("V1.01");
+        Map<String,List<VariableVo>> variableMap = new HashMap<String,List<VariableVo>>();
+        List<VariableVo> rules = null;
+        // 策略1
+        rules = new ArrayList<VariableVo>();
+        variableMap.put("001",rules);
+        // 策略2
+        rules = new ArrayList<VariableVo>();
+        variableMap.put("002",rules);
+        modelVerficationVo.setVariableMap(variableMap);
+        return modelVerficationVo;
     }
 }

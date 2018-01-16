@@ -29,5 +29,15 @@ public class ModelController {
         return "model/start";
     }
 
+    @RequestMapping(value = "/verfication",method = RequestMethod.GET)
+    public String verification(){
+        return "model/verfication/list";
+    }
+
+    @RequestMapping(value = "/valiable",method = RequestMethod.GET)
+    public String valiable(){
+        return "model/verfication/model";
+    }
+
 
 }

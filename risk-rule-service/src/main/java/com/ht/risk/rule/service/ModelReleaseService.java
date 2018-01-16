@@ -1,10 +1,9 @@
 package com.ht.risk.rule.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.ht.risk.rule.entity.ActReModel;
 import com.ht.risk.rule.entity.ModelRelease;
 import com.ht.risk.common.service.BaseService;
-import com.ht.risk.rule.vo.ModelVerficationDetailVo;
+import com.ht.risk.rule.vo.ModelVerficationVo;
 
 import java.util.List;
 
@@ -54,7 +53,7 @@ public interface ModelReleaseService extends BaseService<ModelRelease> {
     public boolean createVerficationModelBatch(String id);
 
 
-    public ModelVerficationDetailVo queryModelVariable(String id);
+    public ModelVerficationVo queryModelVariable(String id);
 
 
 

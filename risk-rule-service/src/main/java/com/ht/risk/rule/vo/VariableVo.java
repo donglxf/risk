@@ -6,9 +6,9 @@ import java.util.Map;
 public class VariableVo implements Serializable {
 
     // 变量中文名称
-    private String en;
+    private String valibaleEn;
     // 英文名称
-    private String cn;
+    private String valibaleCn;
     // 提交代码
     private String submitName;
     // 描述
@@ -17,22 +17,6 @@ public class VariableVo implements Serializable {
     private String type;
     // 下拉、多选等数据
     private Map<String,String> optionData;
-
-    public String getEn() {
-        return en;
-    }
-
-    public void setEn(String en) {
-        this.en = en;
-    }
-
-    public String getCn() {
-        return cn;
-    }
-
-    public void setCn(String cn) {
-        this.cn = cn;
-    }
 
     public String getSubmitName() {
         return submitName;
@@ -64,5 +48,21 @@ public class VariableVo implements Serializable {
 
     public void setOptionData(Map<String, String> optionData) {
         this.optionData = optionData;
+    }
+
+    public String getValibaleEn() {
+        return valibaleEn;
+    }
+
+    public void setValibaleEn(String valibaleEn) {
+        this.valibaleEn = valibaleEn;
+    }
+
+    public String getValibaleCn() {
+        return valibaleCn;
+    }
+
+    public void setValibaleCn(String valibaleCn) {
+        this.valibaleCn = valibaleCn;
     }
 }
