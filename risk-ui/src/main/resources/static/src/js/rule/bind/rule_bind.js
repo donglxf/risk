@@ -43,11 +43,6 @@ layui.use([ 'table', 'form' ], function() {
 			event : 'setItem',
 			title : '版本'
 		}, {
-			field : 'type',
-			event : 'setItem',
-			title : '决策类型',
-			templet : '#sceneTypeConvert'
-		}, {
 			field : 'title',
 			event : 'setItem',
 			title : '标题'
