@@ -31,9 +31,9 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
 
     @Autowired
     private SceneInfoVersionMapper versionMapper;
-    
+
     @Autowired
-    private SceneVersionMapper sceneVersionMapper;
+    public SceneVersionMapper sceneVersionMapper;
 
     @Override
     public Page<SceneInfoVersion> selectVersionPage(Page<SceneInfoVersion> pages, Wrapper<SceneInfoVersion> wrapper) {
