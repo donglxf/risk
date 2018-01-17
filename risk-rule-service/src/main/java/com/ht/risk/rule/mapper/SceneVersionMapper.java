@@ -26,7 +26,7 @@ public interface SceneVersionMapper extends SuperMapper<SceneVersion> {
 	* @throws
 	 */
 	public List<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages, Wrapper<SceneVersion> wrapper);
-	
+
 	/**
 	 * 
 	* @Title: getMaxTestVersion
@@ -37,4 +37,5 @@ public interface SceneVersionMapper extends SuperMapper<SceneVersion> {
 	* @throws
 	 */
 	public Map<String,Object> getMaxTestVersion(Map<String,Object> paramMap);
+
 }

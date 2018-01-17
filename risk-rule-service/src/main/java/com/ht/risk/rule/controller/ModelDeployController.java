@@ -22,7 +22,7 @@ import javax.annotation.Resource;
  * @since 2018-01-10
  */
 @RestController
-@RequestMapping("/actionInfo")
+@RequestMapping("/modelDeploy")
 public class ModelDeployController {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ModelDeployController.class);
@@ -30,6 +30,7 @@ public class ModelDeployController {
     @Resource
     private ModelDeployService modelDeployService;
 
+    @RequestMapping("deploy")
     public Result modelDeploy(ModelParamter paramter){
         LOGGER.info("模型部署,参数paramter:"+ JSON.toJSONString(paramter));
         Result<String> data = null;

@@ -70,7 +70,7 @@ public class ModelReleaseServiceImpl extends BaseServiceImpl<ModelReleaseMapper,
         ValidateBatch batch = new ValidateBatch();
         batch.setBatchSize(10);
         batch.setCreateTime(new Date(System.currentTimeMillis()));
-        batch.setDeploymenTid(modelRelease.getModelProcdefId());
+        //batch.setDeploymenTid(modelRelease.getModelProcdefId());
         //TODO 用户信息获取
         batch.setCreateUser("Robot");
         validateBatchMapper.insert(batch);

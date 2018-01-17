@@ -16,10 +16,10 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author zhangzhen
- * @since 2018-01-10
+ * @since 2018-01-17
  */
 @ApiModel
-@TableName("risk_model_sence")
+@TableName("RISK_MODEL_SENCE")
 public class ModelSence extends Model<ModelSence> {
 
     private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class ModelSence extends Model<ModelSence> {
      */
     @TableId("ID")
 	@ApiModelProperty(required= true,value = "主键")
-	private String id;
+	private Long id;
     /**
      * 模型定义ID
      */
@@ -41,7 +41,7 @@ public class ModelSence extends Model<ModelSence> {
      */
 	@TableField("SENCE_VERSION_ID")
 	@ApiModelProperty(required= true,value = "決策版本流水号")
-	private String senceVersionId;
+	private Long senceVersionId;
     /**
      * 是否生效：0-有效，1-无效
      */
@@ -62,11 +62,11 @@ public class ModelSence extends Model<ModelSence> {
 	private String createUser;
 
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -78,11 +78,11 @@ public class ModelSence extends Model<ModelSence> {
 		this.modelProcdefId = modelProcdefId;
 	}
 
-	public String getSenceVersionId() {
+	public Long getSenceVersionId() {
 		return senceVersionId;
 	}
 
-	public void setSenceVersionId(String senceVersionId) {
+	public void setSenceVersionId(Long senceVersionId) {
 		this.senceVersionId = senceVersionId;
 	}
 

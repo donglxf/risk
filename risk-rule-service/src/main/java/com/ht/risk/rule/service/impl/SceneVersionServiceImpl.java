@@ -1,7 +1,10 @@
 package com.ht.risk.rule.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.ht.risk.rule.entity.SceneInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +53,16 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
 	public Map<String,Object> getMaxTestVersion(Map<String,Object> paramMap) {
 		return sceneVersionMapper.getMaxTestVersion(paramMap);
 	}
-    
+
+	public SceneVersion querySceneVersionInfoByCodeAndVersion(String code,String version){
+        Map<String,Object> paramter = new HashMap<String,Object>();
+        paramter.put("scene_identify",code);
+        paramter.put("version",version);
+        List<SceneVersion> sceneVersionList = sceneVersionMapper.selectByMap(paramter);
+        if(sceneVersionList != null && sceneVersionList.size() > 0){
+            return sceneVersionList.get(0);
+        }
+        return null;
+    }
     
 }

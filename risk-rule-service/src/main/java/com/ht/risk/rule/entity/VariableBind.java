@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author zhangzhen
- * @since 2018-01-10
+ * @since 2018-01-17
  */
 @ApiModel
 @TableName("RISK_VARIABLE_BIND")
@@ -33,9 +33,9 @@ public class VariableBind extends Model<VariableBind> {
     /**
      * 決策版本流水
      */
-	@TableField("SENCE_VERSIONID")
+	@TableField("SENCE_VERSION_ID")
 	@ApiModelProperty(required= true,value = "決策版本流水")
-	private String senceVersionid;
+	private Long senceVersionId;
     /**
      * 变量编码
      */
@@ -48,6 +48,18 @@ public class VariableBind extends Model<VariableBind> {
 	@TableField("VARIABLE_NAME")
 	@ApiModelProperty(required= true,value = "变量名称")
 	private String variableName;
+    /**
+     * 变量类型，与RULE_ENTITY_ITEM_INFO.DATA_TYPE 一致
+     */
+	@TableField("DATA_TYPE")
+	@ApiModelProperty(required= true,value = "变量类型，与RULE_ENTITY_ITEM_INFO.DATA_TYPE 一致")
+	private String dataType;
+    /**
+     * 常量ID，与RULE_ENTITY_ITEM_INFO.CONSTANT_ID 一致
+     */
+	@TableField("CONSTANT_ID")
+	@ApiModelProperty(required= true,value = "常量ID，与RULE_ENTITY_ITEM_INFO.CONSTANT_ID 一致")
+	private Long constantId;
     /**
      * 绑定数据表
      */
@@ -67,6 +79,12 @@ public class VariableBind extends Model<VariableBind> {
 	@ApiModelProperty(required= true,value = "是否生效：0-有效，1-无效")
 	private String isEffect;
     /**
+     * 用户输入值，只保存最后一次的
+     */
+	@TableField("TMP_VALUE")
+	@ApiModelProperty(required= true,value = "用户输入值，只保存最后一次的")
+	private String tmpValue;
+    /**
      * 创建用户
      */
 	@TableField("CREATE_USER")
@@ -78,8 +96,7 @@ public class VariableBind extends Model<VariableBind> {
 	@TableField("CREATE_TIME")
 	@ApiModelProperty(required= true,value = "创建时间")
 	private Date createTime;
-	
-	
+
 
 	public Long getId() {
 		return id;
@@ -89,12 +106,12 @@ public class VariableBind extends Model<VariableBind> {
 		this.id = id;
 	}
 
-	public String getSenceVersionid() {
-		return senceVersionid;
+	public Long getSenceVersionId() {
+		return senceVersionId;
 	}
 
-	public void setSenceVersionid(String senceVersionid) {
-		this.senceVersionid = senceVersionid;
+	public void setSenceVersionId(Long senceVersionId) {
+		this.senceVersionId = senceVersionId;
 	}
 
 	public String getVariableCode() {
@@ -111,6 +128,22 @@ public class VariableBind extends Model<VariableBind> {
 
 	public void setVariableName(String variableName) {
 		this.variableName = variableName;
+	}
+
+	public String getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
+	}
+
+	public Long getConstantId() {
+		return constantId;
+	}
+
+	public void setConstantId(Long constantId) {
+		this.constantId = constantId;
 	}
 
 	public String getBindTable() {
@@ -137,6 +170,14 @@ public class VariableBind extends Model<VariableBind> {
 		this.isEffect = isEffect;
 	}
 
+	public String getTmpValue() {
+		return tmpValue;
+	}
+
+	public void setTmpValue(String tmpValue) {
+		this.tmpValue = tmpValue;
+	}
+
 	public String getCreateUser() {
 		return createUser;
 	}
@@ -158,17 +199,19 @@ public class VariableBind extends Model<VariableBind> {
 		return this.id;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "VariableBind{" +
 			"id=" + id +
-			", senceVersionid=" + senceVersionid +
+			", senceVersionId=" + senceVersionId +
 			", variableCode=" + variableCode +
 			", variableName=" + variableName +
+			", dataType=" + dataType +
+			", constantId=" + constantId +
 			", bindTable=" + bindTable +
 			", bindColumn=" + bindColumn +
 			", isEffect=" + isEffect +
+			", tmpValue=" + tmpValue +
 			", createUser=" + createUser +
 			", createTime=" + createTime +
 			"}";

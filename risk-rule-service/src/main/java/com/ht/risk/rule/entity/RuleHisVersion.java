@@ -16,10 +16,10 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author zhangzhen
- * @since 2018-01-10
+ * @since 2018-01-17
  */
 @ApiModel
-@TableName("risk_rule_his_version")
+@TableName("RISK_RULE_HIS_VERSION")
 public class RuleHisVersion extends Model<RuleHisVersion> {
 
     private static final long serialVersionUID = 1L;
@@ -29,13 +29,13 @@ public class RuleHisVersion extends Model<RuleHisVersion> {
      */
     @TableId("ID")
 	@ApiModelProperty(required= true,value = "主键")
-	private String id;
+	private Long id;
     /**
      * 決策版本流水
      */
 	@TableField("SENCE_VERSIONID")
 	@ApiModelProperty(required= true,value = "決策版本流水")
-	private String senceVersionid;
+	private Long senceVersionid;
     /**
      * 规则名称
      */
@@ -68,19 +68,19 @@ public class RuleHisVersion extends Model<RuleHisVersion> {
 	private Date createTime;
 
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getSenceVersionid() {
+	public Long getSenceVersionid() {
 		return senceVersionid;
 	}
 
-	public void setSenceVersionid(String senceVersionid) {
+	public void setSenceVersionid(Long senceVersionid) {
 		this.senceVersionid = senceVersionid;
 	}
 

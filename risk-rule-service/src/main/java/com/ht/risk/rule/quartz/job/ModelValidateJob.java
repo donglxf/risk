@@ -47,7 +47,7 @@ public class ModelValidateJob implements Job {
         entityWrapper.setEntity(validateBatch);
         List<ValidateBatch> jobs = validateBatchService.selectList(entityWrapper);
         String lockKey = null;
-        String id = null;
+        Long id = null;
         for(Iterator<ValidateBatch> iterator =jobs.iterator();iterator.hasNext();){
             validateBatch = iterator.next();
             id  = validateBatch.getId();

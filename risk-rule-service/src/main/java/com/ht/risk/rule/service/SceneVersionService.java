@@ -24,4 +24,12 @@ public interface SceneVersionService extends BaseService<SceneVersion> {
     Page<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages , Wrapper<SceneVersion> wrapper);
     
     public Map<String,Object> getMaxTestVersion(Map<String,Object> paramMap);
+
+    /**
+     * 通过策略唯一标示和版本查询策略版本信息
+     * @param code 策略唯一标示
+     * @param version 策略版本
+     * @return
+     */
+    public SceneVersion querySceneVersionInfoByCodeAndVersion(String code,String version);
 }
