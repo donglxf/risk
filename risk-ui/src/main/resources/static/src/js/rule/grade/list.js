@@ -57,9 +57,17 @@ scene.queryParams = function (params) {
 ///////////////////////////////////////////////////////////////////////
 var layer,sceneTable,table,active;
 var sceneId ;
-
-layui.use(['table','form','laytpl'], function() {
+//config的设置是全局的,引入工具包
+layui.config({
+    base: '/rule/ui/src/js/rule/' //假设这是你存放拓展模块的根目录
+}).extend({ //设定模块别名
+    sceneUtil: 'decision.js?v=22232' //如果 mymod.js 是在根目录，也可以不用设定别名
+});
+layui.use(['table','form','laytpl','sceneUtil'], function() {
     var laytpl = layui.laytpl;
+    sceneUtil = layui.sceneUtil;
+    var form = layui.form;
+    form.render();
     /**
      * 公共方法：保存
      * @param url
@@ -174,25 +182,38 @@ layui.use(['table','form','laytpl'], function() {
             fixed: !1
         });
         $.get('/rule/service/rule/getGradeCardAll',{'sceneId':sceneId},function(data){
-            console.log(data);
+           // console.log(data);
             if(data.code == '0'){
                 var result = data.data;
-                console.log(result);
+                var hasWeight = result.hasWeight;
+
+               // console.log(result);
                 var getTpl = tableTp.innerHTML
                     ,view = document.getElementById('table');
                 laytpl(getTpl).render(result, function(html){
                     view.innerHTML = html;
                 });
                 //初始化 实体类的值
-                dataEntityInit();
-                dataActionInit();
-                // dataInit(sceneId);
-                init();
+                sceneUtil.sceneId = sceneId;
+                sceneUtil.dataInit.entityBank();
+                sceneUtil.dataInit.actionBank();
+                sceneUtil.gradeInit();
+                //是否有权值
+                if(hasWeight > 0){
+                    $("#openQz").attr("checked",true);
+                    $("#table tbody tr td .qzdiv").show();
+                    form.render('checkbox');
+                }
             }else{
                 $("#table").html(tableNoDataPt);
-                init();
+                //初始化 实体类的值
+                sceneUtil.sceneId = sceneId;
+                //sceneUtil.dataInit.entityBank();
+                //sceneUtil.dataInit.actionBank();
+                sceneUtil.gradeInit();
                 //layer.msg("数据异常");
             }
+
             layer.close(index2);
         },'json');
         
@@ -201,7 +222,25 @@ layui.use(['table','form','laytpl'], function() {
     $("#scene_btn_add").on('click', function () {
         save(scene.uiUrl, null);
     });
-
+    //导入变量库
+    $(".import-entity").on('click', function () {
+        sceneUtil.openImport(1);
+    });
+    //导入动作库
+    //导入变量库
+    $(".import-action").on('click', function () {
+        sceneUtil.openImport(2);
+    });
+    //监听锁定操作
+    form.on('checkbox(lockDemo)', function(obj){
+        var sta = obj.elem.checked ? 1 : 0;
+        var id = this.value;
+        if(obj.elem.checked){
+            $(".qzdiv").show();
+        }else{
+            $(".qzdiv").hide();
+        }
+    });
     //修改
     function edit(id) {
         $.get(scene.baseUrl + "getInfoById/" + id, function (data) {
@@ -227,6 +266,6 @@ layui.use(['table','form','laytpl'], function() {
 
         }, function(){
         });
-
     }
+
 });

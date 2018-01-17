@@ -37,4 +37,16 @@ public interface EntityInfoMapper extends SuperMapper<EntityInfo> {
      */
     EntityInfo findBaseRuleEntityInfoById(@Param("id") Long id);
 
+    /**
+     * 查询实体和
+     * @param ids
+     * @return
+     */
+    List<EntityInfo> findRuleEntityIn(@Param("ids") String ids);
+
+    /**
+     * 查询所有符合的对象
+     * @return
+     */
+    List<EntityInfo> findRuleEntityAll();
 }

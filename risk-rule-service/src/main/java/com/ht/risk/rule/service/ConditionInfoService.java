@@ -1,8 +1,7 @@
 package com.ht.risk.rule.service;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.ht.risk.rule.entity.ConditionInfo;
 import com.ht.risk.common.service.BaseService;
+import com.ht.risk.rule.entity.ConditionInfo;
 
 import java.util.List;
 
@@ -27,6 +26,6 @@ public interface ConditionInfoService extends BaseService<ConditionInfo> {
      */
     List<ConditionInfo> findRuleConditionInfoByRuleId(final Long ruleId) throws Exception;
 
-    void add(ConditionInfo conditionInfo, Long ruleId);
+    ConditionInfo add(ConditionInfo conditionInfo, Long ruleId);
 }
 

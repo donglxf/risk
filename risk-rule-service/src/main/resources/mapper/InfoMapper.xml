@@ -19,7 +19,26 @@
     <sql id="Base_Column_List">
         rule_id AS ruleId, scene_id AS sceneId, rule_name AS ruleName, rule_desc AS ruleDesc, rule_enabled AS ruleEnabled, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
     </sql>
-
+    <!--联合分组-->
+    <resultMap type="com.ht.risk.rule.entity.Info" id="rules">
+        <id column="rule_id" property="ruleId" />
+        <result column="scene_id" property="sceneId" />
+        <result column="rule_name" property="ruleName" />
+        <result column="rule_desc" property="ruleDesc" />
+        <result column="rule_enabled" property="ruleEnabled" />
+        <result column="is_effect" property="isEffect" />
+        <result column="cre_user_id" property="creUserId" />
+        <result column="cre_time" property="creTime" />
+        <result column="remark" property="remark" />
+        <!-- 多对一的关系 -->
+        <!-- property: 指的是属性的值, javaType：指的是属性的类型-->
+        <association property="group" javaType="com.ht.risk.rule.entity.RuleGroup">
+            <id column="rule_group_id" property="ruleGroupId" />
+            <result column="index" property="index" />
+            <result column="weight" property="weight" />
+            <result column="name" property="name" />
+        </association>
+    </resultMap>
     <select id="findBaseRuleInfoList" parameterType="com.ht.risk.rule.entity.Info"
             resultType="com.ht.risk.rule.entity.Info">
         SELECT DISTINCT
@@ -117,6 +136,12 @@
         <if test="sceneId != null">
             AND S.SCENE_ID = #{sceneId}
         </if>
+    </select>
+    <select id="findListBySceneId" resultMap="rules">
+        SELECT r.*,g.rule_group_id,g.`index`,g.weight,g.`name` FROM `rule_info` r
+            LEFT JOIN rule_group g
+                on r.rule_id = g.rule_id
+        where r.scene_id = #{sceneId}
     </select>
 
 </mapper>

@@ -18,6 +18,19 @@ import java.util.List;
  */
 public interface ActionInfoService extends BaseService<ActionInfo> {
     /**
+     * 评分卡动作id
+     */
+    public final long FEN_CARD_ACTION_ID = 3l;
+    /**
+     * 评分卡 分值 参数ID
+     */
+    public final long FEN_CARD_ACTION_PARAM_F_ID = 3l;
+    /**
+     * 评分卡 权值参数ID
+     */
+    public final long FEN_CARD_ACTION_PARAM_WEIGHT_ID = 6l;
+
+    /**
      * Date 2017/7/24
      * Author lihao [lihao@sinosoft.com]
      * <p>
@@ -66,4 +79,17 @@ public interface ActionInfoService extends BaseService<ActionInfo> {
      * @date 2017/12/26 11:22
      */
     List<ActionInfoVo> findByIds(String ids);
+
+    /**
+     *
+     * @param sceneId
+     * @return
+     */
+    List<ActionInfoVo> findActionVos(Long sceneId);
+
+    /**
+     * 查询所有的动作
+     * @return
+     */
+    List<ActionInfoVo> findActionAllVos();
 }

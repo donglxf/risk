@@ -1,18 +1,6 @@
 package com.ht.risk.rule.controller;
 
 
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -21,10 +9,17 @@ import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ActionInfo;
 import com.ht.risk.rule.service.ActionInfoService;
+import com.ht.risk.rule.service.SceneInfoService;
 import com.ht.risk.rule.vo.ActionInfoVo;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
 
 
 //import java.util.List;
@@ -45,15 +40,34 @@ public class ActionInfoController {
     @Autowired
     private ActionInfoService actionInfoService;
 
+	@Autowired
+	private SceneInfoService sceneInfoService;
+
     @GetMapping("/getByIds")
     @ApiOperation(value = "通过选中的id查询动作库")
     public Result<List<ActionInfoVo>> getByIds(String ids){
-      //  List<ActionInfo> sss = actionInfoService.selectList(null);
         List<ActionInfoVo> list = actionInfoService.findByIds(ids);
-        return Result.success(list);
+		return Result.success(list);
 
     }
-    
+	@GetMapping("/getByScene")
+	@ApiOperation(value = "通过sceneId查询动作库")
+	public Result<List<ActionInfoVo>> getByScene(Long sceneId) throws Exception{
+
+		List<ActionInfoVo> list = actionInfoService.findActionVos(sceneId);
+		return Result.success(list);
+
+	}
+
+	@GetMapping("/getAll")
+	@ApiOperation(value = "通过sceneId查询动作库")
+	public Result<List<ActionInfoVo>> getAll() throws Exception{
+
+		List<ActionInfoVo> list = actionInfoService.findActionAllVos();
+		return Result.success(list);
+
+	}
+
     
     @GetMapping("page")
 	@ApiOperation(value = "分页查询")

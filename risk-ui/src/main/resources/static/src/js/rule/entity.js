@@ -4,7 +4,7 @@ var preItemUrl = "/rule/service/entityItemInfo/";
 var preUrl = "/rule/service/entityInfo/";
 var layer,entityTable,itemTable,table,active,itemActive;
 var entityId ;
-layui.use(['table','form'], function(){
+layui.use(['table','form','laytpl'], function(){
     /**
      * 设置表单值
      * @param el
@@ -19,6 +19,7 @@ layui.use(['table','form'], function(){
     table = layui.table;
     entityTable = layui.table;
     itemTable = layui.table;
+    var laytpl = layui.laytpl;
     var app = layui.app,
         $ = layui.jquery
     ,form = layui.form;
@@ -38,7 +39,17 @@ layui.use(['table','form'], function(){
             ,{field: 'entityDesc', event: 'setItem', title: '描述'}
             ,{field: 'isEffect',  event: 'setItem',title: '状态', sort: true,templet: '#checkboxTpl', unresize: true,fixed: 'right'}
             ,{field: 'entityId', title: '操作', fixed: 'right',align:'center', toolbar: '#bar'}
-        ]]
+        ]],
+        done: function(res, curr, count){
+        //如果是异步请求数据方式，res即为你接口返回的信息。
+        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+        if(res.data.length > 0){
+            //设置默认
+            entityId = res.data[0].entityId;
+            itemActive.reload(entityId);
+
+        }
+    }
     });
     //重载
     //这里以搜索为例
@@ -204,7 +215,41 @@ layui.use(['table','form'], function(){
         },'json')
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /***
+     * 品牌下拉初始化
+     * @param value
+     * @param list
+     */
+    function constantSelectInit(value){
 
+        $.get("/rule/service/constantInfo/getOneType",function(data){
+            var result = {list : data.data,
+                v : value}
+            var getTpl = constantTp.innerHTML
+                ,view = document.getElementById('constantId');
+            laytpl(getTpl).render(result, function(html){
+                view.innerHTML = html;
+            });
+            form = layui.form;
+            form.render('select');
+        },'json');
+
+    }
+    /***
+     * 品牌下拉 改变值回调
+     * @param value
+     * @param list
+     */
+    form.on('select(type)', function(data){
+        console.log(data);
+        var v = data.value;
+        if(v == 'CONSTANT'){
+            $("#constantDiv").show();
+            constantSelectInit('');
+        }else {
+            $("#constantDiv").hide();
+        }
+    });
     //新增
     $("#entity_item_btn_add").on('click',function () {
         if(entityId == undefined || entityId == ''){
@@ -252,7 +297,13 @@ layui.use(['table','form'], function(){
                         var dataType = result.dataType;
 
                         layero.find("option:contains('"+dataType+"')").attr("selected",true);
-                        console.log( layero.find("#dataId"));
+
+                        var constantId = result.constantId;
+                        if(constantId != '' && constantId != undefined){
+                            $("#constantDiv").show();
+                            constantSelectInit(constantId);
+                        }
+
                         var form = layui.form;
                         form.render('select');
                     }

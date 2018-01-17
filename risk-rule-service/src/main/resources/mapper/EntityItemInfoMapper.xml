@@ -45,6 +45,7 @@
         T.CRE_USER_ID,
         T.CRE_TIME,
         T.IS_EFFECT,
+        T.VARIABLE_ID,
         T.REMARK
     </sql>
     <select id="findBaseRuleEntityItemInfoList" parameterType="com.ht.risk.rule.entity.EntityItemInfo"

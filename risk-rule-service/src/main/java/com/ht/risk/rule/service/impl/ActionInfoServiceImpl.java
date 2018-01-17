@@ -5,12 +5,15 @@ import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.ActionInfo;
 import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.rule.mapper.ActionInfoMapper;
+import com.ht.risk.rule.mapper.ActionRuleRelMapper;
 import com.ht.risk.rule.service.ActionInfoService;
 import com.ht.risk.rule.util.StringUtil;
 import com.ht.risk.rule.vo.ActionInfoVo;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +29,9 @@ public class ActionInfoServiceImpl extends BaseServiceImpl<ActionInfoMapper, Act
 
     @Resource
     private ActionInfoMapper actionInfoMapper;
+
+    @Resource
+    private ActionRuleRelMapper actionRuleRelMapper;
 
     /**
      * Date 2017/7/24
@@ -98,5 +104,26 @@ public class ActionInfoServiceImpl extends BaseServiceImpl<ActionInfoMapper, Act
             throw new NullPointerException("参数缺失");
         }
         return this.actionInfoMapper.findByIds(ids);
+    }
+
+    @Override
+    public List<ActionInfoVo> findActionVos(Long sceneId) {
+
+        if (null == sceneId) {
+            throw new NullPointerException("参数缺失");
+        }
+
+        String actionIds = actionRuleRelMapper.findActionIdsBySceneId(sceneId);
+        if(StringUtils.isBlank(actionIds)){
+            return new ArrayList<>();
+        }
+        return this.actionInfoMapper.findByIds(actionIds);
+
+
+    }
+
+    @Override
+    public List<ActionInfoVo> findActionAllVos() {
+        return this.actionInfoMapper.findActionAllVos();
     }
 }

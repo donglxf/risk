@@ -1,13 +1,11 @@
 package com.ht.risk.rule.vo;
 
-import com.ht.risk.rule.entity.ActionInfo;
 import com.ht.risk.rule.entity.ActionParamValueInfo;
 import com.ht.risk.rule.entity.ConditionInfo;
-import com.ht.risk.rule.entity.EntityInfo;
+import com.ht.risk.rule.entity.RuleGroup;
 import io.swagger.annotations.ApiModel;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * 说明：
@@ -17,8 +15,10 @@ import java.util.Set;
  */
 @ApiModel
 public class RuleSubmitVo {
-
-
+    /**
+     * 分组和权值设置
+     */
+    private RuleGroup group;
     /**
      * 条件集合
      */
@@ -44,4 +44,11 @@ public class RuleSubmitVo {
         this.actionInfos = actionInfos;
     }
 
+    public RuleGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(RuleGroup group) {
+        this.group = group;
+    }
 }

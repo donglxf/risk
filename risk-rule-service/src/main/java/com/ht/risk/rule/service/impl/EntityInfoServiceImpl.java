@@ -1,15 +1,17 @@
 package com.ht.risk.rule.service.impl;
 
+import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.EntityInfo;
 import com.ht.risk.rule.mapper.EntityInfoMapper;
+import com.ht.risk.rule.mapper.SceneEntityRelMapper;
 import com.ht.risk.rule.service.EntityInfoService;
-import com.ht.risk.common.service.impl.BaseServiceImpl;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +29,9 @@ public class EntityInfoServiceImpl extends BaseServiceImpl<EntityInfoMapper, Ent
 
     @Autowired
     private EntityInfoMapper entityInfoMapper;
+
+    @Autowired
+    private SceneEntityRelMapper sceneEntityRelMapper;
 
 
     /**
@@ -56,6 +61,26 @@ public class EntityInfoServiceImpl extends BaseServiceImpl<EntityInfoMapper, Ent
             throw new NullPointerException("参数缺失");
         }
         return this.entityInfoMapper.findBaseRuleEntityInfoById(id);
+    }
+
+    @Override
+    public List<EntityInfo> findRuleEntityBySceneId(Long sceneId) {
+
+        if (null == sceneId) {
+            throw new NullPointerException("参数缺失");
+        }
+
+        String entityIds = sceneEntityRelMapper.findEntityIdsBySceneId(sceneId);
+
+        if(StringUtils.isBlank(entityIds)){
+            return new ArrayList<>();
+        }
+        return this.entityInfoMapper.findRuleEntityIn(entityIds);
+    }
+
+    @Override
+    public List<EntityInfo> findRuleEntityAll() {
+      return  this.entityInfoMapper.findRuleEntityAll();
     }
 
 }

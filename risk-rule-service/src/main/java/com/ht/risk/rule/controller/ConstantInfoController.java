@@ -1,17 +1,5 @@
 package com.ht.risk.rule.controller;
 
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -19,9 +7,15 @@ import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ConstantInfo;
 import com.ht.risk.rule.service.ConstantInfoService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
 
 /**
 * @ClassName: ConstantInfoController
@@ -61,6 +55,16 @@ public class ConstantInfoController {
 		List<ConstantInfo> list = constantInfoService.selectList(null);
 		// Page<EntityInfo> page = new Page<>();
 		// page = entityInfoService.selectPage(page);
+
+		return Result.success(list);
+	}
+
+	@GetMapping("getOneType")
+	@ApiOperation(value = "得到一级常量")
+	public Result<List<ConstantInfo>> getOneType() {
+		Wrapper<ConstantInfo> wrapper = new EntityWrapper<>();
+		wrapper.eq("con_type",0);
+		List<ConstantInfo> list = constantInfoService.selectList(wrapper);
 
 		return Result.success(list);
 	}

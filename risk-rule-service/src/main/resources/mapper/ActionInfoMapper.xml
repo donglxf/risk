@@ -142,5 +142,13 @@
         a.action_id = p.action_id
         AND a.action_id in (${ids})
     </select>
+    <select id="findActionAllVos"  resultMap="action">
+        SELECT
+            a.*, p.action_param_id,
+            p.param_identify,
+            p.action_param_name
+        FROM
+            rule_action_info a ,rule_action_param_info p
+    </select>
 
 </mapper>

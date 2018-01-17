@@ -57,9 +57,17 @@ scene.queryParams = function (params) {
 ///////////////////////////////////////////////////////////////////////
 var layer,sceneTable,table,active;
 var sceneId ;
-
-layui.use(['table','form','laytpl'], function() {
+//config的设置是全局的,引入工具包
+layui.config({
+    base: '/rule/ui/src/js/rule/' //假设这是你存放拓展模块的根目录
+}).extend({ //设定模块别名
+    sceneUtil: 'decision.js?v=22232' //如果 mymod.js 是在根目录，也可以不用设定别名
+});
+layui.use(['table','form','laytpl','sceneUtil'], function() {
     var laytpl = layui.laytpl;
+    sceneUtil = layui.sceneUtil;
+    var form = layui.form;
+    form.render();
     /**
      * 公共方法：保存
      * @param url
@@ -185,10 +193,11 @@ layui.use(['table','form','laytpl'], function() {
                     view.innerHTML = html;
                 });
                 //初始化 实体类的值
-                dataEntityInit();
-                dataActionInit();
-                // dataInit(sceneId);
-                init();
+                sceneUtil.sceneId = sceneId;
+                sceneUtil.dataInit.entityBank();
+                sceneUtil.dataInit.actionBank();
+
+                sceneUtil.sceneInit();
             }else{
                 $("#table").html(tableNoDataPt);
                 init();
@@ -202,6 +211,18 @@ layui.use(['table','form','laytpl'], function() {
     $("#scene_btn_add").on('click', function () {
         save(scene.uiUrl, null);
     });
+    //导入变量库
+    $(".import-entity").on('click', function () {
+        sceneUtil.openImport(1);
+    });
+    //导入动作库
+    //导入变量库
+    $(".import-action").on('click', function () {
+        sceneUtil.openImport(2);
+    });
+
+
+
 
     //修改
     function edit(id) {

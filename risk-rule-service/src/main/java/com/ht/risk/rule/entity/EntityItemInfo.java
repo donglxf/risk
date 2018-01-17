@@ -1,17 +1,15 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
-
 import com.ht.risk.rule.entity.enums.DataTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.util.Date;
 /**
  * <p>
  * 实体属性信息
@@ -66,8 +64,13 @@ public class EntityItemInfo extends Model<EntityItemInfo> {
 	}
 
 	@TableField("data_type")
-
 	private DataTypeEnum dataType;
+
+	@TableField("constant_id")
+	@ApiModelProperty(required= true,value = "常量id")
+	private Long constantId;
+
+
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -97,6 +100,13 @@ public class EntityItemInfo extends Model<EntityItemInfo> {
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
 
+	public Long getConstantId() {
+		return constantId;
+	}
+
+	public void setConstantId(Long constantId) {
+		this.constantId = constantId;
+	}
 
 	public Long getItemId() {
 		return itemId;

@@ -49,7 +49,16 @@ public interface InfoService extends BaseService<Info> {
 
     /**
      * 添加规则
-     * @param sceneId
+     * @param scene
      */
-    Info addRule(Long sceneId,int j);
+    Info addRule(SceneInfo scene,int j);
+
+    /**
+     * 描述：联合查询，包括了分组信息
+     * @param * @param null
+     * @return a
+     * @auhor 张鹏
+     * @date 2018/1/16 20:27
+     */
+    List<Info> findListBySceneId(Long sceneId);
 }
