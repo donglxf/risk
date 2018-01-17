@@ -47,7 +47,7 @@ public class ActionInfoController {
     @ApiOperation(value = "通过选中的id查询动作库")
     public Result<List<ActionInfoVo>> getByIds(String ids){
         List<ActionInfoVo> list = actionInfoService.findByIds(ids);
-        return Result.success(list);
+		return Result.success(list);
 
     }
 	@GetMapping("/getByScene")
@@ -55,6 +55,15 @@ public class ActionInfoController {
 	public Result<List<ActionInfoVo>> getByScene(Long sceneId) throws Exception{
 
 		List<ActionInfoVo> list = actionInfoService.findActionVos(sceneId);
+		return Result.success(list);
+
+	}
+
+	@GetMapping("/getAll")
+	@ApiOperation(value = "通过sceneId查询动作库")
+	public Result<List<ActionInfoVo>> getAll() throws Exception{
+
+		List<ActionInfoVo> list = actionInfoService.findActionAllVos();
 		return Result.success(list);
 
 	}

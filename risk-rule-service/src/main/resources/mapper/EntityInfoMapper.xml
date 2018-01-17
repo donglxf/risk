@@ -39,6 +39,8 @@
             <result column="cre_time" property="creTime" />
             <result column="is_effect" property="isEffect" />
             <result column="remark" property="remark" />
+            <result column="constant_id" property="constantId" />
+
         </collection>
 
     </resultMap>
@@ -76,7 +78,7 @@
         i.ENTITY_ID,
         i.ITEM_NAME,
         i.ITEM_IDENTIFY,
-        i.ITEM_DESC,i.VARIABLE_ID
+        i.ITEM_DESC,I.CONSTANT_ID
     </sql>
 
     <select id="findBaseRuleEntityInfoList" parameterType="com.ht.risk.rule.entity.EntityInfo"
@@ -86,8 +88,6 @@
         FROM
         rule_entity_info T
         WHERE 1=1
-
-
     </select>
     <select id="findBaseRuleEntityInfoById" resultType="com.ht.risk.rule.entity.EntityInfo">
         SELECT DISTINCT
@@ -105,7 +105,16 @@
         rule_entity_info T LEFT JOIN rule_entity_item_info i
         ON T.entity_id = i.entity_id
         WHERE 1=1
-        AND T.ENTITY_ID IN CONCAT('(',#{id},')')
+        AND T.ENTITY_ID IN
+        (${ids})
+    </select>
+    <select id="findRuleEntityAll" resultMap="entityItemMan" >
+        SELECT DISTINCT
+        <include refid="BaseFindColumnSqlMan"></include>
+        FROM
+        rule_entity_info T LEFT JOIN rule_entity_item_info i
+        ON T.entity_id = i.entity_id
+
     </select>
 
 </mapper>

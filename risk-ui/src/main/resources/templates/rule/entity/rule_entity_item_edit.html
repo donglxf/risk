@@ -22,15 +22,25 @@
         <div class="layui-form-item">
             <label class="layui-form-label">数据类型</label>
             <div class="layui-input-inline">
-                <select name="dataType" id="dataId">
+                <select name="dataType" id="dataId"lay-filter="type" >
                     <option value="">请选择</option>
                     <option value="STRING">字符串</option>
                     <option value="INTEGER"  >整形</option>
                     <option value="BOOLEAN">布尔型</option>
                     <option value="DOUBLE">数字型</option>
+                    <option value="CONSTANT">常量类型</option>
                 </select>
             </div>
         </div>
+
+    <div class="layui-form-item" id="constantDiv" style="display: none">
+        <label class="layui-form-label">常量选择</label>
+        <div class="layui-input-inline">
+            <select name="constantId" id="constantId"  lay-filter="constant">
+                <option value="">请选择</option>
+            </select>
+        </div>
+    </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">描述:</label>
@@ -46,6 +56,17 @@
         </div>
     </div>
 </form>
+<script id="constantTp" type="text/html">
+    <option value="">请选择</option>
+    {{#  layui.each(d.list, function(index, item){    }}
+    <option value="{{item.conId}}"
+            {{#  if(d.v == item.conId) { }}
+            selected=""
+            {{# } }}
+    >{{item.conName}}</option>
+    {{#  });  }}
+
+</script>
 <script>
     //Demo
     layui.use('form', function(){

@@ -66,9 +66,9 @@ public class EntityItemInfo extends Model<EntityItemInfo> {
 	@TableField("data_type")
 	private DataTypeEnum dataType;
 
-	@TableField("variable_id")
+	@TableField("constant_id")
 	@ApiModelProperty(required= true,value = "常量id")
-	private Long variableId;
+	private Long constantId;
 
 
 
@@ -100,12 +100,12 @@ public class EntityItemInfo extends Model<EntityItemInfo> {
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
 
-	public Long getVariableId() {
-		return variableId;
+	public Long getConstantId() {
+		return constantId;
 	}
 
-	public void setVariableId(Long variableId) {
-		this.variableId = variableId;
+	public void setConstantId(Long constantId) {
+		this.constantId = constantId;
 	}
 
 	public Long getItemId() {

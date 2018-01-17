@@ -67,4 +67,10 @@ public interface ActionInfoMapper extends SuperMapper<ActionInfo> {
      * @date 2017/12/26 11:24
      */
     List<ActionInfoVo> findByIds( @Param("ids") String ids);
+
+    /**
+     * 查询所有动作
+     * @return
+     */
+    List<ActionInfoVo> findActionAllVos();
 }

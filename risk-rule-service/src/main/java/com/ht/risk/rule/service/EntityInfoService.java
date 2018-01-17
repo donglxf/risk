@@ -43,4 +43,13 @@ public interface EntityInfoService extends BaseService<EntityInfo> {
      * @date 2018/1/12 16:59
      */
     List<EntityInfo> findRuleEntityBySceneId(Long sceneId);
+
+    /**
+     * 描述：查询实体类 和变量集合赋值
+     * @param * @param null
+     * @return a
+     * @auhor 张鹏
+     * @date 2018/1/12 16:59
+     */
+    List<EntityInfo> findRuleEntityAll();
 }

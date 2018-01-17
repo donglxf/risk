@@ -8,6 +8,7 @@ import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.EntityInfo;
 import com.ht.risk.rule.entity.EntityItemInfo;
+import com.ht.risk.rule.service.ConstantInfoService;
 import com.ht.risk.rule.service.EntityInfoService;
 import com.ht.risk.rule.service.EntityItemInfoService;
 import com.ht.risk.rule.vo.EntitySelectVo;
@@ -18,9 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -40,6 +39,8 @@ public class EntityInfoController {
 
     @Autowired
     private EntityItemInfoService itemInfoService;
+    @Autowired
+    private ConstantInfoService constantInfoService;
     @GetMapping("getAll")
     @ApiOperation(value = "查询所有的对象")
     public Result<List<EntityInfo>> getAll(){
@@ -99,7 +100,8 @@ public class EntityInfoController {
 
                 itemvo.setValue(item.getItemId().toString());
                 itemvo.setText(item.getItemName());
-
+                //设置常量子集
+                itemvo  = constantInfoService.setItemConstants(itemvo,item);
                 sons.add(itemvo);
             }
             vo.setSons(sons);
@@ -108,6 +110,37 @@ public class EntityInfoController {
         }
         return Result.success(vos);
     }
+    @GetMapping("getEntitysAll")
+    @ApiOperation(value = "查询所有的对象和变量的集合")
+    public Result<List<EntitySelectVo>> getEntitysAll() {
+
+        List<EntityInfo> list = entityInfoService.findRuleEntityAll();
+
+        List<EntitySelectVo> vos = new ArrayList<>();
+        for (EntityInfo info : list) {
+            EntitySelectVo vo = new EntitySelectVo();
+            vo.setValue(info.getEntityId().toString());
+            vo.setText(info.getEntityName());
+            //设置子集
+            List<EntitySelectVo> sons = new ArrayList<>();
+            List<EntityItemInfo> itemInfos = info.getItems();
+
+            for (EntityItemInfo item : itemInfos) {
+                EntitySelectVo itemvo = new EntitySelectVo();
+
+                itemvo.setValue(item.getItemId().toString());
+                itemvo.setText(item.getItemName());
+                //设置常量子集
+                itemvo  = constantInfoService.setItemConstants(itemvo,item);
+                sons.add(itemvo);
+            }
+            vo.setSons(sons);
+            //info.setItems(itemInfos);
+            vos.add(vo);
+        }
+        return Result.success(vos);
+    }
+
     @GetMapping("getEntitysByIds")
     @ApiOperation(value = "查询所有的对象和变量的集合")
     public Result<List<EntitySelectVo>> getEntitysByIds(String ids){

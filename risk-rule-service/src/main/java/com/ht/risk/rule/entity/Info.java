@@ -1,17 +1,15 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
-import java.util.List;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 /**
  * <p>
  * 规则信息
@@ -30,6 +28,8 @@ public class Info extends Model<Info> {
     private List<ConditionInfo> cons;
 	@TableField(exist = false)
 	private List<ActionRuleRel> actionRels;
+	@TableField(exist = false)
+	private RuleGroup group ;
 
 	/**
      * 主键
@@ -85,6 +85,13 @@ public class Info extends Model<Info> {
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
 
+	public RuleGroup getGroup() {
+		return group;
+	}
+
+	public void setGroup(RuleGroup group) {
+		this.group = group;
+	}
 
 	public Long getRuleId() {
 		return ruleId;

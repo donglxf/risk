@@ -12,7 +12,8 @@ public enum DataTypeEnum implements IEnum {
     INTEGER("Integer", "整形"),
     BOOLEAN("Boolean", "布尔类型"),
     DOUBLE("Double", "数字类型"),
-    STRING("String", "字符串");
+    STRING("String", "字符串"),
+    CONSTANT("CONSTANT", "常量类型");
 
     private String value;
     private String desc;

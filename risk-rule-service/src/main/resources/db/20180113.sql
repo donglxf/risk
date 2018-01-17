@@ -33,3 +33,33 @@ CREATE TABLE `rule_scene_version` (
   `status` tinyint(3) DEFAULT '1',
   PRIMARY KEY (`version_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
+
+create table `risk_variable_bind` (
+  `id` varchar(64) collate utf8_bin not null comment '主键,流水号',
+  `sence_versionid` varchar(64) collate utf8_bin not null comment '決策版本流水',
+  `variable_code` varchar(64) collate utf8_bin not null comment '变量编码',
+  `variable_name` varchar(64) collate utf8_bin default null comment '变量名称',
+  `data_type` varchar(32) collate utf8_bin default null comment '变量类型，与rule_entity_item_info.data_type 一致',
+  `constant_id` varchar(32) collate utf8_bin default null comment '常量id，与rule_entity_item_info.constant_id 一致',
+  `bind_table` varchar(64) collate utf8_bin not null comment '绑定数据表',
+  `bind_column` varchar(64) collate utf8_bin not null comment '绑定数据表字段',
+  `is_effect` varchar(2) collate utf8_bin not null default '0' comment '是否生效：0-有效，1-无效',
+  `tmp_value` varchar(64) collate utf8_bin default null comment '用户输入值，只保存最后一次的',
+  `create_user` varchar(64) collate utf8_bin default null comment '创建用户',
+  `create_time` datetime not null default current_timestamp comment '创建时间',
+  primary key (`id`)
+) engine=innodb default charset=utf8 collate=utf8_bin;
+
+
+
+create table `risk_rule_his_version` (
+  `id` varchar(64) collate utf8_bin not null comment '主键',
+  `sence_versionid` varchar(64) collate utf8_bin not null comment '決策版本流水',
+  `rule_name` varchar(64) collate utf8_bin not null comment '规则名称',
+  `rule_desc` varchar(64) collate utf8_bin not null comment '规则描述',
+  `is_effect` varchar(2) collate utf8_bin not null default '0' comment '是否生效：0-有效，1-无效',
+  `create_user` varchar(64) collate utf8_bin default null comment '创建用户',
+  `create_time` datetime default null comment '创建时间',
+  primary key (`id`)
+) engine=innodb default charset=utf8 collate=utf8_bin;

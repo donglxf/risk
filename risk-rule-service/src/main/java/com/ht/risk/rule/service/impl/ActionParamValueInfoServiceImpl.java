@@ -1,8 +1,10 @@
 package com.ht.risk.rule.service.impl;
 
+import com.ht.risk.rule.entity.ActionInfo;
 import com.ht.risk.rule.entity.ActionParamInfo;
 import com.ht.risk.rule.entity.ActionParamValueInfo;
 import com.ht.risk.rule.entity.ActionRuleRel;
+import com.ht.risk.rule.mapper.ActionInfoMapper;
 import com.ht.risk.rule.mapper.ActionParamInfoMapper;
 import com.ht.risk.rule.mapper.ActionParamValueInfoMapper;
 import com.ht.risk.rule.mapper.ActionRuleRelMapper;
@@ -34,6 +36,9 @@ public class ActionParamValueInfoServiceImpl extends BaseServiceImpl<ActionParam
     @Resource
     private ActionParamInfoMapper actionParamInfoMapper;
 
+    @Resource
+    private ActionInfoMapper actionInfoMapper;
+
 
     /**
      * Date 2017/7/27
@@ -55,21 +60,29 @@ public class ActionParamValueInfoServiceImpl extends BaseServiceImpl<ActionParam
     public void add(ActionParamValueInfo actionValue, Long ruleId) {
         //获取参数
         ActionParamInfo paramInfo = actionParamInfoMapper.selectById(actionValue.getActionParamId());
-        //添加动作规则中间表
-        ActionRuleRel rel = new ActionRuleRel();
-        rel.setRuleId(ruleId);
-        rel.setActionId(paramInfo.getActionId());
-        rel.setCreTime(new Date());
-        rel.setIsEffect(1);
-        rel.setCreUserId(creUser);
-        actionRuleRelMapper.insert(rel);
+        //添加动作规则中间表,确定是否需要新增一个 动作规则中间表
+        ActionRuleRel relWhere = new ActionRuleRel();
+        relWhere.setRuleId(ruleId);
+        relWhere.setActionId(paramInfo.getActionId());
+        ActionRuleRel rel = actionRuleRelMapper.selectOne(relWhere);
+        if(rel == null ){
+            rel = new ActionRuleRel();
+            rel.setRuleId(ruleId);
+            rel.setActionId(paramInfo.getActionId());
+            rel.setCreTime(new Date());
+            rel.setIsEffect(1);
+            rel.setCreUserId(creUser);
+            actionRuleRelMapper.insert(rel);
+        }
+        //方法名
+        ActionInfo actionInfo = actionInfoMapper.selectById(paramInfo.getActionId());
         //添加值得表
         actionValue.setCreTime(new Date());
         actionValue.setCreUserId(creUser);
         actionValue.setIsEffect(1);
         actionValue.setRuleActionRelId(rel.getRuleActionRelId());
+        actionValue.setRemark("["+actionInfo.getActionName()+"]:"+actionValue.getParamValue()+"("+paramInfo.getActionParamName()+")");
         actionParamValueInfoMapper.insert(actionValue);
-
     }
 
     @Override

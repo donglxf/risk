@@ -38,6 +38,8 @@ public class InfoServiceImpl extends BaseServiceImpl<InfoMapper, Info> implement
     private SceneItemRelMapper sceneItemRelMapper;
     @Resource
     private SceneEntityRelMapper sceneEntityRelMapper;
+    @Resource
+    private RuleGroupMapper groupMapper;
 
 
 
@@ -126,22 +128,31 @@ public class InfoServiceImpl extends BaseServiceImpl<InfoMapper, Info> implement
         Wrapper<SceneEntityRel> sceneEntityRelWrapper = new EntityWrapper<>();
         sceneEntityRelWrapper.eq("scene_id",sceneId);
         sceneEntityRelMapper.delete(sceneEntityRelWrapper);
+        //删除 场景 规则分组表
+        Wrapper<RuleGroup> groupWrapper = new EntityWrapper<>();
+        groupWrapper.eq("scene_id",sceneId);
+        groupMapper.delete(groupWrapper);
     }
 
     @Override
-    public Info addRule(Long sceneId,int index) {
+    public Info addRule(SceneInfo scene,int index) {
         long creUid = 111;
         //添加规则
         Info rule = new Info();
         rule.setCreTime(new Date());
         rule.setCreUserId(creUid);
         rule.setIsEffect(1);
-        rule.setRuleName("规则-"+index);
+        rule.setRuleName(scene.getSceneIdentify()+":"+index);
         rule.setRuleDesc("规则-"+index);
         rule.setRuleEnabled(1);
-        rule.setSceneId(sceneId);
+        rule.setSceneId(scene.getSceneId());
         this.infoMapper.insert(rule);
         return  rule;
+    }
+
+    @Override
+    public List<Info> findListBySceneId(Long sceneId) {
+        return this.infoMapper.findListBySceneId(sceneId);
     }
 
 }

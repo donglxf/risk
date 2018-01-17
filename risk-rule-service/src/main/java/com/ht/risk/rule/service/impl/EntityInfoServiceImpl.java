@@ -78,4 +78,9 @@ public class EntityInfoServiceImpl extends BaseServiceImpl<EntityInfoMapper, Ent
         return this.entityInfoMapper.findRuleEntityIn(entityIds);
     }
 
+    @Override
+    public List<EntityInfo> findRuleEntityAll() {
+      return  this.entityInfoMapper.findRuleEntityAll();
+    }
+
 }

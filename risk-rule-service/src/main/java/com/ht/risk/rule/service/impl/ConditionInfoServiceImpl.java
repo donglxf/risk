@@ -41,7 +41,7 @@ public class ConditionInfoServiceImpl extends BaseServiceImpl<ConditionInfoMappe
     }
 
     @Override
-    public void add(ConditionInfo conditionInfo, Long ruleId) {
+    public ConditionInfo add(ConditionInfo conditionInfo, Long ruleId) {
         long creUid = 111;
         conditionInfo.setRuleId(ruleId);
         conditionInfo.setCreTime(new Date());
@@ -49,6 +49,7 @@ public class ConditionInfoServiceImpl extends BaseServiceImpl<ConditionInfoMappe
         conditionInfo.setIsEffect(1);
         conditionInfo.setConditionName("我就是个测试");
         this.conditionInfoMapper.insert(conditionInfo);
+        return conditionInfo;
     }
 
 }

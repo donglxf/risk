@@ -54,4 +54,10 @@ public interface InfoMapper extends SuperMapper<Info> {
      */
     List<Info> findBaseRuleListByScene(SceneInfo baseRuleSceneInfo);
 
+    /**
+     * 联合查询规则信息，包括了分组。多对一查询
+     * @param sceneId
+     * @return
+     */
+    List<Info> findListBySceneId(@Param("sceneId") Long sceneId);
 }
