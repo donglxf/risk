@@ -86,12 +86,12 @@ public class VariableBindController {
 
     @GetMapping("getAll")
     @ApiOperation(value = "查询所有的对象字段")
-    public PageResult<List<VariableBind>> getAll(@RequestParam(name = "sceneId") String sceneId, String versionId) {
-//        List<EntityItemInfo> list = entityItemInfoService.findEntityItemBySceneId(sceneId);
-        Wrapper<VariableBind> wrapper = new EntityWrapper<>();
-        wrapper.eq("sence_versionid",sceneId);
-        List<VariableBind> list=variableBindService.selectList(wrapper);
-        System.out.println(list.size()+">>>>>>>");
+    public PageResult<List<EntityItemInfo>> getAll(@RequestParam(name = "sceneId") String sceneId, String versionId) {
+        List<EntityItemInfo> list = entityItemInfoService.findEntityItemBySceneId(sceneId);
+//        Wrapper<VariableBind> wrapper = new EntityWrapper<>();
+//        wrapper.eq("sence_version_id",sceneId);
+//        List<VariableBind> list=variableBindService.selectList(wrapper);
+//        System.out.println(list.size()+">>>>>>>");
         return PageResult.success(list, 0);
     }
 
