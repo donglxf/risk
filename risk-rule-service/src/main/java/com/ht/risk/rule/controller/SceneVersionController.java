@@ -10,8 +10,10 @@ import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.rule.entity.SceneInfoVersion;
 import com.ht.risk.rule.entity.SceneVersion;
 import com.ht.risk.rule.rpc.DroolsRuleRpc;
+import com.ht.risk.rule.service.RuleHisVersionService;
 import com.ht.risk.rule.service.SceneInfoService;
 import com.ht.risk.rule.service.SceneVersionService;
+import com.ht.risk.rule.service.VariableService;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,10 @@ public class SceneVersionController {
 
     @Autowired
     private SceneInfoService sceneInfoService;
+    @Autowired
+    private RuleHisVersionService ruleHisVersionService;
+    @Autowired
+    private VariableService variableService;
 
     @Autowired
     private DroolsRuleRpc droolsRuleRpc;
@@ -104,7 +110,6 @@ public class SceneVersionController {
         //获取 规则字符串
         String ruleDrlStr = droolsRuleRpc.getDroolsVersion(sceneInfo.getSceneId()+"");
 
-
         version.setSceneId(sceneInfo.getSceneId());
         version.setSceneIdentify(identify);
         version.setCreTime(new Date());
@@ -114,6 +119,7 @@ public class SceneVersionController {
         //测试版
         version.setType(0);
         sceneVersionService.insert(version);
+        //添加
 
         return Result.success(0);
     }
