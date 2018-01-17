@@ -7,14 +7,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+import com.ht.risk.rule.entity.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -24,10 +22,6 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.common.util.ObjectUtils;
-import com.ht.risk.rule.entity.EntityItemInfo;
-import com.ht.risk.rule.entity.SceneVersion;
-import com.ht.risk.rule.entity.TempDataContains;
-import com.ht.risk.rule.entity.VariableBind;
 import com.ht.risk.rule.model.DroolsParamter;
 import com.ht.risk.rule.rpc.DroolsRuleRpc;
 import com.ht.risk.rule.service.EntityItemInfoService;
@@ -83,12 +77,22 @@ public class VariableBindController {
         return PageResult.success(pages.getRecords(), pages.getTotal());
     }
 
+    @GetMapping("getInfoById/{id}")
+    @ApiOperation(value = "通过id查询详细信息")
+    public Result<SceneVersion> getDateById(@PathVariable(name = "id") Long id) {
+        SceneVersion entityInfo = sceneVersionService.selectById(id);
+        return Result.success(entityInfo);
+    }
+
     @GetMapping("getAll")
     @ApiOperation(value = "查询所有的对象字段")
-    public PageResult<List<EntityItemInfo>> getAll(@RequestParam(name = "sceneId") String sceneId, String versionId) {
-        System.out.println(sceneId + ">>>>>>>>" + versionId);
-        List<EntityItemInfo> list = entityItemInfoService.findEntityItemBySceneId(sceneId);
-        return PageResult.success(list, 10);
+    public PageResult<List<VariableBind>> getAll(@RequestParam(name = "sceneId") String sceneId, String versionId) {
+//        List<EntityItemInfo> list = entityItemInfoService.findEntityItemBySceneId(sceneId);
+        Wrapper<VariableBind> wrapper = new EntityWrapper<>();
+        wrapper.eq("sence_versionid",sceneId);
+        List<VariableBind> list=variableBindService.selectList(wrapper);
+        System.out.println(list.size()+">>>>>>>");
+        return PageResult.success(list, 0);
     }
 
     @PostMapping("edit")
@@ -112,7 +116,7 @@ public class VariableBindController {
             String str = map.get(entityItemInfo.getItemIdentify())[0];
             data.put(entityItemInfo.getItemIdentify(), str);
         }
-        drools.setVersion(entityInfo.getSenceVersionid());
+        drools.setVersion(String.valueOf(entityInfo.getSenceVersionId()));
         drools.setSence(entityInfo.getSceneIdentify());
         drools.setData(data);
         String res = droolsRuleRpc.excuteDroolsSceneValidation(drools);
@@ -133,7 +137,7 @@ public class VariableBindController {
         int success = 0, fail = 0;
         // 查询变量绑定字段信息
         Map<String, Object> columnMap = new HashMap<String, Object>();
-        columnMap.put("SENCE_VERSIONID", entityInfo.getSenceVersionid());
+        columnMap.put("SENCE_VERSIONID", entityInfo.getSenceVersionId());
         columnMap.put("IS_EFFECT", "1");
         List<VariableBind> bindList = variableBindService.selectByMap(columnMap);
 
@@ -150,7 +154,7 @@ public class VariableBindController {
             for (VariableBind vBind : bindList) {
                 data.put(vBind.getVariableCode(), map2.get(vBind.getVariableCode()));
             }
-            drools.setVersion(entityInfo.getSenceVersionid());
+            drools.setVersion(String.valueOf(entityInfo.getSenceVersionId()));
             drools.setSence(entityInfo.getSceneIdentify());
             drools.setData(data);
             String res = droolsRuleRpc.excuteDroolsSceneValidation(drools);
@@ -181,7 +185,7 @@ public class VariableBindController {
     @ApiOperation(value = "发布正式版")
     @Transactional()
     public Result<Integer> development(VariableBindVo bindInfo) {
-        SceneVersion scene = sceneVersionService.selectById(bindInfo.getSenceVersionid()); // 当前要发布的测试版本记录
+        SceneVersion scene = sceneVersionService.selectById(bindInfo.getSenceVersionId()); // 当前要发布的测试版本记录
         // 最大正式版本号
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("sceneId", bindInfo.getSenceId());
