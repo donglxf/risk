@@ -22,9 +22,17 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        version_id AS versionId, status,version,v.scene_identify AS sceneIdentify, type, title, comment, scene_id AS sceneId, cre_time AS creTime, cre_user_id AS creUserId, rule_div AS ruleDiv, rule_drl AS ruleDrl
+        version_id AS versionId, status,version,scene_identify AS sceneIdentify, type, title, comment, scene_id AS sceneId, cre_time AS creTime, cre_user_id AS creUserId, rule_div AS ruleDiv, rule_drl AS ruleDrl
     </sql>
 
-
-
+	<select id="getNoBindVariableRecord" parameterType="com.ht.risk.rule.entity.SceneVersion"
+            resultType="com.ht.risk.rule.entity.SceneVersion">
+		select <include refid="Base_Column_List"></include>
+			from rule_scene_version where type=0
+	</select>
+	
+	<select id="getMaxTestVersion" parameterType="map" resultType="map">
+		select max(version) maxVersion from rule_scene_version where scene_id=#{sceneId} and scene_identify = #{sceneIdentify} and type=#{type}
+	</select>
+	
 </mapper>

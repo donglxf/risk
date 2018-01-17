@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ht.risk.rule.mapper.ValidateBatchMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.ValidateBatch">
+        <id column="ID" property="id" />
+        <result column="DEPLOYMEN_TID" property="deploymenTid" />
+        <result column="BATCH_SIZE" property="batchSize" />
+        <result column="IS_EFFECT" property="isEffect" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="CREATE_USER" property="createUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, DEPLOYMEN_TID AS deploymenTid, BATCH_SIZE AS batchSize, IS_EFFECT AS isEffect, CREATE_TIME AS createTime, CREATE_USER AS createUser
+    </sql>
+
+
+    <select id="queryJobList">
+        SELECT ID AS id, DEPLOYMEN_TID AS deploymenTid, BATCH_SIZE AS batchSize, IS_EFFECT AS isEffect, CREATE_TIME AS createTime, CREATE_USER AS createUser
+        FROM RISK_VALIDATE_BATCH A WHERE A
+    </select>
+
+
+</mapper>

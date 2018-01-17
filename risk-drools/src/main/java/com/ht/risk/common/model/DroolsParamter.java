@@ -23,11 +23,25 @@ public class DroolsParamter {
 	 * 流程运行实例id
 	 */
 	private String processInstanceId;
+	
+	/**
+	 * 类型
+	 */
+	private String type;
 
 	/**
 	 * 业务数据
 	 */
 	private Map<String, Object> data;
+
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public String getSence() {
 		return sence;

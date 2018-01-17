@@ -3,8 +3,8 @@ package org.ht.risk.log.entity;
 import java.io.Serializable;
 
 import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import io.swagger.annotations.ApiModel;
@@ -14,81 +14,68 @@ import io.swagger.annotations.ApiModelProperty;
  * 
  * </p>
  *
- * @author dyb
- * @since 2018-01-05
+ * @author 张鹏
+ * @since 2018-01-10
  */
 @ApiModel
-@TableName("drools_log")
+@TableName("RISK_DROOLS_LOG")
 public class DroolsLog extends Model<DroolsLog> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId("id")
+    @TableId("ID")
 	@ApiModelProperty(required= true,value = "")
 	private Long id;
     /**
      * 模型实例id
      */
-	@TableField("proc_inst_id")
+	@TableField("PROCINST_ID")
 	@ApiModelProperty(required= true,value = "模型实例id")
-	private Long procInstId;
+	private Long procinstId;
     /**
-     * 场景id
+     * 模型名
      */
-	@TableField("scene_id")
-	@ApiModelProperty(required= true,value = "场景id")
-	private String sceneId;
+	@TableField("MODEL_NAME")
+	@ApiModelProperty(required= true,value = "模型名")
+	private String modelName;
     /**
-     * 插入时间
+     * 決策版本流水
      */
-	@TableField("cre_time")
-	@ApiModelProperty(required= true,value = "插入时间")
-	private Date creTime;
-    /**
-     * 规则版本
-     */
-	@TableField("droolsversion")
-	@ApiModelProperty(required= true,value = "规则版本")
-	private String droolsVersion;
+	@TableField("SENCE_VERSIONID")
+	@ApiModelProperty(required= true,value = "決策版本流水")
+	private String senceVersionid;
     /**
      * 入参
      */
-	@TableField("in_param")
+	@TableField("IN_PARAMTER")
 	@ApiModelProperty(required= true,value = "入参")
-	private String inParam;
+	private String inParamter;
     /**
      * 计算结果
      */
+	@TableField("OUT_PARAMTER")
 	@ApiModelProperty(required= true,value = "计算结果")
-	private String result;
+	private String outParamter;
     /**
-     * 命中数目
+     * 命中规则总数
      */
-	@TableField("execute_total")
-	@ApiModelProperty(required= true,value = "命中数目")
+	@TableField("EXECUTE_TOTAL")
+	@ApiModelProperty(required= true,value = "命中规则总数")
 	private Integer executeTotal;
-	/**
-     * 场景code
+    /**
+     * 决策执行类型：0-直接调用，1-模型调用
      */
-	@TableField("scene_code")
-	@ApiModelProperty(required= true,value = "场景code")
-	private String sceneCode;
-	
-	/**
-     * 场景名
+	@TableField("TYPE")
+	@ApiModelProperty(required= true,value = "决策执行类型：0-直接调用，1-模型调用")
+	private String type;
+    /**
+     * 插入时间
      */
-	@TableField("scene_name")
-	@ApiModelProperty(required= true,value = "场景名")
-	private String sceneName;
-	
-	/**
-	 * 场景名
-	 */
-	@TableField("model_name")
-	@ApiModelProperty(required= true,value = "模型名")
-	private String modelName;
+	@TableField("CREATE_TIME")
+	@ApiModelProperty(required= true,value = "插入时间")
+	private Date createTime;
 
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -97,52 +84,44 @@ public class DroolsLog extends Model<DroolsLog> {
 		this.id = id;
 	}
 
-	public Long getProcInstId() {
-		return procInstId;
+	public Long getProcinstId() {
+		return procinstId;
 	}
 
-	public void setProcInstId(Long procInstId) {
-		this.procInstId = procInstId;
+	public void setProcinstId(Long procinstId) {
+		this.procinstId = procinstId;
 	}
 
-	public String getSceneId() {
-		return sceneId;
+	public String getModelName() {
+		return modelName;
 	}
 
-	public void setSceneId(String sceneId) {
-		this.sceneId = sceneId;
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
 	}
 
-	public Date getCreTime() {
-		return creTime;
+	public String getSenceVersionid() {
+		return senceVersionid;
 	}
 
-	public void setCreTime(Date creTime) {
-		this.creTime = creTime;
+	public void setSenceVersionid(String senceVersionid) {
+		this.senceVersionid = senceVersionid;
 	}
 
-	public String getDroolsVersion() {
-		return droolsVersion;
+	public String getInParamter() {
+		return inParamter;
 	}
 
-	public void setDroolsVersion(String droolsVersion) {
-		this.droolsVersion = droolsVersion;
+	public void setInParamter(String inParamter) {
+		this.inParamter = inParamter;
 	}
 
-	public String getInParam() {
-		return inParam;
+	public String getOutParamter() {
+		return outParamter;
 	}
 
-	public void setInParam(String inParam) {
-		this.inParam = inParam;
-	}
-
-	public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
+	public void setOutParamter(String outParamter) {
+		this.outParamter = outParamter;
 	}
 
 	public Integer getExecuteTotal() {
@@ -153,49 +132,39 @@ public class DroolsLog extends Model<DroolsLog> {
 		this.executeTotal = executeTotal;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
-	}
-	
-	public String getSceneCode() {
-		return sceneCode;
-	}
-
-	public void setSceneCode(String sceneCode) {
-		this.sceneCode = sceneCode;
-	}
-
-	public String getSceneName() {
-		return sceneName;
-	}
-
-	public void setSceneName(String sceneName) {
-		this.sceneName = sceneName;
-	}
-	
-	public String getModelName() {
-		return modelName;
-	}
-
-	public void setModelName(String modelName) {
-		this.modelName = modelName;
 	}
 
 	@Override
 	public String toString() {
 		return "DroolsLog{" +
 			"id=" + id +
-			", procInstId=" + procInstId +
-			", sceneId=" + sceneId +
-			", creTime=" + creTime +
-			", droolsversion=" + droolsVersion +
-			", inParam=" + inParam +
-			", result=" + result +
-			", executeTotal=" + executeTotal +
-			", sceneCode=" + sceneCode +
-			", sceneName=" + sceneName +
+			", procinstId=" + procinstId +
 			", modelName=" + modelName +
+			", senceVersionid=" + senceVersionid +
+			", inParamter=" + inParamter +
+			", outParamter=" + outParamter +
+			", executeTotal=" + executeTotal +
+			", type=" + type +
+			", createTime=" + createTime +
 			"}";
 	}
 }

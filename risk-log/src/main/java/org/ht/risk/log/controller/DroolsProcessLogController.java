@@ -3,8 +3,8 @@ package org.ht.risk.log.controller;
 
 import javax.annotation.Resource;
 
-import org.ht.risk.log.entity.DroolsProcessLog;
-import org.ht.risk.log.service.DroolsProcessLogService;
+import org.ht.risk.log.entity.DroolsDetailLog;
+import org.ht.risk.log.service.DroolsDetailLogService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,13 +25,13 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/droolsProcessLog")
 public class DroolsProcessLogController {
 	@Resource
-	private DroolsProcessLogService droolsProcessLogService ;
+	private DroolsDetailLogService droolsProcessLogService ;
 	
 	@RequestMapping("/save")
 	@ApiOperation(value = "新增日志")
 	@ResponseBody
 	@Transactional()
-	public String save(@RequestBody DroolsProcessLog entity){
+	public String save(@RequestBody DroolsDetailLog entity){
 		String str=null;
         try {
         	droolsProcessLogService.insertOrUpdate(entity);

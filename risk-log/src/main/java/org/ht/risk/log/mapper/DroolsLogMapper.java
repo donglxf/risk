@@ -6,11 +6,12 @@ import com.ht.risk.common.mapper.SuperMapper;
 
 /**
  * <p>
- * Mapper 接口
+ *  Mapper 接口
  * </p>
  *
- * @author dyb
- * @since 2018-01-05
+ * @author 张鹏
+ * @since 2018-01-10
  */
 public interface DroolsLogMapper extends SuperMapper<DroolsLog> {
+
 }

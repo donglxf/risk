@@ -20,7 +20,7 @@ public class RuleExcuteResult {
      * 错误代码
      */
     @ApiModelProperty(required = true, value = "错误代码")
-    private int code;
+    private int code;  // 0-成功,其他失败
     /**
      * 错误描述
      */

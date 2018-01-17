@@ -16,10 +16,10 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author zhangzhen
- * @since 2018-01-10
+ * @since 2018-01-17
  */
 @ApiModel
-@TableName("risk_validate_batch")
+@TableName("RISK_VALIDATE_BATCH")
 public class ValidateBatch extends Model<ValidateBatch> {
 
     private static final long serialVersionUID = 1L;
@@ -29,19 +29,31 @@ public class ValidateBatch extends Model<ValidateBatch> {
      */
     @TableId("ID")
 	@ApiModelProperty(required= true,value = "主键,批次号")
-	private String id;
+	private Long id;
     /**
      * 流程部署ID，与 ACT_RE_PROCDEF.DEPLOYMENT_ID 关联
      */
-	@TableField("DEPLOYMEN_TID")
+	@TableField("DEPLOYMENT_ID")
 	@ApiModelProperty(required= true,value = "流程部署ID，与 ACT_RE_PROCDEF.DEPLOYMENT_ID 关联")
-	private String deploymenTid;
+	private String deploymentId;
     /**
      * 批次大小
      */
 	@TableField("BATCH_SIZE")
 	@ApiModelProperty(required= true,value = "批次大小")
 	private Integer batchSize;
+    /**
+     * 批次状态，0-待执行，1-正在执行，2-执行完成，3-执行异常
+     */
+	@TableField("STATUS")
+	@ApiModelProperty(required= true,value = "批次状态，0-待执行，1-正在执行，2-执行完成，3-执行异常")
+	private String status;
+    /**
+     * 执行次数
+     */
+	@TableField("COUNT")
+	@ApiModelProperty(required= true,value = "执行次数")
+	private Integer count;
     /**
      * 是否生效：0-有效，1-无效
      */
@@ -62,20 +74,20 @@ public class ValidateBatch extends Model<ValidateBatch> {
 	private String createUser;
 
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getDeploymenTid() {
-		return deploymenTid;
+	public String getDeploymentId() {
+		return deploymentId;
 	}
 
-	public void setDeploymenTid(String deploymenTid) {
-		this.deploymenTid = deploymenTid;
+	public void setDeploymentId(String deploymentId) {
+		this.deploymentId = deploymentId;
 	}
 
 	public Integer getBatchSize() {
@@ -84,6 +96,22 @@ public class ValidateBatch extends Model<ValidateBatch> {
 
 	public void setBatchSize(Integer batchSize) {
 		this.batchSize = batchSize;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
 	public String getIsEffect() {
@@ -119,8 +147,10 @@ public class ValidateBatch extends Model<ValidateBatch> {
 	public String toString() {
 		return "ValidateBatch{" +
 			"id=" + id +
-			", deploymenTid=" + deploymenTid +
+			", deploymentId=" + deploymentId +
 			", batchSize=" + batchSize +
+			", status=" + status +
+			", count=" + count +
 			", isEffect=" + isEffect +
 			", createTime=" + createTime +
 			", createUser=" + createUser +

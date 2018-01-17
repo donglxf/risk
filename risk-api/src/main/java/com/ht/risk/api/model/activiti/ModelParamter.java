@@ -8,6 +8,7 @@ public class ModelParamter implements Serializable {
 	private String key;
 	private String name;
 	private String description;
+	private String category;
 
 	public String getModelId() {
 		return modelId;
@@ -41,4 +42,11 @@ public class ModelParamter implements Serializable {
 		this.description = description;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 }
