@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ht.risk.rule.mapper.VariableBindMapper">
+<mapper namespace="com.ht.risk.activiti.mapper.VariableBindMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.VariableBind">
+    <resultMap id="BaseResultMap" type="com.ht.risk.activiti.entity.VariableBind">
         <id column="ID" property="id" />
-        <result column="SENCE_VERSIONID" property="senceVersionid" />
+        <result column="SENCE_VERSION_ID" property="senceVersionId" />
         <result column="VARIABLE_CODE" property="variableCode" />
         <result column="VARIABLE_NAME" property="variableName" />
+        <result column="DATA_TYPE" property="dataType" />
+        <result column="CONSTANT_ID" property="constantId" />
         <result column="BIND_TABLE" property="bindTable" />
         <result column="BIND_COLUMN" property="bindColumn" />
         <result column="IS_EFFECT" property="isEffect" />
+        <result column="TMP_VALUE" property="tmpValue" />
         <result column="CREATE_USER" property="createUser" />
         <result column="CREATE_TIME" property="createTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, SENCE_VERSIONID AS senceVersionid, VARIABLE_CODE AS variableCode, VARIABLE_NAME AS variableName, BIND_TABLE AS bindTable, BIND_COLUMN AS bindColumn, IS_EFFECT AS isEffect, CREATE_USER AS createUser, CREATE_TIME AS createTime
+        ID AS id, SENCE_VERSION_ID AS senceVersionId, VARIABLE_CODE AS variableCode, VARIABLE_NAME AS variableName, DATA_TYPE AS dataType, CONSTANT_ID AS constantId, BIND_TABLE AS bindTable, BIND_COLUMN AS bindColumn, IS_EFFECT AS isEffect, TMP_VALUE AS tmpValue, CREATE_USER AS createUser, CREATE_TIME AS createTime
     </sql>
 
 </mapper>
