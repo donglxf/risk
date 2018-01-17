@@ -3,7 +3,7 @@
 <mapper namespace="com.ht.risk.activiti.mapper.RuleHisVersionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ht.risk.activiti.entity.RuleHisVersion">
+    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.RuleHisVersion">
         <id column="ID" property="id" />
         <result column="SENCE_VERSIONID" property="senceVersionid" />
         <result column="RULE_NAME" property="ruleName" />

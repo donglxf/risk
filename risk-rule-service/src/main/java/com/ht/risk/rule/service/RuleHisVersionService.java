@@ -1,7 +1,7 @@
 package com.ht.risk.rule.service;
 
-import com.ht.risk.rule.entity.RuleHisVersion;
 import com.ht.risk.common.service.BaseService;
+import com.ht.risk.rule.entity.RuleHisVersion;
 
 /**
  * <p>

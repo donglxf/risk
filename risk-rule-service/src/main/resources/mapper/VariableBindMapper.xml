@@ -3,7 +3,7 @@
 <mapper namespace="com.ht.risk.activiti.mapper.VariableBindMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ht.risk.activiti.entity.VariableBind">
+    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.VariableBind">
         <id column="ID" property="id" />
         <result column="SENCE_VERSION_ID" property="senceVersionId" />
         <result column="VARIABLE_CODE" property="variableCode" />
