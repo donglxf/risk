@@ -10,9 +10,10 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author 张鹏
@@ -27,189 +28,221 @@ public class SceneVersion extends Model<SceneVersion> {
     /**
      * 版本记录id
      */
-	@TableId(value="version_id", type= IdType.AUTO)
-	@ApiModelProperty(required= true,value = "版本记录id")
-	private Long versionId;
+    @TableId(value = "version_id", type = IdType.AUTO)
+    @ApiModelProperty(required = true, value = "版本记录id")
+    private Long versionId;
     /**
-     * 版本号 
+     * 版本号
      */
-	@ApiModelProperty(required= true,value = "版本号 ")
-	private String version;
+    @ApiModelProperty(required = true, value = "版本号 ")
+    private String version;
+
+    /**
+     * 正式版本号
+     */
+    @TableField("official_version")
+    @ApiModelProperty(required = true, value = "正式版本号")
+    private String officialVersion;
+
     /**
      * 类型：1决策或评分卡2模型
      */
-	@ApiModelProperty(required= true,value = "类型：0测试版 1正式版")
-	private Integer type;
+    @ApiModelProperty(required = true, value = "类型：0测试版 1正式版")
+    private Integer type;
 
     /**
      * 标题
      */
-	@ApiModelProperty(required= true,value = "标题")
-	private String title;
+    @ApiModelProperty(required = true, value = "标题")
+    private String title;
     /**
      * 详细描述
      */
-	@ApiModelProperty(required= true,value = "详细描述")
-	private String comment;
+    @ApiModelProperty(required = true, value = "详细描述")
+    private String comment;
     /**
      * 业务id
      */
-	@TableField("scene_id")
-	@ApiModelProperty(required= true,value = "场景id")
-	private Long sceneId;
+    @TableField("scene_id")
+    @ApiModelProperty(required = true, value = "场景id")
+    private Long sceneId;
 
-	/**
-	 * 业务id
-	 */
-	@TableField("scene_identify")
-	@ApiModelProperty(required= true,value = "场景code ")
-	private String sceneIdentify;
+    /**
+     * 业务id
+     */
+    @TableField("scene_identify")
+    @ApiModelProperty(required = true, value = "场景code ")
+    private String sceneIdentify;
 
 
     /**
      * 创建时间
      */
-	@TableField("cre_time")
-	@ApiModelProperty(required= true,value = "创建时间")
-	private Date creTime;
+    @TableField("cre_time")
+    @ApiModelProperty(required = true, value = "创建时间")
+    private Date creTime;
     /**
      * 创建用户
      */
-	@TableField("cre_user_id")
-	@ApiModelProperty(required= true,value = "创建用户")
-	private Long creUserId;
+    @TableField("cre_user_id")
+    @ApiModelProperty(required = true, value = "创建用户")
+    private Long creUserId;
     /**
      * 规则html
      */
-	@TableField("rule_div")
-	@ApiModelProperty(required= true,value = "规则html")
-	private String ruleDiv;
+    @TableField("rule_div")
+    @ApiModelProperty(required = true, value = "规则html")
+    private String ruleDiv;
     /**
      * rule文件内容
      */
-	@TableField("rule_drl")
-	@ApiModelProperty(required= true,value = "rule文件内容")
-	private String ruleDrl;
-	@TableField("status")
-	@ApiModelProperty(required= true,value = "1启用 0 禁用")
-	private Integer status;
+    @TableField("rule_drl")
+    @ApiModelProperty(required = true, value = "rule文件内容")
+    private String ruleDrl;
+    @TableField("status")
+    @ApiModelProperty(required = true, value = "1启用 0 禁用")
+    private Integer status;
+
+    /**
+     * 测试是否通过，1-通过，0-未通过
+     */
+    @TableField("test_status")
+    @ApiModelProperty(required = true, value = "测试是否通过，1-通过，0-未通过")
+    private Integer testStatus;
 
 
-	public Integer getStatus() {
-		return status;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public Long getVersionId() {
-		return versionId;
-	}
+    public Long getVersionId() {
+        return versionId;
+    }
 
-	public void setVersionId(Long versionId) {
-		this.versionId = versionId;
-	}
+    public void setVersionId(Long versionId) {
+        this.versionId = versionId;
+    }
 
-	public String getVersion() {
-		return version;
-	}
+    public String getVersion() {
+        return version;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public Integer getType() {
-		return type;
-	}
+    public Integer getType() {
+        return type;
+    }
 
-	public void setType(Integer type) {
-		this.type = type;
-	}
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public String getComment() {
-		return comment;
-	}
+    public String getComment() {
+        return comment;
+    }
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
 
-	public Date getCreTime() {
-		return creTime;
-	}
+    public Date getCreTime() {
+        return creTime;
+    }
 
-	public void setCreTime(Date creTime) {
-		this.creTime = creTime;
-	}
+    public void setCreTime(Date creTime) {
+        this.creTime = creTime;
+    }
 
-	public Long getCreUserId() {
-		return creUserId;
-	}
+    public Long getCreUserId() {
+        return creUserId;
+    }
 
-	public void setCreUserId(Long creUserId) {
-		this.creUserId = creUserId;
-	}
+    public void setCreUserId(Long creUserId) {
+        this.creUserId = creUserId;
+    }
 
-	public String getRuleDiv() {
-		return ruleDiv;
-	}
+    public String getRuleDiv() {
+        return ruleDiv;
+    }
 
-	public void setRuleDiv(String ruleDiv) {
-		this.ruleDiv = ruleDiv;
-	}
+    public void setRuleDiv(String ruleDiv) {
+        this.ruleDiv = ruleDiv;
+    }
 
-	public String getRuleDrl() {
-		return ruleDrl;
-	}
+    public String getRuleDrl() {
+        return ruleDrl;
+    }
 
-	public void setRuleDrl(String ruleDrl) {
-		this.ruleDrl = ruleDrl;
-	}
+    public void setRuleDrl(String ruleDrl) {
+        this.ruleDrl = ruleDrl;
+    }
 
-	public Long getSceneId() {
-		return sceneId;
-	}
+    public Long getSceneId() {
+        return sceneId;
+    }
 
-	public void setSceneId(Long sceneId) {
-		this.sceneId = sceneId;
-	}
+    public void setSceneId(Long sceneId) {
+        this.sceneId = sceneId;
+    }
 
-	public String getSceneIdentify() {
-		return sceneIdentify;
-	}
+    public String getSceneIdentify() {
+        return sceneIdentify;
+    }
 
-	public void setSceneIdentify(String sceneIdentify) {
-		this.sceneIdentify = sceneIdentify;
-	}
+    public void setSceneIdentify(String sceneIdentify) {
+        this.sceneIdentify = sceneIdentify;
+    }
 
-	@Override
-	protected Serializable pkVal() {
-		return this.versionId;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.versionId;
+    }
 
-	@Override
-	public String toString() {
-		return "SceneVersion{" +
-			"versionId=" + versionId +
-			", version=" + version +
-			", type=" + type +
-			", title=" + title +
-			", comment=" + comment +
-			", sceneId=" + sceneId +
-			", creTime=" + creTime +
-			", creUserId=" + creUserId +
-			", ruleDiv=" + ruleDiv +
-			", ruleDrl=" + ruleDrl +
-			"}";
-	}
+    public String getOfficialVersion() {
+        return officialVersion;
+    }
+
+    public void setOfficialVersion(String officialVersion) {
+        this.officialVersion = officialVersion;
+    }
+
+    public Integer getTestStatus() {
+        return testStatus;
+    }
+
+    public void setTestStatus(Integer testStatus) {
+        this.testStatus = testStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "SceneVersion{" +
+                "versionId=" + versionId +
+                ", version=" + version +
+                ", officialVersion=" + officialVersion +
+                ", type=" + type +
+                ", title=" + title +
+                ", comment=" + comment +
+                ", sceneId=" + sceneId +
+                ", creTime=" + creTime +
+                ", creUserId=" + creUserId +
+                ", ruleDiv=" + ruleDiv +
+                ", ruleDrl=" + ruleDrl +
+                "}";
+    }
 }
