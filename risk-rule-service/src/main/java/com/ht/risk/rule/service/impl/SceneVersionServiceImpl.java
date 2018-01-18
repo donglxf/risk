@@ -1,5 +1,6 @@
 package com.ht.risk.rule.service.impl;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.SqlHelper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
@@ -8,13 +9,12 @@ import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.*;
 import com.ht.risk.rule.mapper.*;
 import com.ht.risk.rule.service.SceneVersionService;
+import com.ht.risk.rule.service.VariableBindService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -41,6 +41,8 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
     private VariableBindMapper variableBindMapper;
     @Autowired
     private InfoMapper infoMapper;
+    @Autowired
+    private VariableBindService variableBindService;
 
     @Override
     public Page<SceneInfoVersion> selectVersionPage(Page<SceneInfoVersion> pages, Wrapper<SceneInfoVersion> wrapper) {
@@ -78,6 +80,9 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
         Wrapper<Info> infoWrapper = new EntityWrapper<>();
         infoWrapper.eq("scene_id",sceneInfo.getSceneId());
         List<Info> rules = infoMapper.selectList(infoWrapper);
+        //获取去除重复的 变量
+        Map<String,String> bindMap = new HashMap<>();
+        List<VariableBind> binds = new ArrayList<>();
         rules.forEach(rule ->{
             //添加规则描述信息
             RuleHisVersion ruleHisVersion = new RuleHisVersion();
@@ -90,20 +95,30 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
             //添加规则变量，常量信息
             //查询所有使用过的变量，和对象
             List<EntityItemInfo> itemInfos = itemInfoMapper.selectItemBySceneId(sceneInfo.getSceneId());
+
             //操作新增操作
             itemInfos.forEach(itemInfo -> {
-                VariableBind bind = new VariableBind();
-                bind.setIsEffect("1");
-                bind.setCreateTime(new Date());
-                bind.setSenceVersionId(version.getVersionId());
-                bind.setVariableCode(itemInfo.getEntityInfo().getEntityIdentify()+"_"+itemInfo.getItemIdentify());
-                bind.setVariableName(itemInfo.getEntityInfo().getEntityName()+"_"+itemInfo.getItemName());
-                if(itemInfo.getConstantId() != null ){
-                    bind.setConstantId(itemInfo.getConstantId());
+                String code = itemInfo.getEntityInfo().getEntityIdentify()+"_"+itemInfo.getItemIdentify();
+                String name = itemInfo.getEntityInfo().getEntityName()+"_"+itemInfo.getItemName();
+                String mapCode = bindMap.get(code);
+                //判断Map里面是否有值
+                if(StringUtils.isBlank(mapCode)){
+                    bindMap.put(code,name);
+                    VariableBind bind = new VariableBind();
+                    bind.setIsEffect("1");
+                    bind.setCreateTime(new Date());
+                    bind.setSenceVersionId(version.getVersionId());
+                    bind.setVariableCode(itemInfo.getEntityInfo().getEntityIdentify()+"_"+itemInfo.getItemIdentify());
+                    bind.setVariableName(itemInfo.getEntityInfo().getEntityName()+"_"+itemInfo.getItemName());
+                    if(itemInfo.getConstantId() != null ){
+                        bind.setConstantId(itemInfo.getConstantId());
+                    }
+                    binds.add(bind);
                 }
-                variableBindMapper.insert(bind);
             });
         });
+        //批量插入变量
+        variableBindService.insertBatch(binds);
     }
 
 }
