@@ -23,7 +23,8 @@ import java.util.Date;
 public class EntityItemInfo extends Model<EntityItemInfo> {
 
     private static final long serialVersionUID = 1L;
-
+	@TableField(exist = false)
+    private EntityInfo entityInfo;
     /**
      * 主键
      */
@@ -76,6 +77,8 @@ public class EntityItemInfo extends Model<EntityItemInfo> {
 		return serialVersionUID;
 	}
 
+
+
 	/**
      * 创建人
      */
@@ -99,7 +102,13 @@ public class EntityItemInfo extends Model<EntityItemInfo> {
      */
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
+	public EntityInfo getEntityInfo() {
+		return entityInfo;
+	}
 
+	public void setEntityInfo(EntityInfo entityInfo) {
+		this.entityInfo = entityInfo;
+	}
 	public Long getConstantId() {
 		return constantId;
 	}

@@ -59,10 +59,6 @@ public class RuleInfoController {
     @Autowired
     private EntityItemInfoService entityItemInfoService;
 
-
-    @Autowired
-    private ActionInfoService actionInfoService;
-
     @Autowired
     private ActionRuleRelService actionRuleRelService;
 
@@ -135,7 +131,7 @@ public class RuleInfoController {
         //获取实体类集合
         List<EntityInfo> entityInfos = sceneEntityRelService.findBaseRuleEntityListByScene(sceneInfo);
         //获取变量集合
-       // List<RuleItemTable> itemTables =  sceneItemRelService.findItemTables(sceneId);
+      //  List<RuleItemTable> itemTables =  sceneItemRelService.findItemTables(sceneId);
         int i = 0;
         //规则实际赋值
         for (Info rule : list){

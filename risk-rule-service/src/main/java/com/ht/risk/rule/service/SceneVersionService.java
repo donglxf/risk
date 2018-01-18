@@ -1,13 +1,14 @@
 package com.ht.risk.rule.service;
 
 
-import java.util.Map;
-
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.service.BaseService;
+import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.rule.entity.SceneInfoVersion;
 import com.ht.risk.rule.entity.SceneVersion;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -23,7 +24,7 @@ public interface SceneVersionService extends BaseService<SceneVersion> {
     
     Page<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages , Wrapper<SceneVersion> wrapper);
     
-    public Map<String,Object> getMaxTestVersion(Map<String,Object> paramMap);
+     Map<String,Object> getMaxTestVersion(Map<String,Object> paramMap);
 
     /**
      * 通过策略唯一标示和版本查询策略版本信息
@@ -31,5 +32,12 @@ public interface SceneVersionService extends BaseService<SceneVersion> {
      * @param version 策略版本
      * @return
      */
-    public SceneVersion querySceneVersionInfoByCodeAndVersion(String code,String version);
+     SceneVersion querySceneVersionInfoByCodeAndVersion(String code,String version);
+
+    /**
+     * 添加 版本信息的规则描述文件和使用过的对象，变量
+     * @param sceneInfo
+     * @param version
+     */
+     void addRuleDescAndVarids(SceneInfo sceneInfo, SceneVersion version);
 }

@@ -24,6 +24,27 @@
         <result column="scene_type" property="sceneType" />
         <result column="condition_id" property="conditionId" />
     </resultMap>
+    
+    <resultMap id="ItemEntityMap" type="com.ht.risk.rule.entity.EntityItemInfo">
+        <id column="item_id" property="itemId" />
+        <result column="entity_id" property="entityId" />
+        <result column="item_name" property="itemName" />
+        <result column="item_identify" property="itemIdentify" />
+        <result column="item_desc" property="itemDesc" />
+        <result column="cre_user_id" property="creUserId" />
+        <result column="cre_time" property="creTime" />
+        <result column="is_effect" property="isEffect" />
+        <result column="remark" property="remark" />
+        <result column="constant_id" property="constantId" />
+
+        <!-- 多对一的关系 -->
+        <!-- property: 指的是属性的值, javaType：指的是属性的类型-->
+        <association property="entityInfo" javaType="com.ht.risk.rule.entity.EntityInfo">
+            <result column="entity_name" property="entityName" />
+            <result column="entity_desc" property="entityDesc" />
+            <result column="entity_identify" property="entityIdentify" />
+        </association>
+    </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
@@ -75,11 +96,25 @@
         WHERE i.item_id = #{itemId}
     </select>
     
-    <select id="findEntityItemBySceneId" resultMap="ResultMap" parameterType="String">
+    <select id="findEntityItemBySceneId" resultMap="ResultMap">
 		select ri.rule_id,rc.condition_expression,ri.scene_id,rs.scene_identify,rs.scene_type,rc.condition_id
 		 from rule_info ri inner join rule_scene_info rs on ri.scene_id = rs.scene_id 
    inner join rule_condition_info rc on rc.rule_id=ri.rule_id 
 	 where rs.scene_id=#{sceneId} ;
+    </select>
+
+
+    <select id="selectItemBySceneId" resultMap="ItemEntityMap">
+        SELECT DISTINCT
+            i.*, e.entity_identify,
+            e.entity_name
+        FROM
+            rule_scene_info s
+            LEFT JOIN rule_scene_item_rel r ON s.scene_id = r.scene_id
+            LEFT JOIN rule_entity_item_info i ON i.item_id = r.entity_item_id
+            LEFT JOIN rule_entity_info e ON e.entity_id = i.entity_id
+        WHERE
+          s.scene_id=#{sceneId} ;
     </select>
 
 </mapper>

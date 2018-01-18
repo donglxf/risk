@@ -1,15 +1,14 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.util.Date;
 /**
  * <p>
  * 
@@ -35,7 +34,7 @@ public class RuleHisVersion extends Model<RuleHisVersion> {
      */
 	@TableField("SENCE_VERSIONID")
 	@ApiModelProperty(required= true,value = "決策版本流水")
-	private Long senceVersionid;
+	private Long senceVersionId;
     /**
      * 规则名称
      */
@@ -76,12 +75,12 @@ public class RuleHisVersion extends Model<RuleHisVersion> {
 		this.id = id;
 	}
 
-	public Long getSenceVersionid() {
-		return senceVersionid;
+	public Long getSenceVersionId() {
+		return senceVersionId;
 	}
 
-	public void setSenceVersionid(Long senceVersionid) {
-		this.senceVersionid = senceVersionid;
+	public void setSenceVersionId(Long senceVersionId) {
+		this.senceVersionId = senceVersionId;
 	}
 
 	public String getRuleName() {
@@ -133,7 +132,7 @@ public class RuleHisVersion extends Model<RuleHisVersion> {
 	public String toString() {
 		return "RuleHisVersion{" +
 			"id=" + id +
-			", senceVersionid=" + senceVersionid +
+			", senceVersionid=" + senceVersionId +
 			", ruleName=" + ruleName +
 			", ruleDesc=" + ruleDesc +
 			", isEffect=" + isEffect +
