@@ -81,6 +81,13 @@ scene.cols = function () {
             title: '创建时间',sort: true
            }
         ,
+        {field: 'type',
+            align:'center',
+            width:100,
+            title: '版本类型',sort: true,
+            templet: '#versionTypeTpl'
+        }
+        ,
         {field: 'creUserId',
             align:'center',
             title: '创建用户'}
@@ -104,10 +111,14 @@ scene.cols = function () {
 var layer,sceneTable,table,active,leftActive,leftTable;
 var sceneId,$ ;
 var layerTopIndex;
-
-layui.use(['table','form','laytpl'], function() {
+layui.config({
+    base: '/rule/ui/src/js/rule/' //假设这是你存放拓展模块的根目录
+}).extend({ //设定模块别名
+    sceneUtil: 'decision.js?v=22232' //如果 mymod.js 是在根目录，也可以不用设定别名
+});
+layui.use(['table','form','laytpl','sceneUtil'], function() {
     var laytpl = layui.laytpl;
-
+    var sceneUtil = layui.sceneUtil;
     sceneTable = layui.table;
     leftTable = layui.table;
     var app = layui.app,
@@ -266,6 +277,7 @@ layui.use(['table','form','laytpl'], function() {
             if(data.code == '0'){
                 var result = data.data;
                 var getTpl = tableTp1.innerHTML
+                //评分卡
                 if(type == '2'){
                     getTpl = tableTp2.innerHTML
                 }
@@ -276,6 +288,9 @@ layui.use(['table','form','laytpl'], function() {
                 //设置值了
                 $("input[name='sceneId']").val(sceneId);
                 $("input[name='ruleDiv']").val($("#tableView").html());
+                if(type == 2){
+                    sceneUtil.rowspan4grade();
+                }
             }else{
                 $("#table").html('');
             }
@@ -299,10 +314,8 @@ layui.use(['table','form','laytpl'], function() {
                 btnAlign: 'c',
                 btn: ['保存', '取消'],
                 success: function (layero, index) {
-
                     //设置table内容页
                     getRuleData(id,type);
-
                     var rule_div = $("#rule_div").html();
                 }
                 , yes: function (index) {

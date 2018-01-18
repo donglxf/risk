@@ -226,8 +226,28 @@ layui.define(['layer','form','laytpl'], function (exports) {
                 }
                 $('#table tbody tr td.index').eq(i-rowspan+1).attr("rowspan",rowspan);
             })
-
         },
+        rowspan4grade:function(){
+            var oldIndex = -1;
+            var rowspan = 1;
+            //合并第一列 的
+            $("#tableView tbody tr td.index").each(function (i) {
+                var index = $(this).attr("data-index");
+                if(oldIndex == index){
+                    rowspan = rowspan + 1;
+                    if(rowspan > 1){
+                        $(this).hide();
+                    }
+                }else{
+                    //初始化
+                    oldIndex = index;
+                    rowspan = 1;
+                }
+                $('#tableView tbody tr td.index').eq(i-rowspan+1).attr("rowspan",rowspan);
+            })
+        },
+
+
         /**
          * 添加行内行
          * @param t
