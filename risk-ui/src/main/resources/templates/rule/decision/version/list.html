@@ -10,6 +10,10 @@
             margin-top: 10px;
             margin-left: 10px;
         }
+        .layui-table-cell {
+            height: 32px;
+            line-height:32px;
+        }
         #table{
             width: inherit;
             margin: 0 auto;
@@ -80,7 +84,7 @@
 
 
 <div class="admin-main">
-    <div class="layui-col-md5">
+    <div class="layui-col-md6">
         <fieldset class="layui-elem-field">
             <legend class="lay-legend">决策管理</legend>
             <div class="layui-field-box">
@@ -101,6 +105,12 @@
                     <button type="button" onclick="leftActive.reload()" id="btn_query"  class="layui-btn layui-btn">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
+                    <button  class="layui-btn  layui-btn-small" id="scene_btn_add">
+                        <i class="layui-icon">&#xe654;</i>新增决策
+                    </button>
+                    <button  class="layui-btn  layui-btn-small" id="grade_btn_add">
+                        <i class="layui-icon">&#xe654;</i>新增评分卡
+                    </button>
 
                 </div>
             </form>
@@ -109,7 +119,7 @@
         </fieldset>
     </div>
 
-    <div class="layui-col-md7">
+    <div class="layui-col-md6">
         <fieldset class="layui-elem-field">
             <legend class="lay-legend">版本记录</legend>
             <div class="layui-field-box">
@@ -141,8 +151,20 @@
 <script src="/rule/ui/plugins/layui/layui.js"></script>
 
 <script src="/rule/ui/src/js/rule/version/version.js"></script>
-<script>
+<!--操作-->
+<script type="text/html" id="toolbar_left">
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-primary layui-btn-sm" title="编辑" lay-event="edit">
+            <i class="layui-icon">&#xe642;</i>
+        </button>
+        <button class="layui-btn  layui-btn-primary layui-btn-sm" title="删除" lay-event="del">
+            <i class="layui-icon">&#xe640;</i>
+        </button>
 
+        <button class="layui-btn  layui-btn-primary layui-btn-sm" title="发布测试版" lay-event="push">
+            <i class="layui-icon">&#xe609;</i>
+        </button>
+    </div>
 </script>
 <script type="text/html"  id="statusTpl">
 
@@ -177,18 +199,23 @@
        发布测试版  <!--&nbsp;<i class="layui-icon">&#xe609;</i>-->
     </button>
 </script>
+<!--定义规则-->
+<script type="text/html" id="bar_rule_defined">
+    <button class="layui-btn layui-btn-sm" lay-event="rule_defined">
+       规则定义  &nbsp;<i class="layui-icon">&#xe628;</i>
+    </button>
+</script>
 
 <!--操作-->
 <script type="text/html" id="toolbar">
-    <button class="layui-btn layui-btn-sm" lay-event="ruleLook">
-        查看规则 &nbsp;<i class="layui-icon">&#xe615;</i>
+    <button class="layui-btn layui-btn-sm" title="查看规则" lay-event="ruleLook">
+         查看&nbsp;<i class="layui-icon">&#xe615;</i>
     </button>
 </script>
 <div id = "rule_div" style="display: none">
     <fieldset class="layui-elem-field">
         <legend class="lay-legend">规则详情</legend>
         <div class="layui-field-box">
-
             <table class="layui-table"   id="table">
 
             </table>

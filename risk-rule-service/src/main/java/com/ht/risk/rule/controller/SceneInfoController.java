@@ -50,7 +50,7 @@ public class SceneInfoController {
         if(sceneType != null ){
             wrapper.eq("scene_type",sceneType);
         }
-
+        wrapper.orderBy("cre_time",false);
         Page<SceneInfo> pages = new Page<>();
         pages.setCurrent(page);
         pages.setSize(limit);

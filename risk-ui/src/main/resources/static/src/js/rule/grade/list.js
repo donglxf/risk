@@ -117,7 +117,6 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
                 sceneId = res.data[0].sceneId;
                 getRuleData(sceneId);
             }
-            //getRuleData(sceneId);
             //得到当前页码
             console.log(curr);
             //得到数据总量

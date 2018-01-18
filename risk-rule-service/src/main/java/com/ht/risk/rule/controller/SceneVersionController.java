@@ -95,7 +95,7 @@ public class SceneVersionController {
         //获取当前总共发布的数量
         Wrapper wrapperCount = new EntityWrapper();
         wrapperCount.eq("scene_id",sceneInfo.getSceneId());
-        wrapperCount.eq("type",0);
+        //wrapperCount.eq("type",0);
         int  count = sceneVersionService.selectCount(wrapperCount);
         //获取最大版本号 以0.1 为单位递增
         double maxVersion = 1.0 + count*0.1;

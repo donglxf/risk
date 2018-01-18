@@ -158,10 +158,14 @@
                         <colgroup>
                             <col width="150">
                             <col width="150">
+                            <col width="150">
                             <col width="80px">
                         </colgroup>
                         <thead>
                         <tr>
+                            <th class="index">
+                                <span  ><i class="layui-icon">&#xe630;</i> 分组</span>
+                            </th>
                             <th class="contion">
                                 <span  ><i class="layui-icon">&#xe62d;</i>  条件</span>
                             </th>
@@ -176,6 +180,17 @@
                         </thead>
                         <tbody>
                         <tr>
+                            <td class="index" data-index="0">
+            <span>
+                <a href="#" class="groupName">分组名</a>
+            </span>
+                                <a href="javascript:void(0); " title="添加" class="addTypeTr"
+                                   onclick="sceneUtil.addTypeTr(this)"> <i
+                                        class="layui-icon">&#xe61f;</i></a>
+                                <div class="form-group qzdiv">
+                                    <input type="number" class="form-control qz" placeholder="权值">
+                                </div>
+                            </td>
                             <td>
                                 <ul class="con_ul">
                                     <li>
@@ -234,10 +249,13 @@
     </colgroup>
     <thead>
     <tr>
+        <th class="index">
+            <span  ><i class="layui-icon">&#xe630;</i> 分组</span>
+        </th>
         <th class="contion">
             <span  ><i class="layui-icon">&#xe62d;</i>  条件</span>
         </th>
-        <th class="th-action  "><span><i class="layui-icon">&#xe62c;</i>动作</span>
+        <th class="th-action  "><span><i class="layui-icon">&#xe62c;</i> 得分</span>
             <a href="javascript:void(0); " class="del" onclick="deleteCol(this)"> <i
                     class="layui-icon">&#xe640;</i></a>
         </th>
@@ -249,10 +267,21 @@
     <tbody>
     {{#  layui.each(d.rules, function(index, rule){    }}
     <tr>
+        <td class="index" data-index="{{rule.group.index}}">
+            <span >
+                <a href="#" data-value="{{rule.group.index}}" class="groupName">{{rule.group.name}}</a>
+            </span>
+            <a href="javascript:void(0); " title="添加" class="addTypeTr" onclick="sceneUtil.addTypeTr(this)"> <i
+                    class="layui-icon">&#xe61f;</i></a>
+            <div class="form-group qzdiv">
+                <input type="number" class="form-control qz" value="{{rule.group.weight}}" id="exampleInputName2" placeholder="权值">
+            </div>
+        </td>
+
         <td>
             <ul class="con_ul">
 
-                {{#  layui.each(rule.cons, function(i, con){    }}
+            {{#  layui.each(rule.cons, function(i, con){    }}
                 <li>
                     <a href="javascript:void(0); " class="reGroupName" onclick="sceneUtil.reGroupName(this)"> <i
                             class="layui-icon">&#xe603;</i></a>
@@ -264,7 +293,7 @@
                     <a href="javascript:void(0); " class="deleteCon" onclick="sceneUtil.deleteCon(this)"> <i
                             class="layui-icon">&#x1006;</i></a>
                 </li>
-                {{#  });  }}
+            {{#  });  }}
             </ul>
             <a href="javascript:void(0); " title="添加" class="addCon" onclick="sceneUtil.addCon(this)"> <i
                     class="layui-icon">&#xe654;</i></a>
@@ -345,7 +374,7 @@
 </body>
 
 <script src="/rule/ui/plugins/layui/layui.js"></script>
-<script src="/rule/ui/src/js/rule/scene/list.js"></script>
+<script src="/rule/ui/src/js/rule/grade/list.js"></script>
 
 <script src="/rule/ui/plugins/jquery-1.9.1.min.js"></script>
 <script src="/rule/ui/plugins/bootstrap/bootstrap.js"></script>

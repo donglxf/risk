@@ -199,8 +199,9 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
 
                 sceneUtil.sceneInit();
             }else{
+                sceneUtil.sceneId = sceneId;
                 $("#table").html(tableNoDataPt);
-                init();
+                sceneUtil.sceneInit();
                 //layer.msg("数据异常");
             }
             layer.close(index);

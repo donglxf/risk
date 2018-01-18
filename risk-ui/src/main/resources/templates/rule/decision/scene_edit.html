@@ -47,7 +47,7 @@
            $.ajax({
                 cache : true,
                 type : "POST",
-                url : scene.baseUrl+'edit',
+                url : '/rule/service/sceneInfo/edit',
                 data : data.field,// 你的formid
                 async : false,
                 error : function(request) {
@@ -59,7 +59,8 @@
                         //这里以搜索为例
                       //  var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
                       // layer.closeAll();
-                       active.reload();
+                        layer.close(layerTopIndex);
+                        leftActive.reload();
                     } else {
                        layer.msg(data.msg);
                     }
