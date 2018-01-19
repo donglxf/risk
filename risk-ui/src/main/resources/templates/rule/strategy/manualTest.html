@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>table模块快速使用</title>
+<link rel="stylesheet" href="/rule/ui/plugins/layui/css/layui.css"
+	media="all">
+<link rel="stylesheet"
+	href="/rule/ui/plugins/font-awesome/css/font-awesome.min.css"
+	media="all" />
+</head>
+<body>
+
+
+	<div class="admin-main">
+		<div class="layui-row" style="margin-top: 10px;">
+			<div class="layui-col-xs4" id="bind">
+				<form class="layui-form" action="" lay-filter="test1">
+					<input type="hidden" name="senceVersionid" id="senceVersionid">
+					<input type="hidden" name="senceId" id="senceId">
+					<input type="hidden" name="sceneIdentify" id="sceneIdentify">
+					<table>
+						<tbody id="bindColumnTable"></tbody>
+					</table>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+							<!--<button class="layui-btn" lay-submit lay-filter="development" id="development" style="display:none;">发布</button>-->
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div id="layui-row">
+			<div class="layui-container" id="validateResults">
+				<div class="layui-form-item">
+					<label class="layui-form-label">验证结果:</label>
+					<div class="layui-input-block">
+						<textarea readonly id="validateResult" class="layui-input" cols="4" rows="3"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="layui-container">
+				<label class="layui-form-label">当前显示</label>
+				<div class="layui-input-block">
+					<table id="ruleTab" lay-filter="ruleTable"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/rule/ui/src/js/model/model_util.js"></script>
+
+	<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+        var app = layui.app,
+            layerTips = layui.layer,
+            $ = layui.jquery;
+
+        //监听表单提交
+        form.on('submit(formDemo)', function(data){
+           $.ajax({
+                cache : true,
+                type : "POST",
+                url : '/rule/service/variableBind/manualVariable',
+                data : data.field,// 你的formid
+                async : false,
+                error : function(request) {
+                    alert("Connection error");
+                },
+                success : function(da) {
+                    if (da.code == 0) {
+                        layer.msg('操作成功');
+                        var resultMsg="成功数："+da.data.success+",失败数："+da.data.fail;
+						$("#validateResult").val(resultMsg);
+                        showRuleTestResult(da.logId);
+                       active.reload();
+                    } else {
+                       layer.msg(data.msg);
+                    }
+                }
+            });
+            return false;
+        });
+        
+        //监听规则发布
+        form.on('submit(development)', function(data){
+           $.ajax({
+                cache : true,
+                type : "POST",
+                url : '/rule/service/variableBind/development',
+                data : data.field,// 你的formid
+                async : false,
+                error : function(request) {
+                    alert("Connection error");
+                },
+                success : function(da) {
+                    if (da.code == 0) {
+                        layer.msg('发布成功');
+                       active.reload();
+                    } else {
+                       layer.msg(data.msg);
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
