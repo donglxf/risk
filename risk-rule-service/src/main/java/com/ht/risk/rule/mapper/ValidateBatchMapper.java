@@ -1,7 +1,7 @@
 package com.ht.risk.rule.mapper;
 
-import com.ht.risk.rule.entity.ValidateBatch;
 import com.ht.risk.common.mapper.SuperMapper;
+import com.ht.risk.rule.entity.ValidateBatch;
 
 /**
  * <p>

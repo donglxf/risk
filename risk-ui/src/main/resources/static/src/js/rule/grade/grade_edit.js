@@ -5,6 +5,7 @@ layui.config({
     sceneUtil: 'decision.js?v=22232' //如果 mymod.js 是在根目录，也可以不用设定别名
 });
 var sceneId = parent.sceneId;
+var type = parent.sceneType;
 layui.use(['table','form','laytpl','sceneUtil'], function() {
     var laytpl = layui.laytpl;
     sceneUtil = layui.sceneUtil;
@@ -14,9 +15,17 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
         , form = layui.form;
     //设置提交类型
     sceneUtil.subType = 2;
-    //执行
+    //执行初始化
     $(function(){
-         sceneUtil.openGradeRuleInit(sceneId);
+        //评分卡
+        if(type == 2){
+            sceneUtil.openGradeRuleInit(sceneId);
+        }
+        //决策
+        else{
+            sceneUtil.openSceneRuleInit(sceneId);
+        }
+
     });
 
     //导入变量库

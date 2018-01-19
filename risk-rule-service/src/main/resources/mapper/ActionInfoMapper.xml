@@ -149,6 +149,7 @@
             p.action_param_name
         FROM
             rule_action_info a ,rule_action_param_info p
+        where p.action_id = a.action_id
     </select>
 
 </mapper>

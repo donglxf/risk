@@ -32,7 +32,6 @@ public class ConstantInfoServiceImpl extends BaseServiceImpl<ConstantInfoMapper,
     private ConstantInfoMapper constantInfoMapper;
     @Override
     public EntitySelectVo setItemConstants(EntitySelectVo itemvo,EntityItemInfo item) {
-
         Long constantId = item.getConstantId();
         if(constantId != null ){
             List<EntitySelectVo> constants = constantMap.get(constantId);

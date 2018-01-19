@@ -16,7 +16,7 @@
                     var _value = jsondata[i].sons[m].value;
                     var _text = jsondata[i].sons[m].text;
                     var _key = jsondata[i].key + '_'+jsondata[i].sons[m].key;
-                    subItems += '<li value=' + _value + ' key='+_key+'+  >' + _text + '</li>';
+                    subItems += '<li value=' + _value + '  key= '+_key+ ' ptext="'+jsondata[i].text+'">' + _text + '</li>';
                 }
                 subItems += '</ul>';
             }
@@ -25,7 +25,7 @@
 
         // 将完整的ul li 代码插入到页面中，保存$ul的引用
         var $ul = $("<ul class='xy-dropdown-menu' id='xy-dropdown-menu-" + id + "'>" + items + "</ul>").appendTo("body");
-        // console.log($ul);
+       // console.log($ul);
         // 给子列表的li绑定点击事件
         $ul.find('.m-list li').on('click', function(e) {
             var _value = $(this).attr("value");
@@ -50,7 +50,7 @@
         // 点击屏幕任何角落，隐藏$ul
         $(document).on("click", function() { $ul.hide(); });
         $ul.on("click", function(e) {
-            e.stopPropagation();
+                e.stopPropagation();
         });
 
         return $ul;
@@ -70,7 +70,7 @@
 
             // 根据数据，生成html内容，并且插入到页面中去
             var $ul = genHTML(options.data,options.type, options.callback);
-
+            var $obj = $(this);
             // 根据触发元素的位置，来设置ul的绝对路径
             var tx = this.offset().top;
             var ty = this.offset().left;
@@ -87,6 +87,15 @@
             id++;
             // 给触发对象绑定事件
             $(this).unbind('click').bind('click', function(e) {
+                // 根据触发元素的位置，来设置ul的绝对路径
+                var tx = $obj.offset().top;
+                var ty = $obj.offset().left;
+                var th = $obj.height();
+                console.log(tx+":left"+ty);
+                //$ul.offset({ top: tx + th + 11 + 'px', left: ty + 5 + 'px' });
+                $ul.css("top",tx + th + 11 + 'px');
+                $ul.css("left",ty - 1 + 'px');
+
                 $ul.toggle();
                 e.stopPropagation();
             });

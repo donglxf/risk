@@ -89,33 +89,66 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     return result[1];
                 return content;
             },
-
-            /**
-             * 当前行下添加一行
-             * @param t
+             /**
+             * 显示和隐藏新增和删除按钮
              */
-            addRow: function (t) {
-                // console.log($('#trTpl').find(".ctr").html());
-                var tr = $(t).parent().parent().parent();
-                var index = $(tr).find("td.index").attr("data-index");
-                tr.after(tr.clone());
-                //设置行的disp
-                $(tr).next().find("td.index").show();
-                index = 1+index;
-                $(tr).next().find("td.index").attr("data-index",index);
-                //设置index的值
-               // $("#table tbody tr:last").find("td.index").show();
-                sceneUtil.gradeInit();
-                //获取当前行行数
-                //$(t).append( $(t).parent().parent().parent().clone(true))
-            }
+            showAddAndDelete:function () {
+                var conShowTrIndexMap = {};
+                $(".addRow,.deleteRow").hide();
+                $("#table tbody tr").each(function (i,e) {
+                    var tdFir = $(this).find("td:first");
+                    var _key_index = $(tdFir).attr("data-index");
+                    conShowTrIndexMap[_key_index]=i;
+                });
+                 $.each(conShowTrIndexMap,function(key,value){
+                     $("#table tbody tr:eq("+value+") td:last").find(".addRow,.deleteRow").show();
+                 });
+             },
+            /**
+         * 当前行下添加一行
+         * @param t
+         */
+        addGradeRow: function (t) {
+            var maxIndex = 1;
+            $(".index").each(function(){
+                var iid = $(this).attr("data-index");
+                if(maxIndex < iid){
+                    maxIndex = iid;
+                }
+            });
+            // console.log($('#trTpl').find(".ctr").html());
+            var tr = $(t).parent().parent().parent();
+            tr.after(tr.clone());
+            //设置行的disp
+            $(tr).next().find("td.index").show();
+
+            $(tr).next().find("td.index").attr("data-index", 1+parseInt(maxIndex));
+            //$(tr).next().find("td.index").attr("rowspan",1);
+            //设置index的值
+            // $("#table tbody tr:last").find("td.index").show();
+            sceneUtil.gradeTrInit( $(tr).next());//优化初始化
+            // sceneUtil.rowspan();
+            //获取当前行行数
+            //$(t).append( $(t).parent().parent().parent().clone(true))
+        },
+        /**
+         * 当前行下添加一行
+         * @param t
+         */
+        addSceneRow: function (t) {
+            // console.log($('#trTpl').find(".ctr").html());
+            var tr = $(t).parent().parent().parent();
+            tr.after(tr.clone());
+            //设置行的disp
+            sceneUtil.sceneTrInit( $(tr).next());//优化初始化
+        }
             ,
              /**
              * 删除某一条件
              */
              deleteCon:function (t) {
                  $(t).parent().remove();
-            
+
              },
             /**
              * 删除当前行
@@ -129,6 +162,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
                 }
                 $(t).parent().parent().parent().remove();
                 sceneUtil.rowspan();
+                sceneUtil.showAddAndDelete();
             }
             ,
 
@@ -265,13 +299,26 @@ layui.define(['layer','form','laytpl'], function (exports) {
             copTr.after(copTr.clone());
             //合并
             sceneUtil.rowspan();
-            sceneUtil.gradeInit();
+            sceneUtil.gradeTrInit($(copTr).next());
         },
         addCon:function (t) {
             var h =   $(t).parent().find("ul li:last").html();
             var li = '<li>'+h+'</li>';
             $(t).parent().find("ul").append(li);
-            sceneUtil.gradeInit();
+           // sceneUtil.gradeInit();
+            //优化，仅仅设置条件项
+            sceneUtil.conditionInit( $(t).parent().find("ul li").last());
+        },
+        /**
+         * 添加动作行
+         * @param t
+         */
+        addActionLi:function (t) {
+            var h =   $(t).parent().find("ul li:last").html();
+            var li = '<li>'+h+'</li>';
+            $(t).parent().find("ul").append(li);
+
+            //sceneUtil.gradeInit();
         },
 
             /*
@@ -363,6 +410,39 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     //初始化 实体类的值
                     sceneUtil.sceneId = sceneId;
                     sceneUtil.gradeInit();
+                }
+                layer.close(index);
+
+
+            },'json');
+        },
+        /**
+         * 打开定义评分卡的弹窗页面
+         * @param sceneId
+         */
+        openSceneRuleInit:function (sceneId) {
+
+            var tableNoDataPt = document.getElementById('table').innerHTML;
+            var index =   layer.msg("数据加载中", {icon: 16, time: 10000,anim: -1,fixed: !1});
+            $.get('/rule/service/rule/getAll',{'sceneId':sceneId},function(data){
+                if(data.code == '0'){
+                    var result = data.data;
+                    var hasWeight = result.hasWeight;
+                    var getTpl = tableTp.innerHTML
+                        ,view = document.getElementById('table');
+                    laytpl(getTpl).render(result, function(html){
+                        view.innerHTML = html;
+                    });
+                    //初始化 实体类的值
+                    sceneUtil.sceneId = sceneId;
+                    sceneUtil.dataInit.entityBank();
+                    sceneUtil.dataInit.actionBank();
+                    sceneUtil.sceneInit();
+                }else{
+                    $("#table").html(tableNoDataPt);
+                    //初始化 实体类的值
+                    sceneUtil.sceneId = sceneId;
+                    sceneUtil.sceneInit();
                 }
                 layer.close(index);
 
@@ -473,6 +553,13 @@ layui.define(['layer','form','laytpl'], function (exports) {
             form.render('select');
             //实体对象绑定
             sceneUtil.bandSelectValInit_entity($(".entityC"),sceneUtil.data.entitysBank,"选择对象");
+            //新方法
+            $(".actionEntity").each(function(){
+                var $a = $(this);
+                sceneUtil.actionParam.paramVaEntityBack($a);
+            });
+
+
         },
         /**
          * 添加动作
@@ -501,6 +588,9 @@ layui.define(['layer','form','laytpl'], function (exports) {
             }
             //动作库添加
             sceneUtil.data.actionBank.push(action);
+            //重新初始动作下拉
+            //绑定动作
+            sceneUtil.bandSelectValInit_action($(".actionType"),sceneUtil.data.actionBank,"选择动作");
             var h = '<li>\n' +
                 '                <div class="layui-form-item">\n' +
                 '                    <label class="layui-form-label">动作名</label>\n' +
@@ -640,6 +730,106 @@ layui.define(['layer','form','laytpl'], function (exports) {
             });
         },
         /**
+         * 一级下拉
+         * @param obj 对象
+         * @param data 数据
+         * @param text 标题
+         */
+        bandSelectValInit_action: function (obj,data,text) {
+            //摧毁
+            obj.editable('destroy');
+            obj.editable({
+                type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
+                // value:'2',
+                source: data,
+                title: text,           //编辑框的标题
+                disabled: false,           //是否禁用编辑
+                // emptytext: "选择对象",       //空值的默认文本
+                mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+                onblur: "submit",
+                validate: function(value){
+                    if (!$.trim(value)) {
+                        return '不能为空';
+                    }
+                    //触发变量的选择
+                    sceneUtil.actionParam.setParamsHtmls(value,$(this).parent());
+                }
+            });
+        },
+        /**
+         * 动作参数设置
+         */
+        actionParam:{
+            actionParamData:[],
+            paramValue:-1,
+            paramVaEntityBack:function (a_obj) {
+                //新方法
+                $(a_obj).submenu({
+                    data: sceneUtil.data.entitysBank,
+                    callback: function (obj, value) {
+                        $(a_obj).attr("data-value",value);
+                        $(a_obj).attr("data-key", $(obj).attr("key"));
+                        $(a_obj).text($(obj).attr("ptext")+"."+ $(obj).text());
+                        //console.log(obj, value);
+                    }
+                });
+
+            },
+            //获取参数集合
+            getParamsDatas:function (actionId) {
+
+                for(var i = 0;i < sceneUtil.data.actionBank.length;i++){
+                    if(actionId ==  sceneUtil.data.actionBank[i].value){
+                        sceneUtil.actionParam.actionParamData = sceneUtil.data.actionBank[i].paramInfoList;
+                        break;
+                    }
+                }
+
+            },
+            //获取html代码串，并且赋值
+           setParamsHtmls:function(actionId,li){
+                //得到参数集合
+               sceneUtil.actionParam.getParamsDatas(actionId);
+               console.log(sceneUtil.actionParam.actionParamData);
+               $(li).find(".param").html("");
+               var html = '';
+               for(var i = 0;i < sceneUtil.actionParam.actionParamData.length;i++){
+                   var param = sceneUtil.actionParam.actionParamData[i];
+                   if(i == 0){
+                       html += '(<a href="#" paramId="'+param.value+'" class="actionVal" data-value="">'+param.text+'</a>';
+                   }else{
+                       html += ',<a href="#" paramId="'+param.value+'" class="actionVal" data-value="">'+param.text+'</a>';
+                   }
+               }
+               html += ')';
+               $(li).find(".param").html(html);
+               //设置下拉事件
+               $(li).find(".param .actionVal").each(function(){
+                   var actionValA = $(this);
+                $(this).submenu({
+                    data: [{value:1,text:'输入值'},{value:2,text:'选择变量'}],type:1,
+                    callback: function (obj, value) {
+                        $(actionValA).editable('destroy');
+                        if(value == 1){
+                            sceneUtil.bandOneValInit( $(actionValA));
+                            $(actionValA).attr("data-value","");
+                            $(actionValA).text("请输入");
+                        }else{
+                            $(actionValA).attr("data-value","");
+                            $(actionValA).text("请选择变量");
+                            $(actionValA).addClass("actionEntity");
+                            sceneUtil.actionParam.paramVaEntityBack(actionValA);
+
+                        }
+
+                        console.log(obj, value);
+                    }
+                });
+               });
+            }
+
+        },
+        /**
          * 重置变量集合
          * @param entityId
          * @param t
@@ -771,41 +961,6 @@ layui.define(['layer','form','laytpl'], function (exports) {
                 }
             });
         },
-        /**
-         * 一级下拉
-         * @param obj 对象
-         * @param data 数据
-         * @param text 标题
-         */
-        bandSelectValInit_action: function (obj,data,text) {
-            //摧毁
-            obj.editable('destroy');
-            obj.editable({
-                type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
-                // value:'2',
-                source: data,
-                title: text,           //编辑框的标题
-                disabled: false,           //是否禁用编辑
-                // emptytext: "选择对象",       //空值的默认文本
-                mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
-                onblur: "submit",
-                validate: function(value){
-                    if (!$.trim(value)) {
-                        return '不能为空';
-                    }
-                    var actionId = value;
-                    //动作参数值
-                    for (var i = 0; i < actions.length; i++) {
-                        if (actions[i].value == actionId) {
-                            $(this).attr("data-value", actions[i].paramInfoList[0].value);
-                            $(this).parent().find(".actionVal").text(actions[i].paramInfoList[0].text);
-                            $(this).parent().find(".actionVal").attr("data-value", " ");
-                            break;
-                        }
-                    }
-                }
-            });
-        },
 
             /**
              * 初始化方法
@@ -836,7 +991,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     }
                     $(this).find(".deleteCon").hide();
                 });
-
+                sceneUtil.showAddAndDelete();
                 //合并
                 sceneUtil.rowspan();
                 //绑定条件输入值得输入方式
@@ -866,16 +1021,21 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     sceneUtil.bandSelectValInit_constants(this,items,iid);
                 });
             },
+        sceneTrInit:function (tr) {
+          alert("no ");
+        },
         /**
          * 初始化方法
          */
-        sceneInit: function() {
-            $("#table tbody tr td.index").hover(function () {
+        gradeTrInit: function(tr) {
+            // headItem();
+
+            $(tr).find("td.index").hover(function () {
                 $(this).find(".addTypeTr").show();
             },function () {
                 $(this).find(".addTypeTr").hide();
             });
-            $("#table tbody tr td ul li").hover(function () {
+            $(tr).find("td ul li").hover(function () {
                 var groupNameO =  $(this).parent().parent().prev().find(".groupName");
                 var display = $(groupNameO).parent().parent().css('display');
                 if(display != 'none'){
@@ -894,12 +1054,79 @@ layui.define(['layer','form','laytpl'], function (exports) {
                 }
                 $(this).find(".deleteCon").hide();
             });
-
+            sceneUtil.showAddAndDelete();
             //合并
             sceneUtil.rowspan();
             //绑定条件输入值得输入方式
+            sceneUtil.bandOneValInit(  $(tr).find('.val'));
+            sceneUtil.bandOneValInit( $(tr).find('.groupName'));
+            //绑定动作值得输入框
+            sceneUtil.bandOneValInit( $(tr).find('.actionVal'));
+            //条件绑定
+            sceneUtil.bandSelectValInit_condition($(tr).find(".con"),sceneUtil.data.condition,"选择条件");
+            //实体对象绑定
+            sceneUtil.bandSelectValInit_entity($(tr).find(".entityC"),sceneUtil.data.entitysBank,"选择对象");
+            //绑定所有的变量
+            $(tr).find(".entityC").each(function(){
+                var entitys = sceneUtil.data.entitysBank;
+                var entityId = $(this).data("value");
+                var iid = $(this).next().data("value");
+                sceneUtil.bandSelectValInit_item(this,entitys,entityId);
+                //绑定所有常量
+                var items = [];
+                for(var i=0;i<entitys.length;i++){
+                    var enid = entitys[i].value;
+                    if(enid == entityId){
+                        items = entitys[i].sons;
+                        break;
+                    }
+                }
+                sceneUtil.bandSelectValInit_constants(this,items,iid);
+            });
+        },
+        /**
+         * 新增条件初始化
+         * @param li
+             */
+        conditionInit:function (li) {
+            //条件绑定
+            sceneUtil.bandSelectValInit_condition($(li).find(".con"),sceneUtil.data.condition,"选择条件");
+            //实体对象绑定
+            sceneUtil.bandSelectValInit_entity($(li).find(".entityC"),sceneUtil.data.entitysBank,"选择对象");
+            //绑定所有的变量
+            $(li).find(".entityC").each(function(){
+                var entitys = sceneUtil.data.entitysBank;
+                var entityId = $(this).data("value");
+                var iid = $(this).next().data("value");
+                sceneUtil.bandSelectValInit_item(this,entitys,entityId);
+                //绑定所有常量
+                var items = [];
+                for(var i=0;i<entitys.length;i++){
+                    var enid = entitys[i].value;
+                    if(enid == entityId){
+                        items = entitys[i].sons;
+                        break;
+                    }
+                }
+                sceneUtil.bandSelectValInit_constants(this,items,iid);
+            });
+        },
+        /**
+         * 初始化方法
+         */
+        sceneInit: function() {
+            $("#table tbody tr td ul li").hover(function () {
+                if($(this).index() > 0){
+                    //判断是否是第一条
+                    $(this).find(".deleteCon").show();
+                }
+            },function () {
+                $(this).find(".deleteCon").hide();
+            });
+            //绑定条件输入值得输入方式
             sceneUtil.bandOneValInit( $('.val'));
-            sceneUtil.bandOneValInit( $('.groupName'));
+            //绑定动作
+            sceneUtil.bandSelectValInit_action($(".actionType"),sceneUtil.data.actionBank,"选择动作");
             //绑定动作值得输入框
             sceneUtil.bandOneValInit( $('.actionVal'));
             //条件绑定
