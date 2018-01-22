@@ -69,7 +69,7 @@ layui.use(['table', 'form'], function () {
                 title: '操作',
                 fixed: 'right',
                 align: 'center',
-                toolbar: '#bar'
+                toolbar: '#item_bar'
             }]]
     });
     // 重载
@@ -100,12 +100,11 @@ layui.use(['table', 'form'], function () {
     entityTable.on('tool(entityTable)', function (obj) {
         var data = obj.data;
         console.log(obj);
-        if (obj.event === 'test') {
+        if (obj.event === 'manual_verification') { // 手动验证
             test(data.sceneId, data.versionId,data.sceneIdentify);
-        } else if (obj.event === 'autoTest') {
-            edit(data.versionId);
-        } else if (obj.event === 'varbind') {
-            // 选择实体对象的id
+        } else if (obj.event === 'auto_verification') { // 自动验证
+            autoTest(data.versionId);
+        } else if (obj.event === 'varbind') { // 变量绑定
             edit(data.sceneId, data.versionId);
         }
     });
@@ -121,7 +120,6 @@ layui.use(['table', 'form'], function () {
                     maxmin: true,
                     shadeClose: false, // 点击遮罩关闭层
                     content: form,
-                    btn: ['保存', '取消'],
                     zIndex: layer.zIndex, //重点1
                     success: function (da, index) {
                         console.log(">>" + da + ">>index:==" + index);
@@ -129,10 +127,41 @@ layui.use(['table', 'form'], function () {
                         $("#sceneId").val(sceneId);
                         $("#sceneIdentify").val(sceneIdentify);
 
-                        setVariableVal(da, result);
+                        setVariableVal(result); // 渲染表单
                     },
                     yes: function (index) {
                         // layedit.sync(editIndex);
+                        // 触发表单的提交事件
+                        $('form.layui-form')
+                            .find('button[lay-filter=formDemo]').click();
+                        layer.close(index);
+                    },
+                });
+                layer.full(layIndex);
+            });
+        }, 'json')
+    }
+
+    <!-- 自动测试 -->
+    function autoTest(sceneId, versionId,sceneIdentify) {
+        $.get(preBindUrl + "getAll?sceneId=" + versionId, function (data) {
+            var result = data.data;
+            $.get('/rule/ui/strategy/autoTest', null, function (form) {
+                var layIndex=layer.open({
+                    type: 1,
+                    title: '修改',
+                    maxmin: true,
+                    shadeClose: false, // 点击遮罩关闭层
+                    content: form,
+                    btn: ['保存', '取消'],
+                    zIndex: layer.zIndex, //重点1
+                    success: function (da, index) {
+                        console.log(">>" + da + ">>index:==" + index);
+                        $("#senceVersionid").val(versionId);
+                        $("#sceneId").val(sceneId);
+                        $("#sceneIdentify").val(sceneIdentify);
+                    },
+                    yes: function (index) {
                         // 触发表单的提交事件
                         $('form.layui-form')
                             .find('button[lay-filter=formDemo]').click();
@@ -162,52 +191,25 @@ layui.use(['table', 'form'], function () {
     }
 
     function showRuleTestResult(logId,versionId){
-        itemTable.render({
-            elem: '#demo',
-            height: 550,
-            cellMinWidth: 80,
-            url: preUrl + 'ruleMatchResult/'+logId+'/'+versionId, // 数据接口
-            page: true, // 开启分页
-            id: 'demos',
-            cols: [[
-                {
-                    field: 'title',
-                    event: 'setItem',
-                    title: '名称'
-                }, {
-                    field: 'businessType',
-                    event: 'setItem',
-                    title: '类型',
-                    templet: '#businessType',
-                }, {
-                    field: 'businessLine',
-                    event: 'setItem',
-                    title: '业务线',
-                    templet: '#businessLine',
-                    fixed: 'right'
-                }, {
-                    field: 'version',
-                    event: 'setItem',
-                    title: '版本号'
-                }, {
-                    field: 'isBindVar',
-                    event: 'setItem',
-                    templet: '#isBindVar',
-                    title: '变量绑定'
-                }, {
-                    field: 'testStatus',
-                    event: 'setItem',
-                    title: '测试状态',
-                    templet: '#testStatus',
-                    sort: true
-                }, {
-                    field: 'sceneId',
-                    title: '操作',
-                    fixed: 'right',
-                    align: 'center',
-                    toolbar: '#bar'
-                }]]
-        });
+        $
+            .ajax({
+                cache : true,
+                type : "GET",
+                url: preUrl + 'ruleMatchResult/'+logId+'/'+versionId, // 数据接口
+                data : {
+                    "sceneId" : sceneId
+                },
+                async : false,
+                error : function(request) {
+                    alert("Connection error");
+                },
+                success : function(da) {
+                    console.log(da);
+                    var size = da.data.length;
+
+
+                }
+            });
     }
 
     function edit(sceneId, versionId) {

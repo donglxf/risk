@@ -25,11 +25,8 @@ layui.use([ 'table', 'form' ], function() {
 		elem : '#demo',
 		height : 550,
 		cellMinWidth : 80,
-		url : preUrl + 'page/' // 数据接口
-		// data:[{"conId":1,"entityName":"测试规则","entityDesc":"测试规则引擎","entityIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
-		,
-		page : true // 开启分页
-		,
+		url : preUrl + 'page/', // 数据接口
+		page : true, // 开启分页
 		id : 'demos',
 		cols : [ [ // 表头
 		// {field: 'conId', event: 'setItem',title: 'ID',sort: true, fixed:
@@ -89,11 +86,7 @@ layui.use([ 'table', 'form' ], function() {
 		var type = $(this).data('type');
 		active[type] ? active[type].call(this) : '';
 	});
-	// 监听锁定操作
-	form.on('checkbox(lockDemo)', function(obj) {
-		layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked,
-				obj.othis);
-	});
+
 	// 监听工具条
 	entityTable.on('tool(entityTable)', function(obj) {
 		var data = obj.data;

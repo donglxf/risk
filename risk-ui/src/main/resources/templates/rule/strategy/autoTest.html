@@ -19,12 +19,17 @@
 					<input type="hidden" name="senceVersionid" id="senceVersionid">
 					<input type="hidden" name="senceId" id="senceId">
 					<input type="hidden" name="sceneIdentify" id="sceneIdentify">
-					<table>
-						<tbody id="bindColumnTable"></tbody>
-					</table>
+					<div class="layui-form-item">
+						<label class="layui-form-label">验证次数:</label>
+						<div class="layui-input-block">
+							<input type="text" id="ttt" name="excuteTotal" placeholder="请输入验证次数" autocomplete="off"
+								   class="layui-input" value="1">
+						</div>
+					</div>
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+							<button class="layui-btn" lay-submit lay-filter="formDemo">立即验证</button>
+							<button class="layui-btn" lay-submit lay-filter="validationPass">验证通过</button>
 							<!--<button class="layui-btn" lay-submit lay-filter="development" id="development" style="display:none;">发布</button>-->
 							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 						</div>
@@ -33,11 +38,11 @@
 			</div>
 		</div>
 		<div id="layui-row">
-			<div class="layui-container" id="validateResults">
+			<div class="layui-container">
 				<div class="layui-form-item">
 					<label class="layui-form-label">验证结果:</label>
-					<div class="layui-input-block">
-						<textarea readonly id="validateResult" class="layui-input" cols="4" rows="3"></textarea>
+					<div class="layui-input-block" id="autoValidateResults">
+
 					</div>
 				</div>
 			</div>

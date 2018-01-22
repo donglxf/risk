@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.ht.risk.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +16,6 @@ import com.alibaba.fastjson.JSON;
 import com.ht.risk.common.model.DroolsParamter;
 import com.ht.risk.common.model.RuleExcuteResult;
 import com.ht.risk.common.util.ObjectUtils;
-import com.ht.risk.model.BaseRuleSceneInfo;
-import com.ht.risk.model.DroolsLog;
-import com.ht.risk.model.DroolsProcessLog;
-import com.ht.risk.model.RuleSceneVersion;
 import com.ht.risk.model.fact.RuleExecutionObject;
 import com.ht.risk.model.fact.RuleExecutionResult;
 import com.ht.risk.rpc.DroolsLogInterface;
@@ -52,7 +49,7 @@ public class DroolsExcuteController {
         	Long sceneId=0L;
         	BaseRuleSceneInfo info=new BaseRuleSceneInfo();
     		info.setSceneIdentify(paramter.getSence());
-    		info.setVersion(paramter.getVersion()); // TODO 要改，查rule_scene_version表版本
+    		info.setVersion(paramter.getVersion());
     		List<BaseRuleSceneInfo> list=ruleSceneService.findBaseRuleSceneInfiList(info);
     		if(ObjectUtils.isNotEmpty(list)){
     			baseRuleInfo=list.get(0);
@@ -118,6 +115,30 @@ public class DroolsExcuteController {
     		object.setGlobal("_result",result);
     		System.out.println(ruleVersion.getRuleDrl());
     		object = this.droolsRuleEngineService.excute1(object,ruleVersion);
+
+			// 记录日志
+			RuleExecutionResult res=(RuleExecutionResult) object.getGlobalMap().get("_result");
+			List<String> li=(List<String>) res.getMap().get("ruleList");
+			TestDroolsLog entity=new TestDroolsLog();
+			entity.setType(paramter.getType());
+			entity.setProcinstId(Long.parseLong(paramter.getProcessInstanceId()));
+			entity.setInParamter(JSON.toJSONString(paramter));
+			entity.setSenceVersionid(paramter.getVersion());
+			entity.setOutParamter(JSON.toJSONString(object));
+			entity.setExecuteTotal(Integer.parseInt(String.valueOf(object.getGlobalMap().get("count"))));
+			entity.setModelName(paramter.getModelName());
+			String logId=droolsLogInterface.saveTestLog(entity);
+			if(ObjectUtils.isNotEmpty(li)){
+				for (String string : li) {
+					TestDroolsDetailLog process=new TestDroolsDetailLog();
+					process.setDroolsLogid(Long.parseLong(logId));
+					process.setExecuteRulename(string);
+					droolsLogInterface.saveTestDroolsDetailLog(process);
+				}
+			}
+
+			res.getMap().put("logId",logId);
+
     		data = new RuleExcuteResult(0,"",object);
     	}catch (Exception e){
     		e.printStackTrace();

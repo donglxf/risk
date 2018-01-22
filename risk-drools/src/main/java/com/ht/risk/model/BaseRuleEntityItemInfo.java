@@ -13,6 +13,35 @@ public class BaseRuleEntityItemInfo extends BaseModel {
     private String itemName;//字段名称
     private String itemIdentify;//字段标识
     private String itemDesc;//属性描述
+    private String entityDesc; //实体描述
+    private String entityIdentify; //实体标识
+    private String entityName; //实体名
+
+    public String getEntityIdentify() {
+        return entityIdentify;
+    }
+
+    public void setEntityIdentify(String entityIdentify) {
+        this.entityIdentify = entityIdentify;
+    }
+
+    public String getEntityDesc() {
+
+        return entityDesc;
+    }
+
+    public void setEntityDesc(String entityDesc) {
+        this.entityDesc = entityDesc;
+    }
+
+    public String getEntityName() {
+
+        return entityName;
+    }
+
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
+    }
 
     public Long getItemId() {
         return itemId;
