@@ -10,7 +10,10 @@
             T.CRE_USER_ID,
             T.CRE_TIME,
             T.IS_EFFECT,
-            T.REMARK
+            T.REMARK,
+            R.ENTITY_NAME,
+            R.ENTITY_DESC,
+            R.ENTITY_IDENTIFY
     </sql>
     <select id="findBaseRuleEntityItemInfoList" parameterType="com.ht.risk.model.BaseRuleEntityItemInfo"
             resultType="com.ht.risk.model.BaseRuleEntityItemInfo">
@@ -26,6 +29,7 @@
         <include refid="BaseFindColumnSql"></include>
         FROM
         rule_entity_item_info T
+        inner join rule_entity_info R on T.entity_id=R.entity_id
         WHERE 1=1
         AND T.ITEM_ID = #{id}
     </select>

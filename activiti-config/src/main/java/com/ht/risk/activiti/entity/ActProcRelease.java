@@ -1,4 +1,4 @@
-package com.ht.risk.rule.entity;
+package com.ht.risk.activiti.entity;
 
 import java.io.Serializable;
 
@@ -16,11 +16,11 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author zhangzhen
- * @since 2018-01-10
+ * @since 2018-01-16
  */
 @ApiModel
-@TableName("risk_model_release")
-public class ModelRelease extends Model<ModelRelease> {
+@TableName("ACT_PROC_RELEASE")
+public class ActProcRelease extends Model<ActProcRelease> {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,12 +29,12 @@ public class ModelRelease extends Model<ModelRelease> {
      */
     @TableId("ID")
 	@ApiModelProperty(required= true,value = "主键")
-	private String id;
+	private Long id;
     /**
-     * 模型定义ID，与 ACT_RE_PROCDEF.ID_ 关联
+     * 模型定义ID，与 ACT_RE_PROCDEF.ID_ 关联,ACT_RE_PROCDEF 表中有模型部署id
      */
 	@TableField("MODEL_PROCDEF_ID")
-	@ApiModelProperty(required= true,value = "模型定义ID，与 ACT_RE_PROCDEF.ID_ 关联")
+	@ApiModelProperty(required= true,value = "模型定义ID，与 ACT_RE_PROCDEF.ID_ 关联,ACT_RE_PROCDEF 表中有模型部署id")
 	private String modelProcdefId;
     /**
      * 模型名称
@@ -103,12 +103,11 @@ public class ModelRelease extends Model<ModelRelease> {
 	@ApiModelProperty(required= true,value = "创建用户")
 	private String createUser;
 
-
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -215,7 +214,7 @@ public class ModelRelease extends Model<ModelRelease> {
 
 	@Override
 	public String toString() {
-		return "ModelRelease{" +
+		return "ActProcRelease{" +
 			"id=" + id +
 			", modelProcdefId=" + modelProcdefId +
 			", modelName=" + modelName +

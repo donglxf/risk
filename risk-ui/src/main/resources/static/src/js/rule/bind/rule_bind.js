@@ -15,6 +15,7 @@ layui.use([ 'table', 'form' ], function() {
 			el.find(":input[name='" + p + "']").val(data[p]);
 		}
 	}
+
 	layer = layui.layer;
 	table = layui.table;
 	entityTable = layui.table;
@@ -112,11 +113,11 @@ layui.use([ 'table', 'form' ], function() {
 		} else if (obj.event === 'edit') {
 			// layer.alert('编辑行：<br>'+ JSON.stringify(data))
 			edit(data.versionId);
-		} else if (obj.event === 'setItem') {
+		} else if (obj.event === 'bind') {
 			// 选择实体对象的id
 			versionId = data.versionId;
-			// itemActive.reload(data.sceneId,data.versionId);
-			getm(data.sceneId, data.versionId);
+			edit(data.sceneId,data.versionId);
+			// getm(data.sceneId, data.versionId);
 		}
 	});
 
@@ -158,63 +159,6 @@ layui.use([ 'table', 'form' ], function() {
 				});
 	}
 
-	// 第一个实例
-	itemTable.render({
-		elem : '#itemTable',
-		height : 550,
-		cellMinWidth : 80,
-		url : '/rule/service/variableBind/getAll/' // 数据接口
-		// data:[{"conId":1,"entityName":"测试规则","entityDesc":"测试规则引擎","entityIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
-		,
-		page : false,
-		id : 'itemT',
-		cols : [ [ // 表头
-		{
-			field : 'actionParamId',
-			title : 'ID',
-			sort : true,
-			fixed : 'left'
-		}, {
-			field : 'actionId',
-			title : '动作ID'
-		}, {
-			field : 'actionParamName',
-			title : '参数名称'
-		}, {
-			field : 'paramIdentify',
-			title : '标识'
-		}, {
-			field : 'actionParamDesc',
-			title : '参数描述'
-		}, {
-			field : 'actionParamId',
-			title : '操作',
-			fixed : 'right',
-			align : 'center',
-			toolbar : '#item_bar'
-		} ] ]
-	});
-	// 监听工具条
-	itemTable.on('tool(itemTable)', function(obj) {
-		var data = obj.data;
-		if (obj.event === 'detail') {
-			layer.msg('ID：' + data.actionParamId + ' 的查看操作');
-		} else if (obj.event === 'del2') {
-			layer.confirm('真的删除行么', function(index) {
-				$.get(preItemUrl + 'delete/' + data.actionParamId, function(
-						data) {
-					layer.msg("删除成功！");
-					obj.del();
-					layer.close(index);
-				});
-
-			});
-		} else if (obj.event === 'edit2') {
-			// layer.alert('编辑行：<br>'+ JSON.stringify(data))
-			editItem(data.actionParamId);
-		}
-	});
-	// 重载
 	// 这里以搜索为例
 	itemActive = {
 		reload : function(sceneId, versionId) {
@@ -232,57 +176,29 @@ layui.use([ 'table', 'form' ], function() {
 			});
 		}
 	};
-	// 新增
-	$("#action_btn_add").on(
-			'click',
-			function() {
-				$.get('/rule/ui/ruleAction/edit', null, function(form) {
-					layer.open({
-						type : 1,
-						title : '新增',
-						maxmin : true,
-						shadeClose : false, // 点击遮罩关闭层
-						area : [ '600px', '460px' ],
-						content : form,
-						btnAlign : 'c',
-						btn : [ '保存', '取消' ],
-						success : function(layero, index) {
-							// setFromValues(layero, result);
-						},
-						yes : function(index) {
-							// layedit.sync(editIndex);
-							// 触发表单的提交事件
-							$('form.layui-form').find(
-									'button[lay-filter=formDemo]').click();
-							layer.close(index);
-						},
-					});
-				});
-			});
-	function edit(id) {
-		$.get(preUrl + "getInfoById/" + id, function(data) {
+	function edit(sceneId,versionId) {
+		$.get(preUrl + "getAll?sceneId=" + versionId, function(data) {
 			var result = data.data;
-			$.get('/rule/ui/ruleAction/edit', null, function(form) {
+			$.get('/rule/ui/ruleBind/index/edit', null, function(form) {
 				layer.open({
 					type : 1,
 					title : '修改',
 					maxmin : true,
 					shadeClose : false, // 点击遮罩关闭层
-					area : [ '600px', '460px' ],
+					area : [ '730px', '460px' ],
 					content : form,
 					btn : [ '保存', '取消' ],
 					btnAlign : 'c',
-					success : function(layero, index) {
-						console.log(layero);
-						setFromValues(layero, result);
+                    zIndex: layer.zIndex, //重点1
+					success : function(da, index) {
+						console.log(">>"+da+">>index:=="+index);
 
-						var dataType = result.actionType;
 
-						layero.find("option:contains('" + dataType + "')")
-								.attr("selected", true);
-						console.log(layero.find("#actionType"));
-						var form = layui.form;
-						form.render();
+                        setVariableBindFiled(da, result);
+                        $("#senceVersionid").val(versionId);
+                        $("#sceneId").val(sceneId);
+
+
 					},
 					yes : function(index) {
 						// layedit.sync(editIndex);
@@ -295,78 +211,36 @@ layui.use([ 'table', 'form' ], function() {
 			});
 		}, 'json')
 	}
-	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// 新增
-	$("#entity_item_btn_add").on(
-			'click',
-			function() {
-				if (versionId == undefined || versionId == '') {
-					layer.msg("必须选择一个数据对象哦");
-					return;
-				}
+    function setVariableBindFiled(el,da) {
+        var modelVerification = new ModelVerification();
+        var size = da.length;
+        for(var i=0;i<size;i++){
+        	$("#bindColumnTable").append("<tr>\n" +
+                "\t\t\t\t\t\t\t<input type=\"hidden\" name=\""+da[i].variableCode+"_bind\" id=\"bindId"+i+"\" value='"+da[i].id+"'>\n" +
+                "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">变量名:</label></td>\n" +
+                "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
+                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"\" name=\""+da[i].variableCode+"\" required\n" +
+                "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入变量名\" autocomplete=\"off\"\n" +
+                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value=\""+da[i].variableName+"\" readonly>\n" +
+                "\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t</td>\n" +
+                "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">表名:</label></td>\n" +
+                "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
+                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"_tableName\" name=\""+da[i].variableCode+"_tableName\" required\n" +
+                "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入业务表名\" autocomplete=\"off\"\n" +
+                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value=\"TEMP_DATA_CONTAINS\" >\n" +
+                "\t\t\t\t\t\t\t</div></td>\n" +
+                "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">列名:</label></td>\n" +
+                "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
+                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"_column\" name=\""+da[i].variableCode+"_column\" required\n" +
+                "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入列名\" autocomplete=\"off\"\n" +
+                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value='"+da[i].variableCode+"'>\n" +
+                "\t\t\t\t\t\t\t</div></td>\n" +
+                "\t\t\t\t\t\t</tr>");
+        }
+    }
 
-				$.get('/rule/ui/ruleAction/actionParamEdit', null, function(
-						form) {
-					layer.open({
-						type : 1,
-						title : '新增',
-						maxmin : true,
-						shadeClose : false, // 点击遮罩关闭层
-						area : [ '550px', '560px' ],
-						content : form,
-						btnAlign : 'c',
-						btn : [ '保存', '取消' ],
-						success : function(layero, index) {
-							var result = {
-								"versionId" : versionId
-							};
-							setFromValues(layero, result);
-						},
-						yes : function(index) {
-							// layedit.sync(editIndex);
-							// 触发表单的提交事件
-							$('form.layui-form').find(
-									'button[lay-filter=formDemo]').click();
-							layer.close(index);
-						},
-					});
-				});
-			});
-	function editItem(id) {
-		$.get(preItemUrl + "getInfoById/" + id, function(data) {
-			var result = data.data;
-			$.get('/rule/ui/ruleAction/actionParamEdit', null, function(form) {
-				layer.open({
-					type : 1,
-					title : '修改',
-					maxmin : true,
-					shadeClose : false, // 点击遮罩关闭层
-					area : [ '550px', '560px' ],
-					content : form,
-					btn : [ '保存', '取消' ],
-					btnAlign : 'c',
-					success : function(layero, index) {
-						setFromValues(layero, result);
-						var dataType = result.dataType;
-
-						layero.find("option:contains('" + dataType + "')")
-								.attr("selected", true);
-						console.log(layero.find("#dataId"));
-						var form = layui.form;
-						form.render('select');
-					},
-					yes : function(index) {
-						// layedit.sync(editIndex);
-						// 触发表单的提交事件
-						$('form.layui-form')
-								.find('button[lay-filter=formDemo]').click();
-						layer.close(index);
-					},
-				});
-			});
-		}, 'json')
-	}
 });
 
 

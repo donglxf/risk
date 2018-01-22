@@ -1,5 +1,7 @@
 package com.ht.risk.rpc;
 
+import com.ht.risk.model.TestDroolsDetailLog;
+import com.ht.risk.model.TestDroolsLog;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -14,4 +16,10 @@ public interface DroolsLogInterface {
 	
 	@GetMapping("/droolsProcessLog/save")
 	public String saveProcessLog(DroolsProcessLog entity);
+
+	@GetMapping("/testDroolsLog/save")
+	public String saveTestLog(TestDroolsLog entity);
+
+	@GetMapping("/testDroolsDetailLog/save")
+	public String saveTestDroolsDetailLog(TestDroolsDetailLog entity);
 }

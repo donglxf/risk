@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>table模块快速使用</title>
+<link rel="stylesheet" href="/rule/ui/plugins/layui/css/layui.css"
+	media="all">
+<link rel="stylesheet"
+	href="/rule/ui/plugins/font-awesome/css/font-awesome.min.css"
+	media="all" />
+</head>
+<body>
+
+
+	<div class="admin-main">
+		<ul class="layui-tab-title">
+			<li class="layui-this">输入值</li>
+			<li>开始测试</li>
+		</ul>
+		<div class="layui-tab-content" style="height: 100px;">
+			<div class="layui-tab-item layui-show">
+				<div style="margin: 15px;"  >
+					<form class="layui-form layui-form-pane" action="" id="model_valiable_form">
+						<input type="hidden" name="senceVersionid" id="senceVersionid">
+						<input type="hidden" name="senceId" id="senceId">
+						<input type="hidden" name="sceneIdentify" id="sceneIdentify">
+						<table>
+							<tbody id="bindColumnTable"></tbody>
+						</table>
+						<div class="layui-form-item">
+							<div class="layui-input-block">
+								<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+								<!--<button class="layui-btn" lay-submit lay-filter="development" id="development" style="display:none;">发布</button>-->
+								<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="layui-tab-item">暂时未做</div>
+		</div>
+		<div class="layui-row" style="margin-top: 10px;">
+			<div class="layui-col-xs4" id="bind">
+				<form class="layui-form" action="" lay-filter="test1">
+					<!--<input type="hidden" name="senceVersionid" id="senceVersionid">
+					<input type="hidden" name="senceId" id="senceId">
+					<input type="hidden" name="sceneIdentify" id="sceneIdentify">-->
+					<table>
+						<tbody id="bindColumnTable"></tbody>
+					</table>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+							<!--<button class="layui-btn" lay-submit lay-filter="development" id="development" style="display:none;">发布</button>-->
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div id="layui-row">
+			<div class="layui-container" id="validateResults">
+				<div class="layui-form-item">
+					<label class="layui-form-label">验证结果:</label>
+					<div class="layui-input-block">
+						<textarea readonly id="validateResult" class="layui-input" cols="4" rows="3"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="layui-container">
+				<label class="layui-form-label">当前显示</label>
+				<div class="layui-input-block">
+					<table id="ruleTab" lay-filter="ruleTable"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/rule/ui/src/js/model/model_util.js"></script>
+
+	<script>
+    //Demo
+    layui.use(['form','element'], function(){
+        var form = layui.form;
+        var app = layui.app,
+            layerTips = layui.layer,
+            $ = layui.jquery,
+        element = layui.element;
+//触发事件
+        var active = {
+            tabAdd: function(){
+                //新增一个Tab项
+                element.tabAdd('demo', {
+                    title: '新选项'+ (Math.random()*1000|0) //用于演示
+                    ,content: '内容'+ (Math.random()*1000|0)
+                    ,id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+                })
+            }
+            ,tabDelete: function(othis){
+                //删除指定Tab项
+                element.tabDelete('demo', '44'); //删除：“商品管理”
+
+
+                othis.addClass('layui-btn-disabled');
+            }
+            ,tabChange: function(){
+                //切换到指定Tab项
+                element.tabChange('demo', '22'); //切换到：用户管理
+            }
+        };
+        $('.site-demo-active').on('click', function(){
+            var othis = $(this), type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+
+        element.on('tab(test)', function(elem){
+            console.log('test='+ $(this).attr('lay-id'));
+            //location.hash = 'test='+ $(this).attr('lay-id');
+        });
+
+        //监听表单提交
+        form.on('submit(formDemo)', function(data){
+           $.ajax({
+                cache : true,
+                type : "POST",
+                url : '/rule/service/variableBind/manualVariable',
+                data : data.field,// 你的formid
+                async : false,
+                error : function(request) {
+                    alert("Connection error");
+                },
+                success : function(da) {
+                    if (da.code == 0) {
+                        layer.msg('操作成功');
+                        var resultMsg="成功数："+da.data.success+",失败数："+da.data.fail;
+						$("#validateResult").val(resultMsg);
+                        showRuleTestResult(da.logId);
+                       active.reload();
+                    } else {
+                       layer.msg(data.msg);
+                    }
+                }
+            });
+            return false;
+        });
+        
+        //监听规则发布
+        form.on('submit(development)', function(data){
+           $.ajax({
+                cache : true,
+                type : "POST",
+                url : '/rule/service/variableBind/development',
+                data : data.field,// 你的formid
+                async : false,
+                error : function(request) {
+                    alert("Connection error");
+                },
+                success : function(da) {
+                    if (da.code == 0) {
+                        layer.msg('发布成功');
+                       active.reload();
+                    } else {
+                       layer.msg(data.msg);
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

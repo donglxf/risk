@@ -1,7 +1,6 @@
 package com.ht.risk.rule.quartz.job;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.ht.risk.rule.entity.ModelRelease;
 import com.ht.risk.rule.entity.ModelValidateBean;
 import com.ht.risk.rule.entity.ValidateBatch;
 import com.ht.risk.rule.quartz.task.ModelValidateTask;
@@ -14,7 +13,6 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
@@ -22,7 +20,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 

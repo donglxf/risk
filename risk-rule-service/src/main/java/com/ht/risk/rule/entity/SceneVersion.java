@@ -110,6 +110,25 @@ public class SceneVersion extends Model<SceneVersion> {
     @ApiModelProperty(required = true, value = "测试是否通过，1-通过，0-未通过")
     private Integer testStatus;
 
+    /**
+     * 业务类型，1-评分卡，2-决策表
+     */
+    @TableField("business_type")
+    @ApiModelProperty(required = true, value = "业务类型，1-评分卡，2-决策表")
+    private String businessType;
+    /**
+     * 业务线，1-房速贷，2-现金贷
+     */
+    @TableField("business_line")
+    @ApiModelProperty(required = true, value = "业务线，1-房速贷，2-现金贷")
+    private String businessLine;
+    /**
+     * 是否绑定变量，1-绑定，0-未绑定
+     */
+    @TableField("is_bind_var")
+    @ApiModelProperty(required = true, value = "是否绑定变量，1-绑定，0-未绑定")
+    private String isBindVar;
+
 
     public Integer getStatus() {
         return status;
@@ -227,6 +246,30 @@ public class SceneVersion extends Model<SceneVersion> {
 
     public void setTestStatus(Integer testStatus) {
         this.testStatus = testStatus;
+    }
+
+    public String getBusinessLine() {
+        return businessLine;
+    }
+
+    public void setBusinessLine(String businessLine) {
+        this.businessLine = businessLine;
+    }
+
+    public String getBusinessType() {
+        return businessType;
+    }
+
+    public void setBusinessType(String businessType) {
+        this.businessType = businessType;
+    }
+
+    public String getIsBindVar() {
+        return isBindVar;
+    }
+
+    public void setIsBindVar(String isBindVar) {
+        this.isBindVar = isBindVar;
     }
 
     @Override
