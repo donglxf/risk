@@ -5,7 +5,8 @@ layui.use(['table','jquery'], function(){
     table.render({
         elem: '#model_list'
         ,height: 'auto'
-        ,url: '/rule/service/model/list' //数据接口
+        ,url: '/activiti/list' //数据接口
+        ,id: 'testReload'
         ,page: true //开启分页
         ,cols: [[ //表头\
             {checkbox: true, width:"5%"}
@@ -21,19 +22,76 @@ layui.use(['table','jquery'], function(){
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
         var modelId = data.id;
-        var deployId = data.depl
+        console.log(data);
         if(layEvent === 'detail'){ //查看
             showdetail(modelId);
-        }else if(layEvent === 'deploy'){
+        }else if(layEvent === 'deploy'){// 发布测试版本
+            deploy(modelId);
+        } else if(layEvent === 'del'){ //删除
+            deleteModel(obj,modelId);
+        } else if(layEvent === 'edit'){ //编辑
+            showdetail(modelId);
+        }
+    });
+    var active = {
+        reload: function(){
+            var modelName = $('#modelName');
+            console.log(modelName.val());
+            table.reload('testReload', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                ,where: {
+                    "modelName": modelName.val()
+                }
+            });
+        }
+    };
+
+    $('.demoTable .layui-btn').on('click', function(){
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+    });
+
+    function deleteModel(obj,modelId){
+        layer.confirm('真的删除行么', function(index){
+            //向服务端发送删除指令
             $.ajax({
                 cache : true,
                 type : "GET",
-                url : '/activiti/modelDeploy?modelId='+modelId,
+                url : '/activiti/deleteModel?modelId='+modelId,
+                timeout : 6000, //超时时间设置，单位毫秒
+                async : false,
+                error : function(request) {
+                    layer.msg("删除失败！");
+                },
+                success : function(data) {
+                    if(data.code == 0){
+                        layer.msg("删除成功！");
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                        layer.close(index);
+                    }
+                    if(data.code == 1){
+                        layer.msg(data.msg);
+                    }
+                }
+            });
+        });
+    }
+
+    function deploy(modelId){
+        layer.confirm('您确定发布测试版吗？', function(index){
+            console.log("modelId"+modelId);
+            $.ajax({
+                cache : true,
+                type : "GET",
+                url : '/rule/service/modelDeploy/deploy?modelId='+modelId,
                 async : false,
                 error : function(request) {
                     layer.msg("发布失败！");
                 },
                 success : function(data) {
+                    console.log(data);
                     if(data.code == 0){
                         layer.msg("发布成功！");
                     }
@@ -42,88 +100,23 @@ layui.use(['table','jquery'], function(){
                     }
                 }
             });
-        }
-        else if(layEvent === 'start'){
+        });
+    }
 
-            layer.closeAll();
-            var layIndex = layer.open({
-                type: 2,
-                shade: false,
-                title:"模型启动参数设置",
-                area: ['800px','600px'],
-                content: '/rule/ui/model/startView',
-                zIndex: layer.zIndex, //重点1
-                success: function(layero){
-                    layer.setTop(layero); //重点2
-                }
-            });
-
-
-
-            /*$.ajax({
-                cache : true,
-                type : "GET",
-                url : '/activiti/start?key=process',
-                async : false,
-                error : function(request) {
-                    layer.msg("启动失败！");
-                },
-                success : function(data) {
-                    if(data.code == 0){
-                        layer.msg("启动成功！");
-                    }
-                    if(data.code == 1){
-                        layer.msg(data.msg);
-                    }
-                }
-            });*/
-        }
-        else if(layEvent === 'del'){ //删除
-            layer.confirm('真的删除行么', function(index){
-                //向服务端发送删除指令
-                $.ajax({
-                    cache : true,
-                    type : "GET",
-                    url : '/activiti/deleteModel?modelId='+modelId,
-                    timeout : 6000, //超时时间设置，单位毫秒
-                    async : false,
-                    error : function(request) {
-                        layer.msg("删除失败！");
-                    },
-                    success : function(data) {
-                        if(data.code == 0){
-                            layer.msg("删除成功！");
-                            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                            layer.close(index);
-                        }
-                        if(data.code == 1){
-                            layer.msg(data.msg);
-                        }
-                    }
-                });
-            });
-        } else if(layEvent === 'edit'){ //编辑
-            var modelId = data.id;
-            showdetail(modelId);
-        }
-    });
-
+    function showdetail(modelId){
+        var layIndex = layer.open({
+            type: 2,
+            shade: false,
+            title:"模型定义",
+            content: '/rule/ui/modelDetail?modelId='+modelId+"&date="+new Date(),
+            zIndex: layer.zIndex, //重点1
+            success: function(layero){
+                layer.setTop(layero); //重点2
+            }
+        });
+        layer.full(layIndex);
+    }
 });
-
-function showdetail(modelId){
-    var layIndex = layer.open({
-        type: 2,
-        shade: false,
-        title:false,
-        content: '/rule/ui/modelDetail?modelId='+modelId+"&date="+new Date(),
-        zIndex: layer.zIndex, //重点1
-        success: function(layero){
-            layer.setTop(layero); //重点2
-        }
-    });
-    layer.full(layIndex);
-}
-
 function addModel(){
     layer.closeAll();
     var layIndex = layer.open({
@@ -138,6 +131,9 @@ function addModel(){
         }
     });
 }
+
+
+
 
 
 

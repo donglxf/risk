@@ -96,7 +96,7 @@ ModelVerification.prototype = {
      * @returns {string}
      */
     initDiv: function (data) {
-        var size = 4;
+        var size = 3;
         var length = data.length;
         var count = Math.ceil(length / size);
         var html = '';

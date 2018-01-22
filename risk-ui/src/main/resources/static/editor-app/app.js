@@ -107,7 +107,7 @@ activitiModeler
             }
             
             function getModel(modelId){
-            	return "/activiti/model/"+modelId+"/json";
+            	return "/activiti/editModel?modelId="+modelId;
             }
             
             function initScrollHandling() {

@@ -389,7 +389,6 @@ var SaveModelCtrl = [ '$rootScope', '$scope', '$http', '$route', '$location',
                 return str.join("&");
             },
             url: KISBPM.URL.putModel(modelMetaData.modelId)})
-
             .success(function (data, status, headers, config) {
                 $scope.editor.handleEvents({
                     type: ORYX.CONFIG.EVENT_SAVED

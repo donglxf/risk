@@ -1,48 +1,48 @@
 package com.ht.risk.ui.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/model")
+@RequestMapping("")
 public class ModelController {
 
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    @RequestMapping(value = "/modelDetail",method = RequestMethod.GET)
+    public String model(Model model, @RequestParam String modelId){
+        model.addAttribute("modelId",modelId);
+        return "modeler";
+    }
+    @RequestMapping(value = "/model/list",method = RequestMethod.GET)
     public String unDeployList(){
-        return "model/list";
+        return "model/config/list";
     }
 
 
-    @RequestMapping(value = "/deployList",method = RequestMethod.GET)
-    public String deployList(){
-        return "model/deploy_list";
-    }
-
-    @RequestMapping(value = "/addView",method = RequestMethod.GET)
+    @RequestMapping(value = "/model/addView",method = RequestMethod.GET)
     public String addView(){
-        return "model/add";
+        return "model/configadd";
     }
 
-    @RequestMapping(value = "/startView",method = RequestMethod.GET)
-    public String startView(){
-        return "model/start";
-    }
 
-    @RequestMapping(value = "/verfication",method = RequestMethod.GET)
+    @RequestMapping(value = "/model/verfication",method = RequestMethod.GET)
     public String verification(){
         return "model/verfication/list";
     }
 
-    @RequestMapping(value = "/valiable",method = RequestMethod.GET)
+    @RequestMapping(value = "/model/valiable",method = RequestMethod.GET)
     public String valiable(){
         return "model/verfication/model";
     }
 
-    @RequestMapping(value = "/valiable/auto",method = RequestMethod.GET)
-    public String aotuTest(){
-        return "model/verfication/model_auto";
+    @RequestMapping(value = "/model/result",method = RequestMethod.GET)
+    public String result(){
+        return "model/result/list";
     }
+
+
 
 
 
