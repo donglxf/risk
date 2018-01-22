@@ -100,6 +100,13 @@
             bottom: 10px;
             color: #5fb878;
         }
+        td a.addAct{
+            color: #5fb878;
+            float: right;
+            position: absolute;
+            margin-right: 15px;
+            right: 8px;
+            }
         .form-group .qz{
             height: 24px;
             width: 100px;
@@ -130,7 +137,10 @@
         .param{
             display: inline;
         }
-
+        .actionBar{
+            float: right;
+            margin-right: 8px;
+        }
     </style>
     <script src="/rule/ui/plugins/jquery-1.9.1.min.js"></script>
     <script src="/rule/ui/plugins/layui/layui.js"></script>
@@ -154,7 +164,7 @@
         </div>
         <div class="layui-col-xs4">
             <div class="layui-form-item">
-                <button class="layui-btn layui-btn-normal " onclick="sceneUtil.subGrad();">
+                <button class="layui-btn layui-btn-normal " onclick="sceneUtil.subScene();">
                     <i class="layui-icon">&#xe609;</i>保存
                 </button>
             </div>
@@ -215,14 +225,17 @@
                             <a href="#" paramId="" class="actionVal" data-value="">请输入</a>
                             )-->
                         </div>
+                        <div class="actionBar">
+                            <a href="javascript:void(0); " title="添加" class="addAct"
+                               onclick="sceneUtil.addActionLi(this)"> <i
+                                    class="layui-icon">&#xe654;</i></a>
+                            <a href="javascript:void(0); " class="deleteCon" title="删除该动作" onclick="sceneUtil.deleteAc(this)"> <i
+                                    class="layui-icon">&#x1006;</i></a>
+                        </div>
 
-                        <a href="javascript:void(0); " class="deleteCon" onclick="sceneUtil.deleteCon(this)"> <i
-                                class="layui-icon">&#x1006;</i></a>
                     </li>
                 </ul>
-                <a href="javascript:void(0); " title="添加" class="addCon"
-                   onclick="sceneUtil.addActionLi(this)"> <i
-                        class="layui-icon">&#xe654;</i></a>
+
               <!--  <a href="#" class="actionVal" actionParamId="3" data-value="" actionParamId="">请选择动作</a>-->
             </td>
             <td>
@@ -231,7 +244,7 @@
                             onclick="sceneUtil.addSceneRow(this)"><i
                             class="layui-icon">&#xe654;</i></button>
                     <button class="layui-btn layui-btn-primary layui-btn-sm deleteRow"
-                            onclick="sceneUtil.deleteRow(this)"><i
+                            onclick="sceneUtil.deleteSceneRow(this)"><i
                             class="layui-icon">&#xe640;</i></button>
                 </div>
             </td>
@@ -272,8 +285,6 @@
 
             {{#  layui.each(rule.cons, function(i, con){    }}
                 <li>
-                    <a href="javascript:void(0); " class="reGroupName" onclick="sceneUtil.reGroupName(this)"> <i
-                            class="layui-icon">&#xe603;</i></a>
                     <a href="#" class="entityC" data-value="{{con.itemTable.entityId}}">{{con.itemTable.entityName}}</a>.
                     <a href="#" class="itemC" data-value="{{con.itemTable.itemId}}">{{con.itemTable.itemName}}</a>
                     &nbsp;
@@ -288,13 +299,42 @@
                     class="layui-icon">&#xe654;</i></a>
         </td>
 
-        {{#   layui.each(rule.actionRels, function(j, actions ){    }}
+
         <td>
-            {{#   layui.each(actions.actionInfo.paramValueInfoList, function(m, actionVal){ }}
-            <a href="#" class="actionVal" data-value="{{actionVal.paramValue}}" actionParamId = "{{actionVal.actionParamId}}">{{actionVal.paramValue}}</a>
-            {{# }); }}
+            <ul class="action_ul">
+                {{#   layui.each(rule.actionRels, function(j, actions ){    }}
+                <li>
+                    <a href="#" class="actionType" data-value="">{{actions.actionInfo.actionName}}</a>
+                    <div class="param">
+                        <!-- (
+                         <a href="#" paramId="" class="actionVal" data-value="">请输入</a> ,
+                         <a href="#" paramId="" class="actionVal" data-value="">请输入</a>
+                         )-->
+                        (
+                        {{#   layui.each(actions.actionInfo.paramValueInfoList, function(m, actionVal){ }}
+                             {{# if(m == 0) { }}
+                             <a href="#" paramId="{{actionVal.actionParamId}}" class=" {{actionVal.clazz}}"  data-value="{{actionVal.paramValue}}">{{actionVal.paramText}}</a>
+
+                              {{#  }else{ }}
+                               , <a href="#" paramId="{{actionVal.actionParamId}}" class="{{actionVal.clazz}}"  data-value="{{actionVal.paramValue}}">{{actionVal.paramText}}</a>
+
+                        {{# } }}
+
+                        {{# }); }}
+                        )
+                    </div>
+                    <div class="actionBar">
+                        <a href="javascript:void(0); " title="添加" class="addAct"
+                           onclick="sceneUtil.addActionLi(this)"> <i
+                                class="layui-icon">&#xe654;</i></a>
+                        <a href="javascript:void(0); " class="deleteCon" title="删除该动作" onclick="sceneUtil.deleteAc(this)"> <i
+                                class="layui-icon">&#x1006;</i></a>
+                    </div>
+
+                </li>
+                {{#  });  }}
+            </ul>
         </td>
-        {{#  });  }}
         <td>
             <div class="layui-btn-group">
                 <!--<button class="layui-btn layui-btn-primary layui-btn-sm saveRow" onclick="hb();"><i
@@ -306,9 +346,7 @@
             </div>
         </td>
     </tr>
-
     {{#  });  }}
-
     </tbody>
 
 </script>

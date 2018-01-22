@@ -45,7 +45,7 @@
         .layui-table .select {
             background-color: #d2d2d2;
         }
-        .del,.addTypeTr,.reGroupName,.deleteCon,.addCon {display: none}
+        .del,.addTypeTr,.reGroupName,.deleteCon,.addCon,.addAct {display: none}
         ul {
             margin-bottom: 0px;
         }
@@ -76,6 +76,17 @@
             padding: initial;
             margin-top: 5px;
             text-align: -webkit-center;
+        }
+        .param{
+            display: inline;
+        }
+        .actionBar{
+            float: right;
+            margin-right: 8px;
+        }
+        .actionEntity {
+            color: #fba117;
+            font-weight: bold;
         }
 
     </style>
@@ -227,62 +238,95 @@
 
 <script id="tableTp1" type="text/html">
     <colgroup>
-        {{#  layui.each(d.itemTables, function(index, item){    }}
-        <col width="150">
-        {{#  });  }}
+        <col width="250">
+        <col width="100">
         <col width="80px">
     </colgroup>
     <thead>
     <tr>
-        {{#  layui.each(d.itemTables, function(index, item){    }}
-        <th class="contion ">
-
-            <a href="#" class="entityC" data-value="{{item.entityId}}" >{{item.entityName}}</a>.
-            <a href="#" class="itemC" data-value="{{item.itemId}}" >{{item.itemName}}</a>
+        <th class="contion">
+            <span  ><i class="layui-icon">&#xe62d;</i>  条件</span>
+        </th>
+        <th class="th-action  "><span><i class="layui-icon">&#xe62c;</i> 动作</span>
             <a href="javascript:void(0); " class="del" onclick="deleteCol(this)"> <i
                     class="layui-icon">&#xe640;</i></a>
         </th>
-        {{#  });  }}
-        {{#  for (var i=0;i<d.actionCounts;i++) {  }}
-        <th class="th-action  ">
-            <span>动作</span>
-            <a href="javascript:void(0); " class="del" onclick="deleteCol(this)"> <i
-                    class="layui-icon">&#xe640;</i></a></th>
-        {{#  }  }}
-        <th class="" >操作</th>
+        <th class="" >
+            <span><i class="layui-icon">&#xe631;</i></span>操作
+        </th>
     </tr>
     </thead>
     <tbody>
     {{#  layui.each(d.rules, function(index, rule){    }}
     <tr>
-        {{#  layui.each(rule.cons, function(i, con){    }}
+
         <td>
-            <a href="#" data-value="{{con.ysf}}" class="con">{{con.ysfText}}</a>&nbsp;
-            <a href="#" data-value="{{con.val}}" class="val">{{con.val}}</a>
+            <ul class="con_ul">
+
+                {{#  layui.each(rule.cons, function(i, con){    }}
+                <li>
+                    <a href="#" class="entityC" data-value="{{con.itemTable.entityId}}">{{con.itemTable.entityName}}</a>.
+                    <a href="#" class="itemC" data-value="{{con.itemTable.itemId}}">{{con.itemTable.itemName}}</a>
+                    &nbsp;
+                    <a href="#" data-value="{{con.ysf}}" class="con">{{con.ysfText}}</a>&nbsp;
+                    <a href="#" data-value="{{con.val}}" class="val">{{con.val}}</a>
+                    <a href="javascript:void(0); " class="deleteCon" onclick="sceneUtil.deleteCon(this)"> <i
+                            class="layui-icon">&#x1006;</i></a>
+                </li>
+                {{#  });  }}
+            </ul>
+            <a href="javascript:void(0); " title="添加" class="addCon" onclick="sceneUtil.addCon(this)"> <i
+                    class="layui-icon">&#xe654;</i></a>
         </td>
-        {{#  });  }}
-        {{#  layui.each(rule.actionRels, function(j, action ){    }}
+
+
         <td>
-            <a href="#" data-value="{{action.actionInfo.actionId}}" class="actionType">{{action.actionInfo.actionName}}</a>&nbsp;
-            {{#  layui.each(action.actionInfo.paramValueInfoList, function(m, actionVal){ }}
-            <a href="#" class="actionVal" data-value="{{actionVal.paramValue}}"  actionParamId = "{{actionVal.actionParamId}}">{{actionVal.paramValue}}</a>
-            {{# }); }}
+            <ul class="action_ul">
+                {{#   layui.each(rule.actionRels, function(j, actions ){    }}
+                <li>
+                    <a href="#" class="actionType" data-value="">{{actions.actionInfo.actionName}}</a>
+                    <div class="param">
+                        <!-- (
+                         <a href="#" paramId="" class="actionVal" data-value="">请输入</a> ,
+                         <a href="#" paramId="" class="actionVal" data-value="">请输入</a>
+                         )-->
+                        (
+                        {{#   layui.each(actions.actionInfo.paramValueInfoList, function(m, actionVal){ }}
+                        {{# if(m == 0) { }}
+                        <a href="#" paramId="{{actionVal.actionParamId}}" class=" {{actionVal.clazz}}"  data-value="{{actionVal.paramValue}}">{{actionVal.paramText}}</a>
+
+                        {{#  }else{ }}
+                        , <a href="#" paramId="{{actionVal.actionParamId}}" class="{{actionVal.clazz}}"  data-value="{{actionVal.paramValue}}">{{actionVal.paramText}}</a>
+
+                        {{# } }}
+
+                        {{# }); }}
+                        )
+                    </div>
+                    <div class="actionBar">
+                        <a href="javascript:void(0); " title="添加" class="addAct"
+                           onclick="sceneUtil.addActionLi(this)"> <i
+                                class="layui-icon">&#xe654;</i></a>
+                        <a href="javascript:void(0); " class="deleteCon" title="删除该动作" onclick="sceneUtil.deleteAc(this)"> <i
+                                class="layui-icon">&#x1006;</i></a>
+                    </div>
+
+                </li>
+                {{#  });  }}
+            </ul>
         </td>
-        {{#  });  }}
         <td>
             <div class="layui-btn-group">
                 <!--<button class="layui-btn layui-btn-primary layui-btn-sm saveRow" onclick="hb();"><i
                         class="layui-icon">&#xe618;</i></button>-->
-                <button class="layui-btn layui-btn-primary layui-btn-sm addRow" onclick="addRow(this)"><i
+                <button class="layui-btn layui-btn-primary layui-btn-sm addRow" onclick="sceneUtil.addSceneRow(this)"><i
                         class="layui-icon">&#xe654;</i></button>
-                <button class="layui-btn layui-btn-primary layui-btn-sm deleteRow" onclick="deleteRow(this)"><i
+                <button class="layui-btn layui-btn-primary layui-btn-sm deleteRow" onclick="sceneUtil.deleteRow(this)"><i
                         class="layui-icon">&#xe640;</i></button>
             </div>
         </td>
     </tr>
-
     {{#  });  }}
-
     </tbody>
 
 </script>

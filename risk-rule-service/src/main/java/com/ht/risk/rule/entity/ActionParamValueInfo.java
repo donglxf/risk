@@ -1,15 +1,15 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
 /**
  * <p>
  * 动作参数对应的属性值信息表
@@ -20,6 +20,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel
 @TableName("rule_action_param_value_info")
+@Data
 public class ActionParamValueInfo extends Model<ActionParamValueInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -30,6 +31,8 @@ public class ActionParamValueInfo extends Model<ActionParamValueInfo> {
     @TableId("action_param_value_id")
 	@ApiModelProperty(required= true,value = "主键")
 	private Long actionParamValueId;
+    @TableField(exist = false)
+    private String clazz;
     /**
      * 动作规则关系主键
      */
@@ -48,6 +51,12 @@ public class ActionParamValueInfo extends Model<ActionParamValueInfo> {
 	@TableField("param_value")
 	@ApiModelProperty(required= true,value = "参数值")
 	private String paramValue;
+	/**
+	 * 参数值
+	 */
+	@TableField("param_text")
+	@ApiModelProperty(required= true,value = "参数值描述")
+	private String paramText;
     /**
      * 是否有效
      */
