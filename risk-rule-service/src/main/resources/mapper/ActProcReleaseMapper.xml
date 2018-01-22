@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ht.risk.rule.mapper.ActProcReleaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.ActProcRelease">
+        <id column="ID" property="id" />
+        <result column="MODEL_PROCDEF_ID" property="modelProcdefId" />
+        <result column="MODEL_NAME" property="modelName" />
+        <result column="MODEL_VERSION" property="modelVersion" />
+        <result column="MODEL_CATEGORY" property="modelCategory" />
+        <result column="VERSION_TYPE" property="versionType" />
+        <result column="IS_VALIDATE" property="isValidate" />
+        <result column="IS_APPROVE" property="isApprove" />
+        <result column="IS_EFFECT" property="isEffect" />
+        <result column="UPDATE_TIME" property="updateTime" />
+        <result column="UPDATE_USER" property="updateUser" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="CREATE_USER" property="createUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, MODEL_PROCDEF_ID AS modelProcdefId, MODEL_NAME AS modelName, MODEL_VERSION AS modelVersion, MODEL_CATEGORY AS modelCategory, VERSION_TYPE AS versionType, IS_VALIDATE AS isValidate, IS_APPROVE AS isApprove, IS_EFFECT AS isEffect, UPDATE_TIME AS updateTime, UPDATE_USER AS updateUser, CREATE_TIME AS createTime, CREATE_USER AS createUser
+    </sql>
+
+</mapper>

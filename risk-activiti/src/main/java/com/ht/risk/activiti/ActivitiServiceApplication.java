@@ -21,5 +21,4 @@ public class ActivitiServiceApplication {
 		SpringApplication.run(ActivitiServiceApplication.class, args);
 		System.err.println("ヾ(◍°∇°◍)ﾉﾞ    accountservice启动成功      ヾ(◍°∇°◍)ﾉﾞ\n");
 	}
-
 }

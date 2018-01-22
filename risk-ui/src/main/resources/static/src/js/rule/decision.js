@@ -39,6 +39,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
     var entityIds = [];*/
 
     var sceneUtil = {
+            subType:1,
             flag :true,
             v: '1.0.0',
             sceneId:-1,//场景id
@@ -313,6 +314,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     shadeClose: true, // 点击遮罩关闭层
                     area: ['450px', '400px'],
                     content: html,
+                    shade:0.1,
                     success: function (layero, index) {
                         if(type == 1){
                             sceneUtil.entitySelectInit();
@@ -327,6 +329,45 @@ layui.define(['layer','form','laytpl'], function (exports) {
                 });
 
            });
+        },
+        /**
+         * 打开定义评分卡的弹窗页面
+         * @param sceneId
+         */
+        openGradeRuleInit:function (sceneId) {
+
+            var tableNoDataPt = document.getElementById('table').innerHTML;
+            var index =   layer.msg("数据加载中", {icon: 16, time: 10000,anim: -1,fixed: !1});
+            $.get('/rule/service/rule/getGradeCardAll',{'sceneId':sceneId},function(data){
+                if(data.code == '0'){
+                    var result = data.data;
+                    var hasWeight = result.hasWeight;
+                    var getTpl = tableTp.innerHTML
+                        ,view = document.getElementById('table');
+                    laytpl(getTpl).render(result, function(html){
+                        view.innerHTML = html;
+                    });
+                    //初始化 实体类的值
+                    sceneUtil.sceneId = sceneId;
+                    sceneUtil.dataInit.entityBank();
+                    sceneUtil.dataInit.actionBank();
+                    sceneUtil.gradeInit();
+                    //是否有权值
+                    if(hasWeight > 0){
+                        $("#openQz").attr("checked",true);
+                        $("#table tbody tr td .qzdiv").show();
+                        form.render('checkbox');
+                    }
+                }else{
+                    $("#table").html(tableNoDataPt);
+                    //初始化 实体类的值
+                    sceneUtil.sceneId = sceneId;
+                    sceneUtil.gradeInit();
+                }
+                layer.close(index);
+
+
+            },'json');
         },
         /***
          * 品牌下拉初始化
@@ -829,22 +870,59 @@ layui.define(['layer','form','laytpl'], function (exports) {
          * 初始化方法
          */
         sceneInit: function() {
-            // headItem();
-            $("#table thead tr th.contion ").hover(function () {
-                $(this).find(".del").show();
-            }, function () {
-                $(this).find(".del").hide();
+            $("#table tbody tr td.index").hover(function () {
+                $(this).find(".addTypeTr").show();
+            },function () {
+                $(this).find(".addTypeTr").hide();
             });
+            $("#table tbody tr td ul li").hover(function () {
+                var groupNameO =  $(this).parent().parent().prev().find(".groupName");
+                var display = $(groupNameO).parent().parent().css('display');
+                if(display != 'none'){
+                    $(this).find(".reGroupName").show();
+                }
+                if($(this).index() > 0){
+                    //判断是否是第一条
+                    $(this).find(".deleteCon").show();
+                }
+
+            },function () {
+                var groupNameO =  $(this).parent().parent().prev().find(".groupName");
+                var display = $(groupNameO).parent().parent().css('display');
+                if(display != 'none'){
+                    $(this).find(".reGroupName").hide();
+                }
+                $(this).find(".deleteCon").hide();
+            });
+
+            //合并
+            sceneUtil.rowspan();
             //绑定条件输入值得输入方式
             sceneUtil.bandOneValInit( $('.val'));
+            sceneUtil.bandOneValInit( $('.groupName'));
             //绑定动作值得输入框
             sceneUtil.bandOneValInit( $('.actionVal'));
-            //实体对象绑定
-            sceneUtil.bandSelectValInit($(".entityC"),sceneUtil.entitys,"选择对象",sceneUtil.callBack.entity());
             //条件绑定
-            sceneUtil.bandSelectValInit($(".con"),sceneUtil.data.condition,"选择条件",sceneUtil.callBack.contion());
-            //动作绑定
-            sceneUtil.bandSelectValInit($(".actionType"),sceneUtil.conditionInfos,"选择动作",sceneUtil.callBack.action());
+            sceneUtil.bandSelectValInit_condition($(".con"),sceneUtil.data.condition,"选择条件");
+            //实体对象绑定
+            sceneUtil.bandSelectValInit_entity($(".entityC"),sceneUtil.data.entitysBank,"选择对象");
+            //绑定所有的变量
+            $(".entityC").each(function(){
+                var entitys = sceneUtil.data.entitysBank;
+                var entityId = $(this).data("value");
+                var iid = $(this).next().data("value");
+                sceneUtil.bandSelectValInit_item(this,entitys,entityId);
+                //绑定所有常量
+                var items = [];
+                for(var i=0;i<entitys.length;i++){
+                    var enid = entitys[i].value;
+                    if(enid == entityId){
+                        items = entitys[i].sons;
+                        break;
+                    }
+                }
+                sceneUtil.bandSelectValInit_constants(this,items,iid);
+            });
         },
         /**
          * 数据初始化
@@ -1076,6 +1154,8 @@ layui.define(['layer','form','laytpl'], function (exports) {
 
             return subForms;
         },
+
+
             /**
              * 提交数据
              */
@@ -1108,7 +1188,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
                 }
                 //转json
                 var str = JSON.stringify(form);
-                console.log(str);
+                //console.log(str);
                 $.ajax({
                     type: "POST",
                     url: "/rule/service/rule/saveGrade",
@@ -1119,7 +1199,22 @@ layui.define(['layer','form','laytpl'], function (exports) {
                         layer.close(iindex);
                         console.log(message);
                         if (message.code == '') {
-                            layer.msg("恭喜保存成功");
+
+                            if(sceneUtil.subType == 2){
+                                layer.msg('恭喜保存成功,是否关闭页面？', {
+                                    time: 10000, //20s后自动关闭
+                                    btn: ['好的', '不关闭'],
+                                    icon: 1
+                                },function (i) {
+                                    layer.close(i);
+                                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                    parent.layer.close(index); //再执行关闭
+                                },function (i) {
+                                    layer.close(i);
+                                });
+                            }else{
+                                layer.msg("恭喜保存成功",{time:1000});
+                            }
                         }
                     },
                     error: function (message) {
@@ -1127,7 +1222,8 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     }
                 });
 
-            }
+            },
+
         }
     ;
     exports('sceneUtil', sceneUtil);
