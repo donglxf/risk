@@ -1,4 +1,4 @@
-layui.use(['table', 'jquery', 'laydate','form'], function () {
+layui.use(['table', 'jquery', 'laydate', 'form'], function () {
     var table = layui.table;
     var $ = layui.jquery;
     var laydate = layui.laydate;
@@ -71,12 +71,14 @@ layui.use(['table', 'jquery', 'laydate','form'], function () {
                         type: 2,
                         shade: false,
                         title: "",
+                        //请求的弹出层路径
                         content: "/rule/ui/model/valiable",
                         zIndex: layer.zIndex, //重点1
                         success: function (layero, index) {
                             layer.setTop(layero); //重点2
                             var form = layer.getChildFrame('#model_valiable_form', index);
                             form.html(contents);
+                            //日期控件
                             laydate.render({
                                 elem: "#date"
                                 //elem: "[lay-verify='date']"
@@ -86,7 +88,7 @@ layui.use(['table', 'jquery', 'laydate','form'], function () {
                     layer.full(layIndex);
                 }
             });
-        }else if (layEvent = 'auto_verification'){
+        } else if (layEvent = 'auto_verification') {
             console.log('自动测试');
             $.ajax({
                 type: "get",
@@ -96,23 +98,21 @@ layui.use(['table', 'jquery', 'laydate','form'], function () {
                 },
                 dataType: "json",
                 success: function (data) {
+                    var modelAutoVerification = new ModelAutoVerification();
+                    var contents = modelAutoVerification.initModel(data);
                     console.log('自动测试返回数据');
-                    var modelVerification = new ModelVerification();
-                    var contents = modelVerification.initModel(data);
                     var layIndex = layer.open({
                         type: 2,
                         shade: false,
                         title: "",
-                        content: "/rule/ui/model/valiable",
+                        content: "/rule/ui/model/valiable/auto",
                         zIndex: layer.zIndex, //重点1
                         success: function (layero, index) {
                             layer.setTop(layero); //重点2
-                            var form = layer.getChildFrame('#model_valiable_form', index);
+                            layer.setTop(layero); //重点2
+                            var form = layer.getChildFrame('#model_valiable_form_auto', index);
                             form.html(contents);
-                            laydate.render({
-                                elem: "#date"
-                                //elem: "[lay-verify='date']"
-                            });
+
                         }
                     });
                     layer.full(layIndex);
@@ -122,14 +122,14 @@ layui.use(['table', 'jquery', 'laydate','form'], function () {
     });
 
 
-    form.on('submit(save)', function(data) {
+    form.on('submit(save)', function (data) {
         $.ajax({
-            cache : true,
-            type : "POST",
-            url : '/rule/service/actProcRelease/scene/variable/init',
-            data : data.field,// 你的formid
-            async : false,
-            success : function(data) {
+            cache: true,
+            type: "POST",
+            url: '/rule/service/actProcRelease/scene/variable/init',
+            data: data.field,// 你的formid
+            async: false,
+            success: function (data) {
                 layer.msg(data.msg);
             }
         });
@@ -137,6 +137,6 @@ layui.use(['table', 'jquery', 'laydate','form'], function () {
     });
 
     $("#test").click(function () {
-      layer.msg("需调用其它接口");
+        layer.msg("需调用其它接口");
     });
 });

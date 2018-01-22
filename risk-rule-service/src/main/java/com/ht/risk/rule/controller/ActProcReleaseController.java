@@ -174,9 +174,9 @@ public class ActProcReleaseController {
 
     @GetMapping(value = "scene/variable/auto")
     @ApiOperation(value = "执行自动测试")
-    public Result getVariablesByActProcRealeseIdAuto() {
-        logger.info("开始自动测试");
-        return null;
+    public ActProcRelease getVariablesByActProcRealeseIdAuto(String actProcRealeseId) {
+        logger.info("开始自动测试" + actProcRealeseId);
+        return this.getVariablesByActProcRealeseId(actProcRealeseId);
     }
 }
 
