@@ -1,7 +1,10 @@
-layui.use(['table', 'jquery', 'laydate'], function () {
+layui.use(['table', 'jquery', 'laydate','form'], function () {
     var table = layui.table;
     var $ = layui.jquery;
     var laydate = layui.laydate;
+    var form = layui.form;
+
+    console.log(form);
     //第一个实例
     table.render({
         elem: '#model_list'
@@ -83,228 +86,22 @@ layui.use(['table', 'jquery', 'laydate'], function () {
                     layer.full(layIndex);
                 }
             });
-
-
         }
     });
+
+
+    form.on('submit(save)', function(data) {
+        console.log(data.field);
+        $.ajax({
+            cache : true,
+            type : "POST",
+            url : '/rule/service/actProcRelease/scene/variable/init',
+            data : data.field,// 你的formid
+            async : false,
+            success : function(data) {
+                console.log('返回成功');
+            }
+        });
+        return false;
+    });
 });
-
-/**
- * 返回的数据格式如下
- */
-// {
-//     modelName: "测试模型",
-//         sceneList: [
-//     {
-//         scenceName: "房贷评分卡",
-//         data: [
-//             {
-//                 name: "hello"
-//             },
-//             {
-//                 age: 18
-//             },
-//             {
-//                 marry: "Y"
-//             }
-//         ]
-//     },
-//     {
-//         scenceName: "车贷评分卡",
-//         data: [
-//             {
-//                 name: "hzm"
-//             },
-//             {
-//                 age: 18
-//             },
-//             {
-//                 marry: "Y"
-//             }
-//         ]
-//     }
-// ]
-// }
-
-
-/**
- * 请求id为  953535633275584514  的时候，后台返回数据如下
- * @type {ModelVerification}
- */
-// data = {
-//     "variableMap": [{
-//         "data": [{
-//             "id": "1",
-//             "senceVersionId": "1",
-//             "variableCode": "age",
-//             "variableName": "年龄",
-//             "dataType": "Double",
-//             "bindTable": "TEMP_DATA_CONTAINS",
-//             "bindColumn": "age2",
-//             "isEffect": "1",
-//             "createTime": 1516195542000
-//         }, {
-//             "id": "2",
-//             "senceVersionId": "1",
-//             "variableCode": "hourseAge",
-//             "variableName": "楼龄",
-//             "dataType": "Double",
-//             "bindTable": "TEMP_DATA_CONTAINS",
-//             "bindColumn": "hourseAge2",
-//             "isEffect": "1",
-//             "createTime": 1516195542000
-//         }],
-//         "sceneName": "测试",
-//         "id": "953536595562131457",
-//         "modelProcdefId": "hourse_process:27:190004",
-//         "senceVersionId": "1",
-//         "isEffect": "0",
-//         "createTime": 1516175815000,
-//         "createUser": "Robot"
-//     }, {
-//         "data": [],
-//         "sceneName": "无名的策列表或评分卡",
-//         "id": "953620371659091969",
-//         "modelProcdefId": "hourse_process:27:190004",
-//         "senceVersionId": "120022",
-//         "isEffect": "0",
-//         "createTime": 1516195789000,
-//         "createUser": "Robot"
-//     }, {
-//         "data": [],
-//         "sceneName": "无名的策列表或评分卡",
-//         "id": "953620371659091970",
-//         "modelProcdefId": "hourse_process:27:190004",
-//         "senceVersionId": "120022",
-//         "isEffect": "0",
-//         "createTime": 1516195789000,
-//         "createUser": "Robot"
-//     }], "modelName": "房贷评分模型", "modelVersion": "V.27"
-// }
-
-
-// var data = {
-//     "modelName": "房贷模型",
-//     "modelVersion": "v1.01",
-//     "variableMap": [
-//         {
-//             "senceName": "房贷评分卡",
-//             "data": [
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "sex",
-//                     "valibaleCn": "性别",
-//                     "submitName": "sex",
-//                     "type": "select",
-//                     "desc": "性别",
-//                     "optionData": [
-//                         {
-//                             "value": "01",
-//                             "name": "男"
-//                         }, {
-//                             "value": "02",
-//                             "name": "女"
-//                         },
-//                     ]
-//                 }
-//             ]
-//         },
-//         {
-//             "senceName": "车贷评分卡",
-//             "data": [
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "date",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "sex",
-//                     "valibaleCn": "性别",
-//                     "submitName": "sex",
-//                     "type": "select",
-//                     "desc": "性别",
-//                     "optionData": [
-//                         {
-//                             "value": "01",
-//                             "name": "男"
-//                         }, {
-//                             "value": "02",
-//                             "name": "女"
-//                         },
-//                     ]
-//                 }
-//             ]
-//         }
-//     ]
-// };

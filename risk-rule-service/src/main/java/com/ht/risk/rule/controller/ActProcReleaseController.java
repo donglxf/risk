@@ -3,7 +3,6 @@ package com.ht.risk.rule.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.google.gson.Gson;
 import com.ht.risk.common.constant.StatusConstants;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ActProcRelease;
@@ -14,19 +13,21 @@ import com.ht.risk.rule.service.ActProcReleaseService;
 import com.ht.risk.rule.service.ModelSenceService;
 import com.ht.risk.rule.service.SceneVersionService;
 import com.ht.risk.rule.service.VariableBindService;
+import com.ht.risk.rule.util.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.GsonJsonParser;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -129,6 +130,35 @@ public class ActProcReleaseController {
 
         return result;
 
+    }
+
+    /**
+     * 为变量赋值
+     * http://localhost:8765/rule/service/actProcRelease/init
+     *
+     * @returns
+     */
+    @PostMapping(value = "scene/variable/init")
+    @ApiOperation(value = "给变量赋值")
+    public Object addVariable(HttpServletRequest request) {
+        logger.info("----给变量赋值----");
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        logger.info(parameterMap.toString());
+        Set<String> keys = parameterMap.keySet();
+        Iterator<String> key = keys.iterator();
+        while (key.hasNext()) {
+            String next = key.next();
+            String temValue = parameterMap.get(next)[0];
+            String[] strings = next.split("_");
+            logger.info(strings.toString());
+            EntityWrapper<VariableBind> wrapper = new EntityWrapper<>();
+            wrapper.eq("SENCE_VERSION_ID", strings[0]);
+            wrapper.eq("VARIABLE_CODE", strings[1]);
+            VariableBind variableBind = new VariableBind();
+            variableBind.setTmpValue(temValue);
+            variableBindService.update(variableBind, wrapper);
+        }
+        return null;
     }
 }
 

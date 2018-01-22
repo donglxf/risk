@@ -7,7 +7,7 @@ var ModelVerification = function (opt) {
 ModelVerification.prototype = {
     initSelect: function (name, optionData) {
         var html = '<div class="layui-input-inline">';
-        html += '<select name="' + name + '" lay-filter="aihao">';
+        html += '<select name="' + name + '0" lay-filter="aihao">';
         for (var i = 0; i < optionData.length; i++) {
             var data = optionData[i];
             html += '<option value="' + data.value + '">' + data.name + '</option>';
@@ -29,12 +29,45 @@ ModelVerification.prototype = {
      * @param name
      * @returns {string}
      */
-    initInput: function (name) {
+    initInput: function (name, tmpValue) {
+       console.log(tmpValue);
         var html = '<div class="layui-input-inline">'
-        html += '<input type="text" name="' + name + '" lay-verify="identity" placeholder="整形" autocomplete="off" class="layui-input">'
+        if (tmpValue != null && tmpValue != "") {
+            html += '<input value= "'+tmpValue+'"'+'type="text" name="' + name + '" lay-verify="required" placeholder="整形" autocomplete="off" class="layui-input">'
+        } else {
+            html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="整形" autocomplete="off" class="layui-input">'
+        }
         html += '</div>';
         return html;
     },
+
+
+    /**
+     *
+     渲染单个变量
+     */
+    initOneValible: function (valible) {
+        var tmpValue = valible.tmpValue;
+        var html = "";
+        switch (valible.dataType) {
+            case "select":
+                html = this.initSelect(valible.variableName, valible.optionData);
+                break;
+            case "date":
+                html = this.initDate(valible.variableName);
+                break;
+            case "time":
+                html = this.initTime(valible.variableName);
+                break;
+            case "Double":
+                html = this.initInput(valible.senceVersionId + '_' + valible.variableCode,tmpValue);
+                break;
+            default:
+                break;
+        }
+        return html;
+    },
+
     /**
      * 初始化日期时间输入框
      * @param name
@@ -58,33 +91,6 @@ ModelVerification.prototype = {
         return html;
     },
 
-    /**
-     *
-     渲染单个变量
-     */
-    initOneValible: function (valible) {
-        var html = "";
-        switch (valible.dataType) {
-            case "select":
-                html = this.initSelect(valible.variableName, valible.optionData);
-                break;
-            case "input":
-                html = this.initInput(valible.variableName);
-                break;
-            case "date":
-                html = this.initDate(valible.variableName);
-                break;
-            case "time":
-                html = this.initTime(valible.variableName);
-                break;
-            case "Double":
-                html = this.initInput(valible.variableName);
-                break;
-            default:
-                break;
-        }
-        return html;
-    },
     /**
      * 渲染每个变量的div
      * @param data
@@ -130,16 +136,14 @@ ModelVerification.prototype = {
         var senceData = data.variableMap;
         var html = '';
         html += ' <div class="layui-form-item" >\n' +
-            '            <button class="layui-btn layui-btn-primary"  lay-submit="" lay-filter="demo2">导入旧值</button>\n' +
-            '<button type="reset" class="layui-btn" >保存</button>' +
-            '        </div>';
+            '<button type="reset" class="layui-btn layui-btn-primary">重置</button>' +
+            '<button class="layui-btn layui-btn-primary"  lay-submit="" lay-filter="save" id="save">保存</button>\n' +
+            '</div>';
 
 
         for (var i = 0; i < senceData.length; i++) {
             html += this.initSence(senceData[i]);
         }
-
-
         return html;
     }
 }
