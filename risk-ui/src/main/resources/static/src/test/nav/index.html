@@ -11,7 +11,7 @@
 </head>
 
 <body>
-	<div id="btn">click me</div>
+	<div id="btn">click me</div>    <div  id="btn2" style="margin-top: 50px; float: left">click one</div>
 </body>
     <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="js/nav.js"></script>
@@ -52,7 +52,20 @@
 					 console.log(obj, value);
 				 }			 
 			 });
-			
+            var jsondata = [{
+                value: '1',
+                text: 'efg',},{
+                value: '2',
+                text: 'efg',}
+                ]
+            $('#btn2').submenu({
+                data: jsondata,type:1,
+                callback: function (obj, value) {
+                    console.log(obj, value);
+                }
+            });
+
+
 	   })
 	</script>
     

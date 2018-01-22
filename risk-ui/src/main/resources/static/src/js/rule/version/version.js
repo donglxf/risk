@@ -115,7 +115,7 @@ scene.cols = function () {
     ];
 };
 var layer,sceneTable,table,active,leftActive,leftTable;
-var sceneId,$ ;
+var sceneId,sceneType,$ ;
 var layerTopIndex;
 layui.config({
     base: '/rule/ui/src/js/rule/' //假设这是你存放拓展模块的根目录
@@ -268,11 +268,11 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
         } else if (obj.event === 'push') {
             push(data.sceneId,data.sceneType);
         }else if(obj.event === 'rule_defined'){
-            ruleDefind(data.sceneId,data.type);
+            ruleDefind(data.sceneId,data.sceneType);
 
         }else if(obj.event === 'edit'){
             sceneId = id;
-            sceneEdit(data.sceneId,data.type);
+            sceneEdit(data.sceneId,data.sceneType);
         }else if (obj.event === 'setItem') {
             //选择实体对象的id
             sceneId = data.sceneId;
@@ -287,24 +287,24 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
      */
     function ruleDefind(sceneId,type){
         var url = "/rule/ui/src/html/decision/gradeCard_edit.html";
+        if(type == 1){
+            url = "/rule/ui/src/html/decision/scene_edit.html";
+        }
+        sceneType = type;
         layer.open({
             type: 2,
-            title: false,
+            title: '定义规则',
             maxmin: false,
             shadeClose: false, // 点击遮罩关闭层
-            area: ['750px', '560px'],
+            area: ['780px', '560px'],
             content: url,
-            skin: 'layui-layer-rim', //加上边框
+            //skin: 'layui-layer-rim', //加上边框
             success: function(layero, index){
                 var  body = layer.getChildFrame('body', index);
                 //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-                var iframeWin = window[layero.find('iframe')[0]['name']];
+               // var iframeWin = window[layero.find('iframe')[0]['name']];
                 //执行初始化方法
                 sceneId = sceneId;
-                //iframeWin.setSceneId(sceneId);
-                //  console.log(body.html()) //得到iframe页的body内容
-                // body.find('input').val('Hi，我是从父页来的');
-
             }
         });
     }

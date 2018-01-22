@@ -23,5 +23,4 @@
         FROM RISK_VALIDATE_BATCH A WHERE A
     </select>
 
-
 </mapper>
