@@ -1,5 +1,7 @@
 package com.ht.risk.api.model.activiti;
 
+import org.springframework.util.MultiValueMap;
+
 import java.io.Serializable;
 
 public class ModelParamter implements Serializable {
@@ -9,6 +11,8 @@ public class ModelParamter implements Serializable {
 	private String name;
 	private String description;
 	private String category;
+	private String processId;
+	private String variableName;
 
 	public String getModelId() {
 		return modelId;
@@ -48,5 +52,21 @@ public class ModelParamter implements Serializable {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public String getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(String processId) {
+		this.processId = processId;
+	}
+
+	public String getVariableName() {
+		return variableName;
+	}
+
+	public void setVariableName(String variableName) {
+		this.variableName = variableName;
 	}
 }
