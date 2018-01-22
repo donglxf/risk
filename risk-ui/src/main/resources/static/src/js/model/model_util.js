@@ -5,6 +5,30 @@ var ModelVerification = function (opt) {
     });
 }
 ModelVerification.prototype = {
+    initResult:function(data){
+        var html="<table class=\"layui-table\">\n" +
+            "    <colgroup>\n" +
+            "    <col width=\"800\">\n" +
+            "    <col>\n" +
+            "    </colgroup>\n" +
+            "    <thead>\n" +
+            "    <tr>\n" +
+            "    <th>规则</th>\n" +
+            "    <th>输出</th>\n" +
+            "    </tr>\n" +
+            "    </thead>\n" ;
+
+        for(var i=0;i<data.length;i++){
+            html+="<tbody><tr></tbody><td>"+data[i].ruleDesc+"</td>";
+            if(data[i].validationResult=='0'){
+                html+="<td>匹配规则</td>";
+            }else{
+                html+="<td></td>";
+            }
+        }
+        html+="</tr></tbody></table>";
+        return html;
+    },
     initSelect: function (name, optionData) {
         var html = '<div class="layui-input-inline">';
         html += '<select name="' + name + '0" lay-filter="aihao">';
