@@ -11,7 +11,7 @@
 
 <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
     <div class="layui-col-md2">
-        <input type="text" name="modelName"  required lay-verify="required" placeholder="请输入模型名称" autocomplete="off"
+        <input type="text" name="modelName" id="modelName" required lay-verify="required" placeholder="请输入模型名称" autocomplete="off"
                class="layui-input">
     </div>
 
@@ -27,12 +27,12 @@
     <div class="layui-col-md1">
         <select class="layui-select" id="modelCategory" name="modelCategory" lay-verify="">
             <option value="">选择业务</option>
-            <option value="">房速贷</option>
-            <option value="">一点通</option>
+            <option value="RDMS">房速贷</option>
+            <option value="YDT">一点通</option>
         </select>
     </div>
     <div class="layui-col-md1">
-        <button class="layui-btn" data-type="reload">查 询</button>
+        <button class="layui-btn" data-type="reload" id="find">查 询</button>
     </div>
 </div>
 

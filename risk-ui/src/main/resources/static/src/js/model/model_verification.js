@@ -31,7 +31,7 @@ layui.use(['table', 'jquery', 'laydate','form'], function () {
             //执行重载
             table.reload('model_list', {
                 page: {
-                    curr: 1 //重新从第 1 页开始
+                    curr: 1, //重新从第 1 页开始
                 }
                 , where: {
                     modelName: modelName,
@@ -58,8 +58,8 @@ layui.use(['table', 'jquery', 'laydate','form'], function () {
         if (layEvent === 'manual_verification') { //手动验证
             //接口未做，需要异步请求模型数据
             $.ajax({
-                type: "post",
-                url: "/rule/service/actProcRelease/scene/variable",
+                type: "get",
+                url: "/rule/service/actProcRelease/scene/variable/manual",
                 data: {
                     actProcRealeseId: modelId
                 },
@@ -86,12 +86,43 @@ layui.use(['table', 'jquery', 'laydate','form'], function () {
                     layer.full(layIndex);
                 }
             });
+        }else if (layEvent = 'auto_verification'){
+            console.log('自动测试');
+            $.ajax({
+                type: "get",
+                url: "/rule/service/actProcRelease/scene/variable/auto",
+                data: {
+                    actProcRealeseId: modelId
+                },
+                dataType: "json",
+                success: function (data) {
+                    console.log('自动测试返回数据');
+                    var modelVerification = new ModelVerification();
+                    var contents = modelVerification.initModel(data);
+                    var layIndex = layer.open({
+                        type: 2,
+                        shade: false,
+                        title: "",
+                        content: "/rule/ui/model/valiable",
+                        zIndex: layer.zIndex, //重点1
+                        success: function (layero, index) {
+                            layer.setTop(layero); //重点2
+                            var form = layer.getChildFrame('#model_valiable_form', index);
+                            form.html(contents);
+                            laydate.render({
+                                elem: "#date"
+                                //elem: "[lay-verify='date']"
+                            });
+                        }
+                    });
+                    layer.full(layIndex);
+                }
+            });
         }
     });
 
 
     form.on('submit(save)', function(data) {
-        console.log(data.field);
         $.ajax({
             cache : true,
             type : "POST",
@@ -99,9 +130,13 @@ layui.use(['table', 'jquery', 'laydate','form'], function () {
             data : data.field,// 你的formid
             async : false,
             success : function(data) {
-                console.log('返回成功');
+                layer.msg(data.msg);
             }
         });
         return false;
+    });
+
+    $("#test").click(function () {
+      layer.msg("需调用其它接口");
     });
 });

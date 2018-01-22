@@ -16,6 +16,7 @@ import com.ht.risk.rule.service.VariableBindService;
 import com.ht.risk.rule.util.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +65,10 @@ public class ActProcReleaseController {
         pagination.setCurrent(page);
         EntityWrapper<ActProcRelease> ew = new EntityWrapper<>();
         if ("" != actProcRelease.getModelName() && actProcRelease.getModelName() != null) {
-            ew.eq("MODEL_NAME", actProcRelease.getModelName());
+            //精确查询
+            //ew.eq("MODEL_NAME", actProcRelease.getModelName());
+            //模糊查询
+            ew.like("MODEL_NAME", "%" + actProcRelease.getModelName() + "%");
         }
         if ("" != actProcRelease.getIsValidate() && actProcRelease.getIsValidate() != null) {
             ew.eq("IS_VALIDATE", actProcRelease.getIsValidate());
@@ -92,7 +96,7 @@ public class ActProcReleaseController {
     }
 
 
-    @PostMapping(value = "scene/variable")
+    @GetMapping(value = "scene/variable/manual")
     @ApiOperation(value = "根据模型id查询策列表，评分卡，以及绑定变量")
     public ActProcRelease getVariablesByActProcRealeseId(String actProcRealeseId) {
         logger.info("---根据模型id查找变量---");
@@ -140,24 +144,38 @@ public class ActProcReleaseController {
      */
     @PostMapping(value = "scene/variable/init")
     @ApiOperation(value = "给变量赋值")
-    public Object addVariable(HttpServletRequest request) {
-        logger.info("----给变量赋值----");
-        Map<String, String[]> parameterMap = request.getParameterMap();
-        logger.info(parameterMap.toString());
-        Set<String> keys = parameterMap.keySet();
-        Iterator<String> key = keys.iterator();
-        while (key.hasNext()) {
-            String next = key.next();
-            String temValue = parameterMap.get(next)[0];
-            String[] strings = next.split("_");
-            logger.info(strings.toString());
-            EntityWrapper<VariableBind> wrapper = new EntityWrapper<>();
-            wrapper.eq("SENCE_VERSION_ID", strings[0]);
-            wrapper.eq("VARIABLE_CODE", strings[1]);
-            VariableBind variableBind = new VariableBind();
-            variableBind.setTmpValue(temValue);
-            variableBindService.update(variableBind, wrapper);
+    public Result addVariable(HttpServletRequest request) {
+        try {
+            logger.info("----给变量赋值----");
+            Map<String, String[]> parameterMap = request.getParameterMap();
+            logger.info(parameterMap.toString());
+            Set<String> keys = parameterMap.keySet();
+            Iterator<String> key = keys.iterator();
+            while (key.hasNext()) {
+                String next = key.next();
+                String temValue = parameterMap.get(next)[0];
+                String[] strings = next.split("_");
+                logger.info(strings.toString());
+                EntityWrapper<VariableBind> wrapper = new EntityWrapper<>();
+                wrapper.eq("SENCE_VERSION_ID", strings[0]);
+                wrapper.eq("VARIABLE_CODE", strings[1]);
+                VariableBind variableBind = new VariableBind();
+                variableBind.setTmpValue(temValue);
+                variableBindService.update(variableBind, wrapper);
+            }
+            Result result = Result.success();
+            result.setMsg("保存成功");
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return Result.error(1, "保存失败");
+    }
+
+    @GetMapping(value = "scene/variable/auto")
+    @ApiOperation(value = "执行自动测试")
+    public Result getVariablesByActProcRealeseIdAuto() {
+        logger.info("开始自动测试");
         return null;
     }
 }

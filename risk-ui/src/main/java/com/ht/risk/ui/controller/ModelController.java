@@ -39,5 +39,11 @@ public class ModelController {
         return "model/verfication/model";
     }
 
+    @RequestMapping(value = "/valiable/auto",method = RequestMethod.GET)
+    public String aotuTest(){
+        return "model/verfication/model_auto";
+    }
+
+
 
 }

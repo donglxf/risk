@@ -30,10 +30,9 @@ ModelVerification.prototype = {
      * @returns {string}
      */
     initInput: function (name, tmpValue) {
-       console.log(tmpValue);
         var html = '<div class="layui-input-inline">'
         if (tmpValue != null && tmpValue != "") {
-            html += '<input value= "'+tmpValue+'"'+'type="text" name="' + name + '" lay-verify="required" placeholder="整形" autocomplete="off" class="layui-input">'
+            html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required" placeholder="整形" autocomplete="off" class="layui-input">'
         } else {
             html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="整形" autocomplete="off" class="layui-input">'
         }
@@ -60,7 +59,7 @@ ModelVerification.prototype = {
                 html = this.initTime(valible.variableName);
                 break;
             case "Double":
-                html = this.initInput(valible.senceVersionId + '_' + valible.variableCode,tmpValue);
+                html = this.initInput(valible.senceVersionId + '_' + valible.variableCode, tmpValue);
                 break;
             default:
                 break;
@@ -136,8 +135,15 @@ ModelVerification.prototype = {
         var senceData = data.variableMap;
         var html = '';
         html += ' <div class="layui-form-item" >\n' +
-            '<button type="reset" class="layui-btn layui-btn-primary">重置</button>' +
-            '<button class="layui-btn layui-btn-primary"  lay-submit="" lay-filter="save" id="save">保存</button>\n' +
+            '<button type="reset" class="layui-btn layui-btn-primary">重 置</button>' +
+            '<button class="layui-btn"  lay-submit="" lay-filter="save" id="save">保 存</button>\n' +
+            ' <div class="layui-inline">\n' +
+            '      <label class="layui-form-label">测试数量</label>\n' +
+            '      <div class="layui-input-inline">\n' +
+            '        <input type="text" autocomplete="off" class="layui-input">\n' +
+            '      </div>\n' +
+            '    </div>' +
+            '<button type="button" class="layui-btn layui-btn-normal"  lay-filter="test" id="test" >开始测试</button>' +
             '</div>';
 
 
