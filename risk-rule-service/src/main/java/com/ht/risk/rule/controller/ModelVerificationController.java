@@ -4,10 +4,7 @@ package com.ht.risk.rule.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ActReModel;
-import com.ht.risk.rule.entity.ModelRelease;
 import com.ht.risk.rule.service.ActReModelService;
-import com.ht.risk.rule.service.ModelReleaseService;
-import com.ht.risk.rule.util.StringUtil;
 import com.ht.risk.rule.vo.ModelVerficationVo;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -33,18 +30,16 @@ import java.util.List;
 @RequestMapping("/verification")
 public class ModelVerificationController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ModelDeployController.class);
-    @Resource
-    private ModelReleaseService modelReleaseService;
+    /*private static final Logger LOGGER = LoggerFactory.getLogger(ModelDeployController.class);
     @Autowired
     private ActReModelService actReModelService;
 
-    /**
+    *//**
      *  查询待验证的模型信息
      * @param page
      * @param modelRelease
      * @return
-     */
+     *//*
     @GetMapping("page")
     public Result<Page<ModelRelease>> waitVerficationModelForPage(Page<ModelRelease> page,ModelRelease modelRelease){
         LOGGER.info("查询模型待验证分页信息开始");
@@ -64,10 +59,10 @@ public class ModelVerificationController {
     }
 
 
-    /**
+    *//**
      * 创建模型验证批次
      * @return
-     */
+     *//*
     @RequestMapping("createBatch")
     public Result createVerficationModelBatch(ModelRelease modelRelease){
         LOGGER.info("创建模型验证批次开始");
@@ -86,10 +81,10 @@ public class ModelVerificationController {
         return result;
     }
 
-    /**
+    *//**
      * 模型验证通过
      * @return
-     */
+     *//*
     @RequestMapping("pass")
     public Result verficationModelPass(ModelRelease modelRelease){
         LOGGER.info("创建模型验证批次开始");
@@ -110,11 +105,11 @@ public class ModelVerificationController {
         return result;
     }
 
-    /**
+    *//**
      *  发起模型版本发布流程审批
      * @param modelRelease
      * @return
-     */
+     *//*
     @RequestMapping("startProcess")
     public Result startProcess(ModelRelease modelRelease){
         LOGGER.info("启动模型发布审批开始");
@@ -124,11 +119,11 @@ public class ModelVerificationController {
         return result;
     }
 
-    /**
+    *//**
      *  模型正式发布版本
      * @param modelRelease
      * @return
-     */
+     *//*
     @RequestMapping("release")
     public Result modelRelease(ModelRelease modelRelease){
         LOGGER.info("模型正式发布版本开始");
@@ -138,11 +133,11 @@ public class ModelVerificationController {
         return result;
     }
 
-    /**
+    *//**
      * 查询模型相关的变量
      * @param modelRelease
      * @return
-     */
+     *//*
     @RequestMapping("queryModelVariable")
     public Result queryModelVariable(ModelRelease modelRelease){
         LOGGER.info("查询模型相关的变量开始");
@@ -151,6 +146,6 @@ public class ModelVerificationController {
         result = Result.success(verficationVo);
         LOGGER.info("查询模型相关的变量结束");
         return result;
-    }
+    }*/
 
 }

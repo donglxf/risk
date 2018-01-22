@@ -29,10 +29,5 @@ public class HomeController {
         return "main";
     }
 
-    @RequestMapping(value = "/modelDetail",method = RequestMethod.GET)
-    public String model(Model model,@RequestParam String modelId){
-        model.addAttribute("modelId",modelId);
-        return "modeler";
-    }
 
 }

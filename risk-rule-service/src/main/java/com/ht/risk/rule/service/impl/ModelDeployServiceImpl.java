@@ -4,15 +4,12 @@ import com.ht.risk.api.model.activiti.RpcDeployResult;
 import com.ht.risk.api.model.activiti.ModelParamter;
 import com.ht.risk.api.model.activiti.RpcSenceInfo;
 import com.ht.risk.common.result.Result;
-import com.ht.risk.rule.entity.ModelRelease;
 import com.ht.risk.rule.entity.ModelSence;
 import com.ht.risk.rule.entity.SceneVersion;
 import com.ht.risk.rule.rpc.ActivitiConfigRpc;
 import com.ht.risk.rule.service.ModelDeployService;
-import com.ht.risk.rule.service.ModelReleaseService;
 import com.ht.risk.rule.service.ModelSenceService;
 import com.ht.risk.rule.service.SceneVersionService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,8 +24,6 @@ public class ModelDeployServiceImpl implements ModelDeployService {
     private ActivitiConfigRpc activitiConfigRpc;
     @Resource
     private ModelSenceService senceService;
-    @Resource
-    private ModelReleaseService modelReleaseService;
     @Resource
     private SceneVersionService sceneVersionService;
 
@@ -53,7 +48,7 @@ public class ModelDeployServiceImpl implements ModelDeployService {
                 //TODO 操作用户设置
                 sence.setCreateUser("Robot");
                 sceneVersionId = getSenceVersionId(rpcSence.getSenceCode(),rpcSence.getSenceVersion());
-                if(sceneVersionId != null){
+                if(sceneVersionId == null){
                     //continue;
                     sceneVersionId = 120022L;
                 }
