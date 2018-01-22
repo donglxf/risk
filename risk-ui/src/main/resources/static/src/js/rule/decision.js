@@ -150,6 +150,13 @@ layui.define(['layer','form','laytpl'], function (exports) {
                  $(t).parent().remove();
 
              },
+        /**
+         * 删除某一条件
+         */
+        deleteAc:function (t) {
+            $(t).parent().parent().remove();
+
+        },
             /**
              * 删除当前行
              * @param t
@@ -165,9 +172,15 @@ layui.define(['layer','form','laytpl'], function (exports) {
                 sceneUtil.showAddAndDelete();
             }
             ,
+        deleteSceneRow: function (t) {
+            var tr = $(t).parent().parent().parent();
+            $(t).parent().parent().parent().remove();
+        }
+        ,
 
 
-            /**
+
+        /**
              * 添加条件列
              */
             addCol: function () {
@@ -314,13 +327,21 @@ layui.define(['layer','form','laytpl'], function (exports) {
          * @param t
          */
         addActionLi:function (t) {
-            var h =   $(t).parent().find("ul li:last").html();
+            var h =  ' <a href="#" class="actionType" data-value="">请选择动作 &nbsp; </a>\n' +
+                '                        <div class="param">\n' +
+                '                        </div>\n' +
+                '                        <div class="actionBar">\n' +
+                '                            <a href="javascript:void(0); " title="添加" class="addAct"\n' +
+                '                               onclick="sceneUtil.addActionLi(this)"> <i\n' +
+                '                                    class="layui-icon">&#xe654;</i></a>\n' +
+                '                            <a href="javascript:void(0); " class="deleteCon" title="删除该动作" onclick="sceneUtil.deleteAc(this)"> <i\n' +
+                '                                    class="layui-icon">&#x1006;</i></a>\n' +
+                '                        </div>';
             var li = '<li>'+h+'</li>';
-            $(t).parent().find("ul").append(li);
-
-            //sceneUtil.gradeInit();
+            $(t).parent().after(li);
+            //设置点击事件
+            sceneUtil.actionInit( $(t).parent().next());
         },
-
             /*
              *值的编辑初始化 .val -> $('.val')
              */
@@ -361,6 +382,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     shadeClose: true, // 点击遮罩关闭层
                     area: ['450px', '400px'],
                     content: html,
+                    btn: ['完成'],
                     shade:0.1,
                     success: function (layero, index) {
                         if(type == 1){
@@ -501,7 +523,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     form.render('select');
                 },'json');
             }else{
-                var result = {list : sceneUtil.entityImport
+                var result = {list : sceneUtil.actionImport
                 }
                 var getTpl = actionTableTps.innerHTML
                     ,view = document.getElementById('actionSelectId');
@@ -626,6 +648,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
                         '            </li>';
                     $("#entityUiDiv").append(h);
             });
+            form.render('select');
         },
         /**
          *初始化动作库
@@ -647,6 +670,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
                         '            </li>';
                     $("#actionUiDiv").append(h);
             });
+            form.render('select');
         },
         /**
          * 删除某实体类元素
@@ -763,6 +787,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
             actionParamData:[],
             paramValue:-1,
             paramVaEntityBack:function (a_obj) {
+                $(a_obj).editable('destroy');
                 //新方法
                 $(a_obj).submenu({
                     data: sceneUtil.data.entitysBank,
@@ -811,9 +836,14 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     callback: function (obj, value) {
                         $(actionValA).editable('destroy');
                         if(value == 1){
+                            //清除原来的事件
+                            $(actionValA).unbind("click");
+                            //加载新的
                             sceneUtil.bandOneValInit( $(actionValA));
+                            $(actionValA).addClass("actionVal");
                             $(actionValA).attr("data-value","");
                             $(actionValA).text("请输入");
+
                         }else{
                             $(actionValA).attr("data-value","");
                             $(actionValA).text("请选择变量");
@@ -1022,19 +1052,58 @@ layui.define(['layer','form','laytpl'], function (exports) {
                 });
             },
         sceneTrInit:function (tr) {
-          alert("no ");
+            //绑定删除按钮
+            $(tr).find("td ul li").hover(function () {
+                $(this).find(".deleteCon").show();
+                $(this).find(".addAct").show();
+            },function () {
+                $(this).find(".deleteCon").hide();
+                $(this).find(".addAct").hide();
+            });
+            //绑定条件输入值得输入方式
+            sceneUtil.bandOneValInit(  $(tr).find('.val'));
+            sceneUtil.bandOneValInit( $(tr).find('.groupName'));
+            //绑定动作值得输入框
+            sceneUtil.bandOneValInit( $(tr).find('.actionVal'));
+            //选变量绑定
+            //动作输入选框绑定
+           $(tr).find("td ul li div.param a.actionEntity").each(function () {
+                sceneUtil.actionParam.paramVaEntityBack(this);
+            });
+            //条件绑定
+            sceneUtil.bandSelectValInit_condition($(tr).find(".con"),sceneUtil.data.condition,"选择条件");
+            //实体对象绑定
+            sceneUtil.bandSelectValInit_entity($(tr).find(".entityC"),sceneUtil.data.entitysBank,"选择对象");
+            //绑定所有的变量
+            $(tr).find(".entityC").each(function(){
+                var entitys = sceneUtil.data.entitysBank;
+                var entityId = $(this).data("value");
+                var iid = $(this).next().data("value");
+                sceneUtil.bandSelectValInit_item(this,entitys,entityId);
+                //绑定所有常量
+                var items = [];
+                for(var i=0;i<entitys.length;i++){
+                    var enid = entitys[i].value;
+                    if(enid == entityId){
+                        items = entitys[i].sons;
+                        break;
+                    }
+                }
+                sceneUtil.bandSelectValInit_constants(this,items,iid);
+            });
         },
         /**
          * 初始化方法
          */
         gradeTrInit: function(tr) {
             // headItem();
-
+            //绑定添加按钮
             $(tr).find("td.index").hover(function () {
                 $(this).find(".addTypeTr").show();
             },function () {
                 $(this).find(".addTypeTr").hide();
             });
+            //绑定删除按钮
             $(tr).find("td ul li").hover(function () {
                 var groupNameO =  $(this).parent().parent().prev().find(".groupName");
                 var display = $(groupNameO).parent().parent().css('display');
@@ -1060,6 +1129,9 @@ layui.define(['layer','form','laytpl'], function (exports) {
             //绑定条件输入值得输入方式
             sceneUtil.bandOneValInit(  $(tr).find('.val'));
             sceneUtil.bandOneValInit( $(tr).find('.groupName'));
+
+            //绑定动作
+            sceneUtil.bandSelectValInit_action($(li).find(".actionType"),sceneUtil.data.actionBank,"选择动作");
             //绑定动作值得输入框
             sceneUtil.bandOneValInit( $(tr).find('.actionVal'));
             //条件绑定
@@ -1091,6 +1163,54 @@ layui.define(['layer','form','laytpl'], function (exports) {
         conditionInit:function (li) {
             //条件绑定
             sceneUtil.bandSelectValInit_condition($(li).find(".con"),sceneUtil.data.condition,"选择条件");
+            //实体对象绑定
+            sceneUtil.bandSelectValInit_entity($(li).find(".entityC"),sceneUtil.data.entitysBank,"选择对象");
+            //绑定删除按钮
+            $(li).hover(function () {
+                if($(this).index() > 0){
+                    //判断是否是第一条
+                    $(this).find(".deleteCon").show();
+                }
+            },function () {
+                $(this).find(".deleteCon").hide();
+            });
+
+            //绑定所有的变量
+            $(li).find(".entityC").each(function(){
+                var entitys = sceneUtil.data.entitysBank;
+                var entityId = $(this).data("value");
+                var iid = $(this).next().data("value");
+                sceneUtil.bandSelectValInit_item(this,entitys,entityId);
+                //绑定所有常量
+                var items = [];
+                for(var i=0;i<entitys.length;i++){
+                    var enid = entitys[i].value;
+                    if(enid == entityId){
+                        items = entitys[i].sons;
+                        break;
+                    }
+                }
+                sceneUtil.bandSelectValInit_constants(this,items,iid);
+            });
+        },
+        /**
+         * 新增条件初始化
+         * @param li
+         */
+        actionInit:function (li) {
+              //绑定删除按钮，绑定添加按钮
+            $(li).hover(function () {
+                $(this).find(".deleteCon").show();
+                $(this).find(".addAct").show();
+            },function () {
+                $(this).find(".deleteCon").hide();
+                $(this).find(".addAct").hide();
+            });
+            //选择动作绑定
+            //绑定动作
+            sceneUtil.bandSelectValInit_action($(li).find(".actionType"),sceneUtil.data.actionBank,"选择动作");
+            //手动输入值绑定
+            sceneUtil.bandOneValInit( $(li).find('.actionVal'));
             //实体对象绑定
             sceneUtil.bandSelectValInit_entity($(li).find(".entityC"),sceneUtil.data.entitysBank,"选择对象");
             //绑定所有的变量
@@ -1129,6 +1249,11 @@ layui.define(['layer','form','laytpl'], function (exports) {
             sceneUtil.bandSelectValInit_action($(".actionType"),sceneUtil.data.actionBank,"选择动作");
             //绑定动作值得输入框
             sceneUtil.bandOneValInit( $('.actionVal'));
+            //动作输入选框绑定
+            $("#table tbody tr td ul li div.param a.actionEntity").each(function () {
+                sceneUtil.actionParam.paramVaEntityBack(this);
+            });
+
             //条件绑定
             sceneUtil.bandSelectValInit_condition($(".con"),sceneUtil.data.condition,"选择条件");
             //实体对象绑定
@@ -1213,23 +1338,6 @@ layui.define(['layer','form','laytpl'], function (exports) {
                        // }
                 }
 
-            },
-            /**
-             * 获取变量列表
-             */
-            headItem: function () {
-                itemVals = [];
-                itemTexts = [];
-                $("#table>thead>tr>th a.itemC").each(function () {
-                    itemVals.push($(this).data('value'));
-                    itemTexts.push($(this).text());
-                });
-                $("#table>thead>tr>th a.entityC").each(function () {
-                    entityIds.push($(this).attr('data-value'));
-                });
-
-
-                return itemVals;
             },
             getGradeRuleData: function () {
                 var subForms = [];
@@ -1319,10 +1427,14 @@ layui.define(['layer','form','laytpl'], function (exports) {
                 });
                 sceneUtil.sub.gradeForm = subForms;
             },
+        /**
+         * 决策规则数据统一获取
+         */
         getSceneRuleData: function () {
-            var len = itemVals.length;
+
             var subForms = [];
-            var headLen = $("#table>thead>tr>th").length;
+            //统一权值设置
+            sceneUtil.data.itemsBank = [];
             $("#table>tbody>tr").each(function () {
                 subForm = {
                     //权值
@@ -1334,55 +1446,65 @@ layui.define(['layer','form','laytpl'], function (exports) {
                 }
                 var conditionInfos = [];
                 var actionInfos = [];
-                $(this).find("td").each(function (i, e) {
-                    //获取条件体
-                    if (i < len) {
-                        //拼条件 的变量 ，运算符 ，值
-                        var itemv = itemVals[i];
-                        var itemText = itemTexts[i];
+                //拼条件
+                var conTd = $(this).find("td").eq(0);
+                $(conTd).find("ul li").each(function(i,e){
+                    //拼条件 的变量 ，运算符 ，值
+                    var entityv = $(e).find("a.entityC").attr("data-value");
+                    var entityText = $(e).find("a.entityC").text();
+                    var itemv = $(e).find("a.itemC").attr("data-value");
+                    var itemText = $(e).find("a.itemC").text();
 
-                        var ysf = $(e).find("a.con").attr("data-value");
-                        var ysfText = $(e).find("a.con").text();
-                        var val = $(e).find("a.val").attr("data-value");
-                        if (val == '' || ysf == '' || itemv == '') {
-                            layer.msg('必选项不能为空');
-                            sceneUtil.flag = false;
-                            return ;
-                        }
-                        var conditionInfo = {
-                            conditionExpression: '$' + itemv + '$' + '' + ysf + '' + val,
-                            conditionDesc: '$' + itemText + '$' + '' + ysfText + '' + val,
-                            val: val
-                        }
-                        conditionInfos.push(conditionInfo);
+                    var ysf = $(e).find("a.con").attr("data-value");
+                    var ysfText = $(e).find("a.con").text();
+                    var val = $(e).find("a.val").attr("data-value");
+                    var valText = $(e).find("a.val").text();
+                    if (val == '' || ysf == '' || itemv == '') {
+                        layer.msg('必选项不能为空');
+                        sceneUtil.flag = false;
+                        return ;
                     }
-                    //结果
-                    else if (i < headLen - 1) {
-                        var actionV = $(e).find("a.actionVal").attr("data-value");
-                        var actionType = $(e).find("a.actionType").attr("data-value");
-                        if (actionV == '') {
-                            layer.msg('必选项不能为空');
-                            return null;
-                        }
-                        var actionValInfo = {
-                            //动作id参数Id
-                            actionParamId: actionType,
-                            //值
-                            paramValue: actionV
-                        };
-                        actionInfos.push(actionValInfo);
+                    var conditionInfo = {
+                        conditionExpression: '$' + itemv + '$' + '' + ysf + '' + val,
+                        conditionDesc: '$' + entityText + ':'+ itemText+ '$' + ysfText + '' + valText,
+                        val: valText
                     }
-
+                    conditionInfos.push(conditionInfo);
+                    //使用了那些变量，重新赋值了
+                    sceneUtil.addTtemsBank(itemv);
+                });
+                //拼动作
+                var actionTd = $(this).find("td").eq(1);
+                $(actionTd).find("ul li div.param a").each(function(i,e){
+                    //拼动作参数，参数值
+                    var paramId = $(e).attr("paramid");
+                    var val = $(e).attr("data-value");
+                    var text = $(e).text();
+                    //参数为变量值
+                    if($(e).hasClass("actionEntity")){
+                        val = '#'+$(e).attr("data-key")+'#';
+                    }
+                    if (val == '' || text == '' || paramId == '') {
+                        layer.msg('必选项不能为空');
+                        sceneUtil.flag = false;
+                        return ;
+                    }
+                    var actionValInfo = {
+                        //动作id参数Id
+                        actionParamId: paramId,
+                        //值
+                        paramValue: val,
+                        paramText:text
+                    };
+                    //使用了那些变量，重新赋值了
+                    actionInfos.push(actionValInfo);
                 });
                 subForm.conditionInfos = conditionInfos;
                 subForm.actionInfos = actionInfos;
                 subForms.push(subForm);
             });
-
-            return subForms;
+            sceneUtil.sub.gradeForm = subForms;
         },
-
-
             /**
              * 提交数据
              */
@@ -1450,6 +1572,75 @@ layui.define(['layer','form','laytpl'], function (exports) {
                 });
 
             },
+        /**
+         * 提交数据 决策
+         */
+        subScene: function () {
+
+            sceneUtil.getSceneRuleData();
+            if(!sceneUtil.flag){
+                layer.msg("请检查有必填项没填");
+                return;
+            }
+            if (sceneUtil.sceneId == '') {
+                layer.msg("必须选中一个场景哦");
+                return;
+            }
+            var iindex =  layer.msg('提交中..', {icon: 16,time:5000});
+            //实体类对象拼接
+            var entityIds = [];
+            for(var i=0;i < sceneUtil.data.entitysBank.length;i++){
+                entityIds.push(sceneUtil.data.entitysBank[i].value);
+            }
+            var form = {
+                //场景id
+                sceneId: sceneUtil.sceneId,
+                //变量集合
+                itemVals: sceneUtil.data.itemsBank,
+                //实体类集合
+                entityIds: entityIds,
+                //条件 和结果集
+                vos: sceneUtil.sub.gradeForm
+            }
+            //转json
+            var str = JSON.stringify(form);
+            //console.log(str);
+            $.ajax({
+                type: "POST",
+                url: "/rule/service/rule/save",
+                data: str,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (message) {
+                    layer.close(iindex);
+                    console.log(message);
+                    if (message.code == '') {
+
+                        if(sceneUtil.subType == 2){
+                            layer.msg('恭喜保存成功,是否关闭页面？', {
+                                time: 10000, //20s后自动关闭
+                                btn: ['好的', '不关闭'],
+                                icon: 1,
+                                yes: function(ii){
+                                    layer.close(ii);
+                                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                    parent.layer.close(index); //再执行关闭
+                               },
+                                no:function (iii) {
+                                    layer.close(iii);
+                                }
+                            });
+                        }else{
+                            layer.msg("恭喜保存成功",{time:1000});
+                        }
+                    }
+                },
+                error: function (message) {
+                    $("#request-process-patent").html("提交数据失败！");
+                }
+            });
+
+        },
 
         }
     ;

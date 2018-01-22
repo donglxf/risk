@@ -91,6 +91,7 @@ public class EntityInfoController {
             EntitySelectVo vo = new EntitySelectVo();
             vo.setValue(info.getEntityId().toString());
             vo.setText(info.getEntityName());
+            vo.setKey(info.getEntityIdentify());
             //设置子集
             List<EntitySelectVo> sons = new ArrayList<>();
             List<EntityItemInfo> itemInfos = info.getItems();
@@ -100,6 +101,7 @@ public class EntityInfoController {
 
                 itemvo.setValue(item.getItemId().toString());
                 itemvo.setText(item.getItemName());
+                itemvo.setKey(item.getItemIdentify());
                 //设置常量子集
                 itemvo  = constantInfoService.setItemConstants(itemvo,item);
                 sons.add(itemvo);
@@ -121,6 +123,7 @@ public class EntityInfoController {
             EntitySelectVo vo = new EntitySelectVo();
             vo.setValue(info.getEntityId().toString());
             vo.setText(info.getEntityName());
+            vo.setKey(info.getEntityIdentify());
             //设置子集
             List<EntitySelectVo> sons = new ArrayList<>();
             List<EntityItemInfo> itemInfos = info.getItems();
@@ -130,6 +133,7 @@ public class EntityInfoController {
 
                 itemvo.setValue(item.getItemId().toString());
                 itemvo.setText(item.getItemName());
+                itemvo.setKey(item.getItemIdentify());
                 //设置常量子集
                 itemvo  = constantInfoService.setItemConstants(itemvo,item);
                 sons.add(itemvo);

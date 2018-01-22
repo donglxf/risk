@@ -9,6 +9,7 @@ import com.ht.risk.rule.mapper.ActionParamValueInfoMapper;
 import com.ht.risk.rule.mapper.ActionRuleRelMapper;
 import com.ht.risk.rule.service.ActionRuleRelService;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,18 @@ public class ActionRuleRelServiceImpl extends BaseServiceImpl<ActionRuleRelMappe
             Wrapper<ActionParamValueInfo> wrapper = new EntityWrapper<>();
             wrapper.eq("rule_action_rel_id",rel.getRuleActionRelId());
             List<ActionParamValueInfo> vals = actionParamValueInfoMapper.selectList(wrapper);
+            vals.forEach(val ->{
+                if( val.getParamValue().indexOf("#") >= 0){
+                    val.setClazz("actionEntity");
+                    val.getParamValue().replaceAll("#","");
+                }else{
+                    val.setClazz("actionVal");
+                }
+
+                if(StringUtils.isBlank(val.getParamText())){
+                    val.setParamText(val.getParamValue());
+                }
+            });
             actionInfo.setParamValueInfoList(vals);
         }
         return  rels;

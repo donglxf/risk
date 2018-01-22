@@ -296,7 +296,7 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
             title: '定义规则',
             maxmin: false,
             shadeClose: false, // 点击遮罩关闭层
-            area: ['780px', '560px'],
+            area: ['780px', '85%'],
             content: url,
             //skin: 'layui-layer-rim', //加上边框
             success: function(layero, index){
@@ -332,6 +332,8 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
                 $("input[name='ruleDiv']").val($("#tableView").html());
                 if(type == 2){
                     sceneUtil.rowspan4grade();
+                }else{
+
                 }
             }else{
                 $("#table").html('');
