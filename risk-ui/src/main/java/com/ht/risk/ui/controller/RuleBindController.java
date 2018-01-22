@@ -11,20 +11,33 @@ public class RuleBindController {
 	/**
 	 * 变量绑定
 	* @Title: unDeployList
-	* @Description: TODO(这里用一句话描述这个方法的作用)
+	* @Description: 决策变量绑定首页
 	* @param @return    设定文件
 	* @return String    返回类型
 	* @throws
 	 */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
-    public String unDeployList(){
+    public String bindDeployList(){
         return "rule/bind/bindList";
+    }
+
+    /**
+     * 变量绑定
+     * @Title: unDeployList
+     * @Description: 决策变量绑定首页
+     * @param @return    设定文件
+     * @return String    返回类型
+     * @throws
+     */
+    @RequestMapping(value = "/index/edit",method = RequestMethod.GET)
+    public String unDeployList(){
+        return "rule/bind/bindListEdit";
     }
 
     /**
      * 规则验证首页
     * @Title: deployList
-    * @Description: TODO(这里用一句话描述这个方法的作用)
+    * @Description: 决策验证首页
     * @param @return    设定文件
     * @return String    返回类型
     * @throws

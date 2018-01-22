@@ -32,7 +32,7 @@ public class RuleHisVersion extends Model<RuleHisVersion> {
     /**
      * 決策版本流水
      */
-	@TableField("SENCE_VERSIONID")
+	@TableField("SENCE_VERSION_ID")
 	@ApiModelProperty(required= true,value = "決策版本流水")
 	private Long senceVersionId;
     /**

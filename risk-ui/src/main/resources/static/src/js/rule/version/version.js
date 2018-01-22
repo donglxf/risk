@@ -13,7 +13,7 @@ var  sceneLeft = {
     uiUrl :"/rule/ui/rule/decision/scene/gradeCardEdit",
     entity: "sceneList",
     tableId: "sceneList",
-    toolbarId: "#bar",
+    toolbarId: "#toolbar_left",
     unique: "id",
     order: "asc",
     currentItem: {}
@@ -35,15 +35,21 @@ sceneLeft.cols = function () {
             event: 'setItem',
             title: '类型',
             width:120,
-            templet: '#typeTpl'}
-        ,{field: 'sceneId',
+            templet: '#typeTpl'},
+        {field: 'sceneId2',
+            title: '规则定义',
+            event: 'setItem',
+            align:'center',
+            width:120,
+            toolbar: "#bar_rule_defined"
+        },
+        {field: 'sceneId',
             title: '操作',
             fixed: 'right',
             event: 'setItem',
             align:'center',sort: true,
-            width:130,
-            toolbar: sceneLeft.toolbarId
-        }
+            width:200,
+            toolbar: sceneLeft.toolbarId}
     ];
 };
 
@@ -71,20 +77,27 @@ scene.cols = function () {
             align:'center',
             title: '版本标题'}
         ,
-        {field: 'comment',
+       /* {field: 'comment',
             align:'center',
             title: '版本描述'}
-        ,
+        ,*/
         {field: 'creTime',
             align:'center',
             width:180,
             title: '创建时间',sort: true
            }
         ,
+       /* {field: 'type',
+            align:'center',
+            width:100,
+            title: '版本类型',sort: true,
+            templet: '#versionTypeTpl'
+        } ,
+
         {field: 'creUserId',
             align:'center',
             title: '创建用户'}
-        ,
+        ,*/
         {field: 'status',
             align:'center',
             title: '状态',
@@ -102,12 +115,16 @@ scene.cols = function () {
     ];
 };
 var layer,sceneTable,table,active,leftActive,leftTable;
-var sceneId,$ ;
+var sceneId,sceneType,$ ;
 var layerTopIndex;
-
-layui.use(['table','form','laytpl'], function() {
+layui.config({
+    base: '/rule/ui/src/js/rule/' //假设这是你存放拓展模块的根目录
+}).extend({ //设定模块别名
+    sceneUtil: 'decision.js?v=22232' //如果 mymod.js 是在根目录，也可以不用设定别名
+});
+layui.use(['table','form','laytpl','sceneUtil'], function() {
     var laytpl = layui.laytpl;
-
+    var sceneUtil = layui.sceneUtil;
     sceneTable = layui.table;
     leftTable = layui.table;
     var app = layui.app,
@@ -238,12 +255,11 @@ layui.use(['table','form','laytpl'], function() {
     //监听工具条
     leftTable.on('tool('+sceneLeft.tableId+')', function (obj) {
         var data = obj.data;
-        console.log(obj);
         if (obj.event === 'detail') {
             layer.msg('ID：' + data.id + ' 的查看操作');
         } else if (obj.event === 'del') {
             layer.confirm('真的删除行么', function (index) {
-                $.get(scene.baseUrl + 'delete/' + data.sceneId, function (data) {
+                $.get(sceneLeft.baseUrl + 'delete/' + data.sceneId, function (data) {
                     layer.msg("删除成功！");
                     obj.del();
                     layer.close(index);
@@ -251,21 +267,59 @@ layui.use(['table','form','laytpl'], function() {
             });
         } else if (obj.event === 'push') {
             push(data.sceneId,data.sceneType);
+        }else if(obj.event === 'rule_defined'){
+            ruleDefind(data.sceneId,data.sceneType);
+
+        }else if(obj.event === 'edit'){
+            sceneId = id;
+            sceneEdit(data.sceneId,data.sceneType);
         }else if (obj.event === 'setItem') {
             //选择实体对象的id
             sceneId = data.sceneId;
-
             active.reload();
             //itemActive.reload(data.sceneId);
         }
     });
 
+    /**
+     * 编辑规则列表
+     * @param sceneId
+     */
+    function ruleDefind(sceneId,type){
+        var url = "/rule/ui/src/html/decision/gradeCard_edit.html";
+        if(type == 1){
+            url = "/rule/ui/src/html/decision/scene_edit.html";
+        }
+        sceneType = type;
+        layer.open({
+            type: 2,
+            title: '定义规则',
+            maxmin: false,
+            shadeClose: false, // 点击遮罩关闭层
+            area: ['780px', '560px'],
+            content: url,
+            //skin: 'layui-layer-rim', //加上边框
+            success: function(layero, index){
+                var  body = layer.getChildFrame('body', index);
+                //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+               // var iframeWin = window[layero.find('iframe')[0]['name']];
+                //执行初始化方法
+                sceneId = sceneId;
+            }
+        });
+    }
+    /**
+     * 得到规则查看列表
+     * @param sceneId
+     * @param type
+     */
     function getRuleData(sceneId,type) {
         var url = type == 2 ? 'getGradeCardAll':'getAll';
         $.get('/rule/service/rule/'+url,{'sceneId':sceneId},function(data){
             if(data.code == '0'){
                 var result = data.data;
                 var getTpl = tableTp1.innerHTML
+                //评分卡
                 if(type == '2'){
                     getTpl = tableTp2.innerHTML
                 }
@@ -276,6 +330,9 @@ layui.use(['table','form','laytpl'], function() {
                 //设置值了
                 $("input[name='sceneId']").val(sceneId);
                 $("input[name='ruleDiv']").val($("#tableView").html());
+                if(type == 2){
+                    sceneUtil.rowspan4grade();
+                }
             }else{
                 $("#table").html('');
             }
@@ -288,6 +345,7 @@ layui.use(['table','form','laytpl'], function() {
      * @param result
      */
     function save(url, result,id,type) {
+
         $.get(url, function (form) {
           layer.open({
                 type: 1,
@@ -299,24 +357,21 @@ layui.use(['table','form','laytpl'], function() {
                 btnAlign: 'c',
                 btn: ['保存', '取消'],
                 success: function (layero, index) {
-
                     //设置table内容页
                     getRuleData(id,type);
-
                     var rule_div = $("#rule_div").html();
                 }
                 , yes: function (index) {
                   layerTopIndex = index;
                     //触发表单的提交事件
                     $('form.layui-form').find('button[lay-filter=formDemo]').click();
-
-
                 },
             });
         });
     }
     //发布
     function push(id,type) {
+        sceneId = id;
         //询问框
         var index =  layer.confirm('您确定要发布新的测试版吗？', {
             btn: ['确定','取消'] //按钮
@@ -331,4 +386,54 @@ layui.use(['table','form','laytpl'], function() {
         }, function(){
         });
     }
+
+    /**
+     * 公共方法：保存
+     * @param url
+     * @param result
+     */
+    function sceneSave(url, result) {
+        $.get(url, function (form) {
+            layerTopIndex = layer.open({
+                type: 1,
+                title: '保存信息',
+                maxmin: true,
+                shadeClose: false, // 点击遮罩关闭层
+                area: ['550px', '460px'],
+                content: form,
+                btnAlign: 'c',
+                btn: ['保存', '取消'],
+                success: function (layero, index) {
+                    setFromValues(layero, result);
+                }
+                , yes: function (index) {
+                    //触发表单的提交事件
+                    $('form.layui-form').find('button[lay-filter=formDemo]').click();
+                    // layer.close(index);
+                },
+            });
+        });
+    }
+    //新增评分卡
+    $("#grade_btn_add").click(function(){
+        sceneSave("/rule/ui/rule/decision/scene/gradeCardEdit", null);
+
+    });
+    //新增评分卡
+    $("#scene_btn_add").click(function(){
+        sceneSave("/rule/ui/rule/decision/scene/edit", null);
+    });
+    //修改
+    function sceneEdit(id,type) {
+        $.get("/rule/service/sceneInfo/" + "getInfoById/" + id, function (data) {
+            var result = data.data;
+            if(type == 1){
+                sceneSave("/rule/ui/rule/decision/scene/edit", result);
+            }else{
+                sceneSave("/rule/ui/rule/decision/scene/gradeCardEdit", result);
+            }
+
+        }, 'json')
+    }
+
 });

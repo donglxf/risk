@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.SceneVersion">
         <id column="version_id" property="versionId" />
         <result column="version" property="version" />
+        <result column="official_version" property="officialVersion" />
         <result column="type" property="type" />
         <result column="title" property="title" />
         <result column="comment" property="comment" />
@@ -16,13 +17,15 @@
         <result column="rule_drl" property="ruleDrl" />
         <result column="status" property="status" />
         <result column="scene_identify" property="sceneIdentify" />
-
-
+        <result column="test_status" property="testStatus" />
+        <result column="business_type" property="businessType" />
+        <result column="business_line" property="businessLine" />
+        <result column="is_bind_var" property="isBindVar" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        version_id AS versionId, status,version,scene_identify AS sceneIdentify, type, title, comment, scene_id AS sceneId, cre_time AS creTime, cre_user_id AS creUserId, rule_div AS ruleDiv, rule_drl AS ruleDrl
+        version_id AS versionId, version, official_version AS officialVersion, type, title, comment, scene_identify AS sceneIdentify, scene_id AS sceneId, cre_time AS creTime, cre_user_id AS creUserId, rule_div AS ruleDiv, rule_drl AS ruleDrl, status, test_status AS testStatus, business_type AS businessType, business_line AS businessLine, is_bind_var AS isBindVar
     </sql>
 
 	<select id="getNoBindVariableRecord" parameterType="com.ht.risk.rule.entity.SceneVersion"

@@ -4,7 +4,11 @@ import com.ht.risk.rule.entity.RuleHisVersion;
 import com.ht.risk.rule.mapper.RuleHisVersionMapper;
 import com.ht.risk.rule.service.RuleHisVersionService;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
+import com.ht.risk.rule.vo.RuleHisVersionVo;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -17,4 +21,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class RuleHisVersionServiceImpl extends BaseServiceImpl<RuleHisVersionMapper, RuleHisVersion> implements RuleHisVersionService {
 
+    public RuleHisVersionMapper ruleHisVersionMapper;
+
+    @Override
+    public List<RuleHisVersionVo> getRuleValidationResult(Map<String, Object> paramMap) {
+        return ruleHisVersionMapper.getRuleValidationResult(paramMap);
+    }
 }

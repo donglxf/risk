@@ -14,7 +14,7 @@
 
 	<div class="admin-main">
 		<div class="layui-row" style="margin-top: 10px;">
-			<div class="layui-col-xs6">
+			<div class="">
 				<form class="layui-form layui-form-pane"
 					onsubmit="javascript:return false;">
 					<div class="layui-form-item" style="margin-bottom: 0px;">
@@ -39,7 +39,7 @@
 				<table id="demo" lay-filter="entityTable"></table>
 			</div>
 
-			<div class="layui-col-xs6" style="display: none;" id="bind">
+			<!--<div class="layui-col-xs6" style="display: none;" id="bind">
 				<form class="layui-form" action="" lay-filter="test1">
 					<input type="hidden" name="senceVersionid" id="senceVersionid">
 					<input type="hidden" name="variableName" id="variableName">
@@ -74,7 +74,7 @@
 						</div>
 					</div>
 				</form>
-			</div>
+			</div>-->
 
 
 		</div>
@@ -107,7 +107,7 @@
 </script>
 	<!--操作-->
 	<script type="text/html" id="bar">
-    <button class="layui-btn layui-btn-sm" lay-event="setItem" >
+    <button class="layui-btn layui-btn-sm" lay-event="bind" >
         <i class="layui-icon">绑定</i>
     </button>
 </script>
@@ -154,9 +154,6 @@
                 success : function(da) {
                     if (da.code == 0) {
                         layer.msg('保存数据成功');
-                        //这里以搜索为例
-                      //  var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
-                      // layer.closeAll();
                        active.reload();
                     } else {
                        layer.msg(data.msg);

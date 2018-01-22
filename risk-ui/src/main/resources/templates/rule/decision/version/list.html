@@ -10,7 +10,10 @@
             margin-top: 10px;
             margin-left: 10px;
         }
-
+        .layui-table-cell {
+            height: 32px;
+            line-height:32px;
+        }
         #table{
             width: inherit;
             margin: 0 auto;
@@ -23,7 +26,9 @@
         #table tr td:last-child{
             display: none;}
 
-
+        .layui-table td, .layui-table th {
+            text-align: center;
+        }
         #table .con{
             color: #1e9fff;
         }
@@ -40,7 +45,38 @@
         .layui-table .select {
             background-color: #d2d2d2;
         }
-        .del {display: none}
+        .del,.addTypeTr,.reGroupName,.deleteCon,.addCon {display: none}
+        ul {
+            margin-bottom: 0px;
+        }
+        ul.con_ul li{
+            margin-bottom: 3px;
+        }
+        td.index a.addTypeTr{
+            position: absolute;
+            float: right;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        td a.addCon{
+            float: right;
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            color: #5fb878;
+        }
+        /*权值框*/
+        .form-group .qz{
+            height: 24px;
+            width: 100px;
+            margin: auto;
+            border-width: 0px;
+            color: yellowgreen;
+            padding: initial;
+            margin-top: 5px;
+            text-align: -webkit-center;
+        }
 
     </style>
 </head>
@@ -48,7 +84,7 @@
 
 
 <div class="admin-main">
-    <div class="layui-col-md5">
+    <div class="layui-col-md6">
         <fieldset class="layui-elem-field">
             <legend class="lay-legend">决策管理</legend>
             <div class="layui-field-box">
@@ -69,6 +105,12 @@
                     <button type="button" onclick="leftActive.reload()" id="btn_query"  class="layui-btn layui-btn">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
+                    <button  class="layui-btn  layui-btn-small" id="scene_btn_add">
+                        <i class="layui-icon">&#xe654;</i>新增决策
+                    </button>
+                    <button  class="layui-btn  layui-btn-small" id="grade_btn_add">
+                        <i class="layui-icon">&#xe654;</i>新增评分卡
+                    </button>
 
                 </div>
             </form>
@@ -77,7 +119,7 @@
         </fieldset>
     </div>
 
-    <div class="layui-col-md7">
+    <div class="layui-col-md6">
         <fieldset class="layui-elem-field">
             <legend class="lay-legend">版本记录</legend>
             <div class="layui-field-box">
@@ -109,8 +151,20 @@
 <script src="/rule/ui/plugins/layui/layui.js"></script>
 
 <script src="/rule/ui/src/js/rule/version/version.js"></script>
-<script>
+<!--操作-->
+<script type="text/html" id="toolbar_left">
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-primary layui-btn-sm" title="编辑" lay-event="edit">
+            <i class="layui-icon">&#xe642;</i>
+        </button>
+        <button class="layui-btn  layui-btn-primary layui-btn-sm" title="删除" lay-event="del">
+            <i class="layui-icon">&#xe640;</i>
+        </button>
 
+        <button class="layui-btn  layui-btn-primary layui-btn-sm" title="发布测试版" lay-event="push">
+            <i class="layui-icon">&#xe609;</i>
+        </button>
+    </div>
 </script>
 <script type="text/html"  id="statusTpl">
 
@@ -129,6 +183,15 @@
     <span style="color: #ffb800;" >评分卡</span>
     {{#  } }}
 </script>
+<script type="text/html"  id="versionTypeTpl">
+
+    {{#  if(d.type === 1){ }}
+    <span style="color: #1e9fff;" >正式版</span>
+
+    {{#  } else { }}
+    <span style="color: #ffb800;" >测试版</span>
+    {{#  } }}
+</script>
 
 <!--操作-->
 <script type="text/html" id="bar">
@@ -136,18 +199,23 @@
        发布测试版  <!--&nbsp;<i class="layui-icon">&#xe609;</i>-->
     </button>
 </script>
+<!--定义规则-->
+<script type="text/html" id="bar_rule_defined">
+    <button class="layui-btn layui-btn-sm" lay-event="rule_defined">
+       规则定义  &nbsp;<i class="layui-icon">&#xe628;</i>
+    </button>
+</script>
 
 <!--操作-->
 <script type="text/html" id="toolbar">
-    <button class="layui-btn layui-btn-sm" lay-event="ruleLook">
-        查看规则 &nbsp;<i class="layui-icon">&#xe615;</i>
+    <button class="layui-btn layui-btn-sm" title="查看规则" lay-event="ruleLook">
+         查看&nbsp;<i class="layui-icon">&#xe615;</i>
     </button>
 </script>
 <div id = "rule_div" style="display: none">
     <fieldset class="layui-elem-field">
         <legend class="lay-legend">规则详情</legend>
         <div class="layui-field-box">
-
             <table class="layui-table"   id="table">
 
             </table>
@@ -221,54 +289,67 @@
 
 <script id="tableTp2" type="text/html">
     <colgroup>
-        {{#  for (var i=0;i<d.itemHeads;i++) {  }}
-        <col width="150">
-        {{#  }  }}
-        {{#  for (var i=0;i<d.actionCounts;i++) {  }}
-        <col width="150">
-        {{#  }  }}
+        <col width="100">
+        <col width="250">
+        <col width="100">
         <col width="80px">
     </colgroup>
     <thead>
     <tr>
-        {{#  for (var i=0;i<d.itemHeads;i++) {  }}
-        <th class="contion ">
-
-            <span>条件</span>
+        <th class="index">
+            <span  ><i class="layui-icon">&#xe630;</i> 分组</span>
+        </th>
+        <th class="contion">
+            <span  ><i class="layui-icon">&#xe62d;</i>  条件</span>
+        </th>
+        <th class="th-action  "><span><i class="layui-icon">&#xe62c;</i> 得分</span>
             <a href="javascript:void(0); " class="del" onclick="deleteCol(this)"> <i
                     class="layui-icon">&#xe640;</i></a>
         </th>
-        {{#  }  }}
-        {{#  for (var i=0;i<d.actionCounts;i++) {  }}
-        <th class="th-action  ">
-            <span>动作</span>
-            <a href="javascript:void(0); " class="del" onclick="deleteCol(this)"> <i
-                    class="layui-icon">&#xe640;</i></a>
+        <th class="" >
+            <span><i class="layui-icon">&#xe631;</i></span>操作
         </th>
-
-        {{#  }  }}
-        <th class="" >操作</th>
     </tr>
     </thead>
     <tbody>
     {{#  layui.each(d.rules, function(index, rule){    }}
     <tr>
-        {{#  layui.each(rule.cons, function(i, con){    }}
-        <td>
-            <a href="#" class="entityC" data-value="{{con.itemTable.entityId}}" >{{con.itemTable.entityName}}</a>.
-            <a href="#" class="itemC" data-value="{{con.itemTable.itemId}}">{{con.itemTable.itemName}}</a> &nbsp;
-            <a href="#" data-value="{{con.ysf}}" class="con">{{con.ysfText}}</a>&nbsp;
-            {{# if(con.ysf === '===') {   }}
-            <a href="#" data-value="{{con.val}}" class="val"> </a>
-            {{#  } }}
-            {{# if(con.ysf != '===') {   }}
-            <a href="#" data-value="{{con.val}}" class="val">{{con.val}}</a>
-            {{#  } }}
+        <td class="index" data-index="{{rule.group.index}}">
+            <span >
+                <a href="#" data-value="{{rule.group.index}}" class="groupName">{{rule.group.name}}</a>
+            </span>
+            <a href="javascript:void(0); " title="添加" class="addTypeTr" onclick="sceneUtil.addTypeTr(this)"> <i
+                    class="layui-icon">&#xe61f;</i></a>
+            {{#if (rule.group.weight > 0 ){ }}
+            <div class="form-group qzdiv">
+                <input type="number" class="form-control qz" value="{{rule.group.weight}}" id="exampleInputName2" placeholder="权值">
+            </div>
+            {{#  }   }}
         </td>
-        {{#  });  }}
+
+        <td>
+            <ul class="con_ul">
+
+                {{#  layui.each(rule.cons, function(i, con){    }}
+                <li>
+                    <a href="javascript:void(0); " class="reGroupName" onclick="sceneUtil.reGroupName(this)"> <i
+                            class="layui-icon">&#xe603;</i></a>
+                    <a href="#" class="entityC" data-value="{{con.itemTable.entityId}}">{{con.itemTable.entityName}}</a>.
+                    <a href="#" class="itemC" data-value="{{con.itemTable.itemId}}">{{con.itemTable.itemName}}</a>
+                    &nbsp;
+                    <a href="#" data-value="{{con.ysf}}" class="con">{{con.ysfText}}</a>&nbsp;
+                    <a href="#" data-value="{{con.val}}" class="val">{{con.val}}</a>
+                    <a href="javascript:void(0); " class="deleteCon" onclick="sceneUtil.deleteCon(this)"> <i
+                            class="layui-icon">&#x1006;</i></a>
+                </li>
+                {{#  });  }}
+            </ul>
+            <a href="javascript:void(0); " title="添加" class="addCon" onclick="sceneUtil.addCon(this)"> <i
+                    class="layui-icon">&#xe654;</i></a>
+        </td>
+
         {{#   layui.each(rule.actionRels, function(j, actions ){    }}
         <td>
-            <a href="#" data-value="{{actions.actionInfo.actionId}}" class="actionType">{{actions.actionInfo.actionName}}</a>&nbsp;
             {{#   layui.each(actions.actionInfo.paramValueInfoList, function(m, actionVal){ }}
             <a href="#" class="actionVal" data-value="{{actionVal.paramValue}}" actionParamId = "{{actionVal.actionParamId}}">{{actionVal.paramValue}}</a>
             {{# }); }}
@@ -278,9 +359,9 @@
             <div class="layui-btn-group">
                 <!--<button class="layui-btn layui-btn-primary layui-btn-sm saveRow" onclick="hb();"><i
                         class="layui-icon">&#xe618;</i></button>-->
-                <button class="layui-btn layui-btn-primary layui-btn-sm addRow" onclick="addRow(this)"><i
+                <button class="layui-btn layui-btn-primary layui-btn-sm addRow" onclick="sceneUtil.addRow(this)"><i
                         class="layui-icon">&#xe654;</i></button>
-                <button class="layui-btn layui-btn-primary layui-btn-sm deleteRow" onclick="deleteRow(this)"><i
+                <button class="layui-btn layui-btn-primary layui-btn-sm deleteRow" onclick="sceneUtil.deleteRow(this)"><i
                         class="layui-icon">&#xe640;</i></button>
             </div>
         </td>

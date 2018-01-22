@@ -4,11 +4,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ForkJoinPool;
 
 import javax.servlet.http.HttpServletRequest;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.ht.risk.rule.entity.*;
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,34 +87,44 @@ public class VariableBindController {
 
     @GetMapping("getAll")
     @ApiOperation(value = "查询所有的对象字段")
-    public PageResult<List<EntityItemInfo>> getAll(@RequestParam(name = "sceneId") String sceneId, String versionId) {
-        List<EntityItemInfo> list = entityItemInfoService.findEntityItemBySceneId(sceneId);
-//        Wrapper<VariableBind> wrapper = new EntityWrapper<>();
-//        wrapper.eq("sence_version_id",sceneId);
-//        List<VariableBind> list=variableBindService.selectList(wrapper);
-//        System.out.println(list.size()+">>>>>>>");
+    public PageResult<List<VariableBind>> getAll(@RequestParam(name = "sceneId") String sceneId, String versionId) {
+//        List<EntityItemInfo> list = entityItemInfoService.findEntityItemBySceneId(sceneId);
+        Wrapper<VariableBind> wrapper = new EntityWrapper<>();
+        wrapper.eq("sence_version_id",sceneId);
+        List<VariableBind> list=variableBindService.selectList(wrapper);
         return PageResult.success(list, 0);
     }
 
     @PostMapping("edit")
     @ApiOperation(value = "新增")
     @Transactional()
-    public Result<Integer> edit(VariableBind entityInfo) {
-        entityInfo.setCreateTime(new Date());
-        entityInfo.setIsEffect("1");
-        variableBindService.insertOrUpdate(entityInfo);
+    public Result<Integer> edit(VariableBind entityInfo,HttpServletRequest request) {
+        Map<String,String[]> map=request.getParameterMap();
+        Wrapper<VariableBind> wrapper = new EntityWrapper<>();
+        wrapper.eq("sence_version_id",map.get("senceVersionid")[0]);
+        List<VariableBind> list= variableBindService.selectList(wrapper);
+        for (VariableBind var:list){
+            String varCode=var.getVariableCode();
+            entityInfo.setId(Long.parseLong(map.get(varCode+"_bind")[0]));
+            entityInfo.setBindTable(map.get(varCode+"_tableName")[0]);
+            entityInfo.setBindColumn(map.get(varCode+"_column")[0]);
+            entityInfo.setCreateTime(new Date());
+            entityInfo.setIsEffect("1");
+            variableBindService.insertOrUpdate(entityInfo);
+        }
         return Result.success(0);
     }
 
     @PostMapping("manualVariable")
     @ApiOperation(value = "规则手动验证")
-    public PageResult<Integer> manualVariable(VariableBindVo entityInfo, HttpServletRequest request) {
+    public PageResult<String> manualVariable(VariableBindVo entityInfo, HttpServletRequest request) {
         Map<String, Object> data = new HashMap<String, Object>();
         DroolsParamter drools = new DroolsParamter();
         Map<String, String[]> map = request.getParameterMap();
         List<EntityItemInfo> list = entityItemInfoService.findEntityItemBySceneId(entityInfo.getSenceId());
         for (EntityItemInfo entityItemInfo : list) {
             String str = map.get(entityItemInfo.getItemIdentify())[0];
+
             data.put(entityItemInfo.getItemIdentify(), str);
         }
         drools.setVersion(String.valueOf(entityInfo.getSenceVersionId()));
@@ -121,12 +132,39 @@ public class VariableBindController {
         drools.setData(data);
         String res = droolsRuleRpc.excuteDroolsSceneValidation(drools);
         JSONObject obj = JSON.parseObject(res);
+        String logId= (String) obj.get("logId");
+//        data.put("logId",logId);
         if (obj.getInteger("code") == 0) {
-            return PageResult.success(0);
+            return PageResult.success(logId,0);
         }else{
             return PageResult.error(1,"验证失败");
         }
 
+    }
+
+    @PostMapping("getVariableBindBySenceVersionId")
+    @ApiOperation(value = "根据规则版本获取规则变量绑定信息")
+    public List<VariableBind> getVariableBindBySenceVersionId(VariableBindVo entityInfo){
+        // 查询变量绑定字段信息
+        Map<String, Object> columnMap = new HashMap<String, Object>();
+        columnMap.put("SENCE_VERSIONID", entityInfo.getSenceVersionId());
+        columnMap.put("IS_EFFECT", "1");
+        List<VariableBind> bindList = variableBindService.selectByMap(columnMap);
+        return bindList;
+    }
+
+    @PostMapping("getAutoValidaionData")
+    @ApiOperation(value = "根据规则id获取需要验证的数据")
+    public List<Map<String, Object>> getAutoValidaionData(VariableBindVo entityInfo){
+        //根据页面输入验证次数查找第三方表记录数
+        Wrapper<TempDataContains> wrapper = new EntityWrapper<>();
+        wrapper.eq("scene_id", entityInfo.getSenceId());// 规则id
+        Page<TempDataContains> pages = new Page<>();
+        pages.setCurrent(0);
+        pages.setSize(entityInfo.getExcuteTotal()); // 执行条数，获取数据记录数
+        Page<Map<String, Object>> pageMap = tempDataContainsService.selectMapsPage(pages, wrapper);
+        List<Map<String, Object>> recordMap = pageMap.getRecords();
+        return recordMap;
     }
 
     @PostMapping("autoVariable")
@@ -136,19 +174,24 @@ public class VariableBindController {
         DroolsParamter drools = new DroolsParamter();
         int success = 0, fail = 0;
         // 查询变量绑定字段信息
-        Map<String, Object> columnMap = new HashMap<String, Object>();
-        columnMap.put("SENCE_VERSIONID", entityInfo.getSenceVersionId());
-        columnMap.put("IS_EFFECT", "1");
-        List<VariableBind> bindList = variableBindService.selectByMap(columnMap);
-
+//        Map<String, Object> columnMap = new HashMap<String, Object>();
+//        columnMap.put("SENCE_VERSIONID", entityInfo.getSenceVersionId());
+//        columnMap.put("IS_EFFECT", "1");
+//        List<VariableBind> bindList = variableBindService.selectByMap(columnMap);
+        List<VariableBind> bindList=getVariableBindBySenceVersionId(entityInfo);
         //根据页面输入验证次数查找第三方表记录数
-        Wrapper<TempDataContains> wrapper = new EntityWrapper<>();
-        wrapper.eq("scene_id", entityInfo.getSenceId());
-        Page<TempDataContains> pages = new Page<>();
-        pages.setCurrent(0);
-        pages.setSize(entityInfo.getExcuteTotal());
-        Page<Map<String, Object>> pageMap = tempDataContainsService.selectMapsPage(pages, wrapper);
-        List<Map<String, Object>> recordMap = pageMap.getRecords();
+//        Wrapper<TempDataContains> wrapper = new EntityWrapper<>();
+//        wrapper.eq("scene_id", entityInfo.getSenceId());
+//        Page<TempDataContains> pages = new Page<>();
+//        pages.setCurrent(0);
+//        pages.setSize(entityInfo.getExcuteTotal());
+//        Page<Map<String, Object>> pageMap = tempDataContainsService.selectMapsPage(pages, wrapper);
+//        List<Map<String, Object>> recordMap = pageMap.getRecords();
+
+       /* DroolsParamter drools = new DroolsParamter();
+        Map<String, Object> data = new HashMap<String, Object>();*/
+        List<Map<String, Object>> recordMap = getAutoValidaionData(entityInfo);
+
         for (Map<String, Object> map2 : recordMap) {
             data.clear();
             for (VariableBind vBind : bindList) {
@@ -164,7 +207,6 @@ public class VariableBindController {
             } else {
                 fail += 1;
             }
-//			System.out.println(res);
         }
 
 
@@ -196,8 +238,11 @@ public class VariableBindController {
         if (ObjectUtils.isNotEmpty(maxVersionMap)) {
             maxVersion = Float.parseFloat(((String) maxVersionMap.get("maxVersion"))) + 0.1f;
         }
+        scene.setOfficialVersion(String.valueOf(maxVersion));
+        sceneVersionService.insertOrUpdate(scene);
 
-        SceneVersion entityInfo = new SceneVersion();
+
+        /*SceneVersion entityInfo = new SceneVersion();
         entityInfo.setStatus(1);
         entityInfo.setVersion(String.valueOf(maxVersion));
         entityInfo.setType(1);
@@ -207,7 +252,7 @@ public class VariableBindController {
         entityInfo.setSceneId(scene.getSceneId());
         entityInfo.setRuleDiv(scene.getRuleDiv());
         entityInfo.setRuleDrl(scene.getRuleDrl());
-        sceneVersionService.insertOrUpdate(entityInfo);
+        sceneVersionService.insertOrUpdate(entityInfo);*/
         return Result.success(0);
     }
 

@@ -28,7 +28,7 @@
 		<mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
 		<mybatisplus.version>2.1.6</mybatisplus.version>
 
-		<swagger2.version>2.6.1</swagger2.version>
+		<swagger2.version>2.8.0</swagger2.version>
 
 		<!-- 依赖版本 -->
 		<mapper.version>3.3.6</mapper.version>
