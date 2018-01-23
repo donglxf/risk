@@ -178,5 +178,45 @@ public class ActProcReleaseController {
         logger.info("开始自动测试" + actProcRealeseId);
         return this.getVariablesByActProcRealeseId(actProcRealeseId);
     }
+
+    /**
+     * 为变量赋值
+     * http://localhost:8765/rule/service/actProcRelease/init
+     *
+     * @returns
+     */
+    @PostMapping(value = "scene/variable/init/auto")
+    @ApiOperation(value = "自动测试给变量赋值")
+    public Result addVariableAuto(HttpServletRequest request) {
+        try {
+            Map<String, String[]> parameterMap = request.getParameterMap();
+            logger.info(parameterMap.toString());
+            Set<String> keys = parameterMap.keySet();
+            Iterator<String> key = keys.iterator();
+            while (key.hasNext()) {
+                String next = key.next();
+                String val = parameterMap.get(next)[0];
+                String[] strings = next.split("_");
+                EntityWrapper<VariableBind> wrapper = new EntityWrapper<>();
+                wrapper.eq("SENCE_VERSION_ID", strings[0]);
+                wrapper.eq("VARIABLE_CODE", strings[1]);
+                //需要判断参数为表格还是字段
+                VariableBind variableBind = new VariableBind();
+                if ("table".equals(strings[2])) {
+                    variableBind.setBindTable(val);
+                } else {
+                    variableBind.setBindColumn(val);
+                }
+                variableBindService.update(variableBind, wrapper);
+            }
+            Result result = Result.success();
+            result.setMsg("保存成功");
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Result.error(1, "保存失败");
+    }
+
 }
 

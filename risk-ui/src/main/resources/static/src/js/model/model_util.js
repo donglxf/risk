@@ -137,12 +137,6 @@ ModelVerification.prototype = {
         html += ' <div class="layui-form-item" >\n' +
             '<button type="reset" class="layui-btn layui-btn-primary">重 置</button>' +
             '<button class="layui-btn"  lay-submit="" lay-filter="save" id="save">保 存</button>\n' +
-            ' <div class="layui-inline">\n' +
-            '      <label class="layui-form-label">测试数量</label>\n' +
-            '      <div class="layui-input-inline">\n' +
-            '        <input type="text" autocomplete="off" class="layui-input">\n' +
-            '      </div>\n' +
-            '    </div>' +
             '<button type="button" class="layui-btn layui-btn-normal"  lay-filter="test" id="test" >开始测试</button>' +
             '</div>';
 
@@ -184,8 +178,8 @@ ModelAutoVerification.prototype = {
      * @returns {string}
      */
     initLabel: function (name) {
-       // return '<div class="layui-input-inline"><label class="layui-form-label">' + name + '</label></div>';
-        return '<div class="layui-input-inline" ><input type="text" value='+ name +' class="layui-input" disabled="disabled" style="width: auto"/></div>';
+        // return '<div class="layui-input-inline"><label class="layui-form-label">' + name + '</label></div>';
+        return '<div class="layui-input-inline" ><input type="text" value=' + name + ' class="layui-input" disabled="disabled" style="width: auto"/></div>';
     },
     /**
      * 初始化普通输入框
@@ -194,12 +188,8 @@ ModelAutoVerification.prototype = {
      */
     initInput: function (name, bindTable, bindColumn) {
         var html = ''
-        if (bindTable != null && bindTable != "") {
-            html += '<div class="layui-input-inline" ><input value= "' + bindTable + '"' + 'type="text" name="' + name + '" lay-verify="required" style="width: auto" placeholder="整形" autocomplete="off" class="layui-input"></div>'
-            html += '<div class="layui-input-inline" ><input value= "' + bindColumn + '"' + 'type="text" name="' + name + '" lay-verify="required" style="width: auto" placeholder="整形" autocomplete="off" class="layui-input"</div>'
-        } else {
-            html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="整形" autocomplete="off" class="layui-input">'
-        }
+            html += '<div class="layui-input-inline" ><input value= "' + bindTable + '"' + 'type="text" name="' + name + "_table" + '" lay-verify="required" style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"></div>'
+            html += '<div class="layui-input-inline" ><input value= "' + bindColumn + '"' + 'type="text" name="' + name + "_column" + '" lay-verify="required" style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"</div>'
         return html;
     },
 
@@ -209,27 +199,11 @@ ModelAutoVerification.prototype = {
      渲染单个变量
      */
     initOneValible: function (valible) {
-        var tmpValue = valible.tmpValue;
+        var senceVersionId = valible.senceVersionId;
+        var variableCode = valible.variableCode;
         var bindTable = valible.bindTable;
         var bindColumn = valible.bindColumn;
-        var html = "";
-        switch (valible.dataType) {
-            case "select":
-                html = this.initSelect(valible.variableName, valible.optionData);
-                break;
-            case "date":
-                html = this.initDate(valible.variableName);
-                break;
-            case "time":
-                html = this.initTime(valible.variableName);
-                break;
-            case "Double":
-                html = this.initInput(valible.senceVersionId + '_' + valible.variableCode, bindTable, bindColumn);
-                break;
-            default:
-                break;
-        }
-        return html;
+        return this.initInput(senceVersionId + '_' + variableCode, bindTable, bindColumn);
     },
 
     /**
@@ -289,9 +263,9 @@ ModelAutoVerification.prototype = {
         var html = '<fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;font-size: 16px">\n';
         html += '<legend style="font-size: 16px">' + senceName + '</legend>\n<div style="padding-top: 10px">';
         html += '<div class="layui-form-item">'
-        html += '<div class="layui-input-inline" ><input value="变量名称" type="text" name="' + name + '" lay-verify="required" style="width: auto" autocomplete="off" class="layui-input"></div>'
-        html += '<div class="layui-input-inline" ><input value="数据表" type="text" name="' + name + '" lay-verify="required" style="width: auto" autocomplete="off" class="layui-input"></div>'
-        html += '<div class="layui-input-inline" ><input value="字段" type="text" name="' + name + '" lay-verify="required" style="width: auto" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" ><input disabled="disabled"  value="变量名称" type="text" name="' + name + '" lay-verify="required" style="width: auto" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" ><input  disabled="disabled"  value="数据表" type="text" name="' + name + '" lay-verify="required" style="width: auto" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" ><input  disabled="disabled"  value="字段" type="text" name="' + name + '" lay-verify="required" style="width: auto" autocomplete="off" class="layui-input"></div>'
         html += '</div>'
         html += this.initDiv(valiableData);
         html += '</div></fieldset>';
@@ -307,8 +281,14 @@ ModelAutoVerification.prototype = {
         var senceData = data.variableMap;
         var html = '';
         html += ' <div class="layui-form-item" >\n' +
-            '<button type="reset" class="layui-btn layui-btn-primary">取 消</button>' +
-            '<button class="layui-btn"  lay-submit="" lay-filter="save" id="save">保 存</button>\n' +
+            ' <div class="layui-inline">\n' +
+            '      <label class="layui-form-label">测试数量</label>\n' +
+            '      <div class="layui-input-inline">\n' +
+            '        <input type="text" name="amount" autocomplete="off" class="layui-input" onkeyup="this.value=this.value.replace(/\\D/g,\'\')"  onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="5" placeholder="请输入整数"/>\n' +
+            '      </div>\n' +
+            '    </div>' +
+            '<button type="reset" class="layui-btn layui-btn-primary">重 置</button>' +
+            '<button class="layui-btn"  lay-submit="" lay-filter="save_auto" id="save_auto">保 存</button>\n' +
             '' +
             '</div>';
 
