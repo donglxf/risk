@@ -1,24 +1,21 @@
-package com.ht.risk.api.model.log;
+package org.ht.risk.log.entity;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
-public class RpcHitRuleInfo implements Serializable {
+public class HitRule implements Serializable{
 
-    private String senceName;
     private Long senceVersionId;
+    private String senceName;
     private String ruleName;
     private String ruleDesc;
-    private int count;
+    private String flag;
 
-
-    public String getSenceName() {
-        return senceName;
+    public String getFlag() {
+        return flag;
     }
 
-    public void setSenceName(String senceName) {
-        this.senceName = senceName;
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 
     public Long getSenceVersionId() {
@@ -27,6 +24,14 @@ public class RpcHitRuleInfo implements Serializable {
 
     public void setSenceVersionId(Long senceVersionId) {
         this.senceVersionId = senceVersionId;
+    }
+
+    public String getSenceName() {
+        return senceName;
+    }
+
+    public void setSenceName(String senceName) {
+        this.senceName = senceName;
     }
 
     public String getRuleName() {
@@ -44,14 +49,4 @@ public class RpcHitRuleInfo implements Serializable {
     public void setRuleDesc(String ruleDesc) {
         this.ruleDesc = ruleDesc;
     }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
 }
-
-

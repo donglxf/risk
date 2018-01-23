@@ -14,21 +14,38 @@ import java.util.List;
 @FeignClient("activiti-config")
 public interface ActivitiConfigRpc {
 
+    /**
+     * 流程部署
+     * @param paramter
+     * @return
+     */
     @RequestMapping("/deploy")
     public Result<RpcDeployResult> deploy(@RequestBody ModelParamter paramter);
 
-    @RequestMapping("/queryModelRelease")
-    public Result<RpcModelReleaseInfo> queryModelProcInstIdByBatchId(String procInstId);
-
-
+    /**
+     * 查询该批次的所有流程实例
+     * @param batchId
+     * @return
+     */
     @RequestMapping("/queryProcInstId")
-    public Result<List<String>> queryProcInstIdByBatchId(Long procInstId);
+    public Result<List<RpcActExcuteTaskInfo>> queryTasksByBatchId(Long batchId);
 
+    /**
+     * 根据任务id，查询任务详情
+     * @param TaskId
+     * @return
+     */
     @RequestMapping("/getTaskInfoById")
     public Result<RpcActExcuteTaskInfo> getTaskInfoById(Long TaskId);
 
+
+    /**
+     * 根据模型版本ID,查询模型版本信息
+     * @param procReleaseId
+     * @return
+     */
     @RequestMapping("/getProcReleaseById")
-    public Result<RpcModelReleaseInfo> getProcReleaseById(Long TaskId);
+    public Result<RpcModelReleaseInfo> getProcReleaseById(Long procReleaseId);
 
 
 }

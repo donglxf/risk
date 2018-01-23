@@ -13,6 +13,7 @@ import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,13 +30,16 @@ public class VerficationResultController {
     private RiskValidateBatchService riskValidateBatchService;
 
 
-    @RequestMapping("/resultPage")
-    public PageResult<List<RiskValidateBatch>> resultPage(VerficationModelVo verficationModelVo){
+    @RequestMapping("/verficationBatchPage")
+    public PageResult<List<RiskValidateBatch>> verficationBatchPage(@RequestBody  VerficationModelVo verficationModelVo){
         LOGGER.info("resultPage mothod invoke,paramter:"+ JSON.toJSONString(verficationModelVo));
         PageResult<List<RiskValidateBatch>> result = null;
         Page<RiskValidateBatch> page = new Page<RiskValidateBatch>();
+        page.setSize(verficationModelVo.getLimit());
+        page.setCurrent(verficationModelVo.getPage());
         EntityWrapper<RiskValidateBatch> wrapper = new EntityWrapper<RiskValidateBatch>();
         RiskValidateBatch batch = new RiskValidateBatch();
+        batch.setProcReleaseId(verficationModelVo.getProcReleaseId());
         wrapper.setEntity(batch);
         page = riskValidateBatchService.selectPage(page,wrapper);
         result =  PageResult.success(page.getRecords(),page.getTotal());

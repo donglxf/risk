@@ -15,6 +15,7 @@ import com.ht.risk.activiti.service.ActProcReleaseService;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.model.activiti.ModelParamter;
 import com.ht.risk.api.model.activiti.RpcDeployResult;
+import com.ht.risk.api.model.activiti.RpcModelReleaseInfo;
 import com.ht.risk.api.model.activiti.RpcStartParamter;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
@@ -155,6 +156,20 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
             updateTask(task);
         }
         return batch.getId();
+    }
+
+    @Override
+    public RpcModelReleaseInfo convertRpcActExcuteTask(ActProcRelease release) {
+        RpcModelReleaseInfo rpcRelease = new RpcModelReleaseInfo();
+        rpcRelease.setId(release.getId());
+        rpcRelease.setIsApprove(release.getIsApprove());
+        rpcRelease.setIsValidate(release.getIsValidate());
+        rpcRelease.setModelCategory(release.getModelCategory());
+        rpcRelease.setModelName(release.getModelName());
+        rpcRelease.setModelProcdefId(release.getModelProcdefId());
+        rpcRelease.setModelVersion(release.getModelVersion());
+        rpcRelease.setVersionType(release.getVersionType());
+        return rpcRelease;
     }
 
     private Long getProcReleaseId(String procDefId, String version) {

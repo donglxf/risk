@@ -1,15 +1,14 @@
 package com.ht.risk.rule.service;
 
 import com.ht.risk.api.model.log.RpcHitRuleInfo;
-import com.ht.risk.rule.vo.HitRuleVo;
 import com.ht.risk.rule.vo.SenceParamterVo;
-import com.ht.risk.rule.vo.VariableVo;
-import org.ht.risk.log.vo.RuleVo;
 
 import java.util.List;
 import java.util.Map;
 
 public interface ModelAnalysisSerivce {
+
+
 
 
     /**
@@ -31,10 +30,10 @@ public interface ModelAnalysisSerivce {
     /**
      * 根据模型任务Id查询模型执行传入参数
      *
-     * @param batchId
+     * @param taskId
      * @return
      */
-    Map<Long,SenceParamterVo> queryModeVerfDataInfo(Long batchId);
+    Map<Long,SenceParamterVo> queryModeVerfDataInfo(Long taskId);
 
 
 }

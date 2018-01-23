@@ -2,7 +2,6 @@ package com.ht.risk.rule.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.mapper.Condition;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.api.model.activiti.RpcModelReleaseInfo;
 import com.ht.risk.api.model.log.RpcHitRuleInfo;
@@ -14,13 +13,14 @@ import com.ht.risk.rule.mapper.VariableBindMapper;
 import com.ht.risk.rule.rpc.ActivitiConfigRpc;
 import com.ht.risk.rule.rpc.DroolsLogRpc;
 import com.ht.risk.rule.service.ModelAnalysisSerivce;
-import com.ht.risk.rule.vo.HitRuleVo;
 import com.ht.risk.rule.vo.SenceParamterVo;
 import com.ht.risk.rule.vo.VariableVo;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
 
+@Service
 public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
 
 
@@ -44,19 +44,22 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
     public Map<String,List<RpcHitRuleInfo>> queryBatchModelVerfHitRuleInfo(Long batchId) {
         Map<String,List<RpcHitRuleInfo>> hitRuleMap = new HashMap<String,List<RpcHitRuleInfo>>();
         // 1 查询该批次的所有流程实例
-        Result<List<String>> result = activitiConfigRpc.queryProcInstIdByBatchId(batchId);
+        Result<List<RpcActExcuteTaskInfo>> result = activitiConfigRpc.queryTasksByBatchId(batchId);
         if(result == null || result.getCode() != 0 || result.getData() == null){
             return hitRuleMap;
         }
         // 2 查询流程实例触碰的规则
-        List<String> procInstIds = result.getData();
+        List<String> procInstIds = new ArrayList<String>();
+        for(Iterator<RpcActExcuteTaskInfo> iterator = result.getData().iterator();iterator.hasNext();){
+            procInstIds.add(iterator.next().getProcInstId());
+        }
         return getProcHitRules(procInstIds);
     }
 
-    public Map<Long,SenceParamterVo>  queryModeVerfDataInfo(Long task) {
+    public Map<Long,SenceParamterVo>  queryModeVerfDataInfo(Long taskId) {
         Map<Long,SenceParamterVo> senceMap = new HashMap<Long,SenceParamterVo>();
         //获取模型任务信息
-        Result<RpcActExcuteTaskInfo> result = activitiConfigRpc.getTaskInfoById(task);
+        Result<RpcActExcuteTaskInfo> result = activitiConfigRpc.getTaskInfoById(taskId);
         if(result == null || result.getCode() != 0 || result.getData() == null){
             return senceMap;
         }
@@ -77,7 +80,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
             sence = iterator.next();
             versionIds.add(sence.getSenceVersionId());
             paramterVo = new SenceParamterVo();
-            paramterVo.setSenceName(sence.getSenceName());
+            paramterVo.setSenceName(sence.getSceneName());
             senceMap.put(sence.getSenceVersionId(),paramterVo);
         }
         //获取模型需要变量信息
@@ -103,7 +106,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
 
     private Map<String,List<RpcHitRuleInfo>> getProcHitRules(List<String> procInstIds){
         Map<String,List<RpcHitRuleInfo>> hitRuleMap = new HashMap<String,List<RpcHitRuleInfo>>();
-        Result<List<RpcHitRuleInfo>> result = droolsLogRpc.getHitRuleInfo(procInstIds);
+        Result<List<RpcHitRuleInfo>> result = droolsLogRpc.countHitRuleInfo(procInstIds);
         if(result == null || result.getCode() != 0){
             return hitRuleMap;
         }
