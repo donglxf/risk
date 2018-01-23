@@ -79,6 +79,20 @@ public class SceneInfoVersion extends Model<SceneInfoVersion> {
 	 */
 	@ApiModelProperty(required= true,value = "类型：0测试版 1正式版")
 	private Integer type;
+
+
+
+	/**
+	 * 正式版本号
+	 */
+	@TableField("official_version")
+	@ApiModelProperty(required = true, value = "正式版本号")
+	private String officialVersion;
+
+
+	@TableField("test_status")
+	@ApiModelProperty(required= true,value = "测试是否通过，1-通过，0-未通过")
+	private Integer testStatus;
 	/**
 	 * 标题
 	 */
@@ -121,6 +135,21 @@ public class SceneInfoVersion extends Model<SceneInfoVersion> {
 	@ApiModelProperty(required= true,value = "rule文件内容")
 	private String ruleDrl;
 
+	public String getOfficialVersion() {
+		return officialVersion;
+	}
+
+	public void setOfficialVersion(String officialVersion) {
+		this.officialVersion = officialVersion;
+	}
+
+	public Integer getTestStatus() {
+		return testStatus;
+	}
+
+	public void setTestStatus(Integer testStatus) {
+		this.testStatus = testStatus;
+	}
 
 	public Integer getStatus() {
 		return status;

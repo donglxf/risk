@@ -48,7 +48,7 @@
 				   class="layui-input">
 		</div>
 
-		<div class="layui-col-md1 ">
+		<div class="layui-col-md1">
 			<select id="isBusinessType" class="layui-select" name="businessType" lay-verify="">
 				<option value="">选择类型</option>
 				<option value="2">决策表</option>
@@ -136,7 +136,8 @@
                 cache : true,
                 type : "POST",
                 url : '/rule/service/variableBind/edit',
-                data : data.field,// 你的formid
+//                data : data.field,// 你的formid
+			   data:JSON.stringify(data.field),
                 async : false,
                 error : function(request) {
                     alert("Connection error");

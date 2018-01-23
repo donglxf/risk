@@ -8,13 +8,11 @@ import com.ht.risk.rule.entity.SceneVersion;
 import com.ht.risk.rule.service.RuleHisVersionService;
 import com.ht.risk.rule.service.SceneVersionService;
 import com.ht.risk.rule.vo.RuleHisVersionVo;
+import com.ht.risk.rule.vo.VariableBindVo;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -55,5 +53,17 @@ public class StrategyController {
         paramMap.put("senceVersionId", versionId);
         List<RuleHisVersionVo> list = ruleHisVersionService.getRuleValidationResult(paramMap);
         return PageResult.success(list, 0);
+    }
+
+
+    @PostMapping("variablePass")
+    @ApiOperation(value = "规则验证通过")
+    public PageResult<Integer> variablePass(VariableBindVo entityInfo) {
+        Wrapper<SceneVersion> wrapper =new EntityWrapper<>();
+        wrapper.eq("version_id",entityInfo.getSenceVersionId());
+        SceneVersion scene= sceneVersionService.selectOne(wrapper);
+        scene.setTestStatus(1);
+        sceneVersionService.updateById(scene);
+        return PageResult.success(0);
     }
 }

@@ -338,9 +338,9 @@ layui.define(['layer','form','laytpl'], function (exports) {
                 '                                    class="layui-icon">&#x1006;</i></a>\n' +
                 '                        </div>';
             var li = '<li>'+h+'</li>';
-            $(t).parent().after(li);
+            $(t).parent().parent().after(li);
             //设置点击事件
-            sceneUtil.actionInit( $(t).parent().next());
+            sceneUtil.actionInit( $(t).parent().parent().next());
         },
             /*
              *值的编辑初始化 .val -> $('.val')
@@ -1235,13 +1235,20 @@ layui.define(['layer','form','laytpl'], function (exports) {
          * 初始化方法
          */
         sceneInit: function() {
-            $("#table tbody tr td ul li").hover(function () {
+            $("#table tbody tr td ul.con_ul li").hover(function () {
                 if($(this).index() > 0){
                     //判断是否是第一条
                     $(this).find(".deleteCon").show();
                 }
             },function () {
                 $(this).find(".deleteCon").hide();
+            });
+            $("#table tbody tr td ul.action_ul li").hover(function () {
+                $(this).find(".deleteCon").show();
+                $(this).find(".addAct").show();
+            },function () {
+                $(this).find(".deleteCon").hide();
+                $(this).find(".addAct").hide();
             });
             //绑定条件输入值得输入方式
             sceneUtil.bandOneValInit( $('.val'));

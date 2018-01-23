@@ -4,7 +4,7 @@ import com.ht.risk.rule.entity.RuleHisVersion;
 
 public class RuleHisVersionVo extends RuleHisVersion {
 
-    public String validationResult;
+    public String validationResult; // 匹配结果  1-未匹配，0-匹配
 
     public String executeRule;
 

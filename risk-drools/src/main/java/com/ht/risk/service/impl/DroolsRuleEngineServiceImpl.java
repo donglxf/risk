@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.ht.risk.model.fact.RuleExecutionResult;
 import org.apache.commons.lang3.ArrayUtils;
 import org.drools.core.base.RuleNameStartsWithAgendaFilter;
 import org.kie.api.runtime.KieSession;
@@ -144,14 +145,14 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                 Map.Entry global = (Map.Entry) glb;
                 String key = (String) global.getKey();
                 Object value = global.getValue();
-                System.out.println("插入Global对象:" + value.getClass().getName());
+//                System.out.println("插入Global对象:" + value.getClass().getName());
                 session.setGlobal(key, value);
             }
             // 2.插入fact对象
             // 2.1插入业务fact对象
             List<Object> factObjectList = ruleExecutionObject.getFactObjectList();
             for (Object o : factObjectList) {
-                System.out.println("插入Fact对象：" + o.getClass().getName());
+//                System.out.println("插入Fact对象：" + o.getClass().getName());
                 session.insert(o);
             }
             // 2.2将 ruleExecutionObject 也插入到规则中，回调使用
@@ -160,7 +161,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             BaseRuleSceneInfo sceneInfo = new BaseRuleSceneInfo();
 //            sceneInfo.setSceneIdentify(scene);
             sceneInfo.setSceneId(sceneId);
-            System.out.println(">>>>>>>>" + sceneId);
+//            System.out.println(">>>>>>>sceneId>" + sceneId);
             //根据场景获取所有的动作信息
             List<BaseRuleActionInfo> actionList = this.ruleActionService.findRuleActionListByScene(sceneInfo);
             for (BaseRuleActionInfo action : actionList) {
@@ -168,7 +169,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                     //只处理实现类动作
                     if (action.getActionType() == 1) {
                         DroolsActionService actionService = SpringContextHolder.getBean(action.getActionClazzIdentify());
-                        System.out.println("bean:>>>>>>>>" + action.getActionClazzIdentify());
+//                        System.out.println("bean:>>>>>>>>" + action.getActionClazzIdentify());
                         session.insert(actionService);
                     }
                 } catch (Exception e) {
@@ -183,7 +184,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             if (ruleExecutionObject.isExecuteAll()) {
                 int count = session.fireAllRules();
 
-                ruleExecutionObject.getGlobalMap().put("count", count);
+                RuleExecutionResult boj= (RuleExecutionResult) ruleExecutionObject.getGlobalMap().get("_result");
+                boj.getMap().put("count",count);
                 System.out.println("命中规则条数：" + count);
             } else {
                 //2,执行以 ruleExecutionObject里规则名开头的规则
