@@ -25,7 +25,7 @@ sceneLeft.cols = function () {
         {field: 'sceneName',
             event: 'setItem',
             align:'center',
-            title: '决策名'},
+            title: '策略名'},
         {field: 'sceneIdentify',
             event: 'setItem',
             align:'center',
@@ -36,20 +36,6 @@ sceneLeft.cols = function () {
             title: '类型',
             width:120,
             templet: '#typeTpl'},
-        {field: 'sceneId2',
-            title: '规则定义',
-            event: 'setItem',
-            align:'center',
-            width:120,
-            toolbar: "#bar_rule_defined"
-        },
-        {field: 'sceneId',
-            title: '操作',
-            fixed: 'right',
-            event: 'setItem',
-            align:'center',sort: true,
-            width:200,
-            toolbar: sceneLeft.toolbarId}
     ];
 };
 
@@ -68,7 +54,7 @@ var  scene = {
 scene.cols = function () {
     return [ //表头
         //{field: 'sceneId',  event: 'setItem',title: 'ID',sort: true, fixed: 'left'}
-        {field: 'version',
+        {field: 'officialVersion',
             align:'center',
             title: '版本号', sort: true
         }
@@ -87,7 +73,7 @@ scene.cols = function () {
             title: '创建时间',sort: true
            }
         ,
-       /* {field: 'type',
+        {field: 'type',
             align:'center',
             width:100,
             title: '版本类型',sort: true,
@@ -97,7 +83,7 @@ scene.cols = function () {
         {field: 'creUserId',
             align:'center',
             title: '创建用户'}
-        ,*/
+        ,
         {field: 'status',
             align:'center',
             title: '状态',
@@ -109,7 +95,7 @@ scene.cols = function () {
             title: '操作',
             fixed: 'right',
             align:'center',
-            width:150,
+            width:200,
             toolbar: scene.toolbarId
         }
     ];
@@ -136,7 +122,7 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
         elem: '#'+scene.tableId
         , height: 'full'
        // , cellMinWidth: 10
-        , url: scene.baseUrl + 'page' //数据接口
+        , url: scene.baseUrl + 'page4zs' //数据接口
         // data:[{"sceneId":1,"sceneName":"测试规则","sceneDesc":"测试规则引擎","sceneIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
         , page: true //开启分页
         , id: scene.tableId
@@ -153,9 +139,8 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
                 }
                 , where: {
                     sceneId: sceneId
-                 //   , sceneType : 2
-                    ,
-                    key:$("#versionN").val()
+                   // , sceneType : 2
+                   , key:$("#versionN").val()
                 }
             });
         }
@@ -191,6 +176,13 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
             });
 
         } else if (obj.event === 'setItem') {
+        }else if(obj.event === 'rulePush'){
+
+            if(data.type == 1){
+                layer.msg('该版本已经发布过了，不可重复发布');
+                return;
+            }
+            push(data.versionId);
         }
     });
     //监听锁定操作
@@ -200,9 +192,9 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
         $.post(scene.baseUrl+"/forbidden",{versionId:id,status:sta},function (data) {
             if(data.data == '0'){
                 if(obj.elem.checked ){
-                    $(obj.elem).next().find("span").text("正常");
+                    $(obj.elem).next().find("span").text("启用");
                 }else{
-                    $(obj.elem).next().find("span").text("冻结");
+                    $(obj.elem).next().find("span").text("停用");
                 }
                 layer.msg('操作成功', {icon: 1});
             }else{
@@ -283,161 +275,26 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
         }
     });
 
-    /**
-     * 编辑规则列表
-     * @param sceneId
-     */
-    function ruleDefind(sceneId,type){
-        var url = "/rule/ui/src/html/decision/gradeCard_edit.html";
-        if(type == 1){
-            url = "/rule/ui/src/html/decision/scene_edit.html";
-        }
-        sceneType = type;
-        layer.open({
-            type: 2,
-            title: '定义规则',
-            maxmin: false,
-            shadeClose: false, // 点击遮罩关闭层
-            area: ['780px', '85%'],
-            content: url,
-            //skin: 'layui-layer-rim', //加上边框
-            success: function(layero, index){
-                var  body = layer.getChildFrame('body', index);
-                //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-               // var iframeWin = window[layero.find('iframe')[0]['name']];
-                //执行初始化方法
-                sceneId = sceneId;
-            }
-        });
-    }
-    /**
-     * 得到规则查看列表
-     * @param sceneId
-     * @param type
-     */
-    function getRuleData(sceneId,type) {
-        var url = type == 2 ? 'getGradeCardAll':'getAll';
-        $.get('/rule/service/rule/'+url,{'sceneId':sceneId},function(data){
-            if(data.code == '0'){
-                var result = data.data;
-                var getTpl = tableTp1.innerHTML
-                //评分卡
-                if(type == '2'){
-                    getTpl = tableTp2.innerHTML
-                }
-                var view = document.getElementById('tableView');
-                laytpl(getTpl).render(result, function(html){
-                    view.innerHTML = html;
-                });
-                //设置值了
-                $("input[name='sceneId']").val(sceneId);
-                $("input[name='ruleDiv']").val($("#tableView").html());
-                if(type == 2){
-                    sceneUtil.rowspan4grade();
-                }else{
-
-                }
-            }else{
-                $("#table").html('');
-            }
-        },'json');
-
-    }
-    /**
-     * 公共方法：保存
-     * @param url
-     * @param result
-     */
-    function save(url, result,id,type) {
-
-        $.get(url, function (form) {
-          layer.open({
-                type: 1,
-                title: '版本发布',
-                maxmin: true,
-                shadeClose: false, // 点击遮罩关闭层
-                area: ['750px', '560px'],
-                content: form,
-                btnAlign: 'c',
-                btn: ['保存', '取消'],
-                success: function (layero, index) {
-                    //设置table内容页
-                    getRuleData(id,type);
-                    var rule_div = $("#rule_div").html();
-                }
-                , yes: function (index) {
-                  layerTopIndex = index;
-                    //触发表单的提交事件
-                    $('form.layui-form').find('button[lay-filter=formDemo]').click();
-                },
-            });
-        });
-    }
     //发布
-    function push(id,type) {
-        sceneId = id;
+    function push(id) {
         //询问框
-        var index =  layer.confirm('您确定要发布新的测试版吗？', {
+        var index =  layer.confirm('您确定要发布到正式环境吗？', {
             btn: ['确定','取消'] //按钮
         }, function(){
-            var rule_drl ,rule_div;
-            rule_div = $("#table").html();
-            var result = {sceneId:id,ruleDiv:rule_div};
-            layer.close(index);
-            save("/rule/ui/rule/decision/version/viewEdit", result,id,type);
-            // layer.msg('的确很重要', {icon: 1});
+            $.post(scene.baseUrl + 'push4zs?versionId=' + id, function (data) {
+                    if(data.code == 0){
+                        layer.msg("发布成功！");
+                        active.reload();
+                        layer.close(index);
+                    } else{
+                        layer.msg(data.msg);
+                        layer.close(index);
+                    }
+                },'json');
 
         }, function(){
         });
     }
 
-    /**
-     * 公共方法：保存
-     * @param url
-     * @param result
-     */
-    function sceneSave(url, result) {
-        $.get(url, function (form) {
-            layerTopIndex = layer.open({
-                type: 1,
-                title: '保存信息',
-                maxmin: true,
-                shadeClose: false, // 点击遮罩关闭层
-                area: ['550px', '460px'],
-                content: form,
-                btnAlign: 'c',
-                btn: ['保存', '取消'],
-                success: function (layero, index) {
-                    setFromValues(layero, result);
-                }
-                , yes: function (index) {
-                    //触发表单的提交事件
-                    $('form.layui-form').find('button[lay-filter=formDemo]').click();
-                    // layer.close(index);
-                },
-            });
-        });
-    }
-    //新增评分卡
-    $("#grade_btn_add").click(function(){
-        sceneSave("/rule/ui/rule/decision/scene/gradeCardEdit", null);
-
-    });
-    //新增评分卡
-    $("#scene_btn_add").click(function(){
-        sceneSave("/rule/ui/rule/decision/scene/edit", null);
-    });
-    //修改
-    function sceneEdit(id,type) {
-        $.get("/rule/service/sceneInfo/" + "getInfoById/" + id, function (data) {
-            var result = data.data;
-            if(type == 1){
-                sceneSave("/rule/ui/rule/decision/scene/edit", result);
-            }else{
-                sceneSave("/rule/ui/rule/decision/scene/gradeCardEdit", result);
-            }
-
-        }, 'json')
-    }
 
 });
