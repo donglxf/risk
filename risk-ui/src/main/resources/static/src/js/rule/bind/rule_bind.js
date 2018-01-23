@@ -177,7 +177,7 @@ layui.use([ 'table', 'form' ], function() {
 		}
 	};
 	function edit(sceneId,versionId) {
-		$.get(preUrl + "getAll?sceneId=" + versionId, function(data) {
+		$.get(preUrl + "getVariableBind?sceneId=" + versionId, function(data) {
 			var result = data.data;
 			$.get('/rule/ui/ruleBind/index/edit', null, function(form) {
 				layer.open({
