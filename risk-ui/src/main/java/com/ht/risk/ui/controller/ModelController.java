@@ -1,49 +1,54 @@
 package com.ht.risk.ui.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/model")
 public class ModelController {
 
-    @RequestMapping(value = "/modelDetail",method = RequestMethod.GET)
-    public String model(Model model, @RequestParam String modelId){
-        model.addAttribute("modelId",modelId);
-        return "modeler";
-    }
-    @RequestMapping(value = "/model/list",method = RequestMethod.GET)
+    private static Logger logger = LoggerFactory.getLogger(ModelController.class);
+
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
     public String unDeployList(){
-        return "model/config/list";
+        return "model/list";
     }
 
 
-    @RequestMapping(value = "/model/addView",method = RequestMethod.GET)
+    @RequestMapping(value = "/deployList",method = RequestMethod.GET)
+    public String deployList(){
+        return "model/deploy_list";
+    }
+
+    @RequestMapping(value = "/addView",method = RequestMethod.GET)
     public String addView(){
-        return "model/configadd";
+        return "model/add";
     }
 
+    @RequestMapping(value = "/startView",method = RequestMethod.GET)
+    public String startView(){
+        return "model/start";
+    }
 
-    @RequestMapping(value = "/model/verfication",method = RequestMethod.GET)
+    @RequestMapping(value = "/verfication",method = RequestMethod.GET)
     public String verification(){
         return "model/verfication/list";
     }
 
-    @RequestMapping(value = "/model/valiable",method = RequestMethod.GET)
+    @RequestMapping(value = "/valiable",method = RequestMethod.GET)
     public String valiable(){
+        logger.info("手动测试");
         return "model/verfication/model";
     }
 
-    @RequestMapping(value = "/model/result",method = RequestMethod.GET)
-    public String result(){
-        return "model/result/list";
+    @RequestMapping(value = "/valiable/auto",method = RequestMethod.GET)
+    public String valiableAuto(){
+        logger.info("请求自动测试页面");
+        return "model/verfication/model_auto";
     }
-
-
-
 
 
 }
