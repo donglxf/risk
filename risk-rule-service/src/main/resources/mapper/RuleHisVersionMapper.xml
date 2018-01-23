@@ -18,12 +18,12 @@
         ID AS id, SENCE_VERSIONID AS senceVersionid, RULE_NAME AS ruleName, RULE_DESC AS ruleDesc, IS_EFFECT AS isEffect, CREATE_USER AS createUser, CREATE_TIME AS createTime
     </sql>
     <sql id="Column_List">
-        ID AS id, SENCE_VERSIONID AS senceVersionid, RULE_NAME AS ruleName, RULE_DESC AS ruleDesc, IS_EFFECT AS isEffect, CREATE_USER AS createUser, CREATE_TIME AS createTime,validationResult,executeRule
+        ID AS id, SENCE_VERSION_ID AS senceVersionid, RULE_NAME AS ruleName, RULE_DESC AS ruleDesc, IS_EFFECT AS isEffect, CREATE_USER AS createUser, CREATE_TIME AS createTime,executeRule
     </sql>
 
     <select id="getRuleValidationResult" resultType="com.ht.risk.rule.vo.RuleHisVersionVo" parameterType="map">
         select <include refid="Column_List"/>
-          case isnull(d.executeRule)  when 1 then '1' when 0 then '0'  end  as validationResult from RISK_RULE_HIS_VERSION ver left join
+          ,case isnull(d.executeRule)  when 1 then '1' when 0 then '0'  end  as validationResult from RISK_RULE_HIS_VERSION ver left join
 (select b.EXECUTE_RULENAME as executeRule  from RISK_TEST_DROOLS_LOG a inner join RISK_TEST_DROOLS_DETAIL_LOG b on a.id = b.DROOLS_LOGID  where a.id = #{id}) d
 on ver.RULE_NAME = d.executeRule
 where ver.SENCE_VERSION_ID = #{senceVersionId}

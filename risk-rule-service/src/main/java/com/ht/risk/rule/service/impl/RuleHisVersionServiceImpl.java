@@ -5,6 +5,7 @@ import com.ht.risk.rule.mapper.RuleHisVersionMapper;
 import com.ht.risk.rule.service.RuleHisVersionService;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.vo.RuleHisVersionVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +22,8 @@ import java.util.Map;
 @Service
 public class RuleHisVersionServiceImpl extends BaseServiceImpl<RuleHisVersionMapper, RuleHisVersion> implements RuleHisVersionService {
 
-    public RuleHisVersionMapper ruleHisVersionMapper;
+    @Autowired
+    private RuleHisVersionMapper ruleHisVersionMapper;
 
     @Override
     public List<RuleHisVersionVo> getRuleValidationResult(Map<String, Object> paramMap) {

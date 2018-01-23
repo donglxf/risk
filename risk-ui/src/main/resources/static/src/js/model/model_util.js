@@ -5,6 +5,15 @@ var ModelVerification = function (opt) {
     });
 }
 ModelVerification.prototype = {
+
+    initRuleBatchResult:function(data){
+        var html="";
+        for (var i=0;i<data.length;i++){
+            html += "<label style=\"font-size: 15px;\">匹配规则数量 "+data[i].count+"</label>\"+
+            "   <a href=\"javascript:void(0)\" onclick=\"showRuleTestResult('"+data[i].logId+"','"+data[i].versionId+"')\">查看详情</a>";
+        }
+        return html;
+    },
     initResult:function(data){
         var html="<table class=\"layui-table\">\n" +
             "    <colgroup>\n" +
