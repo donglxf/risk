@@ -273,7 +273,7 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
             ruleDefind(data.sceneId,data.sceneType);
 
         }else if(obj.event === 'edit'){
-            sceneId = id;
+            sceneId = data.sceneId;
             sceneEdit(data.sceneId,data.sceneType);
         }else if (obj.event === 'setItem') {
             //选择实体对象的id
