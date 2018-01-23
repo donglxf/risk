@@ -1,4 +1,4 @@
-package com.ht.risk.activiti.entity;
+package org.ht.risk.log.entity;
 
 import java.io.Serializable;
 
