@@ -52,33 +52,33 @@
     </sql>
 
     <sql id="BaseFindColumnSql">
-        T.ENTITY_ID,
-        T.ENTITY_NAME,
-        T.ENTITY_DESC,
-        T.ENTITY_IDENTIFY,
-        T.PKG_NAME,
-        T.CRE_USER_ID,
-        T.CRE_TIME,
-        T.IS_EFFECT,
-        T.REMARK
+        t.entity_id,
+        t.entity_name,
+        t.entity_desc,
+        t.entity_identify,
+        t.pkg_name,
+        t.cre_user_id,
+        t.cre_time,
+        t.is_effect,
+        t.remark
     </sql>
 
     <sql id="BaseFindColumnSqlMan">
-        T.ENTITY_ID,
-        T.ENTITY_NAME,
-        T.ENTITY_DESC,
-        T.ENTITY_IDENTIFY,
-        T.PKG_NAME,
-        T.CRE_USER_ID,
-        T.CRE_TIME,
-        T.IS_EFFECT,
-        T.REMARK,
+        t.entity_id,
+        t.entity_name,
+        t.entity_desc,
+        t.entity_identify,
+        t.pkg_name,
+        t.cre_user_id,
+        t.cre_time,
+        t.is_effect,
+        t.remark,
 
-       i.ITEM_ID,
-        i.ENTITY_ID,
-        i.ITEM_NAME,
-        i.ITEM_IDENTIFY,
-        i.ITEM_DESC,I.CONSTANT_ID
+       i.item_id,
+        i.entity_id,
+        i.item_name,
+        i.item_identify,
+        i.item_desc,i.constant_id
     </sql>
 
     <select id="findBaseRuleEntityInfoList" parameterType="com.ht.risk.rule.entity.EntityInfo"
