@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ht.risk.rule.mapper.BusinessMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.Business">
+        <id column="business_id" property="businessId" />
+        <result column="business_name" property="businessName" />
+        <result column="business_desc" property="businessDesc" />
+        <result column="status" property="status" />
+        <result column="cre_user_id" property="creUserId" />
+        <result column="cre_time" property="creTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        business_id AS businessId, business_name AS businessName, business_desc AS businessDesc, status, cre_user_id AS creUserId, cre_time AS creTime
+    </sql>
+
+</mapper>
