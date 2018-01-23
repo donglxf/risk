@@ -34,12 +34,15 @@ public class ConstantInfoController {
 
 	@GetMapping("page")
 	@ApiOperation(value = "分页查询")
-	public PageResult<List<ConstantInfo>> page(String key, Integer page, Integer limit) {
+	public PageResult<List<ConstantInfo>> page(String key,Long businessId, Integer page, Integer limit) {
 		Wrapper<ConstantInfo> wrapper = new EntityWrapper<>();
 		if (StringUtils.isNotBlank(key)) {
 			 wrapper.like("con_key", key);
 			 wrapper.or().like("con_name", key);
 			 wrapper.or().like("con_code", key);
+		}
+		if(businessId != null ){
+			wrapper.eq("business_id",businessId);
 		}
 		wrapper.andNew("con_type<>1");
 		Page<ConstantInfo> pages = new Page<>();

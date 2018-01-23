@@ -71,13 +71,16 @@ public class ActionInfoController {
     
     @GetMapping("page")
 	@ApiOperation(value = "分页查询")
-	public PageResult<List<ActionInfo>> page(String key, Integer page, Integer limit) {
+	public PageResult<List<ActionInfo>> page(String key, Long businessId, Integer page, Integer limit) {
 		Wrapper<ActionInfo> wrapper = new EntityWrapper<>();
 		if (StringUtils.isNotBlank(key)) {
 			 wrapper.like("action_type",ActionEnum.findByName(key) == null ? key : ActionEnum.findByName(key).getCode() );
 			 wrapper.or().like("action_name", key);
 			 wrapper.or().like("action_desc", key);
 			 wrapper.or().like("action_class", key);
+		}
+		if(businessId != null ){
+			wrapper.eq("business_id",businessId);
 		}
 		Page<ActionInfo> pages = new Page<>();
 		pages.setCurrent(page);

@@ -107,8 +107,9 @@ layui.config({
     base: '/rule/ui/src/js/rule/' //假设这是你存放拓展模块的根目录
 }).extend({ //设定模块别名
     sceneUtil: 'decision.js?v=22232' //如果 mymod.js 是在根目录，也可以不用设定别名
+    ,myutil:'../common',
 });
-layui.use(['table','form','laytpl','sceneUtil'], function() {
+layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
     var laytpl = layui.laytpl;
     var sceneUtil = layui.sceneUtil;
     sceneTable = layui.table;
@@ -117,6 +118,9 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
 
          form = layui.form;
     $ = layui.jquery;
+    var common = layui.myutil;
+    //查询构造
+    common.business.init("",$("#business_ser"),"businessId_ser");
     //第一个实例
     sceneTable.render({
         elem: '#'+scene.tableId
@@ -241,7 +245,8 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
                 }
                 , where: {
                     sceneType : $("#sceneType").val(),
-                    key : $("#key").val()
+                    key : $("#key").val(),
+                    businessId:$("#businessId_ser").val()
                 }
             });
         }

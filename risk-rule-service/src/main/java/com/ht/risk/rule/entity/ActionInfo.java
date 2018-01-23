@@ -1,16 +1,16 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.util.List;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 /**
  * <p>
  * 规则动作定义信息
@@ -21,6 +21,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel
 @TableName("rule_action_info")
+@Data
 public class ActionInfo extends Model<ActionInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -45,6 +46,11 @@ public class ActionInfo extends Model<ActionInfo> {
     @TableId("action_id")
 	@ApiModelProperty(required= true,value = "主键")
 	private Long actionId;
+
+	@TableField("business_id")
+	@ApiModelProperty(required= true,value = "业务线id")
+	private Long businessId;
+
     /**
      * 动作类型(1实现2自身)
      */

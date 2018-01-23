@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.enums.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,6 +23,7 @@ import java.util.Date;
  */
 @ApiModel
 @TableName("rule_scene_info s left join rule_scene_version v on v.scene_id = s.scene_id")
+@Data
 public class SceneInfoVersion extends Model<SceneInfoVersion> {
 
     private static final long serialVersionUID = 1L;
@@ -49,6 +51,11 @@ public class SceneInfoVersion extends Model<SceneInfoVersion> {
 	@TableField("scene_desc")
 	@ApiModelProperty(required= true,value = "描述")
 	private String sceneDesc;
+
+
+	@TableField("business_id")
+	@ApiModelProperty(required= true,value = "业务线id")
+	private Long businessId;
     /**
      * 是否有效
      */
@@ -113,7 +120,6 @@ public class SceneInfoVersion extends Model<SceneInfoVersion> {
 	 * 创建时间
 	 */
 	@TableField("v.cre_time")
-
 	@ApiModelProperty(required= true,value = "创建时间")
 	private Date creTime;
 	/**

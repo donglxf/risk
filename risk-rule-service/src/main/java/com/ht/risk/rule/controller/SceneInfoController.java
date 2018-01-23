@@ -40,12 +40,15 @@ public class SceneInfoController {
 
     @GetMapping("page")
     @ApiOperation(value = "分页查询")
-    public PageResult<List<SceneInfo>> page(String key , Integer sceneType,Integer page , Integer limit){
+    public PageResult<List<SceneInfo>> page(String key ,Long businessId, Integer sceneType,Integer page , Integer limit){
         Wrapper<SceneInfo> wrapper = new EntityWrapper<>();
         if(StringUtils.isNotBlank(key)){
             wrapper.like("scene_name",key);
             wrapper.or().like("scene_desc",key);
             wrapper.or().like("scene_identify",key);
+        }
+        if(businessId != null ){
+            wrapper.eq("business_id",businessId);
         }
         if(sceneType != null ){
             wrapper.eq("scene_type",sceneType);
