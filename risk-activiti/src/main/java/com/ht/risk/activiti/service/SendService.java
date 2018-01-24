@@ -15,6 +15,7 @@ public class SendService {
     RabbitMessagingTemplate rabbitMessagingTemplate;
 
     public void sendToRabbitmq(String message){
+        System.out.println("sendToRabbitmq="+message);
         this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.RESULT_EXCHANGE, AmqpConfig.RESULT_ROUTINGKEY,message);
     }
 

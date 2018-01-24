@@ -17,7 +17,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        scene_id AS sceneId, scene_identify AS sceneIdentify, scene_type AS sceneType, scene_name AS sceneName, scene_desc AS sceneDesc, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
+        scene_id AS sceneId, scene_identify AS sceneIdentify,business_id as businessId, scene_type AS sceneType, scene_name AS sceneName, scene_desc AS sceneDesc, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
     </sql>
 
     <select id="findBaseRuleSceneInfiList" parameterType="com.ht.risk.rule.entity.SceneInfo"

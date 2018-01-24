@@ -1,9 +1,8 @@
 ///////////////////////////////////////////////////////////////////////
 var preBindUrl = "/rule/service/variableBind/";
 var preUrl = "/rule/service/strategy/";
-var layer, entityTable, itemTable, table, active, itemActive;
-var versionId;
-layui.use(['table', 'form'], function () {
+var p_sceneId = -1;
+layui.use(['table', 'form','laydate'], function () {
     /**
      * 设置表单值
      *
@@ -15,12 +14,13 @@ layui.use(['table', 'form'], function () {
             el.find(":input[name='" + p + "']").val(data[p]);
         }
     }
-
-    layer = layui.layer;
-    table = layui.table;
-    entityTable = layui.table;
-    itemTable = layui.table;
+    var laydate = layui.laydate;
+    var layer = layui.layer;
+   var table = layui.table;
+    var entityTable = layui.table;
+    var itemTable = layui.table;
     var app = layui.app, $ = layui.jquery, form = layui.form;
+    // var $=layui.jquery;
     // 第一个实例
     entityTable.render({
         elem: '#demo',
@@ -101,50 +101,96 @@ layui.use(['table', 'form'], function () {
         var data = obj.data;
         console.log(obj);
         if (obj.event === 'manual_verification') { // 手动验证
-            test(data.sceneId, data.versionId,data.sceneIdentify);
+            manuTest(data.sceneId, data.versionId,data.sceneIdentify);
         } else if (obj.event === 'auto_verification') { // 自动验证
-            autoTest(data.versionId);
+            autoTest(data.sceneId, data.versionId,data.sceneIdentify);
         } else if (obj.event === 'varbind') { // 变量绑定
             edit(data.sceneId, data.versionId);
         }
     });
 
-    <!-- 手动测试 -->
-    function test(sceneId, versionId,sceneIdentify) {
-        $.get(preBindUrl + "getAll?sceneId=" + versionId, function (data) {
-            var result = data.data;
-            $.get('/rule/ui/strategy/manualTest', null, function (form) {
-                var layIndex=layer.open({
-                    type: 1,
-                    title: '修改',
-                    maxmin: true,
-                    shadeClose: false, // 点击遮罩关闭层
-                    content: form,
-                    zIndex: layer.zIndex, //重点1
-                    success: function (da, index) {
-                        console.log(">>" + da + ">>index:==" + index);
-                        $("#senceVersionid").val(versionId);
-                        $("#sceneId").val(sceneId);
-                        $("#sceneIdentify").val(sceneIdentify);
 
-                        setVariableVal(result); // 渲染表单
-                    },
-                    yes: function (index) {
-                        // layedit.sync(editIndex);
-                        // 触发表单的提交事件
-                        $('form.layui-form')
-                            .find('button[lay-filter=formDemo]').click();
-                        layer.close(index);
-                    },
+    function manuTest(sceneId, versionId,sceneIdentify){
+        var url=preBindUrl+ "getAll?sceneId=" + versionId ;
+        $.ajax({
+            type: "get",
+            url: url,
+            dataType: "json",
+            success: function (data) {
+                console.log(">>>>>>>>"+data);
+                var modelVerification = new ModelVerification();
+                var contents = modelVerification.initModel(data);
+                var layIndex = layer.open({
+                    type: 2,
+                    shade: false,
+                    title: "",
+                    content: "/rule/ui/strategy/manualTest",
+                    zIndex: layer.zIndex, //重点1
+                    success: function (layero, index) {
+                        var body = layer.getChildFrame('body',index);//建立父子联系
+                        var iframeWin = window[layero.find('iframe')[0]['name']];
+                        var inputList = body.find("input[type='hidden']");
+                        for(var j = 0; j< inputList.length; j++){
+                            var inputName=inputList[j].name;
+                            if(inputName=='senceVersionId'){
+                                $(inputList[j]).val(versionId);
+                            }else if(inputName =='senceId'){
+                                $(inputList[j]).val(sceneId);
+                            }else if(inputName =='sceneIdentify'){
+                                $(inputList[j]).val(sceneIdentify);
+                            }
+                        }
+                        layer.setTop(layero); //重点2
+                        var form = layer.getChildFrame('#manu_model_valiable_form', index);
+                        form.html(contents);
+                    }
                 });
                 layer.full(layIndex);
-            });
-        }, 'json')
+            }
+        });
     }
 
     <!-- 自动测试 -->
     function autoTest(sceneId, versionId,sceneIdentify) {
-        $.get(preBindUrl + "getAll?sceneId=" + versionId, function (data) {
+        var url=preBindUrl+ "getAll?sceneId=" + versionId ;
+        $.ajax({
+            type: "get",
+            url: url,
+            dataType: "json",
+            success: function (data) {
+                console.log(">>>>>>>>"+data);
+                // var modelVerification = new ModelVerification();
+                // var contents = modelVerification.initModel(data);
+                var layIndex = layer.open({
+                    type: 2,
+                    shade: false,
+                    title: "",
+                    content: "/rule/ui/strategy/autoTest",
+                    zIndex: layer.zIndex, //重点1
+                    success: function (layero, index) {
+                        var body = layer.getChildFrame('body',index);//建立父子联系
+                        var iframeWin = window[layero.find('iframe')[0]['name']];
+                        var inputList = body.find("input[type='hidden']");
+                        for(var j = 0; j< inputList.length; j++){
+                            var inputName=inputList[j].name;
+                            if(inputName=='senceVersionId'){
+                                $(inputList[j]).val(versionId);
+                            }else if(inputName =='senceId'){
+                                $(inputList[j]).val(sceneId);
+                            }else if(inputName =='sceneIdentify'){
+                                $(inputList[j]).val(sceneIdentify);
+                            }
+                        }
+                        layer.setTop(layero); //重点2
+                        // var form = layer.getChildFrame('#manu_model_valiable_form', index);
+                        // form.html(contents);
+                        form.render();
+                    }
+                });
+                layer.full(layIndex);
+            }
+        });
+       /* $.get(preBindUrl + "getAll?sceneId=" + versionId, function (data) {
             var result = data.data;
             $.get('/rule/ui/strategy/autoTest', null, function (form) {
                 var layIndex=layer.open({
@@ -170,10 +216,10 @@ layui.use(['table', 'form'], function () {
                 });
                 layer.full(layIndex);
             });
-        }, 'json')
+        }, 'json')*/
     }
     
-    function setVariableVal(da) {
+    /*function setVariableVal(da) {
         // var modelVerification = new ModelVerification();
         var size = da.length;
         for(var i=0;i<size;i++){
@@ -188,29 +234,7 @@ layui.use(['table', 'form'], function () {
                 "\t\t\t\t\t\t\t</td>\n" +
                 "\t\t\t\t\t\t</tr>");
         }
-    }
-
-    function showRuleTestResult(logId,versionId){
-        $
-            .ajax({
-                cache : true,
-                type : "GET",
-                url: preUrl + 'ruleMatchResult/'+logId+'/'+versionId, // 数据接口
-                data : {
-                    "sceneId" : sceneId
-                },
-                async : false,
-                error : function(request) {
-                    alert("Connection error");
-                },
-                success : function(da) {
-                    console.log(da);
-                    var size = da.data.length;
-
-
-                }
-            });
-    }
+    }*/
 
     function edit(sceneId, versionId) {
         $.get(preUrl + "getAll?sceneId=" + versionId, function (data) {

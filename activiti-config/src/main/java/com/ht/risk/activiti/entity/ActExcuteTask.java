@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author zhangzhen
- * @since 2018-01-19
+ * @since 2018-01-22
  */
 @ApiModel
 @TableName("ACT_EXCUTE_TASK")
@@ -30,13 +30,12 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
     @TableId("ID")
 	@ApiModelProperty(required= true,value = "主键")
 	private Long id;
-
-	/**
-	 * 主键
-	 */
-	@TableId("BATCH_ID")
-    private Long batchId;
-
+    /**
+     * 批次号，验证任务调用时存在
+     */
+	@TableField("BATCH_ID")
+	@ApiModelProperty(required= true,value = "批次号，验证任务调用时存在")
+	private Long batchId;
     /**
      * 模型版本ID
      */
@@ -50,10 +49,10 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
 	@ApiModelProperty(required= true,value = "流程运行实例ID")
 	private String procInstId;
     /**
-     * 任务状态，0-待执行，1-执行中，2-执行结束
+     * 任务状态，0-待执行，1-执行结束，2-执行异常
      */
 	@TableField("STATUS")
-	@ApiModelProperty(required= true,value = "任务状态，0-待执行，1-执行中，2-执行结束,3-执行异常，4-启动异常")
+	@ApiModelProperty(required= true,value = "任务状态，0-待执行，1-执行结束，2-执行异常")
 	private String status;
     /**
      * 任务类型，0-验证任务，1-业务系统调用
@@ -62,17 +61,29 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
 	@ApiModelProperty(required= true,value = "任务类型，0-验证任务，1-业务系统调用")
 	private String type;
     /**
+     * 入参
+     */
+	@TableField("IN_PARAMTER")
+	@ApiModelProperty(required= true,value = "入参")
+	private String inParamter;
+    /**
+     * 出参
+     */
+	@TableField("OUT_PARAMTER")
+	@ApiModelProperty(required= true,value = "出参")
+	private String outParamter;
+    /**
+     * 花费时间
+     */
+	@TableField("SPEND_TIME")
+	@ApiModelProperty(required= true,value = "花费时间")
+	private Long spendTime;
+    /**
      * 备注
      */
 	@TableField("REMARK")
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
-    /**
-     * 更新时间
-     */
-	@TableField("END_TIME")
-	@ApiModelProperty(required= true,value = "更新时间")
-	private Date endTime;
     /**
      * 创建时间
      */
@@ -85,6 +96,12 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
 	@TableField("CREATE_USER")
 	@ApiModelProperty(required= true,value = "创建用户")
 	private String createUser;
+    /**
+     * 结束时间
+     */
+	@TableField("UPDATE_TIME")
+	@ApiModelProperty(required= true,value = "结束时间")
+	private Date updateTime;
 
 
 	public Long getId() {
@@ -93,6 +110,14 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getBatchId() {
+		return batchId;
+	}
+
+	public void setBatchId(Long batchId) {
+		this.batchId = batchId;
 	}
 
 	public Long getProcReleaseId() {
@@ -127,20 +152,36 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
 		this.type = type;
 	}
 
+	public String getInParamter() {
+		return inParamter;
+	}
+
+	public void setInParamter(String inParamter) {
+		this.inParamter = inParamter;
+	}
+
+	public String getOutParamter() {
+		return outParamter;
+	}
+
+	public void setOutParamter(String outParamter) {
+		this.outParamter = outParamter;
+	}
+
+	public Long getSpendTime() {
+		return spendTime;
+	}
+
+	public void setSpendTime(Long spendTime) {
+		this.spendTime = spendTime;
+	}
+
 	public String getRemark() {
 		return remark;
 	}
 
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
 	}
 
 	public Date getCreateTime() {
@@ -159,31 +200,35 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
 		this.createUser = createUser;
 	}
 
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
-	}
-
-	public Long getBatchId() {
-		return batchId;
-	}
-
-	public void setBatchId(Long batchId) {
-		this.batchId = batchId;
 	}
 
 	@Override
 	public String toString() {
 		return "ActExcuteTask{" +
 			"id=" + id +
+			", batchId=" + batchId +
 			", procReleaseId=" + procReleaseId +
 			", procInstId=" + procInstId +
 			", status=" + status +
 			", type=" + type +
+			", inParamter=" + inParamter +
+			", outParamter=" + outParamter +
+			", spendTime=" + spendTime +
 			", remark=" + remark +
-			", endTime=" + endTime +
 			", createTime=" + createTime +
 			", createUser=" + createUser +
+			", updateTime=" + updateTime +
 			"}";
 	}
 }

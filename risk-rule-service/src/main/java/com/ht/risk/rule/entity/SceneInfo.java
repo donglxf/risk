@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,6 +20,7 @@ import java.util.Date;
  */
 @ApiModel
 @TableName("rule_scene_info")
+@Data
 public class SceneInfo extends Model<SceneInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -28,6 +30,7 @@ public class SceneInfo extends Model<SceneInfo> {
     @TableId("scene_id")
 	@ApiModelProperty(required= true,value = "主键")
 	private Long sceneId;
+
     /**
      * 标识
      */
@@ -40,6 +43,10 @@ public class SceneInfo extends Model<SceneInfo> {
 	@TableField("scene_type")
 	@ApiModelProperty(required= true,value = "类型(暂不使用)")
 	private Integer sceneType;
+
+	@TableField("business_id")
+	@ApiModelProperty(required= true,value = "业务线id")
+	private Long businessId;
     /**
      * 名称
      */

@@ -58,16 +58,16 @@
         e.entity_id AS entityId
     </sql>
     <sql id="BaseFindColumnSql">
-        T.ITEM_ID,
-        T.ENTITY_ID,
-        T.ITEM_NAME,
-        T.ITEM_IDENTIFY,
-        T.ITEM_DESC,
-        T.CRE_USER_ID,
-        T.CRE_TIME,
-        T.IS_EFFECT,
-        T.VARIABLE_ID,
-        T.REMARK
+        t.item_id,
+        t.entity_id,
+        t.item_name,
+        t.item_identify,
+        t.item_desc,
+        t.cre_user_id,
+        t.cre_time,
+        t.is_effect,
+        t.variable_id,
+        t.remark
     </sql>
     <select id="findBaseRuleEntityItemInfoList" parameterType="com.ht.risk.rule.entity.EntityItemInfo"
             resultType="com.ht.risk.rule.entity.EntityItemInfo">

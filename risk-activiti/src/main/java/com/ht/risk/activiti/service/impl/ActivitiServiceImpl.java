@@ -146,7 +146,7 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
         return modelNode;
     }
 
-    public void saveModel(String modelId, MultiValueMap<String, String> values)throws Exception {
+    public void saveModel(String modelId, MultiValueMap<String, String> values) throws Exception {
         Model model = repositoryService.getModel(modelId);
         ObjectNode modelJson = (ObjectNode) objectMapper.readTree(model.getMetaInfo());
         modelJson.put(MODEL_NAME, values.getFirst("name"));
@@ -169,15 +169,14 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
     }
 
 
-    public List<HistoricVariableInstance> getProcessVarByDeployIdAndName(String processId,String variableName){
-        List<HistoricVariableInstance> vars = historyService.createHistoricVariableInstanceQuery().processInstanceId(processId).variableName(variableName).list();
-        return vars;
+    public List<HistoricVariableInstance> getProcessVarByDeployIdAndName(String processId, String variableName) {
+        return  historyService.createHistoricVariableInstanceQuery().processInstanceId(processId).variableName(variableName).list();
+
     }
 
-    public List<HistoricVariableInstance> getProcessVarByDeployIdAndNameLike(String processId,String variableName){
+    public List<HistoricVariableInstance> getHisProcessVarByDeployIdAndNameLike(String processId, String variableName) {
         return historyService.createHistoricVariableInstanceQuery().processInstanceId(processId).variableNameLike(variableName).list();
     }
-
 
 
     private List<RpcSenceInfo> getProcScenceList(BpmnModel model) {

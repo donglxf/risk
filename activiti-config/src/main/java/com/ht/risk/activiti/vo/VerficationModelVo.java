@@ -6,11 +6,21 @@ import java.util.Map;
 
 public class VerficationModelVo extends Page{
 
+    private Long procReleaseId;
+    private Long batchId;
     private String procDefId;
     private String version;
     private Map<String,Object> data;
     private String batchSize;
 
+
+    public Long getProcReleaseId() {
+        return procReleaseId;
+    }
+
+    public void setProcReleaseId(Long procReleaseId) {
+        this.procReleaseId = procReleaseId;
+    }
 
     public String getProcDefId() {
         return procDefId;
@@ -42,5 +52,13 @@ public class VerficationModelVo extends Page{
 
     public void setBatchSize(String batchSize) {
         this.batchSize = batchSize;
+    }
+
+    public Long getBatchId() {
+        return batchId;
+    }
+
+    public void setBatchId(Long batchId) {
+        this.batchId = batchId;
     }
 }

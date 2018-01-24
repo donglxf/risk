@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -57,6 +58,7 @@ public class Business extends Model<Business> {
      */
 	@TableField("cre_time")
 	@ApiModelProperty(required= true,value = "创建时间")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date creTime;
 
 

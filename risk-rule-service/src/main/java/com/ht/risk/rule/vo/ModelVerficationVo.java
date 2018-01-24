@@ -1,14 +1,26 @@
 package com.ht.risk.rule.vo;
 
+import com.ht.risk.common.vo.Page;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class ModelVerficationVo implements Serializable {
+public class ModelVerficationVo  extends Page implements Serializable{
 
+    private Long batchId;
     private String modelName;
     private String modelVersion;
+
     private Map<String,List<VariableVo>> variableMap;
+
+    public Long getBatchId() {
+        return batchId;
+    }
+
+    public void setBatchId(Long batchId) {
+        this.batchId = batchId;
+    }
 
     public String getModelName() {
         return modelName;

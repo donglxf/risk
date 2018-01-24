@@ -6,6 +6,8 @@ spring:
         cache: false
     activemq:
       broker-url:
+    session:
+      timeout: 36000 #一天的有效期
 server:
     port: 8765 #启动端口
 
@@ -35,9 +37,10 @@ zuul:
     connect-timeout-millis: 6000
 
 ribbon:
+  #ConnectTimeout:3000
+  ReadTimeout: 60000
   eureka:
     enabled: false #配置zuul路由时用将此属性设置为false
-
 rule-ui:
   ribbon:
     listOfServers: 127.0.0.1:8766 #为cloud-client服务指定一组服务地址，应该是用于负载均衡

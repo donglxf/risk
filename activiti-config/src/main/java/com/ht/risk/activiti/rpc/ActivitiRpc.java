@@ -21,5 +21,5 @@ public interface ActivitiRpc {
     public Result<String> startProcess(RpcStartParamter paramter);
 
     @RequestMapping(value = "/getProcInstVarObj")
-    public Object getProcInstVarObj(ModelParamter paramter);
+    public String getProcInstVarObj(ModelParamter paramter);
 }

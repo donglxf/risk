@@ -15,9 +15,31 @@
         <result column="CREATE_TIME" property="createTime" />
     </resultMap>
 
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         ID AS id, PROCINST_ID AS procinstId, MODEL_NAME AS modelName, SENCE_VERSIONID AS senceVersionid, IN_PARAMTER AS inParamter, OUT_PARAMTER AS outParamter, EXECUTE_TOTAL AS executeTotal, TYPE AS type, CREATE_TIME AS createTime
     </sql>
+
+    <select id="queryHitRuleByProcInstId" resultType="org.ht.risk.log.entity.HitRule">
+        select d.version_id as senceVersionId,d.title as senceName,a.RULE_NAME as ruleName,a.RULE_DESC as ruleDesc,c.EXECUTE_RULENAME as flag from RISK_RULE_HIS_VERSION a
+            inner join rule_scene_version d on a.SENCE_VERSION_ID = d.version_id
+            inner join RISK_DROOLS_LOG b on a.SENCE_VERSION_ID = b.SENCE_VERSIONID and d.version_id = b.SENCE_VERSIONID
+            left join RISK_DROOLS_DETAIL_LOG c on a.RULE_NAME = c.EXECUTE_RULENAME and b.ID = c.DROOLS_LOGID
+        where b.PROCINST_ID =  #{procInstId}
+    </select>
+
+    <select id="queryHitRuleByProcInstIds" resultType="org.ht.risk.log.entity.HitRule">
+        select d.version_id as senceVersionId,d.title as senceName,a.RULE_NAME as ruleName,a.RULE_DESC as ruleDesc,sum(1) as flag from RISK_RULE_HIS_VERSION a
+            inner join rule_scene_version d on a.SENCE_VERSION_ID = d.version_id
+            inner join RISK_DROOLS_LOG b on a.SENCE_VERSION_ID = b.SENCE_VERSIONID and d.version_id = b.SENCE_VERSIONID
+            inner join RISK_DROOLS_DETAIL_LOG c on a.RULE_NAME = c.EXECUTE_RULENAME and b.ID = c.DROOLS_LOGID
+        where
+            b.PROCINST_ID in
+            <foreach item="item" collection="procInstIds" separator="," open="(" close=")" index="">
+                #{item.id}
+            </foreach>
+        group by d.version_id,d.title,a.RULE_DESC,a.RULE_NAME;
+    </select>
 
 </mapper>

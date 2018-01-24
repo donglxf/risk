@@ -1,22 +1,32 @@
 package com.ht.risk.rule.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
+import com.ht.risk.api.model.log.RpcHitRuleInfo;
+import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ActReModel;
+import com.ht.risk.rule.rpc.ActivitiConfigRpc;
 import com.ht.risk.rule.service.ActReModelService;
+import com.ht.risk.rule.service.ModelAnalysisSerivce;
 import com.ht.risk.rule.vo.ModelVerficationVo;
+import com.ht.risk.rule.vo.SenceParamterVo;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -29,6 +39,46 @@ import java.util.List;
 @RestController
 @RequestMapping("/verification")
 public class ModelVerificationController {
+
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ModelVerificationController.class);
+
+    @Resource
+    private ActivitiConfigRpc activitiConfigRpc;
+
+    @Resource
+    private ModelAnalysisSerivce modelAnalysisSerivce;
+
+    /**
+     * 查询模型验证任务相关信息
+     * @param verficationVo
+     * @return
+     */
+    @RequestMapping("/querySingleVerficationInfo")
+    public Result querySingleVerficationInfo(@RequestBody ModelVerficationVo verficationVo){
+        LOGGER.info("querySingleVerficationInfo mothod invoke,paramter:"+ JSON.toJSONString(verficationVo));
+        Result result = null;
+        // 查询批次相关任务列表
+        Result<List<RpcActExcuteTaskInfo>> taskResult = activitiConfigRpc.queryTasksByBatchId(verficationVo.getBatchId());
+        if(taskResult == null || taskResult.getCode() != 0 ||  taskResult.getData() == null){
+            result = Result.error(1,"没有查询到子任务！");
+            return result;
+        }
+        List<RpcActExcuteTaskInfo> tasks = taskResult.getData();
+        if(tasks.size()>1){
+            result = Result.success();
+            return result;
+        }else{
+            Map<String,Object> resultMap = new HashMap<String,Object>();
+            Map<String, List<RpcHitRuleInfo>> hitRule = modelAnalysisSerivce.queryModelVerfHitRuleInfo(tasks.get(0).getProcInstId());
+            Map<Long,SenceParamterVo> paramterData = modelAnalysisSerivce.queryModeVerfDataInfo(tasks.get(0).getId());
+            resultMap.put("hitRule",hitRule);
+            resultMap.put("paramterData",paramterData);
+            result = Result.success(resultMap);
+        }
+        LOGGER.info("querySingleVerficationInfo mothod invoke end,result:"+ JSON.toJSONString(result));
+        return result;
+    }
+
 
     /*private static final Logger LOGGER = LoggerFactory.getLogger(ModelDeployController.class);
     @Autowired

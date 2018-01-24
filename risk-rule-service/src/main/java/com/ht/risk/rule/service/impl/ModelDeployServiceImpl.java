@@ -49,8 +49,7 @@ public class ModelDeployServiceImpl implements ModelDeployService {
                 sence.setCreateUser("Robot");
                 sceneVersionId = getSenceVersionId(rpcSence.getSenceCode(),rpcSence.getSenceVersion());
                 if(sceneVersionId == null){
-                    //continue;
-                    sceneVersionId = 120022L;
+                    continue;
                 }
                 sence.setSenceVersionId(sceneVersionId);
                 sences.add(sence);

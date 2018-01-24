@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +22,7 @@ import java.util.List;
  */
 @ApiModel
 @TableName("rule_entity_info")
+@Data
 public class EntityInfo extends Model<EntityInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -32,6 +34,11 @@ public class EntityInfo extends Model<EntityInfo> {
     @TableId("entity_id")
     @ApiModelProperty(required = true, value = "主键")
     private Long entityId;
+
+    @TableField("business_id")
+    @ApiModelProperty(required= true,value = "业务线id")
+    private Long businessId;
+
     /**
      * 名称
      */

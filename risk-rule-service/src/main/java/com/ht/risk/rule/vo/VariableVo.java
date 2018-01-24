@@ -1,5 +1,7 @@
 package com.ht.risk.rule.vo;
 
+import com.ht.risk.rule.entity.VariableBind;
+
 import java.io.Serializable;
 import java.util.Map;
 
@@ -17,6 +19,23 @@ public class VariableVo implements Serializable {
     private String type;
     // 下拉、多选等数据
     private Map<String,String> optionData;
+
+    private String value;
+
+    public VariableVo(){
+        super();
+    }
+
+    public VariableVo(VariableBind bind){
+        this.valibaleCn = bind.getVariableCode();
+        this.valibaleCn = bind.getVariableName();
+        this.submitName = bind.getVariableCode();
+        this.value  = bind.getTmpValue();
+        this.type = bind.getDataType();
+    }
+
+
+
 
     public String getSubmitName() {
         return submitName;
@@ -64,5 +83,13 @@ public class VariableVo implements Serializable {
 
     public void setValibaleCn(String valibaleCn) {
         this.valibaleCn = valibaleCn;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }
