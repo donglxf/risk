@@ -3,7 +3,6 @@ package com.ht.risk.rule.entity;
 import java.io.Serializable;
 
 import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -16,10 +15,10 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author dyb
- * @since 2018-01-22
+ * @since 2018-01-24
  */
 @ApiModel
-@TableName("RISK_SENCE_VERFICATION_BATCH")
+@TableName("risk_sence_verfication_batch")
 public class SenceVerficationBatch extends Model<SenceVerficationBatch> {
 
     private static final long serialVersionUID = 1L;
@@ -27,39 +26,44 @@ public class SenceVerficationBatch extends Model<SenceVerficationBatch> {
     /**
      * 主键,批次号
      */
-    @TableId("ID")
 	@ApiModelProperty(required= true,value = "主键,批次号")
 	private Long id;
     /**
      * 決策版本流水
      */
-	@TableField("SENCE_VERSION_ID")
+	@TableField("sence_version_id")
 	@ApiModelProperty(required= true,value = "決策版本流水")
 	private String senceVersionId;
     /**
      * 批次大小
      */
-	@TableField("BATCH_SIZE")
+	@TableField("batch_size")
 	@ApiModelProperty(required= true,value = "批次大小")
 	private Integer batchSize;
     /**
-     * 是否生效：0-有效，1-无效
+     * 是否生效：0-手动，1-自动
      */
-	@TableField("IS_EFFECT")
-	@ApiModelProperty(required= true,value = "是否生效：0-有效，1-无效")
-	private String isEffect;
+	@TableField("verfication_type")
+	@ApiModelProperty(required= true,value = "是否生效：0-手动，1-自动")
+	private String verficationType;
     /**
      * 创建时间
      */
-	@TableField("CREATE_TIME")
+	@TableField("create_time")
 	@ApiModelProperty(required= true,value = "创建时间")
 	private Date createTime;
     /**
      * 创建用户
      */
-	@TableField("CREATE_USER")
+	@TableField("create_user")
 	@ApiModelProperty(required= true,value = "创建用户")
 	private String createUser;
+    /**
+     * 结束时间
+     */
+	@TableField("end_time")
+	@ApiModelProperty(required= true,value = "结束时间")
+	private Date endTime;
 
 
 	public Long getId() {
@@ -86,12 +90,12 @@ public class SenceVerficationBatch extends Model<SenceVerficationBatch> {
 		this.batchSize = batchSize;
 	}
 
-	public String getIsEffect() {
-		return isEffect;
+	public String getVerficationType() {
+		return verficationType;
 	}
 
-	public void setIsEffect(String isEffect) {
-		this.isEffect = isEffect;
+	public void setVerficationType(String verficationType) {
+		this.verficationType = verficationType;
 	}
 
 	public Date getCreateTime() {
@@ -110,6 +114,14 @@ public class SenceVerficationBatch extends Model<SenceVerficationBatch> {
 		this.createUser = createUser;
 	}
 
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -121,9 +133,10 @@ public class SenceVerficationBatch extends Model<SenceVerficationBatch> {
 			"id=" + id +
 			", senceVersionId=" + senceVersionId +
 			", batchSize=" + batchSize +
-			", isEffect=" + isEffect +
+			", verficationType=" + verficationType +
 			", createTime=" + createTime +
 			", createUser=" + createUser +
+			", endTime=" + endTime +
 			"}";
 	}
 }

@@ -16,5 +16,5 @@ import java.util.Map;
  */
 public interface TempDataContainsService extends BaseService<TempDataContains> {
 
-    List<Map<String,Object>> getAutoValidaionData();
+    List<Map<String,Object>> getAutoValidaionData(String sql);
 }

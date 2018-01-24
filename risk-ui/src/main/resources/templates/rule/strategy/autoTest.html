@@ -28,6 +28,13 @@
 								<option value="15">15</option>
 							</select>
 						</div>
+						<label class="layui-form-label">取值方式:</label>
+						<div class="layui-col-md2">
+							<select id="getWay" class="layui-select" name="getWay" lay-verify="">
+								<option value="0">随机</option>
+								<option value="1">时间倒序</option>
+							</select>
+						</div>
 					</div>
 					<div class="layui-form-item">
 						<div class="layui-input-block">
@@ -121,7 +128,7 @@
                 },
                 success : function(da) {
                     if (da.code == 0) {
-                        var modelVerification = new ModelVerification();
+//                        var modelVerification = new ModelVerification();
                         resultTab(da.data);
                     } else {
                         $("#validateResult").val(da.msg);

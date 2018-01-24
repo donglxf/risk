@@ -50,7 +50,7 @@ ModelVerification.prototype = {
         for(var i=0;i<data.length;i++){
             html+="<tbody><tr></tbody><td>"+data[i].ruleDesc+"</td>";
             if(data[i].validationResult=='0'){
-                html+="<td>匹配规则</td>";
+                html+="<td style='color: #ff598f;'>匹配规则</td>";
             }else{
                 html+="<td></td>";
             }

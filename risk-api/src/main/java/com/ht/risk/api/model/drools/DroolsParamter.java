@@ -31,11 +31,25 @@ public class DroolsParamter {
 	private String type;
 
 	/**
+	 * 批次号
+	 */
+	private String batchId;
+
+
+
+	/**
 	 * 业务数据
 	 */
 	private Map<String, Object> data;
 
-	
+	public String getBatchId() {
+		return batchId;
+	}
+
+	public void setBatchId(String batchId) {
+		this.batchId = batchId;
+	}
+
 	public String getType() {
 		return type;
 	}

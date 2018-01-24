@@ -28,9 +28,9 @@ public class TempDataContainsServiceImpl extends BaseServiceImpl<TempDataContain
     private TempDataContainsMapper tempDataContainsMapper;
 
     @Override
-    public List<Map<String,Object>> getAutoValidaionData() {
+    public List<Map<String,Object>> getAutoValidaionData(String sql) {
         Map<String,String> paramter = new HashMap<String,String>();
-        paramter.put("sql","select * from RISK_VARIABLE_BIND ");
+        paramter.put("sql",sql);
         return tempDataContainsMapper.getAutoValidaionData(paramter);
     }
 }

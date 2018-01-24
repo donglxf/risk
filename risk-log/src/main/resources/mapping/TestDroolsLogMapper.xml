@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ht.risk.rule.mapper.TestDroolsLogMapper">
+<mapper namespace="org.ht.risk.log.mapper.TestDroolsLogMapper">
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="org.ht.risk.log.entity.TestDroolsLog">
@@ -13,11 +13,12 @@
         <result column="EXECUTE_TOTAL" property="executeTotal" />
         <result column="TYPE" property="type" />
         <result column="CREATE_TIME" property="createTime" />
+        <result column="batch_id" property="batchId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, PROCINST_ID AS procinstId, MODEL_NAME AS modelName, SENCE_VERSIONID AS senceVersionid, IN_PARAMTER AS inParamter, OUT_PARAMTER AS outParamter, EXECUTE_TOTAL AS executeTotal, TYPE AS type, CREATE_TIME AS createTime
+        ID AS id, PROCINST_ID AS procinstId, MODEL_NAME AS modelName, SENCE_VERSIONID AS senceVersionid, IN_PARAMTER AS inParamter, OUT_PARAMTER AS outParamter, EXECUTE_TOTAL AS executeTotal, TYPE AS type, CREATE_TIME AS createTime,batch_id as batchId
     </sql>
 
 </mapper>

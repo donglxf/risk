@@ -4,17 +4,18 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.SenceVerficationBatch">
-        <id column="ID" property="id" />
-        <result column="SENCE_VERSION_ID" property="senceVersionId" />
-        <result column="BATCH_SIZE" property="batchSize" />
-        <result column="IS_EFFECT" property="isEffect" />
-        <result column="CREATE_TIME" property="createTime" />
-        <result column="CREATE_USER" property="createUser" />
+        <id column="id" property="id" />
+        <result column="sence_version_id" property="senceVersionId" />
+        <result column="batch_size" property="batchSize" />
+        <result column="verfication_type" property="verficationType" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="end_time" property="endTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, SENCE_VERSION_ID AS senceVersionId, BATCH_SIZE AS batchSize, IS_EFFECT AS isEffect, CREATE_TIME AS createTime, CREATE_USER AS createUser
+        id, sence_version_id AS senceVersionId, batch_size AS batchSize, verfication_type AS verficationType, create_time AS createTime, create_user AS createUser, end_time AS endTime
     </sql>
 
 </mapper>
