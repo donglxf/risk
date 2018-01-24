@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@FeignClient("drools-log")
+@FeignClient("risk-log")
 public interface DroolsLogRpc {
 
-    @RequestMapping("/getHitRuleInfo")
+    @RequestMapping("/droolsLog/getHitRuleInfo")
     public Result<List<RpcHitRuleInfo>> getHitRuleInfo(@RequestBody String procInstId);
 
 
-    @RequestMapping("/countHitRuleInfo")
+    @RequestMapping("/droolsLog/countHitRuleInfo")
     public Result<List<RpcHitRuleInfo>> countHitRuleInfo(@RequestBody List<String> procInstId);
 
 

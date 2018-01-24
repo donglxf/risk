@@ -96,7 +96,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         if (releaseId == null) {
             return null;
         }
-        ActExcuteTask task  = this.saveTask(releaseId,rpcStartParamter.getType(),rpcStartParamter.getBatchId());
+        ActExcuteTask task  = this.saveTask(releaseId,rpcStartParamter.getType(),rpcStartParamter.getBatchId(),JSON.toJSONString(rpcStartParamter));
         Result<String> result = this.start(rpcStartParamter,task.getId());
         LOGGER.info("startProcess complete... result:"+ JSON.toJSONString(result));
         // 更新模型任务流程实例ID
@@ -120,7 +120,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         }
         RiskValidateBatch batch = saveBatchInfo(releaseId);
         rpcStartParamter.setBatchId(batch.getId());
-        ActExcuteTask task  = this.saveTask(releaseId,rpcStartParamter.getType(),rpcStartParamter.getBatchId());
+        ActExcuteTask task  = this.saveTask(releaseId,rpcStartParamter.getType(),rpcStartParamter.getBatchId(),JSON.toJSONString(rpcStartParamter));
         Result<String> result = this.start(rpcStartParamter,task.getId());
         LOGGER.info("startProcess complete... result:"+ JSON.toJSONString(result));
         // 更新模型任务流程实例ID
@@ -145,7 +145,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
             rpcStartParamter.setData(rpcStartParamter.getDatas().get(i));
             rpcStartParamter.setBatchId(batch.getId());
             String procInstId = startProcess(rpcStartParamter);
-            ActExcuteTask task  = this.saveTask(releaseId,rpcStartParamter.getType(),rpcStartParamter.getBatchId());
+            ActExcuteTask task  = this.saveTask(releaseId,rpcStartParamter.getType(),rpcStartParamter.getBatchId(),JSON.toJSONString(rpcStartParamter));
             Result<String> result = this.start(rpcStartParamter,task.getId());
             LOGGER.info("startProcess complete... result:"+ JSON.toJSONString(result));
             if (result != null && result.getCode() == 0 && StringUtils.isNotEmpty(result.getData())) {
@@ -185,12 +185,13 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         return releases.get(0).getId();
     }
 
-    private ActExcuteTask saveTask(Long releaseId, String type, Long batchId) {
+    private ActExcuteTask saveTask(Long releaseId, String type, Long batchId,String inParamter) {
         ActExcuteTask task = new ActExcuteTask();
         task.setProcReleaseId(releaseId);
         task.setType(StringUtils.isEmpty(type) ? "1" : type);
         task.setCreateTime(new Date(System.currentTimeMillis()));
         task.setBatchId(batchId);
+        task.setInParamter(inParamter);
         // TODO 用户获取
         task.setCreateUser("Robot");
         actExcuteTaskMapper.insert(task);

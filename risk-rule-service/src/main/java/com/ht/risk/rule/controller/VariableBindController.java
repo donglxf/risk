@@ -175,6 +175,9 @@ public class VariableBindController {
     @PostMapping("getAutoValidaionData")
     @ApiOperation(value = "根据规则id获取需要验证的数据")
     public List<Map<String, Object>> getAutoValidaionData(VariableBindVo entityInfo){
+
+        Object obj = tempDataContainsService.getAutoValidaionData();
+        System.out.println("getAutoValidaionData========================="+JSON.toJSONString(obj));
         //根据页面输入验证次数查找第三方表记录数
         Wrapper<TempDataContains> wrapper = new EntityWrapper<>();
         wrapper.eq("scene_id", entityInfo.getSenceId());// 规则id
@@ -193,6 +196,8 @@ public class VariableBindController {
         List<VariableBind> bindList=getVariableBindBySenceVersionId(entityInfo);
         List<Map<String, Object>> recordMap = getAutoValidaionData(entityInfo); // 查询所需验证数据
         List<DroolsParamter> list=new ArrayList<DroolsParamter>();
+
+
         for (Map<String, Object> map2 : recordMap) {
             Map<String, Object> data = new HashMap<String, Object>();
             DroolsParamter drools = new DroolsParamter();
@@ -204,6 +209,9 @@ public class VariableBindController {
             drools.setData(data);
             list.add(drools);
         }
+
+
+
         List<Map<String,Object>> resultList=new ArrayList<Map<String,Object>>();
         String res = droolsRuleRpc.batchExcuteRuleValidation(list);
         JSONArray mainArray=JSONArray.parseArray(res);

@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -42,7 +40,9 @@ public class DroolsLogServiceImpl extends BaseServiceImpl<DroolsLogMapper, Drool
 
     @Override
     public List<RpcHitRuleInfo> countHitRuleInfo(List<String> procInstIds) {
-        List<HitRule> hitrules = droolsLogMapper.queryHitRuleByProcInstIds(procInstIds);
+        Map<String,List<String>> paramter = new HashMap<String,List<String>>();
+        paramter.put("procInstIds",procInstIds);
+        List<HitRule> hitrules = droolsLogMapper.queryHitRuleByProcInstIds(paramter);
         List<RpcHitRuleInfo> rpcHitRuleInfos = new ArrayList<RpcHitRuleInfo>();
         for(Iterator<HitRule> iterator = hitrules.iterator();iterator.hasNext();){
             rpcHitRuleInfos.add(convertHitRule(iterator.next()));

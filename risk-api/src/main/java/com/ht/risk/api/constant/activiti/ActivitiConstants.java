@@ -10,4 +10,6 @@ public class ActivitiConstants {
 
     public final static String PROC_TASK_ID_CONSTANTS = "proc_task_id";
 
+    public final static String DROOLS_VARIABLE_NAME = "DATA";
+
 }

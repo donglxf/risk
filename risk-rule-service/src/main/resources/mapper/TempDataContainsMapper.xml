@@ -24,4 +24,9 @@
         id, scene_id AS sceneId, message, amount, score, age, sex, xl, marry, type, hourseAge, address, student_name AS studentName
     </sql>
 
+
+    <select id="getAutoValidaionData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        ${sql}
+    </select>
+
 </mapper>
