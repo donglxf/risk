@@ -61,9 +61,9 @@ public class ActionInfoController {
 
 	@GetMapping("/getAll")
 	@ApiOperation(value = "通过sceneId查询动作库")
-	public Result<List<ActionInfoVo>> getAll() throws Exception{
+	public Result<List<ActionInfoVo>> getAll(Long businessId) throws Exception{
 
-		List<ActionInfoVo> list = actionInfoService.findActionAllVos();
+		List<ActionInfoVo> list = actionInfoService.findActionAllVos(businessId);
 		return Result.success(list);
 
 	}

@@ -47,10 +47,10 @@ public class DroolsLogController {
 
 	@RequestMapping("/getHitRuleInfo")
 	public Result<List<RpcHitRuleInfo>> getHitRuleInfo(@RequestBody String procInstId){
-		LOGGER.info("queryModelProcInstIdByBatchId mothod invoke,paramter:"+ procInstId);
+		LOGGER.info("getHitRuleInfo mothod invoke,paramter:"+ procInstId);
 		Result<List<RpcHitRuleInfo>> result = null;
 		if(procInstId == null){
-			LOGGER.error("queryModelProcInstIdByBatchId mothod invoke,paramter null exception");
+			LOGGER.error("getHitRuleInfo mothod invoke,paramter null exception");
 			result =Result.error(1,"参数异常！");
 			return  result;
 		}
@@ -58,10 +58,11 @@ public class DroolsLogController {
 			List<RpcHitRuleInfo> tasks = droolsLogService.queryHitRuleInfoByProcInstId(procInstId);
 			result = Result.success(tasks);
 		}catch (Exception e){
-			result = Result.error(2,"queryModelProcInstIdByBatchId mothod excute exception,"+e);
+			e.printStackTrace();
+			result = Result.error(2,"getHitRuleInfo mothod excute exception,"+e);
 			return  result;
 		}
-		LOGGER.info("resultPage mothod invoke,reustl:"+ JSON.toJSONString(result));
+		LOGGER.info("getHitRuleInfo mothod invoke end,reustl:"+ JSON.toJSONString(result));
 		return result;
 	}
 
@@ -78,6 +79,7 @@ public class DroolsLogController {
 			List<RpcHitRuleInfo> tasks = droolsLogService.countHitRuleInfo(procInstId);
 			result = Result.success(tasks);
 		}catch (Exception e){
+			e.printStackTrace();
 			result = Result.error(2,"queryModelProcInstIdByBatchId mothod excute exception,"+e);
 			return  result;
 		}

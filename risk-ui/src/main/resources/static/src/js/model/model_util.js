@@ -6,18 +6,38 @@ var ModelVerification = function (opt) {
 }
 ModelVerification.prototype = {
 
-    initRuleBatchResult: function (data) {
-        var html = "";
-        for (var i = 0; i < data.length; i++) {
-            html += "<label style=\"font-size: 15px;\">匹配规则数量 " + data[i].count + "</label>\"+
-            "   <a href=\"javascript:void(0)\" onclick=\"showRuleTestResult('" + data[i].logId + "','" + data[i].versionId + "')\">查看详情</a>";
+    // initRuleBatchResult:function(data){
+    //     var html="";
+    //     for (var i=0;i<data.length;i++){
+    //         html += "<label style=\"font-size: 15px;\">匹配规则数量 "+data[i].count+"</label>"+
+    //         "   <a href=\"javascript:void(0)\" onclick=\"showRuleTestResult('"+data[i].logId+"','"+data[i].versionId+"')\">查看详情</a>";
+    //     }
+    //     return html;
+    // },
+    initParam:function(data){
+        var html="<table class=\"layui-table\">\n" +
+            "    <colgroup>\n" +
+            "    <col width=\"50%\">\n" +
+            "    <col>\n" +
+            "    </colgroup>\n" +
+            "    <thead>\n" +
+            "    <tr>\n" +
+            "    <th>变量名称</th>\n" +
+            "    <th>传入值</th>\n" +
+            "    </tr>\n" +
+            "    </thead>\n" ;
+
+        for(var i=0;i<data.length;i++){
+            html+="<tbody><tr></tbody><td>"+data[i].variableName+"</td>";
+                html+="<td>"+data[i].variableValue+"</td>";
         }
+        html+="</tr></tbody></table>";
         return html;
     },
-    initResult: function (data) {
-        var html = "<table class=\"layui-table\">\n" +
+    initResult:function(data){
+        var html="<table class=\"layui-table\">\n" +
             "    <colgroup>\n" +
-            "    <col width=\"800\">\n" +
+            "    <col width=\"50%\">\n" +
             "    <col>\n" +
             "    </colgroup>\n" +
             "    <thead>\n" +
@@ -25,21 +45,20 @@ ModelVerification.prototype = {
             "    <th>规则</th>\n" +
             "    <th>输出</th>\n" +
             "    </tr>\n" +
-            "    </thead>\n";
+            "    </thead>\n" ;
 
-        for (var i = 0; i < data.length; i++) {
-            html += "<tbody><tr></tbody><td>" + data[i].ruleDesc + "</td>";
-            if (data[i].validationResult == '0') {
-                html += "<td>匹配规则</td>";
-            } else {
-                html += "<td></td>";
+        for(var i=0;i<data.length;i++){
+            html+="<tbody><tr></tbody><td>"+data[i].ruleDesc+"</td>";
+            if(data[i].validationResult=='0'){
+                html+="<td>匹配规则</td>";
+            }else{
+                html+="<td></td>";
             }
         }
-        html += "</tr></tbody></table>";
+        html+="</tr></tbody></table>";
         return html;
     },
     initSelect: function (name, optionData) {
-
         var html = '<div class="layui-input-inline">';
         html += '<select name="' + name + '0" lay-filter="aihao">';
         for (var i = 0; i < optionData.length; i++) {
@@ -81,22 +100,19 @@ ModelVerification.prototype = {
      */
     initOneValible: function (valible) {
         var tmpValue = valible.tmpValue;
-        var senceVersionId = valible.senceVersionId;
-        var variableCode = valible.variableCode;
-
         var html = "";
         switch (valible.dataType) {
             case "select":
-                html = this.initSelect(senceVersionId + '_' + variableCode, tmpValue,variableCode);
+                html = this.initSelect(valible.variableName, valible.optionData);
                 break;
             case "date":
-                html = this.initDate(senceVersionId + '_' + variableCode, tmpValue);
+                html = this.initDate(valible.variableName);
                 break;
             case "time":
-                html = this.initTime(senceVersionId + '_' + variableCode, tmpValue);
+                html = this.initTime(valible.variableName);
                 break;
             case "Double":
-                html = this.initInput(senceVersionId + '_' + variableCode, tmpValue);
+                html = this.initInput(valible.senceVersionId + '_' + valible.variableCode, tmpValue);
                 break;
             default:
                 break;

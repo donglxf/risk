@@ -1,10 +1,10 @@
 package com.ht.risk.rule.rpc;
 
+import com.ht.risk.api.model.drools.DroolsParamter;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ht.risk.rule.model.DroolsParamter;
 
 import java.util.List;
 

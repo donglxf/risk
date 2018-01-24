@@ -29,4 +29,9 @@ public class RuleHisVersionServiceImpl extends BaseServiceImpl<RuleHisVersionMap
     public List<RuleHisVersionVo> getRuleValidationResult(Map<String, Object> paramMap) {
         return ruleHisVersionMapper.getRuleValidationResult(paramMap);
     }
+
+    @Override
+    public List<Map<String,Object>> getRuleBatchValidationResult(Map<String, Object> paramMap) {
+        return ruleHisVersionMapper.getRuleBatchValidationResult (paramMap);
+    }
 }

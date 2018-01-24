@@ -186,6 +186,7 @@ layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
             $("#table").html(divHtml);
             layer.open({
                 type: 1,
+                title:false,
                 //title: '规则查看',
                 skin: 'layui-layer-rim', //加上边框
                 maxmin: true,

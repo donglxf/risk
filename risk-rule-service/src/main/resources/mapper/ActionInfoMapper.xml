@@ -150,6 +150,10 @@
         FROM
             rule_action_info a ,rule_action_param_info p
         where p.action_id = a.action_id
+        AND  p.action_param_id IS NOT NULL
+        <if test="businessId != null ">
+            AND  a.business_id = #{businessId}
+        </if>
     </select>
 
 </mapper>

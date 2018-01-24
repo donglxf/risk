@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.api.model.activiti.RpcModelReleaseInfo;
+import com.ht.risk.api.model.activiti.RpcModelVerfication;
 import com.ht.risk.api.model.log.RpcHitRuleInfo;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ModelSence;
@@ -44,7 +45,9 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
     public Map<String,List<RpcHitRuleInfo>> queryBatchModelVerfHitRuleInfo(Long batchId) {
         Map<String,List<RpcHitRuleInfo>> hitRuleMap = new HashMap<String,List<RpcHitRuleInfo>>();
         // 1 查询该批次的所有流程实例
-        Result<List<RpcActExcuteTaskInfo>> result = activitiConfigRpc.queryTasksByBatchId(batchId);
+        RpcModelVerfication rpcModelVerfication = new RpcModelVerfication();
+        rpcModelVerfication.setBatchId(batchId);
+        Result<List<RpcActExcuteTaskInfo>> result = activitiConfigRpc.queryTasksByBatchId(rpcModelVerfication);
         if(result == null || result.getCode() != 0 || result.getData() == null){
             return hitRuleMap;
         }
@@ -59,15 +62,17 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
     public Map<Long,SenceParamterVo>  queryModeVerfDataInfo(Long taskId) {
         Map<Long,SenceParamterVo> senceMap = new HashMap<Long,SenceParamterVo>();
         //获取模型任务信息
-        Result<RpcActExcuteTaskInfo> result = activitiConfigRpc.getTaskInfoById(taskId);
+        RpcModelVerfication rpcModelVerfication = new RpcModelVerfication();
+        rpcModelVerfication.setTaskId(taskId);
+        Result<RpcActExcuteTaskInfo> result = activitiConfigRpc.getTaskInfoById(rpcModelVerfication);
         if(result == null || result.getCode() != 0 || result.getData() == null){
             return senceMap;
         }
         RpcActExcuteTaskInfo taskInfo = result.getData();
-        taskInfo.getProcReleaseId();
         Map<String, Object> data =  JSON.parseObject(taskInfo.getInParamter(),HashMap.class);
         // 获取模型定义信息
-        Result<RpcModelReleaseInfo> releaseInfoResult = activitiConfigRpc.getProcReleaseById(taskInfo.getProcReleaseId());
+        rpcModelVerfication.setProcReleaseId(taskInfo.getProcReleaseId());
+        Result<RpcModelReleaseInfo> releaseInfoResult = activitiConfigRpc.getProcReleaseById(rpcModelVerfication);
         if(releaseInfoResult == null || releaseInfoResult.getCode() != 0 || releaseInfoResult.getData() == null){
             return senceMap;
         }
