@@ -72,5 +72,5 @@ public interface ActionInfoMapper extends SuperMapper<ActionInfo> {
      * 查询所有动作
      * @return
      */
-    List<ActionInfoVo> findActionAllVos();
+    List<ActionInfoVo> findActionAllVos(@Param("businessId") Long businessId);
 }

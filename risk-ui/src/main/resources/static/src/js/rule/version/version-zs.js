@@ -69,7 +69,6 @@ scene.cols = function () {
         ,*/
         {field: 'creTime',
             align:'center',
-            width:180,
             title: '创建时间',sort: true
            }
         ,
@@ -82,6 +81,7 @@ scene.cols = function () {
 
         {field: 'creUserId',
             align:'center',
+            width:100,
             title: '创建用户'}
         ,
         {field: 'status',
@@ -95,7 +95,7 @@ scene.cols = function () {
             title: '操作',
             fixed: 'right',
             align:'center',
-            width:120,
+            width:200,
             toolbar: scene.toolbarId
         }
     ];
@@ -171,9 +171,10 @@ layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
             $("#table").html(divHtml);
             layer.open({
                 type: 1,
+                title:false,
                 //title: '规则查看',
                 skin: 'layui-layer-rim', //加上边框
-                maxmin: true,
+                maxmin: false,
                 shadeClose: true, // 点击遮罩关闭层
                 area: ['850px', '600px'],
                 content: $("#rule_div").html(),

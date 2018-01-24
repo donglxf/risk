@@ -114,6 +114,11 @@
         FROM
         rule_entity_info T LEFT JOIN rule_entity_item_info i
         ON T.entity_id = i.entity_id
+        WHERE 1 = 1
+        AND i.item_id is not null
+        <if test="businessId != null ">
+          AND  T.business_id = #{businessId}
+        </if>
 
     </select>
 
