@@ -95,7 +95,7 @@ scene.cols = function () {
             title: '操作',
             fixed: 'right',
             align:'center',
-            width:200,
+            width:120,
             toolbar: scene.toolbarId
         }
     ];

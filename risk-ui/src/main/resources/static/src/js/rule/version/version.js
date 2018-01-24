@@ -48,7 +48,7 @@ sceneLeft.cols = function () {
             fixed: 'right',
             event: 'setItem',
             align:'center',sort: true,
-            width:200,
+            width:150,
             toolbar: sceneLeft.toolbarId}
     ];
 };
@@ -83,7 +83,7 @@ scene.cols = function () {
         ,*/
         {field: 'creTime',
             align:'center',
-            width:180,
+            width:120,
             title: '创建时间',sort: true
            }
         ,
@@ -109,7 +109,7 @@ scene.cols = function () {
             title: '操作',
             fixed: 'right',
             align:'center',
-            width:150,
+            width:120,
             toolbar: scene.toolbarId
         }
     ];

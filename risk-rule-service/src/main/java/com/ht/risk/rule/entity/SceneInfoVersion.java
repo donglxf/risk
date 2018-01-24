@@ -277,7 +277,7 @@ public class SceneInfoVersion extends Model<SceneInfoVersion> {
 	public void setCreUserId(Long creUserId) {
 		this.creUserId = creUserId;
 	}
-	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
 	public Date getCreTime() {
 		return creTime;
 	}
