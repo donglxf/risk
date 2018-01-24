@@ -53,10 +53,10 @@ public class PageResult<T> {
      * @since cams-common 1.0-SNAPSHOT
      */
     public static <T> PageResult<T> success(int count) {
-        PageResult<T> PageResult = new PageResult<T>();
-        PageResult.setCode(0);
-        PageResult.setMsg("请求成功！");
-        return PageResult;
+        PageResult<T> pageResult = new PageResult<T>();
+        pageResult.setCode(0);
+        pageResult.setMsg("请求成功！");
+        return pageResult;
     }
 
     /**
@@ -69,21 +69,21 @@ public class PageResult<T> {
      * @since cams-common 1.0-SNAPSHOT
      */
     public static <T> PageResult<T> success(T data, Long count) {
-        PageResult<T> PageResult = new PageResult<T>();
-        PageResult.setCode(0);
-        PageResult.setCount(count);
-        PageResult.setMsg("请求成功！");
-        PageResult.setData(data);
-        return PageResult;
+        PageResult<T> pageResult = new PageResult<T>();
+        pageResult.setCode(0);
+        pageResult.setCount(count);
+        pageResult.setMsg("请求成功！");
+        pageResult.setData(data);
+        return pageResult;
     }
 
     public static <T> PageResult<T> success(T data, int count) {
-        PageResult<T> PageResult = new PageResult<T>();
-        PageResult.setCode(0);
-        PageResult.setCount(new Long(count));
-        PageResult.setMsg("请求成功！");
-        PageResult.setData(data);
-        return PageResult;
+        PageResult<T> pageResult = new PageResult<T>();
+        pageResult.setCode(0);
+        pageResult.setCount(Long.valueOf(count));
+        pageResult.setMsg("请求成功！");
+        pageResult.setData(data);
+        return pageResult;
     }
 
     /**
@@ -97,10 +97,10 @@ public class PageResult<T> {
      * @since cams-common 1.0-SNAPSHOT
      */
     public static <T> PageResult<T> error(int code, String msg) {
-        PageResult<T> PageResult = new PageResult<T>();
-        PageResult.setCode(code);
-        PageResult.setMsg(msg);
-        return PageResult;
+        PageResult<T> pageResult = new PageResult<T>();
+        pageResult.setCode(code);
+        pageResult.setMsg(msg);
+        return pageResult;
     }
 
     /**
@@ -115,11 +115,11 @@ public class PageResult<T> {
      * @since cams-common 1.0-SNAPSHOT
      */
     public static <T> PageResult<T> build(int code, String msg, T data) {
-        PageResult<T> PageResult = new PageResult<T>();
-        PageResult.setCode(code);
-        PageResult.setMsg(msg);
-        PageResult.setData(data);
-        return PageResult;
+        PageResult<T> pageResult = new PageResult<T>();
+        pageResult.setCode(code);
+        pageResult.setMsg(msg);
+        pageResult.setData(data);
+        return pageResult;
     }
 
     /**

@@ -20,15 +20,15 @@ public interface ActionInfoService extends BaseService<ActionInfo> {
     /**
      * 评分卡动作id
      */
-    public final long FEN_CARD_ACTION_ID = 3l;
+    public final long FEN_CARD_ACTION_ID = 3L;
     /**
      * 评分卡 分值 参数ID
      */
-    public final long FEN_CARD_ACTION_PARAM_F_ID = 3l;
+    public final long FEN_CARD_ACTION_PARAM_F_ID = 3L;
     /**
      * 评分卡 权值参数ID
      */
-    public final long FEN_CARD_ACTION_PARAM_WEIGHT_ID = 6l;
+    public final long FEN_CARD_ACTION_PARAM_WEIGHT_ID = 6L;
 
     /**
      * Date 2017/7/24
