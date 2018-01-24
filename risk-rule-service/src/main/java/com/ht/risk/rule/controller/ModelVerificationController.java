@@ -4,6 +4,7 @@ package com.ht.risk.rule.controller;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
+import com.ht.risk.api.model.activiti.RpcModelVerfication;
 import com.ht.risk.api.model.log.RpcHitRuleInfo;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
@@ -58,7 +59,9 @@ public class ModelVerificationController {
         LOGGER.info("querySingleVerficationInfo mothod invoke,paramter:"+ JSON.toJSONString(verficationVo));
         Result result = null;
         // 查询批次相关任务列表
-        Result<List<RpcActExcuteTaskInfo>> taskResult = activitiConfigRpc.queryTasksByBatchId(verficationVo.getBatchId());
+        RpcModelVerfication rpcModelVerfication = new RpcModelVerfication();
+        rpcModelVerfication.setBatchId(verficationVo.getBatchId());
+        Result<List<RpcActExcuteTaskInfo>> taskResult = activitiConfigRpc.queryTasksByBatchId(rpcModelVerfication);
         if(taskResult == null || taskResult.getCode() != 0 ||  taskResult.getData() == null){
             result = Result.error(1,"没有查询到子任务！");
             return result;

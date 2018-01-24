@@ -7,10 +7,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.ht.risk.model.*;
 import com.ht.risk.util.StringUtil;
-import jdk.nashorn.internal.objects.NativeArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -155,7 +153,7 @@ public class DroolsExcuteController {
             entity.setType(paramter.getType());
             entity.setProcinstId(StringUtil.strIsNotNull(paramter.getProcessInstanceId()) ? Long.parseLong(paramter.getProcessInstanceId()) : 0);
             entity.setInParamter(JSON.toJSONString(paramter));
-            entity.setSenceVersionid(String.valueOf(ruleVersion.getVersionId()));
+            entity.setSenceVersionid(paramter.getVersion());
             entity.setOutParamter(JSON.toJSONString(object));
             entity.setExecuteTotal(Integer.parseInt(String.valueOf(res.getMap().get("count"))));
             entity.setModelName(paramter.getModelName());
@@ -170,6 +168,7 @@ public class DroolsExcuteController {
             }
             logList.add(logId);
             object.getGlobalMap().put("logIdList", logList);
+
             data = new RuleExcuteResult(0, "", object);
         } catch (Exception e) {
             e.printStackTrace();

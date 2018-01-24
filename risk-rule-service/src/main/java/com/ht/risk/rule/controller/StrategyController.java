@@ -1,5 +1,6 @@
 package com.ht.risk.rule.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -14,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,14 +47,37 @@ public class StrategyController {
         return PageResult.success(pages.getRecords(), pages.getTotal());
     }
 
-    @GetMapping("ruleMatchResult/{logId}/{versionId}")
+    @GetMapping("manuaRuleMatchResult/{logId}/{versionId}")
     @ApiOperation(value = "获取规则验证结果")
-    public PageResult<List<RuleHisVersionVo>> ruleMatchResult(@PathVariable("logId") String logId, @PathVariable("versionId") String versionId) {
+    public PageResult<List<RuleHisVersionVo>> manuaRuleMatchResult(@PathVariable("logId") String logId, @PathVariable("versionId") String versionId) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", logId);
         paramMap.put("senceVersionId", versionId);
         List<RuleHisVersionVo> list = ruleHisVersionService.getRuleValidationResult(paramMap);
         return PageResult.success(list, 0);
+    }
+
+    @GetMapping("ruleMatchResult/{logId}/{versionId}")
+    @ApiOperation(value = "获取规则验证结果")
+    public PageResult<Map<String,Object>> ruleMatchResult(@PathVariable("logId") String logId, @PathVariable("versionId") String versionId) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", logId);
+        paramMap.put("senceVersionId", versionId);
+        PageResult<List<RuleHisVersionVo>> list = manuaRuleMatchResult(logId,versionId);
+
+        List<Map<String,Object>> listMap=ruleHisVersionService. getRuleBatchValidationResult(paramMap);
+        List<RuleHisVersionVo> paramList=new ArrayList<RuleHisVersionVo>();
+        for (Map<String,Object> ma:listMap){
+            JSONObject json=JSONObject.parseObject((String)ma.get("IN_PARAMTER")).getJSONObject("data"); ;
+            RuleHisVersionVo vo=new RuleHisVersionVo();
+            vo.setVariableName((String)ma.get("VARIABLE_NAME"));
+            vo.setVariableValue((String)json.get(ma.get("VARIABLE_CODE")));
+            paramList.add(vo);
+        }
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("ruleResult",list.getData());
+        map.put("dataResult",paramList);
+        return PageResult.success(map, 0);
     }
 
 

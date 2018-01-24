@@ -6,6 +6,12 @@ import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.TempDataContains;
 import com.ht.risk.rule.mapper.TempDataContainsMapper;
 import com.ht.risk.rule.service.TempDataContainsService;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -18,4 +24,13 @@ import com.ht.risk.rule.service.TempDataContainsService;
 @Service
 public class TempDataContainsServiceImpl extends BaseServiceImpl<TempDataContainsMapper, TempDataContains> implements TempDataContainsService {
 
+    @Resource
+    private TempDataContainsMapper tempDataContainsMapper;
+
+    @Override
+    public List<Map<String,Object>> getAutoValidaionData() {
+        Map<String,String> paramter = new HashMap<String,String>();
+        paramter.put("sql","select * from RISK_VARIABLE_BIND ");
+        return tempDataContainsMapper.getAutoValidaionData(paramter);
+    }
 }

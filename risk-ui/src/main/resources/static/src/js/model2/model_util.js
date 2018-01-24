@@ -6,69 +6,6 @@ var ModelVerification = function (opt) {
 }
 ModelVerification.prototype = {
 
-    // initRuleBatchResult:function(data){
-    //     var html="";
-    //     for (var i=0;i<data.length;i++){
-    //         html += "<label style=\"font-size: 15px;\">匹配规则数量 "+data[i].count+"</label>"+
-    //         "   <a href=\"javascript:void(0)\" onclick=\"showRuleTestResult('"+data[i].logId+"','"+data[i].versionId+"')\">查看详情</a>";
-    //     }
-    //     return html;
-    // },
-    initParam:function(data){
-        var html="<table class=\"layui-table\">\n" +
-            "    <colgroup>\n" +
-            "    <col width=\"50%\">\n" +
-            "    <col>\n" +
-            "    </colgroup>\n" +
-            "    <thead>\n" +
-            "    <tr>\n" +
-            "    <th>变量名称</th>\n" +
-            "    <th>传入值</th>\n" +
-            "    </tr>\n" +
-            "    </thead>\n" ;
-
-        for(var i=0;i<data.length;i++){
-            html+="<tbody><tr></tbody><td>"+data[i].variableName+"</td>";
-                html+="<td>"+data[i].variableValue+"</td>";
-        }
-        html+="</tr></tbody></table>";
-        return html;
-    },
-    initResult:function(data){
-        var html="<table class=\"layui-table\">\n" +
-            "    <colgroup>\n" +
-            "    <col width=\"50%\">\n" +
-            "    <col>\n" +
-            "    </colgroup>\n" +
-            "    <thead>\n" +
-            "    <tr>\n" +
-            "    <th>规则</th>\n" +
-            "    <th>输出</th>\n" +
-            "    </tr>\n" +
-            "    </thead>\n" ;
-
-        for(var i=0;i<data.length;i++){
-            html+="<tbody><tr></tbody><td>"+data[i].ruleDesc+"</td>";
-            if(data[i].validationResult=='0'){
-                html+="<td>匹配规则</td>";
-            }else{
-                html+="<td></td>";
-            }
-        }
-        html+="</tr></tbody></table>";
-        return html;
-    },
-    initSelect: function (name, optionData) {
-        var html = '<div class="layui-input-inline">';
-        html += '<select name="' + name + '0" lay-filter="aihao">';
-        for (var i = 0; i < optionData.length; i++) {
-            var data = optionData[i];
-            html += '<option value="' + data.value + '">' + data.name + '</option>';
-        }
-        html += '</select>';
-        html += '</div>';
-        return html;
-    },
     /**
      * 初始化Lable
      * @param name
@@ -77,6 +14,33 @@ ModelVerification.prototype = {
     initLabel: function (name) {
         return '<label class="layui-form-label">' + name + '</label>';
     },
+
+    initSelect: function (name, tmpValue, dataType, variable, variableCode) {
+
+        var html = '<div class="layui-input-inline">';
+        html += '<select name="' + name + '0" lay-filter="aihao">';
+
+        html += '<option value="0" >请选择</option>';
+        html += '<option >111</option>';
+
+        html += '</select>';
+        html += '</div>';
+        return html;
+        //
+        // <div class="">
+        //         <label class="">角色</label>
+        //         <div class="">
+        //         <select th:value="${user.role.roleId}" id="role_sel">
+        //         <option value="0">请选择</option>
+        //         <option th:each="item,iterStat:${roles}" th:text="${item.roleName}"
+        //     th:value="${item.roleId}" th:selected="(${item.roleName} ==
+        //     ${user.role.roleId})"></option>
+        //
+        //     </select>
+        //     </div>
+        //     </div>
+    },
+
     /**
      * 初始化普通输入框
      * @param name
@@ -100,19 +64,25 @@ ModelVerification.prototype = {
      */
     initOneValible: function (valible) {
         var tmpValue = valible.tmpValue;
+        var senceVersionId = valible.senceVersionId;
+        var variableCode = valible.variableCode;
+        var dataType = valible.dataType;
+        //需要把对应的variableCode包含的枚举变量集合从session中取出,作为selection中的option值
+
         var html = "";
-        switch (valible.dataType) {
+        switch (dataType) {
             case "select":
-                html = this.initSelect(valible.variableName, valible.optionData);
+                html = this.initSelect(senceVersionId + '_' + variableCode, tmpValue, dataType, variableCode);
+                //加入异步查询,根据dataType查询这个select有哪些选项
                 break;
             case "date":
-                html = this.initDate(valible.variableName);
+                html = this.initDate(senceVersionId + '_' + variableCode, tmpValue);
                 break;
             case "time":
-                html = this.initTime(valible.variableName);
+                html = this.initTime(senceVersionId + '_' + variableCode, tmpValue);
                 break;
             case "Double":
-                html = this.initInput(valible.senceVersionId + '_' + valible.variableCode, tmpValue);
+                html = this.initInput(senceVersionId + '_' + variableCode, tmpValue);
                 break;
             default:
                 break;

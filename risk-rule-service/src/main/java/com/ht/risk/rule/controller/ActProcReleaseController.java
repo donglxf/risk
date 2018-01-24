@@ -5,14 +5,8 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.constant.StatusConstants;
 import com.ht.risk.common.result.Result;
-import com.ht.risk.rule.entity.ActProcRelease;
-import com.ht.risk.rule.entity.ModelSence;
-import com.ht.risk.rule.entity.SceneVersion;
-import com.ht.risk.rule.entity.VariableBind;
-import com.ht.risk.rule.service.ActProcReleaseService;
-import com.ht.risk.rule.service.ModelSenceService;
-import com.ht.risk.rule.service.SceneVersionService;
-import com.ht.risk.rule.service.VariableBindService;
+import com.ht.risk.rule.entity.*;
+import com.ht.risk.rule.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -25,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -53,6 +49,9 @@ public class ActProcReleaseController {
 
     @Autowired
     private VariableBindService variableBindService;
+
+    @Autowired
+    private ConstantInfoService constantInfoService;
 
     @GetMapping("list")
     @ApiOperation(value = "查询模型验证信息表")
@@ -95,9 +94,11 @@ public class ActProcReleaseController {
 
     @GetMapping(value = "scene/variable/manual")
     @ApiOperation(value = "根据模型id查询策列表，评分卡，以及绑定变量")
-    public ActProcRelease getVariablesByActProcRealeseId(String actProcRealeseId) {
+    public ActProcRelease getVariablesByActProcRealeseId(String actProcRealeseId, HttpServletRequest request) {
         logger.info("---根据模型id查找变量---");
         logger.info("---模型id为 ：" + actProcRealeseId + "---");
+      //  this.setSession(request);
+        logger.info("把select类型的变量存进session中");
         ActProcRelease result = new ActProcRelease();
 
         //0.根据id查找actProRea对象
@@ -122,15 +123,11 @@ public class ActProcReleaseController {
             }
         }
         //2.查询策列关联的变量
-
         for (ModelSence modelSence : modelSenceList) {
             List<VariableBind> variableBindList = variableBindService.selectList(new EntityWrapper<VariableBind>().eq("SENCE_VERSION_ID", modelSence.getSenceVersionId()));
             modelSence.setData(variableBindList);
         }
-
-
         return result;
-
     }
 
     /**
@@ -171,9 +168,9 @@ public class ActProcReleaseController {
 
     @GetMapping(value = "scene/variable/auto")
     @ApiOperation(value = "执行自动测试")
-    public ActProcRelease getVariablesByActProcRealeseIdAuto(String actProcRealeseId) {
+    public ActProcRelease getVariablesByActProcRealeseIdAuto(String actProcRealeseId, HttpServletRequest request) {
         logger.info("开始自动测试" + actProcRealeseId);
-        return this.getVariablesByActProcRealeseId(actProcRealeseId);
+        return this.getVariablesByActProcRealeseId(actProcRealeseId, request);
     }
 
     /**
@@ -218,5 +215,32 @@ public class ActProcReleaseController {
         return Result.error(1, "保存失败");
     }
 
+
+    /**
+     * 把select变量加入session中
+     */
+    @ApiOperation(value = "设置select变量进session")
+    @GetMapping(value = "session")
+    private void setSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("vbFlag") == null) {
+            List<VariableBind> variableBinds = variableBindService.selectList(new EntityWrapper<VariableBind>().eq("DATA_TYPE", "Select"));
+            ArrayList<String> vbCodeList = new ArrayList<>();
+            for (VariableBind vb : variableBinds) {
+                vbCodeList.add(vb.getVariableCode());
+            }
+            List<String> vbCodeList2 = new ArrayList(new HashSet(vbCodeList));//去重
+            for (String vbcode : vbCodeList2) {
+                List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", vbcode));
+                ArrayList<String> cnList = new ArrayList<>();
+                for (ConstantInfo constantInfo : ciList) {
+                    cnList.add(constantInfo.getConName());
+                }
+                session.setAttribute(vbcode, cnList);
+            }
+            session.setAttribute("vbFlag", "已经把select变量加入session");
+        }
+        return;
+    }
 }
 

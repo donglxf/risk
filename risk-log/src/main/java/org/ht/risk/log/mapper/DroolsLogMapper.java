@@ -6,6 +6,7 @@ import com.ht.risk.common.mapper.SuperMapper;
 import org.ht.risk.log.entity.HitRule;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -20,7 +21,7 @@ public interface DroolsLogMapper extends SuperMapper<DroolsLog> {
     public List<HitRule> queryHitRuleByProcInstId(String procInstId);
 
 
-    public List<HitRule> queryHitRuleByProcInstIds(List<String> procInstIds);
+    public List<HitRule> queryHitRuleByProcInstIds(Map<String,List<String>> paramter);
 
 
 }

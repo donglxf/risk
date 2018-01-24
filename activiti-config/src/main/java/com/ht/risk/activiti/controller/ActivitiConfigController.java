@@ -8,6 +8,7 @@ import com.ht.risk.activiti.service.ActProcReleaseService;
 import com.ht.risk.activiti.vo.VerficationModelVo;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.api.model.activiti.RpcModelReleaseInfo;
+import com.ht.risk.api.model.activiti.RpcModelVerfication;
 import com.ht.risk.common.result.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,60 +31,60 @@ public class ActivitiConfigController {
     private ActProcReleaseService actProcReleaseService;
 
     @RequestMapping("/queryProcInstId")
-    public Result<List<RpcActExcuteTaskInfo>> queryProcInstId(@RequestBody VerficationModelVo verficationModelVo){
-        LOGGER.info("queryModelProcInstIdByBatchId mothod invoke,paramter:"+ JSON.toJSONString(verficationModelVo));
+    public Result<List<RpcActExcuteTaskInfo>> queryProcInstId(@RequestBody RpcModelVerfication rpcModelVerfication){
+        LOGGER.info("queryProcInstId mothod invoke,paramter:"+ JSON.toJSONString(rpcModelVerfication));
         Result<List<RpcActExcuteTaskInfo>> result = null;
-        if(verficationModelVo == null || verficationModelVo.getBatchId() == null){
-            LOGGER.error("queryModelProcInstIdByBatchId mothod invoke,paramter null exception");
+        if(rpcModelVerfication == null || rpcModelVerfication.getBatchId() == null){
+            LOGGER.error("queryProcInstId mothod invoke,paramter null exception");
             result =Result.error(1,"参数异常！");
             return  result;
         }
         try {
-            List<RpcActExcuteTaskInfo> tasks = actExcuteTaskService.queryProcInstIdBybatchId(verficationModelVo.getBatchId());
+            List<RpcActExcuteTaskInfo> tasks = actExcuteTaskService.queryProcInstIdBybatchId(rpcModelVerfication.getBatchId());
             result = Result.success(tasks);
         }catch (Exception e){
-            result = Result.error(2,"queryModelProcInstIdByBatchId mothod excute exception,"+e);
+            result = Result.error(2,"queryProcInstId mothod excute exception,"+e);
             return  result;
         }
-        LOGGER.info("resultPage mothod invoke,reustl:"+ JSON.toJSONString(result));
+        LOGGER.info("queryProcInstId mothod invoke end,reustl:"+ JSON.toJSONString(result));
         return result;
 
     }
 
 
     @RequestMapping("/getTaskInfoById")
-    public Result<RpcActExcuteTaskInfo> getTaskInfoById(Long TaskId){
-        LOGGER.info("queryModelProcInstIdByBatchId mothod invoke,paramter:"+ TaskId);
+    public Result<RpcActExcuteTaskInfo> getTaskInfoById(@RequestBody  RpcModelVerfication rpcModelVerfication){
+        LOGGER.info("getTaskInfoById mothod invoke,paramter:"+  JSON.toJSONString(rpcModelVerfication));
         Result<RpcActExcuteTaskInfo> result = null;
-        if(TaskId == null){
-            LOGGER.error("queryModelProcInstIdByBatchId mothod invoke,paramter null exception");
+        if(rpcModelVerfication == null || rpcModelVerfication.getTaskId() == null){
+            LOGGER.error("getTaskInfoById mothod invoke,paramter null exception");
             result =Result.error(1,"参数异常！");
             return  result;
         }
         try {
-            ActExcuteTask task = actExcuteTaskService.selectById(TaskId);
+            ActExcuteTask task = actExcuteTaskService.selectById(rpcModelVerfication.getTaskId());
             RpcActExcuteTaskInfo rpcTask = actExcuteTaskService.convertRpcActExcuteTask(task);
             result = Result.success(rpcTask);
         }catch (Exception e){
             result = Result.error(2,"getTaskInfoById mothod excute exception,"+e);
             return  result;
         }
-        LOGGER.info("resultPage mothod invoke,reustl:"+ JSON.toJSONString(result));
+        LOGGER.info("getTaskInfoById mothod invoke end...reustl:"+ JSON.toJSONString(result));
         return result;
 
     }
 
     @RequestMapping("/getProcReleaseById")
-    public Result<RpcModelReleaseInfo> getProcReleaseById(Long procReleaseId){
-        LOGGER.info("queryModelProcInstIdByBatchId mothod invoke,paramter:"+ procReleaseId);
+    public Result<RpcModelReleaseInfo> getProcReleaseById(@RequestBody  RpcModelVerfication rpcModelVerfication){
+        LOGGER.info("queryModelProcInstIdByBatchId mothod invoke,paramter:"+ rpcModelVerfication);
         Result<RpcModelReleaseInfo> result = null;
-        if(procReleaseId == null){
+        if(rpcModelVerfication == null || rpcModelVerfication.getProcReleaseId() == null){
             LOGGER.error("queryModelProcInstIdByBatchId mothod invoke,paramter null exception");
             result =Result.error(1,"参数异常！");
             return  result;
         }
         try {
-            ActProcRelease release = actProcReleaseService.selectById(procReleaseId);
+            ActProcRelease release = actProcReleaseService.selectById(rpcModelVerfication.getProcReleaseId());
             RpcModelReleaseInfo rpcRelease = actProcReleaseService.convertRpcActExcuteTask(release);
             result = Result.success(rpcRelease);
         }catch (Exception e){

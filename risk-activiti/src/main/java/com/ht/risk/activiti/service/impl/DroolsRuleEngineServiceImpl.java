@@ -3,6 +3,7 @@ package com.ht.risk.activiti.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.ht.risk.activiti.rpc.DroolsRuleEngineInterface;
 import com.ht.risk.activiti.service.DroolsRuleEngineService;
+import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.model.drools.DroolsParamter;
 import com.ht.risk.api.model.drools.RuleExcuteResult;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -30,7 +31,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         String senceCode = (String) senceCodeExp.getValue(delegateExecution);
         String version = (String) versionExp.getValue(delegateExecution);
         LOGGER.info("###############drools excute start,senceCode："+senceCode+";version:"+version);
-        Map senceData = (Map)delegateExecution.getVariable("senceData");
+        Map senceData = (Map)delegateExecution.getVariable(senceCode+ ActivitiConstants.DROOLS_VARIABLE_NAME);
         String type = String.valueOf(delegateExecution.getVariable("droolsExcuteType"));
         DroolsParamter paramter = new DroolsParamter();
         paramter.setSence(senceCode);
