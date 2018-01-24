@@ -26,6 +26,6 @@ public interface SceneEntityRelService extends BaseService<SceneEntityRel> {
      * 方法说明: 根据场景信息获取相关的实体信息
      * @param SceneInfo 参数
      */
-    List<EntityInfo> findBaseRuleEntityListByScene(SceneInfo SceneInfo)throws Exception;
+    List<EntityInfo> findBaseRuleEntityListByScene(SceneInfo sceneInfo)throws Exception;
 
 }

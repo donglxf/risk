@@ -128,7 +128,7 @@ public class MybatisPlusConfig {
      * @return
      */
     @Bean
-    public ServletRegistrationBean DruidStatViewServle(){
+    public ServletRegistrationBean druidStatViewServle(){
         //org.springframework.boot.context.embedded.ServletRegistrationBean提供类的进行注册.
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
         //添加初始化参数：initParams

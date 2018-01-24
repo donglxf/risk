@@ -162,7 +162,7 @@ public class RuleInfoController {
                 List<ActionParamValueInfo> paramValueInfos =  rel.getActionInfo().getParamValueInfoList();
                 for (Iterator<ActionParamValueInfo> iter = paramValueInfos.iterator(); iter.hasNext();) {
                     ActionParamValueInfo pvIter = iter.next();
-                    if(pvIter.getActionParamId() == 6l || pvIter.equals(6)){
+                    if(pvIter.getActionParamId() == 6L || pvIter.equals(6)){
                         iter.remove();
                     }
                 }

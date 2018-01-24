@@ -63,7 +63,8 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
 		return sceneVersionMapper.getMaxTestVersion(paramMap);
 	}
 
-	public SceneVersion querySceneVersionInfoByCodeAndVersion(String code,String version){
+	@Override
+    public SceneVersion querySceneVersionInfoByCodeAndVersion(String code, String version){
         Map<String,Object> paramter = new HashMap<String,Object>();
         paramter.put("scene_identify",code);
         paramter.put("version",version);

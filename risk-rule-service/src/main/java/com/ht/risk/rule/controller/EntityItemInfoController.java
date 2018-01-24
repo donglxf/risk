@@ -3,12 +3,9 @@ package com.ht.risk.rule.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
-import com.ht.risk.rule.entity.EntityInfo;
 import com.ht.risk.rule.entity.EntityItemInfo;
-import com.ht.risk.rule.service.EntityInfoService;
 import com.ht.risk.rule.service.EntityItemInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -65,7 +62,7 @@ public class EntityItemInfoController {
     public Result<Integer> edit(EntityItemInfo itemInfo){
         itemInfo.setCreTime(new Date());
         itemInfo.setIsEffect(1);
-        itemInfo.setCreUserId(new Long(1));
+        itemInfo.setCreUserId(1L);
         itemInfoService.insertOrUpdate(itemInfo);
         return Result.success(1);
     }

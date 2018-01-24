@@ -1,10 +1,11 @@
 package com.ht.risk.common.util;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import com.ht.risk.common.constant.CharConstants;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.*;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
@@ -15,12 +16,6 @@ import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang3.RandomStringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.ht.risk.common.constant.CharConstants;
 
 
 /**
@@ -1058,42 +1053,44 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
 	public static final String monthLowerCaseToUpperCase(int m) {
 		String str = "";
 		switch (m) {
-		case 1:
-			str = "一";
-			break;
-		case 2:
-			str = "二";
-			break;
-		case 3:
-			str = "三";
-			break;
-		case 4:
-			str = "四";
-			break;
-		case 5:
-			str = "五";
-			break;
-		case 6:
-			str = "六";
-			break;
-		case 7:
-			str = "七";
-			break;
-		case 8:
-			str = "八";
-			break;
-		case 9:
-			str = "九";
-			break;
-		case 10:
-			str = "十";
-			break;
-		case 11:
-			str = "十一";
-			break;
-		case 12:
-			str = "十二";
-			break;
+			case 1:
+				str = "一";
+				break;
+			case 2:
+				str = "二";
+				break;
+			case 3:
+				str = "三";
+				break;
+			case 4:
+				str = "四";
+				break;
+			case 5:
+				str = "五";
+				break;
+			case 6:
+				str = "六";
+				break;
+			case 7:
+				str = "七";
+				break;
+			case 8:
+				str = "八";
+				break;
+			case 9:
+				str = "九";
+				break;
+			case 10:
+				str = "十";
+				break;
+			case 11:
+				str = "十一";
+				break;
+			case 12:
+				str = "十二";
+				break;
+			default:
+				str = "";
 		}
 		return str;
 	}
