@@ -13,15 +13,12 @@ import com.ht.risk.rule.service.ActProcReleaseService;
 import com.ht.risk.rule.service.ModelSenceService;
 import com.ht.risk.rule.service.SceneVersionService;
 import com.ht.risk.rule.service.VariableBindService;
-import com.ht.risk.rule.util.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -190,24 +187,26 @@ public class ActProcReleaseController {
     public Result addVariableAuto(HttpServletRequest request) {
         try {
             Map<String, String[]> parameterMap = request.getParameterMap();
-            logger.info(parameterMap.toString());
             Set<String> keys = parameterMap.keySet();
             Iterator<String> key = keys.iterator();
             while (key.hasNext()) {
                 String next = key.next();
-                String val = parameterMap.get(next)[0];
-                String[] strings = next.split("_");
-                EntityWrapper<VariableBind> wrapper = new EntityWrapper<>();
-                wrapper.eq("SENCE_VERSION_ID", strings[0]);
-                wrapper.eq("VARIABLE_CODE", strings[1]);
-                //需要判断参数为表格还是字段
-                VariableBind variableBind = new VariableBind();
-                if ("table".equals(strings[2])) {
-                    variableBind.setBindTable(val);
-                } else {
-                    variableBind.setBindColumn(val);
+                logger.info("--------参数名称------" + next);
+                if (!"amount".equals(next)) {
+                    String val = parameterMap.get(next)[0];
+                    String[] strings = next.split("_");
+                    //String senceVersionId,String variableCode,String tmpValue,String bindTable,String bindColumn
+                    String senceVersionId = strings[0];
+                    String variableCode = strings[1];
+                    String field = strings[2];
+                    //判断是绑定表格的值还是绑定列
+                    if ("table".equals(field) && val != null) {
+                        variableBindService.myUpdate(senceVersionId, variableCode, null, val, null);
+
+                    } else if ("column".equals(field) && val != null) {
+                        variableBindService.myUpdate(senceVersionId, variableCode, null, null, val);
+                    }
                 }
-                variableBindService.update(variableBind, wrapper);
             }
             Result result = Result.success();
             result.setMsg("保存成功");
@@ -215,6 +214,7 @@ public class ActProcReleaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        logger.info("test jre");
         return Result.error(1, "保存失败");
     }
 

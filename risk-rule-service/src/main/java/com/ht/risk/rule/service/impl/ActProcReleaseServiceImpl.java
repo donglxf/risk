@@ -4,11 +4,12 @@ import com.ht.risk.rule.entity.ActProcRelease;
 import com.ht.risk.rule.mapper.ActProcReleaseMapper;
 import com.ht.risk.rule.service.ActProcReleaseService;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author dyb
