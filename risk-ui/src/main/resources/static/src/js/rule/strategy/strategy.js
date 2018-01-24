@@ -32,8 +32,6 @@ layui.use(['table', 'form','laydate'], function () {
         ,
         id: 'demos',
         cols: [[ // 表头
-            // {field: 'conId', event: 'setItem',title: 'ID',sort: true, fixed:
-            // 'left'}
             {
                 field: 'title',
                 event: 'setItem',
@@ -182,94 +180,14 @@ layui.use(['table', 'form','laydate'], function () {
                             }
                         }
                         layer.setTop(layero); //重点2
-                        // var form = layer.getChildFrame('#manu_model_valiable_form', index);
-                        // form.html(contents);
                         form.render();
                     }
                 });
                 layer.full(layIndex);
             }
         });
-       /* $.get(preBindUrl + "getAll?sceneId=" + versionId, function (data) {
-            var result = data.data;
-            $.get('/rule/ui/strategy/autoTest', null, function (form) {
-                var layIndex=layer.open({
-                    type: 1,
-                    title: '修改',
-                    maxmin: true,
-                    shadeClose: false, // 点击遮罩关闭层
-                    content: form,
-                    btn: ['保存', '取消'],
-                    zIndex: layer.zIndex, //重点1
-                    success: function (da, index) {
-                        console.log(">>" + da + ">>index:==" + index);
-                        $("#senceVersionid").val(versionId);
-                        $("#sceneId").val(sceneId);
-                        $("#sceneIdentify").val(sceneIdentify);
-                    },
-                    yes: function (index) {
-                        // 触发表单的提交事件
-                        $('form.layui-form')
-                            .find('button[lay-filter=formDemo]').click();
-                        layer.close(index);
-                    },
-                });
-                layer.full(layIndex);
-            });
-        }, 'json')*/
     }
-    
-    /*function setVariableVal(da) {
-        // var modelVerification = new ModelVerification();
-        var size = da.length;
-        for(var i=0;i<size;i++){
-            $("#bindColumnTable").append("<tr>\n" +
-                "\t\t\t\t\t\t\t<input type=\"hidden\" name=\""+da[i].variableCode+"_bind\" id=\"bindId"+i+"\" value='"+da[i].id+"'>\n" +
-                "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">"+da[i].variableName+":</label></td>\n" +
-                "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
-                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"\" name=\""+da[i].variableCode+"\" required\n" +
-                "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入"+da[i].variableName+"\" autocomplete=\"off\"\n" +
-                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" >\n" +
-                "\t\t\t\t\t\t\t\t</div>\n" +
-                "\t\t\t\t\t\t\t</td>\n" +
-                "\t\t\t\t\t\t</tr>");
-        }
-    }*/
 
-    function edit(sceneId, versionId) {
-        $.get(preUrl + "getAll?sceneId=" + versionId, function (data) {
-            var result = data.data;
-            $.get('/rule/ui/ruleBind/index/edit', null, function (form) {
-                layer.open({
-                    type: 1,
-                    title: '修改',
-                    maxmin: true,
-                    shadeClose: false, // 点击遮罩关闭层
-                    area: ['730px', '460px'],
-                    content: form,
-                    btn: ['保存', '取消'],
-                    btnAlign: 'c',
-                    zIndex: layer.zIndex, //重点1
-                    success: function (da, index) {
-                        console.log(">>" + da + ">>index:==" + index);
-
-
-                        $("#senceVersionid").val(versionId);
-                        $("#sceneId").val(sceneId);
-
-
-                    },
-                    yes: function (index) {
-                        // layedit.sync(editIndex);
-                        // 触发表单的提交事件
-                        $('form.layui-form')
-                            .find('button[lay-filter=formDemo]').click();
-                        layer.close(index);
-                    },
-                });
-            });
-        }, 'json')
-    }
 });
 
 

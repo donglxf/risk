@@ -6,6 +6,7 @@ import java.util.concurrent.ForkJoinPool;
 import javax.servlet.http.HttpServletRequest;
 
 import com.alibaba.fastjson.JSONArray;
+import com.ht.risk.api.model.drools.DroolsParamter;
 import com.ht.risk.rule.entity.*;
 import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 import org.apache.commons.lang.StringUtils;
@@ -21,7 +22,6 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.common.util.ObjectUtils;
-import com.ht.risk.rule.model.DroolsParamter;
 import com.ht.risk.rule.rpc.DroolsRuleRpc;
 import com.ht.risk.rule.service.EntityItemInfoService;
 import com.ht.risk.rule.service.SceneVersionService;
@@ -210,6 +210,7 @@ public class VariableBindController {
         for (int i=0;i<mainArray.size();i++){
             JSONObject obj= mainArray.getJSONObject(i);
             JSONObject o=obj.getJSONObject("data").getJSONObject("globalMap");
+            Map<String, Object> variableMap= (Map<String, Object>) o.get("variableMap");
             JSONArray dataArr=  o.getJSONArray ("logIdList");
             Integer count = (Integer) o.getJSONObject ("_result").getJSONObject("map").get("count");
             String[] arg=dataArr.toArray(new String[dataArr.size()]);
@@ -217,6 +218,7 @@ public class VariableBindController {
             resultMap.put("logId",arg[0]);
             resultMap.put("versionId",entityInfo.getSenceVersionId());
             resultMap.put("count",count);
+            resultMap.put("variableMap",variableMap);
             resultList.add(resultMap);
         }
         return PageResult.success(resultList,0);

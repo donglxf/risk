@@ -6,18 +6,38 @@ var ModelVerification = function (opt) {
 }
 ModelVerification.prototype = {
 
-    initRuleBatchResult:function(data){
-        var html="";
-        for (var i=0;i<data.length;i++){
-            html += "<label style=\"font-size: 15px;\">匹配规则数量 "+data[i].count+"</label>\"+
-            "   <a href=\"javascript:void(0)\" onclick=\"showRuleTestResult('"+data[i].logId+"','"+data[i].versionId+"')\">查看详情</a>";
+    // initRuleBatchResult:function(data){
+    //     var html="";
+    //     for (var i=0;i<data.length;i++){
+    //         html += "<label style=\"font-size: 15px;\">匹配规则数量 "+data[i].count+"</label>"+
+    //         "   <a href=\"javascript:void(0)\" onclick=\"showRuleTestResult('"+data[i].logId+"','"+data[i].versionId+"')\">查看详情</a>";
+    //     }
+    //     return html;
+    // },
+    initParam:function(data){
+        var html="<table class=\"layui-table\">\n" +
+            "    <colgroup>\n" +
+            "    <col width=\"50%\">\n" +
+            "    <col>\n" +
+            "    </colgroup>\n" +
+            "    <thead>\n" +
+            "    <tr>\n" +
+            "    <th>变量名称</th>\n" +
+            "    <th>传入值</th>\n" +
+            "    </tr>\n" +
+            "    </thead>\n" ;
+
+        for(var i=0;i<data.length;i++){
+            html+="<tbody><tr></tbody><td>"+data[i].variableName+"</td>";
+                html+="<td>"+data[i].variableValue+"</td>";
         }
+        html+="</tr></tbody></table>";
         return html;
     },
     initResult:function(data){
         var html="<table class=\"layui-table\">\n" +
             "    <colgroup>\n" +
-            "    <col width=\"800\">\n" +
+            "    <col width=\"50%\">\n" +
             "    <col>\n" +
             "    </colgroup>\n" +
             "    <thead>\n" +

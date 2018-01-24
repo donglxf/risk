@@ -46,6 +46,7 @@
 						<legend>验证结果</legend>
 					</fieldset>
 					<div class="layui-input-block" id="autoValidateResults">
+						<table class="layui-hide" id="demo"></table>
 						<label id="resultShow"></label>
 					</div>
 				</div>
@@ -55,9 +56,16 @@
 					<legend>当前显示</legend>
 				</fieldset>
 				<div class="layui-input-block">
-					<table class="layui-table" id="ruleTab">
+					<div style="width: 300px;float: left;margin-right: 20px;">
+						<table class="layui-table" id="ruleTab1">
 
-					</table>
+						</table>
+					</div>
+					<div style="float: left;width: 600px;">
+						<table class="layui-table" id="ruleTab">
+
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -65,14 +73,17 @@
 
 	<script src="/rule/ui/plugins/layui/layui.js"></script>
 	<script src="/rule/ui/src/js/model/model_util.js"></script>
-
+	<script src="/rule/ui/plugins/jquery-1.9.1.min.js"></script>
+	<script type="text/html" id="item_bar">
+		<a href="javascript:void(0)" onclick="showRuleTestResult('{{d.logId}}','{{d.versionId}}')">查看详情</a>
+	</script>
 	<script>
     //Demo
-    layui.use('form', function(){
+    layui.use(['form','table'], function(){
         var form = layui.form;
         var app = layui.app,
             layerTips = layui.layer,
-            $ = layui.jquery;
+            $ = layui.jquery,table=layui.table;
 
         // 验证通过
         form.on('submit(validationPass)', function (data) {
@@ -111,22 +122,41 @@
                 success : function(da) {
                     if (da.code == 0) {
                         var modelVerification = new ModelVerification();
-                        var result = modelVerification.initRuleBatchResult(da.data);
-                        $("#resultShow").html(result);
-//                        layer.msg('操作成功');
-//                        var resultMsg="成功数："+da.data.success+",失败数："+da.data.fail;
-//						$("#validateResult").val(resultMsg);
-//                        showRuleTestResult(da.data.logId, da.data.versionId);
-//                       active.reload();
+                        resultTab(da.data);
                     } else {
                         $("#validateResult").val(da.msg);
-//                       layer.msg(da.msg);
                     }
                 }
             });
             return false;
         });
+
+        function resultTab(da){
+            var html='[';
+            for (var i=0;i<da.length;i++){
+                var obj=da[i].variableMap;
+                if(i==da.length-1){
+					html+="{\"ruleCount\": \""+da[i].count+"\",\"oper\": \"查看详情\",\"obj\":\""+obj+"\",\"logId\":\""+da[i].logId+"\",\"versionId\":\""+da[i].versionId+"\"}";
+				}else{
+					html+="{\"ruleCount\": \""+da[i].count+"\",\"oper\": \"查看详情\",\"obj\":\""+obj+"\",\"logId\":\""+da[i].logId+"\",\"versionId\":\""+da[i].versionId+"\"},";
+				}
+            }
+            html+="]";
+			html=JSON.parse(html);
+            table.render({
+                elem: '#demo'
+                ,cols: [[ //标题栏
+                    {field: 'ruleCount', title: '规则匹配数量', width: 190}
+                    ,{field: 'oper', title: '操作', width: 100,templet : '#item_bar',}
+                ]]
+                ,data:html
+                ,even: true
+            });
+
+        }
     });
+
+
 
     function showRuleTestResult(logId, versionId) {
         $
@@ -140,10 +170,13 @@
                 },
                 success: function (da) {
                     console.log(da);
-                    var size = da.data.length;
+//                    var size = da.data.length;
                     var modelVerification = new ModelVerification();
-                    var result = modelVerification.initResult(da.data);
+                    var result = modelVerification.initResult(da.data.ruleResult);
                     $("#ruleTab").html(result);
+
+                    var result1 = modelVerification.initParam(da.data.dataResult);
+                    $("#ruleTab1").html(result1);
                 }
             });
     }

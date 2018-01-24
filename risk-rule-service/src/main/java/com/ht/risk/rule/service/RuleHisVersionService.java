@@ -16,5 +16,17 @@ import java.util.Map;
  * @since 2018-01-10
  */
 public interface RuleHisVersionService extends BaseService<RuleHisVersion> {
+    /**
+     * 获取规则验证结果匹配信息
+     * @param paramMap
+     * @return
+     */
     List<RuleHisVersionVo> getRuleValidationResult(Map<String,Object> paramMap);
+
+    /**
+     * 获取规则自动验证传入值信息
+     * @param paramMap
+     * @return
+     */
+    List<Map<String,Object>> getRuleBatchValidationResult(Map<String, Object> paramMap) ;
 }
