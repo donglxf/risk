@@ -13,15 +13,12 @@ import com.ht.risk.rule.service.ActProcReleaseService;
 import com.ht.risk.rule.service.ModelSenceService;
 import com.ht.risk.rule.service.SceneVersionService;
 import com.ht.risk.rule.service.VariableBindService;
-import com.ht.risk.rule.util.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -178,5 +175,48 @@ public class ActProcReleaseController {
         logger.info("开始自动测试" + actProcRealeseId);
         return this.getVariablesByActProcRealeseId(actProcRealeseId);
     }
+
+    /**
+     * 为变量赋值
+     * http://localhost:8765/rule/service/actProcRelease/init
+     *
+     * @returns
+     */
+    @PostMapping(value = "scene/variable/init/auto")
+    @ApiOperation(value = "自动测试给变量赋值")
+    public Result addVariableAuto(HttpServletRequest request) {
+        try {
+            Map<String, String[]> parameterMap = request.getParameterMap();
+            Set<String> keys = parameterMap.keySet();
+            Iterator<String> key = keys.iterator();
+            while (key.hasNext()) {
+                String next = key.next();
+                logger.info("--------参数名称------" + next);
+                if (!"amount".equals(next)) {
+                    String val = parameterMap.get(next)[0];
+                    String[] strings = next.split("_");
+                    //String senceVersionId,String variableCode,String tmpValue,String bindTable,String bindColumn
+                    String senceVersionId = strings[0];
+                    String variableCode = strings[1];
+                    String field = strings[2];
+                    //判断是绑定表格的值还是绑定列
+                    if ("table".equals(field) && val != null) {
+                        variableBindService.myUpdate(senceVersionId, variableCode, null, val, null);
+
+                    } else if ("column".equals(field) && val != null) {
+                        variableBindService.myUpdate(senceVersionId, variableCode, null, null, val);
+                    }
+                }
+            }
+            Result result = Result.success();
+            result.setMsg("保存成功");
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        logger.info("test jre");
+        return Result.error(1, "保存失败");
+    }
+
 }
 

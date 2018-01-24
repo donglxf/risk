@@ -5,7 +5,7 @@ import com.ht.risk.common.service.BaseService;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author zhangzhen
@@ -13,4 +13,5 @@ import com.ht.risk.common.service.BaseService;
  */
 public interface VariableBindService extends BaseService<VariableBind> {
 
+    public Integer myUpdate(String senceVersionId,String variableCode,String tmpValue,String bindTable,String bindColumn);
 }

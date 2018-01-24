@@ -29,4 +29,24 @@
 
     </select>
 
+    <update id="myUpdate" parameterType="com.ht.risk.rule.entity.VariableBind">
+        UPDATE RISK_VARIABLE_BIND
+        <set>
+            <if test="tmpValue != null">
+                TMP_VALUE = #{tmpValue},
+            </if>
+            <if test="bindTable != null">
+                BIND_TABLE = #{bindTable},
+            </if>
+            <if test="bindColumn != null">
+                BIND_COLUMN = #{bindColumn},
+            </if>
+            <if test="senceVersionId != null">
+                SENCE_VERSION_ID = #{senceVersionId}
+            </if>
+        </set>
+        WHERE SENCE_VERSION_ID = #{senceVersionId} AND VARIABLE_CODE = #{variableCode}
+    </update>
+
+
 </mapper>

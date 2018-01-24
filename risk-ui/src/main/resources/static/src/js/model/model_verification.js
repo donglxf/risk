@@ -139,4 +139,43 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
     $("#test").click(function () {
         layer.msg("需调用其它接口");
     });
+
+
+
+    form.on('submit(save_auto)', function (data) {
+        console.log('保存自动校验变量');
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: '/rule/service/actProcRelease/scene/variable/init/auto',
+            data: data.field,// 你的formid
+            async: false,
+            success: function (data) {
+                layer.msg(data.msg);
+            }
+        });
+        return false;
+    });
+
+    $("#test").click(function () {
+        layer.msg("需调用其它接口");
+    });
+
+
+    //时间选择器
+    laydate.render({
+        elem: '.date'
+        ,type: 'datetime'
+    });
+
+    $('.time').each(function(){
+        var id = $(this).attr("id");
+        laydate.render({
+            elem: '#'+id
+            ,type: 'datetime'
+        });
+
+    });
+
+
 });
