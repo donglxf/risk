@@ -48,5 +48,5 @@ public interface EntityInfoMapper extends SuperMapper<EntityInfo> {
      * 查询所有符合的对象
      * @return
      */
-    List<EntityInfo> findRuleEntityAll();
+    List<EntityInfo> findRuleEntityAll(@Param("businessId") Long businessId);
 }

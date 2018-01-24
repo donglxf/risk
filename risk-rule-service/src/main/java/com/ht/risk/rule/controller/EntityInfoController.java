@@ -114,9 +114,9 @@ public class EntityInfoController {
     }
     @GetMapping("getEntitysAll")
     @ApiOperation(value = "查询所有的对象和变量的集合")
-    public Result<List<EntitySelectVo>> getEntitysAll() {
+    public Result<List<EntitySelectVo>> getEntitysAll(Long businessId) {
 
-        List<EntityInfo> list = entityInfoService.findRuleEntityAll();
+        List<EntityInfo> list = entityInfoService.findRuleEntityAll(businessId);
 
         List<EntitySelectVo> vos = new ArrayList<>();
         for (EntityInfo info : list) {

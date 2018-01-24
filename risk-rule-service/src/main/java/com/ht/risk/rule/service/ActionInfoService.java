@@ -91,5 +91,5 @@ public interface ActionInfoService extends BaseService<ActionInfo> {
      * 查询所有的动作
      * @return
      */
-    List<ActionInfoVo> findActionAllVos();
+    List<ActionInfoVo> findActionAllVos(Long businessId);
 }

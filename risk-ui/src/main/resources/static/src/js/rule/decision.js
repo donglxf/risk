@@ -37,7 +37,97 @@ layui.define(['layer','form','laytpl'], function (exports) {
     var itemVals = [];
     var itemTexts = [];
     var entityIds = [];*/
+    //工具
+var myUtil = {
+    v: '1.0.3',
+    baseSerive:'/rule/service',
 
+    //业务相关
+    business:{
+        data:[],
+        select:{
+            name:'businessId',
+            id:'businessId'
+        },
+        init_url:'/rule/service/business/getAll',
+        init_html: function () {
+            return     '      <div class="layui-input-inline">\n' +
+                '                    <select name="'+myUtil.business.select.name+'"  lay-filter="business_select" lay-search="" id="'+myUtil.business.select.id+'" lay-verify="required">\n' +
+                '                        <option value="">选择业务线</option>\n' +
+                '                    </select>\n' +
+                '                </div>'
+        },
+        init_html2: function (id) {
+
+            return ' <select name="'+myUtil.business.select.name+'" lay-filter="business_select" lay-search="" id="'+id+'" lay-verify="required">\n' +
+                '    <option value="">选择业务线</option>\n' +
+                '    </select>';
+        },
+        /**
+         * 显示下拉框
+         * @param businessId 业务id
+         * @param obj 放入的地方
+         * @param type 1实体对象 2动作
+         */
+        init:function (businessId,obj,type) {
+            var selectId = myUtil.business.select.id;
+            if( myUtil.business.data == [] || myUtil.business.data.length < 1){
+                $.get(myUtil.business.init_url,function(data){
+                    if(data.code == '0'){
+                        var h = myUtil.business.init_html2(selectId);
+                        //初始化
+                        $(obj).html(h);
+                        var result = data.data;
+                        myUtil.business.data = result;
+                        for(var i = 0; i<result.length;i++){
+                            var ischeck = '';
+                            //选中的设置
+                            if(result[i].businessId == businessId){
+                                ischeck = 'selected="true"';
+                            }
+                            var option = '<option value="'+result[i].businessId+'" '+ischeck+' >'+result[i].businessName+'</option>';
+                            $(obj).find("#"+selectId).append(option);
+                        }
+                        form.render('select');
+                        form.on('select(business_select)', function(data){
+                            myUtil.business.selectBack(data,type);
+                        });
+                    }
+                },'json');
+            }else{
+                var h = myUtil.business.init_html2(selectId);
+                //初始化
+                $(obj).html(h);
+                var result =   myUtil.business.data;
+                for(var i = 0; i<result.length;i++){
+                    var ischeck = '';
+                    //选中的设置
+                    if(result[i].businessId == businessId){
+                        ischeck = 'selected="true"';
+                    }
+                    var option = '<option value="'+result[i].businessId+'" '+ischeck+' >'+result[i].businessName+'</option>';
+                    $(obj).find("#"+selectId).append(option);
+                }
+                form.render('select');
+                form.on('select(business_select)', function(data){
+                    myUtil.business.selectBack(data,type);
+                });
+            }
+
+        },
+        selectBack:function (data,type) {
+            //实体类初始化
+            if(type == 1){
+                sceneUtil.entitySelectInit(data.value);
+            }
+            //动作初始化
+            else{
+                sceneUtil.actionSelectInit(data.value);
+            }
+            console.log(data);
+        }
+    },
+};
     var sceneUtil = {
             subType:1,
             flag :true,
@@ -380,20 +470,22 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     maxmin: false,
                     title: false,
                     shadeClose: true, // 点击遮罩关闭层
-                    area: ['450px', '400px'],
+                    area: ['550px', '400px'],
                     content: html,
                     btn: ['完成'],
                     shade:0.1,
                     success: function (layero, index) {
                         if(type == 1){
-                            sceneUtil.entitySelectInit();
+                           // myUtil.business.init('',$("#businessDiv"));
+                            //sceneUtil.entitySelectInit(); 有了业务线
                             //初始化 实体 已导入的数据
                             sceneUtil.initEntitys();
                         }else{
-                            sceneUtil.actionSelectInit();
+                            //sceneUtil.actionSelectInit();
                             //初始化 实体
                             sceneUtil.initActions();
                         }
+                        myUtil.business.init('',$("#businessDiv"),type);
                     }
                 });
 
@@ -476,11 +568,11 @@ layui.define(['layer','form','laytpl'], function (exports) {
          * @param value
          * @param list
          */
-        entitySelectInit:function(){
+        entitySelectInit:function(businessId){
 
-            if(sceneUtil.entityImport == [] || sceneUtil.entityImport.length == 0){
+            //if(sceneUtil.entityImport == [] || sceneUtil.entityImport.length == 0){
 
-                $.get("/rule/service/entityInfo/getEntitysAll",function(data){
+                $.get("/rule/service/entityInfo/getEntitysAll",{"businessId":businessId},function(data){
                     var result = {list : data.data
                     }
                     var getTpl = tableTps.innerHTML
@@ -491,7 +583,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     sceneUtil.entityImport = data.data;
                     form.render('select');
                 },'json');
-            }else{
+            /*}else{
                 var result = {list : sceneUtil.entityImport
                 }
                 var getTpl = tableTps.innerHTML
@@ -500,18 +592,18 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     view.innerHTML = html;
                 });
                 form.render('select');
-            }
+            }*/
     },
         /***
          * 动作下拉初始化
          * @param value
          * @param list
          */
-        actionSelectInit:function(){
+        actionSelectInit:function(businessId){
 
-            if(sceneUtil.actionImport == [] || sceneUtil.actionImport.length == 0){
+           // if(sceneUtil.actionImport == [] || sceneUtil.actionImport.length == 0){
 
-                $.get("/rule/service/actionInfo/getAll",function(data){
+                $.get("/rule/service/actionInfo/getAll",{"businessId":businessId},function(data){
                     var result = {list : data.data
                     }
                     var getTpl = actionTableTps.innerHTML
@@ -522,7 +614,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     sceneUtil.actionImport = data.data;
                     form.render('select');
                 },'json');
-            }else{
+        /*    }else{
                 var result = {list : sceneUtil.actionImport
                 }
                 var getTpl = actionTableTps.innerHTML
@@ -531,7 +623,7 @@ layui.define(['layer','form','laytpl'], function (exports) {
                     view.innerHTML = html;
                 });
                 form.render('select');
-            }
+            }*/
         },
         /**
          * 动态导入一条数据
@@ -1649,7 +1741,9 @@ layui.define(['layer','form','laytpl'], function (exports) {
 
         },
 
-        }
+        };
+
+
     ;
     exports('sceneUtil', sceneUtil);
 });

@@ -51,5 +51,5 @@ public interface EntityInfoService extends BaseService<EntityInfo> {
      * @auhor 张鹏
      * @date 2018/1/12 16:59
      */
-    List<EntityInfo> findRuleEntityAll();
+    List<EntityInfo> findRuleEntityAll(Long businessId);
 }

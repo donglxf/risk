@@ -123,7 +123,7 @@ public class ActionInfoServiceImpl extends BaseServiceImpl<ActionInfoMapper, Act
     }
 
     @Override
-    public List<ActionInfoVo> findActionAllVos() {
-        return this.actionInfoMapper.findActionAllVos();
+    public List<ActionInfoVo> findActionAllVos(Long businessId) {
+        return this.actionInfoMapper.findActionAllVos( businessId);
     }
 }
