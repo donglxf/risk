@@ -1223,7 +1223,7 @@ var myUtil = {
             sceneUtil.bandOneValInit( $(tr).find('.groupName'));
 
             //绑定动作
-            sceneUtil.bandSelectValInit_action($(li).find(".actionType"),sceneUtil.data.actionBank,"选择动作");
+           // sceneUtil.bandSelectValInit_action($(li).find(".actionType"),sceneUtil.data.actionBank,"选择动作");
             //绑定动作值得输入框
             sceneUtil.bandOneValInit( $(tr).find('.actionVal'));
             //条件绑定
