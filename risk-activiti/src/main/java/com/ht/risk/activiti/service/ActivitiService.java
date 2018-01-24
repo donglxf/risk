@@ -72,5 +72,5 @@ public interface ActivitiService {
      * @param variableName
      * @return
      */
-    public List<HistoricVariableInstance> getProcessVarByDeployIdAndNameLike(String processId,String variableName);
+    public List<HistoricVariableInstance> getHisProcessVarByDeployIdAndNameLike(String processId,String variableName);
 }

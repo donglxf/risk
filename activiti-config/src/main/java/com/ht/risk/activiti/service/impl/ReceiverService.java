@@ -8,6 +8,7 @@ import com.ht.risk.activiti.mapper.RiskValidateBatchMapper;
 import com.ht.risk.activiti.rpc.ActivitiRpc;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.model.activiti.ModelParamter;
+import com.ht.risk.common.result.Result;
 import com.ht.risk.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,24 +36,51 @@ public class ReceiverService {
         LOGGER.info("ReceiverService receiveMessage from quene activiti-result-queue,message"+message);
         String proceInstId = message;
         if(StringUtils.isNotEmpty(proceInstId)){
-            ModelParamter modelParamter = new ModelParamter();
-            modelParamter.setProcessId(proceInstId);
-            modelParamter.setVariableName(ActivitiConstants.PROC_TASK_ID_CONSTANTS);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Object result = activitiRpc.getProcInstVarObj(modelParamter);
-            LOGGER.info("ReceiverService receiveMessage query variable,result:"+ JSON.toJSONString(result));
-            if(result != null){
-                ActExcuteTask task = actExcuteTaskMapper.selectById(Long.parseLong(String.valueOf(result)));
-                if(task != null){
-                    task.setStatus("1");
-                    actExcuteTaskMapper.updateById(task);
+            new Thread(new UpdateTaskStatusTask(proceInstId)).start();
+        }
+    }
+
+    class UpdateTaskStatusTask implements Runnable {
+        private String proceInstId;
+
+        public UpdateTaskStatusTask(String proceInstId) {
+            this.proceInstId = proceInstId;
+        }
+
+        @Override
+        public void run() {
+            LOGGER.info("UpdateTaskStatusTask running...procInstId: "+proceInstId);
+            int count = 1;
+            boolean flag = true;
+            while(count <= 3 && flag){
+                LOGGER.info("UpdateTaskStatusTask running...count: "+count+";flag:"+flag);
+                try {
+                    ModelParamter modelParamter = new ModelParamter();
+                    modelParamter.setProcessId(proceInstId);
+                    modelParamter.setVariableName(ActivitiConstants.PROC_TASK_ID_CONSTANTS);
+                    String result = activitiRpc.getProcInstVarObj(modelParamter);
+                    if(result == null || StringUtils.isEmpty(result)){
+                        count++;
+                        Thread.currentThread().sleep(4000);
+                        continue;
+                    }
+                    ActExcuteTask task = actExcuteTaskMapper.selectById(Long.parseLong(result));
+                    if (task != null) {
+                        task.setStatus("1");
+                        actExcuteTaskMapper.updateById(task);
+                    }
+                    flag = false;
+                    break;
+                } catch (Exception e) {
+                    count++;
                 }
-                LOGGER.info("ReceiverService receiveMessage ,task id:"+String.valueOf(result)+" complete..");
+                try {
+                    Thread.currentThread().sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+            LOGGER.info("UpdateTaskStatusTask success...procInstId: "+proceInstId);
         }
     }
 }

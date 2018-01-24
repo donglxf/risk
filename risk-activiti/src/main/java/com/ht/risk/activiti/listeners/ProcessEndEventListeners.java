@@ -31,6 +31,7 @@ public class ProcessEndEventListeners implements ActivitiEventListener {
     }
 
     private String getEndSendMsgInfo(ActivitiEvent event){
+        LOGGER.info("getEndSendMsgInfo method invoke..."+event.getProcessInstanceId());
         return event.getProcessInstanceId();
     }
 

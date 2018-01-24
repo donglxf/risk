@@ -155,7 +155,7 @@ public class DroolsExcuteController {
             entity.setType(paramter.getType());
             entity.setProcinstId(StringUtil.strIsNotNull(paramter.getProcessInstanceId()) ? Long.parseLong(paramter.getProcessInstanceId()) : 0);
             entity.setInParamter(JSON.toJSONString(paramter));
-            entity.setSenceVersionid(paramter.getVersion());
+            entity.setSenceVersionid(String.valueOf(ruleVersion.getVersionId()));
             entity.setOutParamter(JSON.toJSONString(object));
             entity.setExecuteTotal(Integer.parseInt(String.valueOf(res.getMap().get("count"))));
             entity.setModelName(paramter.getModelName());

@@ -19,34 +19,50 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(DroolsRuleEngineServiceImpl.class);
 
-    private Expression expressionValue;
+    private Expression senceCodeExp;
+    private Expression versionExp;
 
     @Autowired
     private DroolsRuleEngineInterface droolsRuleEngineInterface;
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-
-        LOGGER.info("###############策略规则运行开始！");
-        String sence = (String) expressionValue.getValue(delegateExecution);
-        LOGGER.info("###############策略规则运行开始,策略唯一标识："+sence);
+        String senceCode = (String) senceCodeExp.getValue(delegateExecution);
+        String version = (String) versionExp.getValue(delegateExecution);
+        LOGGER.info("###############drools excute start,senceCode："+senceCode+";version:"+version);
         Map senceData = (Map)delegateExecution.getVariable("senceData");
+        String type = String.valueOf(delegateExecution.getVariable("droolsExcuteType"));
         DroolsParamter paramter = new DroolsParamter();
-        paramter.setSence(sence);
+        paramter.setSence(senceCode);
+        paramter.setVersion(version);
         paramter.setData(senceData);
         paramter.setProcessInstanceId(delegateExecution.getProcessInstanceId());
-
+        paramter.setType(type);
         LOGGER.info("DroolsRuleEngineServiceImpl service paramter:"+ JSON.toJSONString(paramter));
-        RuleExcuteResult result = droolsRuleEngineInterface.excuteDroolsScene(paramter);
-        delegateExecution.setVariable(sence,result);
-        LOGGER.info("###############策略"+sence+"规则运行结束！");
+        RuleExcuteResult result = null;
+        if("1".equals(type)){
+            result = droolsRuleEngineInterface.excuteDroolsScene(paramter);
+        }
+        if("2".equals(type)){
+            result = droolsRuleEngineInterface.excuteDroolsSceneValidation(paramter);
+        }
+        delegateExecution.setVariable(senceCode+"-"+version,result);
+        LOGGER.info("###############drools excute end,senceCode："+senceCode+";version:"+version);
     }
 
-    public Expression getExpressionValue() {
-        return expressionValue;
+    public Expression getSenceCodeExp() {
+        return senceCodeExp;
     }
 
-    public void setExpressionValue(Expression expressionValue) {
-        this.expressionValue = expressionValue;
+    public void setSenceCodeExp(Expression senceCodeExp) {
+        this.senceCodeExp = senceCodeExp;
+    }
+
+    public Expression getVersionExp() {
+        return versionExp;
+    }
+
+    public void setVersionExp(Expression versionExp) {
+        this.versionExp = versionExp;
     }
 }
