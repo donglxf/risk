@@ -4,7 +4,12 @@ var preItemUrl = "/rule/service/entityItemInfo/";
 var preUrl = "/rule/service/constantInfo/";
 var layer,entityTable,itemTable,table,active,itemActive;
 var conId ,conKey,conType;
-layui.use(['table','form'], function(){
+layui.config({
+    base: '/rule/ui/src/js/' //假设这是你存放拓展模块的根目录
+}).extend({ //设定模块别名
+    myutil: 'common' //如果 mymod.js 是在根目录，也可以不用设定别名
+});
+layui.use(['table','form','myutil'], function(){
     /**
      * 设置表单值
      * @param el
@@ -22,6 +27,11 @@ layui.use(['table','form'], function(){
     var app = layui.app,
         $ = layui.jquery
     ,form = layui.form;
+
+    var common = layui.myutil;
+    //查询构造
+    common.business.init("",$("#business_ser"),"businessId_ser");
+
     //第一个实例
     entityTable.render({
         elem: '#demo'
@@ -52,7 +62,8 @@ layui.use(['table','form'], function(){
                     curr: 1 //重新从第 1 页开始
                 }
                 ,where: {
-                    key: $('#entityName_ser').val()
+                    key: $('#entityName_ser').val(),
+                    businessId:$("#businessId_ser").val(),
                 }
             });
         }
@@ -167,6 +178,7 @@ layui.use(['table','form'], function(){
                 btn: ['保存', '取消'],
                 success: function (layero, index) {
                    // setFromValues(layero, result);
+                    common.business.init('',$("#businessDiv"));
                 }
                 ,yes: function (index) {
                     //layedit.sync(editIndex);
@@ -193,6 +205,7 @@ layui.use(['table','form'], function(){
                     success: function (layero, index) {
                         console.log(layero);
                         setFromValues(layero, result);
+                        common.business.init(result.businessId,$("#businessDiv"));
                     }
                     ,yes: function (index) {
                         //layedit.sync(editIndex);

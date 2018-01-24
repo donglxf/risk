@@ -1,14 +1,15 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
+import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
 /**
  * <p>
  * 
@@ -19,6 +20,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel
 @TableName("rule_constant_info")
+@Data
 public class ConstantInfo extends Model<ConstantInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +55,10 @@ public class ConstantInfo extends Model<ConstantInfo> {
 	@TableField("con_code")
 	@ApiModelProperty(required= true,value = "变量code")
 	private String conCode;
+
+	@TableField("business_id")
+	@ApiModelProperty(required= true,value = "业务线id")
+	private Long businessId;
     /**
      * 是否有效
      */

@@ -23,7 +23,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .logout().logoutSuccessUrl("/login")
             .invalidateHttpSession(true) .and().authorizeRequests()
         .antMatchers("/**/*.css", "/img/**", "/api/**", "/**/*.js") // 放开"/api/**"：为了给被监控端免登录注册
-        .permitAll().and().authorizeRequests().antMatchers("/**").authenticated();
+        .permitAll().and()
+            .rememberMe()
+            .tokenValiditySeconds(36000)//没有什么用
+            .and().authorizeRequests().antMatchers("/**").authenticated();
     http.csrf().disable();
     http.headers().frameOptions().disable();
     http.httpBasic();

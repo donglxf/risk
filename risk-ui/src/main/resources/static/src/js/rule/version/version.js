@@ -48,7 +48,7 @@ sceneLeft.cols = function () {
             fixed: 'right',
             event: 'setItem',
             align:'center',sort: true,
-            width:200,
+            width:150,
             toolbar: sceneLeft.toolbarId}
     ];
 };
@@ -83,7 +83,7 @@ scene.cols = function () {
         ,*/
         {field: 'creTime',
             align:'center',
-            width:180,
+            width:120,
             title: '创建时间',sort: true
            }
         ,
@@ -109,7 +109,7 @@ scene.cols = function () {
             title: '操作',
             fixed: 'right',
             align:'center',
-            width:150,
+            width:120,
             toolbar: scene.toolbarId
         }
     ];
@@ -120,9 +120,10 @@ var layerTopIndex;
 layui.config({
     base: '/rule/ui/src/js/rule/' //假设这是你存放拓展模块的根目录
 }).extend({ //设定模块别名
-    sceneUtil: 'decision.js?v=22232' //如果 mymod.js 是在根目录，也可以不用设定别名
+    sceneUtil: 'decision.js?v=22232', //如果 mymod.js 是在根目录，也可以不用设定别名
+    myutil:'../common',
 });
-layui.use(['table','form','laytpl','sceneUtil'], function() {
+layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
     var laytpl = layui.laytpl;
     var sceneUtil = layui.sceneUtil;
     sceneTable = layui.table;
@@ -131,6 +132,9 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
 
          form = layui.form;
     $ = layui.jquery;
+    var common = layui.myutil;
+    //查询构造
+    common.business.init("",$("#business_ser"),"businessId_ser");
     //第一个实例
     sceneTable.render({
         elem: '#'+scene.tableId
@@ -249,7 +253,8 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
                 }
                 , where: {
                     sceneType : $("#sceneType").val(),
-                    key : $("#key").val()
+                    key : $("#key").val(),
+                    businessId:$("#businessId_ser").val()
                 }
             });
         }
@@ -409,6 +414,12 @@ layui.use(['table','form','laytpl','sceneUtil'], function() {
                 btn: ['保存', '取消'],
                 success: function (layero, index) {
                     setFromValues(layero, result);
+                    if(result != undefined  && result != null && result.businessId != null ){
+                        common.business.init(result.businessId,$("#businessDiv"));
+                    }else{
+                        common.business.init('',$("#businessDiv"));
+                    }
+
                 }
                 , yes: function (index) {
                     //触发表单的提交事件

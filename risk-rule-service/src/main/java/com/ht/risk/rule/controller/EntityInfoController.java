@@ -178,12 +178,15 @@ public class EntityInfoController {
 
     @GetMapping("page")
     @ApiOperation(value = "分页查询")
-    public PageResult<List<EntityInfo>> page(String key , Integer page , Integer limit){
+    public PageResult<List<EntityInfo>> page(String key ,Long businessId, Integer page , Integer limit){
         Wrapper<EntityInfo> wrapper = new EntityWrapper<>();
         if(StringUtils.isNotBlank(key)){
             wrapper.like("entity_name",key);
             wrapper.or().like("entity_desc",key);
             wrapper.or().like("entity_identify",key);
+        }
+        if(businessId != null ){
+            wrapper.eq("business_id",businessId);
         }
          Page<EntityInfo> pages = new Page<>();
          pages.setCurrent(page);
