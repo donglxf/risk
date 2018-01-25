@@ -198,8 +198,8 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
                     implementationType = task.getImplementationType();
                     fieldExtensions = task.getFieldExtensions();
                     if (ActivitiConstants.DROOL_RULE_SERVICE_NAME.equals(implementation) && ActivitiConstants.DROOL_RULE_SERVICE_TYPE.equals(implementationType) && fieldExtensions.size() > 1) {
-                        senceCode = fieldExtensions.get(0).getExpression();
-                        version = fieldExtensions.get(1).getExpression();
+                        senceCode = fieldExtensions.get(0).getStringValue();
+                        version = fieldExtensions.get(1).getStringValue();
                         senceInfo = new RpcSenceInfo();
                         senceInfo.setSenceCode(senceCode);
                         senceInfo.setSenceVersion(version);

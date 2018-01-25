@@ -2,12 +2,14 @@ package com.ht.risk.rule.vo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SenceParamterVo {
 
     private String senceName;
     private String senceVersionId;
 
+    private Map<String,Object> data;
     private List<VariableVo> variableVos;
 
 
@@ -40,5 +42,13 @@ public class SenceParamterVo {
             variableVos = new ArrayList<VariableVo>();
         }
         variableVos.add(vo);
+    }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 }

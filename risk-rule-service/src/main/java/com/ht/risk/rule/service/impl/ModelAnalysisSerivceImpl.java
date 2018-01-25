@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.api.model.activiti.RpcModelReleaseInfo;
 import com.ht.risk.api.model.activiti.RpcModelVerfication;
+import com.ht.risk.api.model.drools.RpcDroolsLog;
 import com.ht.risk.api.model.log.RpcHitRuleInfo;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ModelSence;
@@ -69,7 +70,14 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
             return senceMap;
         }
         RpcActExcuteTaskInfo taskInfo = result.getData();
-        Map<String, Object> data =  JSON.parseObject(taskInfo.getInParamter(),HashMap.class);
+        // 获取数据
+        RpcDroolsLog rpcDroolsLog = new RpcDroolsLog();
+        rpcDroolsLog.setProcinstId(taskInfo.getProcInstId());
+        Result<List<RpcDroolsLog>> logResult = droolsLogRpc.queryTestModelDroolsLogs(rpcDroolsLog);
+        if(logResult == null || logResult.getCode() != 0 || logResult.getData() == null){
+            return senceMap;
+        }
+        List<RpcDroolsLog> logs = logResult.getData();
         // 获取模型定义信息
         rpcModelVerfication.setProcReleaseId(taskInfo.getProcReleaseId());
         Result<RpcModelReleaseInfo> releaseInfoResult = activitiConfigRpc.getProcReleaseById(rpcModelVerfication);
@@ -88,6 +96,18 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
             paramterVo.setSenceName(sence.getSceneName());
             senceMap.put(sence.getSenceVersionId(),paramterVo);
         }
+        RpcDroolsLog log = null;
+        for(Iterator<RpcDroolsLog> iterator = logs.iterator();iterator.hasNext();){
+            log = iterator.next();
+            if(log.getInParamter() == null){
+                continue;
+            }
+            if(senceMap.containsKey(log.getSenceVersionid())){
+                paramterVo = senceMap.get(log.getSenceVersionid());
+                paramterVo.setData(JSON.parseObject(log.getInParamter(),HashMap.class));
+            }
+        }
+        //Map<String, Object> data =  JSON.parseObject(taskInfo.getInParamter(),HashMap.class);
         //获取模型需要变量信息
         List<VariableBind> binds = variableBindMapper.selectList(Condition.create().in("sence_version_id",versionIds));
         String variableCode = null;
@@ -98,10 +118,12 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         for(Iterator<VariableBind> iterator = binds.iterator();iterator.hasNext();){
             bind = iterator.next();
             variableCode = bind.getVariableCode();
-            bind.setTmpValue(String.valueOf(data.get(variableCode)));
             vo = new VariableVo(bind);
             if(senceMap.containsKey(bind.getSenceVersionId())){
                 paramterVo =senceMap.get(bind.getSenceVersionId());
+                if(paramterVo.getData() != null){
+                    vo.setValue(String.valueOf(paramterVo.getData().get(vo.getValibaleEn())));
+                }
                 paramterVo.addVariableVo(vo);
             }
         }

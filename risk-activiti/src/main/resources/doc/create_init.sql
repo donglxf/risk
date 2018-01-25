@@ -105,8 +105,9 @@ create table `risk_sence_verfication_batch` (
   `sence_version_id` varchar(64) character set utf8 collate utf8_bin not null comment '決策版本流水',
   `batch_size` int(12) not null comment '批次大小',
   `verfication_type` varchar(2) comment '是否生效：0-手动，1-自动',
-  `create_time` datetime DEFAULT now() null comment '创建时间',
+  `create_time` TIMESTAMP DEFAULT now() null comment '创建时间',
   `create_user` varchar(64) character set utf8 collate utf8_bin null default null comment '创建用户',
+  `end_time`TIMESTAMP DEFAULT  null COMMENT '结束时间',
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_bin;
 
@@ -117,8 +118,9 @@ create table `risk_test_drools_detail_log` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci;
 
-create table `risk_test_drools_log` (
+create table `RISK_TEST_DROOLS_LOG` (
   `id` bigint(20) not null,
+  `batch_id` bigint(20) DEFAULT  null COMMENT '验证批次号',
   `procinst_id` bigint(20) null default null comment '模型实例id',
   `model_name` varchar(100) character set utf8 collate utf8_general_ci null default null comment '模型名',
   `sence_versionid` varchar(64) character set utf8 collate utf8_general_ci not null comment '決策版本流水',
