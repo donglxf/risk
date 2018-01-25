@@ -1,15 +1,5 @@
 package com.ht.risk.rule.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
@@ -18,6 +8,14 @@ import com.ht.risk.rule.entity.EntityItemInfo;
 import com.ht.risk.rule.mapper.EntityItemInfoMapper;
 import com.ht.risk.rule.service.EntityItemInfoService;
 import com.ht.risk.rule.vo.RuleItemTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -89,5 +87,12 @@ public class EntityItemInfoServiceImpl extends BaseServiceImpl<EntityItemInfoMap
 		}
 		return list;
 	}
+    @Override
+    public boolean checkKey(String key) {
+        Integer count = this.baseMapper.selectCount(new EntityWrapper<EntityItemInfo>()
+                .eq("item_identify", key));
+        count = count == null?0:count;
+        return count > 0 ? true:false;
+    }
 
 }

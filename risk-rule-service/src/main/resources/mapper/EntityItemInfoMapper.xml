@@ -10,6 +10,7 @@
         <result column="item_identify" property="itemIdentify" />
         <result column="item_desc" property="itemDesc" />
         <result column="cre_user_id" property="creUserId" />
+        <result column="data_type" property="dataType" />
         <result column="cre_time" property="creTime" />
         <result column="is_effect" property="isEffect" />
         <result column="remark" property="remark" />
@@ -25,12 +26,13 @@
         <result column="condition_id" property="conditionId" />
     </resultMap>
     
-    <resultMap id="ItemEntityMap" type="com.ht.risk.rule.entity.EntityItemInfo">
+    <resultMap id="itemEntityMap" type="com.ht.risk.rule.entity.EntityItemInfo">
         <id column="item_id" property="itemId" />
         <result column="entity_id" property="entityId" />
         <result column="item_name" property="itemName" />
         <result column="item_identify" property="itemIdentify" />
         <result column="item_desc" property="itemDesc" />
+        <result column="data_type" property="dataType" />
         <result column="cre_user_id" property="creUserId" />
         <result column="cre_time" property="creTime" />
         <result column="is_effect" property="isEffect" />
@@ -104,7 +106,7 @@
     </select>
 
 
-    <select id="selectItemBySceneId" resultMap="ItemEntityMap">
+    <select id="selectItemBySceneId" resultMap="itemEntityMap">
         SELECT DISTINCT
             i.*, e.entity_identify,
             e.entity_name
