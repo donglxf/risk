@@ -195,7 +195,6 @@ ModelVerification.prototype = {
         html += ' <div class="layui-form-item" >\n' +
             '<button type="reset" class="layui-btn layui-btn-primary">重 置</button>' +
             '<button class="layui-btn"  lay-submit="" lay-filter="save" id="save">保 存</button>\n' +
-            '<button type="button" class="layui-btn layui-btn-normal"  lay-filter="test" id="test" >开始测试</button>' +
             '</div>';
 
 

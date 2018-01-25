@@ -13,6 +13,8 @@ import com.ht.risk.rule.entity.*;
 import com.ht.risk.rule.service.*;
 import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +43,8 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/variableBind/")
 public class VariableBindController {
+
+    protected static final Logger log = LoggerFactory.getLogger(VariableBindController.class);
 
     @Autowired
     private VariableBindService variableBindService;
@@ -97,13 +101,14 @@ public class VariableBindController {
 
     @GetMapping("getAll")
     @ApiOperation(value = "手动验证时，根据版本查询规则绑定变量")
-    public ActProcRelease getAll(@RequestParam(name = "sceneId") String sceneId, String versionId) {
+    public ActProcRelease getAll(@RequestParam(name = "versionId") String versionId) {
         Wrapper<VariableBind> wrapper = new EntityWrapper<>();
-        wrapper.eq("sence_version_id", sceneId);
+        wrapper.eq("sence_version_id", versionId);
         List<VariableBind> list = variableBindService.selectList(wrapper);
+        SceneVersion version= sceneVersionService.selectById(versionId);
         ModelSence sence = new ModelSence();
         sence.setData(list);
-        sence.setSceneName("asdf");
+        sence.setSceneName(version.getTitle());
         List<ModelSence> model = new ArrayList<ModelSence>();
         model.add(sence);
         ActProcRelease result = new ActProcRelease();
@@ -143,8 +148,8 @@ public class VariableBindController {
         batch.setVerficationType(String.valueOf(VerficationTypeEnum.manu.getValue()));
         senceVerficationBatchService.insert(batch);
 
-
-        ActProcRelease act = getAll(String.valueOf(entityInfo.getSenceVersionId()), "");
+        //封装规则验证数据
+        ActProcRelease act = getAll(String.valueOf(entityInfo.getSenceVersionId()));
         List<ModelSence> map = act.getVariableMap();
         for (ModelSence sence : map) {
             List<VariableBind> li = sence.getData();
@@ -158,7 +163,7 @@ public class VariableBindController {
         drools.setData(data);
 
 
-
+        // 规则验证返回结果处理
         String res = droolsRuleRpc.excuteDroolsSceneValidation(drools);
         JSONObject obj = JSON.parseObject(res);
         JSONObject o = obj.getJSONObject("data").getJSONObject("globalMap");
@@ -210,10 +215,10 @@ public class VariableBindController {
             buf.append(" 1=1 ");
         }
         buf.append(" limit "+entityInfo.getExcuteTotal());
-        System.out.println("buf=========================" + buf.toString());
+        log.info("自动测试拼装sql================" + buf.toString());
 
         List<Map<String,Object>> obj = tempDataContainsService.getAutoValidaionData(buf.toString());
-        System.out.println("getAutoValidaionData=========================" + JSON.toJSONString(obj));
+        log.info("getAutoValidaionData=========================" + JSON.toJSONString(obj));
 
         return obj;
     }
