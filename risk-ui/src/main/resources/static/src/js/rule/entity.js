@@ -181,7 +181,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
     //新增
     $("#entity_btn_add").on('click',function () {
         $.get('/rule/ui/rule/entity/edit', null, function (form) {
-            topIndexId = layer.open({
+            layer.open({
                 type :1,
                 title : '新增',
                 maxmin : true,
@@ -199,7 +199,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
                     //layedit.sync(editIndex);
                     //触发表单的提交事件
                     $('form.layui-form').find('button[lay-filter=formDemo]').click();
-
+                    layer.close(index);
                 },
             });
         });
@@ -208,7 +208,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
         $.get(preUrl+"getInfoById/"+id,function (data) {
             var result = data.data;
             $.get('/rule/ui/rule/entity/edit', null, function (form) {
-                topIndexId =  layer.open({
+                layer.open({
                     type :1,
                     title : '修改',
                     maxmin : true,
@@ -227,6 +227,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
                         //layedit.sync(editIndex);
                         //触发表单的提交事件
                         $('form.layui-form').find('button[lay-filter=formDemo]').click();
+                        layer.close(index);
                     },
                 });
             });

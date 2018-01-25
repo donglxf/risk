@@ -8,8 +8,13 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 /**
  * <p>
  * 
@@ -18,11 +23,18 @@ import io.swagger.annotations.ApiModelProperty;
  * @author zhangzhen
  * @since 2018-01-17
  */
+@Data
 @ApiModel
 @TableName("RISK_VARIABLE_BIND")
 public class VariableBind extends Model<VariableBind> {
 
     private static final long serialVersionUID = 1L;
+
+	/**
+	 * 变量列表
+	 */
+    @TableField(exist = false)
+    private List<Map<String, String>> optionData;
 
     /**
      * 主键,流水号
@@ -98,122 +110,9 @@ public class VariableBind extends Model<VariableBind> {
 	private Date createTime;
 
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getSenceVersionId() {
-		return senceVersionId;
-	}
-
-	public void setSenceVersionId(Long senceVersionId) {
-		this.senceVersionId = senceVersionId;
-	}
-
-	public String getVariableCode() {
-		return variableCode;
-	}
-
-	public void setVariableCode(String variableCode) {
-		this.variableCode = variableCode;
-	}
-
-	public String getVariableName() {
-		return variableName;
-	}
-
-	public void setVariableName(String variableName) {
-		this.variableName = variableName;
-	}
-
-	public String getDataType() {
-		return dataType;
-	}
-
-	public void setDataType(String dataType) {
-		this.dataType = dataType;
-	}
-
-	public Long getConstantId() {
-		return constantId;
-	}
-
-	public void setConstantId(Long constantId) {
-		this.constantId = constantId;
-	}
-
-	public String getBindTable() {
-		return bindTable;
-	}
-
-	public void setBindTable(String bindTable) {
-		this.bindTable = bindTable;
-	}
-
-	public String getBindColumn() {
-		return bindColumn;
-	}
-
-	public void setBindColumn(String bindColumn) {
-		this.bindColumn = bindColumn;
-	}
-
-	public String getIsEffect() {
-		return isEffect;
-	}
-
-	public void setIsEffect(String isEffect) {
-		this.isEffect = isEffect;
-	}
-
-	public String getTmpValue() {
-		return tmpValue;
-	}
-
-	public void setTmpValue(String tmpValue) {
-		this.tmpValue = tmpValue;
-	}
-
-	public String getCreateUser() {
-		return createUser;
-	}
-
-	public void setCreateUser(String createUser) {
-		this.createUser = createUser;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
 	}
 
-	@Override
-	public String toString() {
-		return "VariableBind{" +
-			"id=" + id +
-			", senceVersionId=" + senceVersionId +
-			", variableCode=" + variableCode +
-			", variableName=" + variableName +
-			", dataType=" + dataType +
-			", constantId=" + constantId +
-			", bindTable=" + bindTable +
-			", bindColumn=" + bindColumn +
-			", isEffect=" + isEffect +
-			", tmpValue=" + tmpValue +
-			", createUser=" + createUser +
-			", createTime=" + createTime +
-			"}";
-	}
 }

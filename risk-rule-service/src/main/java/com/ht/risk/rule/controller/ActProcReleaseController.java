@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -97,7 +96,6 @@ public class ActProcReleaseController {
     public ActProcRelease getVariablesByActProcRealeseId(String actProcRealeseId, HttpServletRequest request) {
         logger.info("---根据模型id查找变量---");
         logger.info("---模型id为 ：" + actProcRealeseId + "---");
-      //  this.setSession(request);
         logger.info("把select类型的变量存进session中");
         ActProcRelease result = new ActProcRelease();
 
@@ -125,6 +123,22 @@ public class ActProcReleaseController {
         //2.查询策列关联的变量
         for (ModelSence modelSence : modelSenceList) {
             List<VariableBind> variableBindList = variableBindService.selectList(new EntityWrapper<VariableBind>().eq("SENCE_VERSION_ID", modelSence.getSenceVersionId()));
+            for (VariableBind variableBind : variableBindList) {
+                //如果为Constant类型的则查询
+                if ("CONSTANT".equals(variableBind.getDataType())) {
+                    String variableCode = variableBind.getVariableCode();
+                    //查询单个变量对象的常量列表
+                    List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", variableCode));
+                    ArrayList<Map<String, String>> list = new ArrayList<>();
+                    for (ConstantInfo constantInfo : ciList) {
+                        HashMap<String, String> map = new HashMap<>();
+                        map.put("value", constantInfo.getConCode());
+                        map.put("name", constantInfo.getConName());
+                        list.add(map);
+                    }
+                    variableBind.setOptionData(list);
+                }
+            }
             modelSence.setData(variableBindList);
         }
         return result;
@@ -215,32 +229,17 @@ public class ActProcReleaseController {
         return Result.error(1, "保存失败");
     }
 
-
-    /**
-     * 把select变量加入session中
-     */
-    @ApiOperation(value = "设置select变量进session")
-    @GetMapping(value = "session")
-    private void setSession(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("vbFlag") == null) {
-            List<VariableBind> variableBinds = variableBindService.selectList(new EntityWrapper<VariableBind>().eq("DATA_TYPE", "Select"));
-            ArrayList<String> vbCodeList = new ArrayList<>();
-            for (VariableBind vb : variableBinds) {
-                vbCodeList.add(vb.getVariableCode());
-            }
-            List<String> vbCodeList2 = new ArrayList(new HashSet(vbCodeList));//去重
-            for (String vbcode : vbCodeList2) {
-                List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", vbcode));
-                ArrayList<String> cnList = new ArrayList<>();
-                for (ConstantInfo constantInfo : ciList) {
-                    cnList.add(constantInfo.getConName());
-                }
-                session.setAttribute(vbcode, cnList);
-            }
-            session.setAttribute("vbFlag", "已经把select变量加入session");
+    @ApiOperation(value = "获取常量值")
+    @GetMapping(value = "scene/variable/constant")
+    public Result getConstant(String variableCode) {
+        List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", variableCode));
+        ArrayList<String> constantStrings = new ArrayList<>();
+        for (ConstantInfo constantInfo : ciList) {
+            constantStrings.add(constantInfo.getConName());
         }
-        return;
+        Result<Object> result = Result.success();
+        result.setData(constantStrings);
+        return result;
     }
 }
 
