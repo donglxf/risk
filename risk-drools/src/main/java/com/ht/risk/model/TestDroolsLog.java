@@ -37,7 +37,15 @@ public class TestDroolsLog  {
 
 	private Date createTime;
 
+	private Long batchId;
 
+	public Long getBatchId() {
+		return batchId;
+	}
+
+	public void setBatchId(Long batchId) {
+		this.batchId = batchId;
+	}
 
 	public Long getProcinstId() {
 		return procinstId;

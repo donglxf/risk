@@ -20,6 +20,19 @@ public class VariableBindVo extends VariableBind {
 	 */
 	private String sceneIdentify;
 
+	/**
+	 * 取值方式 0-随机，1-倒序
+	 */
+	private String getWay ;
+
+	public String getGetWay() {
+		return getWay;
+	}
+
+	public void setGetWay(String getWay) {
+		this.getWay = getWay;
+	}
+
 	public int getExcuteTotal() {
 		return excuteTotal;
 	}

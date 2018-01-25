@@ -63,7 +63,8 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
 		return sceneVersionMapper.getMaxTestVersion(paramMap);
 	}
 
-	public SceneVersion querySceneVersionInfoByCodeAndVersion(String code,String version){
+	@Override
+    public SceneVersion querySceneVersionInfoByCodeAndVersion(String code, String version){
         Map<String,Object> paramter = new HashMap<String,Object>();
         paramter.put("scene_identify",code);
         paramter.put("version",version);
@@ -110,6 +111,7 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
                     bind.setSenceVersionId(version.getVersionId());
                     bind.setVariableCode(itemInfo.getEntityInfo().getEntityIdentify()+"_"+itemInfo.getItemIdentify());
                     bind.setVariableName(itemInfo.getEntityInfo().getEntityName()+"_"+itemInfo.getItemName());
+                    bind.setDataType(itemInfo.getDataType().getValue().toString());
                     if(itemInfo.getConstantId() != null ){
                         bind.setConstantId(itemInfo.getConstantId());
                     }

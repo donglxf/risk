@@ -95,7 +95,7 @@ public class ActionInfoController {
 	public Result<Integer> edit(ActionInfo actionInfo) {
 		actionInfo.setCreTime(new Date());
 		actionInfo.setIsEffect(1);
-		actionInfo.setCreUserId(new Long(1));
+		actionInfo.setCreUserId(Long.valueOf(1));
 		actionInfoService.insertOrUpdate(actionInfo);
 		return Result.success(0);
 	}

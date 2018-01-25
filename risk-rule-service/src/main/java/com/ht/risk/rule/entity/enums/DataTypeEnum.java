@@ -9,10 +9,25 @@ import java.io.Serializable;
  * 测试枚举
  */
 public enum DataTypeEnum implements IEnum {
+    /**
+     * 整形
+     */
     INTEGER("Integer", "整形"),
+    /**
+     * 布尔类型
+     */
     BOOLEAN("Boolean", "布尔类型"),
+    /**
+     * 数字类型
+     */
     DOUBLE("Double", "数字类型"),
+    /**
+     * 字符串类型
+     */
     STRING("String", "字符串"),
+    /**
+     * 常量类型
+     */
     CONSTANT("CONSTANT", "常量类型");
 
     private String value;

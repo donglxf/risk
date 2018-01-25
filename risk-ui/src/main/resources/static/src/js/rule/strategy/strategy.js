@@ -109,7 +109,7 @@ layui.use(['table', 'form','laydate'], function () {
 
 
     function manuTest(sceneId, versionId,sceneIdentify){
-        var url=preBindUrl+ "getAll?sceneId=" + versionId ;
+        var url=preBindUrl+ "getAll?versionId=" + versionId ;
         $.ajax({
             type: "get",
             url: url,
@@ -150,7 +150,7 @@ layui.use(['table', 'form','laydate'], function () {
 
     <!-- 自动测试 -->
     function autoTest(sceneId, versionId,sceneIdentify) {
-        var url=preBindUrl+ "getAll?sceneId=" + versionId ;
+        var url=preBindUrl+ "getAll?versionId=" + versionId ;
         $.ajax({
             type: "get",
             url: url,

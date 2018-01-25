@@ -76,6 +76,20 @@ public class TestDroolsLog extends Model<TestDroolsLog> {
 	@ApiModelProperty(required= true,value = "插入时间")
 	private Date createTime;
 
+	/**
+     * 验证批次号
+     */
+	@TableField("batch_id")
+	@ApiModelProperty(required= true,value = "验证批次号")
+	private Long batchId;
+
+	public Long getBatchId() {
+		return batchId;
+	}
+
+	public void setBatchId(Long batchId) {
+		this.batchId = batchId;
+	}
 
 	public Long getId() {
 		return id;
