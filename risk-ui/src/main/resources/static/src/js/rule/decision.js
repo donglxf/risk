@@ -229,6 +229,7 @@ var myUtil = {
             // console.log($('#trTpl').find(".ctr").html());
             var tr = $(t).parent().parent().parent();
             tr.after(tr.clone());
+            //动作修改么
             //设置行的disp
             sceneUtil.sceneTrInit( $(tr).next());//优化初始化
         }
@@ -244,8 +245,11 @@ var myUtil = {
          * 删除某一条件
          */
         deleteAc:function (t) {
+           var len =  $(t).parent().parent().parent().children().length;
+           if(len == 1){
+                sceneUtil.addActionLi(t);
+            }
             $(t).parent().parent().remove();
-
         },
             /**
              * 删除当前行
