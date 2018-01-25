@@ -1464,7 +1464,7 @@ var myUtil = {
                     //拼分组
                     var groupIndex = $(groupTd).data("index");
                     var groupName = $(groupTd).find("span a.groupName").text();
-                    var weight = ($(groupTd).find(".qz").val()== undefined || $(groupTd).find(".qz").val() == '')?0:$(groupTd).find(".qz").val();
+                    var weight = ($(groupTd).find(".qz").val()== undefined || $(groupTd).find(".qz").val() == '')?1:$(groupTd).find(".qz").val();
                     if(weightIndexList.length <= groupIndex){
                         weightIndexList.push(weight);
                         groupNameList.push(groupName);
@@ -1504,7 +1504,10 @@ var myUtil = {
                     var actionTd = $(this).find("td").eq(2);
                     var actionVal = $(actionTd).find("a.actionVal").attr("data-value");
                     var actionType = $(actionTd).find("a.actionVal").attr("actionParamId");
-                    if(actionVal == '' ){
+                    //验证评分卡是否数字类型
+                    var re = /^[0-9]+.?[0-9]*$/;   //判断字符串是否为数字     //判断正整数 /^[1-9]+[0-9]*]*$/
+                    if(actionVal == '' || !re.test(actionVal) ){
+                        layer.msg("分值必须为数字，且不为空");
                         sceneUtil.flag = false;
                         return;
                     }
