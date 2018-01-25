@@ -169,7 +169,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                     //只处理实现类动作
                     if (action.getActionType() == 1) {
                         DroolsActionService actionService = SpringContextHolder.getBean(action.getActionClazzIdentify());
-//                        System.out.println("bean:>>>>>>>>" + action.getActionClazzIdentify());
+                        logger.info("bean:>>>>>>>>" + action.getActionClazzIdentify());
                         session.insert(actionService);
                     }
                 } catch (Exception e) {
@@ -186,7 +186,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
 
                 RuleExecutionResult boj= (RuleExecutionResult) ruleExecutionObject.getGlobalMap().get("_result");
                 boj.getMap().put("count",count);
-                System.out.println("命中规则条数：" + count);
+                logger.info("命中规则条数：" + count);
             } else {
                 //2,执行以 ruleExecutionObject里规则名开头的规则
                 session.fireAllRules(new RuleNameStartsWithAgendaFilter(ruleExecutionObject.getRuleName()));

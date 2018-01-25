@@ -73,6 +73,20 @@
             layerTips = layui.layer,
             $ = layui.jquery;
 
+        form.on('submit(save)', function (data) {
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url: '/rule/service/actProcRelease/scene/variable/init',
+                data: data.field,// 你的formid
+                async: false,
+                success: function (data) {
+                    layer.msg(data.msg);
+                }
+            });
+            return false;
+        });
+
         // 验证通过
         form.on('submit(verification_pass)', function (data) {
             $.ajax({
