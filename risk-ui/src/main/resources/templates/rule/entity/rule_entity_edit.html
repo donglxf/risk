@@ -4,7 +4,7 @@
     <legend>数据对象信息添加</legend>
 </fieldset>
 <form class="layui-form" action="">
-    <input type="hidden" name="entityId" >
+    <input type="hidden" name="entityId" isId = true >
 
 
     <div class="layui-form-item" >
@@ -21,7 +21,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">唯一标识:</label>
         <div class="layui-input-block">
-            <input type="text" id="ttt" value="11" name="entityIdentify" required  lay-verify="required" placeholder="请输入唯一标识" autocomplete="off" class="layui-input">
+            <input type="text" id="ttt" value="" name="entityIdentify" type="1" required  lay-verify="required|identify" placeholder="请输入唯一标识" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -64,6 +64,7 @@
                       //  var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
                       // layer.closeAll();
                        active.reload();
+                        layer.close(topIndexId);
                     } else {
                        layer.msg(data.msg);
                     }

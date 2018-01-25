@@ -4,8 +4,8 @@
     <legend>对象字段信息</legend>
 </fieldset>
 <form class="layui-form" action="">
-    <input type="hidden" name="entityId" >
-    <input type="hidden" name="itemId" >
+    <input type="hidden" name="entityId" class="other" >
+    <input type="hidden" name="itemId" isId=true >
 
     <div class="layui-form-item">
         <label class="layui-form-label">字段名:</label>
@@ -16,7 +16,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">唯一标识:</label>
         <div class="layui-input-block">
-            <input type="text" id="ttt" value="11" name="itemIdentify" required  lay-verify="required" placeholder="请输入唯一标识" autocomplete="off" class="layui-input">
+            <input type="text" id="ttt" value="11" name="itemIdentify" required type="2" lay-verify="required|identify" placeholder="请输入唯一标识" autocomplete="off" class="layui-input">
         </div>
     </div>
         <div class="layui-form-item">
@@ -92,8 +92,8 @@
                         //这里以搜索为例
                       //  var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
                       // layer.closeAll();
-
                        itemActive.reload();
+                        layer.close(topIndexId);
                     } else {
                        layer.msg(data.msg);
                     }

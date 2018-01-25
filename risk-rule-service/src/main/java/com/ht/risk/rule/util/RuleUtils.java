@@ -66,6 +66,22 @@ public class RuleUtils {
         return null;
     }
     /**
+     * Date 2017/7/26
+     * Author lihao [lihao@sinosoft.com]
+     * <p>
+     * 方法说明: 获取运算符
+     *
+     * @param str 字符串
+     */
+    public static String getCondition(String str) {
+
+        Matcher m = Pattern.compile("\\$(.*?)"+"").matcher(str.substring(1));
+        while (m.find()) {
+            return m.group(1);
+        }
+        return null;
+    }
+    /**
      * Date 2017/7/27
      * Author lihao [lihao@sinosoft.com]
      * <p>

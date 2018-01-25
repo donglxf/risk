@@ -85,7 +85,7 @@ public class EntityInfoServiceImpl extends BaseServiceImpl<EntityInfoMapper, Ent
     }
 
     @Override
-    public boolean checkKey(String key) {
+    public boolean checkKey(String key,String other) {
         Integer count = this.baseMapper.selectCount(new EntityWrapper<EntityInfo>()
                 .eq("entity_identify", key));
         count = count == null?0:count;

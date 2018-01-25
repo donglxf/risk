@@ -27,14 +27,14 @@ public class CheckKeyFacadeImpl implements CheckKeyFacade {
     private EntityItemInfoService entityItemInfoService;
 
     @Override
-    public boolean checkKey(String key,Integer type) {
+    public boolean checkKey(String key,Integer type,String other) {
         switch (type){
             case 1:
-              return entityInfoService.checkKey(key);
+              return entityInfoService.checkKey(key,null);
             case 2:
-                return entityItemInfoService.checkKey(key);
+                return entityItemInfoService.checkKey(key,other);
             case 3:
-                return sceneInfoService.checkKey(key);
+                return sceneInfoService.checkKey(key,null);
             default:
                 return false;
         }

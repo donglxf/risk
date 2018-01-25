@@ -88,9 +88,10 @@ public class EntityItemInfoServiceImpl extends BaseServiceImpl<EntityItemInfoMap
 		return list;
 	}
     @Override
-    public boolean checkKey(String key) {
+    public boolean checkKey(String key,String other) {
         Integer count = this.baseMapper.selectCount(new EntityWrapper<EntityItemInfo>()
-                .eq("item_identify", key));
+                .eq("item_identify", key)
+        .eq("entity_id",other));
         count = count == null?0:count;
         return count > 0 ? true:false;
     }

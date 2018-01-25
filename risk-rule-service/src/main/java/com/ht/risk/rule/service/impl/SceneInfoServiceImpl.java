@@ -37,7 +37,7 @@ public class SceneInfoServiceImpl extends BaseServiceImpl<SceneInfoMapper, Scene
     }
 
     @Override
-    public boolean checkKey(String key) {
+    public boolean checkKey(String key,String other) {
         Integer count = this.baseMapper.selectCount(new EntityWrapper<SceneInfo>()
                 .eq("scene_identify", key));
         count = count == null?0:count;

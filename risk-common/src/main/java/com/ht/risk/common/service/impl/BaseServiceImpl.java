@@ -8,7 +8,7 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<Bas
     public static long creUser= 111;
 
     @Override
-    public boolean checkKey(String key) {
+    public boolean checkKey(String key,String other) {
         return true;
     }
 }

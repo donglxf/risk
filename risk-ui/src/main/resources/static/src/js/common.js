@@ -11,6 +11,40 @@ layui.define(['layer','laytpl','form'], function(exports) {
         form = layui.form,
         laytpl = layui.laytpl,
         _modName = 'myutil';
+    //统一验证添加
+    form.verify({
+        //验证key值的唯一性,需要标识id isId = true
+        identify: function(value, item){//value：表单的值、item：表单的DOM对象
+            var id = $("input[isId=true]").val();
+            var flag = false;var msg = '';
+            if(id == undefined || id == ''){
+                $.ajax({
+                    cache : true,
+                    type : "GET",
+                    url : '/rule/service/check/key',
+                    data : {key:value,
+                        type:$(item).attr("type"),
+                        other:$(".other").val()},// 你的formid
+                    async : false,
+                    dataType:'json',
+                    error : function(request) {
+                        //alert("Connection error");
+                    },
+                    success : function(da) {
+                        if (da.code != 0) {
+                            flag = true;
+                            $(item).focus();
+                            msg = da.msg;
+                        }
+                    }
+                });
+                if(flag)
+                    return msg;
+            }
+
+        }
+    });
+
     var myUtil = {
         v: '1.0.3',
         baseSerive:'/rule/service',
