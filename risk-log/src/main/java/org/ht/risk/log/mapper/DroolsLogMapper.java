@@ -18,10 +18,4 @@ import java.util.Map;
  */
 public interface DroolsLogMapper extends SuperMapper<DroolsLog> {
 
-    public List<HitRule> queryHitRuleByProcInstId(String procInstId);
-
-
-    public List<HitRule> queryHitRuleByProcInstIds(Map<String,List<String>> paramter);
-
-
 }

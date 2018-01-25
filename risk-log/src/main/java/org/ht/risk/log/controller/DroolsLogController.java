@@ -4,8 +4,10 @@ import javax.annotation.Resource;
 
 import com.alibaba.fastjson.JSON;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
+import com.ht.risk.api.model.drools.RpcDroolsLog;
 import com.ht.risk.api.model.log.RpcHitRuleInfo;
 import com.ht.risk.common.result.Result;
+import org.apache.commons.lang3.StringUtils;
 import org.ht.risk.log.entity.DroolsLog;
 import org.ht.risk.log.service.DroolsLogService;
 import org.slf4j.Logger;
@@ -45,45 +47,5 @@ public class DroolsLogController {
         return str;
     }
 
-	@RequestMapping("/getHitRuleInfo")
-	public Result<List<RpcHitRuleInfo>> getHitRuleInfo(@RequestBody String procInstId){
-		LOGGER.info("getHitRuleInfo mothod invoke,paramter:"+ procInstId);
-		Result<List<RpcHitRuleInfo>> result = null;
-		if(procInstId == null){
-			LOGGER.error("getHitRuleInfo mothod invoke,paramter null exception");
-			result =Result.error(1,"参数异常！");
-			return  result;
-		}
-		try {
-			List<RpcHitRuleInfo> tasks = droolsLogService.queryHitRuleInfoByProcInstId(procInstId);
-			result = Result.success(tasks);
-		}catch (Exception e){
-			e.printStackTrace();
-			result = Result.error(2,"getHitRuleInfo mothod excute exception,"+e);
-			return  result;
-		}
-		LOGGER.info("getHitRuleInfo mothod invoke end,reustl:"+ JSON.toJSONString(result));
-		return result;
-	}
 
-	@RequestMapping("/countHitRuleInfo")
-	public Result<List<RpcHitRuleInfo>> countHitRuleInfo(@RequestBody List<String> procInstId){
-		LOGGER.info("queryModelProcInstIdByBatchId mothod invoke,paramter:"+ procInstId);
-		Result<List<RpcHitRuleInfo>> result = null;
-		if(procInstId == null){
-			LOGGER.error("queryModelProcInstIdByBatchId mothod invoke,paramter null exception");
-			result =Result.error(1,"参数异常！");
-			return  result;
-		}
-		try {
-			List<RpcHitRuleInfo> tasks = droolsLogService.countHitRuleInfo(procInstId);
-			result = Result.success(tasks);
-		}catch (Exception e){
-			e.printStackTrace();
-			result = Result.error(2,"queryModelProcInstIdByBatchId mothod excute exception,"+e);
-			return  result;
-		}
-		LOGGER.info("resultPage mothod invoke,reustl:"+ JSON.toJSONString(result));
-		return result;
-	}
 }

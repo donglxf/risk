@@ -46,7 +46,7 @@ public class ModelDeployController {
             LOGGER.error("部署流程异常!",e);
             return data;
         }
-        if(result == null || result.getCode() != 0){
+        if(result != null && result.getCode() != 0){
             data = Result.error(2,"部署流程异常,错误信息："+result.getMsg());
             return data;
         }

@@ -34,7 +34,6 @@ public class ModelDeployServiceImpl implements ModelDeployService {
             return Result.error(3,"模型部署异常,");
         }
         RpcDeployResult rpcDeployResult = result.getData();
-        String prcdefId = rpcDeployResult.getProcessDefineId();
         List<RpcSenceInfo> list = rpcDeployResult.getSences();
         // 将模型引用的决策初始化到RISK_MODEL_SENCE
         if(list != null && list.size()>0){
