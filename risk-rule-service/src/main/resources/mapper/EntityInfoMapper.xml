@@ -86,38 +86,38 @@
         SELECT DISTINCT
         <include refid="BaseFindColumnSql"></include>
         FROM
-        rule_entity_info T
+        rule_entity_info t
         WHERE 1=1
     </select>
     <select id="findBaseRuleEntityInfoById" resultType="com.ht.risk.rule.entity.EntityInfo">
         SELECT DISTINCT
         <include refid="BaseFindColumnSql"></include>
-        FROM
-        rule_entity_info T
-        WHERE 1=1
-        AND T.ENTITY_ID = #{id}
+        from
+        rule_entity_info t
+        where 1=1
+        and t.entity_id = #{id}
     </select>
     <select id="findRuleEntityIn" resultMap="entityItemMan" >
 
         SELECT DISTINCT
         <include refid="BaseFindColumnSqlMan"></include>
-        FROM
-        rule_entity_info T LEFT JOIN rule_entity_item_info i
-        ON T.entity_id = i.entity_id
-        WHERE 1=1
-        AND T.ENTITY_ID IN
+        from
+        rule_entity_info t left join rule_entity_item_info i
+        on t.entity_id = i.entity_id
+        where 1=1
+        and t.entity_id in
         (${ids})
     </select>
     <select id="findRuleEntityAll" resultMap="entityItemMan" >
         SELECT DISTINCT
         <include refid="BaseFindColumnSqlMan"></include>
         FROM
-        rule_entity_info T LEFT JOIN rule_entity_item_info i
-        ON T.entity_id = i.entity_id
+        rule_entity_info t LEFT JOIN rule_entity_item_info i
+        ON t.entity_id = i.entity_id
         WHERE 1 = 1
         AND i.item_id is not null
         <if test="businessId != null ">
-          AND  T.business_id = #{businessId}
+          AND  t.business_id = #{businessId}
         </if>
 
     </select>
