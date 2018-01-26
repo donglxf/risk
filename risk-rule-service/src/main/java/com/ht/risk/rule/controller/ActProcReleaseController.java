@@ -94,23 +94,16 @@ public class ActProcReleaseController {
     @GetMapping(value = "scene/variable/manual")
     @ApiOperation(value = "根据模型id查询策列表，评分卡，以及绑定变量")
     public ActProcRelease getVariablesByActProcRealeseId(String actProcRealeseId, HttpServletRequest request) {
-        logger.info("---根据模型id查找变量---");
-        logger.info("---模型id为 ：" + actProcRealeseId + "---");
-        logger.info("把select类型的变量存进session中");
         ActProcRelease result = new ActProcRelease();
-
         //0.根据id查找actProRea对象
         ActProcRelease actProcRelease = actProcReleaseService.selectById(actProcRealeseId);
-
         String modelProcdefId = actProcRelease.getModelProcdefId();
         //1.查询模型对应属性
         result.setModelName(actProcRelease.getModelName());//获取到模型名字
         result.setModelVersion(actProcRelease.getModelVersion());//获取到模型版本
-
         //获取策列表
         List<ModelSence> modelSenceList = modelSenceService.selectList(new EntityWrapper<ModelSence>().eq("MODEL_PROCDEF_ID", modelProcdefId));
         result.setVariableMap(modelSenceList);
-
         //查询策列列表对应的title
         for (ModelSence modelSence : modelSenceList) {
             SceneVersion sceneVersion = sceneVersionService.selectOne(new EntityWrapper<SceneVersion>().eq("version_id", modelSence.getSenceVersionId()));
@@ -128,7 +121,7 @@ public class ActProcReleaseController {
                 if ("CONSTANT".equals(variableBind.getDataType())) {
                     String variableCode = variableBind.getVariableCode();
                     //查询单个变量对象的常量列表
-                    List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", variableCode));
+                    List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", variableCode).eq("con_type", "1"));
                     ArrayList<Map<String, String>> list = new ArrayList<>();
                     for (ConstantInfo constantInfo : ciList) {
                         HashMap<String, String> map = new HashMap<>();
@@ -213,7 +206,6 @@ public class ActProcReleaseController {
                     //判断是绑定表格的值还是绑定列
                     if ("table".equals(field) && val != null) {
                         variableBindService.myUpdate(senceVersionId, variableCode, null, val, null);
-
                     } else if ("column".equals(field) && val != null) {
                         variableBindService.myUpdate(senceVersionId, variableCode, null, null, val);
                     }
@@ -225,21 +217,7 @@ public class ActProcReleaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        logger.info("test jre");
         return Result.error(1, "保存失败");
-    }
-
-    @ApiOperation(value = "获取常量值")
-    @GetMapping(value = "scene/variable/constant")
-    public Result getConstant(String variableCode) {
-        List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", variableCode));
-        ArrayList<String> constantStrings = new ArrayList<>();
-        for (ConstantInfo constantInfo : ciList) {
-            constantStrings.add(constantInfo.getConName());
-        }
-        Result<Object> result = Result.success();
-        result.setData(constantStrings);
-        return result;
     }
 }
 

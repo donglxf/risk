@@ -16,13 +16,32 @@ ModelVerification.prototype = {
         return '<label class="layui-form-label">' + name + '</label>';
     },
 
-    initSelect: function (name, optionData) {
-      console.log(optionData);
+    initSelect: function (name, optionData, tmpValue) {
         var html = '<div class="layui-input-inline">';
         html += '<select name="' + name + '" lay-filter="">';
         for (var i = 0; i < optionData.length; i++) {
             var data = optionData[i];
-            html += '<option value="' + data.value + '">' + data.name + '</option>';
+            //需要根据值对比,选中默认值
+            if (data.value == tmpValue) {
+                html += '<option  selected="selected" value="' + data.value + '">' + data.name + '</option>';
+            } else {
+                html += '<option value="' + data.value + '">' + data.name + '</option>';
+            }
+        }
+        html += '</select>';
+        html += '</div>';
+        return html;
+    },
+
+    initSelectBoolean: function (name, tmpValue) {
+        var html = '<div class="layui-input-inline">';
+        html += '<select name="' + name + '" lay-filter="">';
+        if (1 == tmpValue) {
+            html += '<option  selected="selected" value="1">' + '是' + '</option>';
+            html += '<option  value="0">' + '否' + '</option>';
+        } else {
+            html += '<option  selected="selected" value="0">' + '否' + '</option>';
+            html += '<option  value="1">' + '是' + '</option>';
         }
         html += '</select>';
         html += '</div>';
@@ -108,7 +127,7 @@ ModelVerification.prototype = {
         var html = "";
         switch (dataType) {
             case "CONSTANT":
-                html = this.initSelect(senceVersionId + '_' + variableCode,optionData);
+                html = this.initSelect(senceVersionId + '_' + variableCode, optionData, tmpValue);
                 //加入异步查询,根据dataType查询这个select有哪些选项
                 break;
             case "date":
@@ -125,6 +144,9 @@ ModelVerification.prototype = {
                 break;
             case "Integer":
                 html = this.initInput(senceVersionId + '_' + variableCode, tmpValue, dataType);
+                break;
+            case "Boolean":
+                html = this.initSelectBoolean(senceVersionId + '_' + variableCode, tmpValue);
                 break;
             default:
                 break;
@@ -168,11 +190,11 @@ ModelVerification.prototype = {
     initDiv: function (data) {
         var size = 3;
         var length = data.length;
-        var count = Math.ceil(length / size);
+        var count = Math.ceil(length / size); //向上取整
         var html = '';
         for (var i = 0; i < count; i++) {
             html += '<div class="layui-form-item">';
-            for (var j = 0; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
+            for (var j = i ; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
                 var index = (i + 1) * (j + 1) - 1;
                 html += this.initLabel(data[index].variableName);
                 html += this.initOneValible(data[index]);
@@ -203,9 +225,9 @@ ModelVerification.prototype = {
      */
     initModel: function (data) {
 
-        var script=document.createElement("script");
-        script.type="text/javascript";
-        script.src="/plugins/jquery-1.9.1.min.js";
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "/plugins/jquery-1.9.1.min.js";
         document.getElementsByTagName('head')[0].appendChild(script);
 
         var senceData = data.variableMap;
