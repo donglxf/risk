@@ -14,7 +14,21 @@ import com.ht.risk.model.RuleSceneVersion;
  * @since 2018-01-12
  */
 public interface RuleSceneVersionService extends BaseService<RuleSceneVersion> {
-	
+
+	/**
+	 * 获取最新版本记录
+	 * @param parmaMap sceneIdentify：  type:
+	 * @return
+	 * @throws Exception
+	 */
 	public RuleSceneVersion getTestLastVersion(Map<String,Object> parmaMap) throws Exception;
+
+	/**
+	 * 根据版本id获取当前版本记录
+	 * @param parmaMap
+	 * @return
+	 * @throws Exception
+	 */
+	public RuleSceneVersion getInfoByVersionId(Map<String,Object> parmaMap) throws Exception;
 	
 }

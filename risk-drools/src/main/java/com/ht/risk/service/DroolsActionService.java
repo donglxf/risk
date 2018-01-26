@@ -28,7 +28,9 @@ public abstract class DroolsActionService {
 	 * @param result
 	 *            结果集
 	 */
-	public abstract void execute(RuleExecutionObject fact, RuleExecutionResult result, String key);
+	public void execute(RuleExecutionObject fact, RuleExecutionResult result, String key){
+
+	}
 
 	/**
 	 * 规则日志

@@ -133,6 +133,10 @@ public class VariableBindController {
             entityInfo.setIsEffect("1");
             variableBindService.insertOrUpdate(entityInfo);
         }
+        // 更新版本信息表 绑定状态
+        SceneVersion sc= sceneVersionService.selectById(map.get("senceVersionid")[0]);
+        sc.setIsBindVar("1");
+        sceneVersionService.insertOrUpdate(sc);
         return Result.success(0);
     }
 
@@ -148,7 +152,7 @@ public class VariableBindController {
         batch.setVerficationType(String.valueOf(VerficationTypeEnum.manu.getValue()));
         senceVerficationBatchService.insert(batch);
 
-        //封装规则验证数据
+        //封装规则验证所需数据
         ActProcRelease act = getAll(String.valueOf(entityInfo.getSenceVersionId()));
         List<ModelSence> map = act.getVariableMap();
         for (ModelSence sence : map) {
@@ -157,7 +161,7 @@ public class VariableBindController {
                 data.put(ls.getVariableCode(), ls.getTmpValue());
             }
         }
-        drools.setVersion(String.valueOf(entityInfo.getSenceVersionId()));
+        drools.setVersion(String.valueOf(entityInfo.getSenceVersionId())); // 版本号
         drools.setSence(entityInfo.getSceneIdentify());
         drools.setBatchId(String.valueOf(batch.getId()));
         drools.setData(data);
@@ -165,17 +169,18 @@ public class VariableBindController {
 
         // 规则验证返回结果处理
         String res = droolsRuleRpc.excuteDroolsSceneValidation(drools);
-        JSONObject obj = JSON.parseObject(res);
-        JSONObject o = obj.getJSONObject("data").getJSONObject("globalMap");
-        JSONArray dataArr = o.getJSONArray("logIdList");
-        String[] arg = dataArr.toArray(new String[dataArr.size()]);
         Map<String, Object> resultMap = new HashMap<String, Object>();
-        resultMap.put("logId", arg[0]);
-        resultMap.put("versionId", entityInfo.getSenceVersionId());
+        JSONObject obj = JSON.parseObject(res);
+        String code = obj.getString("code");
         if (obj.getInteger("code") == 0) {
+            JSONObject o = obj.getJSONObject("data").getJSONObject("globalMap");
+            JSONArray dataArr = o.getJSONArray("logIdList");
+            String[] arg = dataArr.toArray(new String[dataArr.size()]);
+            resultMap.put("logId", arg[0]);
+            resultMap.put("versionId", entityInfo.getSenceVersionId());
             return PageResult.success(resultMap, 0);
         } else {
-            return PageResult.error(1, "验证失败");
+            return PageResult.error(1, obj.getString("msg"));
         }
 
     }
@@ -191,28 +196,20 @@ public class VariableBindController {
         return bindList;
     }
 
-    @PostMapping("getAutoValidaionData")
-    @ApiOperation(value = "根据规则id获取需要验证的数据")
-    public List<Map<String, Object>> getAutoValidaionData(VariableBindVo entityInfo) {
-        List<VariableBind> bindList = getVariableBindBySenceVersionId(entityInfo);
-        List<Map<String, Object>> recordMap = getAutoValidaionData(bindList,entityInfo); // 查询所需验证数据
-        return recordMap;
-    }
-
     public List<Map<String, Object>> getAutoValidaionData(List<VariableBind> bindList,VariableBindVo entityInfo) {
         StringBuffer buf = new StringBuffer(RuleConstant.SELECT + " ");
         String column = "", table = "";
         String getWay = entityInfo.getGetWay();
         for (VariableBind vb : bindList) {
-            column += vb.getBindColumn() + ",";
+            column += vb.getBindColumn() + " as "+vb.getVariableCode()+",";
             table = vb.getBindTable();
         }
         buf.append(column.substring(0, column.length() - 1)).append(" FROM ").append(table).append(" where ")
-                .append(RuleConstant.SCENE_ID).append("='").append(entityInfo.getSenceId()).append("' AND ");
+                .append(RuleConstant.SCENE_ID).append("='").append(entityInfo.getSenceId()).append("' ");
         if("0".equals(getWay)){ // 随机取值
-            buf.append(" rand() ");
+            buf.append(" AND rand() ");
         }else {
-            buf.append(" 1=1 ");
+            buf.append(" AND 1=1 ");
         }
         buf.append(" limit "+entityInfo.getExcuteTotal());
         log.info("自动测试拼装sql================" + buf.toString());
@@ -221,6 +218,15 @@ public class VariableBindController {
         log.info("getAutoValidaionData=========================" + JSON.toJSONString(obj));
 
         return obj;
+    }
+
+    @PostMapping("getAutoValidaionData")
+    @ApiOperation(value = "根据规则id获取需要验证的数据")
+    public List<Map<String, Object>> getAutoValidaionData(VariableBindVo entityInfo) {
+        List<VariableBind> bindList = getVariableBindBySenceVersionId(entityInfo);
+        List<Map<String, Object>> recordMap = getAutoValidaionData(bindList,entityInfo); // 查询所需验证数据
+
+        return recordMap;
     }
 
     @PostMapping("autoVariable")

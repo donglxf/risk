@@ -101,6 +101,10 @@ layui.use(['table', 'form','laydate'], function () {
         if (obj.event === 'manual_verification') { // 手动验证
             manuTest(data.sceneId, data.versionId,data.sceneIdentify);
         } else if (obj.event === 'auto_verification') { // 自动验证
+            if(data.isBindVar!=1){
+                layer.msg('请先绑定变量！');
+                return ;
+            }
             autoTest(data.sceneId, data.versionId,data.sceneIdentify);
         } else if (obj.event === 'varbind') { // 变量绑定
             edit(data.sceneId, data.versionId);

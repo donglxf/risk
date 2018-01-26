@@ -1,11 +1,13 @@
 package com.ht.risk.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import com.ht.risk.model.fact.RuleExecutionResult;
+import com.sun.xml.internal.ws.api.pipe.ServerPipeAssemblerContext;
 import org.apache.commons.lang3.ArrayUtils;
 import org.drools.core.base.RuleNameStartsWithAgendaFilter;
 import org.kie.api.runtime.KieSession;
@@ -289,13 +291,28 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(DroolsConstant.RULE_EXECUTION_OBJECT).append("").append(lineSeparator);
         droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(DroolsConstant.DROOLS_ACTION_SERVICE).append("").append(lineSeparator);
         droolRuleStr.append(DroolsConstant.GLOBAL).append(" ").append(DroolsConstant.GLOBAL_VARIABLE).append(" ").append(DroolsConstant.GLOBAL_VARIABLE_NAME).append("").append(lineSeparator);
+        // 导入规则所需动作类
+        BaseRuleSceneInfo sceneInfo = new BaseRuleSceneInfo();
+        sceneInfo.setSceneId(sceneId);
+        List<BaseRuleActionInfo> actionList = this.ruleActionService.findRuleActionListByScene(sceneInfo);
+        for (BaseRuleActionInfo action : actionList) {
+            try {
+                //只处理实现类动作
+                if (action.getActionType() == 1) {
+                    droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(action.getActionClass()).append("").append(lineSeparator);
+                }
+            } catch (Exception e) {
+                logger.error("规则动作导入出错，请查看{}", action);
+                e.printStackTrace();
+                throw new RuntimeException("规则动作导入出错，请检查！");
+            }
+        }
+
         // 2.导入基本类
         droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(DroolsConstant.String).append("").append(lineSeparator);
         droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(DroolsConstant.MAP).append("").append(lineSeparator);
         droolRuleStr.append(DroolsConstant.IMPORT).append(" ").append(DroolsConstant.LIST).append("").append(lineSeparator);
 
-        BaseRuleSceneInfo sceneInfo = new BaseRuleSceneInfo();
-        sceneInfo.setSceneId(sceneId);
         // 4.根据场景加载可用的规则信息
         List<BaseRuleInfo> ruleList = this.ruleInfoService.findBaseRuleListByScene(sceneInfo);
         logger.info("场景可用规则个数为:{}", ruleList.size());
@@ -393,6 +410,13 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         ruleStr.append(lineSeparator).append("when").append(lineSeparator);
         ruleStr.append(lineSeparator).append(DroolsConstant.CONDITION_FACT).append(":").append(DroolsConstant.CONDITION_FACT_VALUE).append(lineSeparator);
         ruleStr.append(DroolsConstant.CONDITION_ACTION).append(":").append(DroolsConstant.CONDITION_ACTION_VALUE).append(lineSeparator);
+        // 根据规则绑定的动作，设置动作条件
+        List<BaseRuleActionInfo> actionList = this.ruleActionService.findRuleActionListByRule(ruleInfo.getRuleId());
+        for (BaseRuleActionInfo actionTemp : actionList) {
+            BaseRuleActionInfo action = actionTemp;
+            ruleStr.append("$"+action.getActionMethod()).append(":").append(action.getActionClazzIdentify1()+"()").append(lineSeparator);
+
+        }
 
         List<BaseRuleConditionInfo> conList = this.ruleConditionService.findRuleConditionInfoByRuleId(ruleInfo.getRuleId());
         //如果没有找到条件信息，则默认永远满足
@@ -549,16 +573,21 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             BaseRuleActionParamInfo paramInfo = null;
             //动作参数值
             BaseRuleActionParamValueInfo paramValue;
+
             // 3.循环处理每一个动作
             for (BaseRuleActionInfo actionTemp : actionList) {
+                // 动作参数集合
+                List<String> paramList=new ArrayList<String>();
+
                 //动作实体
                 action = actionTemp;
                 // 4.获取动作参数信息
                 List<BaseRuleActionParamInfo> paraList = this.ruleActionParamService.findRuleActionParamByActionId(action.getActionId());
                 for (BaseRuleActionParamInfo paramTemp : paraList) {
                     paramInfo = paramTemp;
+                    paramList.add(paramInfo.getParamIdentify()); // 添加参数集合
                     // 5.获取动作参数值信息
-                    paramValue = this.ruleActionParamValueService.findRuleParamValueByActionParamId(paramInfo.getActionParamId(), ruleInfo.getRuleActionRelId());
+                    paramValue = this.ruleActionParamValueService.findRuleParamValueByActionParamId(paramInfo.getActionParamId(), actionTemp.getRuleActionRelId());
                     /*
                       6.1 动作实现类；
                       如果value值包含##（例如：#3# * 5），那么就认为是： 获取item属性等于3 的实体属性，然后 乘以 5, 然后放进全局map里
@@ -611,16 +640,22 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                                 append(RuleUtils.setMethodByProperty(paramInfo.getParamIdentify())).append("(").append(realValue).append(");").append(lineSeparator);
                     }*/
                 }
+                // 7.拼接实现类接口
+                if (implFlag) {
+                    StringBuffer buf=new StringBuffer();
+                    for (String s :paramList){
+                            buf.append("\""+s+"\",");
+                    }
+                    String param=buf.toString();
+                    ruleStr.append("$"+action.getActionMethod()).append(".").append(action.getActionMethod()).
+                            append("(" + DroolsConstant.CONDITION_FACT + "," + DroolsConstant.GLOBAL_VARIABLE_NAME + ",").append(param.substring(0,param.length()-1))
+                            .append(")").append(";").append(lineSeparator);
+                }
             }
             // 记录日志
             ruleStr.append(DroolsConstant.GLOBAL_VARIABLE_NAME + ".getMap().put(\"").append("rule").append("\",\"").append(ruleInfo.getRuleName()).append("\");").append(lineSeparator);
 
-            // 7.拼接实现类接口
-            if (implFlag) {
-                ruleStr.append(DroolsConstant.CONDITION_ACTION).append(".").append(DroolsConstant.EXECUTE_METHOD).
-                        append("(" + DroolsConstant.CONDITION_FACT + "," + DroolsConstant.GLOBAL_VARIABLE_NAME + ",").append("\"" + paramInfo.getParamIdentify() + "\"")
-                        .append(")").append(";").append(lineSeparator);
-            }
+
             // 记录日志动作
             ruleStr.append(DroolsConstant.CONDITION_ACTION).append(".").append(DroolsConstant.SAVE_LOG).
                     append("(" + DroolsConstant.CONDITION_FACT + "," + DroolsConstant.GLOBAL_VARIABLE_NAME).append(")").append(";").append(lineSeparator);
@@ -669,7 +704,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                 for (BaseRuleActionParamInfo paramTemp : paraList) {
                     paramInfo = paramTemp;
                     // 5.获取动作参数值信息
-                    paramValue = this.ruleActionParamValueService.findRuleParamValueByActionParamId(paramInfo.getActionParamId(), ruleInfo.getRuleActionRelId());
+                    paramValue = this.ruleActionParamValueService.findRuleParamValueByActionParamId(paramInfo.getActionParamId(), actionTemp.getRuleActionRelId());
                     /*
                       6.1 动作实现类；
                       如果value值包含##（例如：#3# * 5），那么就认为是： 获取item属性等于3 的实体属性，然后 乘以 5, 然后放进全局map里

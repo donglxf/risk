@@ -64,8 +64,8 @@ public class DroolsExcuteController {
             // 1.根据sceneCode 查询最新测试版本
     		Map<String,Object> parmaMap =new HashMap<String,Object>();
     		parmaMap.put("type", "1"); // 正式版标志
-    		parmaMap.put("sceneIdentify", paramter.getSence());
-    		RuleSceneVersion ruleVersion=ruleSceneVersionService.getTestLastVersion(parmaMap);
+            parmaMap.put("versionId", paramter.getVersion());
+            RuleSceneVersion ruleVersion = ruleSceneVersionService.getInfoByVersionId(parmaMap);
             if(ObjectUtils.isEmpty(ruleVersion)){
                 data = new RuleExcuteResult(1, paramter.getSence()+"无可用正式版发布信息,请检查", null);
                 return data;
@@ -146,7 +146,8 @@ public class DroolsExcuteController {
             Map<String, Object> parmaMap = new HashMap<String, Object>();
             parmaMap.put("type", "0"); // 测试版标志
             parmaMap.put("sceneIdentify", paramter.getSence());
-            RuleSceneVersion ruleVersion = ruleSceneVersionService.getTestLastVersion(parmaMap);
+            parmaMap.put("versionId", paramter.getVersion());
+            RuleSceneVersion ruleVersion = ruleSceneVersionService.getInfoByVersionId(parmaMap);
             RuleExecutionObject object = new RuleExecutionObject();
             RuleExecutionResult result = new RuleExecutionResult();
             object.setGlobal("_result", result);

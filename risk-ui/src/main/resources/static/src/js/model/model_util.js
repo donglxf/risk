@@ -93,6 +93,22 @@ ModelVerification.prototype = {
         return html;
     },
 
+    /**
+     * 初始化普通输入框
+     * @param name
+     * @returns {string}
+     */
+    initStrInput: function (name, tmpValue) {
+        var html = '<div class="layui-input-inline">'
+        if (tmpValue != null && tmpValue != "") {
+            html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required" placeholder="字符" autocomplete="off" class="layui-input">'
+        } else {
+            html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="字符" autocomplete="off" class="layui-input">'
+        }
+        html += '</div>';
+        return html;
+    },
+
 
     /**
      *
@@ -113,6 +129,9 @@ ModelVerification.prototype = {
                 break;
             case "Double":
                 html = this.initInput(valible.senceVersionId + '_' + valible.variableCode, tmpValue);
+                break;
+            case "String":
+                html = this.initStrInput(valible.senceVersionId + '_' + valible.variableCode, tmpValue);
                 break;
             default:
                 break;

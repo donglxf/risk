@@ -2,6 +2,8 @@ package com.ht.risk.controller;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +21,7 @@ import com.ht.risk.service.DroolsRuleEngineService;
 */
 @RestController
 public class DroolsVersionController {
-	
+	protected static final Logger log = LoggerFactory.getLogger(DroolsVersionController.class);
 	@Resource
     private DroolsRuleEngineService droolsRuleEngineService;
 	
@@ -37,6 +39,7 @@ public class DroolsVersionController {
 	public String getDroolsVersion(@PathVariable(name="dev") String id){
 		String str=null;
         try {
+			log.info("规则生成id：====="+id);
             str= droolsRuleEngineService.getDroolsString(Long.parseLong(id));
         }catch (Exception e){
         	e.printStackTrace();
