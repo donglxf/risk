@@ -123,30 +123,31 @@ ModelVerification.prototype = {
         var variableCode = valible.variableCode;
         var dataType = valible.dataType;
         var optionData = valible.optionData;
+        var name = senceVersionId + '#' + variableCode;
         //需要把对应的variableCode包含的枚举变量集合从session中取出,作为selection中的option值
         var html = "";
         switch (dataType) {
             case "CONSTANT":
-                html = this.initSelect(senceVersionId + '_' + variableCode, optionData, tmpValue);
+                html = this.initSelect(name, optionData, tmpValue);
                 //加入异步查询,根据dataType查询这个select有哪些选项
                 break;
             case "date":
-                html = this.initDate(senceVersionId + '_' + variableCode, tmpValue);
+                html = this.initDate(name, tmpValue);
                 break;
             case "time":
-                html = this.initTime(senceVersionId + '_' + variableCode, tmpValue);
+                html = this.initTime(name, tmpValue);
                 break;
             case "Double":
-                html = this.initInput(senceVersionId + '_' + variableCode, tmpValue, dataType);
+                html = this.initInput(name, tmpValue, dataType);
                 break;
             case "String":
-                html = this.initInput(senceVersionId + '_' + variableCode, tmpValue, dataType);
+                html = this.initInput(name, tmpValue, dataType);
                 break;
             case "Integer":
-                html = this.initInput(senceVersionId + '_' + variableCode, tmpValue, dataType);
+                html = this.initInput(name, tmpValue, dataType);
                 break;
             case "Boolean":
-                html = this.initSelectBoolean(senceVersionId + '_' + variableCode, tmpValue);
+                html = this.initSelectBoolean(name, tmpValue);
                 break;
             default:
                 break;
@@ -159,7 +160,7 @@ ModelVerification.prototype = {
      * @param name
      * @returns {string}
      */
-    initDate: function (name) {
+    initDate: function (name, tmpValue) {
         var html = '<div class="layui-input-inline">';
         html += '<input type="text" name="' + name + '" id="date" lay-verify="date" placeholder="yyyy-MM " autocomplete="off" class="layui-input">';
         html += '</div>';
@@ -170,7 +171,7 @@ ModelVerification.prototype = {
      * @param name
      * @returns {string}
      */
-    initTime: function (name) {
+    initTime: function (name, tmpValue) {
         console.log(index)
         var html = '<div class="layui-input-inline">';
         html += '<input type="text" name="'
@@ -275,8 +276,8 @@ ModelAutoVerification.prototype = {
      */
     initInput: function (name, bindTable, bindColumn) {
         var html = ''
-        html += '<div class="layui-input-inline" style="margin: 0px"><input value= "' + bindTable + '"' + 'type="text" name="' + name + "_table" + '"  style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"></div>'
-        html += '<div class="layui-input-inline" style="margin: 0px"><input value= "' + bindColumn + '"' + 'type="text" name="' + name + "_column" + '"  style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"</div>'
+        html += '<div class="layui-input-inline" style="margin: 0px"><input value= "' + bindTable + '"' + 'type="text" name="' + name + "#table" + '"  style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" style="margin: 0px"><input value= "' + bindColumn + '"' + 'type="text" name="' + name + "#column" + '"  style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"</div>'
         return html;
     },
 
@@ -290,7 +291,8 @@ ModelAutoVerification.prototype = {
         var variableCode = valible.variableCode;
         var bindTable = valible.bindTable;
         var bindColumn = valible.bindColumn;
-        return this.initInput(senceVersionId + '_' + variableCode, bindTable, bindColumn);
+        var name = senceVersionId + '#' + variableCode
+        return this.initInput(name, bindTable, bindColumn);
     },
 
 
@@ -307,7 +309,7 @@ ModelAutoVerification.prototype = {
 
         for (var i = 0; i < count; i++) {
 
-            for (var j = 0; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
+            for (var j = i; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
                 html += '<div class="layui-form-item">';
                 var index = (i + 1) * (j + 1) - 1;
                 html += this.initLabel(data[index].variableName);//包含一个div
@@ -328,9 +330,9 @@ ModelAutoVerification.prototype = {
         var html = '<fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;font-size: 16px">\n';
         html += '<legend style="font-size: 16px">' + senceName + '</legend>\n<div style="padding-top: 10px">';
         html += '<div class="layui-form-item">'
-        html += '<div class="layui-input-inline" style="margin: 0px"><input  disabled="disabled"  value="变量名称" type="text" name="' + name + '" lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
-        html += '<div class="layui-input-inline" style="margin: 0px" ><input  disabled="disabled"  value="数据表" type="text" name="' + name + '" lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
-        html += '<div class="layui-input-inline" style="margin: 0px"><input  disabled="disabled"  value="字段" type="text" name="' + name + '" lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" style="margin: 0px"><input  disabled="disabled"  value="变量名称" type="text"  lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" style="margin: 0px" ><input  disabled="disabled"  value="数据表" type="text" lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" style="margin: 0px"><input  disabled="disabled"  value="字段" type="text" lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
         html += '</div>'
         html += this.initDiv(valiableData);
         html += '</div></fieldset>';

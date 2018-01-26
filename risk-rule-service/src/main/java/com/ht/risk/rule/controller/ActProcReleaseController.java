@@ -155,7 +155,7 @@ public class ActProcReleaseController {
             while (key.hasNext()) {
                 String next = key.next();
                 String temValue = parameterMap.get(next)[0];
-                String[] strings = next.split("_");
+                String[] strings = next.split("#");
                 logger.info(strings.toString());
                 EntityWrapper<VariableBind> wrapper = new EntityWrapper<>();
                 wrapper.eq("SENCE_VERSION_ID", strings[0]);
@@ -198,7 +198,7 @@ public class ActProcReleaseController {
                 logger.info("--------参数名称------" + next);
                 if (!"amount".equals(next)) {
                     String val = parameterMap.get(next)[0];
-                    String[] strings = next.split("_");
+                    String[] strings = next.split("#");
                     //String senceVersionId,String variableCode,String tmpValue,String bindTable,String bindColumn
                     String senceVersionId = strings[0];
                     String variableCode = strings[1];
