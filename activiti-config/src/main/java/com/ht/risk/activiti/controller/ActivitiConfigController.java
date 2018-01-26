@@ -31,7 +31,7 @@ public class ActivitiConfigController {
     private ActProcReleaseService actProcReleaseService;
 
     @RequestMapping("/queryProcInstId")
-    public Result<List<RpcActExcuteTaskInfo>> queryProcInstId(@RequestBody RpcModelVerfication rpcModelVerfication){
+    public Result<List<RpcActExcuteTaskInfo>> queryProcInstId(RpcModelVerfication rpcModelVerfication){
         LOGGER.info("queryProcInstId mothod invoke,paramter:"+ JSON.toJSONString(rpcModelVerfication));
         Result<List<RpcActExcuteTaskInfo>> result = null;
         if(rpcModelVerfication == null || rpcModelVerfication.getBatchId() == null){

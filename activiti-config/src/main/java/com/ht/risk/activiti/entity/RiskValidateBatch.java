@@ -74,6 +74,17 @@ public class RiskValidateBatch extends Model<RiskValidateBatch> {
 	private String createUser;
 
 
+	/**
+	 * 模型名称
+	 */
+	@ApiModelProperty(required= true,value = "模型名称")
+	private transient String modelName;
+	/**
+	 * 模型版本
+	 */
+	@ApiModelProperty(required= true,value = "模型版本")
+	private transient String modelVersion;
+
 	public Long getId() {
 		return id;
 	}
@@ -141,4 +152,19 @@ public class RiskValidateBatch extends Model<RiskValidateBatch> {
 		return this.id;
 	}
 
+	public String getModelName() {
+		return modelName;
+	}
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+
+	public String getModelVersion() {
+		return modelVersion;
+	}
+
+	public void setModelVersion(String modelVersion) {
+		this.modelVersion = modelVersion;
+	}
 }

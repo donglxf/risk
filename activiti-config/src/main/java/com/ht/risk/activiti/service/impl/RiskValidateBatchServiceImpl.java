@@ -30,12 +30,11 @@ public class RiskValidateBatchServiceImpl extends BaseServiceImpl<RiskValidateBa
         Page<RiskValidateBatch> page = new Page<RiskValidateBatch>();
         page.setSize(verficationModelVo.getLimit());
         page.setCurrent(verficationModelVo.getPage());
-        EntityWrapper<RiskValidateBatch> wrapper = new EntityWrapper<RiskValidateBatch>();
         RiskValidateBatch batch = new RiskValidateBatch();
+        batch.setModelName(verficationModelVo.getModelName());
+        batch.setModelVersion(verficationModelVo.getModelVersion());
         batch.setProcReleaseId(verficationModelVo.getProcReleaseId());
-        wrapper.setEntity(batch);
-
-
-        return null;
+        page.setRecords(riskValidateBatchMapper.queryValidateBatchList(page,batch));
+        return page;
     }
 }

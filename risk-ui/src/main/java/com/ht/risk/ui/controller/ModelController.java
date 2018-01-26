@@ -55,5 +55,10 @@ public class ModelController {
         return "model/verfication/model_auto";
     }
 
+    @RequestMapping(value = "/verfication/result",method = RequestMethod.GET)
+    public String verficationResult(){
+        return "model/verfication/result/list";
+    }
+
 
 }

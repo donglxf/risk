@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -31,7 +32,7 @@ public class VerficationResultController {
 
 
     @RequestMapping("/verficationBatchPage")
-    public PageResult<List<RiskValidateBatch>> verficationBatchPage(@RequestBody  VerficationModelVo verficationModelVo){
+    public PageResult<List<RiskValidateBatch>> verficationBatchPage(VerficationModelVo verficationModelVo){
         LOGGER.info("resultPage mothod invoke,paramter:"+ JSON.toJSONString(verficationModelVo));
         PageResult<List<RiskValidateBatch>> result = null;
         Page<RiskValidateBatch> page = new Page<RiskValidateBatch>();
@@ -41,7 +42,7 @@ public class VerficationResultController {
         RiskValidateBatch batch = new RiskValidateBatch();
         batch.setProcReleaseId(verficationModelVo.getProcReleaseId());
         wrapper.setEntity(batch);
-        page = riskValidateBatchService.selectPage(page,wrapper);
+        page = riskValidateBatchService.queryBatchForPage(verficationModelVo);
         result =  PageResult.success(page.getRecords(),page.getTotal());
         LOGGER.info("resultPage mothod invoke,reustl:"+ JSON.toJSONString(result));
         return result;

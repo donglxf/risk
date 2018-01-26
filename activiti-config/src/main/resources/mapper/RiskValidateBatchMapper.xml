@@ -19,4 +19,16 @@
         ID AS id, DEPLOYMENT_ID AS deploymentId, BATCH_SIZE AS batchSize, STATUS AS status, COUNT AS count, IS_EFFECT AS isEffect, CREATE_TIME AS createTime, CREATE_USER AS createUser
     </sql>
 
+
+    <select id="queryValidateBatchList" parameterType="com.ht.risk.activiti.entity.RiskValidateBatch" resultType="com.ht.risk.activiti.entity.RiskValidateBatch">
+        select B.MODEL_NAME,B.MODEL_VERSION,A.ID,A.PROC_RELEASE_ID,A.`STATUS` from RISK_VALIDATE_BATCH A INNER JOIN ACT_PROC_RELEASE B ON A.PROC_RELEASE_ID = B.ID
+        WHERE 1=1
+        <if test="modelName != null and modelName != '' ">
+          and B.MODEL_NAME = #{modelName}
+        </if>
+        <if test="modelVersion != null and modelVersion != '' ">
+            and B.MODEL_VERSION = #{modelVersion}
+        </if>
+    </select>
+
 </mapper>

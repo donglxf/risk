@@ -1,6 +1,8 @@
 package com.ht.risk.activiti.vo;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.ht.risk.common.vo.Page;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Map;
 
@@ -12,6 +14,8 @@ public class VerficationModelVo extends Page{
     private String version;
     private Map<String,Object> data;
     private String batchSize;
+    private String modelName;
+    private String modelVersion;
 
 
     public Long getProcReleaseId() {
@@ -60,5 +64,21 @@ public class VerficationModelVo extends Page{
 
     public void setBatchId(Long batchId) {
         this.batchId = batchId;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    public String getModelVersion() {
+        return modelVersion;
+    }
+
+    public void setModelVersion(String modelVersion) {
+        this.modelVersion = modelVersion;
     }
 }

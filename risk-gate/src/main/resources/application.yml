@@ -16,7 +16,6 @@ zuul:
   #prefix: /techouse #为zuul设置一个公共的前缀
   #ignoredServices: '*'
   routes:
-
     admin-ui:
       path: /admin/** #匹配/techouse/usersystem/** 均路由到cloud-client
     admin-service:
@@ -32,12 +31,12 @@ zuul:
     risk-log:
       path: /log/**
     activiti-config:
-      path: /activiti/config/**
+      path: /config/**
   host:
     connect-timeout-millis: 6000
 
 ribbon:
-  #ConnectTimeout:3000
+  ConnectTimeout: 60000
   ReadTimeout: 60000
   eureka:
     enabled: false #配置zuul路由时用将此属性设置为false
