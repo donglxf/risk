@@ -86,9 +86,18 @@ public class RuleInfoController {
             for (ConditionInfo conditionInfo : conts){
                 String itemIds = RuleUtils.getConditionParamBetweenChar(conditionInfo.getConditionExpression()).get(0);
                 //设置运算符
-                conditionInfo.setYsf(RuleUtils.getCondition(conditionInfo.getConditionExpression(),conditionInfo.getVal()));
+               // conditionInfo.setYsf(RuleUtils.getCondition(conditionInfo.getConditionExpression(),conditionInfo.getVal()));
+                //中文描述
+                conditionInfo.setValText(conditionInfo.getVal());
+
+                String val = RuleUtils.getConditionOfVariable(conditionInfo.getConditionExpression());
+                //设置运算符
+                conditionInfo.setYsf(RuleUtils.getCondition(conditionInfo.getConditionExpression(),val));
+
+                conditionInfo.setVal(val);
+
                 //设置中文名 运算符
-                conditionInfo.setYsfText(RuleUtils.getCondition(conditionInfo.getConditionDesc(),conditionInfo.getVal()));
+                conditionInfo.setYsfText(RuleUtils.getCondition(conditionInfo.getConditionDesc(),conditionInfo.getValText()));
                 //获取变量
                 RuleItemTable itemTable = entityItemInfoService.findRuleItemTableById(Long.parseLong(itemIds));
                 conditionInfo.setItemTable(itemTable);
@@ -130,8 +139,8 @@ public class RuleInfoController {
         for (Info rule : list){
             //是否有权值
             if(rule.getGroup() != null ){
-                if(rule.getGroup().getWeight() > 0){
-                    hasWeight = 1;
+                if(rule.getGroup().getWeight() == 1){
+                    hasWeight = 1 + hasWeight;
                 }
             }else{
                 RuleGroup group = new RuleGroup();
@@ -148,10 +157,15 @@ public class RuleInfoController {
                 //获取变量
                 RuleItemTable itemTable = entityItemInfoService.findRuleItemTableById(Long.parseLong(itemIds));
                 conditionInfo.setItemTable(itemTable);
+                conditionInfo.setValText(conditionInfo.getVal());
                 //设置运算符
-                conditionInfo.setYsf(RuleUtils.getCondition(conditionInfo.getConditionExpression(),conditionInfo.getVal()));
+                String val = RuleUtils.getConditionOfVariable(conditionInfo.getConditionExpression());
+
+                conditionInfo.setYsf(RuleUtils.getCondition(conditionInfo.getConditionExpression(),val));
+
+                conditionInfo.setVal(val);
                 //设置中文名 运算符
-                conditionInfo.setYsfText(RuleUtils.getCondition(conditionInfo.getConditionDesc(),conditionInfo.getVal()));
+                conditionInfo.setYsfText(RuleUtils.getCondition(conditionInfo.getConditionDesc(),conditionInfo.getValText()));
             }
             // 动作集合
             //   List<ActionInfo> actionInfos = actionInfoService.findRuleActionListByRule(rule.getRuleId());
@@ -175,7 +189,7 @@ public class RuleInfoController {
         // result.put("entityInfos",entityInfos);
         result.put("itemHeads",itemHeads);
         result.put("rules",list);
-        result.put("hasWeight",hasWeight);
+        result.put("hasWeight",hasWeight == list.size() ? 0:1);
         //动作个数
         result.put("actionCounts",actionCounts);
         return Result.success(result);

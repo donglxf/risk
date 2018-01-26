@@ -1,10 +1,11 @@
+var modelIds="";
 layui.use(['table', 'jquery', 'laydate', 'form'], function () {
     var table = layui.table;
     var $ = layui.jquery;
     var laydate = layui.laydate;
     var form = layui.form;
 
-    console.log(form);
+
     //第一个实例
     table.render({
         elem: '#model_list'
@@ -48,134 +49,221 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
         active[type] ? active[type].call(this) : '';
     });
 
-
+    var modeid = "";
     table.on('tool(model)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
         var modelId = data.id;
-        console.log(modelId);
+        modelIds = modelId;
         if (layEvent === 'manual_verification') { //手动验证
-            //接口未做，需要异步请求模型数据
-            $.ajax({
-                type: "get",
-                url: "/rule/service/actProcRelease/scene/variable/manual",
-                data: {
-                    actProcRealeseId: modelId
-                },
-                dataType: "json",
-                success: function (data) {
-                    var modelVerification = new ModelVerification();
-                    var contents = modelVerification.initModel(data);
-                    var layIndex = layer.open({
-                        type: 2,
-                        shade: false,
-                        title: "",
-                        //请求的弹出层路径
-                        content: "/rule/ui/model/valiable",
-                        zIndex: layer.zIndex, //重点1
-                        success: function (layero, index) {
-                            layer.setTop(layero); //重点2
-                            var form = layer.getChildFrame('#model_valiable_form', index);
-                            form.html(contents);
-                            //日期控件
-                            laydate.render({
-                                elem: "#date"
-                                //elem: "[lay-verify='date']"
-                            });
-                        }
-                    });
-                    layer.full(layIndex);
+            var layIndex =layer.open({
+                type: 2,
+                shade: false,
+                title: "",
+                //请求的弹出层路径
+                content: "/rule/ui/model/valiable",
+                zIndex: layer.zIndex, //重点1
+                success: function (layero, index) {
+                    layer.setTop(layero); //重点2
                 }
             });
-        } else if (layEvent = 'auto_verification') {
-            console.log('自动测试');
-            $.ajax({
-                type: "get",
-                url: "/rule/service/actProcRelease/scene/variable/auto",
-                data: {
-                    actProcRealeseId: modelId
-                },
-                dataType: "json",
-                success: function (data) {
-                    var modelAutoVerification = new ModelAutoVerification();
-                    var contents = modelAutoVerification.initModel(data);
-                    console.log('自动测试返回数据');
-                    var layIndex = layer.open({
-                        type: 2,
-                        shade: false,
-                        title: "",
-                        content: "/rule/ui/model/valiable/auto",
-                        zIndex: layer.zIndex, //重点1
-                        success: function (layero, index) {
-                            layer.setTop(layero); //重点2
-                            layer.setTop(layero); //重点2
-                            var form = layer.getChildFrame('#model_valiable_form_auto', index);
-                            form.html(contents);
-
-                        }
-                    });
-                    layer.full(layIndex);
+            layer.full(layIndex);
+        } else if (layEvent === 'auto_verification') {
+            var layIndex =layer.open({
+                type: 2,
+                shade: false,
+                title: "",
+                //请求的弹出层路径
+                content: "/rule/ui/model/valiable/auto",
+                zIndex: layer.zIndex, //重点1
+                success: function (layero, index) {
+                    layer.setTop(layero); //重点2
                 }
             });
+            layer.full(layIndex);
         }
     });
 
 
-    form.on('submit(save)', function (data) {
-        $.ajax({
-            cache: true,
-            type: "POST",
-            url: '/rule/service/actProcRelease/scene/variable/init',
-            data: data.field,// 你的formid
-            async: false,
-            success: function (data) {
-                layer.msg(data.msg);
-            }
-        });
-        return false;
+form.on('submit(save)', function (data) {
+    $.ajax({
+        cache: true,
+        type: "POST",
+        url: '/rule/service/actProcRelease/scene/variable/init',
+        data: data.field,// 你的formid
+        async: false,
+        success: function (data) {
+            layer.msg(data.msg);
+        }
     });
+    return false;
+});
 
-    $("#test").click(function () {
-        layer.msg("需调用其它接口");
+$("#test").click(function () {
+    layer.msg("需调用其它接口");
+});
+
+
+form.on('submit(save_auto)', function (data) {
+    console.log('保存自动校验变量');
+    $.ajax({
+        cache: true,
+        type: "POST",
+        url: '/rule/service/actProcRelease/scene/variable/init/auto',
+        data: data.field,// 你的formid
+        async: false,
+        success: function (data) {
+            layer.msg(data.msg);
+        }
     });
+    return false;
+});
+
+$("#test").click(function () {
+    layer.msg("需调用其它接口");
+});
 
 
+//时间选择器
+laydate.render({
+    elem: '.date'
+    , type: 'datetime'
+});
 
-    form.on('submit(save_auto)', function (data) {
-        console.log('保存自动校验变量');
-        $.ajax({
-            cache: true,
-            type: "POST",
-            url: '/rule/service/actProcRelease/scene/variable/init/auto',
-            data: data.field,// 你的formid
-            async: false,
-            success: function (data) {
-                layer.msg(data.msg);
-            }
-        });
-        return false;
-    });
-
-    $("#test").click(function () {
-        layer.msg("需调用其它接口");
-    });
-
-
-    //时间选择器
+$('.time').each(function () {
+    var id = $(this).attr("id");
     laydate.render({
-        elem: '.date'
-        ,type: 'datetime'
+        elem: '#' + id
+        , type: 'datetime'
     });
-
-    $('.time').each(function(){
-        var id = $(this).attr("id");
-        laydate.render({
-            elem: '#'+id
-            ,type: 'datetime'
-        });
-
-    });
-
 
 });
+})
+;
+
+// var data = {
+//     "modelName": "房贷模型",
+//     "modelVersion": "v1.01",
+//     "variableMap": [
+//         {
+//             "senceName": "房贷评分卡",
+//             "data": [
+//                 {
+//                     "valibaleEn": "name",
+//                     "valibaleCn": "姓名",
+//                     "submitName": "name",
+//                     "type": "input",
+//                     "desc": "姓名"
+//                 },
+//                 {
+//                     "valibaleEn": "name",
+//                     "valibaleCn": "姓名",
+//                     "submitName": "name",
+//                     "type": "input",
+//                     "desc": "姓名"
+//                 },
+//                 {
+//                     "valibaleEn": "name",
+//                     "valibaleCn": "姓名",
+//                     "submitName": "name",
+//                     "type": "input",
+//                     "desc": "姓名"
+//                 },
+//                 {
+//                     "valibaleEn": "name",
+//                     "valibaleCn": "姓名",
+//                     "submitName": "name",
+//                     "type": "input",
+//                     "desc": "姓名"
+//                 },
+//                 {
+//                     "valibaleEn": "name",
+//                     "valibaleCn": "姓名",
+//                     "submitName": "name",
+//                     "type": "input",
+//                     "desc": "姓名"
+//                 },
+//                 {
+//                     "valibaleEn": "sex",
+//                     "valibaleCn": "性别",
+//                     "submitName": "sex",
+//                     "type": "select",
+//                     "desc": "性别",
+//                     "optionData": [
+//                         {
+//                             "value": "01",
+//                             "name": "男"
+//                         }, {
+//                             "value": "02",
+//                             "name": "女"
+//                         },
+//                     ]
+//                 }
+//             ]
+//         },
+//         {
+//             "senceName": "车贷评分卡",
+//             "data": [
+//                 {
+//                     "valibaleEn": "name",
+//                     "valibaleCn": "姓名",
+//                     "submitName": "name",
+//                     "type": "input",
+//                     "desc": "姓名"
+//                 },
+//                 {
+//                     "valibaleEn": "name",
+//                     "valibaleCn": "姓名",
+//                     "submitName": "name",
+//                     "type": "input",
+//                     "desc": "姓名"
+//                 },
+//                 {
+//                     "valibaleEn": "name",
+//                     "valibaleCn": "姓名",
+//                     "submitName": "name",
+//                     "type": "input",
+//                     "desc": "姓名"
+//                 },
+//                 {
+//                     "valibaleEn": "name",
+//                     "valibaleCn": "姓名",
+//                     "submitName": "name",
+//                     "type": "input",
+//                     "desc": "姓名"
+//                 },
+//                 {
+//                     "valibaleEn": "name",
+//                     "valibaleCn": "姓名",
+//                     "submitName": "name",
+//                     "type": "input",
+//                     "desc": "姓名"
+//                 },
+//                 {
+//                     "valibaleEn": "name",
+//                     "valibaleCn": "姓名",
+//                     "submitName": "name",
+//                     "type": "date",
+//                     "desc": "姓名"
+//                 },
+//                 {
+//                     "valibaleEn": "sex",
+//                     "valibaleCn": "性别",
+//                     "submitName": "sex",
+//                     "type": "select",
+//                     "desc": "性别",
+//                     "optionData": [
+//                         {
+//                             "value": "01",
+//                             "name": "男"
+//                         }, {
+//                             "value": "02",
+//                             "name": "女"
+//                         },
+//                     ]
+//                 }
+//             ]
+//         }
+//     ]
+// };

@@ -13,7 +13,7 @@ import java.util.List;
  * @author 张鹏
  * @since 2017-12-15
  */
-public interface SceneInfoService extends BaseService<SceneInfo> {
+public interface SceneInfoService extends BaseService<SceneInfo>{
 
     /**
      * Date 2017/7/20

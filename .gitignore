@@ -22,3 +22,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+/risk-common/src/main/java/com/ht/risk/common/generator/MysqlGenerator.java

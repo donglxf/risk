@@ -1,5 +1,6 @@
 package com.ht.risk.rule.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.EntityInfo;
 import com.ht.risk.rule.mapper.EntityInfoMapper;
@@ -83,4 +84,11 @@ public class EntityInfoServiceImpl extends BaseServiceImpl<EntityInfoMapper, Ent
       return  this.entityInfoMapper.findRuleEntityAll(businessId);
     }
 
+    @Override
+    public boolean checkKey(String key,String other) {
+        Integer count = this.baseMapper.selectCount(new EntityWrapper<EntityInfo>()
+                .eq("entity_identify", key));
+        count = count == null?0:count;
+        return count > 0 ? true:false;
+    }
 }

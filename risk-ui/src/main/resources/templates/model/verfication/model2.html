@@ -5,27 +5,16 @@
     <meta charset="UTF-8">
     <title>模型管理</title>
     <link rel="stylesheet" href="/rule/ui/plugins/layui/css/layui.css" media="all">
-    <style>
-        .layui-form-item div {
-            min-width: 300px;
-            margin: 0px;
-
-        }
-
-        .layui-form-item div input{
-            min-width: 300px;
-            max-width: 300px;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
 
 
-<div style="margin: 15px;"  >
-    <form class="layui-form layui-form-pane" action="/rule/service/actProcRelease/scene/variable/init" method="post" id="model_valiable_form_auto">
+<div style="margin: 15px;">
+    <form class="layui-form layui-form-pane" action="/rule/service/actProcRelease/scene/variable/init" method="post"
+          id="model_valiable_form">
     </form>
 </div>
+
 <script src="/rule/ui/plugins/layui/layui.js"></script>
 <script src="/rule/ui/src/js/model2/model_util.js"></script>
 <script src="/rule/ui/src/js/model2/model_verification.js"></script>
@@ -41,9 +30,9 @@
             },
             dataType: "json",
             success: function (data) {
-                var modelAutoVerification = new ModelAutoVerification();
-                var contents = modelAutoVerification.initModel(data);
-                var form1 = $("#model_valiable_form_auto");
+                var modelVerification = new ModelVerification();
+                var contents = modelVerification.initModel(data);
+                var form1 = $("#model_valiable_form");
                 form1.html(contents)
                 form.render();
             }

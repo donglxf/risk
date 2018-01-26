@@ -1,6 +1,7 @@
 var ModelVerification = function (opt) {
-    layui.use(['jquery'], function () {
+    layui.use(['jquery', 'form', 'laytpl'], function () {
         var $ = layui.jquery;
+        var form = layui.form;
         this.options = $.extend({}, this.defaults, opt)
     });
 }
@@ -15,30 +16,52 @@ ModelVerification.prototype = {
         return '<label class="layui-form-label">' + name + '</label>';
     },
 
-    initSelect: function (name, tmpValue, dataType, variable, variableCode) {
-
+    initSelect: function (name, optionData) {
+      console.log(optionData);
         var html = '<div class="layui-input-inline">';
-        html += '<select name="' + name + '0" lay-filter="aihao">';
-
-        html += '<option value="0" >请选择</option>';
-        html += '<option >111</option>';
-
+        html += '<select name="' + name + '" lay-filter="">';
+        for (var i = 0; i < optionData.length; i++) {
+            var data = optionData[i];
+            html += '<option value="' + data.value + '">' + data.name + '</option>';
+        }
         html += '</select>';
         html += '</div>';
         return html;
-        //
-        // <div class="">
-        //         <label class="">角色</label>
-        //         <div class="">
-        //         <select th:value="${user.role.roleId}" id="role_sel">
-        //         <option value="0">请选择</option>
-        //         <option th:each="item,iterStat:${roles}" th:text="${item.roleName}"
-        //     th:value="${item.roleId}" th:selected="(${item.roleName} ==
-        //     ${user.role.roleId})"></option>
-        //
-        //     </select>
-        //     </div>
-        //     </div>
+    },
+
+
+    /**
+     * 获取变量列表
+     * @param variableCode
+     */
+    getVariableList: function (variableCode) {
+
+        var $ = layui.jquery;
+
+        $.ajax({
+            type: "get",
+            url: "/rule/service/actProcRelease/scene/variable/constant",
+            async: false,//同步请求
+            data: {
+                variableCode: variableCode
+            },
+            dataType: "json",
+            success: function (data) {
+                //因为select需要等到页面生成后才能被渲染出来,所有这里不能直接获取select元素进行渲染,需要组装一段js,然后用在这段生成的js中实现select的交互
+
+                // var getTpl = constantTP.innerHTML
+                //     , view = document.getElementById('variableCode');
+                // laytpl(getTpl).render(result, function (html) {
+                //     view.innerHTML = html;
+                // });
+
+
+                constant = data.data;
+                console.log(constant);
+                console.log(constant.length);
+                console.log(constant[0]);
+            }
+        });
     },
 
     /**
@@ -46,12 +69,25 @@ ModelVerification.prototype = {
      * @param name
      * @returns {string}
      */
-    initInput: function (name, tmpValue) {
+    initInput: function (name, tmpValue, dataType) {
         var html = '<div class="layui-input-inline">'
+
         if (tmpValue != null && tmpValue != "") {
-            html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required" placeholder="整形" autocomplete="off" class="layui-input">'
+            if (dataType == 'Double') {
+                html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required" placeholder="数字型" onkeyup="this.value=this.value.replace(/\\D/g,\'\')"  onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="5" autocomplete="off" class="layui-input">';
+            } else if (dataType == 'String') {
+                html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required" placeholder="字符型" autocomplete="off" class="layui-input" maxlength="100">';
+            } else if (dataType == 'Integer') {
+                html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required" placeholder="整形"   onkeyup="this.value=this.value.replace(/\\D/g,\'\')"  onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="5" autocomplete="off" class="layui-input">';
+            }
         } else {
-            html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="整形" autocomplete="off" class="layui-input">'
+            if (dataType == 'Double') {
+                html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="数字型" onkeyup="this.value=this.value.replace(/\\D/g,\'\')"  onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="5" autocomplete="off" class="layui-input">';
+            } else if (dataType == 'String') {
+                html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="字符型" autocomplete="off" class="layui-input" maxlength="100">';
+            } else if (dataType == 'Integer') {
+                html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="整形"   onkeyup="this.value=this.value.replace(/\\D/g,\'\')"  onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="5" autocomplete="off" class="layui-input">';
+            }
         }
         html += '</div>';
         return html;
@@ -67,12 +103,12 @@ ModelVerification.prototype = {
         var senceVersionId = valible.senceVersionId;
         var variableCode = valible.variableCode;
         var dataType = valible.dataType;
+        var optionData = valible.optionData;
         //需要把对应的variableCode包含的枚举变量集合从session中取出,作为selection中的option值
-
         var html = "";
         switch (dataType) {
-            case "select":
-                html = this.initSelect(senceVersionId + '_' + variableCode, tmpValue, dataType, variableCode);
+            case "CONSTANT":
+                html = this.initSelect(senceVersionId + '_' + variableCode,optionData);
                 //加入异步查询,根据dataType查询这个select有哪些选项
                 break;
             case "date":
@@ -82,7 +118,13 @@ ModelVerification.prototype = {
                 html = this.initTime(senceVersionId + '_' + variableCode, tmpValue);
                 break;
             case "Double":
-                html = this.initInput(senceVersionId + '_' + variableCode, tmpValue);
+                html = this.initInput(senceVersionId + '_' + variableCode, tmpValue, dataType);
+                break;
+            case "String":
+                html = this.initInput(senceVersionId + '_' + variableCode, tmpValue, dataType);
+                break;
+            case "Integer":
+                html = this.initInput(senceVersionId + '_' + variableCode, tmpValue, dataType);
                 break;
             default:
                 break;
@@ -160,6 +202,12 @@ ModelVerification.prototype = {
      * @returns {string}
      */
     initModel: function (data) {
+
+        var script=document.createElement("script");
+        script.type="text/javascript";
+        script.src="/plugins/jquery-1.9.1.min.js";
+        document.getElementsByTagName('head')[0].appendChild(script);
+
         var senceData = data.variableMap;
         var html = '';
         html += ' <div class="layui-form-item" >\n' +
@@ -177,7 +225,7 @@ ModelVerification.prototype = {
 }
 
 
-<!--定义一个手动测试类-->
+<!--定义一个自动测试类-->
 var ModelAutoVerification = function (opt) {
     layui.use(['jquery'], function () {
         var $ = layui.jquery;
@@ -189,18 +237,6 @@ var modelVerification = new ModelVerification();
 var index = 0;
 
 ModelAutoVerification.prototype = {
-
-    initSelect: function (name, optionData) {
-        var html = '<div class="layui-input-inline">';
-        html += '<select name="' + name + '0" lay-filter="aihao">';
-        for (var i = 0; i < optionData.length; i++) {
-            var data = optionData[i];
-            html += '<option value="' + data.value + '">' + data.name + '</option>';
-        }
-        html += '</select>';
-        html += '</div>';
-        return html;
-    },
     /**
      * 初始化Lable
      * @param name
@@ -235,30 +271,6 @@ ModelAutoVerification.prototype = {
         return this.initInput(senceVersionId + '_' + variableCode, bindTable, bindColumn);
     },
 
-    /**
-     * 初始化日期时间输入框
-     * @param name
-     * @returns {string}
-     */
-    initDate: function (name) {
-
-        var html = '<div class="layui-input-inline">';
-        html += '<input type="text" name="' + name + '" id="date' + index + '" lay-verify="date" placeholder="yyyy-MM-dd " autocomplete="off" class="layui-input">';
-        html += '</div>';
-        index++;
-        return html;
-    },
-    /**
-     * 初始化日期输入框
-     * @param name
-     * @returns {string}
-     */
-    initTime: function (name) {
-        var html = '<div class="layui-input-inline">';
-        html += '<input type="text" name="' + name + '" id="dateTime" lay-verify="date" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off" class="layui-input">';
-        html += '</div>';
-        return html;
-    },
 
     /**
      * 渲染每个变量的div

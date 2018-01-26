@@ -1491,6 +1491,11 @@ var myUtil = {
                             sceneUtil.flag = false;
                             return ;
                         }
+                        if (val == undefined || ysf == undefined || itemv == undefined) {
+                            layer.msg('必选项不能为空');
+                            sceneUtil.flag = false;
+                            return ;
+                        }
                         var conditionInfo = {
                             conditionExpression: '$' + itemv + '$' + '' + ysf + '' + val,
                             conditionDesc: '$' + entityText + ':'+ itemText+ '$' + ysfText + '' + valText,
@@ -1506,7 +1511,7 @@ var myUtil = {
                     var actionType = $(actionTd).find("a.actionVal").attr("actionParamId");
                     //验证评分卡是否数字类型
                     var re = /^[0-9]+.?[0-9]*$/;   //判断字符串是否为数字     //判断正整数 /^[1-9]+[0-9]*]*$/
-                    if(actionVal == '' || !re.test(actionVal) ){
+                    if(actionVal == '' || !re.test(actionVal) || actionVal == undefined){
                         layer.msg("分值必须为数字，且不为空");
                         sceneUtil.flag = false;
                         return;
@@ -1566,6 +1571,11 @@ var myUtil = {
                     var val = $(e).find("a.val").attr("data-value");
                     var valText = $(e).find("a.val").text();
                     if (val == '' || ysf == '' || itemv == '') {
+                        layer.msg('必选项不能为空');
+                        sceneUtil.flag = false;
+                        return ;
+                    }
+                    if (val == undefined || ysf == undefined || itemv == undefined) {
                         layer.msg('必选项不能为空');
                         sceneUtil.flag = false;
                         return ;

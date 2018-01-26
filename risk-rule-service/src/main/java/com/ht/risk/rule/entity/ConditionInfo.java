@@ -53,6 +53,9 @@ public class ConditionInfo extends Model<ConditionInfo> {
 	@ApiModelProperty(required= true,value = "值")
 	private String val;
 
+	@TableField(exist = false)
+	@ApiModelProperty(required= true,value = "中文描述值")
+	private String valText;
 
 	@TableField(exist = false)
 	@ApiModelProperty(required= true,value = "运算符")
@@ -69,6 +72,14 @@ public class ConditionInfo extends Model<ConditionInfo> {
 	@TableField(exist = false)
 	@ApiModelProperty(required= true,value = "运算符")
 	private String ysf;
+
+	public String getValText() {
+		return valText;
+	}
+
+	public void setValText(String valText) {
+		this.valText = valText;
+	}
 
 	public String getYsf() {
 		return ysf;
