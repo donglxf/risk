@@ -6,9 +6,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import com.ht.risk.model.fact.RuleExecutionResult;
-import com.ht.risk.service.impl.ruleaction.SaveLogService;
-import com.sun.xml.internal.ws.api.pipe.ServerPipeAssemblerContext;
 import org.apache.commons.lang3.ArrayUtils;
 import org.drools.core.base.RuleNameStartsWithAgendaFilter;
 import org.kie.api.runtime.KieSession;
