@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 
 import java.io.File;
 import java.util.*;
@@ -50,6 +51,34 @@ public class MysqlGenerator {
     private static String path = "D:/";
 
     public static void main(String[] args) {
+
+        Map<String,Object> mp=new HashMap<String,Object>();
+        mp.put("val",1.2);
+        String ab=String.valueOf(mp.get("val"));
+        System.out.println(ab);
+        System.out.println(Double.parseDouble(String.valueOf(mp.get("val"))));
+        Class a=mp.get("val").getClass();
+        System.out.println(a);
+//        Object a=mp.get("val");
+//        if(a == Float.class){
+//            System.out.println("f");
+//        }else if(a ==  String.class){
+//            System.out.println("s");
+//        }if(a == Object.class){
+//            System.out.println("sdsd");
+//        }if(a == Double.class){
+//            System.out.println("double");
+//        }
+//        Object val = mp.get("val");
+//        if(null != val){
+//            Class ab=val.getClass();
+//            if(ab == Double.class){
+//                val=Double.parseDouble((String)val);
+//            }
+//        }
+
+
+//        Integer.parseInt(String.valueOf(mp.get("val")));
     	
         // 自定义需要填充的字段
         List<TableFill> tableFillList = new ArrayList<>();

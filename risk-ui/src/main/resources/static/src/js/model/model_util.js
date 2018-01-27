@@ -48,7 +48,7 @@ ModelVerification.prototype = {
             "    </thead>\n" ;
 
         for(var i=0;i<data.length;i++){
-            html+="<tbody><tr></tbody><td>"+data[i].ruleDesc+"</td>";
+            html+="<tbody><tr></tbody><td>"+data[i].ruleDesc.replace(/\$/g,'')+"</td>";
             if(data[i].validationResult=='0'){
                 html+="<td style='color: #ff598f;'>匹配规则</td>";
             }else{
@@ -128,10 +128,10 @@ ModelVerification.prototype = {
                 html = this.initTime(valible.variableName);
                 break;
             case "Double":
-                html = this.initInput(valible.senceVersionId + '_' + valible.variableCode, tmpValue);
+                html = this.initInput(valible.senceVersionId + '#' + valible.variableCode, tmpValue);
                 break;
             case "String":
-                html = this.initStrInput(valible.senceVersionId + '_' + valible.variableCode, tmpValue);
+                html = this.initStrInput(valible.senceVersionId + '#' + valible.variableCode, tmpValue);
                 break;
             default:
                 break;

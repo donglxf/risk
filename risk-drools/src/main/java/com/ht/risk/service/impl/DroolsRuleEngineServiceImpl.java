@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.ht.risk.model.fact.RuleExecutionResult;
+import com.ht.risk.service.impl.ruleaction.SaveLogService;
 import com.sun.xml.internal.ws.api.pipe.ServerPipeAssemblerContext;
 import org.apache.commons.lang3.ArrayUtils;
 import org.drools.core.base.RuleNameStartsWithAgendaFilter;
@@ -185,10 +186,9 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             //1,是否全部执行
             if (ruleExecutionObject.isExecuteAll()) {
                 int count = session.fireAllRules();
-
-                RuleExecutionResult boj= (RuleExecutionResult) ruleExecutionObject.getGlobalMap().get("_result");
-                boj.getMap().put("count",count);
-                logger.info("命中规则条数：" + count);
+//                RuleExecutionResult boj= (RuleExecutionResult) ruleExecutionObject.getGlobalMap().get("_result");
+//                boj.getMap().put("count",count);
+                logger.info("命中规则条数：" + count/2);
             } else {
                 //2,执行以 ruleExecutionObject里规则名开头的规则
                 session.fireAllRules(new RuleNameStartsWithAgendaFilter(ruleExecutionObject.getRuleName()));

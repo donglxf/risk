@@ -14,7 +14,7 @@ import com.ht.risk.model.fact.RuleExecutionResult;
  * Created by lihao DATE: 2017/7/24
  */
 @SuppressWarnings("unchecked")
-public abstract class DroolsActionService {
+public class DroolsActionService {
 
 	private Logger log = LoggerFactory.getLogger(DroolsActionService.class);
 	
@@ -49,8 +49,8 @@ public abstract class DroolsActionService {
 		String rule = (String) result.getMap().get("rule");
 		ruleList.add(rule);
 		result.getMap().put("ruleList", ruleList);
-		
-		log.info("########统计当前结果："+rule);
+
+		log.info("########当前命中规则："+rule);
 	}
 
 }

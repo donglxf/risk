@@ -73,6 +73,19 @@
             layerTips = layui.layer,
             $ = layui.jquery;
 
+        $.ajax({
+            type: "GET",
+            url: '/rule/service/variableBind/getAll?versionId='+parent.versionIds ,
+            dataType: "json",
+            success: function (data) {
+                var modelVerification = new ModelVerification();
+                var contents = modelVerification.initModel(data);
+                var form1 = $("#manu_model_valiable_form");
+                form1.html(contents)
+                form.render();
+            }
+        });
+
         form.on('submit(save)', function (data) {
             $.ajax({
                 cache: true,

@@ -264,12 +264,20 @@ public class VariableBindController {
             JSONObject o = obj.getJSONObject("data").getJSONObject("globalMap");
             Map<String, Object> variableMap = (Map<String, Object>) o.get("variableMap");
             JSONArray dataArr = o.getJSONArray("logIdList");
-            Integer count = (Integer) o.getJSONObject("_result").getJSONObject("map").get("count");
+//            Integer count = (Integer) o.getJSONObject("_result").getJSONObject("map").get("count");
+            JSONArray count = (JSONArray) o.getJSONObject("_result").getJSONObject("map").get("ruleList");
+            List<String> ruleList=new ArrayList<String>();
+            String[] ruleArr = count.toArray(new String[count.size()]);
+            Set set = new HashSet();
+            for (int j=0;j<ruleArr.length;j++){
+                set.add(ruleArr[j]);
+            }
+            ruleList.addAll(set);
             String[] arg = dataArr.toArray(new String[dataArr.size()]);
             Map<String, Object> resultMap = new HashMap<String, Object>();
             resultMap.put("logId", arg[0]);
             resultMap.put("versionId", entityInfo.getSenceVersionId());
-            resultMap.put("count", count);
+            resultMap.put("count", ruleList.size());
             resultMap.put("variableMap", variableMap);
             resultList.add(resultMap);
         }
