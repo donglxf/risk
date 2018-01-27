@@ -8,6 +8,7 @@ import com.ht.risk.api.model.activiti.RpcModelVerfication;
 import com.ht.risk.api.model.drools.RpcDroolsLog;
 import com.ht.risk.api.model.log.RpcHitRuleInfo;
 import com.ht.risk.common.result.Result;
+import com.ht.risk.rule.controller.ModelVerificationController;
 import com.ht.risk.rule.entity.ModelSence;
 import com.ht.risk.rule.entity.VariableBind;
 import com.ht.risk.rule.mapper.ModelSenceMapper;
@@ -15,8 +16,11 @@ import com.ht.risk.rule.mapper.VariableBindMapper;
 import com.ht.risk.rule.rpc.ActivitiConfigRpc;
 import com.ht.risk.rule.rpc.DroolsLogRpc;
 import com.ht.risk.rule.service.ModelAnalysisSerivce;
+import com.ht.risk.rule.vo.HitRuleInfoVo;
 import com.ht.risk.rule.vo.SenceParamterVo;
 import com.ht.risk.rule.vo.VariableVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,6 +28,8 @@ import java.util.*;
 
 @Service
 public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ModelVerificationController.class);
 
 
     @Resource
@@ -60,8 +66,8 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         return getProcHitRules(procInstIds);
     }
 
-    public Map<Long,SenceParamterVo>  queryModeVerfDataInfo(Long taskId) {
-        Map<Long,SenceParamterVo> senceMap = new HashMap<Long,SenceParamterVo>();
+    public Map<String,SenceParamterVo>  queryModeVerfDataInfo(Long taskId) {
+        Map<String,SenceParamterVo> senceMap = new HashMap<String,SenceParamterVo>();
         //获取模型任务信息
         RpcModelVerfication rpcModelVerfication = new RpcModelVerfication();
         rpcModelVerfication.setTaskId(taskId);
@@ -94,7 +100,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
             versionIds.add(sence.getSenceVersionId());
             paramterVo = new SenceParamterVo();
             paramterVo.setSenceName(sence.getSceneName());
-            senceMap.put(sence.getSenceVersionId(),paramterVo);
+            senceMap.put(String.valueOf(sence.getSenceVersionId()),paramterVo);
         }
         RpcDroolsLog log = null;
         for(Iterator<RpcDroolsLog> iterator = logs.iterator();iterator.hasNext();){
@@ -125,6 +131,87 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
                     vo.setValue(String.valueOf(paramterVo.getData().get(vo.getValibaleEn())));
                 }
                 paramterVo.addVariableVo(vo);
+            }
+        }
+        return senceMap;
+    }
+
+    @Override
+    public Map<String,SenceParamterVo> queryTaskVerficationResult(Long taskId) {
+
+        LOGGER.info("queryTaskVerficationResult method invoke start,paramter:"+taskId);
+
+        Map<String,SenceParamterVo> senceMap = new HashMap<String,SenceParamterVo>();
+        // 查询任务详情
+        RpcModelVerfication rpcModelVerfication = new RpcModelVerfication();
+        rpcModelVerfication.setTaskId(taskId);
+        Result<RpcActExcuteTaskInfo> taskResult = activitiConfigRpc.getTaskInfoById(rpcModelVerfication);
+        LOGGER.info("rpc:activitiConfigRpc.queryTasksByBatchId ,result:"+JSON.toJSONString(taskResult));
+        if(taskResult == null || taskResult.getCode() != 0 ||  taskResult.getData() == null){
+            return null;
+        }
+        RpcActExcuteTaskInfo task = taskResult.getData();
+        // 获取模型定义信息
+        rpcModelVerfication.setProcReleaseId(task.getProcReleaseId());
+        Result<RpcModelReleaseInfo> releaseInfoResult = activitiConfigRpc.getProcReleaseById(rpcModelVerfication);
+        LOGGER.info("rpc:activitiConfigRpc.getProcReleaseById ,result:"+JSON.toJSONString(releaseInfoResult));
+        if(releaseInfoResult == null || releaseInfoResult.getCode() != 0 || releaseInfoResult.getData() == null){
+            return null;
+        }
+        // 查询任务规则命中信息
+        RpcDroolsLog rpcDroolsLog = new RpcDroolsLog();
+        rpcDroolsLog.setProcinstId(task.getProcInstId());
+        Result<List<RpcDroolsLog>> logResult = droolsLogRpc.queryTestModelDroolsLogs(rpcDroolsLog);
+        LOGGER.info("rpc:activitiConfigRpc.queryTestModelDroolsLogs ,result:"+JSON.toJSONString(logResult));
+        if(logResult == null || logResult.getCode() != 0 || logResult.getData() == null){
+            return null;
+        }
+        List<RpcDroolsLog> logs = logResult.getData();
+        // 获取模型关联决策信息
+        List<ModelSence> sences = modelSenceMapper.queryModelSenceInfo(releaseInfoResult.getData().getModelProcdefId());
+        List<Long> versionIds = new ArrayList<Long>();
+        ModelSence sence = null;
+        SenceParamterVo paramterVo = null;
+        for(Iterator<ModelSence> iterator = sences.iterator();iterator.hasNext();){
+            sence = iterator.next();
+            versionIds.add(sence.getSenceVersionId());
+            paramterVo = new SenceParamterVo();
+            paramterVo.setSenceName(sence.getSceneName());
+            senceMap.put(String.valueOf(sence.getSenceVersionId()),paramterVo);
+        }
+        List<VariableBind> binds = variableBindMapper.selectList(Condition.create().in("sence_version_id",versionIds));
+        String variableCode = null;
+        VariableBind bind = null;
+        VariableVo vo = null;
+        List<VariableVo> vos = null;
+        SenceParamterVo senceParamterVo = null;
+        for(Iterator<VariableBind> iterator = binds.iterator();iterator.hasNext();){
+            bind = iterator.next();
+            variableCode = bind.getVariableCode();
+            vo = new VariableVo(bind);
+            if(senceMap.containsKey(String.valueOf(bind.getSenceVersionId()))){
+                paramterVo =senceMap.get(String.valueOf(bind.getSenceVersionId()));
+                if(paramterVo.getData() != null){
+                    vo.setValue(String.valueOf(paramterVo.getData().get(vo.getValibaleEn())));
+                }
+                paramterVo.addVariableVo(vo);
+            }
+        }
+        Result<List<RpcHitRuleInfo>> result = droolsLogRpc.getHitRuleInfo(task.getProcInstId());
+        if(result == null || result.getCode() != 0){
+            return null;
+        }
+        List<RpcHitRuleInfo> hitRuleInfoDatas= result.getData();
+        List<RpcHitRuleInfo> tmp = null;
+        RpcHitRuleInfo tmpRule = null;
+        HitRuleInfoVo ruleInfoVo = null;
+        for(Iterator<RpcHitRuleInfo> iterator = hitRuleInfoDatas.iterator();iterator.hasNext();){
+            tmpRule = iterator.next();
+            String senceVersionId = String.valueOf(tmpRule.getSenceVersionId());
+            if(senceMap.containsKey(senceVersionId)){
+                paramterVo =senceMap.get(senceVersionId);
+                ruleInfoVo = new HitRuleInfoVo(tmpRule);
+                paramterVo.addHitRuleVo(ruleInfoVo);
             }
         }
         return senceMap;

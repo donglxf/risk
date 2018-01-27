@@ -33,7 +33,14 @@ public interface ModelAnalysisSerivce {
      * @param taskId
      * @return
      */
-    Map<Long,SenceParamterVo> queryModeVerfDataInfo(Long taskId);
+    Map<String,SenceParamterVo> queryModeVerfDataInfo(Long taskId);
 
+
+    /**
+     * 查询模型任务的验证信息
+     * @param taskId
+     * @return
+     */
+    public Map<String,SenceParamterVo> queryTaskVerficationResult(Long taskId);
 
 }

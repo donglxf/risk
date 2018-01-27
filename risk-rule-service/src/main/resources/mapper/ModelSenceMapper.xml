@@ -18,7 +18,7 @@
     </sql>
 
     <select id="queryModelSenceInfo" parameterType="java.lang.String" resultType="com.ht.risk.rule.entity.ModelSence">
-        select a.sence_version_id as senceVersionId,b.title as senceName,b.scene_identify as senceCode from RISK_MODEL_SENCE a
+        select a.sence_version_id as senceVersionId,b.title as sceneName,b.scene_identify as senceCode from RISK_MODEL_SENCE a
         inner join rule_scene_version b
         on a.SENCE_VERSION_ID = b.version_id
         where a.MODEL_PROCDEF_ID = #{modelProcdefId}

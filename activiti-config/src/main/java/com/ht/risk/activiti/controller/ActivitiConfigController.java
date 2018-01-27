@@ -51,6 +51,27 @@ public class ActivitiConfigController {
 
     }
 
+    @RequestMapping("/queryTasksByBatchId")
+    public Result<List<RpcActExcuteTaskInfo>> queryTasksByBatchId(@RequestBody RpcModelVerfication rpcModelVerfication){
+        LOGGER.info("queryProcInstId mothod invoke,paramter:"+ JSON.toJSONString(rpcModelVerfication));
+        Result<List<RpcActExcuteTaskInfo>> result = null;
+        if(rpcModelVerfication == null || rpcModelVerfication.getBatchId() == null){
+            LOGGER.error("queryProcInstId mothod invoke,paramter null exception");
+            result =Result.error(1,"参数异常！");
+            return  result;
+        }
+        try {
+            List<RpcActExcuteTaskInfo> tasks = actExcuteTaskService.queryProcInstIdBybatchId(rpcModelVerfication.getBatchId());
+            result = Result.success(tasks);
+        }catch (Exception e){
+            result = Result.error(2,"queryProcInstId mothod excute exception,"+e);
+            return  result;
+        }
+        LOGGER.info("queryProcInstId mothod invoke end,reustl:"+ JSON.toJSONString(result));
+        return result;
+
+    }
+
 
     @RequestMapping("/getTaskInfoById")
     public Result<RpcActExcuteTaskInfo> getTaskInfoById(@RequestBody  RpcModelVerfication rpcModelVerfication){

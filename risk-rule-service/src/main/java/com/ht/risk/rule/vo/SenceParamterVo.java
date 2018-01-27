@@ -8,9 +8,9 @@ public class SenceParamterVo {
 
     private String senceName;
     private String senceVersionId;
-
     private Map<String,Object> data;
-    private List<VariableVo> variableVos;
+    private List<VariableVo> variables;
+    private List<HitRuleInfoVo> hitRules;
 
 
     public String getSenceName() {
@@ -29,19 +29,35 @@ public class SenceParamterVo {
         this.senceVersionId = senceVersionId;
     }
 
-    public List<VariableVo> getVariableVos() {
-        return variableVos;
+    public List<HitRuleInfoVo> getHitRules() {
+        return hitRules;
     }
 
-    public void setVariableVos(List<VariableVo> variableVos) {
-        this.variableVos = variableVos;
+    public void setHitRules(List<HitRuleInfoVo> hitRules) {
+        this.hitRules = hitRules;
     }
+
+    public List<VariableVo> getVariables() {
+        return variables;
+    }
+
+    public void setVariables(List<VariableVo> variables) {
+        this.variables = variables;
+    }
+
 
     public void addVariableVo(VariableVo vo){
-        if(variableVos == null){
-            variableVos = new ArrayList<VariableVo>();
+        if(variables == null){
+            variables = new ArrayList<VariableVo>();
         }
-        variableVos.add(vo);
+        variables.add(vo);
+
+    }
+    public void addHitRuleVo(HitRuleInfoVo vo){
+        if(hitRules == null){
+            hitRules = new ArrayList<HitRuleInfoVo>();
+        }
+        hitRules.add(vo);
     }
 
     public Map<String, Object> getData() {

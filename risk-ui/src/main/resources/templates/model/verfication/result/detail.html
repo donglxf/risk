@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>模型验证结果</title>
+    <link rel="stylesheet" href="/rule/ui/plugins/layui/css/layui.css" media="all">
+    <style>
+        .layui-colla-content{
+            padding: 0px 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <div class="layui-collapse" lay-filter="test" id="main_content">
+                <!--<div class="layui-colla-item">
+                    <h2 class="layui-colla-title">黑灰名单策略</h2>
+                    <div class="layui-colla-content layui-show" >
+                        <div class="layui-row" >
+                        <div class="layui-col-xs6">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="150">
+                                <col width="200">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>变量名称</th>
+                                <th>变量代码</th>
+                                <th>变量值</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>姓名</td>
+                                <td>name</td>
+                                <td>张三</td>
+                            </tr>
+                            <tr>
+                                <td>姓名</td>
+                                <td>name</td>
+                                <td>张三</td>
+                            </tr>
+                            <tr>
+                                <td>姓名</td>
+                                <td>name</td>
+                                <td>张三</td>
+                            </tr><tr>
+                                <td>姓名</td>
+                                <td>name</td>
+                                <td>张三</td>
+                            </tr>
+
+                            <tr>
+                                <td>年龄</td>
+                                <td>age</td>
+                                <td>20</td>
+                            </tr>
+
+                            <tr>
+                                <td>年龄</td>
+                                <td>age</td>
+                                <td>20</td>
+                            </tr> <tr>
+                                <td>年龄</td>
+                                <td>age</td>
+                                <td>20</td>
+                            </tr> <tr>
+                                <td>年龄</td>
+                                <td>age</td>
+                                <td>20</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="layui-col-xs6" style="padding-left: 10px">
+                            <table class="layui-table">
+                                <colgroup>
+                                    <col width="150">
+                                    <col width="150">
+                                    <col width="200">
+                                    <col>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>规则描述</th>
+                                    <th>规则命中</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>年龄小于30</td>
+                                    <td>命中</td>
+                                </tr>
+                                <tr>
+                                    <td>年龄</td>
+                                    <td>命中</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">反欺诈策略</h2>
+                    <div class="layui-colla-content">
+                    </div>
+                </div>
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">房贷评分模型</h2>
+                    <div class="layui-colla-content">
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <script src="/rule/ui/plugins/layui/layui.js"></script>
+    <script src="/rule/ui/src/js/verfication/result.js"></script>
+
+    <script id="sence" type="text/html">
+        {{#layui.each(d, function(index, sence){  }}
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title">{{ sence.senceName }}</h2>
+            <div class="layui-colla-content layui-show">
+                <div class="layui-row" >
+                    <div class="layui-col-xs6" style="padding-right: 10px">
+                        <table class="layui-table">
+                            <thead>
+                            <tr>
+                                <th>变量名称</th>
+                                <th>变量值</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{# layui.each(sence.variables,function(index, item){ }}
+                                <tr>
+                                    <td>{{item.valibaleCn}}</td>
+                                    <td>{{item.value}}</td>
+                                </tr>
+                            {{#  }); }}
+
+                            {{#  if(sence.variables.length === 0){ }}
+                                无数据
+                            {{#  } }}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="layui-col-xs6">
+                        <table class="layui-table">
+                            <thead>
+                            <tr>
+                                <th>规则描述</th>
+                                <th>规则命中</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{# layui.each(sence.variables,function(index, item){ }}
+                            <tr>
+                                <td>{{item.valibaleCn}}</td>
+                                <td>{{item.value}}</td>
+                            </tr>
+                            {{#  }); }}
+                            {{#  if(sence.variables.length === 0){ }}
+                            无数据
+                            {{#  } }}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{# }); }}
+    </script>
+</body>
+</html>

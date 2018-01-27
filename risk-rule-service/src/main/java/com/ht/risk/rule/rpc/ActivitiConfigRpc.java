@@ -24,7 +24,7 @@ public interface ActivitiConfigRpc {
      * @param rpcModelVerfication
      * @return
      */
-    @RequestMapping("/queryProcInstId")
+    @RequestMapping("/queryTasksByBatchId")
     public Result<List<RpcActExcuteTaskInfo>> queryTasksByBatchId(RpcModelVerfication rpcModelVerfication);
 
     /**

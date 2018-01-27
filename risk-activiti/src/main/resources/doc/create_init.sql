@@ -107,7 +107,7 @@ create table `risk_sence_verfication_batch` (
   `verfication_type` varchar(2) comment '是否生效：0-手动，1-自动',
   `create_time` TIMESTAMP DEFAULT now() null comment '创建时间',
   `create_user` varchar(64) character set utf8 collate utf8_bin null default null comment '创建用户',
-  `end_time`TIMESTAMP DEFAULT  null COMMENT '结束时间',
+  `end_time` TIMESTAMP  COMMENT '结束时间',
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_bin;
 
@@ -118,7 +118,7 @@ create table `risk_test_drools_detail_log` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci;
 
-create table `RISK_TEST_DROOLS_LOG` (
+create table `risk_test_drools_log` (
   `id` bigint(20) not null,
   `batch_id` bigint(20) DEFAULT  null COMMENT '验证批次号',
   `procinst_id` bigint(20) null default null comment '模型实例id',
@@ -406,3 +406,13 @@ create table `rule_variable` (
   index `value_type`(`value_type`),
   index `variable_name`(`variable_name`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '规则引擎常用变量';
+
+
+insert into `risk_rule_his_version` (`id`, `sence_version_id`, `rule_name`, `rule_desc`, `is_effect`, `create_user`, `create_time`) values (1, 138, '年龄规则', '年龄等于20', '0', null, null);
+insert into `risk_rule_his_version` (`id`, `sence_version_id`, `rule_name`, `rule_desc`, `is_effect`, `create_user`, `create_time`) values (2, 138, '学历规则', '学历为本科', '0', null, null);
+insert into `risk_rule_his_version` (`id`, `sence_version_id`, `rule_name`, `rule_desc`, `is_effect`, `create_user`, `create_time`) values (3, 138, '工资规则', '工资大于20000', '0', null, null);
+insert into `risk_rule_his_version` (`id`, `sence_version_id`, `rule_name`, `rule_desc`, `is_effect`, `create_user`, `create_time`) values (4, 138, '芝麻分规则', '芝麻分大于650', '0', null, null);
+insert into `risk_variable_bind` (`id`, `sence_version_id`, `variable_code`, `variable_name`, `data_type`, `constant_id`, `bind_table`, `bind_column`, `is_effect`, `tmp_value`, `create_user`, `create_time`) values (10, 138, 'age', '年龄', 'double', null, null, null, '0', '20', null, '2018-1-23 17:03:48');
+insert into `risk_variable_bind` (`id`, `sence_version_id`, `variable_code`, `variable_name`, `data_type`, `constant_id`, `bind_table`, `bind_column`, `is_effect`, `tmp_value`, `create_user`, `create_time`) values (11, 138, 'education', '学历', 'double', null, null, null, '0', '本科', null, '2018-1-23 17:04:36');
+insert into `risk_variable_bind` (`id`, `sence_version_id`, `variable_code`, `variable_name`, `data_type`, `constant_id`, `bind_table`, `bind_column`, `is_effect`, `tmp_value`, `create_user`, `create_time`) values (12, 138, 'salary', '工资', 'double', null, null, null, '0', '100', null, '2018-1-23 17:05:07');
+insert into `risk_variable_bind` (`id`, `sence_version_id`, `variable_code`, `variable_name`, `data_type`, `constant_id`, `bind_table`, `bind_column`, `is_effect`, `tmp_value`, `create_user`, `create_time`) values (13, 138, 'zhimascore', '芝麻分', 'double', null, null, null, '0', '750', null, '2018-1-23 17:05:38');

@@ -166,7 +166,7 @@ public class DroolsExcuteController {
             entity.setOutParamter(JSON.toJSONString(object));
             entity.setExecuteTotal(Integer.parseInt(String.valueOf(res.getMap().get("count"))));
             entity.setModelName(paramter.getModelName());
-            entity.setBatchId(Long.parseLong(paramter.getBatchId())); // 批次号
+           // entity.setBatchId(Long.parseLong(paramter.getBatchId())); // 批次号
             String logId = droolsLogInterface.saveTestLog(entity);
             if (ObjectUtils.isNotEmpty(li)) {
                 for (String string : li) {
