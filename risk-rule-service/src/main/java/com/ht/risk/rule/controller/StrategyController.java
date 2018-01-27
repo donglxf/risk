@@ -39,7 +39,6 @@ public class StrategyController {
             wrapper.or().like("comment", key);
             wrapper.or().like("version", key);
         }
-
         Page<SceneVersion> pages = new Page<>();
         pages.setCurrent(page);
         pages.setSize(limit);

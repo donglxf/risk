@@ -100,9 +100,7 @@
                 url: '/rule/service/strategy/variablePass',
                 data: data.field,// 你的formid
                 async: false,
-                error: function (request) {
-                    alert("Connection error");
-                },
+
                 success: function (da) {
                     if (da.code == 0) {
                         layer.msg("操作成功");

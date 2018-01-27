@@ -1,9 +1,6 @@
 package com.ht.risk.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.annotation.Resource;
 
@@ -64,8 +61,8 @@ public class DroolsExcuteController {
             // 1.根据sceneCode 查询最新测试版本
     		Map<String,Object> parmaMap =new HashMap<String,Object>();
     		parmaMap.put("type", "1"); // 正式版标志
-    		parmaMap.put("sceneIdentify", paramter.getSence());
-    		RuleSceneVersion ruleVersion=ruleSceneVersionService.getTestLastVersion(parmaMap);
+            parmaMap.put("versionId", paramter.getVersion());
+            RuleSceneVersion ruleVersion = ruleSceneVersionService.getInfoByVersionId(parmaMap);
             if(ObjectUtils.isEmpty(ruleVersion)){
                 data = new RuleExcuteResult(1, paramter.getSence()+"无可用正式版发布信息,请检查", null);
                 return data;
@@ -81,17 +78,24 @@ public class DroolsExcuteController {
             // 记录日志
             RuleExecutionResult res = (RuleExecutionResult) object.getGlobalMap().get("_result");
             List<String> li = (List<String>) res.getMap().get("ruleList");
+            List<String> newList = new  ArrayList();
+            if (ObjectUtils.isNotEmpty(li)) {
+                Set set = new HashSet();
+                set.addAll(li);
+                newList.addAll(set);
+            }
             DroolsLog entity = new DroolsLog();
             entity.setType(paramter.getType());
             entity.setProcinstId(paramter.getProcessInstanceId());
             entity.setInParam(JSON.toJSONString(paramter));
             entity.setSenceVersionid(paramter.getVersion());
             entity.setOutParamter(JSON.toJSONString(object));
-            entity.setExecuteTotal(Integer.parseInt(String.valueOf(object.getGlobalMap().get("count"))));
+//            entity.setExecuteTotal(Integer.parseInt(String.valueOf(object.getGlobalMap().get("count"))));
+            entity.setExecuteTotal(newList.size());
             entity.setModelName(paramter.getModelName());
             String logId = droolsLogInterface.saveLog(entity);
             if (ObjectUtils.isNotEmpty(li)) {
-                for (String string : li) {
+                for (String string : newList) {
                     DroolsProcessLog process = new DroolsProcessLog();
                     process.setDroolsLogid(Long.parseLong(logId));
                     process.setExecuteRulename(string);
@@ -146,7 +150,8 @@ public class DroolsExcuteController {
             Map<String, Object> parmaMap = new HashMap<String, Object>();
             parmaMap.put("type", "0"); // 测试版标志
             parmaMap.put("sceneIdentify", paramter.getSence());
-            RuleSceneVersion ruleVersion = ruleSceneVersionService.getTestLastVersion(parmaMap);
+            parmaMap.put("versionId", paramter.getVersion());
+            RuleSceneVersion ruleVersion = ruleSceneVersionService.getInfoByVersionId(parmaMap);
             RuleExecutionObject object = new RuleExecutionObject();
             RuleExecutionResult result = new RuleExecutionResult();
             object.setGlobal("_result", result);
@@ -158,18 +163,25 @@ public class DroolsExcuteController {
             // 记录日志
             RuleExecutionResult res = (RuleExecutionResult) object.getGlobalMap().get("_result");
             List<String> li = (List<String>) res.getMap().get("ruleList");
+            List<String> newList = new  ArrayList();
+            if (ObjectUtils.isNotEmpty(li)) {
+                Set set = new HashSet();
+                set.addAll(li);
+                newList.addAll(set);
+            }
             TestDroolsLog entity = new TestDroolsLog();
             entity.setType(paramter.getType());
             entity.setProcinstId(StringUtil.strIsNotNull(paramter.getProcessInstanceId()) ? Long.parseLong(paramter.getProcessInstanceId()) : 0);
             entity.setInParamter(JSON.toJSONString(paramter));
             entity.setSenceVersionid(paramter.getVersion());
             entity.setOutParamter(JSON.toJSONString(object));
-            entity.setExecuteTotal(Integer.parseInt(String.valueOf(res.getMap().get("count"))));
+            entity.setExecuteTotal(newList.size());
+//            entity.setExecuteTotal(Integer.parseInt(String.valueOf(res.getMap().get("count"))));
             entity.setModelName(paramter.getModelName());
            // entity.setBatchId(Long.parseLong(paramter.getBatchId())); // 批次号
             String logId = droolsLogInterface.saveTestLog(entity);
             if (ObjectUtils.isNotEmpty(li)) {
-                for (String string : li) {
+                for (String string : newList) {
                     TestDroolsDetailLog process = new TestDroolsDetailLog();
                     process.setDroolsLogid(Long.parseLong(logId));
                     process.setExecuteRulename(string);

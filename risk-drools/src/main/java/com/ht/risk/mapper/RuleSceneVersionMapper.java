@@ -25,4 +25,11 @@ public interface RuleSceneVersionMapper extends SuperMapper<RuleSceneVersion> {
 	* @throws
 	 */
 	public RuleSceneVersion getTestLastVersion(Map<String,Object> parmaMap);
+
+	/**
+	 * 根据版本号过去当前规则信息
+	 * @param parmaMap
+	 * @return
+	 */
+	public RuleSceneVersion getInfoByVersionId(Map<String,Object> parmaMap);
 }

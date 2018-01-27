@@ -235,7 +235,7 @@ layui.use([ 'table', 'form' ], function() {
                 "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
                 "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"_column\" name=\""+da[i].variableCode+"_column\" required\n" +
                 "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入列名\" autocomplete=\"off\"\n" +
-                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value='"+da[i].variableCode+"'>\n" +
+                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value='"+da[i].bindColumn+"'>\n" +
                 "\t\t\t\t\t\t\t</div></td>\n" +
                 "\t\t\t\t\t\t</tr>");
         }
