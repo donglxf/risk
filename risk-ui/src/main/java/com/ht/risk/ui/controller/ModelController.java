@@ -60,10 +60,13 @@ public class ModelController {
         return "model/verfication/result/list";
     }
 
-    @RequestMapping(value = "/verfication/result/detail",method = RequestMethod.GET)
-    public String verificationDetail(){
-        return "model/verfication/result/detail";
+    /**
+     * 模型发布
+     * @return
+     */
+    @RequestMapping(value = "/publish/list",method = RequestMethod.GET)
+    public String modelPublish(){
+        return "model/publish/list";
     }
-
 
 }
