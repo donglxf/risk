@@ -83,12 +83,10 @@
         R.IS_EFFECT,
         R.CRE_USER_ID,
         R.CRE_TIME,
-        sr.rule_action_rel_id,
         R.REMARK
         FROM
         rule_info R
         INNER JOIN rule_scene_info S ON S.SCENE_ID = R.SCENE_ID
-        inner join rule_action_rule_rel sr on R.rule_id=sr.rule_id
         WHERE
         1 = 1
         AND S.IS_EFFECT = 1

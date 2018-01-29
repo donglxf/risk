@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////
 var preBindUrl = "/rule/service/variableBind/";
 var preUrl = "/rule/service/strategy/";
-var p_sceneId = -1;
+var p_sceneId = -1,versionIds=0;
 layui.use(['table', 'form','laydate'], function () {
     /**
      * 设置表单值
@@ -101,6 +101,10 @@ layui.use(['table', 'form','laydate'], function () {
         if (obj.event === 'manual_verification') { // 手动验证
             manuTest(data.sceneId, data.versionId,data.sceneIdentify);
         } else if (obj.event === 'auto_verification') { // 自动验证
+            if(data.isBindVar!=1){
+                layer.msg('请先绑定变量！');
+                return ;
+            }
             autoTest(data.sceneId, data.versionId,data.sceneIdentify);
         } else if (obj.event === 'varbind') { // 变量绑定
             edit(data.sceneId, data.versionId);
@@ -109,8 +113,33 @@ layui.use(['table', 'form','laydate'], function () {
 
 
     function manuTest(sceneId, versionId,sceneIdentify){
+        versionIds=versionId;
         var url=preBindUrl+ "getAll?versionId=" + versionId ;
-        $.ajax({
+        var layIndex = layer.open({
+            type: 2,
+            shade: false,
+            title: "",
+            content: "/rule/ui/strategy/manualTest",
+            zIndex: layer.zIndex, //重点1
+            success: function (layero, index) {
+                var body = layer.getChildFrame('body',index);//建立父子联系
+                // var iframeWin = window[layero.find('iframe')[0]['name']];
+                var inputList = body.find("input[type='hidden']");
+                for(var j = 0; j< inputList.length; j++){
+                    var inputName=inputList[j].name;
+                    if(inputName=='senceVersionId'){
+                        $(inputList[j]).val(versionId);
+                    }else if(inputName =='senceId'){
+                        $(inputList[j]).val(sceneId);
+                    }else if(inputName =='sceneIdentify'){
+                        $(inputList[j]).val(sceneIdentify);
+                    }
+                }
+                layer.setTop(layero); //重点2
+            }
+        })
+        layer.full(layIndex);
+        /*$.ajax({
             type: "get",
             url: url,
             dataType: "json",
@@ -145,7 +174,7 @@ layui.use(['table', 'form','laydate'], function () {
                 });
                 layer.full(layIndex);
             }
-        });
+        });*/
     }
 
     <!-- 自动测试 -->

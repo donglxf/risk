@@ -31,7 +31,7 @@
 	<select id="getNoBindVariableRecord" parameterType="com.ht.risk.rule.entity.SceneVersion"
             resultType="com.ht.risk.rule.entity.SceneVersion">
 		select <include refid="Base_Column_List"></include>
-			from rule_scene_version where type=0
+			from rule_scene_version where type=0 order by cre_time desc
 	</select>
 	
 	<select id="getMaxTestVersion" parameterType="map" resultType="map">

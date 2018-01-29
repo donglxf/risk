@@ -13,8 +13,7 @@ public class IntopiecesServiceImpl extends DroolsActionService{
 	
 	private Logger log = LoggerFactory.getLogger(IntopiecesServiceImpl.class);
 	
-    @Override
-    public void execute(RuleExecutionObject fact, RuleExecutionResult result,String key) {
+    public void intoPieces(RuleExecutionObject fact, RuleExecutionResult result,String key,String grade) {
     	log.info("########进件方法开始执行");
     	String flag = String.valueOf(result.getMap().get("flag"));
     	if("是".equals(flag)){

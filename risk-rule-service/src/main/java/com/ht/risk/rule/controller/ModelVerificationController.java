@@ -25,9 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -54,29 +52,22 @@ public class ModelVerificationController {
      * @param verficationVo
      * @return
      */
-    @RequestMapping("/querySingleVerficationInfo")
-    public Result querySingleVerficationInfo(@RequestBody ModelVerficationVo verficationVo){
+    @RequestMapping("/queryTaskVerficationResult")
+    public Result queryTaskVerficationResult(ModelVerficationVo verficationVo){
         LOGGER.info("querySingleVerficationInfo mothod invoke,paramter:"+ JSON.toJSONString(verficationVo));
         Result result = null;
-        // 查询批次相关任务列表
-        RpcModelVerfication rpcModelVerfication = new RpcModelVerfication();
-        rpcModelVerfication.setBatchId(verficationVo.getBatchId());
-        Result<List<RpcActExcuteTaskInfo>> taskResult = activitiConfigRpc.queryTasksByBatchId(rpcModelVerfication);
-        if(taskResult == null || taskResult.getCode() != 0 ||  taskResult.getData() == null){
-            result = Result.error(1,"没有查询到子任务！");
-            return result;
+        Map<String,SenceParamterVo> senceMap = modelAnalysisSerivce.queryTaskVerficationResult(verficationVo.getTaskId());
+        LOGGER.info("querySingleVerficationInfo mothod invoke end,result:"+ JSON.toJSONString(senceMap));
+        Set set = senceMap.keySet();
+        List<SenceParamterVo> sences = new ArrayList<SenceParamterVo>();
+        SenceParamterVo vo = null;
+        for(Iterator<String> iterator = set.iterator();iterator.hasNext();){
+            sences.add(senceMap.get(iterator.next()));
         }
-        List<RpcActExcuteTaskInfo> tasks = taskResult.getData();
-        if(tasks.size()>1){
-            result = Result.success();
-            return result;
+        if(sences != null){
+            result = Result.success(sences);
         }else{
-            Map<String,Object> resultMap = new HashMap<String,Object>();
-            Map<String, List<RpcHitRuleInfo>> hitRule = modelAnalysisSerivce.queryModelVerfHitRuleInfo(tasks.get(0).getProcInstId());
-            Map<Long,SenceParamterVo> paramterData = modelAnalysisSerivce.queryModeVerfDataInfo(tasks.get(0).getId());
-            resultMap.put("hitRule",hitRule);
-            resultMap.put("paramterData",paramterData);
-            result = Result.success(resultMap);
+            result = Result.error(1,"查询异常...");
         }
         LOGGER.info("querySingleVerficationInfo mothod invoke end,result:"+ JSON.toJSONString(result));
         return result;

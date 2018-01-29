@@ -60,7 +60,9 @@
                 A.IS_EFFECT,
                 A.CRE_USER_ID,
                 A.CRE_TIME,
-                A.REMARK
+                A.REMARK,
+                A.action_method,
+                AR.rule_action_rel_id
             FROM
                 rule_action_info A
             INNER JOIN rule_action_rule_rel AR ON AR.ACTION_ID = A.ACTION_ID

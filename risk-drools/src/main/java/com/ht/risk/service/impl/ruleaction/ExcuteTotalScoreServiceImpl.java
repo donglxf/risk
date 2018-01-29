@@ -17,8 +17,7 @@ public class ExcuteTotalScoreServiceImpl extends DroolsActionService{
 	private Logger log = LoggerFactory.getLogger(ExcuteTotalScoreServiceImpl.class);
 	
 	
-    @Override
-    public void execute(RuleExecutionObject fact, RuleExecutionResult result,String key) {
+    public void statistics(RuleExecutionObject fact, RuleExecutionResult result,String key,String grade) {
     	log.info("########统计方法开始");
     	 int scope=0;
          Object total= result.getMap() .get("scope");

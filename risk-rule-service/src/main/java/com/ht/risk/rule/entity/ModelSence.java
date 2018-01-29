@@ -82,6 +82,8 @@ public class ModelSence extends Model<ModelSence> {
     private String createUser;
 
 
+    private transient String senceCode;
+
     @Override
     protected Serializable pkVal() {
         return this.id;

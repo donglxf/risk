@@ -9,6 +9,7 @@ import com.ht.risk.activiti.entity.RiskValidateBatch;
 import com.ht.risk.activiti.service.ActExcuteTaskService;
 import com.ht.risk.activiti.service.RiskValidateBatchService;
 import com.ht.risk.activiti.vo.VerficationModelVo;
+import com.ht.risk.activiti.vo.VerificationBatchVo;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import org.slf4j.Logger;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -32,18 +35,17 @@ public class VerficationResultController {
 
 
     @RequestMapping("/verficationBatchPage")
-    public PageResult<List<RiskValidateBatch>> verficationBatchPage(VerficationModelVo verficationModelVo){
+    public PageResult<List<VerificationBatchVo>> verficationBatchPage(VerficationModelVo verficationModelVo){
         LOGGER.info("resultPage mothod invoke,paramter:"+ JSON.toJSONString(verficationModelVo));
-        PageResult<List<RiskValidateBatch>> result = null;
+        PageResult<List<VerificationBatchVo>> result = null;
         Page<RiskValidateBatch> page = new Page<RiskValidateBatch>();
-        page.setSize(verficationModelVo.getLimit());
-        page.setCurrent(verficationModelVo.getPage());
-        EntityWrapper<RiskValidateBatch> wrapper = new EntityWrapper<RiskValidateBatch>();
-        RiskValidateBatch batch = new RiskValidateBatch();
-        batch.setProcReleaseId(verficationModelVo.getProcReleaseId());
-        wrapper.setEntity(batch);
         page = riskValidateBatchService.queryBatchForPage(verficationModelVo);
-        result =  PageResult.success(page.getRecords(),page.getTotal());
+        List<RiskValidateBatch> list = page.getRecords();
+        List<VerificationBatchVo> vos = new ArrayList<VerificationBatchVo>();
+        for(Iterator<RiskValidateBatch> iterator = list.iterator();iterator.hasNext();){
+            vos.add(new VerificationBatchVo(iterator.next()));
+        }
+        result =  PageResult.success(vos,page.getTotal());
         LOGGER.info("resultPage mothod invoke,reustl:"+ JSON.toJSONString(result));
         return result;
     }

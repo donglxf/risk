@@ -30,5 +30,10 @@ inner join  (select max(version) versions from rule_scene_version where scene_id
 on s.version=a.versions
   where s.scene_identify=#{sceneIdentify} and s.status='1' and s.type=#{type} 
 	</select>
-	
+
+    <select id="getInfoByVersionId" resultType="com.ht.risk.model.RuleSceneVersion" parameterType="map">
+        select <include refid="Base_Column_List" />
+          from rule_scene_version s where version_id=#{versionId} and scene_identify=#{sceneIdentify}
+    </select>
+
 </mapper>
