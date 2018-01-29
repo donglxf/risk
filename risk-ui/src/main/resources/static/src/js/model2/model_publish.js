@@ -12,23 +12,23 @@ layui.use(['table', 'jquery'], function () {
             , {field: 'modelName', title: '模型名称', width: "20%", align: "center"}
             , {field: 'modelCategory', title: '业务线', width: "10%", align: "center"}
             , {field: 'versionTypeAlia', title: '版本类型', width: "10%", align: "center"}
-            , {field: 'modelVersion', title: '版本号', width: "10%", align: "center",sort: true}
+            , {field: 'modelVersion', title: '版本号', width: "10%", align: "center", sort: true}
             , {field: 'isApprovedAlia', title: '审核状态', width: "10%", align: "center"}
             , {field: 'isEffectAlia', title: '启用状态', width: "10%", align: "center"}
             , {fixed: '', width: 150, align: 'center', toolbar: '#barDemo', width: "15%", align: "center"}
         ]]
     });
+
     table.on('tool(model_publish_list)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-        var tr = obj.tr; //获得当前行 tr 的DOM对象
         var modelId = data.id;
         if (layEvent === 'publish') { //发布
-            publish(obj, modelId);
+            changeEffect(obj, modelId, 1);
         } else if (layEvent === 'disable') {// 停用
-            disable(obj,modelId)
+            changeEffect(obj, modelId, 0);
         } else if (layEvent === 'republish') { //重新启用
-            republish(obj, modelId);
+            changeEffect(obj, modelId, 2);
         }
     });
 
@@ -56,64 +56,34 @@ layui.use(['table', 'jquery'], function () {
         active[type] ? active[type].call(this) : '';
     });
 
-    function publish(obj, modelId) {
-        layer.confirm('确认启用模型吗', function (index) {
-            //向服务端发送删除指令
+    function changeEffect(obj, modelId, flag) {
+        var tips = '';
+        if (flag == '0') {
+            tips = "确认停用模型?"
+        } else if (flag == "1") {
+            tips = "确认发布模型?"
+        } else {
+            tips = "确认启用模型?"
+        }
+        layer.confirm(tips, function (index) {
             $.ajax({
                 cache: true,
-                type: "POST",
-                url: '/rule/service/actProcRelease/publish?id=' + modelId,
+                type: "PUT",
+                url: '/rule/service/actProcRelease/status?id=' + modelId + '&flag=' + flag,
                 timeout: 6000, //超时时间设置，单位毫秒
                 async: false,
                 error: function (request) {
                     layer.msg("启用失败！");
                 },
                 success: function (data) {
+                    if (data.code == "1") {
+                        layer.msg("操作失败")
+                    }
                     window.location.href = '/rule/ui/model/publish/list';
                 }
             });
         });
     }
-
-    function republish(obj, modelId) {
-        layer.confirm('确认启用模型吗', function (index) {
-            //向服务端发送删除指令
-            $.ajax({
-                cache: true,
-                type: "POST",
-                url: '/rule/service/actProcRelease/republish?id=' + modelId,
-                timeout: 6000, //超时时间设置，单位毫秒
-                async: false,
-                error: function (request) {
-                    layer.msg("启用失败！");
-                },
-                success: function (data) {
-                    window.location.href = '/rule/ui/model/publish/list';
-                }
-            });
-        });
-    }
-
-    function disable(obj, modelId) {
-        layer.confirm('确认停用模型吗', function (index) {
-            //向服务端发送删除指令
-            $.ajax({
-                cache: true,
-                type: "POST",
-                url: '/rule/service/actProcRelease/disable?id=' + modelId,
-                timeout: 6000, //超时时间设置，单位毫秒
-                async: false,
-                error: function (request) {
-                    layer.msg("停用失败！");
-                },
-                success: function (data) {
-                    window.location.href = '/rule/ui/model/publish/list';
-                }
-            });
-        });
-    }
-
-
 });
 
 
