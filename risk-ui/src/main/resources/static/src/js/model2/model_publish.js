@@ -1,6 +1,7 @@
-layui.use(['table', 'jquery'], function () {
+layui.use(['table', 'jquery','laytpl'], function () {
     var table = layui.table;
     var $ = layui.jquery;
+    var laytpl = layui.laytpl;
     //第一个实例
     table.render({
         elem: '#model_publish_list'
@@ -84,6 +85,26 @@ layui.use(['table', 'jquery'], function () {
             });
         });
     }
+
+    /**
+     * 渲染业务下拉框
+     */
+    $(function () {
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: '/rule/service/business/getAll',
+            timeout: 6000, //超时时间设置，单位毫秒
+            async: false,
+            success: function (data) {
+                var getTpl = demo.innerHTML
+                    ,view = document.getElementById('modelCategory');
+                laytpl(getTpl).render(data, function(html){
+                    view.innerHTML = html;
+                });
+            }
+        });
+    })
 });
 
 
