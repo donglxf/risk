@@ -61,6 +61,7 @@ ModelVerification.prototype = {
     initSelect: function (name, optionData) {
         var html = '<div class="layui-input-inline">';
         html += '<select name="' + name + '0" lay-filter="aihao">';
+        html+='<option value="all">所有</option>';
         for (var i = 0; i < optionData.length; i++) {
             var data = optionData[i];
             html += '<option value="' + data.value + '">' + data.name + '</option>';

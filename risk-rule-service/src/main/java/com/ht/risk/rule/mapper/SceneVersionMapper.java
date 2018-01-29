@@ -38,4 +38,22 @@ public interface SceneVersionMapper extends SuperMapper<SceneVersion> {
 	 */
 	public Map<String,Object> getMaxTestVersion(Map<String,Object> paramMap);
 
+	/**
+	 * 获取规则执行信息
+	 * @return
+	 */
+	Map<String,Object> getRuleExecInfo(Map<String,Object> obj);
+
+	/**
+	 * 计算规则平均耗时
+	 * @return
+	 */
+	List<Map<String,Object>> getRuleAgeTime(Map<String,Object> obj);
+
+	/**
+	 * 统计规则在某段时间内执行次数
+	 * @return
+	 */
+	List<Map<String,Object>> getRuleExecTotal(Map<String,Object> obj);
+
 }

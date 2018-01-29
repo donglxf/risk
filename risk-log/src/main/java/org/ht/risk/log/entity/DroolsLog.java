@@ -75,6 +75,13 @@ public class DroolsLog extends Model<DroolsLog> {
 	@ApiModelProperty(required= true,value = "插入时间")
 	private Date createTime;
 
+	/**
+     * 插入时间
+     */
+	@TableField("execute_time")
+	@ApiModelProperty(required= true,value = "执行时间，毫秒数")
+	private Long executeTime;
+
 
 	public Long getId() {
 		return id;
@@ -148,6 +155,14 @@ public class DroolsLog extends Model<DroolsLog> {
 		this.createTime = createTime;
 	}
 
+	public Long getExecuteTime() {
+		return executeTime;
+	}
+
+	public void setExecuteTime(Long executeTime) {
+		this.executeTime = executeTime;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -165,6 +180,7 @@ public class DroolsLog extends Model<DroolsLog> {
 			", executeTotal=" + executeTotal +
 			", type=" + type +
 			", createTime=" + createTime +
+			", executeTime=" + executeTime +
 			"}";
 	}
 }

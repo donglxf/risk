@@ -48,6 +48,7 @@ public class DroolsExcuteController {
         // 业务数据转化 
         try {
             log.info("规则入参："+JSON.toJSONString(paramter));
+            Long startTime= System.currentTimeMillis();
             BaseRuleSceneInfo baseRuleInfo = new BaseRuleSceneInfo();
 //            Long sceneId = 0L;
 //            BaseRuleSceneInfo info = new BaseRuleSceneInfo();
@@ -73,6 +74,9 @@ public class DroolsExcuteController {
             RuleExecutionResult result = new RuleExecutionResult();
             object.setGlobal("_result", result);
             object = this.droolsRuleEngineService.excute1(object, ruleVersion);
+            Long endTime=System.currentTimeMillis();
+            Long executeTime=endTime-startTime;
+            log.info("规则验证执行时间》》》》》"+String.valueOf(executeTime));
 //            object = this.droolsRuleEngineService.excute(object, sceneId);
 
             // 记录日志
@@ -93,6 +97,7 @@ public class DroolsExcuteController {
 //            entity.setExecuteTotal(Integer.parseInt(String.valueOf(object.getGlobalMap().get("count"))));
             entity.setExecuteTotal(newList.size());
             entity.setModelName(paramter.getModelName());
+            entity.setExecuteTime(String.valueOf(executeTime));
             String logId = droolsLogInterface.saveLog(entity);
             if (ObjectUtils.isNotEmpty(li)) {
                 for (String string : newList) {

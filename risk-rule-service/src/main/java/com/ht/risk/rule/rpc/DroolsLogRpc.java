@@ -23,5 +23,9 @@ public interface DroolsLogRpc {
     public Result<List<RpcDroolsLog>> queryTestModelDroolsLogs(RpcDroolsLog rpcDroolsLog);
 
 
+    @RequestMapping("/testDroolsLog/queryModelDroolsLogs")
+    public Result<List<RpcDroolsLog>> queryDroolsLogs(RpcDroolsLog rpcDroolsLog);
+
+
 
 }
