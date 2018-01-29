@@ -13,13 +13,9 @@ import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -52,6 +48,9 @@ public class ActProcReleaseController {
     @Autowired
     private ConstantInfoService constantInfoService;
 
+    @Autowired
+    private RedisTemplate<String, String> redis;
+
     @GetMapping("list")
     @ApiOperation(value = "查询模型验证信息表")
     public Result<List<ActProcRelease>> list(Page<ActProcRelease> pagination, Integer page, Integer limit, ActProcRelease actProcRelease) {
@@ -60,8 +59,6 @@ public class ActProcReleaseController {
         pagination.setCurrent(page);
         EntityWrapper<ActProcRelease> ew = new EntityWrapper<>();
         if ("" != actProcRelease.getModelName() && actProcRelease.getModelName() != null) {
-            //精确查询
-            //ew.eq("MODEL_NAME", actProcRelease.getModelName());
             //模糊查询
             ew.like("MODEL_NAME", "%" + actProcRelease.getModelName() + "%");
         }
@@ -70,6 +67,9 @@ public class ActProcReleaseController {
         }
         if ("" != actProcRelease.getModelCategory() && actProcRelease.getModelCategory() != null) {
             ew.eq("MODEL_CATEGORY", actProcRelease.getModelCategory());
+        }
+        if ("" != actProcRelease.getIsEffect() && actProcRelease.getIsEffect() != null) {
+            ew.eq("IS_EFFECT", actProcRelease.getIsEffect());
         }
         Page<ActProcRelease> pages = actProcReleaseService.selectPage(pagination, ew);
         // 0-待验证，1-验证通过，2-验证不通过；默认为0;
@@ -85,11 +85,44 @@ public class ActProcReleaseController {
                 default:
                     act.setIsValidateAlia(StatusConstants.NOT_YET_VALIDATE);
             }
+            switch (act.getIsApprove()) {
+                case "1":
+                    act.setIsApprovedAlia(StatusConstants.ALREADY_APPROVED);
+                    break;
+                case "2":
+                    act.setIsApprovedAlia(StatusConstants.NOT_ALLOW_ARRPOVED);
+                    break;
+                default:
+                    act.setIsApprovedAlia(StatusConstants.NOT_YET_APPROVE);
+            }
+            //测试版还是正式版
+            switch (act.getVersionType()) {
+                case "0":
+                    act.setVersionTypeAlia(StatusConstants.BETA_VERSION);
+                    break;
+                case "1":
+                    act.setVersionTypeAlia(StatusConstants.RELEASE_VERSION);
+                    break;
+            }
+            //有效状态
+            if ("1".equals(act.getVersionType())) {
+                switch (act.getIsEffect()) {
+                    case "0":
+                        act.setIsEffectAlia(StatusConstants.EFFECT);
+                        break;
+                    case "1":
+                        act.setIsEffectAlia(StatusConstants.NOT_EFFECT);
+                        break;
+                    default:
+                        act.setIsEffectAlia(StatusConstants.NOT_EFFECT);
+                }
+            } else {
+                act.setIsEffectAlia(StatusConstants.NOT_YET_PUBLISH);
+            }
         }
         Result<List<ActProcRelease>> result = Result.build(0, "查询成功", pages.getRecords(), pages.getTotal());
         return result;
     }
-
 
     @GetMapping(value = "scene/variable/manual")
     @ApiOperation(value = "根据模型id查询策列表，评分卡，以及绑定变量")
@@ -121,6 +154,7 @@ public class ActProcReleaseController {
                 if ("CONSTANT".equals(variableBind.getDataType())) {
                     String variableCode = variableBind.getVariableCode();
                     //查询单个变量对象的常量列表
+                    //判断redis中是否存在
                     List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", variableCode).eq("con_type", "1"));
                     ArrayList<Map<String, String>> list = new ArrayList<>();
                     for (ConstantInfo constantInfo : ciList) {
@@ -219,5 +253,36 @@ public class ActProcReleaseController {
         }
         return Result.error(1, "保存失败");
     }
+
+    @PutMapping(value = "status")
+    @ApiOperation(value = "发布.启用或停用模型")
+    public Result publishModelById(ActProcRelease actProcRelease, String flag) {
+        Result<Object> result = new Result<>();
+        //通过flag判断要修改的状态
+        if ("0".equals(flag)) {
+            actProcRelease.setIsEffect("1");
+        } else {
+            actProcRelease.setIsEffect("0");
+            actProcRelease.setVersionType("1");
+        }
+        boolean b = actProcReleaseService.updateById(actProcRelease);
+        if (b) {
+            result.setCode(1);
+        } else {
+            result.setCode(0);
+        }
+        return result;
+    }
+
+    @GetMapping(value = "redis")
+    @ApiOperation(value = "redis测试")
+    public Object redisTest() {
+        redis.opsForValue().set("new", "new");
+        String s = redis.opsForValue().get("new");
+        logger.info("----redis测试----拿到值" + "new : " + s);
+        redis.opsForList().range("new", 0L, 1L);
+        return null;
+    }
+
 }
 

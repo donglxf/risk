@@ -46,6 +46,36 @@ public class ActProcRelease extends Model<ActProcRelease> implements Serializabl
     private String IsValidateAlia;
 
     /**
+     * 用于展示验证状态
+     */
+    @TableField(exist = false)
+    private String versionTypeAlia;
+
+    /**
+     * 用于展示验证状态
+     */
+    @TableField(exist = false)
+    private String betaVersion;
+
+    /**
+     * 用于展示验证状态
+     */
+    @TableField(exist = false)
+    private String releaseVersion;
+
+    /**
+     * 用于展示审核状态
+     */
+    @TableField(exist = false)
+    private String isApprovedAlia;
+
+    /**
+     * 用于展示有效状态
+     */
+    @TableField(exist = false)
+    private String isEffectAlia;
+
+    /**
      * 主键
      */
     @TableId("ID")

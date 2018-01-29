@@ -365,5 +365,4 @@ ModelAutoVerification.prototype = {
         return html;
     }
 
-
 }

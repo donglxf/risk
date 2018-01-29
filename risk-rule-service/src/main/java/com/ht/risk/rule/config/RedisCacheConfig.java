@@ -3,6 +3,8 @@ package com.ht.risk.rule.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -15,24 +17,28 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @EnableAutoConfiguration
-public class RedisCacheConfig extends CachingConfigurerSupport{
-	@Value("${spring.redis.host}")
+public class RedisCacheConfig extends CachingConfigurerSupport {
+
+    private static Logger logger = LoggerFactory.getLogger(RedisCacheConfig.class);
+
+    @Value("${spring.redis.host}")
     private String host;
-    
+
     @Value("${spring.redis.port}")
     private int port;
-    
+
     @Value("${spring.redis.timeout}")
     private int timeout;
-    
+
     @Value("${spring.redis.database}")
     private int database;
-    
+
     @Value("${spring.redis.password}")
     private String password;
 
     /**
      * 连接redis的工厂类
+     *
      * @return
      */
     @Bean
@@ -52,6 +58,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport{
      * key 使用string序列化器
      * value 使用Json序列化器
      * 还有一种简答的设置方式，改变defaultSerializer对象的实现。
+     *
      * @return
      */
     @Bean

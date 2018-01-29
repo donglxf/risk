@@ -12,58 +12,62 @@ public class ModelController {
 
     private static Logger logger = LoggerFactory.getLogger(ModelController.class);
 
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public String unDeployList(){
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String unDeployList() {
         return "model/list";
     }
 
-    @RequestMapping(value = "/modelDetail",method = RequestMethod.GET)
-    public String modelDetail(){
+    @RequestMapping(value = "/modelDetail", method = RequestMethod.GET)
+    public String modelDetail() {
         return "modeler";
     }
 
 
-    @RequestMapping(value = "/deployList",method = RequestMethod.GET)
-    public String deployList(){
+    @RequestMapping(value = "/deployList", method = RequestMethod.GET)
+    public String deployList() {
         return "model/deploy_list";
     }
 
-    @RequestMapping(value = "/addView",method = RequestMethod.GET)
-    public String addView(){
+    @RequestMapping(value = "/addView", method = RequestMethod.GET)
+    public String addView() {
         return "model/add";
     }
 
-    @RequestMapping(value = "/startView",method = RequestMethod.GET)
-    public String startView(){
+    @RequestMapping(value = "/startView", method = RequestMethod.GET)
+    public String startView() {
         return "model/start";
     }
 
-    @RequestMapping(value = "/verfication",method = RequestMethod.GET)
-    public String verification(){
+    @RequestMapping(value = "/verfication", method = RequestMethod.GET)
+    public String verification() {
         return "model/verfication/list";
     }
 
-    @RequestMapping(value = "/valiable",method = RequestMethod.GET)
-    public String valiable(){
+    @RequestMapping(value = "/valiable", method = RequestMethod.GET)
+    public String valiable() {
         logger.info("手动测试");
         return "model/verfication/model2";
     }
 
-    @RequestMapping(value = "/valiable/auto",method = RequestMethod.GET)
-    public String valiableAuto(){
+    @RequestMapping(value = "/valiable/auto", method = RequestMethod.GET)
+    public String valiableAuto() {
         logger.info("请求自动测试页面");
         return "model/verfication/model_auto";
     }
 
-    @RequestMapping(value = "/verfication/result",method = RequestMethod.GET)
-    public String verficationResult(){
+    @RequestMapping(value = "/verfication/result", method = RequestMethod.GET)
+    public String verficationResult() {
         return "model/verfication/result/list";
     }
 
-    @RequestMapping(value = "/verfication/result/detail",method = RequestMethod.GET)
-    public String verificationDetail(){
-        return "model/verfication/result/detail";
+    /**
+     * 模型发布
+     *
+     * @return
+     */
+    @RequestMapping(value = "/publish/list", method = RequestMethod.GET)
+    public String modelPublish() {
+        return "model/publish/list";
     }
-
 
 }

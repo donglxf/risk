@@ -11,7 +11,8 @@
 
 <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
     <div class="layui-col-md2">
-        <input type="text" name="modelName" id="modelName" required lay-verify="required" placeholder="请输入模型名称" autocomplete="off"
+        <input type="text" name="modelName" id="modelName" required lay-verify="required" placeholder="请输入模型名称"
+               autocomplete="off"
                class="layui-input">
     </div>
 
@@ -26,9 +27,7 @@
 
     <div class="layui-col-md1">
         <select class="layui-select" id="modelCategory" name="modelCategory" lay-verify="">
-            <option value="">选择业务</option>
-            <option value="RDMS">房速贷</option>
-            <option value="YDT">一点通</option>
+
         </select>
     </div>
     <div class="layui-col-md1">
@@ -40,6 +39,15 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="manual_verification">手动验证</a>
     <a class="layui-btn layui-btn-xs" lay-event="auto_verification">自动验证</a>
+</script>
+
+<script id="demo" type="text/html">
+    <option value="">选择业务</option>
+    {{#  layui.each(d.data, function(index, item){ }}
+    <option value="{{item.businessName}}">
+        {{item.businessDesc}}
+    </option>
+    {{#  }); }}
 </script>
 <table id="model_list" lay-filter="model" lay-data="{id: 'idModel'}"></table>
 </div>
