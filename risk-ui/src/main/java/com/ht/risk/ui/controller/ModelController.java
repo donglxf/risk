@@ -60,5 +60,13 @@ public class ModelController {
         return "model/verfication/result/list";
     }
 
+    /**
+     * 模型发布
+     * @return
+     */
+    @RequestMapping(value = "/publish/list",method = RequestMethod.GET)
+    public String modelPublish(){
+        return "model/publish/list";
+    }
 
 }
