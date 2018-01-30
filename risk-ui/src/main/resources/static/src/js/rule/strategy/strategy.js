@@ -101,20 +101,20 @@ layui.use(['table', 'form','laydate'], function () {
         var data = obj.data;
         console.log(obj);
         if (obj.event === 'manual_verification') { // 手动验证
-            manuTest(data.sceneId, data.versionId,data.sceneIdentify);
+            manuTest(data.sceneId, data.versionId,data.sceneIdentify,data.version);
         } else if (obj.event === 'auto_verification') { // 自动验证
             if(data.isBindVar!=1){
                 layer.msg('请先绑定变量！');
                 return ;
             }
-            autoTest(data.sceneId, data.versionId,data.sceneIdentify);
+            autoTest(data.sceneId, data.versionId,data.sceneIdentify,data.version);
         } else if (obj.event === 'variable_bind') { // 变量绑定
             edit(data.sceneId, data.versionId);
         }
     });
 
 
-    function manuTest(sceneId, versionId,sceneIdentify){
+    function manuTest(sceneId, versionId,sceneIdentify,version){
         versionIds=versionId;
         var url=preBindUrl+ "getAll?versionId=" + versionId ;
         var layIndex = layer.open({
@@ -135,6 +135,8 @@ layui.use(['table', 'form','laydate'], function () {
                         $(inputList[j]).val(sceneId);
                     }else if(inputName =='sceneIdentify'){
                         $(inputList[j]).val(sceneIdentify);
+                    }else if(inputName =='version'){
+                        $(inputList[j]).val(version);
                     }
                 }
                 layer.setTop(layero); //重点2
@@ -180,7 +182,7 @@ layui.use(['table', 'form','laydate'], function () {
     }
 
     <!-- 自动测试 -->
-    function autoTest(sceneId, versionId,sceneIdentify) {
+    function autoTest(sceneId, versionId,sceneIdentify,version) {
         var url=preBindUrl+ "getAll?versionId=" + versionId ;
         $.ajax({
             type: "get",
@@ -208,6 +210,8 @@ layui.use(['table', 'form','laydate'], function () {
                                 $(inputList[j]).val(sceneId);
                             }else if(inputName =='sceneIdentify'){
                                 $(inputList[j]).val(sceneIdentify);
+                            }else if(inputName =='version') {
+                                $(inputList[j]).val(version);
                             }
                         }
                         layer.setTop(layero); //重点2

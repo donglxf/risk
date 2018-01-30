@@ -30,7 +30,7 @@
 
     <select id="getNoBindVariableRecord" parameterType="map"
             resultType="com.ht.risk.rule.vo.SceneVersionInfoVo">
-        select rv.title,rv.version,rv.is_bind_var,rv.test_status,rs.scene_type senceType
+        select rv.scene_id sceneId,rv.title,rv.version,rv.is_bind_var,rv.test_status,rs.scene_type senceType
         ,rb.business_id,rb.business_name,rv.version_id versionId,rs.scene_identify sceneIdentify
         from rule_scene_version rv inner join rule_scene_info rs on rv.scene_id=rs.scene_id inner join risk_business rb
         on rs.business_id=

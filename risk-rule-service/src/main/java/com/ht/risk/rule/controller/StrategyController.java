@@ -62,7 +62,7 @@ public class StrategyController {
     }
 
     @GetMapping("manuaRuleMatchResult/{logId}/{versionId}")
-    @ApiOperation(value = "获取规则验证结果")
+    @ApiOperation(value = "获取手动规则验证结果")
     public PageResult<List<RuleHisVersionVo>> manuaRuleMatchResult(@PathVariable("logId") String logId, @PathVariable("versionId") String versionId) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", logId);
@@ -79,11 +79,11 @@ public class StrategyController {
         paramMap.put("senceVersionId", versionId);
         PageResult<List<RuleHisVersionVo>> list = manuaRuleMatchResult(logId, versionId);
 
+        // 根据批次号查询传入变量名和值
         List<Map<String, Object>> listMap = ruleHisVersionService.getRuleBatchValidationResult(paramMap);
         List<RuleHisVersionVo> paramList = new ArrayList<RuleHisVersionVo>();
         for (Map<String, Object> ma : listMap) {
             JSONObject json = JSONObject.parseObject((String) ma.get("IN_PARAMTER")).getJSONObject("data");
-            ;
             RuleHisVersionVo vo = new RuleHisVersionVo();
             vo.setVariableName((String) ma.get("VARIABLE_NAME"));
             vo.setVariableValue((String) json.get(ma.get("VARIABLE_CODE")));
