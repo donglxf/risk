@@ -117,7 +117,7 @@ public class SceneVersionController {
     @PostMapping ("push")
     @ApiOperation(value = "版本发布-测试版")
     @Transactional(rollbackFor = RuntimeException.class)
-    public Result<Integer> push(SceneVersion version){
+    public Result<Integer> push(SceneVersion version) throws  Exception{
 
         SceneInfo sceneInfo = sceneInfoService.selectById(version.getSceneId());
         if(sceneInfo == null ){
@@ -146,6 +146,18 @@ public class SceneVersionController {
         sceneVersionService.insert(version);
         //保存 版本附带信息
         sceneVersionService.addRuleDescAndVarids(sceneInfo,version);
+
+        //版本动作关联表
+        List<ActionInfo> actionInfos = actionInfoService.findRuleActionListByScene(sceneInfo);
+
+
+        actionInfos.forEach(actionInfo -> {
+            RuleActionVersion rel = new RuleActionVersion();
+            rel.setVersionId(version.getVersionId());
+            rel.setActionClass(actionInfo.getActionClass());
+            rel.setActionId(actionInfo.getActionId());
+            ruleActionVersionService.insert(rel);
+        });
         return Result.success(0);
     }
     @PostMapping ("push4zs")
@@ -177,15 +189,6 @@ public class SceneVersionController {
         version.setOfficialVersion(maxVersion+"");
         version.setType(1);
         sceneVersionService.updateById(version);
-        //版本动作关联表
-        List<ActionInfo> actionInfos = actionInfoService.findRuleActionListByScene(sceneInfo);
-        actionInfos.forEach(actionInfo -> {
-            RuleActionVersion rel = new RuleActionVersion();
-            rel.setVersionId(versionId);
-            rel.setActionClass(actionInfo.getActionClass());
-            rel.setActionId(actionInfo.getActionId());
-            ruleActionVersionService.insert(rel);
-        });
 
         return Result.success(0);
     }
