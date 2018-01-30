@@ -53,7 +53,7 @@
         </if>
         GROUP BY SENCE_VERSIONID  order by  execute_time desc
         <if test="getWay != 'all'">
-            limit 0,#{getWay}
+            limit 0,${getWay}
         </if>
     </select>
 
@@ -68,7 +68,7 @@
         </if>
         GROUP BY  EXECUTE_RULENAME
         <if test="getWay != 'all'">
-            limit 0,#{getWay}
+            limit 0,${getWay}
         </if>
 
     </select>
