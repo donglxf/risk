@@ -37,5 +37,40 @@
 	<select id="getMaxTestVersion" parameterType="map" resultType="map">
 		select max(version) maxVersion from rule_scene_version where scene_id=#{sceneId} and scene_identify = #{sceneIdentify} and type=#{type}
 	</select>
-	
+
+    <select id="getRuleExecInfo" resultType="java.util.Map" parameterType="map">
+        select rs.scene_id,rs.scene_identify,rs.scene_name,rs.cre_time,rv.version,rv.title,rv.version_id
+            from rule_scene_info rs inner join rule_scene_version rv on rs.scene_id=rv.scene_id where version_id= #{versionId}
+    </select>
+
+    <select id="getRuleAgeTime" resultType="java.util.Map" parameterType="map">
+        select SENCE_VERSIONID as senceVersionId ,AVG(execute_time) executeTime ,count(execute_time) execTotal  from RISK_DROOLS_LOG t  where 1=1
+        <if test="startTime !=null and startTime!='' ">
+            and CREATE_TIME>=#{startTime}
+        </if>
+        <if test="endTime !=null and endTime!='' ">
+            and CREATE_TIME <![CDATA[ <= ]]> #{endTime}
+        </if>
+        GROUP BY SENCE_VERSIONID  order by  execute_time desc
+        <if test="getWay != 'all'">
+            limit 0,${getWay}
+        </if>
+    </select>
+
+    <select id="getRuleExecTotal" resultType="java.util.Map" parameterType="map">
+        select rd.EXECUTE_RULENAME executeRuleName,count(DROOLS_LOGID) executeTotal from RISK_TEST_DROOLS_LOG rl inner join RISK_TEST_DROOLS_DETAIL_LOG rd on  rl.ID=rd.DROOLS_LOGID
+        where  1=1
+        <if test="startTime !=null and startTime!='' ">
+            and rl.CREATE_TIME>=#{startTime}
+        </if>
+        <if test="endTime !=null and endTime!='' ">
+            and rl.CREATE_TIME <![CDATA[ <= ]]> #{endTime}
+        </if>
+        GROUP BY  EXECUTE_RULENAME
+        <if test="getWay != 'all'">
+            limit 0,${getWay}
+        </if>
+
+    </select>
+
 </mapper>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>table模块快速使用</title>
+<link rel="stylesheet" href="/rule/ui/plugins/layui/css/layui.css"
+	media="all">
+<link rel="stylesheet"
+	href="/rule/ui/plugins/font-awesome/css/font-awesome.min.css"
+	media="all" />
+</head>
+<body>
+<div class="admin-main">
+
+	<div class="layui-row" style="margin-top: 10px;margin-left: auto ">
+		<form class="layui-form" action="javascript:void(0);">
+			<input type="hidden" name="sceneId" id="sceneId">
+			<div class="layui-input-inline">
+				<!--<label id="ruleList" />-->
+			</div>
+			<!--<div class="layui-input-inline">
+				<a href="javascript:void(0)" onclick="">今天</a>
+				<a href="javascript:void(0)" onclick="">最近7天</a>
+				<a href="javascript:void(0)" onclick="">最近30天</a>
+			</div>-->
+			<div class="layui-input-inline">
+				<div class="layui-input-inline">
+					<!--<label class="layui-form-label">开始日期:</label>-->
+					<input type="text" name="startDate" id="startDate" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+				</div>
+				<div class="layui-input-inline">
+					<!--<label class="layui-form-label">结束日期:</label>-->
+					<input type="text" name="endDate" id="endDate" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-input-inline">
+				<!--<label class="layui-form-label">数量:</label>-->
+				<select id="getWay" class="layui-select" name="getWay" lay-verify="ss">
+					<option value="all">全部</option>
+					<option value="10">十条</option>
+					<option value="15">十五条</option>
+				</select>
+			</div>
+			<div class="layui-input-inline">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit lay-filter="formDemo">查询</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<div class="layui-form-item">
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
+			<legend>平均响应时间(ms)</legend>
+		</fieldset>
+		<div id="container" style="width: 100%;height: 300px;"></div>
+	</div>
+	<div class="layui-form-item">
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
+			<legend>规则命中量</legend>
+		</fieldset>
+		<div id="rule" style="width: 100%;height: 300px;"></div>
+	</div>
+
+</div>
+
+	<script src="/rule/ui/plugins/layui/layui.js"></script>
+	<script src="/rule/ui/src/js/model/model_util.js"></script>
+	<script src="/rule/ui/src/js/supervision/ruleReport.js"></script>
+	<script src="/rule/ui/plugins/echarts/echarts.js"></script>
+<script src="/rule/ui/plugins/jquery-1.9.1.min.js"></script>
+
+
+<script>
+	function graphTime(da){
+        var xAxisArr=new Array(da.ruleMap.length);
+        var seriesArr=new Array(da.listMap.length);
+		for(var i=0;i<da.ruleMap.length ;i++){
+            xAxisArr[i]=da.ruleMap[i].title;
+		}
+		for(var i=0;i<da.listMap.length ;i++){
+            seriesArr[i]=da.listMap[i].executeTime;
+		}
+
+		var dom = document.getElementById("container");
+		var myChart = echarts.init(dom);
+		var app = {};
+		option = null;
+		option = {
+			xAxis: {
+				type: 'category',
+				data: xAxisArr
+			},
+			yAxis: {
+				type: 'value'
+			},
+            animation:true,// 是否开启动画
+            tooltip: {
+                formatter: function (params) {
+					console.log(params.name);
+					console.log(params.value);
+                    return params.data;
+                }
+            },
+			series: [{
+				data: seriesArr,
+				type: 'line'
+			}]
+		};
+		if (option && typeof option === "object") {
+			myChart.setOption(option, true);
+		}
+	}
+
+	function ruleExecuteTotal(da){
+        var xAxisArr=new Array(da.ruleExecuteTotal.length);
+        var seriesArr=new Array(da.ruleExecuteTotal.length);
+		for(var i=0;i<da.ruleExecuteTotal.length ;i++){
+            xAxisArr[i]=da.ruleExecuteTotal[i].executeRuleName;
+            seriesArr[i]=da.ruleExecuteTotal[i].executeTotal;
+		}
+		var dom = document.getElementById("rule");
+		var myChart = echarts.init(dom);
+		var app = {};
+		option = null;
+		option = {
+			xAxis: {
+				type: 'category',
+				data: xAxisArr
+			},
+			yAxis: {
+				type: 'value'
+			},
+            animation:true,// 是否开启动画
+            tooltip: {
+                formatter: function (params,ticket, callback) {
+                    var html=formatRuleContent(params.name);
+                    var json=JSON.parse(html.responseText);
+                    return json.data.ruleDesc;
+                }
+            },
+			series: [{
+				data: seriesArr,
+				type: 'line'
+			}]
+		};
+		if (option && typeof option === "object") {
+			myChart.setOption(option, true);
+		}
+	}
+
+	function formatRuleContent(ruleName){
+		console.log(ruleName);
+       var html = $
+            .ajax({
+                cache: true,
+                type: "GET",
+                url: '/rule/service/ruleReport/formatRuleName/', // 数据接口
+                data: {"ruleName":ruleName},// 你的formid
+                async: false,
+                error: function (request) {
+                },
+                success: function (da) {
+					return da;
+                }
+            });
+        return html;
+	}
+
+
+    //Demo
+    layui.use(['form','laydate'], function(){
+        var form = layui.form;
+        var app = layui.app,
+            layerTips = layui.layer,
+            $ = layui.jquery,laydata=layui.laydate;
+        laydata.render({
+            elem: '#startDate'
+        });
+        laydata.render({
+            elem: '#endDate'
+        });
+
+        form.on('submit(formDemo)',function (data) {
+            $
+                .ajax({
+                    cache: true,
+                    type: "POST",
+                    url: '/rule/service/ruleReport/statistic/', // 数据接口
+                    data: data.field,// 你的formid
+                    async: false,
+                    error: function (request) {
+                    },
+                    success: function (da) {
+                        console.log(da);
+                        graphTime(da.data);
+                        ruleExecuteTotal(da.data);
+                    }
+                });
+        });
+
+        form.on('select(aihao)', function(data){
+            var ht=$('.layui-form-select .layui-this').last().html(); // 获取选中下拉框的html文本
+            $("#sceneId").val(data.value);
+            //console.log(data); //得到select原始DOM对象
+            //console.log(data.elem); //得到select原始DOM对象
+            //console.log(data.value); //得到被选中的值
+            //console.log(data.othis); //得到美化后的DOM对象
+        });
+
+        form.render("");
+    });
+
+</script>
+</body>
+</html>

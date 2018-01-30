@@ -3,9 +3,14 @@ package org.ht.risk.log.controller;
 import javax.annotation.Resource;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.api.model.drools.RpcDroolsLog;
 import com.ht.risk.api.model.log.RpcHitRuleInfo;
+import com.ht.risk.common.comenum.ActionEnum;
+import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.ht.risk.log.entity.DroolsLog;
@@ -13,10 +18,7 @@ import org.ht.risk.log.service.DroolsLogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -46,6 +48,26 @@ public class DroolsLogController {
         }
         return str;
     }
+
+	@GetMapping("/page")
+	@ApiOperation(value = "分页查询")
+	public PageResult<List<DroolsLog>> page(String key, Integer page, Integer limit) {
+		Wrapper<DroolsLog> wrapper = new EntityWrapper<>();
+		if (org.apache.commons.lang.StringUtils.isNotBlank(key)) {
+			wrapper.or().ge("create_time",key);
+		}
+
+		Page<DroolsLog> pages = new Page<>();
+		pages.setCurrent(page);
+		pages.setSize(limit);
+		pages = droolsLogService.selectPage(pages, wrapper);
+		return PageResult.success(pages.getRecords(), pages.getTotal());
+	}
+
+
+
+
+
 
 
 }

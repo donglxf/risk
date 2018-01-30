@@ -14,11 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -258,51 +254,25 @@ public class ActProcReleaseController {
         return Result.error(1, "保存失败");
     }
 
-
-    @PostMapping(value = "republish")
-    @ApiOperation(value = "重新启用模型")
-    public Result republishModelById(ActProcRelease actProcRelease) {
+    @PutMapping(value = "status")
+    @ApiOperation(value = "发布.启用或停用模型")
+    public Result publishModelById(ActProcRelease actProcRelease, String flag) {
         Result<Object> result = new Result<>();
-        actProcRelease.setIsEffect("0");
+        //通过flag判断要修改的状态
+        if ("0".equals(flag)) {
+            actProcRelease.setIsEffect("1");
+        } else {
+            actProcRelease.setIsEffect("0");
+            actProcRelease.setVersionType("1");
+        }
         boolean b = actProcReleaseService.updateById(actProcRelease);
         if (b) {
-            result.setMsg("模型已启用");
+            result.setCode(1);
         } else {
-            result.setMsg("模型未启用");
+            result.setCode(0);
         }
         return result;
     }
-
-    @PostMapping(value = "publish")
-    @ApiOperation(value = "发布或重新启用模型")
-    public Result publishModelById(ActProcRelease actProcRelease) {
-        Result<Object> result = new Result<>();
-        actProcRelease.setIsEffect("0");
-        //发布后把模型改为正式版
-        actProcRelease.setVersionType("1");
-        boolean b = actProcReleaseService.updateById(actProcRelease);
-        if (b) {
-            result.setMsg("模型已发布");
-        } else {
-            result.setMsg("模型未发布");
-        }
-        return result;
-    }
-
-    @PostMapping(value = "disable")
-    @ApiOperation(value = "停用模型")
-    public Result disableModelById(ActProcRelease actProcRelease) {
-        Result<Object> result = new Result<>();
-        actProcRelease.setIsEffect("1");
-        boolean b = actProcReleaseService.updateById(actProcRelease);
-        if (b) {
-            result.setMsg("模型停用成功");
-        } else {
-            result.setMsg("模型停用失败");
-        }
-        return result;
-    }
-
 
     @GetMapping(value = "redis")
     @ApiOperation(value = "redis测试")

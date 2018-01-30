@@ -1,10 +1,10 @@
-var modelIds="";
-layui.use(['table', 'jquery', 'laydate', 'form'], function () {
+var modelIds = "";
+layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
     var table = layui.table;
     var $ = layui.jquery;
     var laydate = layui.laydate;
     var form = layui.form;
-
+    var laytpl = layui.laytpl;
 
     //第一个实例
     table.render({
@@ -57,7 +57,7 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
         var modelId = data.id;
         modelIds = modelId;
         if (layEvent === 'manual_verification') { //手动验证
-            var layIndex =layer.open({
+            var layIndex = layer.open({
                 type: 2,
                 shade: false,
                 title: "",
@@ -70,7 +70,7 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
             });
             layer.full(layIndex);
         } else if (layEvent === 'auto_verification') {
-            var layIndex =layer.open({
+            var layIndex = layer.open({
                 type: 2,
                 shade: false,
                 title: "",
@@ -86,61 +86,80 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
     });
 
 
-form.on('submit(save)', function (data) {
-    $.ajax({
-        cache: true,
-        type: "POST",
-        url: '/rule/service/actProcRelease/scene/variable/init',
-        data: data.field,// 你的formid
-        async: false,
-        success: function (data) {
-            layer.msg(data.msg);
-        }
+    form.on('submit(save)', function (data) {
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: '/rule/service/actProcRelease/scene/variable/init',
+            data: data.field,// 你的formid
+            async: false,
+            success: function (data) {
+                layer.msg(data.msg);
+            }
+        });
+        return false;
     });
-    return false;
-});
 
-$("#test").click(function () {
-    layer.msg("需调用其它接口");
-});
-
-
-form.on('submit(save_auto)', function (data) {
-    console.log('保存自动校验变量');
-    $.ajax({
-        cache: true,
-        type: "POST",
-        url: '/rule/service/actProcRelease/scene/variable/init/auto',
-        data: data.field,// 你的formid
-        async: false,
-        success: function (data) {
-            layer.msg(data.msg);
-        }
+    $("#test").click(function () {
+        layer.msg("需调用其它接口");
     });
-    return false;
-});
 
-$("#test").click(function () {
-    layer.msg("需调用其它接口");
-});
+
+    form.on('submit(save_auto)', function (data) {
+        console.log('保存自动校验变量');
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: '/rule/service/actProcRelease/scene/variable/init/auto',
+            data: data.field,// 你的formid
+            async: false,
+            success: function (data) {
+                layer.msg(data.msg);
+            }
+        });
+        return false;
+    });
+
+    $("#test").click(function () {
+        layer.msg("需调用其它接口");
+    });
 
 
 //时间选择器
-laydate.render({
-    elem: '.date'
-    , type: 'datetime'
-});
-
-$('.time').each(function () {
-    var id = $(this).attr("id");
     laydate.render({
-        elem: '#' + id
+        elem: '.date'
         , type: 'datetime'
     });
 
+    $('.time').each(function () {
+        var id = $(this).attr("id");
+        laydate.render({
+            elem: '#' + id
+            , type: 'datetime'
+        });
+
+    });
+
+    /**
+     * 渲染业务下拉框
+     */
+    $(function () {
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: '/rule/service/business/getAll',
+            timeout: 6000, //超时时间设置，单位毫秒
+            async: false,
+            success: function (data) {
+                var getTpl = demo.innerHTML
+                    ,view = document.getElementById('modelCategory');
+                laytpl(getTpl).render(data, function(html){
+                    view.innerHTML = html;
+                });
+            }
+        });
+    })
 });
-})
-;
 
 // var data = {
 //     "modelName": "房贷模型",
