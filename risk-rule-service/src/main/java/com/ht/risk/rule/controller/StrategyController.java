@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.ht.risk.common.comenum.RuleTestStateEnum;
+import com.ht.risk.common.comenum.VbindStateEnum;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.rule.entity.SceneVersion;
 import com.ht.risk.rule.service.RuleHisVersionService;
@@ -32,17 +34,30 @@ public class StrategyController {
 
     @GetMapping("page")
     @ApiOperation(value = "分页查询")
-    public PageResult<List<SceneVersion>> rulePage(String key, Integer page, Integer limit) {
+    public PageResult<List<SceneVersion>> rulePage(String key, String businessLine, String businessType, Integer page, Integer limit) {
+        Map<String,Object> paramMap=new HashMap<String,Object>();
         Wrapper<SceneVersion> wrapper = new EntityWrapper<>();
         if (StringUtils.isNotBlank(key)) {
-            wrapper.like("title", key);
-            wrapper.or().like("comment", key);
-            wrapper.or().like("version", key);
+//            wrapper.like("rv.title", key);
+//            wrapper.or().like("rv.comment", key);
+//            wrapper.or().like("rv.version", key);
+            key = VbindStateEnum.findByName(key) != null ? VbindStateEnum.findByName(key).getCode() : RuleTestStateEnum.findByName(key)==null ? key : RuleTestStateEnum.findByName(key).getCode();
+            paramMap.put("title",key);
+            paramMap.put("is_bind_var", key);
+            paramMap.put("test_status", key);
+            paramMap.put("version",key);
+        }
+        if(StringUtils.isNotBlank(String.valueOf(businessLine))){
+            paramMap.put("business_id",businessLine);
+        }
+        if(StringUtils.isNotBlank(businessType)){
+            paramMap.put("scene_type",businessType);
         }
         Page<SceneVersion> pages = new Page<>();
         pages.setCurrent(page);
         pages.setSize(limit);
-        pages = sceneVersionService.getNoBindVariableRecord(pages, wrapper);
+
+        pages = sceneVersionService.getNoBindVariableRecord(pages, wrapper,paramMap);
         return PageResult.success(pages.getRecords(), pages.getTotal());
     }
 
@@ -58,24 +73,25 @@ public class StrategyController {
 
     @GetMapping("ruleMatchResult/{logId}/{versionId}")
     @ApiOperation(value = "获取规则验证结果")
-    public PageResult<Map<String,Object>> ruleMatchResult(@PathVariable("logId") String logId, @PathVariable("versionId") String versionId) {
+    public PageResult<Map<String, Object>> ruleMatchResult(@PathVariable("logId") String logId, @PathVariable("versionId") String versionId) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", logId);
         paramMap.put("senceVersionId", versionId);
-        PageResult<List<RuleHisVersionVo>> list = manuaRuleMatchResult(logId,versionId);
+        PageResult<List<RuleHisVersionVo>> list = manuaRuleMatchResult(logId, versionId);
 
-        List<Map<String,Object>> listMap=ruleHisVersionService. getRuleBatchValidationResult(paramMap);
-        List<RuleHisVersionVo> paramList=new ArrayList<RuleHisVersionVo>();
-        for (Map<String,Object> ma:listMap){
-            JSONObject json=JSONObject.parseObject((String)ma.get("IN_PARAMTER")).getJSONObject("data"); ;
-            RuleHisVersionVo vo=new RuleHisVersionVo();
-            vo.setVariableName((String)ma.get("VARIABLE_NAME"));
-            vo.setVariableValue((String)json.get(ma.get("VARIABLE_CODE")));
+        List<Map<String, Object>> listMap = ruleHisVersionService.getRuleBatchValidationResult(paramMap);
+        List<RuleHisVersionVo> paramList = new ArrayList<RuleHisVersionVo>();
+        for (Map<String, Object> ma : listMap) {
+            JSONObject json = JSONObject.parseObject((String) ma.get("IN_PARAMTER")).getJSONObject("data");
+            ;
+            RuleHisVersionVo vo = new RuleHisVersionVo();
+            vo.setVariableName((String) ma.get("VARIABLE_NAME"));
+            vo.setVariableValue((String) json.get(ma.get("VARIABLE_CODE")));
             paramList.add(vo);
         }
-        Map<String,Object> map=new HashMap<String,Object>();
-        map.put("ruleResult",list.getData());
-        map.put("dataResult",paramList);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("ruleResult", list.getData());
+        map.put("dataResult", paramList);
         return PageResult.success(map, 0);
     }
 
@@ -83,9 +99,9 @@ public class StrategyController {
     @PostMapping("variablePass")
     @ApiOperation(value = "规则验证通过")
     public PageResult<Integer> variablePass(VariableBindVo entityInfo) {
-        Wrapper<SceneVersion> wrapper =new EntityWrapper<>();
-        wrapper.eq("version_id",entityInfo.getSenceVersionId());
-        SceneVersion scene= sceneVersionService.selectOne(wrapper);
+        Wrapper<SceneVersion> wrapper = new EntityWrapper<>();
+        wrapper.eq("version_id", entityInfo.getSenceVersionId());
+        SceneVersion scene = sceneVersionService.selectOne(wrapper);
         scene.setTestStatus(1);
         sceneVersionService.updateById(scene);
         return PageResult.success(0);

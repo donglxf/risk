@@ -25,7 +25,8 @@ public interface SceneVersionMapper extends SuperMapper<SceneVersion> {
 	* @return List<SceneVersion>    返回类型
 	* @throws
 	 */
-	public List<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages, Wrapper<SceneVersion> wrapper);
+	public List<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages, Map<String,Object> paramMap);
+//	public List<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages, Wrapper<SceneVersion> wrapper);
 
 	/**
 	 * 

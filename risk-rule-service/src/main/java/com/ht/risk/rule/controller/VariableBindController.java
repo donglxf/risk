@@ -67,18 +67,31 @@ public class VariableBindController {
 
     @GetMapping("page")
     @ApiOperation(value = "分页查询")
-    public PageResult<List<SceneVersion>> rulePage(String key, Integer page, Integer limit) {
+    public PageResult<List<SceneVersion>> rulePage(String key,String isBusinessLine, String businessType, Integer page, Integer limit) {
+        Map<String,Object> paramMap=new HashMap<String,Object>();
         Wrapper<SceneVersion> wrapper = new EntityWrapper<>();
         if (StringUtils.isNotBlank(key)) {
-            wrapper.like("title", key);
-            wrapper.or().like("comment", key);
-            wrapper.or().like("version", key);
+//            wrapper.like("title", key);
+//            wrapper.or().like("comment", key);
+//            wrapper.or().like("version", key);
+            paramMap.put("title",key);
+            paramMap.put("is_bind_var",key);
+            paramMap.put("test_status",key);
+            paramMap.put("version",key);
+        }
+        if(StringUtils.isNotBlank(isBusinessLine)){
+            paramMap.put("business_id",isBusinessLine);
+//            wrapper.eq("rb.business_id",isBusinessLine);
+        }
+        if(StringUtils.isNotBlank(businessType)){
+//            wrapper.eq("rs.scene_type",businessType);
+            paramMap.put("scene_type",businessType);
         }
 
         Page<SceneVersion> pages = new Page<>();
         pages.setCurrent(page);
         pages.setSize(limit);
-        pages = sceneVersionService.getNoBindVariableRecord(pages, wrapper);
+        pages = sceneVersionService.getNoBindVariableRecord(pages, wrapper,paramMap);
         return PageResult.success(pages.getRecords(), pages.getTotal());
     }
 
@@ -91,9 +104,9 @@ public class VariableBindController {
 
     @GetMapping("getVariableBind")
     @ApiOperation(value = "根据版本查询规则绑定变量")
-    public PageResult<List<VariableBind>> getVariableBind(@RequestParam(name = "sceneId") String sceneId, String versionId) {
+    public PageResult<List<VariableBind>> getVariableBind(@RequestParam(name = "versionId") String versionId) {
         Wrapper<VariableBind> wrapper = new EntityWrapper<>();
-        wrapper.eq("sence_version_id", sceneId);
+        wrapper.eq("sence_version_id", versionId);
         List<VariableBind> list = variableBindService.selectList(wrapper);
         return PageResult.success(list, 0);
     }
