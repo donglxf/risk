@@ -5,11 +5,12 @@
  * Website:http://kit.zhengjinfan.cn/
  * LICENSE:MIT
  */
-layui.define(['layer','laytpl','form'], function(exports) {
+layui.define(['layer','laytpl','form','ht_ajax','ht_config'], function(exports) {
     var $ = layui.jquery,
         layer = layui.layer,
         form = layui.form,
         laytpl = layui.laytpl,
+        config = layui.ht_config,
         _modName = 'myutil';
     //统一验证添加
     form.verify({

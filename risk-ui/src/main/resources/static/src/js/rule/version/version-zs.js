@@ -104,10 +104,10 @@ var layer,sceneTable,table,active,leftActive,leftTable;
 var sceneId,sceneType,$ ;
 var layerTopIndex;
 layui.config({
-    base: '/rule/ui/src/js/rule/' //假设这是你存放拓展模块的根目录
+    base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
 }).extend({ //设定模块别名
-    sceneUtil: 'decision.js?v=22232' //如果 mymod.js 是在根目录，也可以不用设定别名
-    ,myutil:'../common',
+    sceneUtil: 'decision', //如果 mymod.js 是在根目录，也可以不用设定别名
+    myutil:'common',
 });
 layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
     var laytpl = layui.laytpl;

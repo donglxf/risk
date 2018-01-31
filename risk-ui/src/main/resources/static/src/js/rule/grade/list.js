@@ -59,11 +59,12 @@ var layer,sceneTable,table,active;
 var sceneId ;
 //config的设置是全局的,引入工具包
 layui.config({
-    base: '/rule/ui/src/js/rule/' //假设这是你存放拓展模块的根目录
+    base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
 }).extend({ //设定模块别名
-    sceneUtil: 'decision.js?v=22232' //如果 mymod.js 是在根目录，也可以不用设定别名
+    sceneUtil: 'decision', //如果 mymod.js 是在根目录，也可以不用设定别名
+    myutil:'common',
 });
-layui.use(['table','form','laytpl','sceneUtil'], function() {
+layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
     var laytpl = layui.laytpl;
     sceneUtil = layui.sceneUtil;
     var form = layui.form;
