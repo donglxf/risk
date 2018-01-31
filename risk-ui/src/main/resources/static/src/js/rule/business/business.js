@@ -116,6 +116,7 @@ layui.use(['table','form','laytpl','myutil','ht_auth'], function() {
             });
         }
     };
+    //按钮权限控制隐藏
     businessTable.on('renderComplete('+business.tableId+')', function (obj) {
         ht_auth.render();
     });
@@ -148,5 +149,6 @@ layui.use(['table','form','laytpl','myutil','ht_auth'], function() {
             save(business.uiUrl, result);
         }, 'json')
     }
+    //按钮权限控制隐藏，页面大按钮
     ht_auth.render();
 });
