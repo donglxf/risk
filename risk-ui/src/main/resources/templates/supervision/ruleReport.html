@@ -51,7 +51,7 @@
 	</div>
 	<div class="layui-form-item">
 		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
-			<legend>平均响应时间(ms)</legend>
+			<legend>决策平均响应时间(ms)</legend>
 		</fieldset>
 		<div id="container" style="width: 100%;height: 300px;"></div>
 	</div>
@@ -126,6 +126,7 @@
 		option = {
 			xAxis: {
 				type: 'category',
+                boundaryGap: false,
 				data: xAxisArr
 			},
 			yAxis: {
@@ -136,12 +137,14 @@
                 formatter: function (params,ticket, callback) {
                     var html=formatRuleContent(params.name);
                     var json=JSON.parse(html.responseText);
-                    return json.data.ruleDesc;
+                    var ht="<label>调用次数："+params.data+"</label><br/><label>"+json.data.ruleDesc+"</label>";
+                    return ht;
                 }
             },
 			series: [{
 				data: seriesArr,
-				type: 'line'
+				type: 'line',
+                areaStyle: {}
 			}]
 		};
 		if (option && typeof option === "object") {

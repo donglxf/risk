@@ -4,23 +4,23 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.SceneVersion">
-        <id column="version_id" property="versionId" />
-        <result column="version" property="version" />
-        <result column="official_version" property="officialVersion" />
-        <result column="type" property="type" />
-        <result column="title" property="title" />
-        <result column="comment" property="comment" />
-        <result column="scene_id" property="sceneId" />
-        <result column="cre_time" property="creTime" />
-        <result column="cre_user_id" property="creUserId" />
-        <result column="rule_div" property="ruleDiv" />
-        <result column="rule_drl" property="ruleDrl" />
-        <result column="status" property="status" />
-        <result column="scene_identify" property="sceneIdentify" />
-        <result column="test_status" property="testStatus" />
-        <result column="business_type" property="businessType" />
-        <result column="business_line" property="businessLine" />
-        <result column="is_bind_var" property="isBindVar" />
+        <id column="version_id" property="versionId"/>
+        <result column="version" property="version"/>
+        <result column="official_version" property="officialVersion"/>
+        <result column="type" property="type"/>
+        <result column="title" property="title"/>
+        <result column="comment" property="comment"/>
+        <result column="scene_id" property="sceneId"/>
+        <result column="cre_time" property="creTime"/>
+        <result column="cre_user_id" property="creUserId"/>
+        <result column="rule_div" property="ruleDiv"/>
+        <result column="rule_drl" property="ruleDrl"/>
+        <result column="status" property="status"/>
+        <result column="scene_identify" property="sceneIdentify"/>
+        <result column="test_status" property="testStatus"/>
+        <result column="business_type" property="businessType"/>
+        <result column="business_line" property="businessLine"/>
+        <result column="is_bind_var" property="isBindVar"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -28,13 +28,27 @@
         version_id AS versionId, version, official_version AS officialVersion, type, title, comment, scene_identify AS sceneIdentify, scene_id AS sceneId, cre_time AS creTime, cre_user_id AS creUserId, rule_div AS ruleDiv, rule_drl AS ruleDrl, status, test_status AS testStatus, business_type AS businessType, business_line AS businessLine, is_bind_var AS isBindVar
     </sql>
 
-	<select id="getNoBindVariableRecord" parameterType="com.ht.risk.rule.entity.SceneVersion"
-            resultType="com.ht.risk.rule.entity.SceneVersion">
-		select <include refid="Base_Column_List"></include>
-			from rule_scene_version where type=0 order by cre_time desc
-	</select>
-	
-	<select id="getMaxTestVersion" parameterType="map" resultType="map">
+    <select id="getNoBindVariableRecord" parameterType="map"
+            resultType="com.ht.risk.rule.vo.SceneVersionInfoVo">
+        select rv.scene_id sceneId,rv.title,rv.version,rv.is_bind_var,rv.test_status,rs.scene_type senceType
+        ,rb.business_id,rb.business_name,rv.version_id versionId,rs.scene_identify sceneIdentify
+        from rule_scene_version rv inner join rule_scene_info rs on rv.scene_id=rs.scene_id inner join risk_business rb
+        on rs.business_id=
+        rb.business_id where type=0
+        <if test="title != null or is_bind_var != null or version != null or test_status != null ">
+            and ( rv.title like CONCAT('%',#{title},'%') or rv.is_bind_var like CONCAT('%',#{is_bind_var},'%')
+            or rv.version like CONCAT('%',#{version},'%') or rv.test_status like CONCAT('%',#{test_status},'%') )
+        </if>
+        <if test="business_id != null ">
+            and rb.business_id= #{business_id}
+        </if>
+        <if test="scene_type != null ">
+            and rs.scene_type= #{scene_type}
+        </if>
+        order by rv.cre_time desc
+    </select>
+
+    <select id="getMaxTestVersion" parameterType="map" resultType="map">
 		select max(version) maxVersion from rule_scene_version where scene_id=#{sceneId} and scene_identify = #{sceneIdentify} and type=#{type}
 	</select>
 
@@ -44,29 +58,31 @@
     </select>
 
     <select id="getRuleAgeTime" resultType="java.util.Map" parameterType="map">
-        select SENCE_VERSIONID as senceVersionId ,AVG(execute_time) executeTime ,count(execute_time) execTotal  from RISK_DROOLS_LOG t  where 1=1
+        select SENCE_VERSIONID as senceVersionId ,AVG(execute_time) executeTime ,count(execute_time) execTotal from
+        RISK_DROOLS_LOG t where 1=1
         <if test="startTime !=null and startTime!='' ">
             and CREATE_TIME>=#{startTime}
         </if>
         <if test="endTime !=null and endTime!='' ">
             and CREATE_TIME <![CDATA[ <= ]]> #{endTime}
         </if>
-        GROUP BY SENCE_VERSIONID  order by  execute_time desc
+        GROUP BY SENCE_VERSIONID order by execute_time desc
         <if test="getWay != 'all'">
             limit 0,${getWay}
         </if>
     </select>
 
     <select id="getRuleExecTotal" resultType="java.util.Map" parameterType="map">
-        select rd.EXECUTE_RULENAME executeRuleName,count(DROOLS_LOGID) executeTotal from RISK_TEST_DROOLS_LOG rl inner join RISK_TEST_DROOLS_DETAIL_LOG rd on  rl.ID=rd.DROOLS_LOGID
-        where  1=1
+        select rd.EXECUTE_RULENAME executeRuleName,count(DROOLS_LOGID) executeTotal from RISK_TEST_DROOLS_LOG rl inner
+        join RISK_TEST_DROOLS_DETAIL_LOG rd on rl.ID=rd.DROOLS_LOGID
+        where 1=1
         <if test="startTime !=null and startTime!='' ">
             and rl.CREATE_TIME>=#{startTime}
         </if>
         <if test="endTime !=null and endTime!='' ">
             and rl.CREATE_TIME <![CDATA[ <= ]]> #{endTime}
         </if>
-        GROUP BY  EXECUTE_RULENAME
+        GROUP BY EXECUTE_RULENAME
         <if test="getWay != 'all'">
             limit 0,${getWay}
         </if>

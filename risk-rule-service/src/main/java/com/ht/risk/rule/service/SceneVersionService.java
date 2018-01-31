@@ -29,7 +29,7 @@ public interface SceneVersionService extends BaseService<SceneVersion> {
      * @param wrapper
      * @return
      */
-    Page<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages , Wrapper<SceneVersion> wrapper);
+    Page<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages ,Wrapper<SceneVersion> wrapper,Map<String,Object> paramMap);
 
     /**
      * 获取最大测试版本号

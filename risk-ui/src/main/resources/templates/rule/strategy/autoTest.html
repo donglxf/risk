@@ -18,6 +18,7 @@
 				<form class="layui-form" action="" lay-filter="test1">
 					<input type="hidden" name="senceVersionId" id="senceVersionId">
 					<input type="hidden" name="senceId" id="senceId">
+					<input type="hidden" name="version" id="version">
 					<input type="hidden" name="sceneIdentify" id="sceneIdentify">
 					<div class="layui-form-item">
 						<label class="layui-form-label">验证次数:</label>
@@ -177,10 +178,10 @@
                     console.log(da);
 //                    var size = da.data.length;
                     var modelVerification = new ModelVerification();
-                    var result = modelVerification.initResult(da.data.ruleResult);
+                    var result = modelVerification.initResult(da.data.ruleResult); // 显示规则匹配结果
                     $("#ruleTab").html(result);
 
-                    var result1 = modelVerification.initParam(da.data.dataResult);
+                    var result1 = modelVerification.initParam(da.data.dataResult); // 显示变量名称和值
                     $("#ruleTab1").html(result1);
                 }
             });

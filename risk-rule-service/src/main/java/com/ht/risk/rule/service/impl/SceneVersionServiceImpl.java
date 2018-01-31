@@ -52,9 +52,9 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
     }
 
 	@Override
-	public Page<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages, Wrapper<SceneVersion> wrapper) {
+	public Page<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages, Wrapper<SceneVersion> wrapper,Map<String,Object> paramMap) {
 		SqlHelper.fillWrapper(pages, wrapper);
-        pages.setRecords(sceneVersionMapper.getNoBindVariableRecord(pages, wrapper));
+        pages.setRecords(sceneVersionMapper.getNoBindVariableRecord(pages, paramMap));
 		return pages;
 	}
 	

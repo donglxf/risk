@@ -50,19 +50,12 @@ public class DroolsExcuteController {
             log.info("规则入参："+JSON.toJSONString(paramter));
             Long startTime= System.currentTimeMillis();
             BaseRuleSceneInfo baseRuleInfo = new BaseRuleSceneInfo();
-//            Long sceneId = 0L;
-//            BaseRuleSceneInfo info = new BaseRuleSceneInfo();
-//            info.setSceneIdentify(paramter.getSence());
-//            info.setVersion(paramter.getVersion());
-//            List<BaseRuleSceneInfo> list = ruleSceneService.findBaseRuleSceneInfiList(info);
-//            if (ObjectUtils.isNotEmpty(list)) {
-//                baseRuleInfo = list.get(0);
-//                sceneId = baseRuleInfo.getSceneId();
-//            }
             // 1.根据sceneCode 查询最新测试版本
     		Map<String,Object> parmaMap =new HashMap<String,Object>();
     		parmaMap.put("type", "1"); // 正式版标志
-            parmaMap.put("versionId", paramter.getVersion());
+            parmaMap.put("sceneIdentify", paramter.getSence()); // 决策code
+            parmaMap.put("version", paramter.getVersion());
+//            parmaMap.put("versionId", paramter.getVersion());
             RuleSceneVersion ruleVersion = ruleSceneVersionService.getInfoByVersionId(parmaMap);
             if(ObjectUtils.isEmpty(ruleVersion)){
                 data = new RuleExcuteResult(1, paramter.getSence()+"无可用正式版发布信息,请检查", null);
@@ -92,9 +85,8 @@ public class DroolsExcuteController {
             entity.setType(paramter.getType());
             entity.setProcinstId(paramter.getProcessInstanceId());
             entity.setInParam(JSON.toJSONString(paramter));
-            entity.setSenceVersionid(paramter.getVersion());
+            entity.setSenceVersionid(String.valueOf(ruleVersion.getVersionId()));
             entity.setOutParamter(JSON.toJSONString(object));
-//            entity.setExecuteTotal(Integer.parseInt(String.valueOf(object.getGlobalMap().get("count"))));
             entity.setExecuteTotal(newList.size());
             entity.setModelName(paramter.getModelName());
             entity.setExecuteTime(String.valueOf(executeTime));
@@ -154,9 +146,14 @@ public class DroolsExcuteController {
             // 1.根据sceneCode 查询最新测试版本
             Map<String, Object> parmaMap = new HashMap<String, Object>();
             parmaMap.put("type", "0"); // 测试版标志
-            parmaMap.put("sceneIdentify", paramter.getSence());
-            parmaMap.put("versionId", paramter.getVersion());
+            parmaMap.put("sceneIdentify", paramter.getSence()); // 决策code
+            parmaMap.put("version", paramter.getVersion());
+//            parmaMap.put("versionId", paramter.getVersion());
             RuleSceneVersion ruleVersion = ruleSceneVersionService.getInfoByVersionId(parmaMap);
+            if(ObjectUtils.isEmpty(ruleVersion)){
+                data = new RuleExcuteResult(1, paramter.getSence()+"参数出错，无可用测试版本信息,请检查", null);
+                return data;
+            }
             RuleExecutionObject object = new RuleExecutionObject();
             RuleExecutionResult result = new RuleExecutionResult();
             object.setGlobal("_result", result);
@@ -178,12 +175,11 @@ public class DroolsExcuteController {
             entity.setType(paramter.getType());
             entity.setProcinstId(StringUtil.strIsNotNull(paramter.getProcessInstanceId()) ? Long.parseLong(paramter.getProcessInstanceId()) : 0);
             entity.setInParamter(JSON.toJSONString(paramter));
-            entity.setSenceVersionid(paramter.getVersion());
+            entity.setSenceVersionid(String.valueOf(ruleVersion.getVersionId()));
             entity.setOutParamter(JSON.toJSONString(object));
             entity.setExecuteTotal(newList.size());
-//            entity.setExecuteTotal(Integer.parseInt(String.valueOf(res.getMap().get("count"))));
             entity.setModelName(paramter.getModelName());
-           // entity.setBatchId(Long.parseLong(paramter.getBatchId())); // 批次号
+            entity.setBatchId(Long.parseLong(paramter.getBatchId())); // 批次号
             String logId = droolsLogInterface.saveTestLog(entity);
             if (ObjectUtils.isNotEmpty(li)) {
                 for (String string : newList) {
