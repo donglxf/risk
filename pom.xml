@@ -213,5 +213,6 @@
 		<module>risk-drools</module>
 		<module>risk-activiti</module>
 		<module>risk-esper</module>
+		<module>activiti-config</module>
 	</modules>
 </project>

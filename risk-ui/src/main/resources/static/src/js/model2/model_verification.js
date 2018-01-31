@@ -14,10 +14,10 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
         , page: true //开启分页
         , where: {}
         , cols: [[ //表头\
-            {field: 'id', title: '序号', align: "center", width: "15%"}
+            {field: 'id', title: '序号', align: "center", width: "15%",sort: true}
             , {field: 'modelName', title: '模型名称', align: "center", width: "15%"}
             , {field: 'modelCategory', title: '业务线', align: "center", width: "20%"}
-            , {field: 'modelVersion', title: '版本', align: "center", width: "10%"}
+            , {field: 'modelVersion', title: '版本', align: "center", width: "10%",sort: true}
             , {field: 'status', title: '变量绑定', align: "center", width: "10%"}
             , {field: 'isValidateAlia', title: '验证状态', align: "center", width: "10%"}
             , {fixed: 'right', title: "操作", width: 150, align: 'center', toolbar: '#barDemo', width: "20%"}

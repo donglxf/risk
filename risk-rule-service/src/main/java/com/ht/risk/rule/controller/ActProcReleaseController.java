@@ -13,6 +13,7 @@ import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -151,20 +152,33 @@ public class ActProcReleaseController {
             List<VariableBind> variableBindList = variableBindService.selectList(new EntityWrapper<VariableBind>().eq("SENCE_VERSION_ID", modelSence.getSenceVersionId()));
             for (VariableBind variableBind : variableBindList) {
                 //如果为Constant类型的则查询
+                ArrayList<Map<String, String>> list = new ArrayList<>();
+                String variableCode = variableBind.getVariableCode();
                 if ("CONSTANT".equals(variableBind.getDataType())) {
-                    String variableCode = variableBind.getVariableCode();
                     //查询单个变量对象的常量列表
-                    //判断redis中是否存在
-                    List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", variableCode).eq("con_type", "1"));
-                    ArrayList<Map<String, String>> list = new ArrayList<>();
-                    for (ConstantInfo constantInfo : ciList) {
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put("value", constantInfo.getConCode());
-                        map.put("name", constantInfo.getConName());
-                        list.add(map);
+                    //如果redis中无sex缓存,则查找mysql并加入缓存
+                    Long val = redis.opsForList().size(variableCode + "name");
+                    if (val == 0L) {
+                        List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", variableCode).eq("con_type", "1"));
+                        for (ConstantInfo constantInfo : ciList) {
+                            HashMap<String, String> map = new HashMap<>();
+                            map.put("value", constantInfo.getConCode());
+                            map.put("name", constantInfo.getConName());
+                            list.add(map);
+                            //缓存数据
+                            redis.opsForList().leftPush(variableCode + "name", constantInfo.getConName());
+                            redis.opsForList().leftPush(variableCode + "value", constantInfo.getConCode());
+                        }
+                    } else {
+                        for (; val-- > 0; ) {
+                            HashMap<String, String> map = new HashMap<>();
+                            map.put("value", redis.opsForList().index(variableCode + "value", val));
+                            map.put("name", redis.opsForList().index(variableCode + "name", val));
+                            list.add(map);
+                        }
                     }
-                    variableBind.setOptionData(list);
                 }
+                variableBind.setOptionData(list);
             }
             modelSence.setData(variableBindList);
         }
@@ -277,10 +291,23 @@ public class ActProcReleaseController {
     @GetMapping(value = "redis")
     @ApiOperation(value = "redis测试")
     public Object redisTest() {
-        redis.opsForValue().set("new", "new");
-        String s = redis.opsForValue().get("new");
-        logger.info("----redis测试----拿到值" + "new : " + s);
-        redis.opsForList().range("new", 0L, 1L);
+        ArrayList<String> list = new ArrayList<>();
+        //如果redis中无sex缓存,则查找mysql并加入缓存
+        Long sex = redis.opsForList().size("sex");
+        if (sex == 0L) {
+            EntityWrapper<ConstantInfo> wrapper = new EntityWrapper<>();
+            wrapper.eq("con_key", "sex");
+            wrapper.eq("con_type", "1");
+            List<ConstantInfo> constantInfos = constantInfoService.selectList(wrapper);
+            for (ConstantInfo constantInfo : constantInfos) {
+                list.add(constantInfo.getConName());
+                redis.opsForList().leftPush("sex", constantInfo.getConName());
+            }
+            //加入缓存
+        } else {
+            list.addAll(redis.opsForList().range("sex", 0, -1));
+        }
+
         return null;
     }
 
