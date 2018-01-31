@@ -37,7 +37,7 @@ layui.use(['table','form','myutil'], function(){
         elem: '#demo'
         ,height: 550
         ,cellMinWidth: 80
-        ,url: preUrl + 'page/' //数据接口
+        ,url: preUrl + 'page' //数据接口
         // data:[{"conId":1,"entityName":"测试规则","entityDesc":"测试规则引擎","entityIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
         ,page: true //开启分页
         ,id:'demos'
