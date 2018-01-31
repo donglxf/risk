@@ -59,51 +59,10 @@
     <div class="layui-side layui-bg-black kit-side">
         <div class="layui-side-scroll">
             <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
+            <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar></ul>
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
-                <!--<li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;"><i class="fa fa-gears" aria-hidden="true"></i><span>库</span></a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'rule/entity',icon:'&#xe6c6;',title:'变量库',id:'1'}">
-                                <i class="layui-icon">&#xe6c6;</i><span> 变量库</span></a>
-                        </dd>
-                        <dd>
-                            <a href="javascript:;" data-icon="fa-user" data-options="{url:'rule/constant',title:'常量库',id:'2',icon:'&#xe62a;'}" data-title="常量" kit-target data-id='2'><i class="layui-icon">&#xe62a;</i><span> 常量库</span></a>
-                        </dd>
-                        <dd>
-                            <a href="javascript:;" data-icon="&#xe614;" data-options="{url:'ruleAction/index',title:'动作库',id:'3',icon:'&#xe614;'}" data-title="动作库" kit-target data-id='4'><i class="layui-icon">&#xe614;</i><span> 动作库</span></a>
-                        </dd>
-                    </dl>
-                </li>
-
-
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span>决策管理</span></a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a href="javascript:;"  data-options="{url:'rule/decision/version/list',icon:'&#xe6c6;',title:'决策管理',id:'4'}" data-icon="fa-user" data-title="决策管理" kit-target data-id='3'>
-                                <i class="fa fa-list-alt" aria-hidden="true"></i>
-                                <span>策略管理</span>
-                            </a>
-                        </dd>
-
-                        <dd>
-                            <a href="javascript:;"  data-options="{url:'rule/decision/list',icon:'&#xe6c6;',title:'决策定义',id:'5'}" data-icon="fa-user" data-title="决策定义" kit-target data-id='3'>
-                                <i class="fa fa-list-alt" aria-hidden="true"></i>
-                                <span>决策表定义</span>
-                            </a>
-                        </dd>
-
-                        <dd>
-                            <a href="javascript:;"  data-options="{url:'rule/decision/gradeList',icon:'&#xe6c6;',title:'评分卡定义',id:'6'}" data-icon="fa-user" data-title="评分卡定义" kit-target data-id='4'>
-                                <i class="fa fa-flag" aria-hidden="true"></i>
-                                <span>评分卡定义</span>
-                            </a>
-                        </dd>
-                    </dl>
-                </li>-->
-                <!-- 以下为新增菜单   -->
+           <!-- <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
+                &lt;!&ndash; 以下为新增菜单   &ndash;&gt;
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span>业务线管理</span></a>
                     <dl class="layui-nav-child">
@@ -113,10 +72,10 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span>规则管理</span></a>
                     <dl class="layui-nav-child">
-                       <!-- <dd><a href="javascript:;" kit-target data-options="{url:'',icon:'',title:'变量管理',id:'1'}"><i class="layui-icon">&#xe658;</i><span> 变量管理</span></a></dd>
+                       &lt;!&ndash; <dd><a href="javascript:;" kit-target data-options="{url:'',icon:'',title:'变量管理',id:'1'}"><i class="layui-icon">&#xe658;</i><span> 变量管理</span></a></dd>
                         <dd><a href="javascript:;" kit-target data-options="{url:'rule/constant',icon:'',title:'常量管理',id:'2'}"><i class="layui-icon">&#xe658;</i><span> 常量管理</span></a></dd>
                         <dd><a href="javascript:;" kit-target data-options="{url:'ruleAction/index',icon:'',title:'动作库管理',id:'3'}"><i class="layui-icon">&#xe658;</i><span> 动作库管理</span></a></dd>
-                       --> <dd>
+                       &ndash;&gt; <dd>
                             <a href="javascript:;" kit-target data-options="{url:'rule/entity',icon:'&#xe658;',title:'变量管理',id:'1'}">
                                 <i class="layui-icon">&#xe658;</i><span> 变量管理</span></a>
                         </dd>
@@ -135,24 +94,6 @@
                             </a>
                         </dd>
 
-                       <!-- <dd>
-                            <a href="javascript:;"  data-options="{url:'rule/decision/list',icon:'&#xe658;',title:'决策定义',id:'5'}" data-icon="fa-user" data-title="决策定义" kit-target data-id='3'>
-                                <i class="layui-icon">&#xe658;</i>
-                                <span>决策表定义</span>
-                            </a>
-                        </dd>
-
-                        <dd>
-                            <a href="javascript:;"  data-options="{url:'rule/decision/gradeList',icon:'&#xe658;',title:'评分卡定义',id:'6'}" data-icon="fa-user" data-title="评分卡定义" kit-target data-id='4'>
-                                <i class="fa fa-flag" aria-hidden="true"></i>
-                                <span>评分卡定义</span>
-                            </a>
-                        </dd>-->
-
-
-                      <!--  <dd><a href="javascript:;" kit-target data-options="{url:'',icon:'',title:'策略管理',id:'4'}"><i class="layui-icon">&#xe658;</i><span> 策略管理</span></a></dd>
-                        <dd><a href="javascript:;" kit-target data-options="{url:'',icon:'',title:'决策表配置',id:'5'}"><i class="layui-icon">&#xe658;</i><span> 决策表配置</span></a></dd>
-                        <dd><a href="javascript:;" kit-target data-options="{url:'',icon:'',title:'评分卡配置',id:'6'}"><i class="layui-icon">&#xe658;</i><span> 评分卡配置</span></a></dd>-->
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
@@ -166,8 +107,8 @@
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" kit-target data-options="{url:'strategy/index',icon:'',title:'决策验证',id:'26'}"><i class="layui-icon">&#xe658;</i><span> 决策验证</span></a></dd>
                         <dd><a href="javascript:;" kit-target data-options="{url:'ruleBind/index',icon:'',title:'决策变量绑定',id:'8'}"><i class="layui-icon">&#xe658;</i><span> 决策变量绑定</span></a></dd>
-                        <!--<dd><a href="javascript:;" kit-target data-options="{url:'ruleBind/verification/index',icon:'',title:'策略验证',id:'10'}"><i class="layui-icon">&#xe658;</i><span> 策略验证</span></a></dd>
-                        <dd><a href="javascript:;" kit-target data-options="{url:'',icon:'',title:'评分卡验证',id:'11'}"><i class="layui-icon">&#xe658;</i><span> 评分卡验证</span></a></dd>-->
+                        &lt;!&ndash;<dd><a href="javascript:;" kit-target data-options="{url:'ruleBind/verification/index',icon:'',title:'策略验证',id:'10'}"><i class="layui-icon">&#xe658;</i><span> 策略验证</span></a></dd>
+                        <dd><a href="javascript:;" kit-target data-options="{url:'',icon:'',title:'评分卡验证',id:'11'}"><i class="layui-icon">&#xe658;</i><span> 评分卡验证</span></a></dd>&ndash;&gt;
                         <dd><a href="javascript:;" kit-target data-options="{url:'model/verfication',icon:'',title:'模型验证',id:'12'}"><i class="layui-icon">&#xe658;</i><span> 模型验证</span></a></dd>
                         <dd><a href="javascript:;" kit-target data-options="{url:'/rule/ui/model/verfication/result',icon:'',title:'模型验证结果',id:'13'}"><i class="layui-icon">&#xe658;</i><span> 模型验证结果</span></a></dd>
                     </dl>
@@ -196,14 +137,14 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span>监控管理</span></a>
+                        <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span>监控管理</span></a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" kit-target data-options="{url:'supervision/log/index',icon:'',title:'日志查询',id:'23'}"><i class="layui-icon">&#xe658;</i><span> 日志查询</span></a></dd>
                         <dd><a href="javascript:;" kit-target data-options="{url:'supervision/model/report',icon:'',title:'模型报告',id:'24'}"><i class="layui-icon">&#xe658;</i><span> 模型报告</span></a></dd>
                         <dd><a href="javascript:;" kit-target data-options="{url:'supervision/rule/report',icon:'',title:'策略报告',id:'25'}"><i class="layui-icon">&#xe658;</i><span> 策略报告</span></a></dd>
                     </dl>
                 </li>
-            </ul>
+            </ul>-->
         </div>
     </div>
     <div class="layui-body" id="container">
@@ -225,7 +166,7 @@
 <script>
     var message;
     layui.config({
-        base: 'src/js/',
+        base: '/rule/ui/src/js/',
         version: '1.0.1'
     }).use(['app', 'message'], function() {
         var app = layui.app,
@@ -237,15 +178,6 @@
         app.set({
             type: 'iframe'
         }).init();
-        $('#pay').on('click', function() {
-            layer.open({
-                title: false,
-                type: 1,
-                content: '<img src="/src/images/pay.png" />',
-                area: ['500px', '250px'],
-                shadeClose: true
-            });
-        });
         $('dl.skin > dd').on('click', function() {
             var $that = $(this);
             var skin = $that.children('a').data('skin');
@@ -271,6 +203,63 @@
             }();
     });
 </script>
+<!--<script>
+
+    var message;
+    layui.config({
+        base: '/rule/ui/src/js/modules/',
+        version: false
+    }).use(['layer', 'ht_cookie'], function () {
+        var layer = layui.layer, cookie = layui.ht_cookie;
+        layui.config({
+            base: '/rule/ui/src/js/modules/',
+            version: false
+        }).use(['app', 'message', 'ht_ajax', 'ht_cookie', 'ht_auth'], function () {
+            var app = layui.app,
+                $ = layui.jquery,
+                cookie = layui.ht_cookie,
+                ht_auth = layui.ht_auth,
+                layer = layui.layer;
+            //将message设置为全局以便子页面调用
+            message = layui.message;
+
+            //主入口
+            app.set({
+                type: 'iframe'
+            }).init();
+            $('dl.skin > dd').on('click', function () {
+                var $that = $(this);
+                var skin = $that.children('a').data('skin');
+                switchSkin(skin);
+            });
+            var setSkin = function (value) {
+                    layui.data('kit_skin', {
+                        key: 'skin',
+                        value: value
+                    });
+                },
+                getSkinName = function () {
+                    return layui.data('kit_skin').skin;
+                },
+                switchSkin = function (value) {
+                    var _target = $('link[kit-skin]')[0];
+                    _target.href = _target.href.substring(0, _target.href.lastIndexOf('/') + 1) + value + _target.href.substring(_target.href.lastIndexOf('.'));
+                    setSkin(value);
+                },
+                initSkin = function () {
+                    var skin = getSkinName();
+                    switchSkin(skin === undefined ? 'default' : skin);
+                }();
+            $("#login_out").on("click", function () {
+                cookie.deleteToken();
+                cookie.deleteRefreshToken();
+                window.location.href = "login.html";
+            });
+            //初始化权限资源
+            //ht_auth.load();
+        });
+    });
+</script>-->
 </body>
 
 </html>
