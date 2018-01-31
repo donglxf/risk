@@ -9,17 +9,17 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"com.ht.ussp.client","com.ht.risk.rule.rpc"})
 @EnableDiscoveryClient
 @SpringCloudApplication
 @MapperScan("com.ht.risk.rule.mapper")
 @EnableTransactionManagement 
-@ComponentScan(basePackages= {"com.ht.risk.rule","com.ht.risk.common.exception"})
+@ComponentScan(basePackages= {"com.ht.risk.rule","com.ht.risk.common.exception","com.ht.ussp.init"})
 //////@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
-public class Application {
+public class RuleServiceApplication {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(RuleServiceApplication.class, args);
 		System.err.println("ヾ(◍°∇°◍)ﾉﾞ    accountservice启动成功      ヾ(◍°∇°◍)ﾉﾞ\n");
 	}
 

@@ -119,7 +119,7 @@ layui.define(["ht_cookie", "ht_config"], function (exports) {
                                             case "9924"://授权失败
                                             case "9925"://TOKEN不能为空
                                                 layer.confirm(data['result_msg'] + '，请重新登录。', function (index) {
-                                                    top.location.href = "/login.html";
+                                                    top.location.href = "login.html";
                                                     layer.close(index);
                                                 });
                                                 return false;

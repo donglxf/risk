@@ -33,7 +33,7 @@ public class EntityItemInfoController {
 
     @Autowired
     private EntityItemInfoService itemInfoService;
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     @ApiOperation(value = "查询所有的对象字段")
     public PageResult<List<EntityItemInfo>> getAll(Long entityId,String key){
 
@@ -49,14 +49,14 @@ public class EntityItemInfoController {
         return PageResult.success(list,10);
     }
 
-    @GetMapping("getInfoById/{id}")
+    @GetMapping("/getInfoById")
     @ApiOperation(value = "通过id查询详细信息")
-    public Result<EntityItemInfo> getDateById(@PathVariable(name = "id") Long id){
+    public Result<EntityItemInfo> getDateById(Long id){
         EntityItemInfo entityInfo = itemInfoService.selectById(id);
         return Result.success(entityInfo);
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     @ApiOperation(value = "新增")
     @Transactional(rollbackFor = RuntimeException.class)
     public Result<Integer> edit(EntityItemInfo itemInfo){
@@ -68,9 +68,9 @@ public class EntityItemInfoController {
     }
 
 
-    @GetMapping("delete/{id}")
+    @GetMapping("/delete")
     @ApiOperation(value = "通过id删除信息")
-    public Result<Integer> delete(@PathVariable(name = "id") Long id){
+    public Result<Integer> delete(Long id){
         itemInfoService.deleteById(id);
         return Result.success(0);
     }

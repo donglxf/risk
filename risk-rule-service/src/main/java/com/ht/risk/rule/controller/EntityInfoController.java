@@ -41,7 +41,7 @@ public class EntityInfoController {
     private EntityItemInfoService itemInfoService;
     @Autowired
     private ConstantInfoService constantInfoService;
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     @ApiOperation(value = "查询所有的对象")
     public Result<List<EntityInfo>> getAll(){
         List<EntityInfo> list = entityInfoService.selectList(null);
@@ -51,7 +51,7 @@ public class EntityInfoController {
         return Result.success(list);
     }
 
-    @GetMapping("getEntitysOld")
+    @GetMapping("/getEntitysOld")
     @ApiOperation(value = "查询所有的对象和变量的集合")
     public Result<List<EntitySelectVo>> getEntitysOld(String entityIds){
         List<EntityInfo> list = entityInfoService.selectList(null);
@@ -80,7 +80,7 @@ public class EntityInfoController {
         }
         return Result.success(vos);
     }
-    @GetMapping("getEntitysByScene")
+    @GetMapping("/getEntitysByScene")
     @ApiOperation(value = "查询所有的对象和变量的集合")
     public Result<List<EntitySelectVo>> getEntitysByScene(Long sceneId){
 
@@ -112,7 +112,7 @@ public class EntityInfoController {
         }
         return Result.success(vos);
     }
-    @GetMapping("getEntitysAll")
+    @GetMapping("/getEntitysAll")
     @ApiOperation(value = "查询所有的对象和变量的集合")
     public Result<List<EntitySelectVo>> getEntitysAll(Long businessId) {
 
@@ -145,7 +145,7 @@ public class EntityInfoController {
         return Result.success(vos);
     }
 
-    @GetMapping("getEntitysByIds")
+    @GetMapping("/getEntitysByIds")
     @ApiOperation(value = "查询所有的对象和变量的集合")
     public Result<List<EntitySelectVo>> getEntitysByIds(String ids){
         List<EntityInfo> list = entityInfoService.selectList(null);
@@ -176,7 +176,7 @@ public class EntityInfoController {
         return Result.success(vos);
     }
 
-    @GetMapping("page")
+    @GetMapping("/page")
     @ApiOperation(value = "分页查询")
     public PageResult<List<EntityInfo>> page(String key ,Long businessId, Integer page , Integer limit){
         Wrapper<EntityInfo> wrapper = new EntityWrapper<>();
@@ -194,7 +194,7 @@ public class EntityInfoController {
         pages = entityInfoService.selectPage(pages,wrapper);
         return PageResult.success(pages.getRecords(),pages.getTotal());
     }
-    @PostMapping("edit")
+    @PostMapping("/edit")
     @ApiOperation(value = "新增")
     @Transactional()
     public Result<Integer> edit(EntityInfo entityInfo){
@@ -204,16 +204,16 @@ public class EntityInfoController {
         return Result.success(0);
     }
 
-    @GetMapping("getInfoById/{id}")
+    @GetMapping("/getInfoById")
     @ApiOperation(value = "通过id查询详细信息")
-    public Result<EntityInfo> getDateById(@PathVariable(name = "id") Long id){
+    public Result<EntityInfo> getDateById(Long id){
         EntityInfo entityInfo = entityInfoService.selectById(id);
         return Result.success(entityInfo);
     }
 
-    @GetMapping("delete/{id}")
+    @GetMapping("/delete")
     @ApiOperation(value = "通过id删除信息")
-    public Result<Integer> delete(@PathVariable(name = "id") Long id){
+    public Result<Integer> delete( Long id){
          entityInfoService.deleteById(id);
         return Result.success(0);
     }

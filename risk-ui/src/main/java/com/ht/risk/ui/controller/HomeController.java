@@ -18,11 +18,7 @@ public class HomeController {
         return "index-dev";
     }
 
-    @RequestMapping(value = "login",method = RequestMethod.GET)
-    public String login(){
-        return "login-dev";
-    }
-    @RequestMapping(value = "main",method = RequestMethod.GET)
+    @RequestMapping(value = "mainDev",method = RequestMethod.GET)
     public String main(){
         return "main-dev";
     }
