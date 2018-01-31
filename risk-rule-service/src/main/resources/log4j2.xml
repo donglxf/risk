@@ -37,8 +37,9 @@
         </AsyncLogger>
 
 
+
         <!-- Root Logger -->
-        <asyncRoot level="INFO">
+        <asyncRoot level="DEBUG">
             <appender-ref ref="rolling_file" />
             <appender-ref ref="Console" />
         </asyncRoot>

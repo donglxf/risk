@@ -80,7 +80,7 @@
        <dependency>
             <artifactId>ussp-common</artifactId>
             <groupId>com.ht.ussp</groupId>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
         </dependency>
         <!--lombox插件-->
         <dependency>

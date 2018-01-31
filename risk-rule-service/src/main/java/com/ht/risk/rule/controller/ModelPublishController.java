@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping(value = "model/publish")
+@RequestMapping(value = "/model/publish")
 public class ModelPublishController {
 
     private static Logger logger = LoggerFactory.getLogger(ModelPublishController.class);
