@@ -32,6 +32,11 @@
             <artifactId>risk-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.ht.risk</groupId>
+            <artifactId>risk-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!-- spring boot cloud -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -138,7 +143,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-
 
     </dependencies>
 

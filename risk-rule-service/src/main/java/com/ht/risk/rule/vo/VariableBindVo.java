@@ -20,10 +20,20 @@ public class VariableBindVo extends VariableBind {
 	 */
 	private String sceneIdentify;
 
+	private String version; // 版本号
+
 	/**
 	 * 取值方式 0-随机，1-倒序
 	 */
 	private String getWay ;
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
 
 	public String getGetWay() {
 		return getWay;

@@ -10,14 +10,20 @@ import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.api.model.activiti.RpcModelReleaseInfo;
 import com.ht.risk.api.model.activiti.RpcModelVerfication;
 import com.ht.risk.common.result.Result;
+import com.ht.risk.common.util.StringUtils;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("")
@@ -114,6 +120,24 @@ public class ActivitiConfigController {
         }
         LOGGER.info("resultPage mothod invoke,reustl:"+ JSON.toJSONString(result));
         return result;
+    }
+
+
+    @PostMapping("modelStatistic")
+    @ApiOperation(value = "模型统计图")
+    public Result<Map<String, Object>> modelStatistic(HttpServletRequest request) {
+        Map<String, String[]> paramMap = request.getParameterMap();
+        String startTime= StringUtils.isNotBlank(paramMap.get("startDate")[0]) ? paramMap.get("startDate")[0] +" 00:00:00" :null ;
+        String endTime=StringUtils.isNotBlank(paramMap.get("endDate")[0]) ? paramMap.get("endDate")[0] +" 23:59:59" :null ;
+        String getWay=paramMap.get("getWay")[0];
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("startTime", startTime);
+        map.put("endTime", endTime);
+        map.put("getWay", getWay);
+        Map<String, Object> resultMap = actExcuteTaskService.getModelGraph (map); // 平均响应时间
+
+        return Result.success(resultMap);
     }
 
 

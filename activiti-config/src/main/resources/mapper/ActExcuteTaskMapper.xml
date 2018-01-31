@@ -24,4 +24,22 @@
         ID AS id, BATCH_ID AS batchId, PROC_RELEASE_ID AS procReleaseId, PROC_INST_ID AS procInstId, STATUS AS status, TYPE AS type, IN_PARAMTER AS inParamter, OUT_PARAMTER AS outParamter, SPEND_TIME AS spendTime, REMARK AS remark, CREATE_TIME AS createTime, CREATE_USER AS createUser, UPDATE_TIME AS updateTime
     </sql>
 
+    <select id="getModelExecInfo" resultType="java.util.Map" parameterType="map">
+        select * from ACT_PROC_RELEASE ap  where ap.id=#{procReleaseId}
+    </select>
+
+    <select id="getModelAvgTime" resultType="java.util.Map" parameterType="map">
+        select AVG(SPEND_TIME) spendTime,PROC_RELEASE_ID ,count(PROC_RELEASE_ID) excuteTotal  from ACT_EXCUTE_TASK   where 1=1
+        <if test="startTime !=null and startTime!='' ">
+            and CREATE_TIME>=#{startTime}
+        </if>
+        <if test="endTime !=null and endTime!='' ">
+            and CREATE_TIME <![CDATA[ <= ]]> #{endTime}
+        </if>
+        GROUP BY PROC_RELEASE_ID  order by  spendTime desc
+        <if test="getWay != 'all'">
+            limit 0,${getWay}
+        </if>
+    </select>
+
 </mapper>

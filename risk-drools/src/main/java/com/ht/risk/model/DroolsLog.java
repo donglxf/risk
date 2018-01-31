@@ -8,7 +8,8 @@ public class DroolsLog {
 	private String outParamter;
 	private int executeTotal;
 	private String modelName;
-	
+	private String executeTime;
+
 	public String getProcinstId() {
 		return procinstId;
 	}
@@ -52,7 +53,11 @@ public class DroolsLog {
 		this.modelName = modelName;
 	}
 
-	
-	
-	
+	public String getExecuteTime() {
+		return executeTime;
+	}
+
+	public void setExecuteTime(String executeTime) {
+		this.executeTime = executeTime;
+	}
 }

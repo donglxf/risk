@@ -9,17 +9,13 @@ spring:
     session:
       timeout: 36000 #一天的有效期
 server:
-    port: 8765 #启动端口
+    port: 8765 #启动端口，开发期使用
 
 
 zuul:
   #prefix: /techouse #为zuul设置一个公共的前缀
   #ignoredServices: '*'
   routes:
-    admin-ui:
-      path: /admin/** #匹配/techouse/usersystem/** 均路由到cloud-client
-    admin-service:
-      path: /back/**
     rule-ui:
       path: /rule/ui/** #匹配/techouse/usersystem/** 均路由到cloud-client
     rule-service:
@@ -42,38 +38,30 @@ ribbon:
     enabled: false #配置zuul路由时用将此属性设置为false
 rule-ui:
   ribbon:
-    listOfServers: 127.0.0.1:8766 #为cloud-client服务指定一组服务地址，应该是用于负载均衡
+    listOfServers: 127.0.0.1:30501 #为cloud-client服务指定一组服务地址，应该是用于负载均衡
 rule-service:
   ribbon:
-    listOfServers: 127.0.0.1:8762
-admin-ui:
-  ribbon:
-    listOfServers: 127.0.0.1:8771 #为cloud-client服务指定一组服务地址，应该是用于负载均衡
-admin-service:
-  ribbon:
-    listOfServers: 127.0.0.1:8772
+    listOfServers: 127.0.0.1:30502
 risk-log:
   ribbon:
-    listOfServers: 127.0.0.1:8769
+    listOfServers: 127.0.0.1:30504
 
 risk-activiti:
   ribbon:
-    listOfServers: 127.0.0.1:8763
+    listOfServers: 127.0.0.1:30505
 
 risk-drools:
   ribbon:
-    listOfServers: 127.0.0.1:8764
+    listOfServers: 127.0.0.1:30503
 
 activiti-config:
   ribbon:
     listOfServers: 127.0.0.1:8767
 
-
-
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://localhost:8761/eureka/
+            defaultZone: http://localhost:30101/eureka/
 
 security:
     user:

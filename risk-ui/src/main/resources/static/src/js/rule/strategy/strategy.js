@@ -37,15 +37,15 @@ layui.use(['table', 'form','laydate'], function () {
                 event: 'setItem',
                 title: '名称'
             }, {
-                field: 'businessType',
+                field: 'senceType',
                 event: 'setItem',
                 title: '类型',
                 templet: '#businessType',
             }, {
-                field: 'businessLine',
+                field: 'businessName',
                 event: 'setItem',
                 title: '业务线',
-                templet: '#businessLine',
+                // templet: '#businessLine',
                 fixed: 'right'
             }, {
                 field: 'version',
@@ -83,7 +83,9 @@ layui.use(['table', 'form','laydate'], function () {
                     // 重新从第 1 页开始
                 },
                 where: {
-                    key: $('#entityName_ser').val()
+                    key: $('#modelName').val(),
+                    businessLine:$("#isBusinessLine").val(),
+                    businessType:$("#isBusinessType").val()
                 }
             });
         }
@@ -99,20 +101,20 @@ layui.use(['table', 'form','laydate'], function () {
         var data = obj.data;
         console.log(obj);
         if (obj.event === 'manual_verification') { // 手动验证
-            manuTest(data.sceneId, data.versionId,data.sceneIdentify);
+            manuTest(data.sceneId, data.versionId,data.sceneIdentify,data.version);
         } else if (obj.event === 'auto_verification') { // 自动验证
             if(data.isBindVar!=1){
                 layer.msg('请先绑定变量！');
                 return ;
             }
-            autoTest(data.sceneId, data.versionId,data.sceneIdentify);
-        } else if (obj.event === 'varbind') { // 变量绑定
+            autoTest(data.sceneId, data.versionId,data.sceneIdentify,data.version);
+        } else if (obj.event === 'variable_bind') { // 变量绑定
             edit(data.sceneId, data.versionId);
         }
     });
 
 
-    function manuTest(sceneId, versionId,sceneIdentify){
+    function manuTest(sceneId, versionId,sceneIdentify,version){
         versionIds=versionId;
         var url=preBindUrl+ "getAll?versionId=" + versionId ;
         var layIndex = layer.open({
@@ -133,6 +135,8 @@ layui.use(['table', 'form','laydate'], function () {
                         $(inputList[j]).val(sceneId);
                     }else if(inputName =='sceneIdentify'){
                         $(inputList[j]).val(sceneIdentify);
+                    }else if(inputName =='version'){
+                        $(inputList[j]).val(version);
                     }
                 }
                 layer.setTop(layero); //重点2
@@ -178,7 +182,7 @@ layui.use(['table', 'form','laydate'], function () {
     }
 
     <!-- 自动测试 -->
-    function autoTest(sceneId, versionId,sceneIdentify) {
+    function autoTest(sceneId, versionId,sceneIdentify,version) {
         var url=preBindUrl+ "getAll?versionId=" + versionId ;
         $.ajax({
             type: "get",
@@ -206,6 +210,8 @@ layui.use(['table', 'form','laydate'], function () {
                                 $(inputList[j]).val(sceneId);
                             }else if(inputName =='sceneIdentify'){
                                 $(inputList[j]).val(sceneIdentify);
+                            }else if(inputName =='version') {
+                                $(inputList[j]).val(version);
                             }
                         }
                         layer.setTop(layero); //重点2
@@ -217,6 +223,70 @@ layui.use(['table', 'form','laydate'], function () {
         });
     }
 
+    function edit(sceneId,versionId) {
+        console.log(sceneId+","+versionId);
+        $.get("/rule/service/variableBind/getVariableBind?versionId=" + versionId, function(data) {
+            var result = data.data;
+            $.get('/rule/ui/ruleBind/index/edit', null, function(form) {
+                layer.open({
+                    type : 1,
+                    title : '修改',
+                    maxmin : true,
+                    shadeClose : false, // 点击遮罩关闭层
+                    area : [ '730px', '460px' ],
+                    content : form,
+                    btn : [ '保存', '取消' ],
+                    btnAlign : 'c',
+                    zIndex: layer.zIndex, //重点1
+                    success : function(da, index) {
+                        console.log(">>"+da+">>index:=="+index);
+
+
+                        setVariableBindFiled(da, result);
+                        $("#senceVersionid").val(versionId);
+                        $("#sceneId").val(sceneId);
+
+
+                    },
+                    yes : function(index) {
+                        // layedit.sync(editIndex);
+                        // 触发表单的提交事件
+                        $('form.layui-form')
+                            .find('button[lay-filter=formDemo]').click();
+                        layer.close(index);
+                    },
+                });
+            });
+        }, 'json')
+    }
+    function setVariableBindFiled(el,da) {
+        var modelVerification = new ModelVerification();
+        var size = da.length;
+        for(var i=0;i<size;i++){
+            $("#bindColumnTable").append("<tr>\n" +
+                "\t\t\t\t\t\t\t<input type=\"hidden\" name=\""+da[i].variableCode+"_bind\" id=\"bindId"+i+"\" value='"+da[i].id+"'>\n" +
+                "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">变量名:</label></td>\n" +
+                "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
+                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"\" name=\""+da[i].variableCode+"\" required\n" +
+                "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入变量名\" autocomplete=\"off\"\n" +
+                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value=\""+da[i].variableName+"\" readonly>\n" +
+                "\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t</td>\n" +
+                "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">表名:</label></td>\n" +
+                "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
+                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"_tableName\" name=\""+da[i].variableCode+"_tableName\" required\n" +
+                "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入业务表名\" autocomplete=\"off\"\n" +
+                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value=\"TEMP_DATA_CONTAINS\" >\n" +
+                "\t\t\t\t\t\t\t</div></td>\n" +
+                "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">列名:</label></td>\n" +
+                "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
+                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"_column\" name=\""+da[i].variableCode+"_column\" required\n" +
+                "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入列名\" autocomplete=\"off\"\n" +
+                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value='"+da[i].bindColumn+"'>\n" +
+                "\t\t\t\t\t\t\t</div></td>\n" +
+                "\t\t\t\t\t\t</tr>");
+        }
+    }
 });
 
 
