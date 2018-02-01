@@ -61,7 +61,7 @@ activiti-config:
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://10.110.1.240:10001/eureka/
+            defaultZone: http://10.110.1.240:30101/eureka/
 
 security:
     user:

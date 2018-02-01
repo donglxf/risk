@@ -1,6 +1,7 @@
 package com.ht.risk.rule.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.ht.risk.common.result.Result;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.rule.mapper.SceneInfoMapper;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -34,6 +36,11 @@ public class SceneInfoServiceImpl extends BaseServiceImpl<SceneInfoMapper, Scene
     @Override
     public List<SceneInfo> findBaseRuleSceneInfiList(SceneInfo sceneInfo) throws Exception {
         return this.sceneInfoMapper.findBaseRuleSceneInfiList(sceneInfo);
+    }
+
+    @Override
+    public Result<Map<String, Object>> getGradeRules(Long sceneId) {
+        return null;
     }
 
     @Override
