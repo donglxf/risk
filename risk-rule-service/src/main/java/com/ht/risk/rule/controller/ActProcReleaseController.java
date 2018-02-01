@@ -293,10 +293,10 @@ public class ActProcReleaseController {
     public Object redisTest() {
         ArrayList<String> list = new ArrayList<>();
         //如果redis中无sex缓存,则查找mysql并加入缓存
-        Long sex = redis.opsForList().size("sex");
+        Long sex = redis.opsForList().size("education");
         if (sex == 0L) {
             EntityWrapper<ConstantInfo> wrapper = new EntityWrapper<>();
-            wrapper.eq("con_key", "sex");
+            wrapper.eq("con_key", "education");
             wrapper.eq("con_type", "1");
             List<ConstantInfo> constantInfos = constantInfoService.selectList(wrapper);
             for (ConstantInfo constantInfo : constantInfos) {
