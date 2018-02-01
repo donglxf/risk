@@ -6,7 +6,7 @@ var layer,entityTable,itemTable,table,active,itemActive;
 var entityId ;
 var topIndexId ;
 layui.config({
-    base: '/rule/ui/src/js/' //假设这是你存放拓展模块的根目录
+    base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
 }).extend({ //设定模块别名
     myutil: 'common' //如果 mymod.js 是在根目录，也可以不用设定别名
 });
@@ -42,7 +42,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
         elem: '#demo'
         ,height: 550
         ,cellMinWidth: 80
-        ,url: preUrl + 'page/' //数据接口
+        ,url: preUrl + 'page' //数据接口
         // data:[{"entityId":1,"entityName":"测试规则","entityDesc":"测试规则引擎","entityIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
         ,page: true //开启分页
         ,id:'demos'
@@ -107,7 +107,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
             layer.msg('ID：'+ data.id + ' 的查看操作');
         } else if(obj.event === 'del'){
             layer.confirm('真的删除行么', function(index){
-                $.get(preUrl+'delete/'+data.entityId,function (data) {
+                $.get(preUrl+'delete?id='+data.entityId,function (data) {
 
                     layer.msg("删除成功！");
                     obj.del();
@@ -131,7 +131,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
         elem: '#itemTable'
         ,height: 550
         ,cellMinWidth: 80
-        ,url: '/rule/service/entityItemInfo/getAll/' //数据接口
+        ,url: '/rule/service/entityItemInfo/getAll' //数据接口
         // data:[{"entityId":1,"entityName":"测试规则","entityDesc":"测试规则引擎","entityIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
          ,page: false
         ,id:'itemT'
@@ -150,7 +150,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
             layer.msg('ID：'+ data.id + ' 的查看操作');
         } else if(obj.event === 'del2'){
             layer.confirm('真的删除行么', function(index){
-                $.get(preItemUrl+'delete/'+data.itemId,function (data) {
+                $.get(preItemUrl+'delete?id='+data.itemId,function (data) {
                     layer.msg("删除成功！");
                     obj.del();
                     layer.close(index);
@@ -205,7 +205,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
         });
     });
     function  edit(id) {
-        $.get(preUrl+"getInfoById/"+id,function (data) {
+        $.get(preUrl+"getInfoById?id="+id,function (data) {
             var result = data.data;
             $.get('/rule/ui/rule/entity/edit', null, function (form) {
                 layer.open({
@@ -298,7 +298,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
         });
     });
     function  editItem(id) {
-        $.get(preItemUrl+"getInfoById/"+id,function (data) {
+        $.get(preItemUrl+"getInfoById?id="+id,function (data) {
             var result = data.data;
             topIndexId =    $.get('/rule/ui/rule/entityItem/edit', null, function (form) {
                 layer.open({

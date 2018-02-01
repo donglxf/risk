@@ -5,7 +5,7 @@ var preUrl = "/rule/service/constantInfo/";
 var layer,entityTable,itemTable,table,active,itemActive;
 var conId ,conKey,conType;
 layui.config({
-    base: '/rule/ui/src/js/' //假设这是你存放拓展模块的根目录
+    base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
 }).extend({ //设定模块别名
     myutil: 'common' //如果 mymod.js 是在根目录，也可以不用设定别名
 });
@@ -37,7 +37,7 @@ layui.use(['table','form','myutil'], function(){
         elem: '#demo'
         ,height: 550
         ,cellMinWidth: 80
-        ,url: preUrl + 'page/' //数据接口
+        ,url: preUrl + 'page' //数据接口
         // data:[{"conId":1,"entityName":"测试规则","entityDesc":"测试规则引擎","entityIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
         ,page: true //开启分页
         ,id:'demos'

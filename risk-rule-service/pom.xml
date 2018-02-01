@@ -37,6 +37,7 @@
             <artifactId>risk-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
         <!-- spring boot cloud -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

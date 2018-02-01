@@ -74,7 +74,10 @@ layui.define(["ht_cookie", "ht_config"], function (exports) {
                 extendsAjax: function () {
                     // 备份jquery的ajax方法
                     var _ajax = $.ajax;
-
+                    var href = window.location.href;
+                    if(href.indexOf(":8765/rule/ui/")>0){
+                        return _ajax;
+                    }
                     // 重写jquery的ajax方法
                     $.ajax = function (opt) {
                         //所有ajax请求前先验证token是否存在
@@ -119,7 +122,7 @@ layui.define(["ht_cookie", "ht_config"], function (exports) {
                                             case "9924"://授权失败
                                             case "9925"://TOKEN不能为空
                                                 layer.confirm(data['result_msg'] + '，请重新登录。', function (index) {
-                                                    top.location.href = "/login.html";
+                                                    top.location.href = "login.html";
                                                     layer.close(index);
                                                 });
                                                 return false;

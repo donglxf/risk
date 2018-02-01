@@ -476,6 +476,6 @@ layui.define('kitconfig', function(exports) {
         return NProgress;
     });
 
-    layui.link(kitconfig.resourcePath + '/src/css/nprogress.css');
+    layui.link(kitconfig.resourcePath + 'src/css/nprogress.css');
     exports('nprogress');
 });

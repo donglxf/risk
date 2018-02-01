@@ -6,7 +6,7 @@
  * Website:http://kit.zhengjinfan.cn/
  * LICENSE:MIT
  */
-layui.define(['layer','form','laytpl'], function (exports) {
+layui.define(['layer','form','laytpl','ht_ajax'], function (exports) {
     var $ = layui.jquery,
         layer = layui.layer,
         form = layui.form,

@@ -2,7 +2,12 @@
 var preBindUrl = "/rule/service/variableBind/";
 var preUrl = "/rule/service/strategy/";
 var p_sceneId = -1,versionIds=0;
-layui.use(['table', 'form','laydate'], function () {
+layui.config({
+    base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
+}).extend({ //设定模块别名
+    myutil:'common',
+});
+layui.use(['table', 'form','laydate','myutil'], function () {
     /**
      * 设置表单值
      *

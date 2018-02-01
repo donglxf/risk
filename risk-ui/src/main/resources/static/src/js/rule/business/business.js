@@ -48,10 +48,16 @@ business.cols = function () {
     ];
 };
 var layerTopIndex;
-layui.use(['table','form','laytpl'], function() {
+layui.config({
+    base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
+}).extend({ //设定模块别名
+    myutil: 'common' //如果 mymod.js 是在根目录，也可以不用设定别名
+});
+layui.use(['table','form','laytpl','myutil','ht_auth'], function() {
     var laytpl = layui.laytpl;
     businessTable = layui.table;
     var app = layui.app,
+        ht_auth=layui.ht_auth,
         form = layui.form;
     $ = layui.jquery;
 
@@ -110,6 +116,10 @@ layui.use(['table','form','laytpl'], function() {
             });
         }
     };
+    //按钮权限控制隐藏
+    businessTable.on('renderComplete('+business.tableId+')', function (obj) {
+        ht_auth.render();
+    });
     //监听工具条
     businessTable.on('tool('+business.tableId+')', function (obj) {
         var data = obj.data;
@@ -139,5 +149,6 @@ layui.use(['table','form','laytpl'], function() {
             save(business.uiUrl, result);
         }, 'json')
     }
-
+    //按钮权限控制隐藏，页面大按钮
+    ht_auth.render();
 });

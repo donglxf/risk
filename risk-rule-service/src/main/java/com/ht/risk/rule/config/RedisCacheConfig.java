@@ -1,3 +1,4 @@
+/*
 package com.ht.risk.rule.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -36,11 +37,13 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
     @Value("${spring.redis.password}")
     private String password;
 
-    /**
+    */
+/**
      * 连接redis的工厂类
      *
      * @return
-     */
+     *//*
+
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory factory = new JedisConnectionFactory();
@@ -52,7 +55,8 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
         return factory;
     }
 
-    /**
+    */
+/**
      * 配置RedisTemplate
      * 设置添加序列化器
      * key 使用string序列化器
@@ -60,7 +64,8 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
      * 还有一种简答的设置方式，改变defaultSerializer对象的实现。
      *
      * @return
-     */
+     *//*
+
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {
         //StringRedisTemplate的构造方法中默认设置了stringSerializer
@@ -83,4 +88,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
         template.afterPropertiesSet();
         return template;
     }
+
+
 }
+*/
