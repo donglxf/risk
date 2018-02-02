@@ -169,7 +169,7 @@
             .ajax({
                 cache: true,
                 type: "GET",
-                url: '/rule/service/strategy/ruleMatchResult/' + logId + '/' + versionId, // 数据接口
+                url: '/rule/service/strategy/ruleMatchResult?logId=' + logId + '&versionId=' + versionId, // 数据接口
                 async: false,
                 error: function (request) {
                     alert("Connection error");

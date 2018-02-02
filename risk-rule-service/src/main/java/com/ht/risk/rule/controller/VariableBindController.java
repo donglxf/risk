@@ -71,40 +71,9 @@ public class VariableBindController {
     @Autowired
     private RedisTemplate<String, String> redis;
 
-
-    @GetMapping("page")
-    @ApiOperation(value = "分页查询")
-    public PageResult<List<SceneVersion>> rulePage(String key, String isBusinessLine, String businessType, Integer page, Integer limit) {
-        Map<String, Object> paramMap = new HashMap<String, Object>();
-        Wrapper<SceneVersion> wrapper = new EntityWrapper<>();
-        if (StringUtils.isNotBlank(key)) {
-//            wrapper.like("title", key);
-//            wrapper.or().like("comment", key);
-//            wrapper.or().like("version", key);
-            paramMap.put("title", key);
-            paramMap.put("is_bind_var", key);
-            paramMap.put("test_status", key);
-            paramMap.put("version", key);
-        }
-        if (StringUtils.isNotBlank(isBusinessLine)) {
-            paramMap.put("business_id", isBusinessLine);
-//            wrapper.eq("rb.business_id",isBusinessLine);
-        }
-        if (StringUtils.isNotBlank(businessType)) {
-//            wrapper.eq("rs.scene_type",businessType);
-            paramMap.put("scene_type", businessType);
-        }
-
-        Page<SceneVersion> pages = new Page<>();
-        pages.setCurrent(page);
-        pages.setSize(limit);
-        pages = sceneVersionService.getNoBindVariableRecord(pages, wrapper, paramMap);
-        return PageResult.success(pages.getRecords(), pages.getTotal());
-    }
-
-    @GetMapping("getInfoById/{id}")
+    @GetMapping("getInfoById")
     @ApiOperation(value = "通过id查询详细信息")
-    public Result<SceneVersion> getDateById(@PathVariable(name = "id") Long id) {
+    public Result<SceneVersion> getDateById(Long id) {
         SceneVersion entityInfo = sceneVersionService.selectById(id);
         return Result.success(entityInfo);
     }
@@ -125,14 +94,14 @@ public class VariableBindController {
         Wrapper<VariableBind> wrapper = new EntityWrapper<>();
         wrapper.eq("sence_version_id", versionId);
         List<VariableBind> list = variableBindService.selectList(wrapper);
-        for (VariableBind bind:list){
+        for (VariableBind bind : list) {
             ArrayList<Map<String, String>> constantList = new ArrayList<>();
             String variableCode = bind.getVariableCode();
             Long constantId = bind.getConstantId(); // 常量id
             if ("CONSTANT".equals(bind.getDataType())) {
                 Long val = redis.opsForList().size(variableCode + "name");
                 if (val == 0L) {
-                    ConstantInfo info=constantInfoService.selectById(constantId);
+                    ConstantInfo info = constantInfoService.selectById(constantId);
                     List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", info.getConKey()).eq("con_type", "1"));
                     for (ConstantInfo constantInfo : ciList) {
                         HashMap<String, String> map = new HashMap<>();
@@ -143,7 +112,7 @@ public class VariableBindController {
                         redis.opsForList().leftPush(variableCode + "name", constantInfo.getConName());
                         redis.opsForList().leftPush(variableCode + "value", constantInfo.getConCode());
                     }
-                }else{
+                } else {
                     for (; val-- > 0; ) {
                         HashMap<String, String> map = new HashMap<>();
                         map.put("value", redis.opsForList().index(variableCode + "value", val));
@@ -246,7 +215,7 @@ public class VariableBindController {
         return bindList;
     }
 
-    public List<Map<String, Object>> getAutoValidaionData(List<VariableBind> bindList, VariableBindVo entityInfo) {
+    public List<Map<String, Object>> getAutoValidaionData(List<VariableBind> bindList, VariableBindVo entityInfo) throws Exception{
         StringBuffer buf = new StringBuffer(RuleConstant.SELECT + " ");
         String column = "", table = "";
         String getWay = entityInfo.getGetWay();
@@ -263,16 +232,19 @@ public class VariableBindController {
         }
         buf.append(" limit " + entityInfo.getExcuteTotal());
         log.info("自动测试拼装sql================" + buf.toString());
-
-        List<Map<String, Object>> obj = tempDataContainsService.getAutoValidaionData(buf.toString());
-        log.info("getAutoValidaionData=========================" + JSON.toJSONString(obj));
-
-        return obj;
+        try {
+            List<Map<String, Object>> obj = tempDataContainsService.getAutoValidaionData(buf.toString());
+            log.info("getAutoValidaionData=========================" + JSON.toJSONString(obj));
+            return obj;
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+            throw new Exception("数据绑定异常，请检查绑定是否正确");
+        }
     }
 
     @PostMapping("getAutoValidaionData")
     @ApiOperation(value = "根据规则id获取需要验证的数据")
-    public List<Map<String, Object>> getAutoValidaionData(VariableBindVo entityInfo) {
+    public List<Map<String, Object>> getAutoValidaionData(VariableBindVo entityInfo) throws Exception {
         List<VariableBind> bindList = getVariableBindBySenceVersionId(entityInfo);
         List<Map<String, Object>> recordMap = getAutoValidaionData(bindList, entityInfo); // 查询所需验证数据
 
@@ -281,62 +253,66 @@ public class VariableBindController {
 
     @PostMapping("autoVariable")
     @ApiOperation(value = "规则自动验证")
-    public PageResult<List<Map<String, Object>>> autoVariable(VariableBindVo entityInfo, HttpServletRequest request) {
+    public PageResult<List<Map<String, Object>>> autoVariable(VariableBindVo entityInfo, HttpServletRequest request) throws Exception {
         int success = 0, fail = 0;
-        List<Map<String, Object>> recordMap = getAutoValidaionData(entityInfo); // 查询所需验证数据
-        if (ObjectUtils.isEmpty(recordMap)) {
-            return PageResult.error(1, "验证数据为空，请检查配置或数据!");
-        }
-        // 插入一笔记录到批次表
-        SenceVerficationBatch batch = new SenceVerficationBatch();
-        batch.setBatchSize(recordMap.size());
-        batch.setSenceVersionId(String.valueOf(entityInfo.getSenceVersionId()));
-        batch.setVerficationType(String.valueOf(VerficationTypeEnum.auto.getValue()));
-        senceVerficationBatchService.insertOrUpdate(batch);
-
-        List<DroolsParamter> list = new ArrayList<DroolsParamter>();
-        for (Map<String, Object> map2 : recordMap) {
-            Map<String, Object> data = new HashMap<String, Object>();
-            for (Map.Entry<String, Object> ma : map2.entrySet()) {
-                data.put(ma.getKey(), ma.getValue());
+        try {
+            List<Map<String, Object>> recordMap = getAutoValidaionData(entityInfo); // 查询所需验证数据
+            if (ObjectUtils.isEmpty(recordMap)) {
+                return PageResult.error(1, "验证数据为空，请检查配置或数据!");
             }
-            DroolsParamter drools = new DroolsParamter();
-            drools.setVersion(String.valueOf(entityInfo.getVersion()));
-//            drools.setVersion(String.valueOf(entityInfo.getSenceVersionId()));
-            drools.setSence(entityInfo.getSceneIdentify());
-            drools.setData(data);
-            drools.setBatchId(String.valueOf(batch.getId()));
-            list.add(drools);
-        }
+            // 插入一笔记录到批次表
+            SenceVerficationBatch batch = new SenceVerficationBatch();
+            batch.setBatchSize(recordMap.size());
+            batch.setSenceVersionId(String.valueOf(entityInfo.getSenceVersionId()));
+            batch.setVerficationType(String.valueOf(VerficationTypeEnum.auto.getValue()));
+            senceVerficationBatchService.insertOrUpdate(batch);
 
-        // 处理规定调用返回结果
-        List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
-        String res = droolsRuleRpc.batchExcuteRuleValidation(list);
-        JSONArray mainArray = JSONArray.parseArray(res);
-        for (int i = 0; i < mainArray.size(); i++) {
-            JSONObject obj = mainArray.getJSONObject(i);
-            JSONObject o = obj.getJSONObject("data").getJSONObject("globalMap");
-            Map<String, Object> variableMap = (Map<String, Object>) o.get("variableMap");
-            JSONArray dataArr = o.getJSONArray("logIdList");
-            JSONArray count = (JSONArray) o.getJSONObject("_result").getJSONObject("map").get("ruleList");
-            List<String> ruleList = new ArrayList<String>();
-            if(ObjectUtils.isNotEmpty(count)){
-                String[] ruleArr = count.toArray(new String[count.size()]);
-                Set set = new HashSet();
-                for (int j = 0; j < ruleArr.length; j++) {
-                    set.add(ruleArr[j]);
+            List<DroolsParamter> list = new ArrayList<DroolsParamter>();
+            for (Map<String, Object> map2 : recordMap) {
+                Map<String, Object> data = new HashMap<String, Object>();
+                for (Map.Entry<String, Object> ma : map2.entrySet()) {
+                    data.put(ma.getKey(), ma.getValue());
                 }
-                ruleList.addAll(set);
+                DroolsParamter drools = new DroolsParamter();
+                drools.setVersion(String.valueOf(entityInfo.getVersion()));
+    //            drools.setVersion(String.valueOf(entityInfo.getSenceVersionId()));
+                drools.setSence(entityInfo.getSceneIdentify());
+                drools.setData(data);
+                drools.setBatchId(String.valueOf(batch.getId()));
+                list.add(drools);
             }
-            String[] arg = dataArr.toArray(new String[dataArr.size()]);
-            Map<String, Object> resultMap = new HashMap<String, Object>();
-            resultMap.put("logId", arg[0]);
-            resultMap.put("versionId", entityInfo.getSenceVersionId());
-            resultMap.put("count", ruleList.size());
-//            resultMap.put("variableMap", variableMap);
-            resultList.add(resultMap);
+
+            // 处理规定调用返回结果
+            List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+            String res = droolsRuleRpc.batchExcuteRuleValidation(list);
+            JSONArray mainArray = JSONArray.parseArray(res);
+            for (int i = 0; i < mainArray.size(); i++) {
+                JSONObject obj = mainArray.getJSONObject(i);
+                JSONObject o = obj.getJSONObject("data").getJSONObject("globalMap");
+                Map<String, Object> variableMap = (Map<String, Object>) o.get("variableMap");
+                JSONArray dataArr = o.getJSONArray("logIdList");
+                JSONArray count = (JSONArray) o.getJSONObject("_result").getJSONObject("map").get("ruleList");
+                List<String> ruleList = new ArrayList<String>();
+                if (ObjectUtils.isNotEmpty(count)) {
+                    String[] ruleArr = count.toArray(new String[count.size()]);
+                    Set set = new HashSet();
+                    for (int j = 0; j < ruleArr.length; j++) {
+                        set.add(ruleArr[j]);
+                    }
+                    ruleList.addAll(set);
+                }
+                String[] arg = dataArr.toArray(new String[dataArr.size()]);
+                Map<String, Object> resultMap = new HashMap<String, Object>();
+                resultMap.put("logId", arg[0]);
+                resultMap.put("versionId", entityInfo.getSenceVersionId());
+                resultMap.put("count", ruleList.size());
+    //            resultMap.put("variableMap", variableMap);
+                resultList.add(resultMap);
+            }
+            return PageResult.success(resultList, 0);
+        }catch(Exception ex){
+            return PageResult.error(1, ex.getMessage());
         }
-        return PageResult.success(resultList, 0);
 
     }
 

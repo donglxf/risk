@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ht.risk.mapper.TestDroolsLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ht.risk.model.TestDroolsLog">
+        <id column="ID" property="id" />
+        <result column="PROCINST_ID" property="procinstId" />
+        <result column="MODEL_NAME" property="modelName" />
+        <result column="SENCE_VERSIONID" property="senceVersionid" />
+        <result column="IN_PARAMTER" property="inParamter" />
+        <result column="OUT_PARAMTER" property="outParamter" />
+        <result column="EXECUTE_TOTAL" property="executeTotal" />
+        <result column="TYPE" property="type" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="batch_id" property="batchId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, PROCINST_ID AS procinstId, MODEL_NAME AS modelName, SENCE_VERSIONID AS senceVersionid, IN_PARAMTER AS inParamter, OUT_PARAMTER AS outParamter, EXECUTE_TOTAL AS executeTotal, TYPE AS type, CREATE_TIME AS createTime,batch_id as batchId
+    </sql>
+
+    <select id="queryHitRuleByProcInstId" resultType="com.ht.risk.model.HitRule">
+        select d.version_id as senceVersionId,d.title as senceName,a.RULE_NAME as ruleName,a.RULE_DESC as ruleDesc,c.EXECUTE_RULENAME as flag from RISK_RULE_HIS_VERSION a
+        inner join rule_scene_version d on a.SENCE_VERSION_ID = d.version_id
+        inner join RISK_TEST_DROOLS_LOG b on a.SENCE_VERSION_ID = b.SENCE_VERSIONID and d.version_id = b.SENCE_VERSIONID
+        left join RISK_TEST_DROOLS_DETAIL_LOG c on a.RULE_NAME = c.EXECUTE_RULENAME and b.ID = c.DROOLS_LOGID
+        where b.PROCINST_ID =  #{procInstId}
+    </select>
+
+    <select id="queryHitRuleByProcInstIds" resultType="com.ht.risk.model.HitRule" parameterType="java.util.Map">
+        select d.version_id as senceVersionId,d.title as senceName,a.RULE_NAME as ruleName,a.RULE_DESC as ruleDesc,sum(1) as flag from RISK_RULE_HIS_VERSION a
+        inner join rule_scene_version d on a.SENCE_VERSION_ID = d.version_id
+        inner join RISK_TEST_DROOLS_LOG b on a.SENCE_VERSION_ID = b.SENCE_VERSIONID and d.version_id = b.SENCE_VERSIONID
+        inner join RISK_TEST_DROOLS_DETAIL_LOG c on a.RULE_NAME = c.EXECUTE_RULENAME and b.ID = c.DROOLS_LOGID
+        where
+        b.PROCINST_ID in
+        <foreach item="procInstId" collection="procInstIds" separator="," open="(" close=")" index="">
+            #{procInstId}
+        </foreach>
+        group by d.version_id,d.title,a.RULE_DESC,a.RULE_NAME;
+    </select>
+
+</mapper>

@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import com.ht.risk.api.model.drools.DroolsParamter;
 import com.ht.risk.model.*;
+import com.ht.risk.service.*;
 import com.ht.risk.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +21,6 @@ import com.ht.risk.common.util.ObjectUtils;
 import com.ht.risk.model.fact.RuleExecutionObject;
 import com.ht.risk.model.fact.RuleExecutionResult;
 import com.ht.risk.rpc.DroolsLogInterface;
-import com.ht.risk.service.DroolsRuleEngineService;
-import com.ht.risk.service.RuleSceneService;
-import com.ht.risk.service.RuleSceneVersionService;
 
 @RestController
 public class DroolsExcuteController {
@@ -32,11 +30,23 @@ public class DroolsExcuteController {
     @Resource
     private DroolsRuleEngineService droolsRuleEngineService;
 
-    @Resource
-    private RuleSceneService ruleSceneService;
+//    @Resource
+//    private RuleSceneService ruleSceneService;
 
-    @Autowired
-    private DroolsLogInterface droolsLogInterface;
+    @Resource
+    private DroolsLogService droolsLogService ;
+
+    @Resource
+    private DroolsDetailLogService droolsProcessLogService ;
+
+    @Resource
+    private TestDroolsLogService testDroolsLogService ;
+
+    @Resource
+    private TestDroolsDetailLogService testDroolsDetailLogService ;
+
+//    @Autowired
+//    private DroolsLogInterface droolsLogInterface;
 
     @Autowired
     private RuleSceneVersionService ruleSceneVersionService;
@@ -83,20 +93,21 @@ public class DroolsExcuteController {
             }
             DroolsLog entity = new DroolsLog();
             entity.setType(paramter.getType());
-            entity.setProcinstId(paramter.getProcessInstanceId());
-            entity.setInParam(JSON.toJSONString(paramter));
+            entity.setProcinstId(Long.parseLong(paramter.getProcessInstanceId()));
+            entity.setInParamter (JSON.toJSONString(paramter));
             entity.setSenceVersionid(String.valueOf(ruleVersion.getVersionId()));
             entity.setOutParamter(JSON.toJSONString(object));
             entity.setExecuteTotal(newList.size());
             entity.setModelName(paramter.getModelName());
-            entity.setExecuteTime(String.valueOf(executeTime));
-            String logId = droolsLogInterface.saveLog(entity);
+            entity.setExecuteTime(executeTime);
+            droolsLogService.insertOrUpdate(entity);
+            Long logId =entity.getId();
             if (ObjectUtils.isNotEmpty(li)) {
                 for (String string : newList) {
-                    DroolsProcessLog process = new DroolsProcessLog();
-                    process.setDroolsLogid(Long.parseLong(logId));
+                    DroolsDetailLog process = new DroolsDetailLog();
+                    process.setDroolsLogid(logId);
                     process.setExecuteRulename(string);
-                    droolsLogInterface.saveProcessLog(process);
+                    droolsProcessLogService.insertOrUpdate(process);
                 }
             }
             data = new RuleExcuteResult(0, "", object);
@@ -180,16 +191,17 @@ public class DroolsExcuteController {
             entity.setExecuteTotal(newList.size());
             entity.setModelName(paramter.getModelName());
             entity.setBatchId(Long.parseLong(paramter.getBatchId())); // 批次号
-            String logId = droolsLogInterface.saveTestLog(entity);
+            testDroolsLogService.insertOrUpdate (entity);
+            Long logId =entity.getId();
             if (ObjectUtils.isNotEmpty(li)) {
                 for (String string : newList) {
                     TestDroolsDetailLog process = new TestDroolsDetailLog();
-                    process.setDroolsLogid(Long.parseLong(logId));
+                    process.setDroolsLogid(logId);
                     process.setExecuteRulename(string);
-                    droolsLogInterface.saveTestDroolsDetailLog(process);
+                    testDroolsDetailLogService.insertOrUpdate(process);
                 }
             }
-            logList.add(logId);
+            logList.add(String.valueOf(logId));
             object.getGlobalMap().put("logIdList", logList);
             data = new RuleExcuteResult(0, "success", object);
         } catch (Exception e) {
