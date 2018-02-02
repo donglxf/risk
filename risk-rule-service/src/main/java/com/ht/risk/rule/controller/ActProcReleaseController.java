@@ -135,7 +135,6 @@ public class ActProcReleaseController {
         //1.查询模型对应属性
         result.setModelName(actProcRelease.getModelName());//获取到模型名字
         result.setModelVersion(actProcRelease.getModelVersion());//获取到模型版本
-        result.setModelProcdefId(actProcRelease.getModelProcdefId());
         //获取策列表
         List<ModelSence> modelSenceList = modelSenceService.selectList(new EntityWrapper<ModelSence>().eq("MODEL_PROCDEF_ID", modelProcdefId));
         result.setVariableMap(modelSenceList);
@@ -144,13 +143,13 @@ public class ActProcReleaseController {
             SceneVersion sceneVersion = sceneVersionService.selectOne(new EntityWrapper<SceneVersion>().eq("version_id", modelSence.getSenceVersionId()));
             if (sceneVersion != null) {
                 modelSence.setSceneName(sceneVersion.getTitle());
-                modelSence.setSenceCode(sceneVersion.getSceneIdentify());
+            } else {
+                modelSence.setSceneName("未命名的策列表或评分卡");
             }
         }
         //2.查询策列关联的变量
         for (ModelSence modelSence : modelSenceList) {
             List<VariableBind> variableBindList = variableBindService.selectList(new EntityWrapper<VariableBind>().eq("SENCE_VERSION_ID", modelSence.getSenceVersionId()));
-            String senceCode = modelSence.getSenceCode();
             for (VariableBind variableBind : variableBindList) {
                 //如果为Constant类型的则查询
                 ArrayList<Map<String, String>> list = new ArrayList<>();
@@ -160,7 +159,11 @@ public class ActProcReleaseController {
                     //如果redis中无sex缓存,则查找mysql并加入缓存
                     Long val = redis.opsForList().size(variableCode + "name");
                     if (val == 0L) {
-                        List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", variableCode).eq("con_type", "1"));
+                        //根据变量的constant_id查询变量code,再根据变量code查询该code对应的所有变量
+                        Long constantId = variableBind.getConstantId();
+                        ConstantInfo constantInfo1 = constantInfoService.selectById(constantId);
+                        String conKey = constantInfo1.getConKey();
+                        List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", conKey).eq("con_type", "1"));
                         for (ConstantInfo constantInfo : ciList) {
                             HashMap<String, String> map = new HashMap<>();
                             map.put("value", constantInfo.getConCode());
@@ -179,7 +182,6 @@ public class ActProcReleaseController {
                         }
                     }
                 }
-                variableBind.setSenceCode(senceCode);
                 variableBind.setOptionData(list);
             }
             modelSence.setData(variableBindList);
@@ -295,10 +297,10 @@ public class ActProcReleaseController {
     public Object redisTest() {
         ArrayList<String> list = new ArrayList<>();
         //如果redis中无sex缓存,则查找mysql并加入缓存
-        Long sex = redis.opsForList().size("sex");
+        Long sex = redis.opsForList().size("education");
         if (sex == 0L) {
             EntityWrapper<ConstantInfo> wrapper = new EntityWrapper<>();
-            wrapper.eq("con_key", "sex");
+            wrapper.eq("con_key", "education");
             wrapper.eq("con_type", "1");
             List<ConstantInfo> constantInfos = constantInfoService.selectList(wrapper);
             for (ConstantInfo constantInfo : constantInfos) {
