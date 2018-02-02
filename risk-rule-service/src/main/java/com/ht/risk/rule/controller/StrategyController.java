@@ -61,9 +61,10 @@ public class StrategyController {
         return PageResult.success(pages.getRecords(), pages.getTotal());
     }
 
-    @GetMapping("manuaRuleMatchResult/{logId}/{versionId}")
+//    @GetMapping("manuaRuleMatchResult/{logId}/{versionId}")
+    @GetMapping("manuaRuleMatchResult")
     @ApiOperation(value = "获取手动规则验证结果")
-    public PageResult<List<RuleHisVersionVo>> manuaRuleMatchResult(@PathVariable("logId") String logId, @PathVariable("versionId") String versionId) {
+    public PageResult<List<RuleHisVersionVo>> manuaRuleMatchResult(@RequestParam(name = "logId") String logId, @RequestParam(name="versionId") String versionId) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", logId);
         paramMap.put("senceVersionId", versionId);
@@ -71,9 +72,10 @@ public class StrategyController {
         return PageResult.success(list, 0);
     }
 
-    @GetMapping("ruleMatchResult/{logId}/{versionId}")
+//    @GetMapping("ruleMatchResult/{logId}/{versionId}")
+    @GetMapping("ruleMatchResult")
     @ApiOperation(value = "获取规则验证结果")
-    public PageResult<Map<String, Object>> ruleMatchResult(@PathVariable("logId") String logId, @PathVariable("versionId") String versionId) {
+    public PageResult<Map<String, Object>> ruleMatchResult(@RequestParam("logId") String logId, @RequestParam("versionId") String versionId) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", logId);
         paramMap.put("senceVersionId", versionId);

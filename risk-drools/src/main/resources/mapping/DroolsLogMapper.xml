@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ht.risk.mapper.DroolsLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ht.risk.model.DroolsLog">
+        <id column="ID" property="id"/>
+        <result column="PROCINST_ID" property="procinstId"/>
+        <result column="MODEL_NAME" property="modelName"/>
+        <result column="SENCE_VERSIONID" property="senceVersionid"/>
+        <result column="IN_PARAMTER" property="inParamter"/>
+        <result column="OUT_PARAMTER" property="outParamter"/>
+        <result column="EXECUTE_TOTAL" property="executeTotal"/>
+        <result column="TYPE" property="type"/>
+        <result column="CREATE_TIME" property="createTime"/>
+        <result column="execute_time" property="executeTime"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, PROCINST_ID AS procinstId, MODEL_NAME AS modelName, SENCE_VERSIONID AS senceVersionid, IN_PARAMTER AS inParamter, OUT_PARAMTER AS outParamter, EXECUTE_TOTAL AS executeTotal, TYPE AS type, CREATE_TIME AS createTime,execute_time as executeTime
+    </sql>
+
+</mapper>

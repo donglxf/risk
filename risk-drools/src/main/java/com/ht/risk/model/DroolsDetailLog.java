@@ -14,12 +14,12 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author dyb
- * @since 2018-01-18
+ * @author 张鹏
+ * @since 2018-01-10
  */
 @ApiModel
-@TableName("RISK_TEST_DROOLS_DETAIL_LOG")
-public class TestDroolsDetailLog extends Model<TestDroolsDetailLog> {
+@TableName("RISK_DROOLS_DETAIL_LOG")
+public class DroolsDetailLog extends Model<DroolsDetailLog> {
 
     private static final long serialVersionUID = 1L;
 
@@ -68,7 +68,7 @@ public class TestDroolsDetailLog extends Model<TestDroolsDetailLog> {
 
 	@Override
 	public String toString() {
-		return "TestDroolsDetailLog{" +
+		return "DroolsDetaillog{" +
 			"id=" + id +
 			", droolsLogid=" + droolsLogid +
 			", executeRulename=" + executeRulename +

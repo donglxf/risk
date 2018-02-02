@@ -25,7 +25,7 @@ layui.use([ 'table', 'form' ], function() {
 		elem : '#demo',
 		height : 550,
 		cellMinWidth : 80,
-		url : preUrl + 'page/', // 数据接口
+		url : preUrl + 'page', // 数据接口
 		page : true, // 开启分页
 		id : 'demos',
 		cols : [ [ // 表头
@@ -119,7 +119,7 @@ layui.use([ 'table', 'form' ], function() {
 				.ajax({
 					cache : true,
 					type : "GET",
-					url : '/rule/service/variableBind/getAll/',
+					url : '/rule/service/variableBind/getAll',
 					data : {
 						"sceneId" : sceneId
 					},
@@ -151,7 +151,7 @@ layui.use([ 'table', 'form' ], function() {
 		elem : '#itemTable',
 		height : 550,
 		cellMinWidth : 80,
-		url : '/rule/service/variableBind/getAll/' // 数据接口
+		url : '/rule/service/variableBind/getAll' // 数据接口
 		// data:[{"conId":1,"entityName":"测试规则","entityDesc":"测试规则引擎","entityIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
 		,
 		page : false,

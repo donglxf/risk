@@ -31,7 +31,7 @@ layui.use(['table', 'form','laydate','myutil'], function () {
         elem: '#demo',
         height: 550,
         cellMinWidth: 80,
-        url: preUrl + 'page/' // 数据接口
+        url: preUrl + 'page' // 数据接口
         ,
         page: true // 开启分页
         ,

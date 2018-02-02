@@ -102,14 +102,14 @@ layui.use([ 'table', 'form' ], function() {
 		if (obj.event === 'detail') {
 			layer.msg('ID：' + data.versionId + ' 的查看操作');
 		} else if (obj.event === 'del') {
-			layer.confirm('真的删除行么', function(index) {
-				$.get(preUrl + 'delete/' + data.versionId, function(data) {
-					layer.msg("删除成功！");
-					obj.del();
-					layer.close(index);
-				});
-
-			});
+			// layer.confirm('真的删除行么', function(index) {
+			// 	$.get(preUrl + 'delete/' + data.versionId, function(data) {
+			// 		layer.msg("删除成功！");
+			// 		obj.del();
+			// 		layer.close(index);
+			// 	});
+            //
+			// });
 		} else if (obj.event === 'edit') {
 			// layer.alert('编辑行：<br>'+ JSON.stringify(data))
 			edit(data.versionId);
