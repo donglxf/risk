@@ -85,7 +85,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         }
         List<RpcDroolsLog> logs = logResult.getData();
         // 获取模型定义信息
-        rpcModelVerfication.setProcReleaseId(taskInfo.getProcReleaseId());
+        rpcModelVerfication.setProcReleaseId(Long.parseLong(taskInfo.getProcReleaseId()));
         Result<RpcModelReleaseInfo> releaseInfoResult = activitiConfigRpc.getProcReleaseById(rpcModelVerfication);
         if(releaseInfoResult == null || releaseInfoResult.getCode() != 0 || releaseInfoResult.getData() == null){
             return senceMap;
@@ -152,7 +152,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         }
         RpcActExcuteTaskInfo task = taskResult.getData();
         // 获取模型定义信息
-        rpcModelVerfication.setProcReleaseId(task.getProcReleaseId());
+        rpcModelVerfication.setProcReleaseId(Long.parseLong(task.getProcReleaseId()));
         Result<RpcModelReleaseInfo> releaseInfoResult = activitiConfigRpc.getProcReleaseById(rpcModelVerfication);
         LOGGER.info("rpc:activitiConfigRpc.getProcReleaseById ,result:"+JSON.toJSONString(releaseInfoResult));
         if(releaseInfoResult == null || releaseInfoResult.getCode() != 0 || releaseInfoResult.getData() == null){
@@ -215,6 +215,18 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
             }
         }
         return senceMap;
+    }
+
+    @Override
+    public Long createBatchVerficationTask() {
+        return null;
+    }
+
+    @Override
+    public Long createSingleVerficationTask() {
+        //
+
+        return null;
     }
 
 

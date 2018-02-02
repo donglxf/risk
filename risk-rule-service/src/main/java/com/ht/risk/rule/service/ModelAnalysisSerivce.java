@@ -43,4 +43,7 @@ public interface ModelAnalysisSerivce {
      */
     public Map<String,SenceParamterVo> queryTaskVerficationResult(Long taskId);
 
+    public Long createBatchVerficationTask();
+
+    public Long createSingleVerficationTask();
 }

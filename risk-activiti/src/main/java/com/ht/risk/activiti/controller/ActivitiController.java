@@ -3,51 +3,33 @@ package com.ht.risk.activiti.controller;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.ht.risk.activiti.service.ActivitiService;
-import com.ht.risk.activiti.service.SendService;
 import com.ht.risk.activiti.vo.ModelPage;
-import com.ht.risk.api.model.activiti.RpcDeployResult;
 import com.ht.risk.api.model.activiti.ModelParamter;
-import com.ht.risk.api.model.activiti.RpcSenceInfo;
+import com.ht.risk.api.model.activiti.RpcDeployResult;
 import com.ht.risk.api.model.activiti.RpcStartParamter;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
-import org.activiti.bpmn.converter.BpmnXMLConverter;
-import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.FieldExtension;
-import org.activiti.bpmn.model.FlowElement;
-import org.activiti.bpmn.model.ServiceTask;
 import org.activiti.editor.constants.ModelDataJsonConstants;
-import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.history.HistoricVariableInstance;
-import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
-import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.runtime.ProcessInstance;
-import org.apache.batik.transcoder.TranscoderInput;
-import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ${DESCRIPTION}
@@ -264,8 +246,7 @@ public class ActivitiController implements ModelDataJsonConstants {
         //重新设置回去
         map.put("childShapes", childShapes);
         //把map转换未json,重新赋值给values
-        Gson gson2 = new GsonBuilder().enableComplexMapKeySerialization().create();
-        String json1 = gson2.toJson(map);
+        String json1 = JSON.toJSONString(map);
         values.set("json_xml", json1);
         try {
             activitiService.saveModel(modelId, values);

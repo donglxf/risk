@@ -12,4 +12,17 @@ public class ActivitiConstants {
 
     public final static String DROOLS_VARIABLE_NAME = "DATA";
 
+    /**
+     * 模型调用类型参数名称，模型启动时传入，规则调用时需要从流程变量中获取，0-业务调用 1-验证中心调用
+     */
+    public final static String EXCUTE_TYPE_VARIABLE_NAME = "ExcuteType";
+    /**
+     * 实际业务调用
+     */
+    public final static String EXCUTE_TYPE_SERVICE = "0";
+    /**
+     *  验证
+     */
+    public final static String EXCUTE_TYPE_VERFICATION = "1";
+
 }

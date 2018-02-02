@@ -28,7 +28,8 @@ public class AmqpConfig {
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-        connectionFactory.setAddresses("10.110.1.240:5672");
+        //connectionFactory.setAddresses("10.110.1.240:5672");
+        connectionFactory.setAddresses("127.0.0.1:5672");
         connectionFactory.setUsername("admin");
         connectionFactory.setPassword("admin");
         connectionFactory.setVirtualHost("/");
@@ -44,6 +45,13 @@ public class AmqpConfig {
     @Bean
     Queue queue(RabbitAdmin rabbitAdmin){
         Queue queue = new Queue(RESULT_QUEUENAME,true);
+        rabbitAdmin.declareQueue(queue);
+        return queue;
+    }
+
+    @Bean
+    Queue queue2(RabbitAdmin rabbitAdmin){
+        Queue queue = new Queue("hello",true);
         rabbitAdmin.declareQueue(queue);
         return queue;
     }

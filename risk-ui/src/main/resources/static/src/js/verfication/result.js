@@ -1,4 +1,4 @@
-var data = [
+/*var data = [
     {
         "hitRule": {},
         "paramterData": {
@@ -83,7 +83,7 @@ var data = [
         "senceInfo": {
             "name": "房贷评分模型"
         }
-    }];
+    }];*/
 layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
     var $ = layui.jquery;
     var element = layui.element;
@@ -91,8 +91,9 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
     var sence = $("#sence")
     var senceHtml = sence.html();
     var content = $("#main_content");
-    var taskId = '956783321903357953';
-
+    console.log(parent);
+    var taskId = $("#task_hidden_input", parent.document).val();
+    console.log(taskId);
     $.ajax({
         cache : true,
         type : "GET",
@@ -106,7 +107,6 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
             layer.msg("查询失败！");
         },
         success : function(data) {
-
             if(data.code == 0){
                 laytpl(senceHtml).render(data.data, function (html) {
                     content.html(html);

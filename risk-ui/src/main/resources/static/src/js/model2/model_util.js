@@ -118,12 +118,13 @@ ModelVerification.prototype = {
      渲染单个变量
      */
     initOneValible: function (valible) {
+        console.log(valible);
         var tmpValue = valible.tmpValue;
-        var senceVersionId = valible.senceVersionId;
+        var senceCode =valible.senceCode;
         var variableCode = valible.variableCode;
         var dataType = valible.dataType;
         var optionData = valible.optionData;
-        var name = senceVersionId + '#' + variableCode;
+        var name = senceCode + '#' + variableCode;
         //需要把对应的variableCode包含的枚举变量集合从session中取出,作为selection中的option值
         var html = "";
         switch (dataType) {
@@ -189,6 +190,7 @@ ModelVerification.prototype = {
      * @returns {string}
      */
     initDiv: function (data) {
+        console.log(data);
         var size = 3;
         var length = data.length;
         var count = Math.ceil(length / size); //向上取整
@@ -233,11 +235,11 @@ ModelVerification.prototype = {
 
         var senceData = data.variableMap;
         var html = '';
-        html += ' <div class="layui-form-item" >\n' +
+      /*  html += ' <div class="layui-form-item" >\n' +
             '<button type="reset" class="layui-btn layui-btn-primary">重 置</button>' +
             '<button class="layui-btn"  lay-submit="" lay-filter="save" id="save">保 存</button>\n' +
             '<button type="button" class="layui-btn layui-btn-normal"  lay-filter="test" id="test" >开始测试</button>' +
-            '</div>';
+            '</div>';*/
 
 
         for (var i = 0; i < senceData.length; i++) {
@@ -287,6 +289,7 @@ ModelAutoVerification.prototype = {
      渲染单个变量
      */
     initOneValible: function (valible) {
+        console.log(valible);
         var senceVersionId = valible.senceVersionId;
         var variableCode = valible.variableCode;
         var bindTable = valible.bindTable;
@@ -301,7 +304,8 @@ ModelAutoVerification.prototype = {
      * @param data
      * @returns {string}
      */
-    initDiv: function (data) {
+    initDiv: function (data){
+        console.log(data);
         var size = 3;
         var length = data.length;
         var count = Math.ceil(length / size);
