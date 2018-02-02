@@ -1,13 +1,13 @@
 [
   {
-    "id": "FK-001",
+    "id": "FK_FK-001",
     "icon": "fa fa-plug",
     "spread": true,
     "title": "业务线管理",
     "url": null,
     "children": [
       {
-        "id": "FK-0011",
+        "id": "FK_FK-0011",
         "icon": "fa fa-user",
         "spread": true,
         "title": "业务线管理",
@@ -17,14 +17,14 @@
     ]
   },
   {
-    "id": "FK-002",
-    "icon": "",
+    "id": "FK_FK-002",
+    "icon": "fa fa-user",
     "spread": true,
     "title": "规则管理",
     "url": null,
     "children": [
       {
-        "id": "FK-0021",
+        "id": "FK_FK-0021",
         "icon": "fa fa-user",
         "spread": true,
         "title": "变量管理",
@@ -32,7 +32,7 @@
         "children": []
       },
       {
-        "id": "FK-0022",
+        "id": "FK_FK-0022",
         "icon": "fa fa-user",
         "spread": true,
         "title": "常量管理",
@@ -40,7 +40,7 @@
         "children": []
       },
       {
-        "id": "FK-0023",
+        "id": "FK_FK-0023",
         "icon": "fa fa-user",
         "spread": true,
         "title": "动作管理",
@@ -48,7 +48,7 @@
         "children": []
       },
       {
-        "id": "FK-0024",
+        "id": "FK_FK-0024",
         "icon": "fa fa-user",
         "spread": true,
         "title": "策略管理",
@@ -58,14 +58,14 @@
     ]
   },
   {
-    "id": "FK-003",
+    "id": "FK_FK-003",
     "icon": "",
     "spread": true,
     "title": "模型管理",
     "url": "",
     "children": [
       {
-        "id": "FK-0031",
+        "id": "FK_FK-0031",
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型配置",
@@ -75,14 +75,14 @@
     ]
   },
   {
-    "id": "FK-004",
+    "id": "FK_FK-004",
     "icon": "",
     "spread": true,
     "title": "验证中心",
     "url": "",
     "children": [
       {
-        "id": "FK-0041",
+        "id": "FK_FK-0041",
         "icon": "fa fa-user",
         "spread": true,
         "title": "决策验证",
@@ -90,7 +90,7 @@
         "children": []
       },
       {
-        "id": "FK-0042",
+        "id": "FK_FK-0042",
         "icon": "fa fa-user",
         "spread": true,
         "title": "决策变量绑定",
@@ -98,7 +98,7 @@
         "children": []
       },
       {
-        "id": "FK-0043",
+        "id": "FK_FK-0043",
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型验证",
@@ -106,7 +106,7 @@
         "children": []
       },
       {
-        "id": "FK-0044",
+        "id": "FK_FK-0044",
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型验证结果",
@@ -116,14 +116,14 @@
     ]
   },
   {
-    "id": "FK-005",
+    "id": "FK_FK-005",
     "icon": "",
     "spread": true,
     "title": "发布管理",
     "url": "",
     "children": [
       {
-        "id": "FK-0051",
+        "id": "FK_FK-0051",
         "icon": "fa fa-user",
         "spread": true,
         "title": "策略版本管理",
@@ -131,7 +131,7 @@
         "children": []
       },
       {
-        "id": "FK-0052",
+        "id": "FK_FK-0052",
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型发布",
@@ -139,7 +139,7 @@
         "children": []
       },
       {
-        "id": "FK-0053",
+        "id": "FK_FK-0053",
         "icon": "fa fa-user",
         "spread": true,
         "title": "发布审批",
@@ -149,14 +149,14 @@
     ]
   },
   {
-    "id": "FK-006",
+    "id": "FK_FK-006",
     "icon": "",
     "spread": true,
     "title": "版本管理",
     "url": "",
     "children": [
       {
-        "id": "FK-0061",
+        "id": "FK_FK-0061",
         "icon": "fa fa-user",
         "spread": true,
         "title": "策略版本管理",
@@ -164,7 +164,7 @@
         "children": []
       },
       {
-        "id": "FK-0062",
+        "id": "FK_FK-0062",
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型版本管理",
@@ -174,14 +174,14 @@
     ]
   },
   {
-    "id": "FK-007",
+    "id": "FK_FK-007",
     "icon": "",
     "spread": true,
     "title": "风险预警",
     "url": "",
     "children": [
       {
-        "id": "FK-0071",
+        "id": "FK_FK-0071",
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型调度管理",
@@ -189,7 +189,7 @@
         "children": []
       },
       {
-        "id": "FK-0072",
+        "id": "FK_FK-0072",
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型调度配置",
@@ -199,14 +199,14 @@
     ]
   },
   {
-    "id": "FK-008",
+    "id": "FK_FK-008",
     "icon": "",
     "spread": true,
     "title": "监控管理",
     "url": "",
     "children": [
       {
-        "id": "FK-0081",
+        "id": "FK_FK-0081",
         "icon": "fa fa-user",
         "spread": true,
         "title": "日志查询",
@@ -214,7 +214,7 @@
         "children": []
       },
       {
-        "id": "FK-0082",
+        "id": "FK_FK-0082",
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型报告",
@@ -222,7 +222,7 @@
         "children": []
       },
       {
-        "id": "FK-0083",
+        "id": "FK_FK-0083",
         "icon": "fa fa-user",
         "spread": true,
         "title": "策略报告",
