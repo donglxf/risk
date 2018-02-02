@@ -128,7 +128,7 @@ layui.use(['table','form','laytpl','myutil','ht_auth'], function() {
             layer.msg('ID：' + data.id + ' 的查看操作');
         } else if (obj.event === 'del') {
             layer.confirm('真的删除行么', function (index) {
-                $.get(business.baseUrl + 'delete/' + data.businessId, function (data) {
+                $.get(business.baseUrl + 'delete?id=' + data.businessId, function (data) {
                     layer.msg("删除成功！");
                     obj.del();
                     layer.close(index);
@@ -144,7 +144,7 @@ layui.use(['table','form','laytpl','myutil','ht_auth'], function() {
     });
     //修改
     function edit(id) {
-        $.get(business.baseUrl + "getInfoById/" + id, function (data) {
+        $.get(business.baseUrl + "getInfoById?id=" + id, function (data) {
             var result = data.data;
             save(business.uiUrl, result);
         }, 'json')

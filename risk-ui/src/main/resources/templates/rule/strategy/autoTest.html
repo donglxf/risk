@@ -130,7 +130,7 @@
 //                        var modelVerification = new ModelVerification();
                         resultTab(da.data);
                     } else {
-                        $("#validateResult").val(da.msg);
+                        layer.msg(da.msg);
                     }
                 }
             });
@@ -140,11 +140,11 @@
         function resultTab(da){
             var html='[';
             for (var i=0;i<da.length;i++){
-                var obj=da[i].variableMap;
+//                var obj=da[i].variableMap;
                 if(i==da.length-1){
-					html+="{\"ruleCount\": \""+da[i].count+"\",\"oper\": \"查看详情\",\"obj\":\""+obj+"\",\"logId\":\""+da[i].logId+"\",\"versionId\":\""+da[i].versionId+"\"}";
+					html+="{\"ruleCount\": \""+da[i].count+"\",\"oper\": \"查看详情\",\"logId\":\""+da[i].logId+"\",\"versionId\":\""+da[i].versionId+"\"}";
 				}else{
-					html+="{\"ruleCount\": \""+da[i].count+"\",\"oper\": \"查看详情\",\"obj\":\""+obj+"\",\"logId\":\""+da[i].logId+"\",\"versionId\":\""+da[i].versionId+"\"},";
+					html+="{\"ruleCount\": \""+da[i].count+"\",\"oper\": \"查看详情\",\"logId\":\""+da[i].logId+"\",\"versionId\":\""+da[i].versionId+"\"},";
 				}
             }
             html+="]";

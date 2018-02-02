@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,6 +64,12 @@ public class VariableBindController {
 
     @Autowired
     private SenceVerficationBatchService senceVerficationBatchService;
+
+    @Autowired
+    private ConstantInfoService constantInfoService;
+
+    @Autowired
+    private RedisTemplate<String, String> redis;
 
 
     @GetMapping("page")
@@ -118,6 +125,35 @@ public class VariableBindController {
         Wrapper<VariableBind> wrapper = new EntityWrapper<>();
         wrapper.eq("sence_version_id", versionId);
         List<VariableBind> list = variableBindService.selectList(wrapper);
+        for (VariableBind bind:list){
+            ArrayList<Map<String, String>> constantList = new ArrayList<>();
+            String variableCode = bind.getVariableCode();
+            Long constantId = bind.getConstantId(); // 常量id
+            if ("CONSTANT".equals(bind.getDataType())) {
+                Long val = redis.opsForList().size(variableCode + "name");
+                if (val == 0L) {
+                    ConstantInfo info=constantInfoService.selectById(constantId);
+                    List<ConstantInfo> ciList = constantInfoService.selectList(new EntityWrapper<ConstantInfo>().eq("con_key", info.getConKey()).eq("con_type", "1"));
+                    for (ConstantInfo constantInfo : ciList) {
+                        HashMap<String, String> map = new HashMap<>();
+                        map.put("value", constantInfo.getConCode());
+                        map.put("name", constantInfo.getConName());
+                        constantList.add(map);
+                        //缓存数据
+                        redis.opsForList().leftPush(variableCode + "name", constantInfo.getConName());
+                        redis.opsForList().leftPush(variableCode + "value", constantInfo.getConCode());
+                    }
+                }else{
+                    for (; val-- > 0; ) {
+                        HashMap<String, String> map = new HashMap<>();
+                        map.put("value", redis.opsForList().index(variableCode + "value", val));
+                        map.put("name", redis.opsForList().index(variableCode + "name", val));
+                        constantList.add(map);
+                    }
+                }
+                bind.setOptionData(constantList);
+            }
+        }
         SceneVersion version = sceneVersionService.selectById(versionId);
         ModelSence sence = new ModelSence();
         sence.setData(list);
@@ -249,7 +285,7 @@ public class VariableBindController {
         int success = 0, fail = 0;
         List<Map<String, Object>> recordMap = getAutoValidaionData(entityInfo); // 查询所需验证数据
         if (ObjectUtils.isEmpty(recordMap)) {
-            return PageResult.error(1, "获取验证数据失败！！");
+            return PageResult.error(1, "验证数据为空，请检查配置或数据!");
         }
         // 插入一笔记录到批次表
         SenceVerficationBatch batch = new SenceVerficationBatch();
@@ -297,7 +333,7 @@ public class VariableBindController {
             resultMap.put("logId", arg[0]);
             resultMap.put("versionId", entityInfo.getSenceVersionId());
             resultMap.put("count", ruleList.size());
-            resultMap.put("variableMap", variableMap);
+//            resultMap.put("variableMap", variableMap);
             resultList.add(resultMap);
         }
         return PageResult.success(resultList, 0);
