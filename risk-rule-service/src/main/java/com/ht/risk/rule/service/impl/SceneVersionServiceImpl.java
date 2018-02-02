@@ -52,9 +52,9 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
     }
 
 	@Override
-	public Page<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages, Wrapper<SceneVersion> wrapper) {
+	public Page<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages, Wrapper<SceneVersion> wrapper,Map<String,Object> paramMap) {
 		SqlHelper.fillWrapper(pages, wrapper);
-        pages.setRecords(sceneVersionMapper.getNoBindVariableRecord(pages, wrapper));
+        pages.setRecords(sceneVersionMapper.getNoBindVariableRecord(pages, paramMap));
 		return pages;
 	}
 	
@@ -121,6 +121,28 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
         });
         //批量插入变量
         variableBindService.insertBatch(binds);
+    }
+
+    @Override
+    public Map<String, Object> staticRuleExecuteInfo(Map<String,Object> map) {
+        List<Map<String,Object>> listMap=sceneVersionMapper.getRuleAgeTime(map);
+        List<Map<String,Object>> ruleMap=new ArrayList<Map<String,Object>>();
+        for (Map<String,Object> ma:listMap){
+            Map<String,Object> paramMap=new HashMap<String,Object>();
+            paramMap.put("versionId",ma.get("senceVersionId"));
+            Map<String,Object> list=sceneVersionMapper.getRuleExecInfo(paramMap);
+            ruleMap.add(list);
+        }
+        Map<String, Object> resultMap=new HashMap<String,Object>();
+        resultMap.put("ruleMap",ruleMap);
+        resultMap.put("listMap",listMap);
+        return resultMap;
+    }
+
+    @Override
+    public List<Map<String,Object>> staticRuleExecuteTotal(Map<String, Object> map) {
+        List<Map<String,Object>> resultMap=sceneVersionMapper.getRuleExecTotal(map);
+        return resultMap;
     }
 
 }

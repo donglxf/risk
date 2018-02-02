@@ -1,12 +1,15 @@
 package com.ht.risk.rule.vo;
 
+import java.io.Serializable;
+
 /**
  * 说明：table显示的头部，变量
  *
  * @auther 张鹏
  * @create
  */
-public class RuleItemTable {
+public class RuleItemTable implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Long entityId;
 

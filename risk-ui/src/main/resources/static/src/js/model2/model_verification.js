@@ -1,10 +1,10 @@
-var modelIds="";
-layui.use(['table', 'jquery', 'laydate', 'form'], function () {
+var modelIds = "";
+layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
     var table = layui.table;
     var $ = layui.jquery;
     var laydate = layui.laydate;
     var form = layui.form;
-
+    var laytpl = layui.laytpl;
 
     //第一个实例
     table.render({
@@ -14,10 +14,10 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
         , page: true //开启分页
         , where: {}
         , cols: [[ //表头\
-            {field: 'id', title: '序号', align: "center", width: "15%"}
+            {field: 'id', title: '序号', align: "center", width: "15%",sort: true}
             , {field: 'modelName', title: '模型名称', align: "center", width: "15%"}
             , {field: 'modelCategory', title: '业务线', align: "center", width: "20%"}
-            , {field: 'modelVersion', title: '版本', align: "center", width: "10%"}
+            , {field: 'modelVersion', title: '版本', align: "center", width: "10%",sort: true}
             , {field: 'status', title: '变量绑定', align: "center", width: "10%"}
             , {field: 'isValidateAlia', title: '验证状态', align: "center", width: "10%"}
             , {fixed: 'right', title: "操作", width: 150, align: 'center', toolbar: '#barDemo', width: "20%"}
@@ -57,7 +57,7 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
         var modelId = data.id;
         modelIds = modelId;
         if (layEvent === 'manual_verification') { //手动验证
-            var layIndex =layer.open({
+            var layIndex = layer.open({
                 type: 2,
                 shade: false,
                 title: "",
@@ -70,7 +70,7 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
             });
             layer.full(layIndex);
         } else if (layEvent === 'auto_verification') {
-            var layIndex =layer.open({
+            var layIndex = layer.open({
                 type: 2,
                 shade: false,
                 title: "",
@@ -99,6 +99,7 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
         });
         return false;
     });
+<<<<<<< HEAD
 
     form.on('submit(save_auto)', function (data) {
     console.log('保存自动校验变量');
@@ -128,24 +129,69 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
         return false;
     });
 
+=======
+
+    $("#test").click(function () {
+        layer.msg("需调用其它接口");
+    });
+
+
+    form.on('submit(save_auto)', function (data) {
+        console.log('保存自动校验变量');
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: '/rule/service/actProcRelease/scene/variable/init/auto',
+            data: data.field,// 你的formid
+            async: false,
+            success: function (data) {
+                layer.msg(data.msg);
+            }
+        });
+        return false;
+    });
+
+    $("#test").click(function () {
+        layer.msg("需调用其它接口");
+    });
+>>>>>>> 1d6161b7bc02341c4fe36cf1c8d0cfe5a1037b1f
 
 
 //时间选择器
-laydate.render({
-    elem: '.date'
-    , type: 'datetime'
-});
-
-$('.time').each(function () {
-    var id = $(this).attr("id");
     laydate.render({
-        elem: '#' + id
+        elem: '.date'
         , type: 'datetime'
     });
 
+    $('.time').each(function () {
+        var id = $(this).attr("id");
+        laydate.render({
+            elem: '#' + id
+            , type: 'datetime'
+        });
+
+    });
+
+    /**
+     * 渲染业务下拉框
+     */
+    $(function () {
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: '/rule/service/business/getAll',
+            timeout: 6000, //超时时间设置，单位毫秒
+            async: false,
+            success: function (data) {
+                var getTpl = demo.innerHTML
+                    ,view = document.getElementById('modelCategory');
+                laytpl(getTpl).render(data, function(html){
+                    view.innerHTML = html;
+                });
+            }
+        });
+    })
 });
-})
-;
 
 // var data = {
 //     "modelName": "房贷模型",

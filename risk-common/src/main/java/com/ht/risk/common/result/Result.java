@@ -9,6 +9,8 @@ package com.ht.risk.common.result;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 /**
  * Rest接口请求结果对象<br>
  * 
@@ -17,7 +19,8 @@ import io.swagger.annotations.ApiModelProperty;
  * @since cams-common 1.0-SNAPSHOT
  */
 @ApiModel
-public class Result<T> {
+public class Result<T> implements Serializable {
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 错误代码
 	 */

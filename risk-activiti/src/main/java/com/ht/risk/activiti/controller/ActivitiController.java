@@ -4,47 +4,32 @@ import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ht.risk.activiti.service.ActivitiService;
-import com.ht.risk.activiti.service.SendService;
 import com.ht.risk.activiti.vo.ModelPage;
-import com.ht.risk.api.model.activiti.RpcDeployResult;
 import com.ht.risk.api.model.activiti.ModelParamter;
-import com.ht.risk.api.model.activiti.RpcSenceInfo;
+import com.ht.risk.api.model.activiti.RpcDeployResult;
 import com.ht.risk.api.model.activiti.RpcStartParamter;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
-import org.activiti.bpmn.converter.BpmnXMLConverter;
-import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.FieldExtension;
-import org.activiti.bpmn.model.FlowElement;
-import org.activiti.bpmn.model.ServiceTask;
 import org.activiti.editor.constants.ModelDataJsonConstants;
-import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.history.HistoricVariableInstance;
-import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
-import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.runtime.ProcessInstance;
-import org.apache.batik.transcoder.TranscoderInput;
-import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ${DESCRIPTION}
@@ -67,7 +52,6 @@ public class ActivitiController implements ModelDataJsonConstants {
     private HistoryService historyService;
     @Resource
     private ActivitiService activitiService;
-
 
 
     /**
@@ -227,10 +211,45 @@ public class ActivitiController implements ModelDataJsonConstants {
 
     @RequestMapping(value = "/model/save", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void saveModel(@RequestParam  String modelId, @RequestBody MultiValueMap<String, String> values) {
-        LOGGER.info("saveModel invoke ,paramter[modelId:" + modelId+";values:"+ JSON.toJSONString(values));
+    public void saveModel(@RequestParam String modelId, @RequestBody MultiValueMap<String, String> values) {
+        LOGGER.info("saveModel invoke ,paramter[modelId:" + modelId + ";values:" + JSON.toJSONString(values));
+        List<String> list = values.get("json_xml");
+        String json = list.get(0);
+        Map<String, Object> map = new GsonJsonParser().parseMap(json);
+        List<Map> childShapes = (List<Map>) map.get("childShapes");
+        for (Map map1 : childShapes) {
+            Map properties = (Map) map1.get("properties");
+            Map stencil = (Map) map1.get("stencil");
+            //根据节点id,判断是否为自定义节点
+            if ("custom".equals(stencil.get("id"))) {
+                stencil.put("id", "ServiceTask");
+                properties.put("overrideid", "");
+                properties.put("name", "");
+                properties.put("documentation", "");
+                properties.put("asynchronousdefinition", "false");
+                properties.put("exclusivedefinition", "false");
+                properties.put("executionlisteners", "");
+                properties.put("multiinstance_type", "None");
+                properties.put("multiinstance_cardinality", "");
+                properties.put("multiinstance_collection", "");
+                properties.put("multiinstance_variable ", "");
+                properties.put("multiinstance_condition", "");
+                properties.put("isforcompensation ", "false");
+                properties.put("servicetaskclass", "");
+                properties.put("servicetaskexpression", "");
+                properties.put("servicetaskdelegateexpression", "${mortgageRiskService}");
+                properties.put("servicetaskfields", "");
+                properties.put("servicetaskresultvariable", "");
+                properties.put("delegateExpression", "");
+            }
+        }
+        //重新设置回去
+        map.put("childShapes", childShapes);
+        //把map转换未json,重新赋值给values
+        String json1 = JSON.toJSONString(map);
+        values.set("json_xml", json1);
         try {
-            activitiService.saveModel(modelId,values);
+            activitiService.saveModel(modelId, values);
         } catch (Exception e) {
             LOGGER.error("Error saving model", e);
             throw new ActivitiException("Error saving model", e);
@@ -270,11 +289,11 @@ public class ActivitiController implements ModelDataJsonConstants {
     }
 
     @RequestMapping(value = "/getProcInstVarObj")
-    public Object getProcInstVarObj(@RequestBody ModelParamter paramter){
+    public Object getProcInstVarObj(@RequestBody ModelParamter paramter) {
         LOGGER.info("getProcInstVarObj start,paramter:" + JSON.toJSONString(paramter));
-        List<HistoricVariableInstance> instances = activitiService.getProcessVarByDeployIdAndName(paramter.getProcessId(),paramter.getVariableName());
+        List<HistoricVariableInstance> instances = activitiService.getProcessVarByDeployIdAndName(paramter.getProcessId(), paramter.getVariableName());
         LOGGER.info("getProcInstVarObj end,paramter:" + JSON.toJSONString(instances));
-        if(instances.size()>0 && instances.get(0).getValue() != null){
+        if (instances.size() > 0 && instances.get(0).getValue() != null) {
             return instances.get(0).getValue();
         }
         return null;

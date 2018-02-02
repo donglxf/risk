@@ -6,10 +6,10 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
-import com.ht.risk.rule.entity.SceneInfo;
-import com.ht.risk.rule.entity.SceneInfoVersion;
-import com.ht.risk.rule.entity.SceneVersion;
+import com.ht.risk.rule.entity.*;
 import com.ht.risk.rule.rpc.DroolsRuleRpc;
+import com.ht.risk.rule.service.ActionInfoService;
+import com.ht.risk.rule.service.RuleActionVersionService;
 import com.ht.risk.rule.service.SceneInfoService;
 import com.ht.risk.rule.service.SceneVersionService;
 import io.swagger.annotations.ApiOperation;
@@ -40,6 +40,12 @@ public class SceneVersionController {
 
     @Autowired
     private SceneInfoService sceneInfoService;
+
+
+    @Autowired
+    private RuleActionVersionService ruleActionVersionService;
+    @Autowired
+    private ActionInfoService actionInfoService;
 
     @Autowired
     private DroolsRuleRpc droolsRuleRpc;
@@ -111,7 +117,7 @@ public class SceneVersionController {
     @PostMapping ("push")
     @ApiOperation(value = "版本发布-测试版")
     @Transactional(rollbackFor = RuntimeException.class)
-    public Result<Integer> push(SceneVersion version){
+    public Result<Integer> push(SceneVersion version) throws  Exception{
 
         SceneInfo sceneInfo = sceneInfoService.selectById(version.getSceneId());
         if(sceneInfo == null ){
@@ -140,12 +146,24 @@ public class SceneVersionController {
         sceneVersionService.insert(version);
         //保存 版本附带信息
         sceneVersionService.addRuleDescAndVarids(sceneInfo,version);
+
+        //版本动作关联表
+        List<ActionInfo> actionInfos = actionInfoService.findRuleActionListByScene(sceneInfo);
+
+
+        actionInfos.forEach(actionInfo -> {
+            RuleActionVersion rel = new RuleActionVersion();
+            rel.setVersionId(version.getVersionId());
+            rel.setActionClass(actionInfo.getActionClass());
+            rel.setActionId(actionInfo.getActionId());
+            ruleActionVersionService.insert(rel);
+        });
         return Result.success(0);
     }
     @PostMapping ("push4zs")
     @ApiOperation(value = "版本发布-正式版")
     @Transactional(rollbackFor = RuntimeException.class)
-    public Result<Integer> push(Long versionId){
+    public Result<Integer> push(Long versionId) throws Exception{
 
         SceneVersion version = sceneVersionService.selectById(versionId);
         if(version == null ){
@@ -171,6 +189,7 @@ public class SceneVersionController {
         version.setOfficialVersion(maxVersion+"");
         version.setType(1);
         sceneVersionService.updateById(version);
+
         return Result.success(0);
     }
 }

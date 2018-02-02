@@ -100,16 +100,16 @@ public class ActionInfoController {
 		return Result.success(0);
 	}
     
-    @GetMapping("delete/{id}")
+    @GetMapping("delete")
 	@ApiOperation(value = "通过id删除信息")
-	public Result<Integer> delete(@PathVariable(name = "id") Long id) {
+	public Result<Integer> delete( Long id) {
     	actionInfoService.deleteById(id);
 		return Result.success(0);
 	}
     
-    @GetMapping("getInfoById/{id}")
+    @GetMapping("getInfoById")
 	@ApiOperation(value = "通过id查询详细信息")
-	public Result<ActionInfo> getDateById(@PathVariable(name = "id") Long id) {
+	public Result<ActionInfo> getDateById(Long id) {
     	ActionInfo entityInfo = actionInfoService.selectById(id);
 		return Result.success(entityInfo);
 	}

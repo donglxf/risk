@@ -8,6 +8,7 @@ import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.rule.entity.SceneInfoVersion;
 import com.ht.risk.rule.entity.SceneVersion;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,9 +22,20 @@ import java.util.Map;
 public interface SceneVersionService extends BaseService<SceneVersion> {
 
     Page<SceneInfoVersion> selectVersionPage(Page<SceneInfoVersion> pages, Wrapper<SceneInfoVersion> wrapper);
-    
-    Page<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages , Wrapper<SceneVersion> wrapper);
-    
+
+    /**
+     * 获取所有测试版本
+     * @param pages
+     * @param wrapper
+     * @return
+     */
+    Page<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages ,Wrapper<SceneVersion> wrapper,Map<String,Object> paramMap);
+
+    /**
+     * 获取最大测试版本号
+     * @param paramMap
+     * @return
+     */
      Map<String,Object> getMaxTestVersion(Map<String,Object> paramMap);
 
     /**
@@ -40,4 +52,14 @@ public interface SceneVersionService extends BaseService<SceneVersion> {
      * @param version
      */
      void addRuleDescAndVarids(SceneInfo sceneInfo, SceneVersion version);
+
+     /**
+     * 统计规则响应时间信息
+     */
+     Map<String,Object> staticRuleExecuteInfo( Map<String,Object> map);
+
+     /**
+     * 统计规则执行数
+     */
+     List<Map<String,Object>> staticRuleExecuteTotal(Map<String,Object> map);
 }

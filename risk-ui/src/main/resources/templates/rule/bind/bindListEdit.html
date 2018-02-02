@@ -18,36 +18,7 @@
 				<tbody id="bindColumnTable"></tbody>
 			</table>
 
-			<!--<div class="layui-form-item">
-				<label class="layui-form-label">变量名称:</label>
-				<div class="layui-input-inline">
-					<select name="variableCode" id="variableCode" lay-filter="droolsVariable">
-					</select>
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">业务表名:</label>
-				<div class="layui-input-block">
-					<input type="text" id="ttt" name="bindTable" required
-						lay-verify="required" placeholder="请输入业务表名" autocomplete="off"
-						class="layui-input" value="TEMP_DATA_CONTAINS" >
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">业务表字段:</label>
-				<div class="layui-input-block">
-					<input type="text" id="bindColumn" name="bindColumn" required
-						lay-verify="required" placeholder="请输入业务表字段" autocomplete="off"
-						class="layui-input">
-				</div>
-			</div>
 
-			<div class="layui-form-item">
-				<div class="layui-input-block">
-					<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-				</div>
-			</div>-->
 			<div class="layui-form-item" style="display: none;">
 				<div class="layui-input-block">
 					<button class="layui-btn"  lay-submit lay-filter="formDemo">立即提交</button>
@@ -83,6 +54,7 @@
                 success : function(da) {
                     if (da.code == 0) {
                         layer.msg('保存数据成功');
+                        active.reload();
                     } else {
                        layer.msg(data.msg);
                     }

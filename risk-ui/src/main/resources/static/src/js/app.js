@@ -93,13 +93,13 @@ layui.define(['element', 'nprogress', 'form', 'table', 'loader', 'tab', 'navbar'
                     tab.tabAdd(data);
                 });
                 //navbar加载方式二，设置远程地址加载
-                // navbar.set({
-                //     remote: {
-                //         url: '/datas/navbar1.json'
-                //     }
-                // }).render(function(data) {
-                //     tab.tabAdd(data);
-                // });
+                navbar.set({
+                    remote: {
+                        url: '/rule/ui/datas/menu.json'
+                    }
+                }).render(function(data) {
+                    tab.tabAdd(data);
+                });
                 //navbar加载方式三，设置data本地数据
                 // navbar.set({
                 //     data: [{

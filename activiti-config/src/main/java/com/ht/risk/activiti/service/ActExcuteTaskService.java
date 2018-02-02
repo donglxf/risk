@@ -5,6 +5,7 @@ import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.common.service.BaseService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -19,5 +20,7 @@ public interface ActExcuteTaskService extends BaseService<ActExcuteTask> {
     public List<RpcActExcuteTaskInfo> queryProcInstIdBybatchId(Long batchId);
 
     public RpcActExcuteTaskInfo convertRpcActExcuteTask(ActExcuteTask task);
+
+    Map<String,Object> getModelGraph(Map<String,Object> map);
 
 }

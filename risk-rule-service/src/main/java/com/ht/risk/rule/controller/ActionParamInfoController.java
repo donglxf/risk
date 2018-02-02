@@ -1,24 +1,18 @@
 package com.ht.risk.rule.controller;
 
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ActionParamInfo;
 import com.ht.risk.rule.service.ActionParamInfoService;
-
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -35,7 +29,7 @@ public class ActionParamInfoController {
 	@Autowired
 	private ActionParamInfoService actionParamInfoService;
 	
-	@GetMapping("getAll/")
+	@GetMapping("getAll")
 	@ApiOperation(value = "查询所有的对象")
 	public Result<List<ActionParamInfo>> getAlls(String actionId) {
 		Wrapper<ActionParamInfo> wrapper = new EntityWrapper<>();
@@ -58,16 +52,16 @@ public class ActionParamInfoController {
 		return Result.success(0);
 	}
 	
-	@GetMapping("getInfoById/{id}")
+	@GetMapping("getInfoById")
 	@ApiOperation(value = "通过id查询详细信息")
-	public Result<ActionParamInfo> getDateById(@PathVariable(name = "id") Long id) {
+	public Result<ActionParamInfo> getDateById( Long id) {
 		ActionParamInfo entityInfo = actionParamInfoService.selectById(id);
 		return Result.success(entityInfo);
 	}
 	
-	@GetMapping("delete/{id}")
+	@GetMapping("delete")
 	@ApiOperation(value = "通过id删除信息")
-	public Result<Integer> delete(@PathVariable(name = "id") Long id) {
+	public Result<Integer> delete( Long id) {
 		actionParamInfoService.deleteById(id);
 		return Result.success(0);
 	}

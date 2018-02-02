@@ -11,60 +11,29 @@
 </head>
 <body>
 
-
-	<!--<div class="admin-main">
-		<div class="layui-row" style="margin-top: 10px;">
-			<div class="">
-				<form class="layui-form layui-form-pane"
-					onsubmit="javascript:return false;">
-					<div class="layui-form-item" style="margin-bottom: 0px;">
-						<label class="layui-form-label">名称</label>
-
-
-						<div class="layui-input-inline">
-							<input type="text" placeholder="过滤条件查询"
-								onchange="javascript:$('#btn_query').click();"
-								class="layui-input" id="entityName_ser">
-						</div>
-						<button type="button" onclick="active.reload()" id="btn_query"
-							class="layui-btn layui-btn">
-							<i class="fa fa-search" aria-hidden="true"></i>
-						</button>
-
-						&lt;!&ndash; <button class="layui-btn layui-btn-small" id="action_btn_add">
-                        <i class="layui-icon">&#xe654;</i>新增
-                    </button> &ndash;&gt;
-					</div>
-				</form>
-
-			</div>
-
-		</div>
-	</div>-->
-
 	<div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
 		<div class="layui-col-md2">
-			<input type="text" name="modelName"  required lay-verify="required" placeholder="请输入模型名称" autocomplete="off"
+			<input type="text" name="modelName" id="modelName"  required lay-verify="required" placeholder="请输入模型名称" autocomplete="off"
 				   class="layui-input">
 		</div>
 
 		<div class="layui-col-md1">
 			<select id="isBusinessType" class="layui-select" name="businessType" lay-verify="">
 				<option value="">选择类型</option>
-				<option value="2">决策表</option>
-				<option value="1">评分卡</option>
+				<option value="1">决策表</option>
+				<option value="2">评分卡</option>
 			</select>
 		</div>
 
 		<div class="layui-col-md1">
 			<select class="layui-select" id="isBusinessLine" name="businessLine" lay-verify="">
 				<option value="">选择业务</option>
-				<option value="1">房速贷</option>
-				<option value="2">一点通</option>
+				<option value="4">房速贷</option>
+				<option value="5">车贷</option>
 			</select>
 		</div>
 		<div class="layui-col-md1">
-			<button class="layui-btn" data-type="reload">查 询</button>
+			<button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
 		</div>
 	</div>
 
@@ -75,9 +44,9 @@
 
 	<table id="demo" lay-filter="entityTable"></table>
 	<script type="text/html" id="businessType">
-	{{#  if(d.businessType == 1){ }}
+	{{#  if(d.senceType == 1){ }}
 		<div>决策表</div>
-	{{# } else if(d.businessType == 2){ }}
+	{{# } else if(d.senceType == 2){ }}
 		<div>评分卡</div>
 	{{# } }}
 </script>
@@ -102,10 +71,19 @@
 		<div  style="color: red;">未绑定</div>
 		{{# } }}
 </script>
+
+	<script type="text/html" id="testStatus">
+		{{#  if(d.testStatus == 1){ }}
+		<div>通过</div>
+		{{# } else{ }}
+		<div  style="color: red;">未通过</div>
+		{{# } }}
+</script>
 	<!--操作-->
 <script type="text/html" id="item_bar">
 	<a class="layui-btn layui-btn-xs" lay-event="manual_verification">手动验证</a>
 	<a class="layui-btn layui-btn-xs" lay-event="auto_verification">自动测试</a>
+	<a class="layui-btn layui-btn-xs" lay-event="variable_bind">变量绑定</a>
 	<!--<button class="layui-btn layui-btn-sm" lay-event="varbind">
         <i class="layui-icon">变量绑定</i>
     </button>-->

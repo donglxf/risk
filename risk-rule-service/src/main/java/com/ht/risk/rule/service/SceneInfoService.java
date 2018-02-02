@@ -1,9 +1,11 @@
 package com.ht.risk.rule.service;
 
+import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.common.service.BaseService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -24,4 +26,5 @@ public interface SceneInfoService extends BaseService<SceneInfo>{
      */
     List<SceneInfo> findBaseRuleSceneInfiList(SceneInfo sceneInfo) throws Exception;
 
+    Result<Map<String,Object>> getGradeRules(Long sceneId);
 }

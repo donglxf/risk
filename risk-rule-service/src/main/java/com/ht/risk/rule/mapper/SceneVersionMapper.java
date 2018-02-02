@@ -25,7 +25,8 @@ public interface SceneVersionMapper extends SuperMapper<SceneVersion> {
 	* @return List<SceneVersion>    返回类型
 	* @throws
 	 */
-	public List<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages, Wrapper<SceneVersion> wrapper);
+	public List<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages, Map<String,Object> paramMap);
+//	public List<SceneVersion> getNoBindVariableRecord(Page<SceneVersion> pages, Wrapper<SceneVersion> wrapper);
 
 	/**
 	 * 
@@ -37,5 +38,23 @@ public interface SceneVersionMapper extends SuperMapper<SceneVersion> {
 	* @throws
 	 */
 	public Map<String,Object> getMaxTestVersion(Map<String,Object> paramMap);
+
+	/**
+	 * 获取规则执行信息
+	 * @return
+	 */
+	Map<String,Object> getRuleExecInfo(Map<String,Object> obj);
+
+	/**
+	 * 计算规则平均耗时
+	 * @return
+	 */
+	List<Map<String,Object>> getRuleAgeTime(Map<String,Object> obj);
+
+	/**
+	 * 统计规则在某段时间内执行次数
+	 * @return
+	 */
+	List<Map<String,Object>> getRuleExecTotal(Map<String,Object> obj);
 
 }

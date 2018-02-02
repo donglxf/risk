@@ -76,7 +76,12 @@
 		    <groupId>com.alibaba</groupId>
 		    <artifactId>fastjson</artifactId>
 		</dependency>
-
+        <!--对接权限系统需要这个公共jar去生成api权限-->
+       <dependency>
+            <artifactId>ussp-common</artifactId>
+            <groupId>com.ht.ussp</groupId>
+            <version>0.0.3</version>
+        </dependency>
         <!--lombox插件-->
         <dependency>
             <groupId>org.projectlombok</groupId>
