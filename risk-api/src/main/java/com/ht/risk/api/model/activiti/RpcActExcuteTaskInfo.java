@@ -8,15 +8,15 @@ public class RpcActExcuteTaskInfo implements Serializable{
     /**
      * 主键
      */
-    private Long id;
+    private String id;
     /**
      * 批次号，验证任务调用时存在
      */
-    private Long batchId;
+    private String batchId;
     /**
      * 模型版本ID
      */
-    private Long procReleaseId;
+    private String procReleaseId;
     /**
      * 流程运行实例ID
      */
@@ -42,27 +42,27 @@ public class RpcActExcuteTaskInfo implements Serializable{
      */
     private String remark;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getBatchId() {
+    public String getBatchId() {
         return batchId;
     }
 
-    public void setBatchId(Long batchId) {
+    public void setBatchId(String batchId) {
         this.batchId = batchId;
     }
 
-    public Long getProcReleaseId() {
+    public String getProcReleaseId() {
         return procReleaseId;
     }
 
-    public void setProcReleaseId(Long procReleaseId) {
+    public void setProcReleaseId(String procReleaseId) {
         this.procReleaseId = procReleaseId;
     }
 

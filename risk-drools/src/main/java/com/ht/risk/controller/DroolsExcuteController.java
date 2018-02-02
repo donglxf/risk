@@ -150,7 +150,7 @@ public class DroolsExcuteController {
             Map<String, Object> parmaMap = new HashMap<String, Object>();
             parmaMap.put("type", "0"); // 测试版标志
             parmaMap.put("sceneIdentify", paramter.getSence());
-            parmaMap.put("versionId", paramter.getVersion());
+            parmaMap.put("version", paramter.getVersion());
             RuleSceneVersion ruleVersion = ruleSceneVersionService.getInfoByVersionId(parmaMap);
             RuleExecutionObject object = new RuleExecutionObject();
             RuleExecutionResult result = new RuleExecutionResult();

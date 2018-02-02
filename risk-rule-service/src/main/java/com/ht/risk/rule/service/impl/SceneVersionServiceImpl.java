@@ -67,7 +67,7 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
     public SceneVersion querySceneVersionInfoByCodeAndVersion(String code, String version){
         Map<String,Object> paramter = new HashMap<String,Object>();
         paramter.put("scene_identify",code);
-        paramter.put("version",version);
+        paramter.put("official_version",version);
         List<SceneVersion> sceneVersionList = sceneVersionMapper.selectByMap(paramter);
         if(sceneVersionList != null && sceneVersionList.size() > 0){
             return sceneVersionList.get(0);

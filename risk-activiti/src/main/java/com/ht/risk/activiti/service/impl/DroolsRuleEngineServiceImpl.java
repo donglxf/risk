@@ -30,9 +30,9 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     public void execute(DelegateExecution delegateExecution) throws Exception {
         String senceCode = (String) senceCodeExp.getValue(delegateExecution);
         String version = (String) versionExp.getValue(delegateExecution);
-        LOGGER.info("###############drools excute start,senceCode："+senceCode+";version:"+version);
+        LOGGER.info("drools excute start,senceCode："+senceCode+";version:"+version);
         Map senceData = (Map)delegateExecution.getVariable(senceCode+ ActivitiConstants.DROOLS_VARIABLE_NAME);
-        String type = String.valueOf(delegateExecution.getVariable("droolsExcuteType"));
+        String type = String.valueOf(delegateExecution.getVariable(ActivitiConstants.EXCUTE_TYPE_VARIABLE_NAME));
         DroolsParamter paramter = new DroolsParamter();
         paramter.setSence(senceCode);
         paramter.setVersion(version);
@@ -41,14 +41,16 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         paramter.setType(type);
         LOGGER.info("DroolsRuleEngineServiceImpl service paramter:"+ JSON.toJSONString(paramter));
         RuleExcuteResult result = null;
-        if("1".equals(type)){
+        if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(type)){
             result = droolsRuleEngineInterface.excuteDroolsScene(paramter);
         }
-        if("2".equals(type)){
+        else if(ActivitiConstants.EXCUTE_TYPE_VERFICATION.equals(type)){
             result = droolsRuleEngineInterface.excuteDroolsSceneValidation(paramter);
+        }else{
+            LOGGER.info("drools excute end,excute_type paramter exception");
         }
         delegateExecution.setVariable(senceCode+"-"+version,result);
-        LOGGER.info("###############drools excute end,senceCode："+senceCode+";version:"+version);
+        LOGGER.info("drools excute end,senceCode："+senceCode+";version:"+version);
     }
 
     public Expression getSenceCodeExp() {

@@ -114,9 +114,9 @@ public class ActivitiProcessController {
      */
     // TODO 自动验证
     @RequestMapping("/verficationBatch")
-    public Result startBatchValidateProcess(@RequestBody RpcStartParamter rpcStartParamter){
+    public Result<Long> startBatchValidateProcess(@RequestBody RpcStartParamter rpcStartParamter){
         LOGGER.info("startProcess invoke start,paramter:"+ JSON.toJSONString(rpcStartParamter));
-        Result data = null;
+        Result<Long> data = null;
         if(rpcStartParamter == null || StringUtils.isEmpty(rpcStartParamter.getProcDefId()) || StringUtils.isEmpty(rpcStartParamter.getVersion())){
             data = Result.error(1,"参数异常！");
             LOGGER.info("startProcess invoke start error,paramter exception...");

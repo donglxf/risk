@@ -86,26 +86,21 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
     });
 
 
-form.on('submit(save)', function (data) {
-    $.ajax({
-        cache: true,
-        type: "POST",
-        url: '/rule/service/actProcRelease/scene/variable/init',
-        data: data.field,// 你的formid
-        async: false,
-        success: function (data) {
-            layer.msg(data.msg);
-        }
+    form.on('submit(save)', function (data) {
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: '/rule/service/actProcRelease/scene/variable/init',
+            data: data.field,// 你的formid
+            async: false,
+            success: function (data) {
+                layer.msg(data.msg);
+            }
+        });
+        return false;
     });
-    return false;
-});
 
-$("#test").click(function () {
-    layer.msg("需调用其它接口");
-});
-
-
-form.on('submit(save_auto)', function (data) {
+    form.on('submit(save_auto)', function (data) {
     console.log('保存自动校验变量');
     $.ajax({
         cache: true,
@@ -118,11 +113,21 @@ form.on('submit(save_auto)', function (data) {
         }
     });
     return false;
-});
+    });
+    form.on('submit(verfication)', function (data) {
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: '/rule/service/verification/createSingleVerficationTask',
+            data: data.field,// 你的formid
+            async: false,
+            success: function (data) {
+                layer.msg(data.msg);
+            }
+        });
+        return false;
+    });
 
-$("#test").click(function () {
-    layer.msg("需调用其它接口");
-});
 
 
 //时间选择器

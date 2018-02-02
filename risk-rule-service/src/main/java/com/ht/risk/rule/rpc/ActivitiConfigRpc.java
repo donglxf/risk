@@ -44,5 +44,13 @@ public interface ActivitiConfigRpc {
     @RequestMapping("/getProcReleaseById")
     public Result<RpcModelReleaseInfo> getProcReleaseById(RpcModelVerfication rpcModelVerfication);
 
+    /**
+     * 启动模型，用户输入数据
+     * @param rpcStartParamter
+     * @return
+     */
+    @RequestMapping("/verficationSingle")
+    public Result<Long> startInputValidateProcess(@RequestBody RpcStartParamter rpcStartParamter);
+
 
 }

@@ -33,7 +33,7 @@ on s.version=a.versions
 
     <select id="getInfoByVersionId" resultType="com.ht.risk.model.RuleSceneVersion" parameterType="map">
         select <include refid="Base_Column_List" />
-          from rule_scene_version s where version_id=#{versionId} and scene_identify=#{sceneIdentify}
+          from rule_scene_version s where version=#{version} and scene_identify=#{sceneIdentify}
     </select>
 
 </mapper>

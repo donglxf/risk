@@ -59,8 +59,8 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
         var taskId = data.id;
+        $("#task_hidden_input").val(taskId);
         if (layEvent === 'detail_info') { //模型验证结果查询
-
             var layIndex =layer.open({
                 type: 2,
                 shade: false,

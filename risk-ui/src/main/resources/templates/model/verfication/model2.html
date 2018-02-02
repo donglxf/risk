@@ -10,8 +10,19 @@
 
 
 <div style="margin: 15px;">
-    <form class="layui-form layui-form-pane" action="/rule/service/actProcRelease/scene/variable/init" method="post"
-          id="model_valiable_form">
+    <form class="layui-form layui-form-pane" action="/rule/service/actProcRelease/scene/variable/init" method="post">
+
+        <div class="layui-form-item" >
+            <button type="reset" class="layui-btn layui-btn-primary">重 置</button>
+            <button class="layui-btn"  lay-submit="" lay-filter="save" id="save">保 存</button>
+            <button class="layui-btn layui-btn-normal" lay-submit=""  lay-filter="verfication" id="verfication" >创建测试任务</button>
+        </div>
+        <input type="hidden" name="model_procDefId" id="model_procDefId"/>
+        <input type="hidden" name="model_version" id="model_version"/>
+        <div id="model_valiable_form">
+
+        </div>
+
     </form>
 </div>
 
@@ -30,6 +41,9 @@
             },
             dataType: "json",
             success: function (data) {
+                console.log(data);
+                $("#model_version").val(data.modelVersion);
+                $("#model_procDefId").val(data.modelProcdefId);
                 var modelVerification = new ModelVerification();
                 var contents = modelVerification.initModel(data);
                 var form1 = $("#model_valiable_form");

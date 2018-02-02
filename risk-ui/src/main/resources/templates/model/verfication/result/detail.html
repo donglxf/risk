@@ -159,11 +159,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {{# layui.each(sence.variables,function(index, item){ }}
-                            <tr>
-                                <td>{{item.valibaleCn}}</td>
-                                <td>{{item.value}}</td>
+                            {{# layui.each(sence.hitRules,function(index, item){ }}
+                            {{# if(item.count != 0) { }}
+                            <tr style="color:red;">
+                                <td>{{item.ruleDesc}}</td>
+                                <td>{{item.count}}</td>
                             </tr>
+                            {{# } }}
+                            {{# if(item.count == 0) { }}
+                            <tr >
+                                <td>{{item.ruleDesc}}</td>
+                                <td>{{item.count}}</td>
+                            </tr>
+                            {{# } }}
                             {{#  }); }}
                             {{#  if(sence.variables.length === 0){ }}
                             无数据
