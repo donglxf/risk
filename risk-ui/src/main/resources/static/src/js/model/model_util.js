@@ -110,6 +110,22 @@ ModelVerification.prototype = {
         return html;
     },
 
+    initSelect: function (name, optionData, tmpValue) {
+        var html = '<div class="layui-input-inline">';
+        html += '<select name="' + name + '" lay-filter="">';
+        for (var i = 0; i < optionData.length; i++) {
+            var data = optionData[i];
+            //需要根据值对比,选中默认值
+            if (data.value == tmpValue) {
+                html += '<option  selected="selected" value="' + data.value + '">' + data.name + '</option>';
+            } else {
+                html += '<option value="' + data.value + '">' + data.name + '</option>';
+            }
+        }
+        html += '</select>';
+        html += '</div>';
+        return html;
+    },
 
     /**
      *
@@ -134,11 +150,15 @@ ModelVerification.prototype = {
             case "String":
                 html = this.initStrInput(valible.senceVersionId + '#' + valible.variableCode, tmpValue);
                 break;
+            case "CONSTANT":
+                html = this.initSelect(valible.senceVersionId + '#' + valible.variableCode, valible.optionData, tmpValue);
+                break;
             default:
                 break;
         }
         return html;
     },
+
 
     /**
      * 初始化日期时间输入框
