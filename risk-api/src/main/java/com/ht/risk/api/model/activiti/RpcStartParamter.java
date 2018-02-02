@@ -6,10 +6,25 @@ import java.util.Map;
 
 public class RpcStartParamter implements Serializable {
 
+    /**
+     * 模型定义ID
+     */
     private String procDefId;
+    /**
+     * 模型版本
+     */
     private String version;
+    /**
+     * 批次号
+     */
     private Long batchId;
+    /**
+     * 类型，1 验证，2 正式调用
+     */
     private String type;
+    /**
+     * 批次大小
+     */
     private int batchSize;
     private Map<String,Object> data;
     private List<Map<String,Object>> datas;

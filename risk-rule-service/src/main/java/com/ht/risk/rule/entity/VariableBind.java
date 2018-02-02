@@ -110,6 +110,9 @@ public class VariableBind extends Model<VariableBind> {
 	private Date createTime;
 
 
+	private transient  String senceCode;
+
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;

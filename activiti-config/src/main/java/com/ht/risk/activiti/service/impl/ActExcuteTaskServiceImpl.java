@@ -48,12 +48,12 @@ public class ActExcuteTaskServiceImpl extends BaseServiceImpl<ActExcuteTaskMappe
 
     public RpcActExcuteTaskInfo convertRpcActExcuteTask(ActExcuteTask task){
         RpcActExcuteTaskInfo rpcTask = new RpcActExcuteTaskInfo();
-        rpcTask.setBatchId(task.getBatchId());
-        rpcTask.setId(task.getId());
+        rpcTask.setBatchId(String.valueOf(task.getBatchId()));
+        rpcTask.setId(String.valueOf(task.getId()));
         rpcTask.setInParamter(task.getInParamter());
         rpcTask.setOutParamter(task.getOutParamter());
         rpcTask.setProcInstId(task.getProcInstId());
-        rpcTask.setProcReleaseId(task.getProcReleaseId());
+        rpcTask.setProcReleaseId(String.valueOf(task.getProcReleaseId()));
         rpcTask.setRemark(task.getRemark());
         rpcTask.setSpendTime(task.getSpendTime());
         rpcTask.setStatus(task.getStatus());

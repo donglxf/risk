@@ -17,7 +17,7 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
  * Created by Administrator on 2016/6/21.
  */
 @Configuration
-public class   AmqpConfig implements RabbitListenerConfigurer {
+public class AmqpConfig implements RabbitListenerConfigurer {
 
 
     public static final String RESULT_EXCHANGE = "activti-result-exchange";

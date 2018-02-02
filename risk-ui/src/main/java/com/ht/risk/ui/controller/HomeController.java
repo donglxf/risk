@@ -1,8 +1,10 @@
 package com.ht.risk.ui.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * ${DESCRIPTION}
@@ -13,15 +15,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("")
 public class HomeController {
-    @RequestMapping(value = "indexDev",method = RequestMethod.GET)
+    @RequestMapping(value = "index",method = RequestMethod.GET)
     public String index(){
-        return "index-dev";
+        return "index";
     }
 
-    @RequestMapping(value = "mainDev",method = RequestMethod.GET)
+    @RequestMapping(value = "login",method = RequestMethod.GET)
+    public String login(){
+        return "login";
+    }
+    @RequestMapping(value = "main",method = RequestMethod.GET)
     public String main(){
-        return "main-dev";
+        return "main";
     }
 
+    @RequestMapping(value = "/modelDetail",method = RequestMethod.GET)
+    public String model(Model model,@RequestParam String modelId){
+        model.addAttribute("modelId",modelId);
+        return "modeler";
+    }
 
 }
