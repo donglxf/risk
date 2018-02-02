@@ -15,18 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("")
 public class HomeController {
-    @RequestMapping(value = "index",method = RequestMethod.GET)
+
+    @RequestMapping(value = "indexDev",method = RequestMethod.GET)
     public String index(){
-        return "index";
+        return "index-dev";
     }
 
-    @RequestMapping(value = "login",method = RequestMethod.GET)
-    public String login(){
-        return "login";
-    }
-    @RequestMapping(value = "main",method = RequestMethod.GET)
+    @RequestMapping(value = "mainDev",method = RequestMethod.GET)
     public String main(){
-        return "main";
+        return "main-dev";
     }
 
     @RequestMapping(value = "/modelDetail",method = RequestMethod.GET)
