@@ -31,7 +31,7 @@ public class ReceiverService {
     @Resource
     private ActivitiRpc activitiRpc;
 
-    @RabbitListener(queues = "activiti-result-queue")
+    @RabbitListener(queues = "activiti.self")
     public void receiveMessage(String message) {
         LOGGER.info("ReceiverService receiveMessage from quene activiti-result-queue,message"+message);
         String proceInstId = message;

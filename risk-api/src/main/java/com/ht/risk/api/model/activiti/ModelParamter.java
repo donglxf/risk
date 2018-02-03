@@ -11,6 +11,7 @@ public class ModelParamter implements Serializable {
 	private String name;
 	private String description;
 	private String category;
+	private String businessId;
 	private String processId;
 	private String variableName;
 
@@ -68,5 +69,13 @@ public class ModelParamter implements Serializable {
 
 	public void setVariableName(String variableName) {
 		this.variableName = variableName;
+	}
+
+	public String getBusinessId() {
+		return businessId;
+	}
+
+	public void setBusinessId(String businessId) {
+		this.businessId = businessId;
 	}
 }

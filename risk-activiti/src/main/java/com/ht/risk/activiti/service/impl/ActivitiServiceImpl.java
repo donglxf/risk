@@ -3,6 +3,7 @@ package com.ht.risk.activiti.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.gson.internal.LinkedTreeMap;
 import com.ht.risk.activiti.service.ActivitiService;
 import com.ht.risk.activiti.vo.ModelPage;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
@@ -33,6 +34,7 @@ import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +46,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConstants {
@@ -176,6 +179,57 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
 
     public List<HistoricVariableInstance> getHisProcessVarByDeployIdAndNameLike(String processId, String variableName) {
         return historyService.createHistoricVariableInstanceQuery().processInstanceId(processId).variableNameLike(variableName).list();
+    }
+
+    public void createRuleTask(Map<String, Object> map){
+        List<Map> childShapes = (List<Map>) map.get("childShapes");
+        for (Map map1 : childShapes) {
+            Map properties = (Map) map1.get("properties");
+            Map stencil = (Map) map1.get("stencil");
+            //根据节点id,判断是否为自定义节点
+            if ("custom".equals(stencil.get("id"))) {
+                String senceVersion = String.valueOf(properties.get("scene_version"));
+                String senceCode = String.valueOf(properties.get("sence_code"));
+                List<Map> fields = new ArrayList<Map>();
+                Map<String,String> codeFieldMap = new LinkedTreeMap<String,String>();
+                codeFieldMap.put("name","versionExp");
+                codeFieldMap.put("implementation",senceVersion);
+                codeFieldMap.put("stringValue","");
+                codeFieldMap.put("express","");
+                codeFieldMap.put("string",senceVersion);
+                Map<String,String> versionFieldMap = new LinkedTreeMap<String,String>();
+                versionFieldMap.put("name","senceCodeExp");
+                versionFieldMap.put("implementation",senceVersion);
+                versionFieldMap.put("stringValue","");
+                versionFieldMap.put("express","");
+                versionFieldMap.put("string",senceVersion);
+                fields.add(codeFieldMap);
+                fields.add(versionFieldMap);
+                Map<String,Object> taskFieldMap = new LinkedTreeMap<String,Object>();
+                taskFieldMap.put("fields",fields);
+                stencil.put("id", "ServiceTask");
+                properties.put("overrideid", "");
+                properties.put("name", "");
+                properties.put("documentation", "");
+                properties.put("asynchronousdefinition", "false");
+                properties.put("exclusivedefinition", "false");
+                properties.put("executionlisteners", "");
+                properties.put("multiinstance_type", "None");
+                properties.put("multiinstance_cardinality", "");
+                properties.put("multiinstance_collection", "");
+                properties.put("multiinstance_variable ", "");
+                properties.put("multiinstance_condition", "");
+                properties.put("isforcompensation ", "false");
+                properties.put("servicetaskclass", "");
+                properties.put("servicetaskexpression", "");
+                properties.put("servicetaskdelegateexpression", "${processTestService}");
+                properties.put("servicetaskfields", taskFieldMap);
+                properties.put("servicetaskresultvariable", "");
+                properties.put("delegateExpression", "");
+            }
+        }
+        //重新设置回去
+        map.put("childShapes", childShapes);
     }
 
 

@@ -30,6 +30,13 @@ public class ActProcRelease extends Model<ActProcRelease> {
     @TableId("ID")
 	@ApiModelProperty(required= true,value = "主键")
 	private Long id;
+
+	/**
+	 * 模型定义ID，与 ACT_RE_PROCDEF.ID_ 关联,ACT_RE_PROCDEF 表中有模型部署id
+	 */
+	@TableField("model_id")
+	@ApiModelProperty(required= true,value = "模型ID，与 act_re_model.id_ 关联")
+    private String modelId;
     /**
      * 模型定义ID，与 ACT_RE_PROCDEF.ID_ 关联,ACT_RE_PROCDEF 表中有模型部署id
      */
@@ -210,6 +217,14 @@ public class ActProcRelease extends Model<ActProcRelease> {
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
+	}
+
+	public String getModelId() {
+		return modelId;
+	}
+
+	public void setModelId(String modelId) {
+		this.modelId = modelId;
 	}
 
 	@Override

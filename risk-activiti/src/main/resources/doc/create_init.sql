@@ -17,6 +17,7 @@ create table `act_excute_task` (
 
 create table `act_proc_release` (
   `id` bigint(20) not null comment '主键',
+  `model_id` varchar(64) character set utf8 collate utf8_bin not null comment '模型id，与 act_re_model.id_ 关联',
   `model_procdef_id` varchar(64) character set utf8 collate utf8_bin not null comment '模型定义id，与 act_re_procdef.id_ 关联,act_re_procdef 表中有模型部署id',
   `model_name` varchar(255) character set utf8 collate utf8_bin null default null comment '模型名称',
   `model_version` varchar(64) character set utf8 collate utf8_bin null default null comment '模型版本',

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@FeignClient("activiti-config")
+@FeignClient("risk-activiti-extend")
 public interface ActivitiConfigRpc {
 
     /**

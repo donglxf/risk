@@ -31,6 +31,13 @@ zuul:
   host:
     connect-timeout-millis: 6000
 
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000
 ribbon:
   ConnectTimeout: 60000
   ReadTimeout: 60000
@@ -42,21 +49,18 @@ rule-ui:
 rule-service:
   ribbon:
     listOfServers: 127.0.0.1:30502
-risk-log:
-  ribbon:
-    listOfServers: 127.0.0.1:30504
-
-risk-activiti:
-  ribbon:
-    listOfServers: 127.0.0.1:30505
-
 risk-drools:
   ribbon:
     listOfServers: 127.0.0.1:30503
-
+risk-log:
+  ribbon:
+    listOfServers: 127.0.0.1:30506
+risk-activiti:
+  ribbon:
+    listOfServers: 127.0.0.1:30504
 activiti-config:
   ribbon:
-    listOfServers: 127.0.0.1:8767
+    listOfServers: 127.0.0.1:30505
 
 eureka:
     client:
