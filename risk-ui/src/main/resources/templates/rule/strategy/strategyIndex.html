@@ -18,6 +18,7 @@
 		</div>
 
 		<div class="layui-col-md1">
+
 			<select id="isBusinessType" class="layui-select" name="businessType" lay-verify="">
 				<option value="">选择类型</option>
 				<option value="1">决策表</option>
@@ -26,11 +27,12 @@
 		</div>
 
 		<div class="layui-col-md1">
-			<select class="layui-select" id="isBusinessLine" name="businessLine" lay-verify="">
-				<option value="">选择业务</option>
-				<option value="4">房速贷</option>
-				<option value="5">车贷</option>
-			</select>
+			<label  id="businessTypes"></label>
+			<!--<select class="layui-select" id="isBusinessLine" name="businessLine" lay-verify="">-->
+				<!--<option value="">选择业务</option>-->
+				<!--<option value="4">房速贷</option>-->
+				<!--<option value="5">车贷</option>-->
+			<!--</select>-->
 		</div>
 		<div class="layui-col-md1">
 			<button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
