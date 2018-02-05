@@ -22,27 +22,27 @@
     </sql>
 
     <sql id="BaseFindListSql">
-        T.CONDITION_ID,
-        T.RULE_ID,
-        T.CONDITION_NAME,
-        T.CONDITION_EXPRESSION,
-        T.CONDITION_DESC,
-        T.IS_EFFECT,
-        T.CRE_USER_ID,
-        T.CRE_TIME,
-         T.VAL,
-        T.REMARK
+        t.condition_id,
+        t.rule_id,
+        t.condition_name,
+        t.condition_expression,
+        t.condition_desc,
+        t.is_effect,
+        t.cre_user_id,
+        t.cre_time,
+         t.val,
+        t.remark
     </sql>
     <select id="findBaseRuleConditionInfoList" parameterType="com.ht.risk.rule.entity.ConditionInfo"
             resultType="com.ht.risk.rule.entity.ConditionInfo">
         SELECT DISTINCT
         <include refid="BaseFindListSql"></include>
         FROM
-        rule_condition_info T
+        rule_condition_info t
         WHERE
         1 = 1
         <if test="ruleId != null">
-            AND T.RULE_ID = #{ruleId}
+            AND t.rule_id = #{ruleId}
         </if>
 
     </select>
@@ -50,11 +50,11 @@
         SELECT DISTINCT
         <include refid="BaseFindListSql"></include>
         FROM
-        rule_condition_info T
+        rule_condition_info t
         WHERE
         1 = 1
         <if test="ruleId != null">
-            AND T.RULE_ID = #{ruleId}
+            and t.rule_id = #{ruleId}
         </if>
     </select>
 

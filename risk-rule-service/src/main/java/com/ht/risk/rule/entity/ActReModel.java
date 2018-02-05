@@ -1,17 +1,15 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.util.Date;
 /**
  * <p>
  * 
@@ -21,50 +19,50 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2017-12-19
  */
 @ApiModel
-@TableName("ACT_RE_MODEL")
+@TableName("act_re_model")
 public class ActReModel extends Model<ActReModel> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId("ID_")
+    @TableId("id_")
 	@ApiModelProperty(required= true,value = "")
 	private String id;
-	@TableField("REV_")
+	@TableField("rev_")
 	@ApiModelProperty(required= true,value = "")
 	private Integer rev;
-	@TableField("NAME_")
+	@TableField("name_")
 	@ApiModelProperty(required= true,value = "")
 	private String name;
-	@TableField("KEY_")
+	@TableField("key_")
 	@ApiModelProperty(required= true,value = "")
 	private String key;
-	@TableField("CATEGORY_")
+	@TableField("category_")
 	@ApiModelProperty(required= true,value = "")
 	private String category;
-	@TableField("CREATE_TIME_")
+	@TableField("create_time_")
 	@ApiModelProperty(required= true,value = "")
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date createTime;
-	@TableField("LAST_UPDATE_TIME_")
+	@TableField("last_update_time_")
 	@ApiModelProperty(required= true,value = "")
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date lastUpdateTime;
-	@TableField("VERSION_")
+	@TableField("version_")
 	@ApiModelProperty(required= true,value = "")
 	private Integer version;
-	@TableField("META_INFO_")
+	@TableField("meta_info_")
 	@ApiModelProperty(required= true,value = "")
 	private String metaInfo;
-	@TableField("DEPLOYMENT_ID_")
+	@TableField("deployment_id_")
 	@ApiModelProperty(required= true,value = "")
 	private String deploymentId;
-	@TableField("EDITOR_SOURCE_VALUE_ID_")
+	@TableField("editor_source_value_id_")
 	@ApiModelProperty(required= true,value = "")
 	private String editorSourceValueId;
-	@TableField("EDITOR_SOURCE_EXTRA_VALUE_ID_")
+	@TableField("editor_source_extra_value_id_")
 	@ApiModelProperty(required= true,value = "")
 	private String editorSourceExtraValueId;
-	@TableField("TENANT_ID_")
+	@TableField("tenant_id_")
 	@ApiModelProperty(required= true,value = "")
 	private String tenantId;
 

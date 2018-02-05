@@ -41,25 +41,25 @@
     </resultMap>
     <select id="findBaseRuleInfoList" parameterType="com.ht.risk.rule.entity.Info"
             resultType="com.ht.risk.rule.entity.Info">
-        SELECT DISTINCT
-        T.RULE_ID,
-        T.SCENE_ID,
-        T.RULE_NAME,
-        T.RULE_DESC,
-        T.RULE_ENABLED,
-        T.IS_EFFECT,
-        T.CRE_USER_ID,
-        T.CRE_TIME,
-        T.REMARK
-        FROM
-        rule_info T
-        WHERE
+        select distinct
+        t.rule_id,
+        t.scene_id,
+        t.rule_name,
+        t.rule_desc,
+        t.rule_enabled,
+        t.is_effect,
+        t.cre_user_id,
+        t.cre_time,
+        t.remark
+        from
+        rule_info t
+        where
         1 = 1
         <if test="sceneId != null">
-            AND T.SCENE_ID = #{sceneId}
+            and t.scene_id = #{sceneId}
         </if>
         <if test="ruleEnabled != null">
-            AND T.RULE_ENABLED = #{ruleEnabled}
+            and t.rule_enabled = #{ruleEnabled}
         </if>
 
     </select>
@@ -67,74 +67,74 @@
 
     <select id="findBaseRulePropertyInfoList" parameterType="com.ht.risk.rule.entity.PropertyInfo"
             resultType="com.ht.risk.rule.entity.PropertyInfo">
-        SELECT DISTINCT
-        T.RULE_PROPERTY_ID,
-        T.RULE_PROPERTY_IDENTIFY,
-        T.RULE_PROPERTY_NAME,
-        T.RULE_PROPERTY_DESC,
-        T.DEFAULT_VALUE,
-        T.IS_EFFECT,
-        T.REMARK
-        FROM
-        rule_property_info T
-        WHERE
+        select distinct
+        t.rule_property_id,
+        t.rule_property_identify,
+        t.rule_property_name,
+        t.rule_property_desc,
+        t.default_value,
+        t.is_effect,
+        t.remark
+        from
+        rule_property_info t
+        where
         1 = 1
         <if test="rulePropertyIdentify != null">
-            AND T.RULE_PROPERTY_IDENTIFY = #{rulePropertyIdentify}
+            and t.rule_property_identify = #{rulePropertyIdentify}
         </if>
         <if test="rulePropertyName != null">
-            AND T.RULE_PROPERTY_NAME LIKE CONCAT('%',#{rulePropertyName},'%')
+            and t.rule_property_name LIKE CONCAT('%',#{rulePropertyName},'%')
         </if>
     </select>
 
     <select id="findRulePropertyListByRuleId" resultType="com.ht.risk.rule.entity.PropertyInfo">
         SELECT DISTINCT
-        RPR.RULE_PRO_REL_ID,
-        RPR.RULE_ID,
-        RPR.RULE_PROPERTY_ID,
-        RPR.RULE_PROPERTY_VALUE,
-        T.RULE_PROPERTY_IDENTIFY,
-        T.RULE_PROPERTY_NAME,
-        T.RULE_PROPERTY_DESC,
-        T.DEFAULT_VALUE,
-        T.IS_EFFECT,
-        T.REMARK
+        rpr.rule_pro_rel_id,
+        rpr.rule_id,
+        rpr.rule_property_id,
+        rpr.rule_property_value,
+        t.rule_property_identify,
+        t.rule_property_name,
+        t.rule_property_desc,
+        t.default_value,
+        t.is_effect,
+        t.remark
         FROM
-        rule_property_info T
-        INNER JOIN rule_property_rel RPR ON RPR.RULE_PROPERTY_ID = T.RULE_PROPERTY_ID
-        WHERE
+        rule_property_info t
+        inner join rule_property_rel rpr on rpr.rule_property_id = t.rule_property_id
+        where
         1 = 1
-        AND T.IS_EFFECT = 1
+        and t.is_effect = 1
         <if test="ruleId != null">
-            AND RPR.RULE_ID = #{ruleId}
+            AND rpr.rule_id = #{ruleId}
         </if>
 
     </select>
     <select id="findBaseRuleListByScene" parameterType="com.ht.risk.rule.entity.SceneInfo"
             resultType="com.ht.risk.rule.entity.Info">
-        SELECT DISTINCT
-        R.RULE_ID,
-        R.SCENE_ID,
-        R.RULE_NAME,
-        R.RULE_DESC,
-        R.RULE_ENABLED,
-        R.IS_EFFECT,
-        R.CRE_USER_ID,
-        R.CRE_TIME,
-        R.REMARK
-        FROM
-        rule_info R
-        INNER JOIN rule_scene_info S ON S.SCENE_ID = R.SCENE_ID
-        WHERE
+        select distinct
+        r.rule_id,
+        r.scene_id,
+        r.rule_name,
+        r.rule_desc,
+        r.rule_enabled,
+        r.is_effect,
+        r.cre_user_id,
+        r.cre_time,
+        r.remark
+        from
+        rule_info r
+        inner join rule_scene_info s on s.scene_id = r.scene_id
+        where
         1 = 1
-        AND S.IS_EFFECT = 1
-        AND R.IS_EFFECT = 1
-        AND R.RULE_ENABLED = 1
+        and s.is_effect = 1
+        and r.is_effect = 1
+        and r.rule_enabled = 1
         <if test="sceneIdentify != null">
-            AND S.SCENE_IDENTIFY = #{sceneIdentify}
+            and s.scene_identify = #{sceneIdentify}
         </if>
         <if test="sceneId != null">
-            AND S.SCENE_ID = #{sceneId}
+            and s.scene_id = #{sceneId}
         </if>
     </select>
     <select id="findListBySceneId" resultMap="rules">

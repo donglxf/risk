@@ -23,34 +23,34 @@
 
     <select id="findBaseRuleVariableInfoList" parameterType="com.ht.risk.rule.entity.Variable"
             resultType="com.ht.risk.rule.entity.Variable">
-        SELECT DISTINCT
-        T.VARIABLE_ID,
-        T.VARIABLE_NAME,
-        T.VARIABLE_TYPE,
-        T.DEFAULT_VALUE,
-        T.VALUE_TYPE,
-        T.VARIABLE_VALUE,
-        T.IS_EFFECT,
-        T.CRE_USER_ID,
-        T.CRE_TIME,
-        T.REMARK
-        FROM
-        rule_variable T
-        WHERE
+        select distinct
+        t.variable_id,
+        t.variable_name,
+        t.variable_type,
+        t.default_value,
+        t.value_type,
+        t.variable_value,
+        t.is_effect,
+        t.cre_user_id,
+        t.cre_time,
+        t.remark
+        from
+        rule_variable t
+        where
         1 = 1
         <choose>
             <when test="isEffect == 0">
-                AND T.IS_EFFECT = 0
+                AND t.is_effect = 0
             </when>
             <otherwise>
-                AND T.IS_EFFECT = 1
+                AND t.is_effect = 1
             </otherwise>
         </choose>
         <if test="variableType != null">
-            AND T.VARIABLE_TYPE = #{variableType}
+            AND t.variable_type = #{variableType}
         </if>
         <if test="valueType != null">
-            AND T.VALUE_TYPE = #{valueType}
+            AND t.value_type = #{valueType}
         </if>
 
     </select>

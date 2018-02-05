@@ -58,31 +58,31 @@
     </select>
 
     <select id="getRuleAgeTime" resultType="java.util.Map" parameterType="map">
-        select SENCE_VERSIONID as senceVersionId ,AVG(execute_time) executeTime ,count(execute_time) execTotal from
+        select sence_versionid as senceVersionId ,AVG(execute_time) executeTime ,count(execute_time) execTotal from
         risk_drools_log t where 1=1
         <if test="startTime !=null and startTime!='' ">
-            and CREATE_TIME>=#{startTime}
+            and create_time>=#{startTime}
         </if>
         <if test="endTime !=null and endTime!='' ">
-            and CREATE_TIME <![CDATA[ <= ]]> #{endTime}
+            and create_time <![CDATA[ <= ]]> #{endTime}
         </if>
-        GROUP BY SENCE_VERSIONID order by execute_time desc
+        GROUP BY sence_versionid order by execute_time desc
         <if test="getWay != 'all'">
             limit 0,${getWay}
         </if>
     </select>
 
     <select id="getRuleExecTotal" resultType="java.util.Map" parameterType="map">
-        select rd.EXECUTE_RULENAME executeRuleName,count(DROOLS_LOGID) executeTotal from risk_test_drools_log rl inner
-        join risk_test_drools_detail_log rd on rl.ID=rd.DROOLS_LOGID
+        select rd.execute_rulename executeRuleName,count(drools_logid) executeTotal from risk_test_drools_log rl inner
+        join risk_test_drools_detail_log rd on rl.ID=rd.drools_logid
         where 1=1
         <if test="startTime !=null and startTime!='' ">
-            and rl.CREATE_TIME>=#{startTime}
+            and rl.create_time>=#{startTime}
         </if>
         <if test="endTime !=null and endTime!='' ">
-            and rl.CREATE_TIME <![CDATA[ <= ]]> #{endTime}
+            and rl.create_time <![CDATA[ <= ]]> #{endTime}
         </if>
-        GROUP BY EXECUTE_RULENAME
+        GROUP BY execute_rulename
         <if test="getWay != 'all'">
             limit 0,${getWay}
         </if>

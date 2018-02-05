@@ -22,19 +22,19 @@
 
     <select id="findBaseRuleSceneInfiList" parameterType="com.ht.risk.rule.entity.SceneInfo"
             resultType="com.ht.risk.rule.entity.SceneInfo">
-        SELECT DISTINCT
-        T.SCENE_ID,
-        T.SCENE_IDENTIFY,
-        T.SCENE_TYPE,
-        T.SCENE_NAME,
-        T.SCENE_DESC,
-        T.IS_EFFECT,
-        T.CRE_USER_ID,
-        T.CRE_TIME,
-        T.REMARK
-        FROM
-        rule_scene_info T
-        WHERE	1 = 1
+        select distinct
+        t.scene_id,
+        t.scene_identify,
+        t.scene_type,
+        t.scene_name,
+        t.scene_desc,
+        t.is_effect,
+        t.cre_user_id,
+        t.cre_time,
+        t.remark
+        from
+        rule_scene_info t
+        where	1 = 1
 
     </select>
 

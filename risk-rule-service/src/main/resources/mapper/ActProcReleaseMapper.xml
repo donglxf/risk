@@ -21,25 +21,25 @@
 
 	<!-- 通用查询结果列 -->
 	<sql id="Base_Column_List">
-		ID AS id, MODEL_PROCDEF_ID AS modelProcdefId, MODEL_NAME AS modelName,
-		MODEL_VERSION AS modelVersion, MODEL_CATEGORY AS modelCategory,
-		VERSION_TYPE AS versionType, IS_VALIDATE AS isValidate, IS_APPROVE AS
-		isApprove, IS_EFFECT AS isEffect, UPDATE_TIME AS updateTime,
-		UPDATE_USER AS updateUser, CREATE_TIME AS createTime, CREATE_USER AS
+		ID AS id, model_procdef_id AS modelProcdefId, model_name AS modelName,
+		model_version AS modelVersion, model_category AS modelCategory,
+		version_type AS versionType, is_validate AS isValidate, is_approve AS
+		isApprove, is_effect AS isEffect, update_time AS updateTime,
+		 AS updateUser, create_time AS createTime, create_user AS
 		createUser
 	</sql>
 
 	<sql id="BaseFindColumnSqlModelTask">
-		t1.ID,
-		t1.MODEL_PROCDEF_ID,
-		t1.MODEL_NAME,
-		t1.MODEL_VERSION,
-		t1.MODEL_CATEGORY,
-		t1.VERSION_TYPE,
-		t1.IS_VALIDATE,
-		t1.IS_APPROVE,
-		t1.IS_EFFECT,
-		t2.id AS taskId,
+		t1.id,
+		t1.model_procdef_id,
+		t1.model_name,
+		t1.model_version,
+		t1.model_category,
+		t1.version_type,
+		t1.is_validate,
+		t1.is_approve,
+		t1.is_effect,
+		t2.id as taskid,
 		t2.corn_text,
 		t2.task_status
 	</sql>
