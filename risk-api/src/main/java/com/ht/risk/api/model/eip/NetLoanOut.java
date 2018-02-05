@@ -1,4 +1,4 @@
-package com.ht.risk.eip.dto;
+package com.ht.risk.api.model.eip;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

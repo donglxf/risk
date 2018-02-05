@@ -1,9 +1,9 @@
-package com.ht.risk.eip.rpc;
+package com.ht.risk.api.feign.eip;
 
-import com.ht.risk.eip.dto.NetLoanIn;
-import com.ht.risk.eip.dto.NetLoanOut;
-import com.ht.risk.eip.dto.OldLaiIn;
-import com.ht.risk.eip.dto.OldLaiOut;
+import com.ht.risk.api.model.eip.NetLoanIn;
+import com.ht.risk.api.model.eip.NetLoanOut;
+import com.ht.risk.api.model.eip.OldLaiIn;
+import com.ht.risk.api.model.eip.OldLaiOut;
 import com.ht.ussp.core.Result;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.MediaType;

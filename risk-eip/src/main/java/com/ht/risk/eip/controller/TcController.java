@@ -1,10 +1,10 @@
 package com.ht.risk.eip.controller;
 
-import com.ht.risk.eip.dto.NetLoanIn;
-import com.ht.risk.eip.dto.NetLoanOut;
-import com.ht.risk.eip.dto.OldLaiIn;
-import com.ht.risk.eip.dto.OldLaiOut;
-import com.ht.risk.eip.rpc.TcRpc;
+import com.ht.risk.api.feign.eip.TcRpc;
+import com.ht.risk.api.model.eip.NetLoanIn;
+import com.ht.risk.api.model.eip.NetLoanOut;
+import com.ht.risk.api.model.eip.OldLaiIn;
+import com.ht.risk.api.model.eip.OldLaiOut;
 import com.ht.ussp.core.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
