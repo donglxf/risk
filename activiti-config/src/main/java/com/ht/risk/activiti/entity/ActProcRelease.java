@@ -21,7 +21,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2018-01-16
  */
 @ApiModel
-@TableName("ACT_PROC_RELEASE")
+@TableName("act_proc_release")
 public class ActProcRelease extends Model<ActProcRelease> {
 
     private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class ActProcRelease extends Model<ActProcRelease> {
     /**
      * 主键
      */
-    @TableId("ID")
+    @TableId("id")
 	@ApiModelProperty(required= true,value = "主键")
 	private Long id;
 
@@ -42,73 +42,73 @@ public class ActProcRelease extends Model<ActProcRelease> {
     /**
      * 模型定义ID，与 ACT_RE_PROCDEF.ID_ 关联,ACT_RE_PROCDEF 表中有模型部署id
      */
-	@TableField("MODEL_PROCDEF_ID")
+	@TableField("model_procdef_id")
 	@ApiModelProperty(required= true,value = "模型定义ID，与 ACT_RE_PROCDEF.ID_ 关联,ACT_RE_PROCDEF 表中有模型部署id")
 	private String modelProcdefId;
     /**
      * 模型名称
      */
-	@TableField("MODEL_NAME")
+	@TableField("model_name")
 	@ApiModelProperty(required= true,value = "模型名称")
 	private String modelName;
     /**
      * 模型版本
      */
-	@TableField("MODEL_VERSION")
+	@TableField("model_version")
 	@ApiModelProperty(required= true,value = "模型版本")
 	private String modelVersion;
     /**
      * 模型分类
      */
-	@TableField("MODEL_CATEGORY")
+	@TableField("model_category")
 	@ApiModelProperty(required= true,value = "模型分类")
 	private String modelCategory;
     /**
      * 版本类型，0-测试版，1-正式版
      */
-	@TableField("VERSION_TYPE")
+	@TableField("version_type")
 	@ApiModelProperty(required= true,value = "版本类型，0-测试版，1-正式版")
 	private String versionType;
     /**
      * 是否验证通过： 0-待验证，1-验证通过，2-验证不通过；默认为0;
      */
-	@TableField("IS_VALIDATE")
+	@TableField("is_validate")
 	@ApiModelProperty(required= true,value = "是否验证通过： 0-待验证，1-验证通过，2-验证不通过；默认为0;")
 	private String isValidate;
     /**
      * 是否审核通过：0-待审核，1-审核通过，2-审核不通过；默认为0;
      */
-	@TableField("IS_APPROVE")
+	@TableField("is_approve")
 	@ApiModelProperty(required= true,value = "是否审核通过：0-待审核，1-审核通过，2-审核不通过；默认为0;")
 	private String isApprove;
     /**
      * 是否生效：0-有效，1-无效
      */
-	@TableField("IS_EFFECT")
+	@TableField("is_effect")
 	@ApiModelProperty(required= true,value = "是否生效：0-有效，1-无效")
 	private String isEffect;
     /**
      * 更新时间
      */
-	@TableField("UPDATE_TIME")
+	@TableField("update_time")
 	@ApiModelProperty(required= true,value = "更新时间")
 	private Date updateTime;
     /**
      * 更新用户
      */
-	@TableField("UPDATE_USER")
+	@TableField("update_user")
 	@ApiModelProperty(required= true,value = "更新用户")
 	private String updateUser;
     /**
      * 创建时间
      */
-	@TableField("CREATE_TIME")
+	@TableField("create_time")
 	@ApiModelProperty(required= true,value = "创建时间")
 	private Date createTime;
     /**
      * 创建用户
      */
-	@TableField("CREATE_USER")
+	@TableField("create_user")
 	@ApiModelProperty(required= true,value = "创建用户")
 	private String createUser;
 

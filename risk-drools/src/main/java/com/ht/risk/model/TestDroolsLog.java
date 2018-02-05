@@ -19,60 +19,60 @@ import java.util.Date;
  * @since 2018-01-18
  */
 @ApiModel
-@TableName("RISK_TEST_DROOLS_LOG")
+@TableName("risk_test_drools_log")
 public class TestDroolsLog extends Model<TestDroolsLog> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId("ID")
+    @TableId("id")
 	@ApiModelProperty(required= true,value = "")
 	private Long id;
     /**
      * 模型实例id
      */
-	@TableField("PROCINST_ID")
+	@TableField("procinst_id")
 	@ApiModelProperty(required= true,value = "模型实例id")
 	private Long procinstId;
     /**
      * 模型名
      */
-	@TableField("MODEL_NAME")
+	@TableField("model_name")
 	@ApiModelProperty(required= true,value = "模型名")
 	private String modelName;
     /**
      * 決策版本流水
      */
-	@TableField("SENCE_VERSIONID")
+	@TableField("sence_versionid")
 	@ApiModelProperty(required= true,value = "決策版本流水")
 	private String senceVersionid;
     /**
      * 入参
      */
-	@TableField("IN_PARAMTER")
+	@TableField("in_paramter")
 	@ApiModelProperty(required= true,value = "入参")
 	private String inParamter;
     /**
      * 计算结果
      */
-	@TableField("OUT_PARAMTER")
+	@TableField("out_paramter")
 	@ApiModelProperty(required= true,value = "计算结果")
 	private String outParamter;
     /**
      * 命中规则总数
      */
-	@TableField("EXECUTE_TOTAL")
+	@TableField("execute_total")
 	@ApiModelProperty(required= true,value = "命中规则总数")
 	private Integer executeTotal;
     /**
      * 决策执行类型：0-直接调用，1-模型调用
      */
-	@TableField("TYPE")
+	@TableField("type")
 	@ApiModelProperty(required= true,value = "决策执行类型：0-直接调用，1-模型调用")
 	private String type;
     /**
      * 插入时间
      */
-	@TableField("CREATE_TIME")
+	@TableField("create_time")
 	@ApiModelProperty(required= true,value = "插入时间")
 	private Date createTime;
 

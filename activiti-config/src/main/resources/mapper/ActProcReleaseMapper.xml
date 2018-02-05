@@ -4,25 +4,25 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ht.risk.activiti.entity.ActProcRelease">
-        <id column="ID" property="id" />
-        <result column="MODEL_ID" property="modelId" />
-        <result column="MODEL_PROCDEF_ID" property="modelProcdefId" />
-        <result column="MODEL_NAME" property="modelName" />
-        <result column="MODEL_VERSION" property="modelVersion" />
-        <result column="MODEL_CATEGORY" property="modelCategory" />
-        <result column="VERSION_TYPE" property="versionType" />
-        <result column="IS_VALIDATE" property="isValidate" />
-        <result column="IS_APPROVE" property="isApprove" />
-        <result column="IS_EFFECT" property="isEffect" />
-        <result column="UPDATE_TIME" property="updateTime" />
-        <result column="UPDATE_USER" property="updateUser" />
-        <result column="CREATE_TIME" property="createTime" />
-        <result column="CREATE_USER" property="createUser" />
+        <id column="id" property="id" />
+        <result column="model_id" property="modelId" />
+        <result column="model_procdef_id" property="modelProcdefId" />
+        <result column="model_name" property="modelName" />
+        <result column="model_version" property="modelVersion" />
+        <result column="model_category" property="modelCategory" />
+        <result column="version_type" property="versionType" />
+        <result column="is_validate" property="isValidate" />
+        <result column="is_approve" property="isApprove" />
+        <result column="is_effect" property="isEffect" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, MODEL_PROCDEF_ID AS modelProcdefId, MODEL_NAME AS modelName, MODEL_VERSION AS modelVersion, MODEL_CATEGORY AS modelCategory, VERSION_TYPE AS versionType, IS_VALIDATE AS isValidate, IS_APPROVE AS isApprove, IS_EFFECT AS isEffect, UPDATE_TIME AS updateTime, UPDATE_USER AS updateUser, CREATE_TIME AS createTime, CREATE_USER AS createUser
+        id AS id, model_procdef_id AS modelProcdefId, model_name AS modelName, model_version AS modelVersion, model_category AS modelCategory, version_type AS versionType, is_validate AS isValidate, is_approve AS isApprove, is_effect AS isEffect, update_time AS updateTime, update_user AS updateUser, create_time AS createTime, create_user AS createUser
     </sql>
 
 </mapper>
