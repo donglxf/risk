@@ -24,7 +24,7 @@ public class DroolsLogController {
 	@Resource
 	private DroolsLogService droolsLogService ;
 	
-	@RequestMapping("/save")
+	@RequestMapping("save")
 	@ApiOperation(value = "新增日志")
 	@ResponseBody
 	@Transactional()
@@ -40,7 +40,7 @@ public class DroolsLogController {
         return str;
     }
 
-	@GetMapping("/page")
+	@GetMapping("page")
 	@ApiOperation(value = "分页查询")
 	public PageResult<List<DroolsLog>> page(String key, Integer page, Integer limit) {
 		Wrapper<DroolsLog> wrapper = new EntityWrapper<>();

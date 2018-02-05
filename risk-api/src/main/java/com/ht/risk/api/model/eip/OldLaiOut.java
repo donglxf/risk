@@ -1,12 +1,12 @@
-package com.ht.risk.eip.dto;
+package com.ht.risk.api.model.eip;
 
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
 @ApiModel
-public class QueryBlackOldLaiDtoOut{
+public class OldLaiOut{
 
 	@ApiModelProperty(value = "记录ID,由爬虫程序生成")
 	private String globalId;

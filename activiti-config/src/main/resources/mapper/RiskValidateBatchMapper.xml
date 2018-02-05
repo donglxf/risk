@@ -4,30 +4,30 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ht.risk.activiti.entity.RiskValidateBatch">
-        <id column="ID" property="id" />
-        <result column="PROC_RELEASE_ID" property="procReleaseId" />
-        <result column="BATCH_SIZE" property="batchSize" />
-        <result column="STATUS" property="status" />
-        <result column="COMPLETE_COUNT" property="count" />
-        <result column="IS_EFFECT" property="isEffect" />
-        <result column="CREATE_TIME" property="createTime" />
-        <result column="CREATE_USER" property="createUser" />
+        <id column="id" property="id" />
+        <result column="proc_release_id" property="procReleaseId" />
+        <result column="batch_size" property="batchSize" />
+        <result column="status" property="status" />
+        <result column="complete_count" property="count" />
+        <result column="is_effect" property="isEffect" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, DEPLOYMENT_ID AS deploymentId, BATCH_SIZE AS batchSize, STATUS AS status, COUNT AS count, IS_EFFECT AS isEffect, CREATE_TIME AS createTime, CREATE_USER AS createUser
+        id AS id, deployment_id AS deploymentId, batch_size AS batchSize, status AS status, count AS count, is_effect AS isEffect, create_time AS createTime, create_user AS createUser
     </sql>
 
 
     <select id="queryValidateBatchList" parameterType="com.ht.risk.activiti.entity.RiskValidateBatch" resultType="com.ht.risk.activiti.entity.RiskValidateBatch">
-        select B.MODEL_NAME,B.MODEL_VERSION,A.ID,A.PROC_RELEASE_ID,A.`STATUS` from RISK_VALIDATE_BATCH A INNER JOIN ACT_PROC_RELEASE B ON A.PROC_RELEASE_ID = B.ID
+        select B.model_name,B.model_version,A.id,A.proc_release_id,A.`status` from risk_validate_batch A INNER JOIN act_proc_release B ON A.proc_release_id = B.id
         WHERE 1=1
         <if test="modelName != null and modelName != '' ">
-          and B.MODEL_NAME = #{modelName}
+          and B.model_name = #{modelName}
         </if>
         <if test="modelVersion != null and modelVersion != '' ">
-            and B.MODEL_VERSION = #{modelVersion}
+            and B.model_version = #{modelVersion}
         </if>
     </select>
 

@@ -17,7 +17,7 @@ import static org.quartz.JobBuilder.newJob;
 /**
  *  任务调度初始化类
  */
-@Component
+//@Component
 @Order(value=2)
 public class QuartzInitRunner implements CommandLineRunner {
 
