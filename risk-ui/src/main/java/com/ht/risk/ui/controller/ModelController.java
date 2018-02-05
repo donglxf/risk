@@ -45,19 +45,22 @@ public class ModelController {
 
     @RequestMapping(value = "/valiable", method = RequestMethod.GET)
     public String valiable() {
-        logger.info("手动测试");
-        return "model/verfication/model2";
+        return "model/verfication/model";
     }
 
     @RequestMapping(value = "/valiable/auto", method = RequestMethod.GET)
     public String valiableAuto() {
-        logger.info("请求自动测试页面");
         return "model/verfication/model_auto";
     }
 
     @RequestMapping(value = "/verfication/result", method = RequestMethod.GET)
     public String verficationResult() {
         return "model/verfication/result/list";
+    }
+
+    @RequestMapping(value = "/verfication/result/detail", method = RequestMethod.GET)
+    public String resultDetail() {
+        return "model/verfication/result/detail";
     }
 
     /**

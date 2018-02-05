@@ -3,6 +3,7 @@ package com.ht.risk.activiti.controller;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.gson.internal.LinkedTreeMap;
 import com.ht.risk.activiti.service.ActivitiService;
 import com.ht.risk.activiti.vo.ModelPage;
 import com.ht.risk.api.model.activiti.ModelParamter;
@@ -28,6 +29,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,11 +48,7 @@ public class ActivitiController implements ModelDataJsonConstants {
     @Resource
     private RepositoryService repositoryService;
     @Resource
-    private RuntimeService runtimeService;
-    @Resource
     private ObjectMapper objectMapper;
-    @Resource
-    private HistoryService historyService;
     @Resource
     private ActivitiService activitiService;
 
@@ -101,6 +100,7 @@ public class ActivitiController implements ModelDataJsonConstants {
         LOGGER.info("addModel paramter:" + JSON.toJSONString(paramter));
         Result<ModelParamter> data = null;
         try {
+            paramter.setCategory(paramter.getBusinessId());
             String modelId = activitiService.addModel(paramter);
             paramter.setModelId(modelId);
             data = Result.success(paramter);
@@ -216,38 +216,8 @@ public class ActivitiController implements ModelDataJsonConstants {
         List<String> list = values.get("json_xml");
         String json = list.get(0);
         Map<String, Object> map = new GsonJsonParser().parseMap(json);
-        List<Map> childShapes = (List<Map>) map.get("childShapes");
-        for (Map map1 : childShapes) {
-            Map properties = (Map) map1.get("properties");
-            Map stencil = (Map) map1.get("stencil");
-            //根据节点id,判断是否为自定义节点
-            if ("custom".equals(stencil.get("id"))) {
-                stencil.put("id", "ServiceTask");
-                properties.put("overrideid", "");
-                properties.put("name", "");
-                properties.put("documentation", "");
-                properties.put("asynchronousdefinition", "false");
-                properties.put("exclusivedefinition", "false");
-                properties.put("executionlisteners", "");
-                properties.put("multiinstance_type", "None");
-                properties.put("multiinstance_cardinality", "");
-                properties.put("multiinstance_collection", "");
-                properties.put("multiinstance_variable ", "");
-                properties.put("multiinstance_condition", "");
-                properties.put("isforcompensation ", "false");
-                properties.put("servicetaskclass", "");
-                properties.put("servicetaskexpression", "");
-                properties.put("servicetaskdelegateexpression", "${mortgageRiskService}");
-                properties.put("servicetaskfields", "");
-                properties.put("servicetaskresultvariable", "");
-                properties.put("delegateExpression", "");
-            }
-        }
-        //重新设置回去
-        map.put("childShapes", childShapes);
-        //把map转换未json,重新赋值给values
-        String json1 = JSON.toJSONString(map);
-        values.set("json_xml", json1);
+        activitiService.createRuleTask(map);
+        values.set("json_xml", JSON.toJSONString(map));
         try {
             activitiService.saveModel(modelId, values);
         } catch (Exception e) {

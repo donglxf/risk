@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@FeignClient("risk-log")
+@FeignClient("risk-drools")
 public interface DroolsLogRpc {
 
     @RequestMapping("/testDroolsLog/getHitRuleInfo")

@@ -8,13 +8,41 @@
 </head>
 <body>
 <div class="demoTable" style="padding:10px 10px 0px 10px">
-    模板名称：
+  <!--  模板名称：
     <div class="layui-inline">
         <input class="layui-input" name="id" id="modelName" autocomplete="off">
     </div>
-    <button class="layui-btn" data-type="reload">查询</button>
-    <button class="layui-btn" data-type="getCheckData" id="btn_add" onclick="addModel()">新增</button>
+    <button class="layui-btn" data-type="reload">查询</button>-->
+
+
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <div class="layui-col-xs7" style="padding-right: 10px">
+                <div class="demoTable" style="padding:10px 10px 0px 10px">
+                    模型名称：
+                    <div class="layui-inline">
+                        <input class="layui-input" name="id" id="modelName" autocomplete="off">
+                    </div>
+                    <button class="layui-btn" data-type="reload" id="model_search">查询</button>
+                    <button class="layui-btn" data-type="getCheckData"  onclick="addModel()">新增</button>
+                </div>
+                <table id="model_list" lay-filter="model" lay-data="{id: 'idModel'}"></table>
+            </div>
+            <div class="layui-col-xs5">
+                <div class="demoTable" style="padding:10px 10px 0px 10px">
+                    模型版本：
+                    <div class="layui-inline">
+                        <input class="layui-input" name="id" id="modelVersion" autocomplete="off">
+                    </div>
+                    <button class="layui-btn" data-type="versionReload" id="version_search">查询</button>
+                </div>
+                <table id="version_list" lay-filter="version" lay-data="{id: 'version'}"></table>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 
 <script type="text/html" id="deployTpl">
@@ -26,19 +54,15 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    {{#  if(d.deploymentId == '' || d.deploymentId == null){ }}
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    {{#  }else { }}
-        <a class="layui-btn layui-btn-danger layui-btn-xs" disabled="disabled">删除</a>
-    {{#  } }}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     <a class="layui-btn layui-btn-xs" lay-event="deploy">发布测试版</a>
+    <a class="layui-btn layui-btn-xs" lay-event="version">查看版本</a>
    <!-- <a class="layui-btn layui-btn-xs" lay-event="start">启动</a>-->
 </script>
 
 
-<table id="model_list" lay-filter="model" lay-data="{id: 'idModel'}"></table>
+
 </div>
 <script src="/rule/ui/plugins/layui/layui.js"></script>
 <script src="/rule/ui/src/js/model/model.js"></script>

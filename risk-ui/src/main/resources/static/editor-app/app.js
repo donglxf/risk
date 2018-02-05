@@ -95,6 +95,7 @@ activitiModeler
             /* Helper method to fetch model from server (always needed) */
             function fetchModel(modelId) {
                 var modelUrl = getModel(modelId);
+                console.log(modelUrl);
                 $http({method: 'GET', url: modelUrl}).
                     success(function (data, status, headers, config) {
                         $rootScope.editor = new ORYX.Editor(data);
@@ -178,8 +179,11 @@ activitiModeler
             $rootScope.$on('$includeContentLoaded', function (event) {
 	            if (!$rootScope.editorInitialized) {
 	            	ORYX._loadPlugins();
-	                //var modelId = EDITOR.UTIL.getParameterByName('modelId');
-	            	var modelId = document.getElementById('modelId').value;
+	                var modelId = EDITOR.UTIL.getParameterByName('modelId');
+                    //var modelId = $("#input_hidden_model", parent.document).val();
+                    //var modelId = window.parent.document.getElementById("input_hidden_model").value;
+                    console.log('Z##############'+modelId);
+	            	//var modelId = document.getElementById('modelId').value;
 	                fetchModel(modelId);
 	
 	                $rootScope.window = {};
@@ -187,7 +191,6 @@ activitiModeler
 	                    $rootScope.window.width = $window.innerWidth;
 	                    $rootScope.window.height  = $window.innerHeight;
 	                };
-	
 	                // Window resize hook
 	                angular.element($window).bind('resize', function() {
 	                    $rootScope.safeApply(updateWindowSize());

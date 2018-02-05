@@ -10,6 +10,7 @@ import com.ht.risk.api.model.log.RpcHitRuleInfo;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.controller.ModelVerificationController;
 import com.ht.risk.rule.entity.ModelSence;
+import com.ht.risk.rule.entity.ValidateBatch;
 import com.ht.risk.rule.entity.VariableBind;
 import com.ht.risk.rule.mapper.ModelSenceMapper;
 import com.ht.risk.rule.mapper.VariableBindMapper;
@@ -226,6 +227,38 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
     public Long createSingleVerficationTask() {
         //
 
+        return null;
+    }
+
+    @Override
+    public Map getAutoVerficationData(String senceCode, String version) {
+        Map<String,String> paramter = new HashMap<String,String>();
+        paramter.put("senceCode",senceCode);
+        paramter.put("version",version);
+        List<VariableBind> binds = variableBindMapper.querySenceBindTableInfo(paramter);
+        if(binds.size() > 0){
+            String tableName = null;
+            String columnName = null;
+            VariableBind variableBind = null;
+            // SELECT * FROM tablename ORDER BY RAND() LIMIT 1。
+            StringBuffer sqlBuf = new StringBuffer("select ");
+            String sql = null;
+            for (Iterator<VariableBind> iterator = binds.iterator();iterator.hasNext();){
+                variableBind = iterator.next();
+                tableName = variableBind.getBindTable();
+                columnName = variableBind.getBindColumn();
+                sqlBuf.append("columnName").append(",");
+            }
+            sql = sqlBuf.toString();
+            sql = sql.substring(0,sql.length()-1);
+            sql += " from " +tableName +" order by rand() limit 1";
+            paramter = new HashMap<String,String>();
+            paramter.put("sql",sql);
+            List<Map> data = variableBindMapper.getRandAutoData(paramter);
+            if(data != null && data.size() > 0){
+                return data.get(0);
+            }
+        }
         return null;
     }
 
