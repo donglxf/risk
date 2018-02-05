@@ -33,7 +33,7 @@
     </select>
 
     <update id="myUpdate" parameterType="com.ht.risk.rule.entity.VariableBind">
-        UPDATE RISK_VARIABLE_BIND
+        UPDATE risk_variable_bind
         <set>
             <if test="tmpValue != null">
                 TMP_VALUE = #{tmpValue},

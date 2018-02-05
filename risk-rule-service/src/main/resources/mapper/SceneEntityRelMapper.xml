@@ -22,7 +22,7 @@
         T.SCENE_ID,
         T.ENTITY_ID
         FROM
-        RULE_SCENE_ENTITY_REL T
+        rule_scene_entity_rel T
         WHERE
         1 = 1
         <if test="sceneId != null">

@@ -59,7 +59,7 @@
 
     <select id="getRuleAgeTime" resultType="java.util.Map" parameterType="map">
         select SENCE_VERSIONID as senceVersionId ,AVG(execute_time) executeTime ,count(execute_time) execTotal from
-        RISK_DROOLS_LOG t where 1=1
+        risk_drools_log t where 1=1
         <if test="startTime !=null and startTime!='' ">
             and CREATE_TIME>=#{startTime}
         </if>
@@ -73,8 +73,8 @@
     </select>
 
     <select id="getRuleExecTotal" resultType="java.util.Map" parameterType="map">
-        select rd.EXECUTE_RULENAME executeRuleName,count(DROOLS_LOGID) executeTotal from RISK_TEST_DROOLS_LOG rl inner
-        join RISK_TEST_DROOLS_DETAIL_LOG rd on rl.ID=rd.DROOLS_LOGID
+        select rd.EXECUTE_RULENAME executeRuleName,count(DROOLS_LOGID) executeTotal from risk_test_drools_log rl inner
+        join risk_test_drools_detail_log rd on rl.ID=rd.DROOLS_LOGID
         where 1=1
         <if test="startTime !=null and startTime!='' ">
             and rl.CREATE_TIME>=#{startTime}

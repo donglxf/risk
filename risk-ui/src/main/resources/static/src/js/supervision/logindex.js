@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////
 var preBindUrl = "/rule/service/variableBind/";
-var preUrl = "/log/droolsLog/";
+var preUrl = "/drools/droolsLog/";
 var p_sceneId = -1,versionIds=0;
 layui.use(['table', 'form','laydate','util'], function () {
     var laydate = layui.laydate;
