@@ -42,6 +42,16 @@ public interface TcRpc {
     @PostMapping(value = "/black/self", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<SelfDtoOut> self(@RequestBody OldLaiIn input);
 
+    /**
+     * 描述：自有黑名单
+     * @param input
+     * @return a
+     * @autor 张鹏
+     * @date 2018/2/5 9:38
+     */
+    @PostMapping(value = "/black/frontSea", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    Result<FrontSeaDtoOut> frontSea(@RequestBody FrontSeaDtoIn input);
+
 
 
 

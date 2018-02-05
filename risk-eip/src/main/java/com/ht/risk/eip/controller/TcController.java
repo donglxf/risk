@@ -1,10 +1,7 @@
 package com.ht.risk.eip.controller;
 
 import com.ht.risk.api.feign.eip.TcRpc;
-import com.ht.risk.api.model.eip.NetLoanIn;
-import com.ht.risk.api.model.eip.NetLoanOut;
-import com.ht.risk.api.model.eip.OldLaiIn;
-import com.ht.risk.api.model.eip.OldLaiOut;
+import com.ht.risk.api.model.eip.*;
 import com.ht.ussp.core.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,6 +39,19 @@ public class TcController {
         Result<OldLaiOut> result =  tcRpc.oldLai(input);
         return result;
     }
+    @PostMapping("/black/self")
+    @ApiOperation(value = "自有黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<SelfDtoOut> self(OldLaiIn input) throws Exception{
+        Result<SelfDtoOut> result =  tcRpc.self(input);
+        return result;
+    }
+    @PostMapping("/black/frontSea")
+    @ApiOperation(value = "前海黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<FrontSeaDtoOut> frontSea(FrontSeaDtoIn input) throws Exception{
+        Result<FrontSeaDtoOut> result =  tcRpc.frontSea(input);
+        return result;
+    }
+
 
 
 

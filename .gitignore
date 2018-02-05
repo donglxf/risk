@@ -26,3 +26,4 @@ nbdist/
 /risk-eip/.mvn/
 /risk-eip/mvnw
 /risk-eip/mvnw.cmd
+/risk-eip/.gitignore
