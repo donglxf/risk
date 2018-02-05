@@ -158,6 +158,18 @@ public class ActProcRelease extends Model<ActProcRelease> implements Serializabl
     protected Serializable pkVal() {
         return this.id;
     }
+    
+    @TableField(exist=false)
+    @ApiModelProperty(required = false, value = "模型任务id")
+    private String taskId;
+    
+    @TableField(exist=false)
+    @ApiModelProperty(required = false, value = "任务状态1停止2启动")
+    private String taskStatus;
+    
+    @TableField(exist=false)
+    @ApiModelProperty(required = false, value = "corn")
+    private String cornText;
 
 
 }
