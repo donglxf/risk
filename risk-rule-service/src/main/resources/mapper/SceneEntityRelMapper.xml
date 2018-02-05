@@ -61,13 +61,11 @@
     </select>
     <select id="findEntityIdsBySceneId" resultType="java.lang.String">
         SELECT
-        GROUP_CONCAT(ent
-    </select>
-    <select resultType="java.lang.String">ity_id)
+            GROUP_CONCAT(entity_id)
         FROM
-        `rule_scene_entity_rel`
+            `rule_scene_entity_rel`
         WHERE
-        scene_id =#{sceneId}
+            scene_id =#{sceneId}
     </select>
 
 </mapper>
