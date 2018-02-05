@@ -47,7 +47,7 @@
 	<select id="findModelTaskList" resultMap="entityModelTask">
 		SELECT DISTINCT
 		<include refid="BaseFindColumnSqlModelTask"></include>
-		FROM ACT_PROC_RELEASE t1 LEFT JOIN risk_model_task t2 ON t1.ID =
+		FROM act_proc_release t1 LEFT JOIN risk_model_task t2 ON t1.ID =
 		t2.model_procdef_id 
 		<where>
 		  ${ew.sqlSegment}
@@ -55,15 +55,15 @@
 	</select>
 
 	<resultMap id = "entityModelTask" type="com.ht.risk.rule.entity.ActProcRelease">
-		<id column="ID" property="id" />
-		<result column="MODEL_PROCDEF_ID" property="modelProcdefId" />
-		<result column="MODEL_NAME" property="modelName" />
-		<result column="MODEL_VERSION" property="modelVersion" />
-		<result column="MODEL_CATEGORY" property="modelCategory" />
-		<result column="VERSION_TYPE" property="versionType" />
-		<result column="IS_VALIDATE" property="isValidate" />
-		<result column="IS_APPROVE" property="isApprove" />
-		<result column="IS_EFFECT" property="isEffect" />
+		<id column="id" property="id" />
+		<result column="model_procdef_id" property="modelProcdefId" />
+		<result column="model_name" property="modelName" />
+		<result column="model_version" property="modelVersion" />
+		<result column="model_category" property="modelCategory" />
+		<result column="version_type" property="versionType" />
+		<result column="is_validate" property="isValidate" />
+		<result column="is_approve" property="isApprove" />
+		<result column="is_effect" property="isEffect" />
 		<result column="taskId" property="taskId" />
 		<result column="corn_text" property="cornText" />
 		<result column="task_status" property="taskStatus" />

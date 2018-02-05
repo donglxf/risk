@@ -185,7 +185,7 @@
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型调度管理",
-        "url": "404",
+        "url": "rule/offlineTask/model",
         "children": []
       },
       {
