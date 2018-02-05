@@ -75,6 +75,12 @@ public class ActionInfo extends Model<ActionInfo> {
 	@TableField("action_class")
 	@ApiModelProperty(required= true,value = "动作实现类(包路径)")
 	private String actionClass;
+	/**
+     * 动作实现类(包路径)
+     */
+	@TableField("action_method")
+	@ApiModelProperty(required= true,value = "动作执行方法名")
+	private String actionMethod;
     /**
      * 是否有效
      */
@@ -177,6 +183,14 @@ public class ActionInfo extends Model<ActionInfo> {
 		return this.actionId;
 	}
 
+	public String getActionMethod() {
+		return actionMethod;
+	}
+
+	public void setActionMethod(String actionMethod) {
+		this.actionMethod = actionMethod;
+	}
+
 	@Override
 	public String toString() {
 		return "ActionInfo{" +
@@ -185,6 +199,7 @@ public class ActionInfo extends Model<ActionInfo> {
 			", actionName=" + actionName +
 			", actionDesc=" + actionDesc +
 			", actionClass=" + actionClass +
+			", actionMethod=" + actionMethod +
 			", isEffect=" + isEffect +
 			", creUserId=" + creUserId +
 			", creTime=" + creTime +
