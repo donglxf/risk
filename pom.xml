@@ -214,5 +214,6 @@
 		<module>risk-activiti</module>
 		<module>risk-esper</module>
 		<module>activiti-config</module>
+		<module>risk-eip</module>
 	</modules>
 </project>

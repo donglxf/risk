@@ -1,7 +1,9 @@
 package com.ht.risk.eip.controller;
 
+import com.ht.risk.eip.dto.LlBlackListRespDto;
 import com.ht.risk.eip.dto.QueryUserInformationAuthDtoIn;
 import com.ht.risk.eip.dto.QueryUserInformationAuthDtoOut;
+import com.ht.risk.eip.dto.User;
 import com.ht.risk.eip.rpc.DemoRpc;
 import com.ht.ussp.core.Result;
 import io.swagger.annotations.Api;
@@ -38,6 +40,13 @@ public class DemoController {
     }
 
 
+    @GetMapping("/eip/tc/blackList/getLlBlackList")
+    @ApiOperation(value = "demo测试")
+    public Object getLlBlackList(User user) throws Exception{
+        LlBlackListRespDto  result = demoRpc.getLlBlackList(user);
+        System.out.println(result);
+        return null;
+    }
 
 
 }

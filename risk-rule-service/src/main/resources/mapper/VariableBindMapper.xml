@@ -23,10 +23,6 @@
         ID AS id, SENCE_VERSION_ID AS senceVersionId, VARIABLE_CODE AS variableCode, VARIABLE_NAME AS variableName, DATA_TYPE AS dataType, CONSTANT_ID AS constantId, BIND_TABLE AS bindTable, BIND_COLUMN AS bindColumn, IS_EFFECT AS isEffect, TMP_VALUE AS tmpValue, CREATE_USER AS createUser, CREATE_TIME AS createTime
     </sql>
     <select id="queryVariableBindBySenceVersinIds" resultType="com.ht.risk.rule.entity.VariableBind">
-
-
-
-
     </select>
 
     <update id="myUpdate" parameterType="com.ht.risk.rule.entity.VariableBind">
