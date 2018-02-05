@@ -23,10 +23,6 @@
         ID AS id, SENCE_VERSION_ID AS senceVersionId, VARIABLE_CODE AS variableCode, VARIABLE_NAME AS variableName, DATA_TYPE AS dataType, CONSTANT_ID AS constantId, BIND_TABLE AS bindTable, BIND_COLUMN AS bindColumn, IS_EFFECT AS isEffect, TMP_VALUE AS tmpValue, CREATE_USER AS createUser, CREATE_TIME AS createTime
     </sql>
     <select id="queryVariableBindBySenceVersinIds" resultType="com.ht.risk.rule.entity.VariableBind">
-
-
-
-
     </select>
     <select id="querySenceBindTableInfo" resultType="com.ht.risk.rule.entity.VariableBind" parameterType="java.util.Map">
         select a.bind_table,a.bind_column from risk_variable_bind a inner join rule_scene_version b on a.sence_version_id = b.version_id
@@ -37,7 +33,7 @@
     </select>
 
     <update id="myUpdate" parameterType="com.ht.risk.rule.entity.VariableBind">
-        UPDATE RISK_VARIABLE_BIND
+        UPDATE risk_variable_bind
         <set>
             <if test="tmpValue != null">
                 TMP_VALUE = #{tmpValue},

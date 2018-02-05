@@ -23,14 +23,14 @@
 
     <select id="getRuleValidationResult" resultType="com.ht.risk.rule.vo.RuleHisVersionVo" parameterType="map">
         select <include refid="Column_List"/>
-          ,case isnull(d.executeRule)  when 1 then '1' when 0 then '0'  end  as validationResult from RISK_RULE_HIS_VERSION ver left join
-(select b.EXECUTE_RULENAME as executeRule  from RISK_TEST_DROOLS_LOG a inner join RISK_TEST_DROOLS_DETAIL_LOG b on a.id = b.DROOLS_LOGID  where a.id = #{id}) d
+          ,case isnull(d.executeRule)  when 1 then '1' when 0 then '0'  end  as validationResult from risk_rule_his_version ver left join
+(select b.EXECUTE_RULENAME as executeRule  from risk_test_drools_log a inner join risk_test_drools_detail_log b on a.id = b.DROOLS_LOGID  where a.id = #{id}) d
 on ver.RULE_NAME = d.executeRule
 where ver.SENCE_VERSION_ID = #{senceVersionId}
     </select>
 
     <select id="getRuleBatchValidationResult" resultType="java.util.Map" parameterType="map">
-      select  rl.IN_PARAMTER,rb.VARIABLE_CODE,rb.VARIABLE_NAME from RISK_TEST_DROOLS_LOG rl inner join RISK_VARIABLE_BIND rb on rl.SENCE_VERSIONID=rb.SENCE_VERSION_ID
+      select  rl.IN_PARAMTER,rb.VARIABLE_CODE,rb.VARIABLE_NAME from risk_test_drools_log rl inner join risk_variable_bind rb on rl.SENCE_VERSIONID=rb.SENCE_VERSION_ID
           where rl.id=#{id} and rl.SENCE_VERSIONID=#{senceVersionId}
     </select>
 

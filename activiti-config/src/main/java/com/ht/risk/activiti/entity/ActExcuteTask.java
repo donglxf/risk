@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2018-01-22
  */
 @ApiModel
-@TableName("ACT_EXCUTE_TASK")
+@TableName("act_excute_task")
 public class ActExcuteTask extends Model<ActExcuteTask> {
 
     private static final long serialVersionUID = 1L;
@@ -27,79 +27,79 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
     /**
      * 主键
      */
-    @TableId("ID")
+    @TableId("id")
 	@ApiModelProperty(required= true,value = "主键")
 	private Long id;
     /**
      * 批次号，验证任务调用时存在
      */
-	@TableField("BATCH_ID")
+	@TableField("batch_id")
 	@ApiModelProperty(required= true,value = "批次号，验证任务调用时存在")
 	private Long batchId;
     /**
      * 模型版本ID
      */
-	@TableField("PROC_RELEASE_ID")
+	@TableField("proc_release_id")
 	@ApiModelProperty(required= true,value = "模型版本ID")
 	private Long procReleaseId;
     /**
      * 流程运行实例ID
      */
-	@TableField("PROC_INST_ID")
+	@TableField("proc_inst_id")
 	@ApiModelProperty(required= true,value = "流程运行实例ID")
 	private String procInstId;
     /**
      * 任务状态，0-待执行，1-执行结束，2-执行异常
      */
-	@TableField("STATUS")
+	@TableField("status")
 	@ApiModelProperty(required= true,value = "任务状态，0-待执行，1-执行结束，2-执行异常")
 	private String status;
     /**
      * 任务类型，0-验证任务，1-业务系统调用
      */
-	@TableField("TYPE")
+	@TableField("type")
 	@ApiModelProperty(required= true,value = "任务类型，0-验证任务，1-业务系统调用")
 	private String type;
     /**
      * 入参
      */
-	@TableField("IN_PARAMTER")
+	@TableField("in_paramter")
 	@ApiModelProperty(required= true,value = "入参")
 	private String inParamter;
     /**
      * 出参
      */
-	@TableField("OUT_PARAMTER")
+	@TableField("out_paramter")
 	@ApiModelProperty(required= true,value = "出参")
 	private String outParamter;
     /**
      * 花费时间
      */
-	@TableField("SPEND_TIME")
+	@TableField("spend_time")
 	@ApiModelProperty(required= true,value = "花费时间")
 	private Long spendTime;
     /**
      * 备注
      */
-	@TableField("REMARK")
+	@TableField("remark")
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
     /**
      * 创建时间
      */
-	@TableField("CREATE_TIME")
+	@TableField("create_time")
 	@ApiModelProperty(required= true,value = "创建时间")
 	private Date createTime;
     /**
      * 创建用户
      */
-	@TableField("CREATE_USER")
+	@TableField("create_user")
 	@ApiModelProperty(required= true,value = "创建用户")
 	private String createUser;
     /**
      * 结束时间
      */
-	@TableField("UPDATE_TIME")
+	@TableField("update_time")
 	@ApiModelProperty(required= true,value = "结束时间")
 	private Date updateTime;
 

@@ -1,3 +1,6 @@
+
+
+
 create table `act_excute_task` (
   `id` bigint(20) not null comment '主键',
   `batch_id` bigint(20) null default null comment '批次号，验证任务调用时存在',
@@ -45,6 +48,21 @@ create table `risk_business` (
   primary key (`business_id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 4;
 
+
+create table `risk_drools_log` (
+  `id` bigint(20) not null,
+  `procinst_id` bigint(20) default null comment '模型实例id',
+  `model_name` varchar(100) default null comment '模型名',
+  `sence_versionid` varchar(64) not null comment '決策版本流水',
+  `in_paramter` longtext comment '入参',
+  `out_paramter` longtext comment '计算结果',
+  `execute_total` int(11) default null comment '命中规则总数',
+  `type` varchar(2) default null comment '决策执行类型：0-直接调用，1-模型调用',
+  `create_time` datetime default current_timestamp comment '插入时间',
+  `execute_time` bigint(20) default null comment '执行时间，毫秒数',
+  primary key (`id`)
+) engine=innodb default charset=utf8;
+
 create table `risk_drools_detail_log` (
   `id` bigint(20) not null,
   `drools_logid` bigint(20) not null,
@@ -52,18 +70,6 @@ create table `risk_drools_detail_log` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci;
 
-create table `risk_drools_log` (
-  `id` bigint(20) not null,
-  `procinst_id` bigint(20) null default null comment '模型实例id',
-  `model_name` varchar(100) character set utf8 collate utf8_general_ci null default null comment '模型名',
-  `sence_versionid` varchar(64) character set utf8 collate utf8_general_ci not null comment '決策版本流水',
-  `in_paramter` longtext character set utf8 collate utf8_general_ci null comment '入参',
-  `out_paramter` longtext character set utf8 collate utf8_general_ci null comment '计算结果',
-  `execute_total` int(11) null default null comment '命中规则总数',
-  `type` varchar(2) character set utf8 collate utf8_general_ci null default null comment '决策执行类型：0-直接调用，1-模型调用',
-  `create_time` datetime null default current_timestamp comment '插入时间',
-  primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_general_ci;
 
 create table `risk_model_release` (
   `id` varchar(64) character set utf8 collate utf8_bin not null comment '主键',
