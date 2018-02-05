@@ -18,21 +18,21 @@ import java.io.Serializable;
  * @since 2018-01-10
  */
 @ApiModel
-@TableName("RISK_DROOLS_DETAIL_LOG")
+@TableName("risk_drools_detail_log")
 public class DroolsDetailLog extends Model<DroolsDetailLog> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId("ID")
+    @TableId("id")
 	@ApiModelProperty(required= true,value = "")
 	private Long id;
-	@TableField("DROOLS_LOGID")
+	@TableField("drools_logid")
 	@ApiModelProperty(required= true,value = "")
 	private Long droolsLogid;
     /**
      * 命中的规则
      */
-	@TableField("EXECUTE_RULENAME")
+	@TableField("execute_rulename")
 	@ApiModelProperty(required= true,value = "命中的规则")
 	private String executeRulename;
 

@@ -4,14 +4,14 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ht.risk.model.TestDroolsDetailLog">
-        <id column="ID" property="id" />
-        <result column="DROOLS_LOGID" property="droolsLogid" />
-        <result column="EXECUTE_RULENAME" property="executeRulename" />
+        <id column="id" property="id" />
+        <result column="drools_logid" property="droolsLogid" />
+        <result column="execute_rulename" property="executeRulename" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, DROOLS_LOGID AS droolsLogid, EXECUTE_RULENAME AS executeRulename
+        id AS id, drools_logid AS droolsLogid, execute_rulename AS executeRulename
     </sql>
 
 </mapper>
