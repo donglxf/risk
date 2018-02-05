@@ -351,18 +351,6 @@ ModelAutoVerification.prototype = {
     initModel: function (data) {
         var senceData = data.variableMap;
         var html = '';
-        html += ' <div class="layui-form-item" >\n' +
-            ' <div class="layui-inline">\n' +
-            '      <label class="layui-form-label" >测试数量</label>\n' +
-            '      <div class="layui-input-inline" style="max-width: 50px">\n' +
-            '        <input style="max-width: 100px" type="text" name="amount" autocomplete="off" class="layui-input" onkeyup="this.value=this.value.replace(/\\D/g,\'\')"  onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="5" placeholder="请输入整数"/>\n' +
-            '      </div>\n' +
-            '    </div>' +
-            '<button type="reset" class="layui-btn layui-btn-primary">重 置</button>' +
-            '<button class="layui-btn"  lay-submit="" lay-filter="save_auto" id="save_auto">保 存</button>\n' +
-            '</div>';
-
-
         for (var i = 0; i < senceData.length; i++) {
             html += this.initSence(senceData[i]);
         }

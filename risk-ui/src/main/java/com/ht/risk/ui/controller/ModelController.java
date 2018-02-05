@@ -45,7 +45,7 @@ public class ModelController {
 
     @RequestMapping(value = "/valiable", method = RequestMethod.GET)
     public String valiable() {
-        return "model/verfication/model2";
+        return "model/verfication/model";
     }
 
     @RequestMapping(value = "/valiable/auto", method = RequestMethod.GET)

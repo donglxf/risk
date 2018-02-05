@@ -46,4 +46,6 @@ public interface ModelAnalysisSerivce {
     public Long createBatchVerficationTask();
 
     public Long createSingleVerficationTask();
+
+    public Map<String,Object> getAutoVerficationData(String senceCode,String version);
 }

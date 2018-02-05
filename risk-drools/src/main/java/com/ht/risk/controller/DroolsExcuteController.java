@@ -8,6 +8,7 @@ import com.ht.risk.api.model.drools.DroolsParamter;
 import com.ht.risk.model.*;
 import com.ht.risk.service.*;
 import com.ht.risk.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,7 +191,9 @@ public class DroolsExcuteController {
             entity.setOutParamter(JSON.toJSONString(object));
             entity.setExecuteTotal(newList.size());
             entity.setModelName(paramter.getModelName());
-            entity.setBatchId(Long.parseLong(paramter.getBatchId())); // 批次号
+            if(StringUtils.isNotEmpty(paramter.getBatchId())){
+                entity.setBatchId(Long.parseLong(paramter.getBatchId())); // 批次号
+            }
             testDroolsLogService.insertOrUpdate (entity);
             Long logId =entity.getId();
             if (ObjectUtils.isNotEmpty(li)) {

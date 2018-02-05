@@ -178,7 +178,6 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         Map<String, Object> paramter = new HashMap<String, Object>();
         paramter.put("MODEL_PROCDEF_ID", procDefId);
         paramter.put("MODEL_VERSION", version);
-        paramter.put("VERSION_TYPE", "1");// 正式版
         paramter.put("IS_EFFECT", "0");//有效
         List<ActProcRelease> releases = actProcReleaseMapper.selectByMap(paramter);
         if (releases == null || releases.size() == 0) {

@@ -3,6 +3,8 @@ package com.ht.risk.activiti.entity;
 import java.io.Serializable;
 
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotations.KeySequence;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
