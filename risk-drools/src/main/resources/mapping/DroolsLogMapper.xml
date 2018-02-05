@@ -4,22 +4,22 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ht.risk.model.DroolsLog">
-        <id column="ID" property="id"/>
-        <result column="PROCINST_ID" property="procinstId"/>
-        <result column="MODEL_NAME" property="modelName"/>
-        <result column="SENCE_VERSIONID" property="senceVersionid"/>
-        <result column="IN_PARAMTER" property="inParamter"/>
-        <result column="OUT_PARAMTER" property="outParamter"/>
-        <result column="EXECUTE_TOTAL" property="executeTotal"/>
-        <result column="TYPE" property="type"/>
-        <result column="CREATE_TIME" property="createTime"/>
+        <id column="id" property="id"/>
+        <result column="procinst_id" property="procinstId"/>
+        <result column="model_name" property="modelName"/>
+        <result column="sence_versionid" property="senceVersionid"/>
+        <result column="in_paramter" property="inParamter"/>
+        <result column="out_paramter" property="outParamter"/>
+        <result column="execute_total" property="executeTotal"/>
+        <result column="type" property="type"/>
+        <result column="create_time" property="createTime"/>
         <result column="execute_time" property="executeTime"/>
     </resultMap>
 
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, PROCINST_ID AS procinstId, MODEL_NAME AS modelName, SENCE_VERSIONID AS senceVersionid, IN_PARAMTER AS inParamter, OUT_PARAMTER AS outParamter, EXECUTE_TOTAL AS executeTotal, TYPE AS type, CREATE_TIME AS createTime,execute_time as executeTime
+        id AS id, procinst_id AS procinstId, model_name AS modelName, sence_versionid AS senceVersionid, in_paramter AS inParamter, out_paramter AS outParamter, execute_total AS executeTotal, type AS type, create_time AS createTime,execute_time as executeTime
     </sql>
 
 </mapper>

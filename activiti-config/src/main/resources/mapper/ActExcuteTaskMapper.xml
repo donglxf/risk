@@ -4,39 +4,39 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ht.risk.activiti.entity.ActExcuteTask">
-        <id column="ID" property="id" />
-        <result column="BATCH_ID" property="batchId" />
-        <result column="PROC_RELEASE_ID" property="procReleaseId" />
-        <result column="PROC_INST_ID" property="procInstId" />
-        <result column="STATUS" property="status" />
-        <result column="TYPE" property="type" />
-        <result column="IN_PARAMTER" property="inParamter" />
-        <result column="OUT_PARAMTER" property="outParamter" />
-        <result column="SPEND_TIME" property="spendTime" />
-        <result column="REMARK" property="remark" />
-        <result column="CREATE_TIME" property="createTime" />
-        <result column="CREATE_USER" property="createUser" />
-        <result column="UPDATE_TIME" property="updateTime" />
+        <id column="id" property="id" />
+        <result column="batch_id" property="batchId" />
+        <result column="proc_release_id" property="procReleaseId" />
+        <result column="proc_inst_id" property="procInstId" />
+        <result column="status" property="status" />
+        <result column="type" property="type" />
+        <result column="in_paramter" property="inParamter" />
+        <result column="out_paramter" property="outParamter" />
+        <result column="spend_time" property="spendTime" />
+        <result column="remark" property="remark" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, BATCH_ID AS batchId, PROC_RELEASE_ID AS procReleaseId, PROC_INST_ID AS procInstId, STATUS AS status, TYPE AS type, IN_PARAMTER AS inParamter, OUT_PARAMTER AS outParamter, SPEND_TIME AS spendTime, REMARK AS remark, CREATE_TIME AS createTime, CREATE_USER AS createUser, UPDATE_TIME AS updateTime
+        id AS id, batch_id AS batchId, proc_release_id AS procReleaseId, proc_inst_id AS procInstId, status AS status, type AS type, in_paramter AS inParamter, out_paramter AS outParamter, spend_time AS spendTime, remark AS remark, create_time AS createTime, create_user AS createUser, update_time AS updateTime
     </sql>
 
     <select id="getModelExecInfo" resultType="java.util.Map" parameterType="map">
-        select * from ACT_PROC_RELEASE ap  where ap.id=#{procReleaseId}
+        select * from act_proc_release ap  where ap.id=#{procReleaseId}
     </select>
 
     <select id="getModelAvgTime" resultType="java.util.Map" parameterType="map">
-        select AVG(SPEND_TIME) spendTime,PROC_RELEASE_ID ,count(PROC_RELEASE_ID) excuteTotal  from ACT_EXCUTE_TASK   where 1=1
+        select AVG(spend_time) spendTime,proc_release_id ,count(proc_release_id) excuteTotal  from act_excute_task   where 1=1
         <if test="startTime !=null and startTime!='' ">
-            and CREATE_TIME>=#{startTime}
+            and create_time>=#{startTime}
         </if>
         <if test="endTime !=null and endTime!='' ">
-            and CREATE_TIME <![CDATA[ <= ]]> #{endTime}
+            and create_time <![CDATA[ <= ]]> #{endTime}
         </if>
-        GROUP BY PROC_RELEASE_ID  order by  spendTime desc
+        GROUP BY proc_release_id  order by  spendTime desc
         <if test="getWay != 'all'">
             limit 0,${getWay}
         </if>

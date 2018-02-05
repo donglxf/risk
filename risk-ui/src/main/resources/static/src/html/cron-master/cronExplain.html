@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link href="css/reset.css" rel="stylesheet"/>
+<title>表达式说明</title>
+</head>
+<div class="sysPatch">
+<strong>定时任务表达式说明：</strong>
+			
+<div align="left" style="width:720px;">
+
+
+	<span style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;">
+	<span style="color:red">*</span>如果时间表达式选择了周，请一定注意要把日修改成不指定，如（* * * ? * 1）每周1执行 ,
+	<br>否则日不为"？"又选择了周，则表达式会冲突出错
+	</span>
+	<br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;">
+	<table cellspacing="8" border="0" style="background-color: #f7f7f7; font-family: Verdana, Helvetica, Arial;">
+	
+	<tr>
+	<td>字段</td>
+	<td></td>
+	<td>允许值</td>
+	<td></td>
+	<td>允许的特殊字符</td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>秒</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>0-59</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>, - * /</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>分</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>0-59</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>, - * /</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>小时</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>0-23</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>, - * /</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>日期</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>1-31</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>, - *   / L W C</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>月份</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>1-12 或者 JAN-DEC</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>, - * /</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>星期</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>1-7 或者 SUN-SAT</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>, - *   / L C #</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>年（可选）</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>留空, 1970-2099</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"> </td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>, - * /</span></td>
+	</tr>
+	</table>
+	<span style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;">　 </span><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><span style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;">如上面的表达式所示: </span><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><span style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;">“*”字符被用来指定所有的值。如：”*“在分钟的字段域里表示“每分钟”。 </span><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><span style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;">“-”字符被用来指定一个范围。如：“10-12”在小时域意味着“10点、11点、12点”。</span><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><span style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"> </span><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><span style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;">“,”字符被用来指定另外的值。如：“MON,WED,FRI”在星期域里表示”星期一、星期三、星期五”. </span><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><span style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;">“?”字符只在日期域和星期域中使用。它被用来指定“非明确的值”。当你需要通过在这两个域中的一个来指定一些东西的时候，它是有用的。看下面的例子你就会明白。 </span><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><span style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;">“L”字符指定在月或者星期中的某天（最后一天）。即“Last ”的缩写。但是在星期和月中“Ｌ”表示不同的意思，如：在月子段中“L”指月份的最后一天-1月31日，2月28日，如果在星期字段中则简单的表示为“7”或者“SAT”。如果在星期字段中在某个value值得后面，则表示“某月的最后一个星期value”,如“6L”表示某月的最后一个星期五。</span><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><span style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;">“W”字符只能用在月份字段中，该字段指定了离指定日期最近的那个星期日。</span><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><span style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;">“#”字符只能用在星期字段，该字段指定了第几个星期value在某月中</span><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><br style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px; background-color: #f7f7f7;"><table cellspacing="8" border="0" style="background-color: #f7f7f7; font-family: Verdana, Helvetica, Arial;">
+	<tr>
+	
+	<p><span>表达式</span></p>
+	<span>意义</span>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 0 12 * * ?"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>每天中午12点触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 15 10 ? * *"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>每天上午10:15触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 15 10 * * ?"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>每天上午10:15触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 15 10 * * ? *"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>每天上午10:15触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 15 10 * * ? 2005"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>2005年的每天上午10:15触发</span></span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 * 14 * * ?"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>在每天下午2点到下午2:59期间的每1分钟触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 0/5 14 * * ?"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>在每天下午2点到下午2:55期间的每5分钟触发</span></span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 0/5 14,18 * * ?"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 0-5 14 * * ?"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>在每天下午2点到下午2:05期间的每1分钟触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 10,44 14 ? 3 WED"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>每年三月的星期三的下午2:10和2:44触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 15 10 ? * MON-FRI"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>周一至周五的上午10:15触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 15 10 15 * ?"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>每月15日上午10:15触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 15 10 L * ?"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>每月最后一日的上午10:15触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 15 10 ? * 6L"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>每月的最后一个星期五上午10:15触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 15 10 ? * 6L 2002-2005"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>2002年至2005年的每月的最后一个星期五上午10:15触发</span></td>
+	</tr>
+	<tr>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>"0 15 10 ? * 6#3"</span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span> </span></td>
+	<td style="color: #454545; font-family: Verdana, Helvetica, Arial; line-height: 18px;"><span>每月的第三个星期五上午10:15触发</span></td>
+	</tr>
+	</table>
+		
+</div>
+</div>
+

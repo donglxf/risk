@@ -20,7 +20,7 @@
 
     <select id="queryJobList">
         SELECT ID AS id, DEPLOYMEN_TID AS deploymenTid, BATCH_SIZE AS batchSize, IS_EFFECT AS isEffect, CREATE_TIME AS createTime, CREATE_USER AS createUser
-        FROM RISK_VALIDATE_BATCH A WHERE A
+        FROM risk_validate_batch A WHERE A
     </select>
 
 </mapper>

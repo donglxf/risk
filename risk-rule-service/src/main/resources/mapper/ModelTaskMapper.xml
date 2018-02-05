@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ht.risk.rule.mapper.ModelTaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ht.risk.rule.entity.ModelTask">
+        <id column="id" property="id" />
+        <result column="model_procdef_id" property="modelProcdefId" />
+        <result column="corn_text" property="cornText" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, model_procdef_id AS modelProcdefId, corn_text AS cornText, update_time AS updateTime, update_user AS updateUser, create_time AS createTime, create_user AS createUser
+    </sql>
+
+</mapper>
