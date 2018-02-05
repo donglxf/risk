@@ -9,6 +9,7 @@
         <result column="action_name" property="actionName" />
         <result column="action_desc" property="actionDesc" />
         <result column="action_class" property="actionClass" />
+        <result column="action_method" property="actionMethod" />
         <result column="is_effect" property="isEffect" />
         <result column="cre_user_id" property="creUserId" />
         <result column="cre_time" property="creTime" />
@@ -46,7 +47,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        action_id AS actionId, action_type AS actionType, action_name AS actionName, action_desc AS actionDesc, action_class AS actionClass, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
+        action_id AS actionId, action_type AS actionType, action_name AS actionName, action_desc AS actionDesc, action_class AS actionClass, action_method as actionMethod, is_effect AS isEffect, cre_user_id AS creUserId, cre_time AS creTime, remark
     </sql>
 
     <select id="findBaseRuleActionInfoList" parameterType="com.ht.risk.rule.entity.ActionInfo"

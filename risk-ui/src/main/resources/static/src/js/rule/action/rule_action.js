@@ -190,7 +190,7 @@ layui.use(['table','form','myutil'], function(){
                     title : '修改',
                     maxmin : true,
                     shadeClose : false, // 点击遮罩关闭层
-                    area : [ '600px', '460px' ],
+                    area : [ '600px', '500px' ],
                     content :  form,
                     btn: ['保存', '取消'],
                     btnAlign: 'c',
