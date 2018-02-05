@@ -1,5 +1,7 @@
-import io.swagger.annotations.ApiModelProperty;
+package com.ht.risk.api.model.eip;
+
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -12,10 +14,5 @@ public class QueryBlackOldLaiDtoIn{
 	@ApiModelProperty(value = "证件号")
 	private String identityCard;
 
-	@ApiModelProperty(value = "")
-	private  ;
-
-	@ApiModelProperty(value = "")
-	private  ;
 
 }
