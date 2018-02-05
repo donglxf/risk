@@ -40,6 +40,19 @@ public class TcController {
         Result<OldLaiOut> result =  tcRpc.oldLai(input);
         return result;
     }
+    @PostMapping("/black/self")
+    @ApiOperation(value = "自有黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<SelfDtoOut> self(OldLaiIn input) throws Exception{
+        Result<SelfDtoOut> result =  tcRpc.self(input);
+        return result;
+    }
+    @PostMapping("/black/frontSea")
+    @ApiOperation(value = "前海黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<FrontSeaDtoOut> frontSea(FrontSeaDtoIn input) throws Exception{
+        Result<FrontSeaDtoOut> result =  tcRpc.frontSea(input);
+        return result;
+    }
+
 
     @PostMapping("/black/mobileValid")
     @ApiOperation(value = "手机号验证",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
