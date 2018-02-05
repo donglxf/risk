@@ -33,6 +33,7 @@ public class TcController {
         Result<NetLoanOut> result =  tcRpc.netLoan(input);
         return result;
     }
+
     @PostMapping("/black/oldLai")
     @ApiOperation(value = "老赖黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result<OldLaiOut> oldLai(OldLaiIn input) throws Exception{
@@ -53,6 +54,19 @@ public class TcController {
     }
 
 
+    @PostMapping("/black/mobileValid")
+    @ApiOperation(value = "手机号验证",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<MobileValidDtoOut> oldLai(MobileValidDtoIn input) throws Exception{
+        Result<MobileValidDtoOut> result =  tcRpc.mobileValid(input);
+        return result;
+    }
+
+    @PostMapping("/news/negativeSearch")
+    @ApiOperation(value = "负面消息查询",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<NegativeSearchDtoOut> negativeSearch(NegativeSearchDtoIn input) throws Exception{
+        Result<NegativeSearchDtoOut> result =  tcRpc.negativeSearch(input);
+        return result;
+    }
 
 
 

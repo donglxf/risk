@@ -53,6 +53,25 @@ public interface TcRpc {
     Result<FrontSeaDtoOut> frontSea(@RequestBody FrontSeaDtoIn input);
 
 
+    /**
+     * 描述：手机号验证
+     * @param input
+     * @return a
+     * @autor 黄增猛
+     * @date 2018/2/5 9:38
+     */
+    @PostMapping(value = "/black/mobileValid", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    Result<MobileValidDtoOut> mobileValid(@RequestBody MobileValidDtoIn input);
+
+    /**
+     * 描述：负面消息查询
+     * @param input
+     * @return a
+     * @autor 黄增猛
+     * @date 2018/2/5 9:38
+     */
+    @PostMapping(value = "/news/negativeSearch", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    Result<NegativeSearchDtoOut> negativeSearch(@RequestBody NegativeSearchDtoIn input);
 
 
 
