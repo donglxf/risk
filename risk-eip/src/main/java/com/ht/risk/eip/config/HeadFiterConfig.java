@@ -8,6 +8,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
 /**
  * 描述：对head进行一个过滤，添加对接外联平台的app数据和相关数据
@@ -28,7 +29,7 @@ public class HeadFiterConfig {
                         .getRequestAttributes();
                 HttpServletRequest request = attributes.getRequest();
                 //对head进行一个拦截
-				/*Enumeration<String> headerNames = request.getHeaderNames();
+				Enumeration<String> headerNames = request.getHeaderNames();
 				if (headerNames != null) {
 					while (headerNames.hasMoreElements()) {
 						String name = headerNames.nextElement();
@@ -36,7 +37,7 @@ public class HeadFiterConfig {
 						requestTemplate.header(name, values);
 
 					}
-				}*/
+				}
                 requestTemplate.header("Content-Type","application/json");
                 requestTemplate.header("app","FK");
             }
