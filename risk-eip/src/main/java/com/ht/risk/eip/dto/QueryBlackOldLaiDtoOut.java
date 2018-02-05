@@ -1,3 +1,5 @@
+package com.ht.risk.eip.dto;
+
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;

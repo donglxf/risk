@@ -1,5 +1,7 @@
 package com.ht.risk.eip.rpc;
 
+import com.ht.risk.eip.dto.QueryBlackOldLaiDtoIn;
+import com.ht.risk.eip.dto.QueryBlackOldLaiDtoOut;
 import com.ht.risk.eip.dto.QueryUserInformationAuthDtoIn;
 import com.ht.risk.eip.dto.QueryUserInformationAuthDtoOut;
 import com.ht.ussp.core.Result;
@@ -18,4 +20,6 @@ public interface DemoRpc {
     @RequestMapping("/eip/td/account/queryUserInformationAuth")
     Object queryUserInformationAuth2( QueryUserInformationAuthDtoIn input);
 
+    @PostMapping(value = "eip/tc/black/oldLai", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    Result<QueryBlackOldLaiDtoOut> queryBlackOldLai(@RequestBody QueryBlackOldLaiDtoIn input);
 }

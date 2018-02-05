@@ -1,3 +1,5 @@
+package com.ht.risk.eip.dto;
+
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -11,11 +13,4 @@ public class QueryBlackOldLaiDtoIn{
 
 	@ApiModelProperty(value = "证件号")
 	private String identityCard;
-
-	@ApiModelProperty(value = "")
-	private  ;
-
-	@ApiModelProperty(value = "")
-	private  ;
-
 }
