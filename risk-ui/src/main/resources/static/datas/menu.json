@@ -185,7 +185,7 @@
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型调度管理",
-        "url": "404",
+        "url": "rule/offlineTask/model",
         "children": []
       },
       {
@@ -210,7 +210,7 @@
         "icon": "fa fa-user",
         "spread": true,
         "title": "日志查询",
-        "url": "404",
+        "url": "supervision/log/index",
         "children": []
       },
       {
@@ -218,7 +218,7 @@
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型报告",
-        "url": "404",
+        "url": "supervision/model/report",
         "children": []
       },
       {
@@ -226,7 +226,7 @@
         "icon": "fa fa-user",
         "spread": true,
         "title": "策略报告",
-        "url": "404",
+        "url": "supervision/rule/report",
         "children": []
       }
     ]
