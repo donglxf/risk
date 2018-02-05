@@ -84,8 +84,6 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
             layer.full(layIndex);
         }
     });
-
-
     form.on('submit(save)', function (data) {
         $.ajax({
             cache: true,
@@ -99,43 +97,26 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
         });
         return false;
     });
-<<<<<<< HEAD
-
-    form.on('submit(save_auto)', function (data) {
-    console.log('保存自动校验变量');
-    $.ajax({
-        cache: true,
-        type: "POST",
-        url: '/rule/service/actProcRelease/scene/variable/init/auto',
-        data: data.field,// 你的formid
-        async: false,
-        success: function (data) {
-            layer.msg(data.msg);
-        }
-    });
-    return false;
-    });
     form.on('submit(verfication)', function (data) {
+        layer.load();
         $.ajax({
             cache: true,
             type: "POST",
             url: '/rule/service/verification/createSingleVerficationTask',
             data: data.field,// 你的formid
             async: false,
+            timeout: 60000,
+            error : function(request) {
+                layer.closeAll('loading');
+                layer.msg("网络异常!");
+            },
             success: function (data) {
+                layer.closeAll('loading');
                 layer.msg(data.msg);
             }
         });
         return false;
     });
-
-=======
-
-    $("#test").click(function () {
-        layer.msg("需调用其它接口");
-    });
-
-
     form.on('submit(save_auto)', function (data) {
         console.log('保存自动校验变量');
         $.ajax({
@@ -151,10 +132,6 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
         return false;
     });
 
-    $("#test").click(function () {
-        layer.msg("需调用其它接口");
-    });
->>>>>>> 1d6161b7bc02341c4fe36cf1c8d0cfe5a1037b1f
 
 
 //时间选择器

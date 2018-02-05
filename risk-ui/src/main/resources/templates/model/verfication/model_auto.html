@@ -24,6 +24,17 @@
 
 <div style="margin: 15px;"  >
     <form class="layui-form layui-form-pane" action="/rule/service/actProcRelease/scene/variable/init" method="post" id="model_valiable_form_auto">
+        <div class="layui-form-item" >
+            <div class="layui-inline">
+              <label class="layui-form-label" >测试数量</label>
+                <div class="layui-input-inline" style="max-width: 50px">
+                     <input style="max-width: 100px" type="text" name="amount" autocomplete="off" class="layui-input"  onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="5" placeholder="请输入整数"/>
+                    </div>
+                </div>
+            <button type="reset" class="layui-btn layui-btn-primary">重 置</button>
+            <button class="layui-btn"  lay-submit="" lay-filter="save_auto" id="save_auto">保 存</button>
+            <button class="layui-btn"  lay-submit="" lay-filter="createAutoTask" id="createAutoTask">创建测试任务</button>
+        </div>
     </form>
 </div>
 <script src="/rule/ui/plugins/layui/layui.js"></script>

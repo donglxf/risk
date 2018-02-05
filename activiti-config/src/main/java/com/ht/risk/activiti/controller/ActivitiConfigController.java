@@ -130,13 +130,11 @@ public class ActivitiConfigController {
         String startTime= StringUtils.isNotBlank(paramMap.get("startDate")[0]) ? paramMap.get("startDate")[0] +" 00:00:00" :null ;
         String endTime=StringUtils.isNotBlank(paramMap.get("endDate")[0]) ? paramMap.get("endDate")[0] +" 23:59:59" :null ;
         String getWay=paramMap.get("getWay")[0];
-
         Map<String, Object> map = new HashMap<>();
         map.put("startTime", startTime);
         map.put("endTime", endTime);
         map.put("getWay", getWay);
         Map<String, Object> resultMap = actExcuteTaskService.getModelGraph (map); // 平均响应时间
-
         return Result.success(resultMap);
     }
 

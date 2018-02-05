@@ -1,7 +1,6 @@
 package com.ht.risk.activiti.listeners;
 
-import com.ht.risk.activiti.service.SendService;
-import com.ht.risk.activiti.service.impl.ProcessTestServiceImpl;
+import com.ht.risk.activiti.service.impl.TopicSenderServiceImpl;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.slf4j.Logger;
@@ -16,7 +15,7 @@ public class ProcessEndEventListeners implements ActivitiEventListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProcessEndEventListeners.class);
 
     @Resource
-    private SendService sendService;
+    private TopicSenderServiceImpl topicSenderService;
 
     @Override
     public void onEvent(ActivitiEvent event) {
@@ -24,7 +23,7 @@ public class ProcessEndEventListeners implements ActivitiEventListener {
         switch (event.getType()) {
             case PROCESS_COMPLETED:// 流程结束
                 LOGGER.info("ProcessEndEventListeners PROCESS_COMPLETED invoke...");
-                sendService.sendToRabbitmq(getEndSendMsgInfo(event));
+                topicSenderService.send(getEndSendMsgInfo(event));
                 break;
             default:
         }

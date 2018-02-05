@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ActivitiService {
 
@@ -73,4 +74,10 @@ public interface ActivitiService {
      * @return
      */
     public List<HistoricVariableInstance> getHisProcessVarByDeployIdAndNameLike(String processId,String variableName);
+
+    /**
+     * 创建规则任务
+     * @param map
+     */
+    public void createRuleTask(Map<String, Object> map);
 }

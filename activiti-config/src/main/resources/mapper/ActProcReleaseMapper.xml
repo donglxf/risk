@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ht.risk.activiti.entity.ActProcRelease">
         <id column="ID" property="id" />
+        <result column="MODEL_ID" property="modelId" />
         <result column="MODEL_PROCDEF_ID" property="modelProcdefId" />
         <result column="MODEL_NAME" property="modelName" />
         <result column="MODEL_VERSION" property="modelVersion" />

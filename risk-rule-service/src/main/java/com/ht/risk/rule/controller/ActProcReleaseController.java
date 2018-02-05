@@ -135,6 +135,7 @@ public class ActProcReleaseController {
         //1.查询模型对应属性
         result.setModelName(actProcRelease.getModelName());//获取到模型名字
         result.setModelVersion(actProcRelease.getModelVersion());//获取到模型版本
+        result.setModelProcdefId(modelProcdefId);
         //获取策列表
         List<ModelSence> modelSenceList = modelSenceService.selectList(new EntityWrapper<ModelSence>().eq("MODEL_PROCDEF_ID", modelProcdefId));
         result.setVariableMap(modelSenceList);
@@ -143,8 +144,7 @@ public class ActProcReleaseController {
             SceneVersion sceneVersion = sceneVersionService.selectOne(new EntityWrapper<SceneVersion>().eq("version_id", modelSence.getSenceVersionId()));
             if (sceneVersion != null) {
                 modelSence.setSceneName(sceneVersion.getTitle());
-            } else {
-                modelSence.setSceneName("未命名的策列表或评分卡");
+                modelSence.setSenceCode(sceneVersion.getSceneIdentify());
             }
         }
         //2.查询策列关联的变量
@@ -183,6 +183,7 @@ public class ActProcReleaseController {
                     }
                 }
                 variableBind.setOptionData(list);
+                variableBind.setSenceCode(modelSence.getSenceCode());
             }
             modelSence.setData(variableBindList);
         }

@@ -10,14 +10,50 @@
 
 
 <div style="margin: 15px;">
-    <form class="layui-form layui-form-pane" action="/rule/service/actProcRelease/scene/variable/init" method="post"
-          id="model_valiable_form">
+    <form class="layui-form layui-form-pane" action="/rule/service/actProcRelease/scene/variable/init" method="post">
+
+        <div class="layui-form-item" >
+            <button type="reset" class="layui-btn layui-btn-primary">重 置</button>
+            <button class="layui-btn"  lay-submit="" lay-filter="save" id="save">保 存</button>
+            <button class="layui-btn layui-btn-normal" lay-submit=""  lay-filter="verfication" id="verfication" >创建测试任务</button>
+        </div>
+        <input type="hidden" name="model_procDefId" id="model_procDefId"/>
+        <input type="hidden" name="model_version" id="model_version"/>
+        <div id="model_valiable_form">
+
+        </div>
+
     </form>
 </div>
-
 
 <script src="/rule/ui/plugins/layui/layui.js"></script>
 <script src="/rule/ui/src/js/model2/model_util.js"></script>
 <script src="/rule/ui/src/js/model2/model_verification.js"></script>
+<script>
+    layui.use(['table', 'jquery', 'laydate', 'form'], function () {
+        var $ = layui.jquery;
+        var form = layui.form;
+        $.ajax({
+            type: "get",
+            url: "/rule/service/actProcRelease/scene/variable/manual",
+            data: {
+                actProcRealeseId: parent.modelIds
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log("manual############"+data);
+                console.log(data);
+                $("#model_version").val(data.modelVersion);
+                $("#model_procDefId").val(data.modelProcdefId);
+                var modelVerification = new ModelVerification();
+                var contents = modelVerification.initModel(data);
+                var form1 = $("#model_valiable_form");
+                form1.html(contents)
+                form.render();
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

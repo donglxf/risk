@@ -57,6 +57,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         return page.setRecords(actProcReleaseMapper.selectPage(page, entityWrapper));
     }
 
+
     @Override
     public Result<RpcDeployResult> proceDeploy(ModelParamter paramter) {
         // 部署流程到引擎
@@ -78,6 +79,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         ModelParamter modelRpc = modelResult.getData();
         ActProcRelease release = new ActProcRelease();
         release.setModelCategory(modelRpc.getCategory());
+        release.setModelId(paramter.getModelId());
         release.setModelName(modelRpc.getName());
         release.setModelVersion(modelVersion);
         release.setModelProcdefId(prcdefId);
@@ -176,7 +178,6 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         Map<String, Object> paramter = new HashMap<String, Object>();
         paramter.put("MODEL_PROCDEF_ID", procDefId);
         paramter.put("MODEL_VERSION", version);
-        paramter.put("VERSION_TYPE", "1");// 正式版
         paramter.put("IS_EFFECT", "0");//有效
         List<ActProcRelease> releases = actProcReleaseMapper.selectByMap(paramter);
         if (releases == null || releases.size() == 0) {

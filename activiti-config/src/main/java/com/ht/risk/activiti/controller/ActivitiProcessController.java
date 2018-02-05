@@ -9,6 +9,7 @@ import com.ht.risk.activiti.vo.VerficationModelVo;
 import com.ht.risk.api.model.activiti.ModelParamter;
 import com.ht.risk.api.model.activiti.RpcDeployResult;
 import com.ht.risk.api.model.activiti.RpcStartParamter;
+import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -45,14 +46,19 @@ public class ActivitiProcessController {
      * @return
      */
     @GetMapping("/page")
-    public Result<Page<ActProcRelease>> queryProcReleaseForPage(Page<ActProcRelease> page, ActProcRelease actProcRelease){
+    public PageResult<List<ActProcRelease>> queryProcReleaseForPage(Page<ActProcRelease> page, ActProcRelease actProcRelease){
         LOGGER.info("查询模型版本分页信息开始");
-        Result<Page<ActProcRelease>> result = null;
+        PageResult<List<ActProcRelease>> result = null;
+        if(actProcRelease == null || actProcRelease.getModelId() == null){
+            result =PageResult.success(null,0);
+            return result;
+        }
         Page<ActProcRelease> modelReleasePage = actProcReleaseService.queryProcReleaseForPage(page,actProcRelease);
-        result = Result.success(modelReleasePage);
+        result = PageResult.success(modelReleasePage.getRecords(),modelReleasePage.getTotal());
         LOGGER.info("查询模型版本证分页信息结束");
         return result;
     }
+
 
     /**
      * 模型部署
