@@ -202,6 +202,7 @@ layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
                     $(obj.elem).next().find("span").text("停用");
                 }
                 layer.msg('操作成功', {icon: 1});
+                active.reload();
             }else{
                 layer.msg('操作失败', {icon: 2});
             }
