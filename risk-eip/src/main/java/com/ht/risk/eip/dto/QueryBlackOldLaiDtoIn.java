@@ -1,23 +1,21 @@
-package com.ht.risk.eip.dto;
-
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 @Data
 @ApiModel
-public class User{
+public class QueryBlackOldLaiDtoIn{
 
-	@ApiModelProperty(value = "姓名")
+	@ApiModelProperty(value = "真实姓名")
 	private String realName;
 
 	@ApiModelProperty(value = "证件号")
 	private String identityCard;
 
-	@ApiModelProperty(value = "功能id")
-	private String functionCode;
+	@ApiModelProperty(value = "")
+	private  ;
 
-	@ApiModelProperty(value = "查询类型")
-	private String queryType;
+	@ApiModelProperty(value = "")
+	private  ;
 
 }

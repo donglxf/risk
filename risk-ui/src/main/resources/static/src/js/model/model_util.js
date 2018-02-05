@@ -147,6 +147,9 @@ ModelVerification.prototype = {
             case "Double":
                 html = this.initInput(valible.senceVersionId + '#' + valible.variableCode, tmpValue);
                 break;
+            case "Integer":
+                html = this.initInput(valible.senceVersionId + '#' + valible.variableCode, tmpValue);
+                break;
             case "String":
                 html = this.initStrInput(valible.senceVersionId + '#' + valible.variableCode, tmpValue);
                 break;

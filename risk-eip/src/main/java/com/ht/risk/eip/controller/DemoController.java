@@ -9,7 +9,8 @@ import com.ht.ussp.core.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,14 +30,11 @@ public class DemoController {
     @Autowired
     private DemoRpc demoRpc;
 
-
-    @GetMapping("/queryUserInformationAuth")
-    @ApiOperation(value = "demo测试")
+    @PostMapping("/queryUserInformationAuth")
+    @ApiOperation(value = "demo测试",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result<QueryUserInformationAuthDtoOut> queryUserInformationAuth(QueryUserInformationAuthDtoIn input) throws Exception{
-       // Result<QueryUserInformationAuthDtoOut> result =  demoRpc.queryUserInformationAuth(input);
-        Object  result = demoRpc.queryUserInformationAuth2(input);
-        System.out.println(result);
-      return null;
+        Result<QueryUserInformationAuthDtoOut> result =  demoRpc.queryUserInformationAuth(input);
+      return result;
     }
 
 

@@ -20,7 +20,6 @@ public class RiskEipApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RiskEipApplication.class, args);
-
-
 	}
+
 }

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-var preBindUrl = "/rule/service/variableBind/";
+var preBindUrl = "/rule/service/business/";
 var preUrl = "/rule/service/strategy/";
 var p_sceneId = -1,versionIds=0;
 layui.config({
@@ -25,7 +25,32 @@ layui.use(['table', 'form','laydate','myutil'], function () {
     var entityTable = layui.table;
     var itemTable = layui.table;
     var app = layui.app, $ = layui.jquery, form = layui.form;
-    // var $=layui.jquery;
+
+    $.ajax({
+        type: "get",
+        url: preBindUrl+"getAll",
+        dataType: "json",
+        success: function (data) {
+            // var modelVerification = new ModelVerification();
+            // var contents = modelVerification.initModel(data);
+            var da=data.data;
+            var html="<select id=\"isBusinessLine\" class=\"layui-select\" name=\"businessType\" lay-verify=\"\">\n<option value=\"\">选择类型</option>";
+            for (var i=0;i<da.length;i++){
+                html+="<option value=\""+da[i].businessId+"\">"+da[i].businessName+"</option>\n";
+            }
+            html+="</select>";
+            $("#businessTypes").html(html);
+        }
+    });
+
+
+
+
+
+
+
+
+
     // 第一个实例
     entityTable.render({
         elem: '#demo',
