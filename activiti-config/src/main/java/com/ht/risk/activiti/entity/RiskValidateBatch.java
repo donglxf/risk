@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2018-01-19
  */
 @ApiModel
-@TableName("RISK_VALIDATE_BATCH")
+@TableName("risk_validate_batch")
 public class RiskValidateBatch extends Model<RiskValidateBatch> {
 
     private static final long serialVersionUID = 1L;
@@ -27,49 +27,49 @@ public class RiskValidateBatch extends Model<RiskValidateBatch> {
     /**
      * 主键,批次号
      */
-    @TableId("ID")
+    @TableId("id")
 	@ApiModelProperty(required= true,value = "主键,批次号")
 	private Long id;
     /**
      * 流程部署ID，与 ACT_RE_PROCDEF.DEPLOYMENT_ID 关联
      */
-	@TableField("PROC_RELEASE_ID")
+	@TableField("proc_release_id")
 	@ApiModelProperty(required= true,value = "模型版本id")
 	private Long procReleaseId;
     /**
      * 批次大小
      */
-	@TableField("BATCH_SIZE")
+	@TableField("batch_size")
 	@ApiModelProperty(required= true,value = "批次大小")
 	private Integer batchSize;
     /**
      * 批次状态，0-待执行，1-正在执行，2-执行完成，3-执行异常
      */
-	@TableField("STATUS")
+	@TableField("status")
 	@ApiModelProperty(required= true,value = "批次状态，0-待执行，1-正在执行，2-执行完成，3-执行异常")
 	private String status;
     /**
      * 执行次数
      */
-	@TableField("COMPLETE_COUNT")
+	@TableField("complete_count")
 	@ApiModelProperty(required= true,value = "执行次数")
 	private Integer count;
     /**
      * 是否生效：0-有效，1-无效
      */
-	@TableField("IS_EFFECT")
+	@TableField("is_effect")
 	@ApiModelProperty(required= true,value = "是否生效：0-有效，1-无效")
 	private String isEffect;
     /**
      * 创建时间
      */
-	@TableField("CREATE_TIME")
+	@TableField("create_time")
 	@ApiModelProperty(required= true,value = "创建时间")
 	private Date createTime;
     /**
      * 创建用户
      */
-	@TableField("CREATE_USER")
+	@TableField("create_user")
 	@ApiModelProperty(required= true,value = "创建用户")
 	private String createUser;
 
