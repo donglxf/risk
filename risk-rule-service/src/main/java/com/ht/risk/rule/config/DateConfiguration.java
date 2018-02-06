@@ -8,13 +8,19 @@ package com.ht.risk.rule.config;
 
 import javax.annotation.PostConstruct;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.support.GenericConversionService;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import com.ht.risk.common.util.StringToDateConverter;
+
+import java.util.List;
 
 /**
  * @author 汤孝松
@@ -40,5 +46,7 @@ public class DateConfiguration{
             }
 
         }
+
+
 }
 

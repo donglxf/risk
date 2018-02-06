@@ -2,6 +2,7 @@ package com.ht.risk.rule.service.impl;
 
 import java.util.List;
 
+import com.ht.risk.rule.mapper.ModelTaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,6 @@ import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.ActProcRelease;
 import com.ht.risk.rule.entity.ModelTask;
 import com.ht.risk.rule.mapper.ActProcReleaseMapper;
-import com.ht.risk.rule.mapper.ModelTaskMapper;
 import com.ht.risk.rule.service.ModelTaskService;
 
 /**

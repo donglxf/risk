@@ -1,5 +1,6 @@
 package com.ht.risk.rule.quartz.init;
 
+import com.ht.risk.rule.service.ModelTaskService;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +11,8 @@ import org.springframework.stereotype.Component;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.ht.risk.rule.entity.ActProcRelease;
 import com.ht.risk.rule.entity.ModelTask;
 import com.ht.risk.rule.quartz.job.ModelTaskJob;
-import com.ht.risk.rule.service.ModelTaskService;
 
 import java.util.List;
 
