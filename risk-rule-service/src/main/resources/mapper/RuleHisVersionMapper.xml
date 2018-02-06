@@ -24,7 +24,7 @@
     <select id="getRuleValidationResult" resultType="com.ht.risk.rule.vo.RuleHisVersionVo" parameterType="map">
         select <include refid="Column_List"/>
           ,case isnull(d.executeRule)  when 1 then '1' when 0 then '0'  end  as validationResult from risk_rule_his_version ver left join
-(select b.execute_rulename as executeRule  from risk_test_drools_log a inner join risk_test_drools_detail_log b on a.id = b.X  where a.id = #{id}) d
+(select b.execute_rulename as executeRule  from risk_test_drools_log a inner join risk_test_drools_detail_log b on a.id = b.DROOLS_LOGID  where a.id = #{id}) d
 on ver.rule_name = d.executeRule
 where ver.sence_version_id = #{senceVersionId}
     </select>
