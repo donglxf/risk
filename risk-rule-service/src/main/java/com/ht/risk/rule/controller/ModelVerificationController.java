@@ -97,15 +97,15 @@ public class ModelVerificationController {
             String next = key.next();
             String temValue = parameterMap.get(next)[0];
             ary = next.split("#");
-            if (ary != null && ary.length == 2) {
-                senceCode = ary[0];
+            if (ary != null && ary.length == 3) {
+                senceCode = ary[1];
                 if (dataMap.containsKey(senceCode + "DATA")) {
                     senceData = (Map<String, String>) dataMap.get(senceCode+ "DATA");
-                    variableCode = ary[1];
+                    variableCode = ary[2];
                     senceData.put(variableCode, temValue);
                 } else {
                     senceData = new HashMap<String, String>();
-                    variableCode = ary[1];
+                    variableCode = ary[2];
                     senceData.put(variableCode, temValue);
                     dataMap.put(senceCode + "DATA", senceData);
                 }

@@ -1,6 +1,7 @@
 package com.ht.risk.common.model;
 
 import com.ht.risk.model.fact.RuleExecutionObject;
+import com.ht.risk.model.fact.RuleStandardResult;
 import io.swagger.annotations.ApiModelProperty;
 
 public class RuleExcuteResult {
@@ -10,7 +11,7 @@ public class RuleExcuteResult {
         super();
     }
 
-    public RuleExcuteResult(int code, String msg, RuleExecutionObject data) {
+    public RuleExcuteResult(int code, String msg, RuleStandardResult data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -31,7 +32,7 @@ public class RuleExcuteResult {
      * 传递给请求者的数据
      */
     @ApiModelProperty(value = "传递给请求者的数据")
-    private RuleExecutionObject data;
+    private RuleStandardResult data;
 
 
     public int getCode() {
@@ -50,11 +51,11 @@ public class RuleExcuteResult {
         this.msg = msg;
     }
 
-    public RuleExecutionObject getData() {
+    public RuleStandardResult getData() {
         return data;
     }
 
-    public void setData(RuleExecutionObject data) {
+    public void setData(RuleStandardResult data) {
         this.data = data;
     }
 }

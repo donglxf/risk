@@ -5,41 +5,41 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="org.ht.risk.log.entity.TestDroolsLog">
         <id column="ID" property="id" />
-        <result column="PROCINST_ID" property="procinstId" />
-        <result column="MODEL_NAME" property="modelName" />
-        <result column="SENCE_VERSIONID" property="senceVersionid" />
-        <result column="IN_PARAMTER" property="inParamter" />
-        <result column="OUT_PARAMTER" property="outParamter" />
-        <result column="EXECUTE_TOTAL" property="executeTotal" />
-        <result column="TYPE" property="type" />
-        <result column="CREATE_TIME" property="createTime" />
+        <result column="procinst_id" property="procinstId" />
+        <result column="model_name" property="modelName" />
+        <result column="sence_versionid" property="senceVersionid" />
+        <result column="in_paramter" property="inParamter" />
+        <result column="out_paramter" property="outParamter" />
+        <result column="execute_total" property="executeTotal" />
+        <result column="type" property="type" />
+        <result column="create_time" property="createTime" />
         <result column="batch_id" property="batchId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, PROCINST_ID AS procinstId, MODEL_NAME AS modelName, SENCE_VERSIONID AS senceVersionid, IN_PARAMTER AS inParamter, OUT_PARAMTER AS outParamter, EXECUTE_TOTAL AS executeTotal, TYPE AS type, CREATE_TIME AS createTime,batch_id as batchId
+        id as id, procinst_id as procinstid, model_name as modelname, sence_versionid as senceversionid, in_paramter as inparamter, out_paramter as outparamter, execute_total as executetotal, type as type, create_time as createtime,batch_id as batchid
     </sql>
 
     <select id="queryHitRuleByProcInstId" resultType="org.ht.risk.log.entity.HitRule">
-        select d.version_id as senceVersionId,d.title as senceName,a.RULE_NAME as ruleName,a.RULE_DESC as ruleDesc,c.EXECUTE_RULENAME as flag from RISK_RULE_HIS_VERSION a
-        inner join rule_scene_version d on a.SENCE_VERSION_ID = d.version_id
-        inner join RISK_TEST_DROOLS_LOG b on a.SENCE_VERSION_ID = b.SENCE_VERSIONID and d.version_id = b.SENCE_VERSIONID
-        left join RISK_TEST_DROOLS_DETAIL_LOG c on a.RULE_NAME = c.EXECUTE_RULENAME and b.ID = c.DROOLS_LOGID
-        where b.PROCINST_ID =  #{procInstId}
+        select d.version_id as senceVersionId,d.title as senceName,a.rule_name as ruleName,a.rule_desc as ruleDesc,c.execute_rulename as flag from risk_rule_his_version a
+        inner join rule_scene_version d on a.sence_version_id = d.version_id
+        inner join risk_test_drools_log b on a.sence_version_id = b.sence_versionid and d.version_id = b.sence_versionid
+        left join risk_test_drools_detail_log c on a.rule_name = c.execute_rulename and b.id = c.drools_logid
+        where b.procinst_id =  #{procInstId}
     </select>
 
     <select id="queryHitRuleByProcInstIds" resultType="org.ht.risk.log.entity.HitRule" parameterType="java.util.Map">
-        select d.version_id as senceVersionId,d.title as senceName,a.RULE_NAME as ruleName,a.RULE_DESC as ruleDesc,sum(1) as flag from RISK_RULE_HIS_VERSION a
-        inner join rule_scene_version d on a.SENCE_VERSION_ID = d.version_id
-        inner join RISK_TEST_DROOLS_LOG b on a.SENCE_VERSION_ID = b.SENCE_VERSIONID and d.version_id = b.SENCE_VERSIONID
-        inner join RISK_TEST_DROOLS_DETAIL_LOG c on a.RULE_NAME = c.EXECUTE_RULENAME and b.ID = c.DROOLS_LOGID
+        select d.version_id as senceVersionId,d.title as senceName,a.RULE_NAME as ruleName,a.rule_desc as ruleDesc,sum(1) as flag from risk_rule_his_version a
+        inner join rule_scene_version d on a.sence_version_id = d.version_id
+        inner join risk_test_drools_log b on a.sence_version_id = b.sence_versionid and d.version_id = b.sence_versionid
+        inner join risk_test_drools_detail_log c on a.rule_name = c.execute_rulename and b.ID = c.drools_logid
         where
         b.PROCINST_ID in
         <foreach item="procInstId" collection="procInstIds" separator="," open="(" close=")" index="">
             #{procInstId}
         </foreach>
-        group by d.version_id,d.title,a.RULE_DESC,a.RULE_NAME;
+        group by d.version_id,d.title,a.rule_desc,a.rule_name;
     </select>
 
 </mapper>

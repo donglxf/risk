@@ -20,7 +20,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, SENCE_VERSION_ID AS senceVersionId, VARIABLE_CODE AS variableCode, VARIABLE_NAME AS variableName, DATA_TYPE AS dataType, CONSTANT_ID AS constantId, BIND_TABLE AS bindTable, BIND_COLUMN AS bindColumn, IS_EFFECT AS isEffect, TMP_VALUE AS tmpValue, CREATE_USER AS createUser, CREATE_TIME AS createTime
+        id AS id, sence_version_id AS senceVersionId, variable_code AS variableCode, variable_name AS variableName, data_type AS dataType, constant_id AS constantId, bind_table AS bindTable, bind_column AS bindColumn, is_effect AS isEffect, tmp_value AS tmpValue, create_user AS createUser, create_time AS createTime
     </sql>
     <select id="queryVariableBindBySenceVersinIds" resultType="com.ht.risk.rule.entity.VariableBind">
     </select>
@@ -33,22 +33,22 @@
     </select>
 
     <update id="myUpdate" parameterType="com.ht.risk.rule.entity.VariableBind">
-        UPDATE risk_variable_bind
+        update risk_variable_bind
         <set>
             <if test="tmpValue != null">
-                TMP_VALUE = #{tmpValue},
+                tmp_value = #{tmpValue},
             </if>
             <if test="bindTable != null">
-                BIND_TABLE = #{bindTable},
+                bind_table = #{bindTable},
             </if>
             <if test="bindColumn != null">
-                BIND_COLUMN = #{bindColumn},
+                bind_column = #{bindColumn},
             </if>
             <if test="senceVersionId != null">
-                SENCE_VERSION_ID = #{senceVersionId}
+                sence_version_id = #{senceVersionId}
             </if>
         </set>
-        WHERE SENCE_VERSION_ID = #{senceVersionId} AND VARIABLE_CODE = #{variableCode}
+        WHERE sence_version_id = #{senceVersionId} AND variable_code = #{variableCode}
     </update>
 
 

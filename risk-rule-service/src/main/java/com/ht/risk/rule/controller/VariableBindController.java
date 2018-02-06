@@ -192,7 +192,8 @@ public class VariableBindController {
         JSONObject obj = JSON.parseObject(res);
         String code = obj.getString("code");
         if (obj.getInteger("code") == 0) {
-            JSONObject o = obj.getJSONObject("data").getJSONObject("globalMap");
+//            JSONObject o = obj.getJSONObject("data").getJSONObject("globalMap");
+            JSONObject o = obj.getJSONObject("data");
             JSONArray dataArr = o.getJSONArray("logIdList");
             String[] arg = dataArr.toArray(new String[dataArr.size()]);
             resultMap.put("logId", arg[0]);
@@ -288,10 +289,9 @@ public class VariableBindController {
             JSONArray mainArray = JSONArray.parseArray(res);
             for (int i = 0; i < mainArray.size(); i++) {
                 JSONObject obj = mainArray.getJSONObject(i);
-                JSONObject o = obj.getJSONObject("data").getJSONObject("globalMap");
-                Map<String, Object> variableMap = (Map<String, Object>) o.get("variableMap");
+                JSONObject o = obj.getJSONObject("data");
                 JSONArray dataArr = o.getJSONArray("logIdList");
-                JSONArray count = (JSONArray) o.getJSONObject("_result").getJSONObject("map").get("ruleList");
+                JSONArray count = (JSONArray) o.get("ruleList");
                 List<String> ruleList = new ArrayList<String>();
                 if (ObjectUtils.isNotEmpty(count)) {
                     String[] ruleArr = count.toArray(new String[count.size()]);

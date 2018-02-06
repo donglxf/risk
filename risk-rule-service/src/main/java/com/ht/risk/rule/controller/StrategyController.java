@@ -85,10 +85,10 @@ public class StrategyController {
         List<Map<String, Object>> listMap = ruleHisVersionService.getRuleBatchValidationResult(paramMap);
         List<RuleHisVersionVo> paramList = new ArrayList<RuleHisVersionVo>();
         for (Map<String, Object> ma : listMap) {
-            JSONObject json = JSONObject.parseObject((String) ma.get("IN_PARAMTER")).getJSONObject("data");
+            JSONObject json = JSONObject.parseObject((String) ma.get("in_paramter")).getJSONObject("data");
             RuleHisVersionVo vo = new RuleHisVersionVo();
-            vo.setVariableName((String) ma.get("VARIABLE_NAME"));
-            vo.setVariableValue((String) json.get(ma.get("VARIABLE_CODE")));
+            vo.setVariableName((String) ma.get("variable_name"));
+            vo.setVariableValue((String) json.get(ma.get("variable_code")));
             paramList.add(vo);
         }
         Map<String, Object> map = new HashMap<String, Object>();

@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import com.ht.risk.api.model.drools.DroolsParamter;
 import com.ht.risk.model.*;
+import com.ht.risk.model.fact.RuleStandardResult;
 import com.ht.risk.service.*;
 import com.ht.risk.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -45,9 +46,6 @@ public class DroolsExcuteController {
 
     @Resource
     private TestDroolsDetailLogService testDroolsDetailLogService ;
-
-//    @Autowired
-//    private DroolsLogInterface droolsLogInterface;
 
     @Autowired
     private RuleSceneVersionService ruleSceneVersionService;
@@ -111,7 +109,7 @@ public class DroolsExcuteController {
                     droolsProcessLogService.insertOrUpdate(process);
                 }
             }
-            data = new RuleExcuteResult(0, "", object);
+//            data = new RuleExcuteResult(0, "", object);
         } catch (Exception e) {
             e.printStackTrace();
             data = new RuleExcuteResult(1, "执行异常", null);
@@ -176,6 +174,7 @@ public class DroolsExcuteController {
             log.info("规则验证执行时间》》》》》"+String.valueOf(endTime-startTime));
             // 记录日志
             RuleExecutionResult res = (RuleExecutionResult) object.getGlobalMap().get("_result");
+            List<String> reulst = (List<String>) res.getMap().get("result");
             List<String> li = (List<String>) res.getMap().get("ruleList");
             List<String> newList = new  ArrayList();
             if (ObjectUtils.isNotEmpty(li)) {
@@ -206,7 +205,13 @@ public class DroolsExcuteController {
             }
             logList.add(String.valueOf(logId));
             object.getGlobalMap().put("logIdList", logList);
-            data = new RuleExcuteResult(0, "success", object);
+
+            RuleStandardResult ruleResult= new RuleStandardResult();
+            ruleResult.setLogIdList(logList);
+            ruleResult.setRuleList(li);
+            ruleResult.setResult(reulst);
+            data = new RuleExcuteResult(0, "success", ruleResult);
+//            data = new RuleExcuteResult(0, "success", object);
         } catch (Exception e) {
             e.printStackTrace();
             data = new RuleExcuteResult(1, e.getMessage(), null);

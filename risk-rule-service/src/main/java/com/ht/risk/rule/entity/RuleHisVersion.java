@@ -18,7 +18,7 @@ import java.util.Date;
  * @since 2018-01-17
  */
 @ApiModel
-@TableName("RISK_RULE_HIS_VERSION")
+@TableName("risk_rule_his_version")
 public class RuleHisVersion extends Model<RuleHisVersion> {
 
     private static final long serialVersionUID = 1L;
@@ -26,43 +26,43 @@ public class RuleHisVersion extends Model<RuleHisVersion> {
     /**
      * 主键
      */
-    @TableId("ID")
+    @TableId("id")
 	@ApiModelProperty(required= true,value = "主键")
 	private Long id;
     /**
      * 決策版本流水
      */
-	@TableField("SENCE_VERSION_ID")
+	@TableField("sence_version_id")
 	@ApiModelProperty(required= true,value = "決策版本流水")
 	private Long senceVersionId;
     /**
      * 规则名称
      */
-	@TableField("RULE_NAME")
+	@TableField("rule_name")
 	@ApiModelProperty(required= true,value = "规则名称")
 	private String ruleName;
     /**
      * 规则描述
      */
-	@TableField("RULE_DESC")
+	@TableField("rule_desc")
 	@ApiModelProperty(required= true,value = "规则描述")
 	private String ruleDesc;
     /**
      * 是否生效：0-有效，1-无效
      */
-	@TableField("IS_EFFECT")
+	@TableField("is_effect")
 	@ApiModelProperty(required= true,value = "是否生效：0-有效，1-无效")
 	private String isEffect;
     /**
      * 创建用户
      */
-	@TableField("CREATE_USER")
+	@TableField("create_user")
 	@ApiModelProperty(required= true,value = "创建用户")
 	private String createUser;
     /**
      * 创建时间
      */
-	@TableField("CREATE_TIME")
+	@TableField("create_time")
 	@ApiModelProperty(required= true,value = "创建时间")
 	private Date createTime;
 

@@ -46,38 +46,38 @@
     <select id="findBaseRuleActionRuleRelInfoList" parameterType="com.ht.risk.rule.entity.ActionRuleRel"
             resultType="com.ht.risk.rule.entity.ActionRuleRel">
         SELECT DISTINCT
-        T.RULE_ACTION_REL_ID,
-        T.ACTION_ID,
-        T.RULE_ID,
-        T.IS_EFFECT,
-        T.CRE_USER_ID,
-        T.CRE_TIME,
-        T.REMARK
-        FROM
-        rule_action_rule_rel T
+        t.rule_action_rel_id,
+        t.action_id,
+        t.rule_id,
+        t.is_effect,
+        t.cre_user_id,
+        t.cre_time,
+        t.remark
+        from
+        rule_action_rule_rel t
         WHERE
         1 = 1
         <if test="ruleId != null">
-            AND T.RULE_ID = #{ruleId}
+            and t.rule_id = #{ruleId}
         </if>
 
     </select>
     <select id="findActions" resultMap="actions" >
       SELECT
-        T.RULE_ACTION_REL_ID,
-        T.ACTION_ID,
-        T.RULE_ID,
-        T.IS_EFFECT,
-        T.CRE_USER_ID,
-        T.CRE_TIME,
-        T.REMARK,
+        t.rule_action_rel_id,
+        t.action_id,
+        t.rule_id,
+        t.is_effect,
+        t.cre_user_id,
+        t.cre_time,
+        t.remark,
         a.*
-        FROM
-        rule_action_rule_rel T,rule_action_info a
-        WHERE
-        T.ACTION_ID = a.ACTION_ID
+        from
+        rule_action_rule_rel t,rule_action_info a
+        where
+        t.action_id = a.action_id
         <if test="ruleId != null">
-            AND T.RULE_ID = #{ruleId}
+            and t.rule_id = #{ruleId}
         </if>
 
     </select>

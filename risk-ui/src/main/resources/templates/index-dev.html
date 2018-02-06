@@ -166,7 +166,7 @@
 <script>
     var message;
     layui.config({
-        base: '/rule/ui/src/js/',
+        base: '/rule/ui/src/js/modules/',
         version: '1.0.1'
     }).use(['app', 'message'], function() {
         var app = layui.app,
@@ -174,9 +174,9 @@
             layer = layui.layer;
         //将message设置为全局以便子页面调用
         message = layui.message;
-        //主入口
+        //主入口,初始化菜单 开发模式
         app.set({
-            type: 'iframe'
+            type: 'iframe-dev'
         }).init();
         $('dl.skin > dd').on('click', function() {
             var $that = $(this);

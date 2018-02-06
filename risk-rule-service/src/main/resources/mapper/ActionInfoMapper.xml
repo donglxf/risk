@@ -53,83 +53,83 @@
     <select id="findBaseRuleActionInfoList" parameterType="com.ht.risk.rule.entity.ActionInfo"
             resultType="com.ht.risk.rule.entity.ActionInfo">
         SELECT DISTINCT
-        T.ACTION_ID,
-        T.ACTION_TYPE,
-        T.ACTION_NAME,
-        T.ACTION_DESC,
-        T.ACTION_CLASS,
-        T.IS_EFFECT,
-        T.CRE_USER_ID,
-        T.CRE_TIME,
-        T.REMARK
+        t.action_id,
+        t.action_type,
+        t.action_name,
+        t.action_desc,
+        t.action_class,
+        t.is_effect,
+        t.cre_user_id,
+        t.cre_time,
+        t.remark
         FROM
-        rule_action_info T
+        rule_action_info t
         WHERE
         1 = 1
     </select>
     <select id="findRuleActionListByScene" parameterType="com.ht.risk.rule.entity.SceneInfo"
             resultType="com.ht.risk.rule.entity.ActionInfo">
-        SELECT DISTINCT
-        A.ACTION_ID,
-        A.ACTION_TYPE,
-        A.ACTION_NAME,
-        A.ACTION_DESC,
-        A.ACTION_CLASS,
-        A.IS_EFFECT,
-        A.CRE_USER_ID,
-        A.CRE_TIME,
-        A.REMARK
-        FROM
-        rule_action_info A
-        INNER JOIN rule_action_rule_rel AR ON AR.ACTION_ID = A.ACTION_ID
-        INNER JOIN rule_info R ON R.RULE_ID = AR.RULE_ID
-        INNER JOIN rule_scene_info S ON S.SCENE_ID = R.SCENE_ID
-        WHERE
+        select distinct
+        a.action_id,
+        a.action_type,
+        a.action_name,
+        a.action_desc,
+        a.action_class,
+        a.is_effect,
+        a.cre_user_id,
+        a.cre_time,
+        a.remark
+        from
+        rule_action_info a
+        inner join rule_action_rule_rel ar on ar.action_id = a.action_id
+        inner join rule_info r on r.rule_id = ar.rule_id
+        inner join rule_scene_info s on s.scene_id = r.scene_id
+        where
         1 = 1
-        AND A.IS_EFFECT = 1
-        AND AR.IS_EFFECT = 1
-        AND R.IS_EFFECT = 1
-        AND R.RULE_ENABLED = 1
-        AND S.IS_EFFECT = 1
+        and a.is_effect = 1
+        and ar.is_effect = 1
+        and r.is_effect = 1
+        and r.rule_enabled = 1
+        and s.is_effect = 1
         <if test="sceneIdentify != null">
-            AND S.SCENE_IDENTIFY = #{sceneIdentify}
+            and s.scene_identify = #{sceneIdentify}
         </if>
         <if test="sceneId != null">
-            AND S.SCENE_ID = #{sceneId}
+            and s.scene_id = #{sceneId}
         </if>
 
     </select>
     <select id="findRuleActionListByRule" resultType="com.ht.risk.rule.entity.ActionInfo">
         SELECT DISTINCT
-        A.ACTION_ID,
-        A.ACTION_TYPE,
-        A.ACTION_NAME,
-        A.ACTION_DESC,
-        A.ACTION_CLASS,
-        A.IS_EFFECT,
-        A.CRE_USER_ID,
-        A.CRE_TIME,
-        A.REMARK
-        FROM
-        rule_action_info A
-        INNER JOIN rule_action_rule_rel AR ON AR.ACTION_ID = A.ACTION_ID
-        WHERE
+        a.action_id,
+        a.action_type,
+        a.action_name,
+        a.action_desc,
+        a.action_class,
+        a.is_effect,
+        a.cre_user_id,
+        a.cre_time,
+        a.remark
+        from
+        rule_action_info a
+        inner join rule_action_rule_rel ar on ar.action_id = a.action_id
+        where
         1 = 1
-        AND A.IS_EFFECT = 1
-        AND AR.IS_EFFECT = 1
-        AND AR.RULE_ID = #{ruleId}
+        and a.is_effect = 1
+        and ar.is_effect = 1
+        and ar.rule_id = #{ruleId}
     </select>
     <select id="findRuleActionCountByRuleIdAndActionType" resultType="java.lang.Integer">
-        SELECT COUNT(1)
-        FROM
-        rule_action_info A
-        INNER JOIN rule_action_rule_rel AR ON AR.ACTION_ID = A.ACTION_ID
-        WHERE
+        select count(1)
+        from
+        rule_action_info a
+        inner join rule_action_rule_rel ar on ar.action_id = a.action_id
+        where
         1 = 1
-        AND A.IS_EFFECT = 1
-        AND AR.IS_EFFECT = 1
-        AND A.ACTION_TYPE = 1
-        AND AR.RULE_ID = #{ruleId}
+        and a.is_effect = 1
+        and ar.is_effect = 1
+        and a.action_type = 1
+        and ar.rule_id = #{ruleId}
     </select>
     <!--通过id查询集合-->
     <select id="findByIds" resultMap="action">

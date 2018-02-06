@@ -25,7 +25,7 @@
 
         // 将完整的ul li 代码插入到页面中，保存$ul的引用
         var $ul = $("<ul class='xy-dropdown-menu' id='xy-dropdown-menu-" + id + "'>" + items + "</ul>").appendTo("body");
-       // console.log($ul);
+        // console.log($ul);
         // 给子列表的li绑定点击事件
         $ul.find('.m-list li').on('click', function(e) {
             var _value = $(this).attr("value");
@@ -50,7 +50,7 @@
         // 点击屏幕任何角落，隐藏$ul
         $(document).on("click", function() { $ul.hide(); });
         $ul.on("click", function(e) {
-                e.stopPropagation();
+            e.stopPropagation();
         });
 
         return $ul;

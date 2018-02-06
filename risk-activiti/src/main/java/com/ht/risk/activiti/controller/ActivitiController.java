@@ -1,8 +1,10 @@
 package com.ht.risk.activiti.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.ht.risk.activiti.service.ActivitiService;
 import com.ht.risk.activiti.vo.ModelPage;
@@ -29,10 +31,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * ${DESCRIPTION}
@@ -199,8 +198,23 @@ public class ActivitiController implements ModelDataJsonConstants {
                 modelNode.put(MODEL_ID, model.getId());
                 ObjectNode editorJsonNode = (ObjectNode) objectMapper.readTree(
                         new String(repositoryService.getModelEditorSource(model.getId()), "utf-8"));
+//                //把节点中多余的属性删除掉
+//                JsonNode childShapes = editorJsonNode.get("childShapes");
+//                Iterator<JsonNode> iterator = childShapes.iterator();
+//                while (iterator.hasNext()) {
+//                    JsonNode next = iterator.next();
+//                    JsonNode stencil = next.get("stencil");
+//                    String id = stencil.get("id").asText();
+//                    LOGGER.info("---" + id + "---");
+//                    if ("ServiceTask".equals(stencil.get("id").asText())) {
+//                        JsonNode properties = next.get("properties");
+//                        String s = properties.textValue();
+//                        LOGGER.info("找到ServiceTask节点");
+//                        JsonNode path = properties.path("id");
+//
+//                    }
+//                }
                 modelNode.put("model", editorJsonNode);
-
             } catch (Exception e) {
                 LOGGER.error("Error creating model JSON", e);
                 throw new ActivitiException("Error creating model JSON", e);
@@ -248,7 +262,7 @@ public class ActivitiController implements ModelDataJsonConstants {
             String modelName = StringUtils.isEmpty(modelPage.getModelName()) ? "" : modelPage.getModelName();
             modelName = StringUtils.isEmpty(modelName) ? "" : modelName;
             modelName = "%" + modelName + "%";
-            List<Model> list = repositoryService.createModelQuery().modelNameLike(modelName).listPage(modelPage.getPage(), modelPage.getLimit());
+            List<Model> list = repositoryService.createModelQuery().modelNameLike(modelName).listPage(modelPage.getPage(), 10);
             Long count = repositoryService.createModelQuery().modelNameLike(modelName).count();
             data = PageResult.success(list, count);
         } catch (Exception e) {
