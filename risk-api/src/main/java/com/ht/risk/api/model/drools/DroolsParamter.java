@@ -26,7 +26,7 @@ public class DroolsParamter {
 	
 	/**
 	 * 类型
-	 * 1：业务调用；2：规则验证
+	 * 1：业务调用；2：规则验证;3:模型调用
 	 */
 	private String type;
 

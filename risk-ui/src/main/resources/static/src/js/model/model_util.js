@@ -73,12 +73,7 @@ ModelVerification.prototype = {
                 // laytpl(getTpl).render(result, function (html) {
                 //     view.innerHTML = html;
                 // });
-
-
                 constant = data.data;
-                console.log(constant);
-                console.log(constant.length);
-                console.log(constant[0]);
             }
         });
     },
@@ -118,7 +113,6 @@ ModelVerification.prototype = {
      渲染单个变量
      */
     initOneValible: function (valible) {
-        console.log(valible);
         var tmpValue = valible.tmpValue;
         var senceCode =valible.senceCode;
         var variableCode = valible.variableCode;
@@ -174,7 +168,6 @@ ModelVerification.prototype = {
      * @returns {string}
      */
     initTime: function (name, tmpValue) {
-        console.log(index)
         var html = '<div class="layui-input-inline">';
         html += '<input type="text" name="'
             + name +
@@ -191,15 +184,14 @@ ModelVerification.prototype = {
      * @returns {string}
      */
     initDiv: function (data) {
-        console.log(data);
         var size = 3;
         var length = data.length;
         var count = Math.ceil(length / size); //向上取整
         var html = '';
         for (var i = 0; i < count; i++) {
             html += '<div class="layui-form-item">';
-            for (var j = i ; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
-                var index = (i + 1) * (j + 1) - 1;
+            for (var j = 0 ; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
+                var index = i * size +j;
                 html += this.initLabel(data[index].variableName);
                 html += this.initOneValible(data[index]);
             }
@@ -233,8 +225,6 @@ ModelVerification.prototype = {
         script.type = "text/javascript";
         script.src = "/plugins/jquery-1.9.1.min.js";
         document.getElementsByTagName('head')[0].appendChild(script);
-        console.log("initModel");
-        console.log(data);
         var senceData = data.variableMap;
         var html = '';
       /*  html += ' <div class="layui-form-item" >\n' +
@@ -291,7 +281,6 @@ ModelAutoVerification.prototype = {
      渲染单个变量
      */
     initOneValible: function (valible) {
-        console.log(valible);
         var senceVersionId = valible.senceVersionId;
         var variableCode = valible.variableCode;
         var bindTable = valible.bindTable;
@@ -307,7 +296,6 @@ ModelAutoVerification.prototype = {
      * @returns {string}
      */
     initDiv: function (data){
-        console.log(data);
         var size = 3;
         var length = data.length;
         var count = Math.ceil(length / size);
