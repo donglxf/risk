@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ht.risk.rule.service.ModelTaskService;
 import org.apache.commons.lang.StringUtils;
 import org.quartz.JobDataMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ import com.ht.risk.rule.entity.ActProcRelease;
 import com.ht.risk.rule.entity.ModelTask;
 import com.ht.risk.rule.quartz.init.ModelTaskInitRunner;
 import com.ht.risk.rule.quartz.job.ModelTaskJob;
-import com.ht.risk.rule.service.ModelTaskService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

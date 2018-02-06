@@ -27,8 +27,9 @@
 </div>
 
 <script src="/rule/ui/plugins/layui/layui.js"></script>
-<script src="/rule/ui/src/js/model2/model_util.js"></script>
-<script src="/rule/ui/src/js/model2/model_verification.js"></script>
+<script src="/rule/ui/src/js/model/model_config.js"></script>
+<script src="/rule/ui/src/js/model/model_util.js"></script>
+<script src="/rule/ui/src/js/model/model_task.js"></script>
 <script>
     layui.use(['table', 'jquery', 'laydate', 'form'], function () {
         var $ = layui.jquery;
@@ -43,8 +44,8 @@
             success: function (data) {
                 console.log("manual############"+data);
                 console.log(data);
-                $("#model_version").val(data.modelVersion);
-                $("#model_procDefId").val(data.modelProcdefId);
+                $("#model_version").val(data.data.modelVersion);
+                $("#model_procDefId").val(data.data.modelProcdefId);
                 var modelVerification = new ModelVerification();
                 var contents = modelVerification.initModel(data);
                 var form1 = $("#model_valiable_form");
