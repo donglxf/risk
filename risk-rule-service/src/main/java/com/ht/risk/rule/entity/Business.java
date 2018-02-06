@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 /**
@@ -35,6 +36,7 @@ public class Business extends Model<Business> {
      */
 	@TableField("business_name")
 	@ApiModelProperty(required= true,value = "业务线名")
+	@NotNull(message = "业务线名不能为空")
 	private String businessName;
     /**
      * 描述

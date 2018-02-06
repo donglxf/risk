@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -135,7 +136,7 @@ public class RuleInfoController {
     @ApiOperation(value = "规则保存")
     @Transactional(rollbackFor = RuntimeException.class)
     @CacheEvict(value = "risk-rule",key = "'getRules:'+#ruleFormVo.sceneId")
-    public Result<Integer> save(@RequestBody RuleFormVo ruleFormVo){
+    public Result<Integer> save(@RequestBody @Validated RuleFormVo ruleFormVo){
         Long sceneId = ruleFormVo.getSceneId() ;
         List<String> entityS = ruleFormVo.getEntityIds();
         List<String > items = ruleFormVo.getItemVals();
@@ -212,7 +213,7 @@ public class RuleInfoController {
     @ApiOperation(value = "规则保存")
     @Transactional(rollbackFor = RuntimeException.class)
     @CacheEvict(value = "risk-rule",key = "'getRules:'+#ruleFormVo.sceneId")
-    public Result<Integer> saveGrade(@RequestBody RuleGradeFormVo ruleFormVo){
+    public Result<Integer> saveGrade(@RequestBody @Validated RuleGradeFormVo ruleFormVo){
         Long sceneId = ruleFormVo.getSceneId() ;
         List<String> entityS = ruleFormVo.getEntityIds();
         List<String > items = ruleFormVo.getItemVals();

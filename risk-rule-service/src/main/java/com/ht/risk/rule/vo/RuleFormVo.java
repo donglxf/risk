@@ -1,5 +1,7 @@
 package com.ht.risk.rule.vo;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -11,16 +13,22 @@ import java.util.List;
 public class RuleFormVo {
 
     /**场景id*/
+    @NotNull(message = "场景ID不能为空")
     private Long sceneId;
     /**
      * 实体类集合
      */
+    @NotNull(message = "没有导入实体对象")
+    @Valid
     private List<String> entityIds ;
     /**
      * 变量集合
      */
+    @NotNull(message = "没有导入实体对象")
+    @Valid
     private List<String> itemVals ;
-
+    @NotNull
+    @Valid
     private List<RuleSubmitVo> vos;
 
 

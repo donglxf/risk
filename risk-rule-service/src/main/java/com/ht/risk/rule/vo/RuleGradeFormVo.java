@@ -1,5 +1,7 @@
 package com.ht.risk.rule.vo;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -20,7 +22,8 @@ public class RuleGradeFormVo {
      * 变量集合
      */
     private List<String> itemVals ;
-
+    @NotNull
+    @Valid
     private List<RuleSubmitVo> vos;
 
 
