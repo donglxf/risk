@@ -204,8 +204,9 @@ ModelVerification.prototype = {
         for (var i = 0; i < count; i++) {
             html += '<div class="layui-form-item">';
             for (var j = 0; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
-                var index = (i + 1) * (j + 1) - 1;
-                html += this.initLabel(data[index].variableName);
+                var index = i * size +j;
+                var name=data[index].variableName;
+                html += this.initLabel(name.substring(name.indexOf('_')+1));
                 html += this.initOneValible(data[index]);
             }
             html += '</div>';
