@@ -26,12 +26,17 @@ public class ActProcRelease extends Model<ActProcRelease> {
 
     private static final long serialVersionUID = 1L;
 
+
+
+
     /**
      * 主键
      */
     @TableId("id")
 	@ApiModelProperty(required= true,value = "主键")
 	private Long id;
+
+    private transient  String idStr;
 
 	/**
 	 * 模型定义ID，与 ACT_RE_PROCDEF.ID_ 关联,ACT_RE_PROCDEF 表中有模型部署id
@@ -227,6 +232,14 @@ public class ActProcRelease extends Model<ActProcRelease> {
 
 	public void setModelId(String modelId) {
 		this.modelId = modelId;
+	}
+
+	public String getIdStr() {
+		return idStr;
+	}
+
+	public void setIdStr(String idStr) {
+		this.idStr = idStr;
 	}
 
 	@Override

@@ -1,75 +1,12 @@
 var ModelVerification = function (opt) {
-    layui.use(['jquery'], function () {
+    layui.use(['jquery', 'form', 'laytpl'], function () {
         var $ = layui.jquery;
+        var form = layui.form;
         this.options = $.extend({}, this.defaults, opt)
     });
 }
 ModelVerification.prototype = {
 
-    // initRuleBatchResult:function(data){
-    //     var html="";
-    //     for (var i=0;i<data.length;i++){
-    //         html += "<label style=\"font-size: 15px;\">匹配规则数量 "+data[i].count+"</label>"+
-    //         "   <a href=\"javascript:void(0)\" onclick=\"showRuleTestResult('"+data[i].logId+"','"+data[i].versionId+"')\">查看详情</a>";
-    //     }
-    //     return html;
-    // },
-    initParam:function(data){
-        var html="<table class=\"layui-table\">\n" +
-            "    <colgroup>\n" +
-            "    <col width=\"50%\">\n" +
-            "    <col>\n" +
-            "    </colgroup>\n" +
-            "    <thead>\n" +
-            "    <tr>\n" +
-            "    <th>变量名称</th>\n" +
-            "    <th>传入值</th>\n" +
-            "    </tr>\n" +
-            "    </thead>\n" ;
-
-        for(var i=0;i<data.length;i++){
-            html+="<tbody><tr></tbody><td>"+data[i].variableName+"</td>";
-                html+="<td>"+data[i].variableValue+"</td>";
-        }
-        html+="</tr></tbody></table>";
-        return html;
-    },
-    initResult:function(data){
-        var html="<table class=\"layui-table\">\n" +
-            "    <colgroup>\n" +
-            "    <col width=\"50%\">\n" +
-            "    <col>\n" +
-            "    </colgroup>\n" +
-            "    <thead>\n" +
-            "    <tr>\n" +
-            "    <th>规则</th>\n" +
-            "    <th>输出</th>\n" +
-            "    </tr>\n" +
-            "    </thead>\n" ;
-
-        for(var i=0;i<data.length;i++){
-            html+="<tbody><tr></tbody><td>"+data[i].ruleDesc.replace(/\$/g,'')+"</td>";
-            if(data[i].validationResult=='0'){
-                html+="<td style='color: #ff598f;'>匹配规则</td>";
-            }else{
-                html+="<td></td>";
-            }
-        }
-        html+="</tr></tbody></table>";
-        return html;
-    },
-    initSelect: function (name, optionData) {
-        var html = '<div class="layui-input-inline">';
-        html += '<select name="' + name + '0" lay-filter="aihao">';
-        html+='<option value="all">所有</option>';
-        for (var i = 0; i < optionData.length; i++) {
-            var data = optionData[i];
-            html += '<option value="' + data.value + '">' + data.name + '</option>';
-        }
-        html += '</select>';
-        html += '</div>';
-        return html;
-    },
     /**
      * 初始化Lable
      * @param name
@@ -77,37 +14,6 @@ ModelVerification.prototype = {
      */
     initLabel: function (name) {
         return '<label class="layui-form-label">' + name + '</label>';
-    },
-    /**
-     * 初始化普通输入框
-     * @param name
-     * @returns {string}
-     */
-    initInput: function (name, tmpValue) {
-        var html = '<div class="layui-input-inline">'
-        if (tmpValue != null && tmpValue != "") {
-            html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required" placeholder="整形" autocomplete="off" class="layui-input">'
-        } else {
-            html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="整形" autocomplete="off" class="layui-input">'
-        }
-        html += '</div>';
-        return html;
-    },
-
-    /**
-     * 初始化普通输入框
-     * @param name
-     * @returns {string}
-     */
-    initStrInput: function (name, tmpValue) {
-        var html = '<div class="layui-input-inline">'
-        if (tmpValue != null && tmpValue != "") {
-            html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required" placeholder="字符" autocomplete="off" class="layui-input">'
-        } else {
-            html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="字符" autocomplete="off" class="layui-input">'
-        }
-        html += '</div>';
-        return html;
     },
 
     initSelect: function (name, optionData, tmpValue) {
@@ -127,34 +33,122 @@ ModelVerification.prototype = {
         return html;
     },
 
+    initSelectBoolean: function (name, tmpValue) {
+        var html = '<div class="layui-input-inline">';
+        html += '<select name="' + name + '" lay-filter="">';
+        if (1 == tmpValue) {
+            html += '<option  selected="selected" value="1">' + '是' + '</option>';
+            html += '<option  value="0">' + '否' + '</option>';
+        } else {
+            html += '<option  selected="selected" value="0">' + '否' + '</option>';
+            html += '<option  value="1">' + '是' + '</option>';
+        }
+        html += '</select>';
+        html += '</div>';
+        return html;
+    },
+
+
+    /**
+     * 获取变量列表
+     * @param variableCode
+     */
+    getVariableList: function (variableCode) {
+
+        var $ = layui.jquery;
+
+        $.ajax({
+            type: "get",
+            url: "/rule/service/actProcRelease/scene/variable/constant",
+            async: false,//同步请求
+            data: {
+                variableCode: variableCode
+            },
+            dataType: "json",
+            success: function (data) {
+                //因为select需要等到页面生成后才能被渲染出来,所有这里不能直接获取select元素进行渲染,需要组装一段js,然后用在这段生成的js中实现select的交互
+
+                // var getTpl = constantTP.innerHTML
+                //     , view = document.getElementById('variableCode');
+                // laytpl(getTpl).render(result, function (html) {
+                //     view.innerHTML = html;
+                // });
+
+
+                constant = data.data;
+                console.log(constant);
+                console.log(constant.length);
+                console.log(constant[0]);
+            }
+        });
+    },
+
+    /**
+     * 初始化普通输入框
+     * @param name
+     * @returns {string}
+     */
+    initInput: function (name, tmpValue, dataType) {
+        var html = '<div class="layui-input-inline">'
+
+        if (tmpValue != null && tmpValue != "") {
+            if (dataType == 'Double') {
+                html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required" placeholder="数字型" onkeyup="this.value=this.value.replace(/\\D/g,\'\')"  onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="5" autocomplete="off" class="layui-input">';
+            } else if (dataType == 'String') {
+                html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required" placeholder="字符型" autocomplete="off" class="layui-input" maxlength="100">';
+            } else if (dataType == 'Integer') {
+                html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required" placeholder="整形"   onkeyup="this.value=this.value.replace(/\\D/g,\'\')"  onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="5" autocomplete="off" class="layui-input">';
+            }
+        } else {
+            if (dataType == 'Double') {
+                html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="数字型" onkeyup="this.value=this.value.replace(/\\D/g,\'\')"  onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="5" autocomplete="off" class="layui-input">';
+            } else if (dataType == 'String') {
+                html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="字符型" autocomplete="off" class="layui-input" maxlength="100">';
+            } else if (dataType == 'Integer') {
+                html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="整形"   onkeyup="this.value=this.value.replace(/\\D/g,\'\')"  onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="5" autocomplete="off" class="layui-input">';
+            }
+        }
+        html += '</div>';
+        return html;
+    },
+
+
     /**
      *
      渲染单个变量
      */
     initOneValible: function (valible) {
+        console.log(valible);
         var tmpValue = valible.tmpValue;
+        var senceCode =valible.senceCode;
+        var variableCode = valible.variableCode;
+        var dataType = valible.dataType;
+        var optionData = valible.optionData;
+        var name = senceCode + '#' + variableCode;
+        //需要把对应的variableCode包含的枚举变量集合从session中取出,作为selection中的option值
         var html = "";
-        switch (valible.dataType) {
-            case "select":
-                html = this.initSelect(valible.variableName, valible.optionData);
+        switch (dataType) {
+            case "CONSTANT":
+                html = this.initSelect(name, optionData, tmpValue);
+                //加入异步查询,根据dataType查询这个select有哪些选项
                 break;
             case "date":
-                html = this.initDate(valible.variableName);
+                html = this.initDate(name, tmpValue);
                 break;
             case "time":
-                html = this.initTime(valible.variableName);
+                html = this.initTime(name, tmpValue);
                 break;
             case "Double":
-                html = this.initInput(valible.senceVersionId + '#' + valible.variableCode, tmpValue);
-                break;
-            case "Integer":
-                html = this.initInput(valible.senceVersionId + '#' + valible.variableCode, tmpValue);
+                html = this.initInput(name, tmpValue, dataType);
                 break;
             case "String":
-                html = this.initStrInput(valible.senceVersionId + '#' + valible.variableCode, tmpValue);
+                html = this.initInput(name, tmpValue, dataType);
                 break;
-            case "CONSTANT":
-                html = this.initSelect(valible.senceVersionId + '#' + valible.variableCode, valible.optionData, tmpValue);
+            case "Integer":
+                html = this.initInput(name, tmpValue, dataType);
+                break;
+            case "Boolean":
+                html = this.initSelectBoolean(name, tmpValue);
                 break;
             default:
                 break;
@@ -162,13 +156,12 @@ ModelVerification.prototype = {
         return html;
     },
 
-
     /**
      * 初始化日期时间输入框
      * @param name
      * @returns {string}
      */
-    initDate: function (name) {
+    initDate: function (name, tmpValue) {
         var html = '<div class="layui-input-inline">';
         html += '<input type="text" name="' + name + '" id="date" lay-verify="date" placeholder="yyyy-MM " autocomplete="off" class="layui-input">';
         html += '</div>';
@@ -179,7 +172,7 @@ ModelVerification.prototype = {
      * @param name
      * @returns {string}
      */
-    initTime: function (name) {
+    initTime: function (name, tmpValue) {
         console.log(index)
         var html = '<div class="layui-input-inline">';
         html += '<input type="text" name="'
@@ -197,13 +190,14 @@ ModelVerification.prototype = {
      * @returns {string}
      */
     initDiv: function (data) {
+        console.log(data);
         var size = 3;
         var length = data.length;
-        var count = Math.ceil(length / size);
+        var count = Math.ceil(length / size); //向上取整
         var html = '';
         for (var i = 0; i < count; i++) {
             html += '<div class="layui-form-item">';
-            for (var j = 0; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
+            for (var j = i ; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
                 var index = (i + 1) * (j + 1) - 1;
                 html += this.initLabel(data[index].variableName);
                 html += this.initOneValible(data[index]);
@@ -233,12 +227,19 @@ ModelVerification.prototype = {
      * @returns {string}
      */
     initModel: function (data) {
+
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "/plugins/jquery-1.9.1.min.js";
+        document.getElementsByTagName('head')[0].appendChild(script);
+
         var senceData = data.variableMap;
         var html = '';
-        html += ' <div class="layui-form-item" >\n' +
+      /*  html += ' <div class="layui-form-item" >\n' +
             '<button type="reset" class="layui-btn layui-btn-primary">重 置</button>' +
             '<button class="layui-btn"  lay-submit="" lay-filter="save" id="save">保 存</button>\n' +
-            '</div>';
+            '<button type="button" class="layui-btn layui-btn-normal"  lay-filter="test" id="test" >开始测试</button>' +
+            '</div>';*/
 
 
         for (var i = 0; i < senceData.length; i++) {
@@ -249,7 +250,7 @@ ModelVerification.prototype = {
 }
 
 
-<!--定义一个手动测试类-->
+<!--定义一个自动测试类-->
 var ModelAutoVerification = function (opt) {
     layui.use(['jquery'], function () {
         var $ = layui.jquery;
@@ -261,18 +262,6 @@ var modelVerification = new ModelVerification();
 var index = 0;
 
 ModelAutoVerification.prototype = {
-
-    initSelect: function (name, optionData) {
-        var html = '<div class="layui-input-inline">';
-        html += '<select name="' + name + '0" lay-filter="aihao">';
-        for (var i = 0; i < optionData.length; i++) {
-            var data = optionData[i];
-            html += '<option value="' + data.value + '">' + data.name + '</option>';
-        }
-        html += '</select>';
-        html += '</div>';
-        return html;
-    },
     /**
      * 初始化Lable
      * @param name
@@ -289,8 +278,8 @@ ModelAutoVerification.prototype = {
      */
     initInput: function (name, bindTable, bindColumn) {
         var html = ''
-        html += '<div class="layui-input-inline" style="margin: 0px"><input value= "' + bindTable + '"' + 'type="text" name="' + name + "_table" + '"  style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"></div>'
-        html += '<div class="layui-input-inline" style="margin: 0px"><input value= "' + bindColumn + '"' + 'type="text" name="' + name + "_column" + '"  style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"</div>'
+        html += '<div class="layui-input-inline" style="margin: 0px"><input value= "' + bindTable + '"' + 'type="text" name="' + name + "#table" + '"  style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" style="margin: 0px"><input value= "' + bindColumn + '"' + 'type="text" name="' + name + "#column" + '"  style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"</div>'
         return html;
     },
 
@@ -300,44 +289,23 @@ ModelAutoVerification.prototype = {
      渲染单个变量
      */
     initOneValible: function (valible) {
+        console.log(valible);
         var senceVersionId = valible.senceVersionId;
         var variableCode = valible.variableCode;
         var bindTable = valible.bindTable;
         var bindColumn = valible.bindColumn;
-        return this.initInput(senceVersionId + '_' + variableCode, bindTable, bindColumn);
+        var name = senceVersionId + '#' + variableCode
+        return this.initInput(name, bindTable, bindColumn);
     },
 
-    /**
-     * 初始化日期时间输入框
-     * @param name
-     * @returns {string}
-     */
-    initDate: function (name) {
-
-        var html = '<div class="layui-input-inline">';
-        html += '<input type="text" name="' + name + '" id="date' + index + '" lay-verify="date" placeholder="yyyy-MM-dd " autocomplete="off" class="layui-input">';
-        html += '</div>';
-        index++;
-        return html;
-    },
-    /**
-     * 初始化日期输入框
-     * @param name
-     * @returns {string}
-     */
-    initTime: function (name) {
-        var html = '<div class="layui-input-inline">';
-        html += '<input type="text" name="' + name + '" id="dateTime" lay-verify="date" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off" class="layui-input">';
-        html += '</div>';
-        return html;
-    },
 
     /**
      * 渲染每个变量的div
      * @param data
      * @returns {string}
      */
-    initDiv: function (data) {
+    initDiv: function (data){
+        console.log(data);
         var size = 3;
         var length = data.length;
         var count = Math.ceil(length / size);
@@ -345,7 +313,7 @@ ModelAutoVerification.prototype = {
 
         for (var i = 0; i < count; i++) {
 
-            for (var j = 0; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
+            for (var j = i; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
                 html += '<div class="layui-form-item">';
                 var index = (i + 1) * (j + 1) - 1;
                 html += this.initLabel(data[index].variableName);//包含一个div
@@ -366,9 +334,9 @@ ModelAutoVerification.prototype = {
         var html = '<fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;font-size: 16px">\n';
         html += '<legend style="font-size: 16px">' + senceName + '</legend>\n<div style="padding-top: 10px">';
         html += '<div class="layui-form-item">'
-        html += '<div class="layui-input-inline" style="margin: 0px"><input  disabled="disabled"  value="变量名称" type="text" name="' + name + '" lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
-        html += '<div class="layui-input-inline" style="margin: 0px" ><input  disabled="disabled"  value="数据表" type="text" name="' + name + '" lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
-        html += '<div class="layui-input-inline" style="margin: 0px"><input  disabled="disabled"  value="字段" type="text" name="' + name + '" lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" style="margin: 0px"><input  disabled="disabled"  value="变量名称" type="text"  lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" style="margin: 0px" ><input  disabled="disabled"  value="数据表" type="text" lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" style="margin: 0px"><input  disabled="disabled"  value="字段" type="text" lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
         html += '</div>'
         html += this.initDiv(valiableData);
         html += '</div></fieldset>';
@@ -383,23 +351,10 @@ ModelAutoVerification.prototype = {
     initModel: function (data) {
         var senceData = data.variableMap;
         var html = '';
-        html += ' <div class="layui-form-item" >\n' +
-            ' <div class="layui-inline">\n' +
-            '      <label class="layui-form-label" >测试数量</label>\n' +
-            '      <div class="layui-input-inline" style="max-width: 50px">\n' +
-            '        <input style="max-width: 100px" type="text" name="amount" autocomplete="off" class="layui-input" onkeyup="this.value=this.value.replace(/\\D/g,\'\')"  onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="5" placeholder="请输入整数"/>\n' +
-            '      </div>\n' +
-            '    </div>' +
-            '<button type="reset" class="layui-btn layui-btn-primary">重 置</button>' +
-            '<button class="layui-btn"  lay-submit="" lay-filter="save_auto" id="save_auto">保 存</button>\n' +
-            '</div>';
-
-
         for (var i = 0; i < senceData.length; i++) {
             html += this.initSence(senceData[i]);
         }
         return html;
     }
-
 
 }
