@@ -452,6 +452,12 @@ var myUtil = {
                         if (!$.trim(value)) {
                             return '不能为空';
                         }
+                        //特殊符号验证
+                        var re =/[`~!@#$%^&*_+<>{}\/'[\]]/im;
+                        if (re.test(value))
+                        {
+                            return '不能输入特殊字符';
+                        }
                         $(this).attr("data-value", value);
                     }
                 });
@@ -1575,6 +1581,8 @@ var myUtil = {
                         sceneUtil.flag = false;
                         return ;
                     }
+                    //验证特殊符号
+
                     if (val == undefined || ysf == undefined || itemv == undefined) {
                         layer.msg('必选项不能为空');
                         sceneUtil.flag = false;
