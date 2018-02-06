@@ -151,8 +151,8 @@ var myUtil = {
                     {value: "<=", text: "小于或等于"},
                     {value: ">", text: "大于"},
                     {value: ">=", text: "大于或等于"},
-                    {value: "in", text: "包含"},
-                    {value: "not in", text: "不包含"},
+                    {value: "contains", text: "包含"},
+                    {value: "contains^", text: "不包含"},
                     {value: "like%", text: "开始以"},
                     {value: "%like", text: "结束以"},
                     {value: "===", text: "忽略"},
@@ -451,6 +451,12 @@ var myUtil = {
                     validate: function (value) { //字段验证
                         if (!$.trim(value)) {
                             return '不能为空';
+                        }
+                        //特殊符号验证
+                        var re =/[`~!@#$%^&*_+<>{}\/'[\]]/im;
+                        if (re.test(value))
+                        {
+                            return '不能输入特殊字符';
                         }
                         $(this).attr("data-value", value);
                     }
@@ -1575,6 +1581,8 @@ var myUtil = {
                         sceneUtil.flag = false;
                         return ;
                     }
+                    //验证特殊符号
+
                     if (val == undefined || ysf == undefined || itemv == undefined) {
                         layer.msg('必选项不能为空');
                         sceneUtil.flag = false;

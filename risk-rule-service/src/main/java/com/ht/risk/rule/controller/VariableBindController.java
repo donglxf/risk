@@ -192,7 +192,8 @@ public class VariableBindController {
         JSONObject obj = JSON.parseObject(res);
         String code = obj.getString("code");
         if (obj.getInteger("code") == 0) {
-            JSONObject o = obj.getJSONObject("data").getJSONObject("globalMap");
+//            JSONObject o = obj.getJSONObject("data").getJSONObject("globalMap");
+            JSONObject o = obj.getJSONObject("data");
             JSONArray dataArr = o.getJSONArray("logIdList");
             String[] arg = dataArr.toArray(new String[dataArr.size()]);
             resultMap.put("logId", arg[0]);
