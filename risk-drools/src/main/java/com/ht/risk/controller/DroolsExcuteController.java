@@ -46,9 +46,6 @@ public class DroolsExcuteController {
     @Resource
     private TestDroolsDetailLogService testDroolsDetailLogService ;
 
-//    @Autowired
-//    private DroolsLogInterface droolsLogInterface;
-
     @Autowired
     private RuleSceneVersionService ruleSceneVersionService;
 

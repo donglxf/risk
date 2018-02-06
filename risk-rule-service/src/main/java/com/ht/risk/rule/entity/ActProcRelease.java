@@ -26,7 +26,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel
-@TableName("ACT_PROC_RELEASE")
+@TableName("act_proc_release")
 public class ActProcRelease extends Model<ActProcRelease> implements Serializable {
 
     private static final long serialVersionUID = 1L;

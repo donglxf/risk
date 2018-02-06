@@ -1,7 +1,7 @@
-package com.ht.risk.eip.rpc;
+package com.ht.risk.api.feign.eip;
 
-import com.ht.risk.eip.dto.QueryUserInformationAuthDtoIn;
-import com.ht.risk.eip.dto.QueryUserInformationAuthDtoOut;
+import com.ht.risk.api.model.eip.QueryUserInformationAuthDtoIn;
+import com.ht.risk.api.model.eip.QueryUserInformationAuthDtoOut;
 import com.ht.ussp.core.Result;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.MediaType;
@@ -16,6 +16,6 @@ public interface DemoRpc {
     Result<QueryUserInformationAuthDtoOut> queryUserInformationAuth(@RequestBody QueryUserInformationAuthDtoIn input);
 
     @RequestMapping("/eip/td/account/queryUserInformationAuth")
-    Object queryUserInformationAuth2( QueryUserInformationAuthDtoIn input);
+    Object queryUserInformationAuth2(QueryUserInformationAuthDtoIn input);
 
 }

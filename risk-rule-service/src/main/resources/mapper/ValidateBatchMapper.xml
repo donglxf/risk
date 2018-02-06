@@ -14,13 +14,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, DEPLOYMEN_TID AS deploymenTid, BATCH_SIZE AS batchSize, IS_EFFECT AS isEffect, CREATE_TIME AS createTime, CREATE_USER AS createUser
+        id AS id, deploymen_tid AS deploymenTid, batch_size AS batchSize, is_effect AS isEffect, create_time AS createTime, create_user AS createUser
     </sql>
 
 
     <select id="queryJobList">
-        SELECT ID AS id, DEPLOYMEN_TID AS deploymenTid, BATCH_SIZE AS batchSize, IS_EFFECT AS isEffect, CREATE_TIME AS createTime, CREATE_USER AS createUser
-        FROM risk_validate_batch A WHERE A
+        SELECT id AS id, deploymen_tid AS deploymenTid, batch_size AS batchSize, is_effect AS isEffect, create_time AS createTime, create_user AS createUser
+        FROM risk_validate_batch a WHERE a
     </select>
 
 </mapper>

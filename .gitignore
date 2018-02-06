@@ -23,3 +23,7 @@ dist/
 nbdist/
 .nb-gradle/
 /risk-common/src/main/java/com/ht/risk/common/generator/MysqlGenerator.java
+/risk-eip/.mvn/
+/risk-eip/mvnw
+/risk-eip/mvnw.cmd
+/risk-eip/.gitignore

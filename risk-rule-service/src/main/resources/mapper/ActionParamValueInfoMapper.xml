@@ -20,14 +20,14 @@
     </sql>
 
     <sql id="BaseFindParamValueSql">
-        T.ACTION_PARAM_VALUE_ID,
-        T.RULE_ACTION_REL_ID,
-        T.ACTION_PARAM_ID,
-        T.PARAM_VALUE,
-        T.IS_EFFECT,
-        T.CRE_USER_ID,
-        T.CRE_TIME,
-        T.REMARK
+        t.action_param_value_id,
+        t.rule_action_rel_id,
+        t.action_param_id,
+        t.param_value,
+        t.is_effect,
+        t.cre_user_id,
+        t.cre_time,
+        t.remark
     </sql>
     <select id="findBaseRuleActionParamValueInfoList" parameterType="com.ht.risk.rule.entity.ActionParamValueInfo"
             resultType="com.ht.risk.rule.entity.ActionParamValueInfo">
@@ -38,10 +38,10 @@
         WHERE
         1 = 1
         <if test="ruleActionRelId != null">
-            AND T.RULE_ACTION_REL_ID = #{ruleActionRelId}
+            AND t.rule_action_rel_id = #{ruleActionRelId}
         </if>
         <if test="actionParamId != null">
-            AND T.ACTION_PARAM_ID = #{actionParamId}
+            AND t.action_param_id = #{actionParamId}
         </if>
 
 
@@ -54,8 +54,8 @@
         rule_action_param_value_info T
         WHERE
         1 = 1
-        AND T.IS_EFFECT = 1
-        AND T.ACTION_PARAM_ID = #{paramId}
+        and t.is_effect = 1
+        and t.action_param_id = #{paramId}
     </select>
 
 </mapper>

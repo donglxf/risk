@@ -1,12 +1,12 @@
 package com.ht.risk.common.exception;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -28,7 +28,7 @@ public class ExceptionControllerAdvice {
     public Map<String,Object > errorHandler(Exception ex) {
     	Map<String,Object >  map = new HashMap<String,Object >();
         map.put("code", -500);
-        map.put("msg", "系统异常");
+        map.put("msg", "系统异常:"+ex.getMessage());
         map.put("data", null);
         logger.error("=========打印日志开始============");
         logger.error(ex.getMessage());

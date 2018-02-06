@@ -21,15 +21,15 @@
     </sql>
 
     <sql id="BaseFindParamSql">
-        T.ACTION_PARAM_ID,
-        T.ACTION_ID,
-        T.ACTION_PARAM_NAME,
-        T.ACTION_PARAM_DESC,
-        T.PARAM_IDENTIFY,
-        T.IS_EFFECT,
-        T.CRE_USER_ID,
-        T.CRE_TIME,
-        T.REMARK
+        t.action_param_id,
+        t.action_id,
+        t.action_param_name,
+        t.action_param_desc,
+        t.param_identify,
+        t.is_effect,
+        t.cre_user_id,
+        t.cre_time,
+        t.remark
     </sql>
     <select id="findBaseRuleActionParamInfoList" parameterType="com.ht.risk.rule.entity.ActionParamInfo"
             resultType="com.ht.risk.rule.entity.ActionParamInfo">
@@ -37,23 +37,23 @@
         SELECT DISTINCT
         <include refid="BaseFindParamSql"></include>
         FROM
-        rule_action_param_info T
+        rule_action_param_info t
         WHERE
         1 = 1
         <if test="actionId != null">
-            AND T.ACTION_ID = #{actionId}
+            AND t.action_id = #{actionId}
         </if>
 
     </select>
     <select id="findRuleActionParamByActionId" resultType="com.ht.risk.rule.entity.ActionParamInfo">
         SELECT DISTINCT
         <include refid="BaseFindParamSql"></include>
-        FROM
-        rule_action_param_info T
-        WHERE
+        from
+        rule_action_param_info t
+        where
         1 = 1
-        AND T.IS_EFFECT = 1
-        AND T.ACTION_ID = #{actionId}
+        and t.is_effect = 1
+        and t.action_id = #{actionId}
     </select>
 
 </mapper>

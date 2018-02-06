@@ -1,20 +1,16 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
-
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-
-import java.io.Serializable;
-import java.util.List;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -26,7 +22,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel
-@TableName("RISK_MODEL_SENCE")
+@TableName("risk_model_sence")
 public class ModelSence extends Model<ModelSence> {
 
     private static final long serialVersionUID = 1L;
@@ -47,37 +43,37 @@ public class ModelSence extends Model<ModelSence> {
     /**
      * 主键
      */
-    @TableId("ID")
+    @TableId("id")
     @ApiModelProperty(required = true, value = "主键")
     private Long id;
     /**
      * 模型定义ID
      */
-    @TableField("MODEL_PROCDEF_ID")
+    @TableField("model_procdef_id")
     @ApiModelProperty(required = true, value = "模型定义ID")
     private String modelProcdefId;
     /**
      * 決策版本流水号
      */
-    @TableField("SENCE_VERSION_ID")
+    @TableField("sence_version_id")
     @ApiModelProperty(required = true, value = "決策版本流水号")
     private Long senceVersionId;
     /**
      * 是否生效：0-有效，1-无效
      */
-    @TableField("IS_EFFECT")
+    @TableField("is_effect")
     @ApiModelProperty(required = true, value = "是否生效：0-有效，1-无效")
     private String isEffect;
     /**
      * 创建时间
      */
-    @TableField("CREATE_TIME")
+    @TableField("create_time")
     @ApiModelProperty(required = true, value = "创建时间")
     private Date createTime;
     /**
      * 创建用户
      */
-    @TableField("CREATE_USER")
+    @TableField("create_user")
     @ApiModelProperty(required = true, value = "创建用户")
     private String createUser;
 

@@ -1,13 +1,12 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
 /**
  * <p>
  * 
@@ -17,7 +16,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2018-01-15
  */
 @ApiModel
-@TableName("TEMP_DATA_CONTAINS")
+@TableName("temp_data_contains")
 public class TempDataContains extends Model<TempDataContains> {
 
     private static final long serialVersionUID = 1L;
