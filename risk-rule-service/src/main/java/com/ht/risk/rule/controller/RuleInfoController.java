@@ -211,7 +211,7 @@ public class RuleInfoController {
     @PostMapping("saveGrade")
     @ApiOperation(value = "规则保存")
     @Transactional(rollbackFor = RuntimeException.class)
-    @CacheEvict(value = "risk-rule",key = "'getRules:")
+    @CacheEvict(value = "risk-rule",key = "'getRules:'+#ruleFormVo.sceneId")
     public Result<Integer> saveGrade(@RequestBody RuleGradeFormVo ruleFormVo){
         Long sceneId = ruleFormVo.getSceneId() ;
         List<String> entityS = ruleFormVo.getEntityIds();
