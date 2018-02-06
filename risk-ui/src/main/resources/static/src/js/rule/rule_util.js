@@ -134,6 +134,7 @@ ModelVerification.prototype = {
     initOneValible: function (valible) {
         var tmpValue = valible.tmpValue;
         var html = "";
+        var name=valible.senceVersionId + '#sd#' + valible.variableCode;
         switch (valible.dataType) {
             case "select":
                 html = this.initSelect(valible.variableName, valible.optionData);
@@ -145,16 +146,16 @@ ModelVerification.prototype = {
                 html = this.initTime(valible.variableName);
                 break;
             case "Double":
-                html = this.initInput(valible.senceVersionId + '#' + valible.variableCode, tmpValue);
+                html = this.initInput(name, tmpValue);
                 break;
             case "Integer":
-                html = this.initInput(valible.senceVersionId + '#' + valible.variableCode, tmpValue);
+                html = this.initInput(name, tmpValue);
                 break;
             case "String":
-                html = this.initStrInput(valible.senceVersionId + '#' + valible.variableCode, tmpValue);
+                html = this.initStrInput(name, tmpValue);
                 break;
             case "CONSTANT":
-                html = this.initSelect(valible.senceVersionId + '#' + valible.variableCode, valible.optionData, tmpValue);
+                html = this.initSelect(name, valible.optionData, tmpValue);
                 break;
             default:
                 break;
