@@ -70,7 +70,7 @@ public class ModelController {
      */
     @RequestMapping(value = "/publish/list", method = RequestMethod.GET)
     public String modelPublish() {
-        return "model/publish/list";
+        return "model/version/list";
     }
 
 }

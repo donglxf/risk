@@ -94,18 +94,5 @@ public class MybatisPlusConfig {
         return filterRegistrationBean;
     }
 
-    @Bean
-    public HttpMessageConverters fastJsonHttpMessageConverters(){
-        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();//2
-        FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        fastJsonConfig.setSerializerFeatures(
-                SerializerFeature.PrettyFormat,
-                SerializerFeature.WriteClassName,
-                SerializerFeature.BrowserCompatible
-        );
-        fastConverter.setFastJsonConfig(fastJsonConfig);
-        HttpMessageConverter<?> converter = fastConverter;
-        return new HttpMessageConverters(converter);
-    }
 
 }

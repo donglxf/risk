@@ -122,9 +122,10 @@ ModelVerification.prototype = {
         var tmpValue = valible.tmpValue;
         var senceCode =valible.senceCode;
         var variableCode = valible.variableCode;
+        var senceId = valible.senceVersionId;
         var dataType = valible.dataType;
         var optionData = valible.optionData;
-        var name = senceCode + '#' + variableCode;
+        var name = senceId+"#"+senceCode + '#' + variableCode;
         //需要把对应的variableCode包含的枚举变量集合从session中取出,作为selection中的option值
         var html = "";
         switch (dataType) {
@@ -226,13 +227,14 @@ ModelVerification.prototype = {
      * @param data
      * @returns {string}
      */
-    initModel: function (data) {
-
+    initModel: function (result) {
+        var data = result.data;
         var script = document.createElement("script");
         script.type = "text/javascript";
         script.src = "/plugins/jquery-1.9.1.min.js";
         document.getElementsByTagName('head')[0].appendChild(script);
-
+        console.log("initModel");
+        console.log(data);
         var senceData = data.variableMap;
         var html = '';
       /*  html += ' <div class="layui-form-item" >\n' +

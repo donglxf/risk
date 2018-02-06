@@ -140,12 +140,14 @@ public class ActProcReleaseController {
                 String temValue = parameterMap.get(next)[0];
                 String[] strings = next.split("#");
                 logger.info(strings.toString());
-                EntityWrapper<VariableBind> wrapper = new EntityWrapper<>();
-                wrapper.eq("SENCE_VERSION_ID", strings[0]);
-                wrapper.eq("VARIABLE_CODE", strings[1]);
-                VariableBind variableBind = new VariableBind();
-                variableBind.setTmpValue(temValue);
-                variableBindService.update(variableBind, wrapper);
+                if(strings.length == 3){
+                    EntityWrapper<VariableBind> wrapper = new EntityWrapper<>();
+                    wrapper.eq("SENCE_VERSION_ID", strings[0]);
+                    wrapper.eq("VARIABLE_CODE", strings[2]);
+                    VariableBind variableBind = new VariableBind();
+                    variableBind.setTmpValue(temValue);
+                    variableBindService.update(variableBind, wrapper);
+                }
             }
             Result result = Result.success();
             result.setMsg("保存成功");
