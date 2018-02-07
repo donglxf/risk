@@ -24,32 +24,32 @@
     <div class="layui-form-item">
         <label class="layui-form-label">动作名称:</label>
         <div class="layui-input-block">
-            <input type="text" id="ttt" name="actionName" required  lay-verify="required" placeholder="请输入动作名称" autocomplete="off" class="layui-input">
+            <input type="text" id="ttt" name="actionName"  lay-verify-max="200"  required  lay-verify="required|name" placeholder="请输入动作名称" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">动作描述:</label>
         <div class="layui-input-block">
-            <input type="text" id="ttt" name="actionDesc" required  lay-verify="required" placeholder="请输入动作描述" autocomplete="off" class="layui-input">
+            <input type="text"  name="actionDesc" required  lay-verify-max="3000" lay-verify="required" placeholder="请输入动作描述" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">动作实现类:</label>
         <div class="layui-input-block">
-            <input type="text" id="ttt" name="actionClass" required  lay-verify="required" placeholder="请输入动作实现类" autocomplete="off" class="layui-input">
+            <input type="text"  name="actionClass" required  lay-verify-max="200" lay-verify="required" placeholder="请输入动作实现类" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">方法名:</label>
         <div class="layui-input-block">
-            <input type="text" id="method" name="actionMethod" required  lay-verify="required" placeholder="请输入动作方法名" autocomplete="off" class="layui-input">
+            <input type="text" id="method" name="actionMethod"  lay-verify-max="255" required  lay-verify="required" placeholder="请输入动作方法名" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">描述:</label>
         <div class="layui-input-block">
-            <input type="text" name="remark" placeholder="请输入描述" autocomplete="off" class="layui-input">
+            <input type="text" name="remark"  lay-verify-max="3000" placeholder="请输入描述" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item" style="display: none;">

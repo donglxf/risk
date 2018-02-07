@@ -269,7 +269,12 @@ ModelAutoVerification.prototype = {
      * @returns {string}
      */
     initInput: function (name, bindTable, bindColumn) {
-        console.log(bindTable)
+        if (bindTable== undefined){
+            bindTable = "";
+        }
+        if (bindColumn == undefined){
+            bindTable = "";
+        }
         var html = ''
         html += '<div class="layui-input-inline" style="margin: 0px"><input value= "' + bindTable + '"' + 'type="text" name="' + name + "#table" + '"  style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"></div>'
         html += '<div class="layui-input-inline" style="margin: 0px"><input value= "' + bindColumn + '"' + 'type="text" name="' + name + "#column" + '"  style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"</div>'
@@ -286,14 +291,9 @@ ModelAutoVerification.prototype = {
         var senceVersionId = valible.senceVersionId;
         var variableCode = valible.variableCode;
         var bindTable = valible.bindTable;
-        if (typeof(bindTable) == "undefined"){
-            bindTable = "";
-        }
         var bindColumn = valible.bindColumn;
-        if (typeof(bindColumn) == "undefined"){
-            bindColumn = "";
-        }
-        var name = senceVersionId + '#' + variableCode
+        var name = senceVersionId + '#' + variableCode;
+
         return this.initInput(name, bindTable, bindColumn);
     },
 
@@ -309,7 +309,7 @@ ModelAutoVerification.prototype = {
         for (var i = 0; i < length; i++) {
             html += '<div class="layui-form-item">';
             html += this.initLabel(data[i].variableName);//包含一个div
-            html += this.initOneValible(data[index]); //包含两个div
+            html += this.initOneValible(data[i]); //包含两个div
             html += '</div>';
         }
         return html;

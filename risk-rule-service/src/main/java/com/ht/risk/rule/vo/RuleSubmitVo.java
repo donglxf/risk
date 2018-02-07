@@ -5,6 +5,8 @@ import com.ht.risk.rule.entity.ConditionInfo;
 import com.ht.risk.rule.entity.RuleGroup;
 import io.swagger.annotations.ApiModel;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -22,10 +24,14 @@ public class RuleSubmitVo {
     /**
      * 条件集合
      */
+    @NotNull
+    @Valid
     private List<ConditionInfo> conditionInfos;
     /**
      * 动作集合
      */
+    @NotNull
+    @Valid
     private List<ActionParamValueInfo> actionInfos;
 
     public List<ConditionInfo> getConditionInfos() {

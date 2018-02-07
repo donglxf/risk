@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @FeignClient("risk-drools")
 public interface DroolsRuleEngineInterface {
 
@@ -15,5 +17,8 @@ public interface DroolsRuleEngineInterface {
 
 	@RequestMapping("/excuteDroolsSceneValidation")
 	public RuleExcuteResult excuteDroolsSceneValidation(DroolsParamter paramter);
+
+	@RequestMapping("/batchExcuteRuleValidation")
+	public List<RuleExcuteResult> batchExcuteRuleValidation(List<DroolsParamter> paramters);
 
 }

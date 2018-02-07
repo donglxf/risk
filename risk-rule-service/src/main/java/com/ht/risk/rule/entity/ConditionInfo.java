@@ -7,7 +7,10 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.ht.risk.rule.vo.RuleItemTable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 /**
@@ -51,6 +54,9 @@ public class ConditionInfo extends Model<ConditionInfo> {
 	 */
 	@TableField("val")
 	@ApiModelProperty(required= true,value = "值")
+	@NotNull(message = "条件值不能为空")
+	@Length(min = 1, max = 255, message = "条件值长度超长了")
+	@Pattern(regexp="^[^ `~!@#$%^&*()+=|{}''\\\\[\\\\]<>/~@#￥%……&*（）——+|{}]+$",message="条件值不能包括特殊字符")
 	private String val;
 
 	@TableField(exist = false)

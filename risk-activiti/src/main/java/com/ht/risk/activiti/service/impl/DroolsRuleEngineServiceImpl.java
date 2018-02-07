@@ -31,6 +31,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         String senceCode = (String) senceCodeExp.getValue(delegateExecution);
         String version = (String) versionExp.getValue(delegateExecution);
         LOGGER.info("drools excute start,senceCode："+senceCode+";version:"+version);
+        // 策略的业务数据
         Map senceData = (Map)delegateExecution.getVariable(senceCode+ ActivitiConstants.DROOLS_VARIABLE_NAME);
         String type = String.valueOf(delegateExecution.getVariable(ActivitiConstants.EXCUTE_TYPE_VARIABLE_NAME));
         DroolsParamter paramter = new DroolsParamter();

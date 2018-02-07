@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -60,7 +61,7 @@ public class BusinessController {
     @PostMapping("edit")
     @ApiOperation(value = "新增")
     @Transactional()
-    public Result<Integer> edit(Business business){
+    public Result<Integer> edit( @Validated Business business){
         business.setCreTime(new Date());
         business.setCreUserId("无");
         businessService.insertOrUpdate(business);

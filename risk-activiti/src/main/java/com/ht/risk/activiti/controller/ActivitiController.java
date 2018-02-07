@@ -265,11 +265,13 @@ public class ActivitiController implements ModelDataJsonConstants {
             modelName = "%" + modelName + "%";
             List<Model> list = null;
             Long count = null;
+            int start = (modelPage.getPage()-1)*modelPage.getLimit();
+            int end = start+modelPage.getLimit();
             if(StringUtils.isNotEmpty(modelPage.getModeType())){
-                list = repositoryService.createModelQuery().modelNameLike(modelName).modelCategory(modelPage.getModeType()).orderByCreateTime().desc().listPage(modelPage.getPage(), modelPage.getLimit());
+                list = repositoryService.createModelQuery().modelNameLike(modelName).modelCategory(modelPage.getModeType()).orderByCreateTime().desc().listPage(start, end);
                 count = repositoryService.createModelQuery().modelNameLike(modelName).modelCategory(modelPage.getModeType()).count();
             }else{
-                list = repositoryService.createModelQuery().modelNameLike(modelName).orderByCreateTime().desc().listPage(modelPage.getPage(), modelPage.getLimit());
+                list = repositoryService.createModelQuery().modelNameLike(modelName).orderByCreateTime().desc().listPage(start, end);
                 count = repositoryService.createModelQuery().modelNameLike(modelName).count();
             }
             List<ModelVo> ovs = null;

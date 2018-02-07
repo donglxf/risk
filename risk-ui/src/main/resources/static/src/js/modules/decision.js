@@ -1492,14 +1492,35 @@ var myUtil = {
                         var ysfText = $(e).find("a.con").text();
                         var val = $(e).find("a.val").attr("data-value");
                         var valText = $(e).find("a.val").text();
+
+                        if(val == '' || val == undefined){
+                            sceneUtil.flag = false;
+                            layer.tips('条件值不能为空', $(e).find("a.val"), {
+                                tips: 3,time:3000
+                                ,tipsMore: true
+                            });
+                            return ;
+                        }
+                        if(ysf == '' || ysf == undefined){
+                            sceneUtil.flag = false;
+                            layer.tips('运算符不能为空', $(e).find("a.con"), {
+                                tips: 3,time:3000
+                                ,tipsMore: true
+                            });
+                            return ;
+                        }
+                        if(itemv == '' || itemv == undefined){
+                            sceneUtil.flag = false;
+                            layer.tips('变量对象不能为空', $(e).find("a.itemC"), {
+                                tips: 3,time:3000
+                                ,tipsMore: true
+                            });
+                            return ;
+                        }
                         if (val == '' || ysf == '' || itemv == '') {
                             layer.msg('必选项不能为空');
                             sceneUtil.flag = false;
-                            return ;
-                        }
-                        if (val == undefined || ysf == undefined || itemv == undefined) {
-                            layer.msg('必选项不能为空');
-                            sceneUtil.flag = false;
+                            $(e).addClass("error");
                             return ;
                         }
                         var conditionInfo = {
@@ -1518,8 +1539,12 @@ var myUtil = {
                     //验证评分卡是否数字类型
                     var re = /^[0-9]+.?[0-9]*$/;   //判断字符串是否为数字     //判断正整数 /^[1-9]+[0-9]*]*$/
                     if(actionVal == '' || !re.test(actionVal) || actionVal == undefined){
-                        layer.msg("分值必须为数字，且不为空");
+                        layer.msg("分值必须为数字，且不为空",{time:2000});
                         sceneUtil.flag = false;
+                        layer.tips('分值不能为空且只能为数值', $(actionTd).find("a.actionVal"), {
+                            tips: 3,time:3000
+                            ,tipsMore: true
+                        });
                         return;
                     }
                     //动作值
@@ -1576,16 +1601,42 @@ var myUtil = {
                     var ysfText = $(e).find("a.con").text();
                     var val = $(e).find("a.val").attr("data-value");
                     var valText = $(e).find("a.val").text();
+
+                    if(val == '' || val == undefined){
+                        sceneUtil.flag = false;
+                        layer.tips('条件值不能为空', $(e).find("a.val"), {
+                            tips: 3,time:3000
+                            ,tipsMore: true
+                        });
+                        return ;
+                    }
+                    if(ysf == '' || ysf == undefined){
+                        sceneUtil.flag = false;
+                        layer.tips('运算符不能为空', $(e).find("a.con"), {
+                            tips: 3,time:3000
+                            ,tipsMore: true
+                        });
+                        return ;
+                    }
+                    if(itemv == '' || itemv == undefined){
+                        sceneUtil.flag = false;
+                        layer.tips('变量对象不能为空', $(e).find("a.itemC"), {
+                            tips: 3,time:3000
+                            ,tipsMore: true
+                        });
+                        return ;
+                    }
                     if (val == '' || ysf == '' || itemv == '') {
                         layer.msg('必选项不能为空');
                         sceneUtil.flag = false;
+                        $(e).addClass("error");
                         return ;
                     }
-                    //验证特殊符号
 
-                    if (val == undefined || ysf == undefined || itemv == undefined) {
+                    if (val == '' || ysf == '' || itemv == '') {
                         layer.msg('必选项不能为空');
                         sceneUtil.flag = false;
+                        $(e).addClass("error");
                         return ;
                     }
                     var conditionInfo = {
@@ -1607,6 +1658,15 @@ var myUtil = {
                     //参数为变量值
                     if($(e).hasClass("actionEntity")){
                         val = '#'+$(e).attr("data-key")+'#';
+                    }
+
+                    if(val == '' || val == undefined){
+                        sceneUtil.flag = false;
+                        layer.tips('变量对象不能为空', $(e), {
+                            tips: 3,time:3000
+                            ,tipsMore: true
+                        });
+                        return ;
                     }
                     if (val == '' || text == '' || paramId == '') {
                         layer.msg('必选项不能为空');
@@ -1637,10 +1697,12 @@ var myUtil = {
                 sceneUtil.getGradeRuleData();
                 if(!sceneUtil.flag){
                     layer.msg("请检查有必填项没填");
+                    sceneUtil.flag = true;
                     return;
                 }
                 if (sceneUtil.sceneId == '') {
                     layer.msg("必须选中一个场景哦");
+                    sceneUtil.flag = true;
                     return;
                 }
                 var iindex =  layer.msg('提交中..', {icon: 16,time:5000});
@@ -1659,6 +1721,7 @@ var myUtil = {
                     //条件 和结果集
                     vos: sceneUtil.sub.gradeForm
                 }
+                console.log(form);
                 //转json
                 var str = JSON.stringify(form);
                 //console.log(str);
@@ -1671,6 +1734,9 @@ var myUtil = {
                     success: function (message) {
                         layer.close(iindex);
                         console.log(message);
+                        if(message.code < 0){
+                            layer.alert(message.msg);
+                        }
                         if (message.code == '') {
 
                             if(sceneUtil.subType == 2){
@@ -1704,10 +1770,12 @@ var myUtil = {
             sceneUtil.getSceneRuleData();
             if(!sceneUtil.flag){
                 layer.msg("请检查有必填项没填");
+                sceneUtil.flag = true;
                 return;
             }
             if (sceneUtil.sceneId == '') {
                 layer.msg("必须选中一个场景哦");
+                sceneUtil.flag = true;
                 return;
             }
             var iindex =  layer.msg('提交中..', {icon: 16,time:5000});
@@ -1726,6 +1794,7 @@ var myUtil = {
                 //条件 和结果集
                 vos: sceneUtil.sub.gradeForm
             }
+            console.log(form);
             //转json
             var str = JSON.stringify(form);
             //console.log(str);
@@ -1738,7 +1807,10 @@ var myUtil = {
                 success: function (message) {
                     layer.close(iindex);
                     console.log(message);
-                    if (message.code == '') {
+                    if(message.code < 0){
+                        layer.alert(message.msg);
+                    }
+                    if (message.code == '' ) {
 
                         if(sceneUtil.subType == 2){
                             layer.msg('恭喜保存成功,是否关闭页面？', {
