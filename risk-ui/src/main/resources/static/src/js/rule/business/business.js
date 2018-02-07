@@ -83,7 +83,7 @@ layui.use(['table','form','laytpl','myutil','ht_auth'], function() {
                 , yes: function (index) {
                     //触发表单的提交事件
                     $('form.layui-form').find('button[lay-filter=formDemo]').click();
-                    layer.close(index);
+                   // layer.close(index);
                 },
             });
         });
