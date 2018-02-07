@@ -1,16 +1,19 @@
 package com.ht.risk.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.ht.risk.common.result.PageResult;
+import com.ht.risk.common.result.Result;
 import com.ht.risk.model.DroolsDetailLog;
+import com.ht.risk.model.DroolsLog;
 import com.ht.risk.service.DroolsDetailLogService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -41,5 +44,16 @@ public class DroolsProcessLogController {
         }
         return str;
     }
+
+	@GetMapping("getById")
+	@ResponseBody
+	@ApiOperation(value = "分页查询")
+	public Result<List<DroolsDetailLog>> getById(@RequestParam("logId") String id) {
+		Wrapper<DroolsDetailLog> wrapper = new EntityWrapper<>();
+		wrapper.eq("drools_logid",id);
+		List<DroolsDetailLog> list=droolsProcessLogService.selectList(wrapper);
+		System.out.println("dfdfdf<<<<<");
+		return Result.success(list);
+	}
 }
 

@@ -50,6 +50,7 @@ public class DroolsExcuteController {
     @Autowired
     private RuleSceneVersionService ruleSceneVersionService;
 
+    // 作废
     @SuppressWarnings("unchecked")
     @RequestMapping("/excuteDroolsScene")
     public RuleExcuteResult excuteDroolsScene(@RequestBody DroolsParamter paramter) {
