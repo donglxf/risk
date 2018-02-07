@@ -79,6 +79,35 @@ public class ActProcReleaseVo implements Serializable{
 
     private String cornText;
 
+    private String isBing;
+    private String isAutoValidate;
+    private String isManualValidate;
+
+
+    public String getIsBing() {
+        return isBing;
+    }
+
+    public void setIsBing(String isBing) {
+        this.isBing = isBing;
+    }
+
+    public String getIsAutoValidate() {
+        return isAutoValidate;
+    }
+
+    public void setIsAutoValidate(String isAutoValidate) {
+        this.isAutoValidate = isAutoValidate;
+    }
+
+    public String getIsManualValidate() {
+        return isManualValidate;
+    }
+
+    public void setIsManualValidate(String isManualValidate) {
+        this.isManualValidate = isManualValidate;
+    }
+
     public String getId() {
         return id;
     }

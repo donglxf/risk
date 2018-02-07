@@ -29,6 +29,7 @@
         <if test="modelVersion != null and modelVersion != '' ">
             and B.model_version = #{modelVersion}
         </if>
+        order by A.create_time desc
     </select>
 
 </mapper>

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.activiti.entity.ActProcRelease;
 import com.ht.risk.activiti.service.ActProcReleaseService;
+import com.ht.risk.activiti.vo.ActProcReleaseVo;
 import com.ht.risk.activiti.vo.VerficationModelVo;
 import com.ht.risk.api.model.activiti.ModelParamter;
 import com.ht.risk.api.model.activiti.RpcDeployResult;
@@ -20,9 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -46,15 +45,19 @@ public class ActivitiProcessController {
      * @return
      */
     @GetMapping("/page")
-    public PageResult<List<ActProcRelease>> queryProcReleaseForPage(Page<ActProcRelease> page, ActProcRelease actProcRelease){
+    public PageResult<List<ActProcReleaseVo>> queryProcReleaseForPage(Page<ActProcRelease> page, ActProcRelease actProcRelease){
         LOGGER.info("查询模型版本分页信息开始");
-        PageResult<List<ActProcRelease>> result = null;
+        PageResult<List<ActProcReleaseVo>> result = null;
         if(actProcRelease == null || actProcRelease.getModelId() == null){
             result =PageResult.success(null,0);
             return result;
         }
         Page<ActProcRelease> modelReleasePage = actProcReleaseService.queryProcReleaseForPage(page,actProcRelease);
-        result = PageResult.success(modelReleasePage.getRecords(),modelReleasePage.getTotal());
+        List<ActProcReleaseVo> releaseVos = new ArrayList<ActProcReleaseVo>(modelReleasePage.getRecords().size());
+        for (Iterator<ActProcRelease> iterator = modelReleasePage.getRecords().iterator(); iterator.hasNext();){
+            releaseVos.add(new ActProcReleaseVo(iterator.next()));
+        }
+        result = PageResult.success(releaseVos,modelReleasePage.getTotal());
         LOGGER.info("查询模型版本证分页信息结束");
         return result;
     }

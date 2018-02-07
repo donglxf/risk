@@ -12,10 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -66,22 +63,15 @@ public class ActProcReleaseController {
         Result<List<ActProcReleaseVo>> result = Result.build(0, "查询成功", queryList, pages.getTotal());
         return result;
     }
-    @PutMapping(value = "status")
+    @RequestMapping(value = "status")
     @ApiOperation(value = "发布.启用或停用模型")
-    public Result publishModelById(ActProcRelease actProcRelease, String flag) {
+    public Result publishModelById(ActProcRelease actProcRelease) {
         Result<Object> result = new Result<>();
-        //通过flag判断要修改的状态
-        if ("0".equals(flag)) {
-            actProcRelease.setIsEffect("1");
-        } else {
-            actProcRelease.setIsEffect("0");
-            actProcRelease.setVersionType("1");
-        }
-        boolean b = actProcReleaseService.updateById(actProcRelease);
-        if (b) {
-            result.setCode(1);
-        } else {
-            result.setCode(0);
+        boolean flag = actProcReleaseService.updateById(actProcRelease);
+        if(flag){
+            result = Result.success("更新成功！");
+        }else{
+            result = Result.error(1,"更新失败！");
         }
         return result;
     }
