@@ -1,6 +1,15 @@
-layui.use(['table','jquery'], function(){
+layui.config({
+    base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
+}).extend({ //设定模块别名
+    myutil: 'common' //如果 mymod.js 是在根目录，也可以不用设定别名
+});
+layui.use(['table','jquery','myutil'], function(){
     var table = layui.table;
     var $ = layui.jquery;
+    var common = layui.myutil;
+    var modelId = null;
+    //查询构造
+    common.business.init("",$("#business_ser"),"businessId_ser");
     //第一个实例
     table.render({
         elem: '#model_list'
@@ -9,10 +18,9 @@ layui.use(['table','jquery'], function(){
         ,id: 'testReload'
         ,page: true //开启分页
         ,cols: [[ //表头\
-             {field: 'name', title: '模型名称', width:"30%"}
-            ,{field: 'desc', title: '模型描述', width:"15%", sort: true,templet: '#deployTpl'}
-            ,{field: 'createTime', title: '创建时间', width:"20%"}
-            ,{fixed: 'right', width:150, align:'center', toolbar: '#modelBar', width: "35%"}
+             {field: 'modelName', title: '模型名称', width:"35%"}
+            ,{field: 'createDate', title: '创建时间', width:"35%"}
+            ,{fixed: 'right', width:150, align:'center', toolbar: '#modelBar', width: "30%"}
         ]]
     });
     table.render({
@@ -22,8 +30,9 @@ layui.use(['table','jquery'], function(){
         ,id: "versionReload"
         ,page: true //开启分页
         ,cols: [[ //表头\
-            {field: 'modelVersion', title: '模型版本', width:"20%"}
-            ,{field: 'status', title: '状态', width:"20%"}
+             {field: 'modelProcdefId', title: '模型定义ID', width:"20%"}
+            ,{field: 'modelVersion', title: '模型版本', width:"10%",templet:'#versionTpl'}
+            ,{field: 'isEffect', title: '状态', width:"10%", templet: '#statusTpl'}
             ,{field: 'createUser', title: '发布人', width:"20%"}
             ,{field: 'createTime', title: '发布时间', width:"20%"}
             ,{fixed: 'right', width:150, align:'center', toolbar: '#versionBar', width: "20%"}
@@ -33,16 +42,10 @@ layui.use(['table','jquery'], function(){
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
-        var modelId = data.id;
+        var modelId = data.modelId;
         var deploymentId = data.deploymentId;
         console.log(data);
-        if(layEvent === 'edit'){ //查看
-            showdetail(modelId);
-        }else if(layEvent === 'deploy'){// 发布测试版本
-            deploy(modelId);
-        } else if(layEvent === 'del'){ //删除
-            deleteModel(obj,modelId,deploymentId);
-        } else if(layEvent === 'version'){ //编辑
+         if(layEvent === 'version'){ //查看
             queryVersionList(modelId);
         }
     });
@@ -51,27 +54,28 @@ layui.use(['table','jquery'], function(){
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
-        var modelId = data.id;
+        var id = data.id;
         var deploymentId = data.deploymentId;
         console.log(data);
         if(layEvent === 'start'){ //启用
-            alert("启用");
+            updateRelease(id,0);
         }else if(layEvent === 'stop'){// 停用
-            alert("停用");
+            updateRelease(id,1);
         } else if(layEvent === 'publish'){ //发布
-            alert("发布");
+            updateRelease(id,0,1);
         }
     });
     var active = {
         reload: function(){
             var modelName = $('#modelName');
-            console.log(modelName.val());
+            var modelType = $("#businessId_ser");
             table.reload('testReload', {
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }
                 ,where: {
-                    "modelName": modelName.val()
+                    "modelName": modelName.val(),
+                    "modeType":modelType.val()
                 }
             });
         },
@@ -106,6 +110,29 @@ layui.use(['table','jquery'], function(){
         console.log(type);
         active[type] ? active[type].call(this) : '';
     });
+
+    // 启用
+    function updateRelease(procReleaseId,isEffect,versionType){
+        $.ajax({
+            cache : true,
+            type : "POST",
+            url : '/config/actProcRelease/status',
+            data:{
+                id:procReleaseId,
+                isEffect:isEffect,
+                versionType:versionType
+            },
+            timeout : 6000, //超时时间设置，单位毫秒
+            async : false,
+            error : function(request) {
+                layer.msg("网络异常！");
+            },
+            success : function(data) {
+                layer.msg(data.msg);
+                queryVersionList(modelId);
+            }
+        });
+    }
 });
 
 

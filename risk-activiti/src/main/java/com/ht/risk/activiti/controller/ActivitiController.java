@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.ht.risk.activiti.service.ActivitiService;
 import com.ht.risk.activiti.vo.ModelPage;
+import com.ht.risk.activiti.vo.ModelVo;
 import com.ht.risk.api.model.activiti.ModelParamter;
 import com.ht.risk.api.model.activiti.RpcDeployResult;
 import com.ht.risk.api.model.activiti.RpcStartParamter;
@@ -252,8 +253,8 @@ public class ActivitiController implements ModelDataJsonConstants {
     }
 
     @RequestMapping(value = "/list")
-    public PageResult<List<Model>> list(ModelPage modelPage) {
-        PageResult<List<Model>> data = null;
+    public PageResult<List<ModelVo>> list(ModelPage modelPage) {
+        PageResult<List<ModelVo>> data = null;
         try {
             if (modelPage == null) {
                 data = PageResult.error(1, "参数异常，分页信息为空！");
@@ -262,9 +263,23 @@ public class ActivitiController implements ModelDataJsonConstants {
             String modelName = StringUtils.isEmpty(modelPage.getModelName()) ? "" : modelPage.getModelName();
             modelName = StringUtils.isEmpty(modelName) ? "" : modelName;
             modelName = "%" + modelName + "%";
-            List<Model> list = repositoryService.createModelQuery().modelNameLike(modelName).listPage(modelPage.getPage(), 10);
-            Long count = repositoryService.createModelQuery().modelNameLike(modelName).count();
-            data = PageResult.success(list, count);
+            List<Model> list = null;
+            Long count = null;
+            if(StringUtils.isNotEmpty(modelPage.getModeType())){
+                list = repositoryService.createModelQuery().modelNameLike(modelName).modelCategory(modelPage.getModeType()).orderByCreateTime().desc().listPage(modelPage.getPage(), modelPage.getLimit());
+                count = repositoryService.createModelQuery().modelNameLike(modelName).modelCategory(modelPage.getModeType()).count();
+            }else{
+                list = repositoryService.createModelQuery().modelNameLike(modelName).orderByCreateTime().desc().listPage(modelPage.getPage(), modelPage.getLimit());
+                count = repositoryService.createModelQuery().modelNameLike(modelName).count();
+            }
+            List<ModelVo> ovs = null;
+            if(list != null && list.size() >0){
+                ovs = new ArrayList<ModelVo>();
+                for (Iterator<Model> iterator = list.iterator();iterator.hasNext();){
+                    ovs.add(new ModelVo(iterator.next()));
+                }
+            }
+            data = PageResult.success(ovs, count);
         } catch (Exception e) {
             data = PageResult.error(1, "查询模型列表失败");
             LOGGER.error("查询模型列表失败!", e);

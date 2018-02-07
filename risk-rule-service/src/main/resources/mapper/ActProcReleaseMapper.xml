@@ -47,8 +47,7 @@
 	<select id="findModelTaskList" resultMap="entityModelTask">
 		SELECT DISTINCT
 		<include refid="BaseFindColumnSqlModelTask"></include>
-		FROM act_proc_release t1 LEFT JOIN risk_model_task t2 ON t1.ID =
-		t2.model_procdef_id 
+		FROM risk_model_task
 		<where>
 		  ${ew.sqlSegment}
 		</where>

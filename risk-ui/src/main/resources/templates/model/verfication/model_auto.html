@@ -38,8 +38,8 @@
     </form>
 </div>
 <script src="/rule/ui/plugins/layui/layui.js"></script>
-<script src="/rule/ui/src/js/model2/model_util.js"></script>
-<script src="/rule/ui/src/js/model2/model_verification.js"></script>
+<script src="/rule/ui/src/js/model/model_util.js"></script>
+<script src="/rule/ui/src/js/model/model_verification.js"></script>
 <script>
     layui.use(['table', 'jquery', 'laydate', 'form'], function () {
         var $ = layui.jquery;
@@ -55,7 +55,8 @@
                 var modelAutoVerification = new ModelAutoVerification();
                 var contents = modelAutoVerification.initModel(data);
                 var form1 = $("#model_valiable_form_auto");
-                form1.html(contents)
+                var html = form1.html();
+                form1.html(html+contents)
                 form.render();
             }
         });

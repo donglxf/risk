@@ -67,6 +67,8 @@ public class ReceiverService {
                     ActExcuteTask task = actExcuteTaskMapper.selectById(Long.parseLong(result));
                     if (task != null) {
                         task.setStatus("1");
+                        Long  startL = task.getCreateTime().getTime();
+                        task.setSpendTime(System.currentTimeMillis() - startL);
                         actExcuteTaskMapper.updateById(task);
                     }
                     flag = false;

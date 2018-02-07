@@ -58,6 +58,7 @@
 
 <script>
     function graphTime(da){
+        console.log(da);
         var xAxisArr=new Array(da.ruleMap.length);
         var seriesArr=new Array(da.listMap.length);
         for(var i=0;i<da.ruleMap.length ;i++){
@@ -132,8 +133,8 @@
         });
 
         form.on('submit(formDemo)',function (data) {
-            $
-                .ajax({
+            console.log('submit');
+            $.ajax({
                     cache: true,
                     type: "POST",
                     url: '/config/modelStatistic/', // 数据接口

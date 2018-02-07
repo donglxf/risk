@@ -74,7 +74,39 @@ public class ActProcRelease extends Model<ActProcRelease> {
 	@TableField("version_type")
 	@ApiModelProperty(required= true,value = "版本类型，0-测试版，1-正式版")
 	private String versionType;
-    /**
+
+	@TableField("is_bind")
+	private String isBing;
+	@TableField("is_auto_validate")
+	private String isAutoValidate;
+	@TableField("is_manual_validate")
+	private String isManualValidate;
+
+	public String getIsBing() {
+		return isBing;
+	}
+
+	public void setIsBing(String isBing) {
+		this.isBing = isBing;
+	}
+
+	public String getIsAutoValidate() {
+		return isAutoValidate;
+	}
+
+	public void setIsAutoValidate(String isAutoValidate) {
+		this.isAutoValidate = isAutoValidate;
+	}
+
+	public String getIsManualValidate() {
+		return isManualValidate;
+	}
+
+	public void setIsManualValidate(String isManualValidate) {
+		this.isManualValidate = isManualValidate;
+	}
+
+	/**
      * 是否验证通过： 0-待验证，1-验证通过，2-验证不通过；默认为0;
      */
 	@TableField("is_validate")
@@ -260,4 +292,5 @@ public class ActProcRelease extends Model<ActProcRelease> {
 			", createUser=" + createUser +
 			"}";
 	}
+
 }

@@ -27,6 +27,7 @@ create table `risk_validate_batch` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_bin;
 
+
 create table `act_proc_release` (
   `id` bigint(20) not null comment '主键',
   `model_id` varchar(64) character set utf8 collate utf8_bin not null comment '模型id，与 act_re_model.id_ 关联',
@@ -35,6 +36,7 @@ create table `act_proc_release` (
   `model_version` varchar(64) character set utf8 collate utf8_bin null default null comment '模型版本',
   `model_category` varchar(64) character set utf8 collate utf8_bin null default null comment '模型分类',
   `version_type` varchar(2) character set utf8 collate utf8_bin null default null comment '版本类型，0-测试版，1-正式版',
+  `is_bind` char(1) character set utf8 collate utf8_bin not null default '0' comment '是否绑定： 0-未绑定，1-已绑定;',
   `is_validate` char(1) character set utf8 collate utf8_bin not null default '0' comment '是否验证通过： 0-待验证，1-验证通过，2-验证不通过；默认为0;',
   `is_auto_validate` char(1) character set utf8 collate utf8_bin not null default '0' comment '是否自动验证通过： 0-待验证，1-验证通过，2-验证不通过；默认为0;',
   `is_manual_validate` char(1) character set utf8 collate utf8_bin not null default '0' comment '是否手动验证通过： 0-待验证，1-验证通过，2-验证不通过；默认为0;',
