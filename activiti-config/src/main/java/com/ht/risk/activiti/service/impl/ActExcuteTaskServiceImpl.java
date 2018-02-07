@@ -66,8 +66,8 @@ public class ActExcuteTaskServiceImpl extends BaseServiceImpl<ActExcuteTaskMappe
         List<ActProcRelease> ruleMap=new ArrayList<ActProcRelease>();
         for (Map<String,Object> ma:listMap){
             Map<String,Object> paramMap=new HashMap<String,Object>();
-            paramMap.put("procReleaseId",ma.get("PROC_RELEASE_ID"));
-            ActProcRelease list=actProcReleaseMapper.selectById(String.valueOf(ma.get("PROC_RELEASE_ID")));  //    getModelExecInfo(paramMap);
+            paramMap.put("procReleaseId",ma.get("proc_release_id"));
+            ActProcRelease list=actProcReleaseMapper.selectById(String.valueOf(ma.get("proc_release_id")));  //    getModelExecInfo(paramMap);
             ruleMap.add(list);
         }
         Map<String, Object> resultMap=new HashMap<String,Object>();
