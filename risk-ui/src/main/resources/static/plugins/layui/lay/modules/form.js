@@ -421,6 +421,7 @@ layui.define('layer', function (exports) {
             var othis = $(this)
                 , vers = othis.attr('lay-verify').split('|')
                 , verType = othis.attr('lay-verType') //提示方式
+                ,max_len = othis.attr('lay-verify-max')
                 , value = othis.val();
 
             othis.removeClass(DANGER);
@@ -457,6 +458,15 @@ layui.define('layer', function (exports) {
                         othis.addClass(DANGER);
                         return stop = true;
                     }
+                    //验证字符长度
+                    if(max_len != undefined && max_len != ''){
+                        if(value.length > max_len){
+                            layer.msg('输入长度不能超过:'+max_len, {icon: 5, shift: 6});
+                            if (!device.android && !device.ios) item.focus(); //非移动设备自动定位焦点
+                            othis.addClass(DANGER);
+                            return stop = true;
+                        }
+                    }
                 }
             });
             if (stop) return stop;
@@ -489,6 +499,73 @@ layui.define('layer', function (exports) {
         });
     };
 
+    //表单元素 鼠标移开验证
+    var checkOnBlur = function () {
+        var input = $(this), verify = form.config.verify, stop = null
+            , DANGER = 'layui-form-danger', field = {}
+          //  , verifyElem = elem.find('*[lay-verify]') //获取需要校验的元素
+          //  , formElem = button.parents('form')[0] //获取当前所在的form元素，如果存在的话
+          //  , fieldElem = input.find('input,select,textarea') //获取所有表单域
+          //  , filter = button.attr('lay-filter'); //获取过滤器
+
+
+        //开始校验
+            var othis = $(this)
+                , vers = othis.attr('lay-verify').split('|')
+                , verType = othis.attr('lay-verType') //提示方式
+                ,item = othis
+                ,max_len = othis.attr('lay-verify-max')
+                , value = othis.val();
+            othis.removeClass(DANGER);
+            layui.each(vers, function (_, thisVer) {
+                var isTrue //是否命中校验
+                    , errorText = '' //错误提示文本
+                    , isFn = typeof verify[thisVer] === 'function';
+
+                //匹配验证规则
+                if (verify[thisVer]) {
+                    //修改前的代码
+                    //var isTrue = isFn ? errorText = verify[thisVer](value, item) : !verify[thisVer][0].test(value);
+                    //修改后的代码,增加为空判断，如果为空则不验证，不为空则验证 by tanrq 2018/1/14
+                    var isTrue = isFn ? errorText = verify[thisVer](value, item) : ($.inArray("required", vers) >= 0 ? !verify[thisVer][0].test(value) : value && !verify[thisVer][0].test(value));
+                    errorText = errorText || verify[thisVer][1];
+                    //如果是必填项或者非空命中校验，则阻止提交，弹出提示
+                    if (isTrue) {
+                        //提示层风格
+                        if (verType === 'tips') {
+                            layer.tips(errorText, function () {
+                                if (typeof othis.attr('lay-ignore') !== 'string') {
+                                    if (item.tagName.toLowerCase() === 'select' || /^checkbox|radio$/.test(item.type)) {
+                                        return othis.next();
+                                    }
+                                }
+                                return othis;
+                            }(), {tips: 1});
+                        } else if (verType === 'alert') {
+                            layer.alert(errorText, {title: '提示', shadeClose: true});
+                        } else {
+                            layer.msg(errorText, {icon: 5, shift: 6});
+                        }
+                        if (!device.android && !device.ios) item.focus(); //非移动设备自动定位焦点
+                        othis.addClass(DANGER);
+                        return stop = true;
+                    }
+                    //验证字符长度
+                    if(max_len != undefined && max_len != ''){
+                        if(value.length > max_len){
+                            layer.msg('输入长度不能超过:'+max_len, {icon: 5, shift: 6});
+                            if (!device.android && !device.ios) item.focus(); //非移动设备自动定位焦点
+                            othis.addClass(DANGER);
+                            return stop = true;
+                        }
+                    }
+                }
+            });
+            if (stop) return stop;
+
+        if (stop) return false;
+
+    };
     //自动完成渲染
     var form = new Form()
         , dom = $(document), win = $(window);
@@ -505,6 +582,7 @@ layui.define('layer', function (exports) {
 
     //表单提交事件
     dom.on('submit', ELEM, submit)
+        .on('blur','*[lay-verify]',checkOnBlur)
         .on('click', '*[lay-submit]', submit);
 
     exports(MOD_NAME, form);

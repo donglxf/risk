@@ -7,7 +7,10 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 /**
@@ -44,12 +47,17 @@ public class ActionParamValueInfo extends Model<ActionParamValueInfo> {
      */
 	@TableField("action_param_id")
 	@ApiModelProperty(required= true,value = "动作参数")
+	@NotNull(message = "动作参数ID不能为空")
 	private Long actionParamId;
     /**
      * 参数值
      */
 	@TableField("param_value")
 	@ApiModelProperty(required= true,value = "参数值")
+	@NotNull(message = "动作参数值不能为空")
+	@Length(min = 1, max = 200, message = "动作参数值长度超长了")
+	@Pattern(regexp="^[^ `~!@#$%^&*()+=|{}''\\\\[\\\\]<>/~@#￥%……&*（）——+|{}]+$",message="动作参数值不能包含特殊字符")
+	//@Pattern(regexp="^[a-zA-Z0-9]+$",message="出生日期格式不正确")
 	private String paramValue;
 	/**
 	 * 参数值

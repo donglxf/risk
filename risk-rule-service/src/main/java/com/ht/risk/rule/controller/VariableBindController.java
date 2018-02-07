@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.ht.risk.api.comment.VerficationTypeEnum;
 import com.ht.risk.api.constant.rule.RuleConstant;
 import com.ht.risk.api.model.drools.DroolsParamter;
+import com.ht.risk.common.comenum.RuleCallTypeEnum;
 import com.ht.risk.rule.entity.*;
 import com.ht.risk.rule.service.*;
 //import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
@@ -180,6 +181,7 @@ public class VariableBindController {
             }
         }
 //        drools.setVersion(String.valueOf(entityInfo.getSenceVersionId())); // 版本表id
+        drools.setType(RuleCallTypeEnum.rule.getType());
         drools.setVersion(String.valueOf(entityInfo.getVersion())); // 版本号
         drools.setSence(entityInfo.getSceneIdentify());
         drools.setBatchId(String.valueOf(batch.getId()));
@@ -276,6 +278,7 @@ public class VariableBindController {
                 }
                 DroolsParamter drools = new DroolsParamter();
                 drools.setVersion(String.valueOf(entityInfo.getVersion()));
+                drools.setType(RuleCallTypeEnum.rule.getType());
     //            drools.setVersion(String.valueOf(entityInfo.getSenceVersionId()));
                 drools.setSence(entityInfo.getSceneIdentify());
                 drools.setData(data);

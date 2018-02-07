@@ -20,13 +20,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">名称:</label>
         <div class="layui-input-block">
-            <input type="text" name="conName" required  lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
+            <input type="text" name="conName"  lay-verify-max="200"  required  lay-verify="required|name" placeholder="请输入名称" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">code:</label>
         <div class="layui-input-block">
-            <input type="text" name="conCode" required  lay-verify="required" placeholder="请输入code" autocomplete="off" class="layui-input">
+            <input type="text" name="conCode"  lay-verify-max="50"  required  lay-verify="required|name" placeholder="请输入code" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item" style="display: none;">

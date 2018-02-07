@@ -113,5 +113,6 @@ public class ActionInfoController {
     	ActionInfo entityInfo = actionInfoService.selectById(id);
 		return Result.success(entityInfo);
 	}
+
 }
 

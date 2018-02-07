@@ -43,13 +43,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">标题:</label>
         <div class="layui-input-block">
-            <input type="text" name="title"  required  lay-verify="required" placeholder="请输入标题名" autocomplete="off" class="layui-input form-control">
+            <input type="text" name="title"  required  lay-verify="required|name"  lay-verify-max="128"  placeholder="请输入标题名" autocomplete="off" class="layui-input form-control">
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">相关描述</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入描述内容"name="comment" class="layui-textarea form-control"></textarea>
+            <textarea placeholder="请输入描述内容" name="comment" class="layui-textarea form-control"></textarea>
         </div>
     </div>
     <div class="layui-form-item" style="display: none;">
