@@ -1,6 +1,9 @@
 package com.ht.risk.activiti.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.activiti.entity.ActExcuteTask;
 import com.ht.risk.activiti.entity.ActProcRelease;
 import com.ht.risk.activiti.service.ActExcuteTaskService;
@@ -9,15 +12,14 @@ import com.ht.risk.activiti.vo.VerficationModelVo;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.api.model.activiti.RpcModelReleaseInfo;
 import com.ht.risk.api.model.activiti.RpcModelVerfication;
+import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
+import com.ht.risk.common.util.ObjectUtils;
 import com.ht.risk.common.util.StringUtils;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -127,15 +129,37 @@ public class ActivitiConfigController {
     @ApiOperation(value = "模型统计图")
     public Result<Map<String, Object>> modelStatistic(HttpServletRequest request) {
         Map<String, String[]> paramMap = request.getParameterMap();
-        String startTime= StringUtils.isNotBlank(paramMap.get("startDate")[0]) ? paramMap.get("startDate")[0] +" 00:00:00" :null ;
-        String endTime=StringUtils.isNotBlank(paramMap.get("endDate")[0]) ? paramMap.get("endDate")[0] +" 23:59:59" :null ;
-        String getWay=paramMap.get("getWay")[0];
         Map<String, Object> map = new HashMap<>();
-        map.put("startTime", startTime);
-        map.put("endTime", endTime);
-        map.put("getWay", getWay);
+        if(ObjectUtils.isNotEmpty(paramMap)) {
+            String startTime = StringUtils.isNotBlank(paramMap.get("startDate")[0]) ? paramMap.get("startDate")[0] + " 00:00:00" : null;
+            String endTime = StringUtils.isNotBlank(paramMap.get("endDate")[0]) ? paramMap.get("endDate")[0] + " 23:59:59" : null;
+            String getWay = paramMap.get("getWay")[0];
+            map.put("startTime", startTime);
+            map.put("endTime", endTime);
+            map.put("getWay", Integer.parseInt(getWay));
+        }
         Map<String, Object> resultMap = actExcuteTaskService.getModelGraph (map); // 平均响应时间
         return Result.success(resultMap);
+    }
+
+
+    @GetMapping("/model/page")
+    @ApiOperation(value = "分页查询")
+    public PageResult<List<ActExcuteTask>> page(String date, String logId, Integer page, Integer limit) {
+
+        Wrapper<ActExcuteTask> wrapper = new EntityWrapper<>();
+        if (StringUtils.isNotBlank(date)) {
+            wrapper.or().ge("create_time", date);
+
+        }
+        if(StringUtils.isNotBlank(logId)){
+            wrapper.eq("id",logId);
+        }
+        Page<ActExcuteTask> pages = new Page<>();
+        pages.setCurrent(page);
+        pages.setSize(limit);
+        pages = actExcuteTaskService.selectPage(pages,wrapper);
+        return PageResult.success(pages.getRecords(), pages.getTotal());
     }
 
 

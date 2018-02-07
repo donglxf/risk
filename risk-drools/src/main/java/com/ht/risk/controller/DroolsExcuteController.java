@@ -155,12 +155,8 @@ public class DroolsExcuteController {
         try {
             log.info("规则验证入参：" + JSON.toJSONString(paramter));
             Map<String, Object> parmaMap = new HashMap<String, Object>();
-            boolean bool = false; // true-正式,false-测试
-            if (RuleCallTypeEnum.business.getType().equals(paramter.getType())) { // 业务调用
-                bool = true;
-            } else if (RuleCallTypeEnum.model.getType().equals(paramter.getType())) { // 模型调用
-                bool = true;
-            } else if (RuleCallTypeEnum.rule.getType().equals(paramter.getType())) { // 规则调用
+            boolean bool = true; // true-正式,false-测试
+            if (RuleCallTypeEnum.rule.getType().equals(paramter.getType())) { // 规则调用
                 bool = false;
             }
 
@@ -227,7 +223,7 @@ public class DroolsExcuteController {
 //            ruleResult.setRuleList(li);
 //            ruleResult.setResult(reulst);
 
-            data = new RuleExcuteResult(0, "success", saveLog(object, paramter, ruleVersion, bool, executeTime));
+            data = new RuleExcuteResult(0, "success", saveLog(object, paramter, ruleVersion, executeTime));
         } catch (Exception e) {
             e.printStackTrace();
             data = new RuleExcuteResult(1, e.getMessage(), null);
@@ -236,7 +232,7 @@ public class DroolsExcuteController {
         return data;
     }
 
-    public RuleStandardResult saveLog(RuleExecutionObject object, DroolsParamter paramter, RuleSceneVersion ruleVersion, boolean bool, Long executeTime) {
+    public RuleStandardResult saveLog(RuleExecutionObject object, DroolsParamter paramter, RuleSceneVersion ruleVersion, Long executeTime) {
         List<String> logList = new ArrayList<String>();
         RuleExecutionResult res = (RuleExecutionResult) object.getGlobalMap().get("_result");
         List<String> reulst = (List<String>) res.getMap().get("result");
@@ -247,7 +243,8 @@ public class DroolsExcuteController {
             set.addAll(li);
             newList.addAll(set);
         }
-        if (bool) {
+        if (RuleCallTypeEnum.business.getType().equals(paramter.getType()) ||
+                RuleCallTypeEnum.model.getType().equals(paramter.getType())) {
             DroolsLog entity = new DroolsLog();
             entity.setType(paramter.getType());
             entity.setProcinstId(Long.parseLong(paramter.getProcessInstanceId()));
