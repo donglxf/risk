@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ht.risk.api.model.eip.QuotaApplyDtoIn;
+import com.ht.risk.api.model.eip.QuotaApplyDtoOut;
 import com.ht.ussp.core.Result;
 
-@FeignClient("RISK-EIP")
+@FeignClient("CLMS-LIMIT-SERVICE")
 public interface CreditLimitRpc {
     @GetMapping(value = "/quota/apply", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    Result<Integer> callQuotaApply(@RequestBody QuotaApplyDtoIn quotaApplyDtoIn);
+    Result<QuotaApplyDtoOut> callQuotaApply(@RequestBody QuotaApplyDtoIn quotaApplyDtoIn);
 }

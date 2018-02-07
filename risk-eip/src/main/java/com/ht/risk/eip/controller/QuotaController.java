@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ht.risk.api.feign.eip.CreditLimitRpc;
 import com.ht.risk.api.model.eip.QuotaApplyDtoIn;
+import com.ht.risk.api.model.eip.QuotaApplyDtoOut;
 import com.ht.ussp.core.Result;
 
 import io.swagger.annotations.Api;
@@ -24,9 +25,9 @@ public class QuotaController {
 
     @PostMapping("/generate")
     @ApiOperation(value = "授信额度生成",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<Integer> generateQuota(@RequestBody QuotaApplyDtoIn quotaApplyDtoIn){
+    public Result<QuotaApplyDtoOut> generateQuota(@RequestBody QuotaApplyDtoIn quotaApplyDtoIn){
     	System.out.println("generate:"+quotaApplyDtoIn.getProductCode());
-        Result<Integer> result =  creditLimitRpc.callQuotaApply(quotaApplyDtoIn);
+        Result<QuotaApplyDtoOut> result =  creditLimitRpc.callQuotaApply(quotaApplyDtoIn);
       return result;
     }
     
