@@ -60,6 +60,11 @@ layui.use([ 'table', 'form', 'myutil', 'laydate' ], function() {
 			templet : '#task_status',
 			unresize : true,
 			fixed : 'right'
+		},{
+			field : 'cornText',
+			event : 'setTasK',
+			title : 'corn表达式',
+			fixed : 'right'
 		}, {
 			field : 'conId',
 			title : '操作',
@@ -74,7 +79,6 @@ layui.use([ 'table', 'form', 'myutil', 'laydate' ], function() {
 	modelTableActive = {
         reload: function(){
             //var demoReload = $('#demoReload');
-        	alert($('#model_name').val());
             //执行重载
             table.reload('modelTable', {
                 page: {
@@ -97,14 +101,12 @@ layui.use([ 'table', 'form', 'myutil', 'laydate' ], function() {
 			},
 					function(data) {
 						//设置表单初始值
-						console.log(data.data);
 						if (undefined != data.data.cornText) {
 							taskId = data.data.id;
 							$("#iframe_corn_config").contents().find("#cron")
 									.val(data.data.cornText);
 							$("#iframe_corn_config").contents().find("#btnFan")
 									.click();
-							//							$("#cron",document.frames("iframe_corn_config").document).val("123");
 						} else {
 							$("#iframe_corn_config").contents().find("#cron")
 									.val("");
@@ -112,13 +114,6 @@ layui.use([ 'table', 'form', 'myutil', 'laydate' ], function() {
 									.click();
 							taskId = -1;
 						}
-						//					form.render();
-						//					  layer.open({
-						//						  	type: 2, 
-						//						  	area: ['100%', '100%'],
-						//						  	offset: ['5px', '5px'],
-						//						  	content: ['http://cron.qqe2.com/', 'no'] //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-						//							}); 
 					}, 'json');
 			//动态渲染form
 			$("#div_task_config").show();
@@ -128,6 +123,7 @@ layui.use([ 'table', 'form', 'myutil', 'laydate' ], function() {
 			var data = obj.data;
 			layer.confirm('启动任务,修改任务状态，添加到任务调度器', function(index) {
 				$.get(preModelTaskUrl + "startModelTask/" + data.id, function(data) {
+					modelTableActive.reload();
 				}, 'json');
 				layer.close(index);
 			});
@@ -137,6 +133,7 @@ layui.use([ 'table', 'form', 'myutil', 'laydate' ], function() {
 			var data = obj.data;
 			layer.confirm('停止任务,修改任务状态，从任务调度器删除', function(index) {
 				$.get(preModelTaskUrl + "stopModelTask/" + data.id, function(data) {
+					modelTableActive.reload();
 				}, 'json');
 				layer.close(index);
 			});
@@ -155,6 +152,7 @@ layui.use([ 'table', 'form', 'myutil', 'laydate' ], function() {
 				layer.msg('操作成功', {
 					icon : 1
 				});
+				modelTableActive.reload();
 			} else {
 				layer.msg('操作失败', {
 					icon : 2
@@ -170,9 +168,11 @@ layui.use([ 'table', 'form', 'myutil', 'laydate' ], function() {
 		//刪除任务
 		layer.confirm('真的删除行么', function(index) {
 			$.get(preModelTaskUrl + "delete/" + taskId, function(data) {
+				modelTableActive.reload();
 			}, 'json');
 			layer.close(index);
 		});
+		modelTableActive.reload();
 	});
 
 	function datetimeFormat_1(longTypeDate) {
