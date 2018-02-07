@@ -22,7 +22,7 @@ public class OfflineTaskController {
     
     @RequestMapping(value = "/offlinetask/edit",method = RequestMethod.GET)
     public String ruleConstantEdit(){
-    	return "rule/constant/rule_constant_edit";
+    	return "rule/offlineTask/rule_offline_task_edit";
     }
     
     @RequestMapping(value = "/offlinetask/itemEdit",method = RequestMethod.GET)
