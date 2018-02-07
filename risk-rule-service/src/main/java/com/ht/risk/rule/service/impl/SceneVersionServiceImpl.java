@@ -129,8 +129,11 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
         List<Map<String,Object>> ruleMap=new ArrayList<Map<String,Object>>();
         for (Map<String,Object> ma:listMap){
             Map<String,Object> paramMap=new HashMap<String,Object>();
-            paramMap.put("versionId",ma.get("senceVersionId"));
             Map<String,Object> list=sceneVersionMapper.getRuleExecInfo(paramMap);
+            if(list ==  null || list.size() == 0){
+                continue;
+            }
+            paramMap.put("versionId",ma.get("senceVersionId"));
             ruleMap.add(list);
         }
         Map<String, Object> resultMap=new HashMap<String,Object>();

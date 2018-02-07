@@ -14,20 +14,21 @@
     </div>
     <button class="layui-btn" data-type="reload">查询</button>-->
 
-
-    <div class="layui-row">
+    <div class="layui-row layui-form">
         <div class="layui-col-xs12">
-            <div class="layui-col-xs6" style="padding-right: 10px">
+            <div class="layui-col-xs5" style="padding-right: 10px">
                 <div class="demoTable" style="padding:10px 10px 0px 10px">
-                    模型名称：
+                    查询条件：
                     <div class="layui-inline">
-                        <input class="layui-input" name="id" id="modelName" autocomplete="off">
+                        <input class="layui-input" name="id" id="modelName" autocomplete="off" placeholder="模型名称">
+                    </div>
+                    <div class="layui-input-inline" id="business_ser">
                     </div>
                     <button class="layui-btn" data-type="reload" id="model_search">查询</button>
                 </div>
                 <table id="model_list" lay-filter="model" lay-data="{id: 'idModel'}"></table>
             </div>
-            <div class="layui-col-xs6">
+            <div class="layui-col-xs7">
                 <div class="demoTable" style="padding:10px 10px 0px 10px">
                     模型版本：
                     <div class="layui-inline">
@@ -44,11 +45,19 @@
 
 
 
-<script type="text/html" id="deployTpl">
-    {{#  if(d.deploymentId != '' && d.deploymentId != null){ }}
-    <span>已部署</span>
+<script type="text/html" id="statusTpl">
+    {{#  if(d.isEffect == '0'){ }}
+    <span>启用</span>
     {{#  } else { }}
-    <span>未部署</span>
+    <span>停用</span>
+    {{#  } }}
+</script>
+
+<script type="text/html" id="versionTpl">
+    {{#  if(d.versionType == '1'){ }}
+    <span>{{d.modelVersion}} </span>
+    {{#  } else { }}
+    <span>(暂无)</span>
     {{#  } }}
 </script>
 

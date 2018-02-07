@@ -12,6 +12,7 @@ import com.ht.risk.activiti.mapper.ActProcReleaseMapper;
 import com.ht.risk.activiti.mapper.RiskValidateBatchMapper;
 import com.ht.risk.activiti.rpc.ActivitiRpc;
 import com.ht.risk.activiti.service.ActProcReleaseService;
+import com.ht.risk.activiti.vo.ActProcReleaseVo;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.model.activiti.ModelParamter;
 import com.ht.risk.api.model.activiti.RpcDeployResult;
@@ -54,7 +55,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
     public Page<ActProcRelease> queryProcReleaseForPage(Page<ActProcRelease> page, ActProcRelease actProcRelease) {
         EntityWrapper<ActProcRelease> entityWrapper = new EntityWrapper<ActProcRelease>();
         entityWrapper.setEntity(actProcRelease);
-        return page.setRecords(actProcReleaseMapper.selectPage(page, entityWrapper));
+        return page.setRecords( actProcReleaseMapper.selectPage(page, entityWrapper));
     }
 
 

@@ -22,6 +22,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
         return false;
     });
     form.on('submit(verfication)', function (data) {
+        console.log(data);
         layer.load();
         $.ajax({
             cache: true,

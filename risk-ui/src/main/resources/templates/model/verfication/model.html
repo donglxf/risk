@@ -34,6 +34,7 @@
     layui.use(['table', 'jquery', 'laydate', 'form'], function () {
         var $ = layui.jquery;
         var form = layui.form;
+        layer.load();
         $.ajax({
             type: "get",
             url: "/rule/service/actProcRelease/scene/variable/manual",
@@ -42,8 +43,7 @@
             },
             dataType: "json",
             success: function (data) {
-                console.log("manual############"+data);
-                console.log(data);
+                layer.closeAll('loading');
                 $("#model_version").val(data.data.modelVersion);
                 $("#model_procDefId").val(data.data.modelProcdefId);
                 var modelVerification = new ModelVerification();

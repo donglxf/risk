@@ -269,6 +269,7 @@ ModelAutoVerification.prototype = {
      * @returns {string}
      */
     initInput: function (name, bindTable, bindColumn) {
+        console.log(bindTable)
         var html = ''
         html += '<div class="layui-input-inline" style="margin: 0px"><input value= "' + bindTable + '"' + 'type="text" name="' + name + "#table" + '"  style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"></div>'
         html += '<div class="layui-input-inline" style="margin: 0px"><input value= "' + bindColumn + '"' + 'type="text" name="' + name + "#column" + '"  style="width: auto" placeholder="未绑定" autocomplete="off" class="layui-input"</div>'
@@ -281,10 +282,17 @@ ModelAutoVerification.prototype = {
      渲染单个变量
      */
     initOneValible: function (valible) {
+        console.log(valible);
         var senceVersionId = valible.senceVersionId;
         var variableCode = valible.variableCode;
         var bindTable = valible.bindTable;
+        if (typeof(bindTable) == "undefined"){
+            bindTable = "";
+        }
         var bindColumn = valible.bindColumn;
+        if (typeof(bindColumn) == "undefined"){
+            bindColumn = "";
+        }
         var name = senceVersionId + '#' + variableCode
         return this.initInput(name, bindTable, bindColumn);
     },
@@ -296,20 +304,13 @@ ModelAutoVerification.prototype = {
      * @returns {string}
      */
     initDiv: function (data){
-        var size = 3;
         var length = data.length;
-        var count = Math.ceil(length / size);
         var html = '';
-
-        for (var i = 0; i < count; i++) {
-
-            for (var j = i; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
-                html += '<div class="layui-form-item">';
-                var index = (i + 1) * (j + 1) - 1;
-                html += this.initLabel(data[index].variableName);//包含一个div
-                html += this.initOneValible(data[index]); //包含两个div
-                html += '</div>';
-            }
+        for (var i = 0; i < length; i++) {
+            html += '<div class="layui-form-item">';
+            html += this.initLabel(data[i].variableName);//包含一个div
+            html += this.initOneValible(data[index]); //包含两个div
+            html += '</div>';
         }
         return html;
     },
@@ -324,9 +325,9 @@ ModelAutoVerification.prototype = {
         var html = '<fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;font-size: 16px">\n';
         html += '<legend style="font-size: 16px">' + senceName + '</legend>\n<div style="padding-top: 10px">';
         html += '<div class="layui-form-item">'
-        html += '<div class="layui-input-inline" style="margin: 0px"><input  disabled="disabled"  value="变量名称" type="text"  lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
-        html += '<div class="layui-input-inline" style="margin: 0px" ><input  disabled="disabled"  value="数据表" type="text" lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
-        html += '<div class="layui-input-inline" style="margin: 0px"><input  disabled="disabled"  value="字段" type="text" lay-verify="required" style="width: 400px" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" style="margin: 0px"><input  disabled="disabled"  value="变量名称" type="text"  lay-verify="required" style="width: 400px;font-weight:bold;" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" style="margin: 0px" ><input  disabled="disabled"  value="数据表" type="text" lay-verify="required" style="width: 400px;font-weight:bold;" autocomplete="off" class="layui-input"></div>'
+        html += '<div class="layui-input-inline" style="margin: 0px"><input  disabled="disabled"  value="字段" type="text" lay-verify="required" style="width: 400px;font-weight:bold;" autocomplete="off" class="layui-input"></div>'
         html += '</div>'
         html += this.initDiv(valiableData);
         html += '</div></fieldset>';
@@ -339,7 +340,8 @@ ModelAutoVerification.prototype = {
      * @returns {string}
      */
     initModel: function (data) {
-        var senceData = data.variableMap;
+        console.log(data);
+        var senceData = data.data.variableMap;
         var html = '';
         for (var i = 0; i < senceData.length; i++) {
             html += this.initSence(senceData[i]);

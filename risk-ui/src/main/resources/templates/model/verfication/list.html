@@ -56,4 +56,21 @@
 <script src="/rule/ui/src/js/model/model_verification.js"></script>
 <script src="/rule/ui/src/js/model/model_config.js"></script>
 </body>
+
+<script type="text/html" id="bindTpl">
+    {{#  if(d.isBing == 0){ }}
+    <span>未绑定</span>
+    {{#  } else { }}
+    <span>已绑定</span>
+    {{#  } }}
+</script>
+<script type="text/html" id="verficationTpl">
+    {{#  if(d.isValidate == 0){ }}
+    <span>待验证</span>
+    {{#  } else if(d.isValidate == 1){ }}
+    <span>验证通过</span>
+    {{#  } else if(d.isValidate == 2) { }}
+    <span>验证不通过</span>
+    {{#  } }}
+</script>
 </html>

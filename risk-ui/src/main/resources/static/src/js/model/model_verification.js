@@ -19,13 +19,15 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
         , page: true //开启分页
         , where: {}
         , cols: [[ //表头\
-              {field: 'id', title: '序号', align: "center", width: "15%",sort: true}
-            , {field: 'modelName', title: '模型名称', align: "center", width: "15%"}
-            , {field: 'modelCategory', title: '业务线', align: "center", width: "20%"}
-            , {field: 'modelVersion', title: '版本', align: "center", width: "10%",sort: true}
-            , {field: 'status', title: '变量绑定', align: "center", width: "10%"}
-            , {field: 'isValidateAlia', title: '验证状态', align: "center", width: "10%"}
-            , {fixed: 'right', title: "操作", width: 150, align: 'center', toolbar: '#barDemo', width: "20%"}
+              {field: 'id', title: '流水号', align: "center", width: "10%",sort: true}
+            , {field: 'modelName', title: '模型名称', align: "center", width: "10%"}
+            , {field: 'modelName', title: '模型定义ID', align: "center", width: "10%"}
+            , {field: 'modelVersion', title: '测试版本号', align: "center", width: "10%",sort: true}
+            , {field: 'isBing', title: '变量是否绑定', align: "center", width: "10%",templet: '#bindTpl'}
+            , {field: 'isValidate', title: '验证状态', align: "center", width: "10%", templet: '#verficationTpl'}
+            , {field: 'createUser', title: '创建人', align: "center", width: "10%"}
+            , {field: 'createTime', title: '创建时间', align: "center", width: "10%"}
+            , {fixed: 'right', title: "操作", align: 'center', toolbar: '#barDemo', width: "20%"}
         ]]
     });
 
@@ -175,129 +177,3 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
         });
     })
 });
-
-// var data = {
-//     "modelName": "房贷模型",
-//     "modelVersion": "v1.01",
-//     "variableMap": [
-//         {
-//             "senceName": "房贷评分卡",
-//             "data": [
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "sex",
-//                     "valibaleCn": "性别",
-//                     "submitName": "sex",
-//                     "type": "select",
-//                     "desc": "性别",
-//                     "optionData": [
-//                         {
-//                             "value": "01",
-//                             "name": "男"
-//                         }, {
-//                             "value": "02",
-//                             "name": "女"
-//                         },
-//                     ]
-//                 }
-//             ]
-//         },
-//         {
-//             "senceName": "车贷评分卡",
-//             "data": [
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "input",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "name",
-//                     "valibaleCn": "姓名",
-//                     "submitName": "name",
-//                     "type": "date",
-//                     "desc": "姓名"
-//                 },
-//                 {
-//                     "valibaleEn": "sex",
-//                     "valibaleCn": "性别",
-//                     "submitName": "sex",
-//                     "type": "select",
-//                     "desc": "性别",
-//                     "optionData": [
-//                         {
-//                             "value": "01",
-//                             "name": "男"
-//                         }, {
-//                             "value": "02",
-//                             "name": "女"
-//                         },
-//                     ]
-//                 }
-//             ]
-//         }
-//     ]
-// };
