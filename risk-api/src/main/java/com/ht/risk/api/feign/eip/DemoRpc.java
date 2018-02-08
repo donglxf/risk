@@ -20,4 +20,7 @@ public interface DemoRpc {
     @RequestMapping("/eip/td/account/queryUserInformationAuth")
     Object queryUserInformationAuth2(QueryUserInformationAuthDtoIn input);
 
+    @PostMapping("/eip/tc/test")
+    String test();
+
 }
