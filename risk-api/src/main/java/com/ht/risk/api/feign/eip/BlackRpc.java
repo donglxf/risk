@@ -63,16 +63,14 @@ public interface BlackRpc {
     @PostMapping(value = "/mobileValid", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<MobileValidDtoOut> mobileValid(@RequestBody MobileValidDtoIn input);
 
+
     /**
-     * 描述：负面消息查询
+     * 描述：白骑士黑名单
      * @param input
      * @return a
-     * @autor 黄增猛
+     * @autor 张鹏
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/news/negativeSearch", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    Result<NegativeSearchDtoOut> negativeSearch(@RequestBody NegativeSearchDtoIn input);
-
-
-
+    @PostMapping(value = "/baiqishi", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    Result<NetLoanOut> baiqishi(@RequestBody NetLoanIn input);
 }
