@@ -67,8 +67,8 @@
             and create_time <![CDATA[ <= ]]> #{endTime}
         </if>
         GROUP BY sence_versionid order by execute_time desc
-        <if test="getWay != 'all'">
-            limit 0,${getWay}
+        <if test="getWay != null and getWay != 0 ">
+            limit 0,#{getWay}
         </if>
     </select>
 
@@ -83,8 +83,8 @@
             and rl.create_time <![CDATA[ <= ]]> #{endTime}
         </if>
         GROUP BY execute_rulename
-        <if test="getWay != 'all'">
-            limit 0,${getWay}
+        <if test="getWay != null and getWay != 0 ">
+            limit 0,#{getWay}
         </if>
 
     </select>

@@ -10,7 +10,8 @@ eureka:
         registerWithEureka: false  #false:不作为一个客户端注册到注册中心
         fetchRegistry: false      #为true时，可以启动，但报异常：Cannot execute request on any known server
         service-url:
-                    defaultZone: http://localhost:30101/eureka/
+            defaultZone: http://localhost:30101/eureka/
+
 
 #zuul:
 #  #prefix: /techouse #为zuul设置一个公共的前缀
@@ -26,4 +27,3 @@ eureka:
 #cloud-client:
 #  ribbon:
 #    listOfServers: 127.0.0.1:8763 #为cloud-client服务指定一组服务地址，应该是用于负载均衡
-

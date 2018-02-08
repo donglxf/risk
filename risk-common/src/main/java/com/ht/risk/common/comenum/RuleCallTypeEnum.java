@@ -2,7 +2,7 @@ package com.ht.risk.common.comenum;
 
 public enum RuleCallTypeEnum {
 
-	business("1", "business", "业务"), model("3", "model", "模型"), rule("2", "rule", "规则");
+	business("1", "business", "业务"), model("3", "model", "模型"), rule("2", "rule", "规则"),modelValidation("4","modelValidation","模型验证");
 
 	private String type;
 	private String code;

@@ -18,6 +18,7 @@ import com.ht.risk.rule.vo.RuleHisVersionVo;
 import com.ht.risk.rule.vo.SceneInfoVo;
 import com.ht.risk.rule.vo.VariableBindVo;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -60,14 +61,16 @@ public class RuleReportController {
     @ApiOperation(value = "规则统计图")
     public Result<Map<String, Object>> statistic(HttpServletRequest request) {
         Map<String, String[]> paramMap = request.getParameterMap();
-        String startTime=StringUtil.strIsNotNull(paramMap.get("startDate")[0]) ? paramMap.get("startDate")[0] +" 00:00:00" :null ;
-        String endTime=StringUtil.strIsNotNull(paramMap.get("endDate")[0]) ? paramMap.get("endDate")[0] +" 23:59:59" :null ;
-        String getWay=paramMap.get("getWay")[0];
-
         Map<String, Object> map = new HashMap<>();
-        map.put("startTime", startTime);
-        map.put("endTime", endTime);
-        map.put("getWay", getWay);
+        if(com.ht.risk.common.util.ObjectUtils.isNotEmpty(paramMap)) {
+            String startTime = StringUtil.strIsNotNull(paramMap.get("startDate")[0]) ? paramMap.get("startDate")[0] + " 00:00:00" : null;
+            String endTime = StringUtil.strIsNotNull(paramMap.get("endDate")[0]) ? paramMap.get("endDate")[0] + " 23:59:59" : null;
+            String getWay = paramMap.get("getWay")[0];
+
+            map.put("startTime", startTime);
+            map.put("endTime", endTime);
+            map.put("getWay", Integer.parseInt(getWay));
+        }
         Map<String, Object> resultMap = sceneVersionService.staticRuleExecuteInfo(map); // 平均响应时间
         List<Map<String,Object>> ls= sceneVersionService.staticRuleExecuteTotal(map); // 规则执行次数
         resultMap.put("ruleExecuteTotal",ls);
