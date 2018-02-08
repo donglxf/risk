@@ -9,6 +9,6 @@ import lombok.Data;
 public class LawxpFullTextDtoIn{
 
 	@ApiModelProperty(value = "支持多个关键字同时查询，使用空格分开")
-	private String q;
+	private String keyWord;
 
 }

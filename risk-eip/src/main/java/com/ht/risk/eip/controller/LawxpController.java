@@ -1,10 +1,7 @@
 package com.ht.risk.eip.controller;
 
 import com.ht.risk.api.feign.eip.LawxpRpc;
-import com.ht.risk.api.model.eip.LawxpPersonClassifyDtoIn;
-import com.ht.risk.api.model.eip.LawxpPersonClassifyDtoOut;
-import com.ht.risk.api.model.eip.LawxpWebankDtoIn;
-import com.ht.risk.api.model.eip.LawxpWebankDtoOut;
+import com.ht.risk.api.model.eip.*;
 import com.ht.ussp.core.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,8 +41,8 @@ public class LawxpController {
 
     @PostMapping("/fullText")
     @ApiOperation(value = "全文检索", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<LawxpWebankDtoOut> fullText(@RequestBody LawxpWebankDtoIn input) {
-        Result<LawxpWebankDtoOut> result = lawxpRpc.webank(input);
+    public Result<LawxpFullTextDtoOut> fullText(@RequestBody LawxpFullTextDtoIn input) {
+        Result<LawxpFullTextDtoOut> result = lawxpRpc.fullText(input);
         return result;
     }
 
