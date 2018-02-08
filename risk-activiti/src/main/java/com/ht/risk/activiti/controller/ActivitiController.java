@@ -14,6 +14,8 @@ import com.ht.risk.api.model.activiti.RpcDeployResult;
 import com.ht.risk.api.model.activiti.RpcStartParamter;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.HistoryService;
@@ -41,6 +43,7 @@ import java.util.*;
  * @create 2017-06-06 13:34
  */
 @RestController
+@Api("工作流")
 public class ActivitiController implements ModelDataJsonConstants {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ActivitiController.class);
@@ -162,6 +165,7 @@ public class ActivitiController implements ModelDataJsonConstants {
     }
 
     @RequestMapping("/start")
+    @ApiOperation("启动模型")
     public Result<String> startProcess(@RequestBody RpcStartParamter paramter) {
         LOGGER.info("start model,paramter:" + JSON.toJSONString(paramter));
         Result<String> data = null;

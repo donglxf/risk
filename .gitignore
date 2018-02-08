@@ -30,3 +30,9 @@ nbdist/
 
 /risk-eip/.mvn/wrapper/maven-wrapper.properties
 /risk-eip/.mvn/wrapper/maven-wrapper.jar
+/risk-activiti/src/main/resources/application.properties
+/activiti-config/src/main/resources/application.properties
+/risk-eip/src/main/resources/application.properties
+/risk-gate/src/main/resources/application.yml
+/risk-rule-service/src/main/resources/application.properties
+/risk-ui/src/main/resources/application-dev.yml
