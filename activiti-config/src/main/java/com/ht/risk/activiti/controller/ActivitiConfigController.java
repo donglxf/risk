@@ -145,15 +145,15 @@ public class ActivitiConfigController {
 
     @GetMapping("/model/page")
     @ApiOperation(value = "分页查询")
-    public PageResult<List<ActExcuteTask>> page(String date, String logId, Integer page, Integer limit) {
+    public PageResult<List<ActExcuteTask>> page(String date, String modId, Integer page, Integer limit) {
 
         Wrapper<ActExcuteTask> wrapper = new EntityWrapper<>();
         if (StringUtils.isNotBlank(date)) {
             wrapper.or().ge("create_time", date);
 
         }
-        if(StringUtils.isNotBlank(logId)){
-            wrapper.eq("id",logId);
+        if(StringUtils.isNotBlank(modId)){
+            wrapper.eq("id",modId);
         }
         Page<ActExcuteTask> pages = new Page<>();
         pages.setCurrent(page);

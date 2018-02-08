@@ -110,7 +110,6 @@ public class DroolsExcuteController {
                     droolsProcessLogService.insertOrUpdate(process);
                 }
             }
-//            data = new RuleExcuteResult(0, "", object);
         } catch (Exception e) {
             e.printStackTrace();
             data = new RuleExcuteResult(1, "执行异常", null);
@@ -247,7 +246,7 @@ public class DroolsExcuteController {
                 RuleCallTypeEnum.model.getType().equals(paramter.getType())) {
             DroolsLog entity = new DroolsLog();
             entity.setType(paramter.getType());
-            entity.setProcinstId(Long.parseLong(paramter.getProcessInstanceId()));
+            entity.setProcinstId(StringUtil.strIsNotNull(paramter.getProcessInstanceId()) ? Long.parseLong(paramter.getProcessInstanceId()) : 0);
             entity.setInParamter(JSON.toJSONString(paramter));
             entity.setSenceVersionid(String.valueOf(ruleVersion.getVersionId()));
             entity.setOutParamter(JSON.toJSONString(object));
@@ -294,7 +293,6 @@ public class DroolsExcuteController {
         ruleResult.setRuleList(li);
         ruleResult.setResult(reulst);
         return ruleResult;
-//        data = new RuleExcuteResult(0, "success", ruleResult);
     }
 }
 
