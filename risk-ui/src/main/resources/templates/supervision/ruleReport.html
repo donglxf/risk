@@ -170,6 +170,12 @@
         return html;
 	}
 
+    function addDate(date,days){
+        var d=new Date(date);
+        d.setDate(d.getDate()+days);
+        var m=d.getMonth()+1;
+        return d.getFullYear()+'-'+m+'-'+d.getDate();
+    }
 
     //Demo
     layui.use(['form','laydate'], function(){
@@ -178,10 +184,12 @@
             layerTips = layui.layer,
             $ = layui.jquery,laydata=layui.laydate;
         laydata.render({
-            elem: '#startDate'
+            elem: '#startDate',
+            value:addDate(new Date(),-30)
         });
         laydata.render({
-            elem: '#endDate'
+            elem: '#endDate',
+            value:addDate(new Date(),0)
         });
 
         getRuleDate('');

@@ -22,8 +22,8 @@ import org.slf4j.LoggerFactory;
  * 
  * <p>Date Utils 工具类 </p> 
  *
- * @author: 张军平
- * @since: 2015年1月4日下午3:55:18
+ * @author: dyb
+ * @since: 2018年1月4日下午3:55:18
  * @version: 1.0
  */
 @SuppressWarnings({"rawtypes","unchecked"})

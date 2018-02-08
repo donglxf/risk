@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
+import com.ht.risk.common.util.DateUtils;
 import com.ht.risk.rule.entity.RuleHisVersion;
 import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.rule.entity.SceneVersion;
@@ -20,19 +21,21 @@ import com.ht.risk.rule.vo.VariableBindVo;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController
 @RequestMapping("/ruleReport/")
 public class RuleReportController {
+
+    protected static final Logger log = LoggerFactory.getLogger(RuleReportController.class);
+
     @Autowired
     private SceneVersionService sceneVersionService;
 
@@ -70,6 +73,12 @@ public class RuleReportController {
             map.put("startTime", startTime);
             map.put("endTime", endTime);
             map.put("getWay", Integer.parseInt(getWay));
+        }else{
+            Date curentDate= DateUtils.getDate("yyyy-MM-dd");
+            Date beforeDate=DateUtils.addDays(curentDate,-30);
+            log.info(DateUtils.getDateString(beforeDate)+">>>>>>>>>>>>.");
+            map.put("startTime", DateUtils.getDateString(beforeDate));
+            map.put("endTime", DateUtils.getDateString(curentDate));
         }
         Map<String, Object> resultMap = sceneVersionService.staticRuleExecuteInfo(map); // 平均响应时间
         List<Map<String,Object>> ls= sceneVersionService.staticRuleExecuteTotal(map); // 规则执行次数

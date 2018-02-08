@@ -183,45 +183,6 @@ public class DroolsExcuteController {
             Long executeTime = endTime - startTime;
             log.info("规则验证执行时间》》》》》" + String.valueOf(executeTime));
 
-            // 记录日志
-//            RuleExecutionResult res = (RuleExecutionResult) object.getGlobalMap().get("_result");
-//            List<String> reulst = (List<String>) res.getMap().get("result");
-//            List<String> li = (List<String>) res.getMap().get("ruleList");
-//            List<String> newList = new ArrayList();
-//            if (ObjectUtils.isNotEmpty(li)) {
-//                Set set = new HashSet();
-//                set.addAll(li);
-//                newList.addAll(set);
-//            }
-//            TestDroolsLog entity = new TestDroolsLog();
-//            entity.setType(paramter.getType());
-//            entity.setProcinstId(StringUtil.strIsNotNull(paramter.getProcessInstanceId()) ? Long.parseLong(paramter.getProcessInstanceId()) : 0);
-//            entity.setInParamter(JSON.toJSONString(paramter));
-//            entity.setSenceVersionid(String.valueOf(ruleVersion.getVersionId()));
-//            entity.setOutParamter(JSON.toJSONString(object));
-//            entity.setExecuteTotal(newList.size());
-//            entity.setModelName(paramter.getModelName());
-//            if (StringUtils.isNotEmpty(paramter.getBatchId())) {
-//                entity.setBatchId(Long.parseLong(paramter.getBatchId())); // 批次号
-//            }
-//            testDroolsLogService.insertOrUpdate(entity);
-//            Long logId = entity.getId();
-//            if (ObjectUtils.isNotEmpty(li)) {
-//                for (String string : newList) {
-//                    TestDroolsDetailLog process = new TestDroolsDetailLog();
-//                    process.setDroolsLogid(logId);
-//                    process.setExecuteRulename(string);
-//                    testDroolsDetailLogService.insertOrUpdate(process);
-//                }
-//            }
-//            logList.add(String.valueOf(logId));
-//            object.getGlobalMap().put("logIdList", logList);
-//
-//            RuleStandardResult ruleResult = new RuleStandardResult();
-//            ruleResult.setLogIdList(logList);
-//            ruleResult.setRuleList(li);
-//            ruleResult.setResult(reulst);
-
             data = new RuleExcuteResult(0, "success", saveLog(object, paramter, ruleVersion, executeTime));
         } catch (Exception e) {
             e.printStackTrace();
