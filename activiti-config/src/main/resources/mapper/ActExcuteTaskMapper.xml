@@ -37,8 +37,8 @@
             and create_time <![CDATA[ <= ]]> #{endTime}
         </if>
         GROUP BY proc_release_id  order by  spendTime desc
-        <if test="getWay != 'all'">
-            limit 0,${getWay}
+        <if test="getWay != null and  getWay != 0 ">
+            limit 0,#{getWay}
         </if>
     </select>
 

@@ -36,7 +36,7 @@
 			<div class="layui-input-inline">
 				<!--<label class="layui-form-label">数量:</label>-->
 				<select id="getWay" class="layui-select" name="getWay" lay-verify="ss">
-					<option value="all">全部</option>
+					<option value="0">全部</option>
 					<option value="10">十条</option>
 					<option value="15">十五条</option>
 				</select>
@@ -184,7 +184,9 @@
             elem: '#endDate'
         });
 
-        form.on('submit(formDemo)',function (data) {
+        getRuleDate('');
+
+        function getRuleDate(data){
             $
                 .ajax({
                     cache: true,
@@ -200,6 +202,9 @@
                         ruleExecuteTotal(da.data);
                     }
                 });
+		}
+        form.on('submit(formDemo)',function (data) {
+            getRuleDate(data);
         });
 
         form.on('select(aihao)', function(data){

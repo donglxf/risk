@@ -173,42 +173,6 @@ layui.use(['table', 'form','laydate','myutil'], function () {
             }
         })
         layer.full(layIndex);
-        /*$.ajax({
-            type: "get",
-            url: url,
-            dataType: "json",
-            success: function (data) {
-                console.log(">>>>>>>>"+data);
-                var modelVerification = new ModelVerification();
-                var contents = modelVerification.initModel(data);
-                var layIndex = layer.open({
-                    type: 2,
-                    shade: false,
-                    title: "",
-                    content: "/rule/ui/strategy/manualTest",
-                    zIndex: layer.zIndex, //重点1
-                    success: function (layero, index) {
-                        var body = layer.getChildFrame('body',index);//建立父子联系
-                        var iframeWin = window[layero.find('iframe')[0]['name']];
-                        var inputList = body.find("input[type='hidden']");
-                        for(var j = 0; j< inputList.length; j++){
-                            var inputName=inputList[j].name;
-                            if(inputName=='senceVersionId'){
-                                $(inputList[j]).val(versionId);
-                            }else if(inputName =='senceId'){
-                                $(inputList[j]).val(sceneId);
-                            }else if(inputName =='sceneIdentify'){
-                                $(inputList[j]).val(sceneIdentify);
-                            }
-                        }
-                        layer.setTop(layero); //重点2
-                        var form = layer.getChildFrame('#manu_model_valiable_form', index);
-                        form.html(contents);
-                    }
-                });
-                layer.full(layIndex);
-            }
-        });*/
     }
 
     <!-- 自动测试 -->

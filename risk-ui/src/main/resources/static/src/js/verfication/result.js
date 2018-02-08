@@ -1,89 +1,3 @@
-/*var data = [
-    {
-        "hitRule": {},
-        "paramterData": {
-            "variableVos": [{
-                "valibaleCn": "年龄",
-                "submitName": "age",
-                "type": "Double",
-                "value": "20"
-            }, {
-                "valibaleCn": "学历",
-                "submitName": "education",
-                "type": "Double",
-                "value": "本科"
-            }, {
-                "valibaleCn": "工资",
-                "submitName": "salary",
-                "type": "Double",
-                "value": "100"
-            }, {
-                "valibaleCn": "芝麻分",
-                "submitName": "zhimaScore",
-                "type": "Double",
-                "value": "750"
-            }]
-        },
-        "senceInfo": {
-            "name": "黑灰名单策略"
-        }
-    },{
-        "hitRule": {},
-        "paramterData": {
-            "variableVos": [{
-                "valibaleCn": "年龄",
-                "submitName": "age",
-                "type": "Double",
-                "value": "20"
-            }, {
-                "valibaleCn": "学历",
-                "submitName": "education",
-                "type": "Double",
-                "value": "本科"
-            }, {
-                "valibaleCn": "工资",
-                "submitName": "salary",
-                "type": "Double",
-                "value": "100"
-            }, {
-                "valibaleCn": "芝麻分",
-                "submitName": "zhimaScore",
-                "type": "Double",
-                "value": "750"
-            }]
-        },
-        "senceInfo": {
-            "name": "房贷评分模型"
-        }
-    },{
-        "hitRule": {},
-        "paramterData": {
-            "variableVos": [{
-                "valibaleCn": "年龄",
-                "submitName": "age",
-                "type": "Double",
-                "value": "20"
-            }, {
-                "valibaleCn": "学历",
-                "submitName": "education",
-                "type": "Double",
-                "value": "本科"
-            }, {
-                "valibaleCn": "工资",
-                "submitName": "salary",
-                "type": "Double",
-                "value": "100"
-            }, {
-                "valibaleCn": "芝麻分",
-                "submitName": "zhimaScore",
-                "type": "Double",
-                "value": "750"
-            }]
-        },
-        "senceInfo": {
-            "name": "房贷评分模型"
-        }
-    }];*/
 layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
     var $ = layui.jquery;
     var element = layui.element;
@@ -109,7 +23,8 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
         success : function(data) {
             if(data.code == 0){
                 laytpl(senceHtml).render(data.data, function (html) {
-                    content.html(html);
+                    var contentHtml = content.html()+html;
+                    content.html(contentHtml);
                     element.render('test');
                 });
             }
@@ -118,4 +33,58 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
             }
         }
     });
+
+    $("#pass").click( function() {
+        layer.load();
+        var procReleaseId = $("#procReleaseId").val();
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: '/rule/service/verification/createSingleVerficationTask',
+            data: {
+                procReleaseId:procReleaseId
+            },
+            async: false,
+            timeout: 60000,
+            error : function(request) {
+                layer.closeAll('loading');
+                layer.msg("网络异常!");
+            },
+            success: function (data) {
+                layer.closeAll('loading');
+                layer.msg(data.msg);
+            }
+        });
+
+    });
+    $("#unpass").click( function() {
+        layer.load();
+        var procReleaseId = $("#procReleaseId").val();
+
+
+    });
+
+    function verficationProcRelease(procReleaseId,checkType){
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: '/config/verification/verficationProcRelease',
+            async: false,
+            data: {
+                procReleaseId:procReleaseId,
+                type:checkType
+            },
+            timeout: 60000,
+            error : function(request) {
+                layer.closeAll('loading');
+                layer.msg("网络异常!");
+            },
+            success: function (data) {
+                layer.closeAll('loading');
+                layer.msg(data.msg);
+            }
+        });
+    }
+
+
 });
