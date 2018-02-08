@@ -73,4 +73,17 @@ public interface BlackRpc {
      */
     @PostMapping(value = "/baiqishi", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<NetLoanOut> baiqishi(@RequestBody NetLoanIn input);
+
+
+    /**
+     * 描述：7.2.6	百融反欺诈特殊黑名单
+     * @param input
+     * @return a
+     * @autor 张鹏
+     * @date 2018/2/5 9:38
+     */
+    @PostMapping(value = "/bairong", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    Result<BairongDtoOut> bairong(@RequestBody BairongDtoIn input);
+
+
 }

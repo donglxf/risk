@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
-@EnableFeignClients(basePackages = {"com.ht.ussp.client","com.ht.risk.rule.rpc"})
+@EnableFeignClients(basePackages = {"com.ht.ussp.client","com.ht.risk.rule.rpc","com.ht.risk.api.feign.eip"})
 @EnableDiscoveryClient
 @SpringCloudApplication
 @MapperScan("com.ht.risk.rule.mapper")

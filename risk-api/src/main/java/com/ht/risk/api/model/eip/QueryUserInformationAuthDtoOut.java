@@ -13,6 +13,7 @@ import java.io.Serializable;
 @ApiModel
 public class QueryUserInformationAuthDtoOut implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	@ApiModelProperty(value = "团贷网账号ID")
 	private String platformUserNo;
 

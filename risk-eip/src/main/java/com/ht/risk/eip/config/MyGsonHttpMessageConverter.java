@@ -5,6 +5,7 @@ import org.springframework.http.converter.json.GsonHttpMessageConverter;
 
 import java.util.Arrays;
 import java.util.List;
+
 public class MyGsonHttpMessageConverter extends GsonHttpMessageConverter {
     public MyGsonHttpMessageConverter() {
         List<MediaType> types = Arrays.asList(

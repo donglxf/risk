@@ -60,6 +60,13 @@ public class BlackController {
         return result;
     }
 
+    @PostMapping("/bairong")
+    @ApiOperation(value = "百融反欺诈特殊黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<BairongDtoOut> bairong(BairongDtoIn input) throws Exception{
+        Result<BairongDtoOut> result =  tcRpc.bairong(input);
+        return result;
+    }
+
 
 
 

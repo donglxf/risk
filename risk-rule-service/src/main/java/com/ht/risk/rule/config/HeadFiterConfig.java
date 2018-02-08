@@ -1,4 +1,4 @@
-package com.ht.risk.eip.config;
+package com.ht.risk.rule.config;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
