@@ -53,6 +53,7 @@ public class DroolsLogController {
 		if(StringUtils.isNotBlank(logId)){
 			wrapper.eq("id",logId);
 		}
+		wrapper.orderBy("create_time",false);
 		Page<DroolsLog> pages = new Page<>();
 		pages.setCurrent(page);
 		pages.setSize(limit);

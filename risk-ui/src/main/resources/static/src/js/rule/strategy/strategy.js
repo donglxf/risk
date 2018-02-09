@@ -257,6 +257,10 @@ layui.use(['table', 'form','laydate','myutil'], function () {
         var modelVerification = new ModelVerification();
         var size = da.length;
         for(var i=0;i<size;i++){
+            var bindColumn=da[i].bindColumn;
+            if(da[i].bindColumn== null ){
+                bindColumn='';
+            }
             $("#bindColumnTable").append("<tr>\n" +
                 "\t\t\t\t\t\t\t<input type=\"hidden\" name=\""+da[i].variableCode+"_bind\" id=\"bindId"+i+"\" value='"+da[i].id+"'>\n" +
                 "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">变量名:</label></td>\n" +
@@ -276,7 +280,7 @@ layui.use(['table', 'form','laydate','myutil'], function () {
                 "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
                 "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"_column\" name=\""+da[i].variableCode+"_column\" required\n" +
                 "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入列名\" autocomplete=\"off\"\n" +
-                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value='"+da[i].bindColumn+"'>\n" +
+                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value='"+ bindColumn +"'>\n" +
                 "\t\t\t\t\t\t\t</div></td>\n" +
                 "\t\t\t\t\t\t</tr>");
         }
