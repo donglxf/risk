@@ -20,6 +20,7 @@ import com.ht.risk.rule.service.ModelAnalysisSerivce;
 import com.ht.risk.rule.util.StringUtil;
 import com.ht.risk.rule.vo.ModelVerficationVo;
 import com.ht.risk.rule.vo.SenceParamterVo;
+import com.ht.risk.rule.vo.VerficationResultVo;
 import io.swagger.annotations.ApiOperation;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -64,19 +65,8 @@ public class ModelVerificationController {
     public Result queryTaskVerficationResult(ModelVerficationVo verficationVo) {
         LOGGER.info("querySingleVerficationInfo mothod invoke,paramter:" + JSON.toJSONString(verficationVo));
         Result result = null;
-        Map<String, SenceParamterVo> senceMap = modelAnalysisSerivce.queryTaskVerficationResult(verficationVo.getTaskId());
-        LOGGER.info("querySingleVerficationInfo mothod invoke end,result:" + JSON.toJSONString(senceMap));
-        Set set = senceMap.keySet();
-        List<SenceParamterVo> sences = new ArrayList<SenceParamterVo>();
-        SenceParamterVo vo = null;
-        for (Iterator<String> iterator = set.iterator(); iterator.hasNext(); ) {
-            sences.add(senceMap.get(iterator.next()));
-        }
-        if (sences != null) {
-            result = Result.success(sences);
-        } else {
-            result = Result.error(1, "查询异常...");
-        }
+        VerficationResultVo resultVo = modelAnalysisSerivce.queryTaskVerficationResult(verficationVo.getTaskId());
+        result = Result.success(resultVo);
         LOGGER.info("querySingleVerficationInfo mothod invoke end,result:" + JSON.toJSONString(result));
         return result;
     }

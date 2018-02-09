@@ -2,6 +2,7 @@ package com.ht.risk.rule.service;
 
 import com.ht.risk.api.model.log.RpcHitRuleInfo;
 import com.ht.risk.rule.vo.SenceParamterVo;
+import com.ht.risk.rule.vo.VerficationResultVo;
 
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ public interface ModelAnalysisSerivce {
      * @param taskId
      * @return
      */
-    public Map<String,SenceParamterVo> queryTaskVerficationResult(Long taskId);
+    public VerficationResultVo queryTaskVerficationResult(Long taskId);
 
     public Long createBatchVerficationTask();
 

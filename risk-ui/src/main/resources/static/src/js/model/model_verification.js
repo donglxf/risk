@@ -21,7 +21,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
         , cols: [[ //表头\
               {field: 'id', title: '流水号', align: "center", width: "10%",sort: true}
             , {field: 'modelName', title: '模型名称', align: "center", width: "10%"}
-            , {field: 'modelName', title: '模型定义ID', align: "center", width: "10%"}
+            , {field: 'modelProcdefId', title: '模型定义ID', align: "center", width: "10%"}
             , {field: 'modelVersion', title: '测试版本号', align: "center", width: "10%",sort: true}
             , {field: 'isBing', title: '变量是否绑定', align: "center", width: "10%",templet: '#bindTpl'}
             , {field: 'isValidate', title: '验证状态', align: "center", width: "10%", templet: '#verficationTpl'}

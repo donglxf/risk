@@ -75,6 +75,18 @@ public class ActProcReleaseController {
         }
         return result;
     }
+    @RequestMapping(value = "/update")
+    @ApiOperation(value = "模型版本信息更新")
+    public Result updateProcReleaseInfo(ActProcRelease actProcRelease){
+        Result<Object> result = new Result<>();
+        boolean flag = actProcReleaseService.updateById(actProcRelease);
+        if(flag){
+            result = Result.success("更新成功！");
+        }else{
+            result = Result.error(1,"更新失败！");
+        }
+        return result;
+    }
 
 }
 

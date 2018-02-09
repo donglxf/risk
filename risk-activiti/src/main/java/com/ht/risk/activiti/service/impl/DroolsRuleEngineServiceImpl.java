@@ -42,14 +42,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         paramter.setType(type);
         LOGGER.info("DroolsRuleEngineServiceImpl service paramter:"+ JSON.toJSONString(paramter));
         RuleExcuteResult result = null;
-        if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(type)){
-            result = droolsRuleEngineInterface.excuteDroolsScene(paramter);
-        }
-        else if(ActivitiConstants.EXCUTE_TYPE_VERFICATION.equals(type)){
-            result = droolsRuleEngineInterface.excuteDroolsSceneValidation(paramter);
-        }else{
-            LOGGER.info("drools excute end,excute_type paramter exception");
-        }
+        result = droolsRuleEngineInterface.excuteDroolsSceneValidation(paramter);
+        // 执行成功
         delegateExecution.setVariable(senceCode+"-"+version,result);
         LOGGER.info("drools excute end,senceCode："+senceCode+";version:"+version);
     }

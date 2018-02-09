@@ -8,6 +8,7 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
     console.log(parent);
     var taskId = $("#task_hidden_input", parent.document).val();
     console.log(taskId);
+    layer.load();
     $.ajax({
         cache : true,
         type : "GET",
@@ -22,10 +23,27 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
         },
         success : function(data) {
             if(data.code == 0){
-                laytpl(senceHtml).render(data.data, function (html) {
+                var hitRules = data.data.hitRules;
+                $("#procReleaseId").val(data.data.procReleaseId);
+                $("#taskId").val(data.data.taskId);
+                $("#validateFlag").val(data.data.validateFlag);
+                var ruleHtml = "模型执行结果："+data.data.message+"\n";
+                if(hitRules != null && hitRules.length >0){
+                    ruleHtml += "命中如下规则："+"\n";
+                    for(var i=0;i<hitRules.length;i++){
+                        ruleHtml += "["+(i+1)+"]: "+hitRules[i].ruleDesc+"\n";
+                    }
+                }
+                $("#modelResult").html(ruleHtml);
+                if(data.data.sences ==null){
+                    layer.closeAll('loading');
+                    return;
+                }
+                laytpl(senceHtml).render(data.data.sences, function (html) {
                     var contentHtml = content.html()+html;
                     content.html(contentHtml);
                     element.render('test');
+                    layer.closeAll('loading');
                 });
             }
             if(data.code == 1){
@@ -36,43 +54,30 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
 
     $("#pass").click( function() {
         layer.load();
+        var validateFlag = $("#validateFlag").val();
+        if(validateFlag == '1'){
+            layer.msg("模型验证未通过，不能更新模型验证状态为通过！");
+            return ;
+        }
         var procReleaseId = $("#procReleaseId").val();
-        $.ajax({
-            cache: true,
-            type: "POST",
-            url: '/rule/service/verification/createSingleVerficationTask',
-            data: {
-                procReleaseId:procReleaseId
-            },
-            async: false,
-            timeout: 60000,
-            error : function(request) {
-                layer.closeAll('loading');
-                layer.msg("网络异常!");
-            },
-            success: function (data) {
-                layer.closeAll('loading');
-                layer.msg(data.msg);
-            }
-        });
-
+        verficationProcRelease(procReleaseId,1);
     });
     $("#unpass").click( function() {
         layer.load();
         var procReleaseId = $("#procReleaseId").val();
-
-
+        verficationProcRelease(procReleaseId,2);
     });
 
     function verficationProcRelease(procReleaseId,checkType){
+        console.log(procReleaseId);
         $.ajax({
             cache: true,
             type: "POST",
-            url: '/config/verification/verficationProcRelease',
+            url: '/config/actProcRelease/update',
             async: false,
             data: {
-                procReleaseId:procReleaseId,
-                type:checkType
+                id:procReleaseId,
+                isValidate:checkType
             },
             timeout: 60000,
             error : function(request) {

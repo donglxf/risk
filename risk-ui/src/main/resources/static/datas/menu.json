@@ -141,23 +141,6 @@
     ]
   },
   {
-    "id": "FK_FK-007",
-    "icon": "",
-    "spread": true,
-    "title": "风险预警",
-    "url": "",
-    "children": [
-      {
-        "id": "FK_FK-0071",
-        "icon": "fa fa-user",
-        "spread": true,
-        "title": "模型调度管理",
-        "url": "rule/offlineTask/model",
-        "children": []
-      }
-    ]
-  },
-  {
     "id": "FK_FK-008",
     "icon": "",
     "spread": true,
