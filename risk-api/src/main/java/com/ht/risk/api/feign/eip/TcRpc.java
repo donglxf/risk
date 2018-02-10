@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  *天秤相关外联对接接口
  */
-@FeignClient(value = "${eip.feign.service}",path = "${eip.feign.path}",url = "${eip.feign.url}")
+@FeignClient(value = "eip-out",path = "/eip/tc",url = "http://192.168.14.230:30406")
 public interface TcRpc {
     /**
      * 描述：网贷黑名单

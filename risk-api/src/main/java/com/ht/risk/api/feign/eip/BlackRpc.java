@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  *黑名单 的接口
  */
-@FeignClient(value = "${eip.feign.service}",path = "${eip.feign.path}"+"/black",url = "${eip.feign.url}")
+@FeignClient(value = "eip-out",path = "/eip/tc"+"/black",url = "http://192.168.14.230:30406")
 public interface BlackRpc {
     /**
      * 描述：网贷黑名单

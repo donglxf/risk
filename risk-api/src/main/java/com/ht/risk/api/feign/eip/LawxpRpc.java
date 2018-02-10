@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @Description
  * @Date 2018/2/7 14:59
  */
-@FeignClient(value = "${eip.feign.service}", path = "${eip.feign.path}" + "/lawxp", url = "${eip.feign.url}")
+@FeignClient(value = "eip-out",path = "/eip/tc"+"/lawxp",url = "http://192.168.14.230:30406")
 public interface LawxpRpc {
 
     /**

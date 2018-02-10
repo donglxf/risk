@@ -16,7 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(value = "${eip.feign.service}",path = "${eip.feign.path}"+"/bairong",url = "${eip.feign.url}")
+@FeignClient(value = "eip-out",path = "/eip/tc"+"/bairong",url = "http://192.168.14.230:30406")
 public interface BairongRpc {
 
     /**

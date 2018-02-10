@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  *负面消息 的接口
  */
-@FeignClient(value = "${eip.feign.service}",path = "/eip/common",url = "${eip.feign.url}")
+@FeignClient(value = "eip-out",path = "/eip/common",url = "http://192.168.14.230:30406")
 public interface CommonRpc {
     /**
      * 描述：短信发送
