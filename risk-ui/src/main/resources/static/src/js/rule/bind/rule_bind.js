@@ -212,34 +212,7 @@ layui.use([ 'table', 'form' ], function() {
 		}, 'json')
 	}
 
-    function setVariableBindFiled(el,da) {
-        var modelVerification = new ModelVerification();
-        var size = da.length;
-        for(var i=0;i<size;i++){
-        	$("#bindColumnTable").append("<tr>\n" +
-                "\t\t\t\t\t\t\t<input type=\"hidden\" name=\""+da[i].variableCode+"_bind\" id=\"bindId"+i+"\" value='"+da[i].id+"'>\n" +
-                "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">变量名:</label></td>\n" +
-                "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
-                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"\" name=\""+da[i].variableCode+"\" required\n" +
-                "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入变量名\" autocomplete=\"off\"\n" +
-                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value=\""+da[i].variableName+"\" readonly>\n" +
-                "\t\t\t\t\t\t\t\t</div>\n" +
-                "\t\t\t\t\t\t\t</td>\n" +
-                "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">表名:</label></td>\n" +
-                "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
-                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"_tableName\" name=\""+da[i].variableCode+"_tableName\" required\n" +
-                "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入业务表名\" autocomplete=\"off\"\n" +
-                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value=\"TEMP_DATA_CONTAINS\" >\n" +
-                "\t\t\t\t\t\t\t</div></td>\n" +
-                "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">列名:</label></td>\n" +
-                "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
-                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"_column\" name=\""+da[i].variableCode+"_column\" required\n" +
-                "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入列名\" autocomplete=\"off\"\n" +
-                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value='"+da[i].bindColumn+"'>\n" +
-                "\t\t\t\t\t\t\t</div></td>\n" +
-                "\t\t\t\t\t\t</tr>");
-        }
-    }
+
 
 });
 

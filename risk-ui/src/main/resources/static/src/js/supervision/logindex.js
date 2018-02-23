@@ -17,7 +17,6 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
     entityTable.render({
         elem: '#demo'
         ,height: 550
-        ,cellMinWidth: 80
         ,url: preUrl + 'page' //数据接口
         ,page: true //开启分页
         ,id:'demos'
@@ -58,7 +57,7 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
                 align: 'center',
                 templet: '#checkboxTpl'
             }, {
-                field: 'type',
+                field: 'oper',
                 title: '操作',
                 align: 'center',
                 templet: '#operation'
@@ -80,8 +79,7 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
             },{
                 field: 'batchId',
                 event: 'setItem',
-                title: '批次号',
-                templet: '#createTime'
+                title: '批次号'
             }, {
                 field: 'procInstId',
                 event: 'setItem',
@@ -117,7 +115,7 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
                 align: 'center',
                 templet: '#createTime'
             }, {
-                field: 'type',
+                field: 'oper',
                 title: '操作',
                 align: 'center',
                 templet: '#modelOperation'
@@ -151,14 +149,14 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
             // var demoReload = $('#demoReload');
 
             // 执行重载
-            table.reload('demos', {
+            table.reload('modelTab', {
                 page: {
                     curr: 1
                     // 重新从第 1 页开始
                 },
                 where: {
-                    date: $('#startDate').val(),
-                    logId:$('#logId').val()
+                    date: $('#startTime').val(),
+                    modId:$('#modId').val()
                 }
             });
         }
@@ -176,27 +174,37 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
         }
     });
 
+    modelTable.on('tool(modelTable)',function(obj){
+        var data = obj.data;
+        if (obj.event === 'view'){
+            modelEdit(data.id);
+        }
+    });
+
+
+
+    function modelEdit(logId) {
+        p_logId=logId;
+            layer.open({
+                type : 2,
+                title : '查看详情',
+                maxmin : true,
+                shadeClose : false, // 点击遮罩关闭层
+                area : [ '730px', '460px' ],
+                content : '/rule/ui/supervision/log/view',
+                btn : [ '关闭'],
+                btnAlign : 'c',
+                zIndex: layer.zIndex, //重点1
+                success : function(da, index) {
+
+                    layer.setTop(da); //重点2
+                }
+
+        });
+    }
+
     function edit(logId) {
         p_logId=logId;
-
-        // $.get('/rule/ui/supervision/log/view',function(form) {
-        //     layer.open({
-        //         type : 1,
-        //         title : '查看详情',
-        //         maxmin : true,
-        //         shadeClose : false, // 点击遮罩关闭层
-        //         area : [ '730px', '460px' ],
-        //         content : form,
-        //         btn : [ '关闭'],
-        //         btnAlign : 'c',
-        //         zIndex: layer.zIndex, //重点1
-        //         success : function(da, index) {
-        //
-        //             layer.setTop(da); //重点2
-        //         }
-        //     });
-        // });
-
             layer.open({
                 type : 2,
                 title : '查看详情',

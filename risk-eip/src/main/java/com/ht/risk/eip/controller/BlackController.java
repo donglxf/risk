@@ -60,10 +60,10 @@ public class BlackController {
         return result;
     }
 
-    @PostMapping("/news/negativeSearch")
-    @ApiOperation(value = "负面消息查询",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<NegativeSearchDtoOut> negativeSearch(NegativeSearchDtoIn input) throws Exception{
-        Result<NegativeSearchDtoOut> result =  tcRpc.negativeSearch(input);
+    @PostMapping("/bairong")
+    @ApiOperation(value = "百融反欺诈特殊黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<BairongDtoOut> bairong(BairongDtoIn input) throws Exception{
+        Result<BairongDtoOut> result =  tcRpc.bairong(input);
         return result;
     }
 

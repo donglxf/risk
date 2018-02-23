@@ -1,6 +1,6 @@
 package com.ht.risk.eip.controller;
 
-import com.ht.risk.api.feign.eip.BlackRpc;
+import com.ht.risk.api.feign.eip.NewsRpc;
 import com.ht.risk.api.model.eip.NegativeSearchDtoIn;
 import com.ht.risk.api.model.eip.NegativeSearchDtoOut;
 import com.ht.ussp.core.Result;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "BlackController", description = "新闻消息接口", hidden = true)
 public class NewsController {
     @Autowired
-    private BlackRpc tcRpc;
+    private NewsRpc tcRpc;
 
     @PostMapping("/negativeSearch")
     @ApiOperation(value = "负面消息查询",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)

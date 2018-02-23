@@ -8,12 +8,12 @@ import com.ht.risk.activiti.entity.ActExcuteTask;
 import com.ht.risk.activiti.entity.ActProcRelease;
 import com.ht.risk.activiti.service.ActExcuteTaskService;
 import com.ht.risk.activiti.service.ActProcReleaseService;
-import com.ht.risk.activiti.vo.VerficationModelVo;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.api.model.activiti.RpcModelReleaseInfo;
 import com.ht.risk.api.model.activiti.RpcModelVerfication;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
+import com.ht.risk.common.util.DateUtils;
 import com.ht.risk.common.util.ObjectUtils;
 import com.ht.risk.common.util.StringUtils;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
 
 @RestController
 @RequestMapping("")
@@ -109,7 +110,7 @@ public class ActivitiConfigController {
         Result<RpcModelReleaseInfo> result = null;
         if(rpcModelVerfication == null || rpcModelVerfication.getProcReleaseId() == null){
             LOGGER.error("queryModelProcInstIdByBatchId mothod invoke,paramter null exception");
-            result =Result.error(1,"参数异常！");
+            result = Result.error(1,"参数异常！");
             return  result;
         }
         try {
@@ -137,6 +138,12 @@ public class ActivitiConfigController {
             map.put("startTime", startTime);
             map.put("endTime", endTime);
             map.put("getWay", Integer.parseInt(getWay));
+        }else{
+            Date curentDate=DateUtils.getDate("yyyy-MM-dd");
+            Date beforeDate=DateUtils.addDays(curentDate,-30);
+            LOGGER.info(DateUtils.getDateString(beforeDate)+">>>>>>>>>>>>.");
+            map.put("startTime", DateUtils.getDateString(beforeDate));
+            map.put("endTime", DateUtils.getDateString(curentDate));
         }
         Map<String, Object> resultMap = actExcuteTaskService.getModelGraph (map); // 平均响应时间
         return Result.success(resultMap);
@@ -145,15 +152,15 @@ public class ActivitiConfigController {
 
     @GetMapping("/model/page")
     @ApiOperation(value = "分页查询")
-    public PageResult<List<ActExcuteTask>> page(String date, String logId, Integer page, Integer limit) {
+    public PageResult<List<ActExcuteTask>> page(String date, String modId, Integer page, Integer limit) {
 
         Wrapper<ActExcuteTask> wrapper = new EntityWrapper<>();
         if (StringUtils.isNotBlank(date)) {
             wrapper.or().ge("create_time", date);
 
         }
-        if(StringUtils.isNotBlank(logId)){
-            wrapper.eq("id",logId);
+        if(StringUtils.isNotBlank(modId)){
+            wrapper.eq("id",modId);
         }
         Page<ActExcuteTask> pages = new Page<>();
         pages.setCurrent(page);

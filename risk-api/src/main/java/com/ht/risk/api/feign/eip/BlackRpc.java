@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  *黑名单 的接口
  */
-@FeignClient(value = "${eip.feign.service}",path = "${eip.feign.path}"+"/black",url = "${eip.feign.url}")
+@FeignClient(value = "eip-out",path = "/eip/tc"+"/black",url = "http://192.168.14.230:30406")
 public interface BlackRpc {
     /**
      * 描述：网贷黑名单
@@ -63,16 +63,27 @@ public interface BlackRpc {
     @PostMapping(value = "/mobileValid", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<MobileValidDtoOut> mobileValid(@RequestBody MobileValidDtoIn input);
 
+
     /**
-     * 描述：负面消息查询
+     * 描述：白骑士黑名单
      * @param input
      * @return a
-     * @autor 黄增猛
+     * @autor 张鹏
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/news/negativeSearch", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    Result<NegativeSearchDtoOut> negativeSearch(@RequestBody NegativeSearchDtoIn input);
+    @PostMapping(value = "/baiqishi", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    Result<NetLoanOut> baiqishi(@RequestBody NetLoanIn input);
 
+
+    /**
+     * 描述：7.2.6	百融反欺诈特殊黑名单
+     * @param input
+     * @return a
+     * @autor 张鹏
+     * @date 2018/2/5 9:38
+     */
+    @PostMapping(value = "/bairong", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    Result<BairongDtoOut> bairong(@RequestBody BairongDtoIn input);
 
 
 }

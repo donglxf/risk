@@ -18,7 +18,7 @@ import java.util.Enumeration;
  * @return 
  * @date 2018/2/2 18:14
  */
-@Configuration
+//@Configuration
 public class HeadFiterConfig {
     @Bean
     public RequestInterceptor headerInterceptor() {
@@ -32,9 +32,9 @@ public class HeadFiterConfig {
 				Enumeration<String> headerNames = request.getHeaderNames();
 				if (headerNames != null) {
 					while (headerNames.hasMoreElements()) {
-						String name = headerNames.nextElement();
-						String values = request.getHeader(name);
-						requestTemplate.header(name, values);
+						//String name = headerNames.nextElement();
+						//String values = request.getHeader(name);
+						//requestTemplate.header(name, values);
 
 					}
 				}

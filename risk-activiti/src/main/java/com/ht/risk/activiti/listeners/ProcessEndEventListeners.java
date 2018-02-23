@@ -21,7 +21,8 @@ public class ProcessEndEventListeners implements ActivitiEventListener {
     public void onEvent(ActivitiEvent event) {
         LOGGER.info("ProcessTestServiceImpl onEvent invoke..."+event.getType());
         switch (event.getType()) {
-            case PROCESS_COMPLETED:// 流程结束
+            case PROCESS_COMPLETED:
+                // 流程结束
                 LOGGER.info("ProcessEndEventListeners PROCESS_COMPLETED invoke...");
                 topicSenderService.send(getEndSendMsgInfo(event));
                 break;
