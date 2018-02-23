@@ -67,6 +67,37 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
         var procReleaseId = $("#procReleaseId").val();
         verficationProcRelease(procReleaseId,2);
     });
+    // 发起审批
+    $("#approve").click( function() {
+        layer.load();
+        var procReleaseId = $("#procReleaseId").val();
+        var taskId = $("#taskId").val();
+        approveProcRelease(taskId);
+    });
+
+    function approveProcRelease(taskId){
+        console.log(taskId);
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: '/config/actProcRelease/update',
+            async: false,
+            data: {
+                id:taskId,
+                isValidate:checkType
+            },
+            timeout: 60000,
+            error : function(request) {
+                layer.closeAll('loading');
+                layer.msg("网络异常!");
+            },
+            success: function (data) {
+                layer.closeAll('loading');
+                layer.msg(data.msg);
+            }
+        });
+    }
+
 
     function verficationProcRelease(procReleaseId,checkType){
         console.log(procReleaseId);

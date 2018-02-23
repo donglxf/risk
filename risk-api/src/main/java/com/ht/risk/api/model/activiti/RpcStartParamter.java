@@ -22,11 +22,14 @@ public class RpcStartParamter implements Serializable {
      * 类型，1 验证，2 正式调用
      */
     private String type;
+    private Map<String,Object> data;
     /**
-     * 批次大小
+     * 批次大小,批量调用时需要传递
      */
     private int batchSize;
-    private Map<String,Object> data;
+    /**
+     * 批量调用流程参数
+     */
     private List<Map<String,Object>> datas;
 
     public String getVersion() {
