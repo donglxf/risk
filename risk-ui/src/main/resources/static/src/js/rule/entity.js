@@ -51,7 +51,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
              {field: 'entityName',  event: 'setItem',title: '名称'}
             ,{field: 'entityIdentify', event: 'setItem', title: '标识'}
             ,{field: 'entityDesc', event: 'setItem', title: '描述'}
-            ,{field: 'isEffect',  event: 'setItem',title: '状态', sort: true,templet: '#checkboxTpl', unresize: true,fixed: 'right'}
+           // ,{field: 'isEffect',  event: 'setItem',title: '状态', sort: true,templet: '#checkboxTpl', unresize: true,fixed: 'right'}
             ,{field: 'entityId', title: '操作', fixed: 'right',align:'center', toolbar: '#bar'}
         ]],
         done: function(res, curr, count){
@@ -298,8 +298,8 @@ layui.use(['table','form','laytpl','myutil'], function(){
     function  editItem(id) {
         $.get(preItemUrl+"getInfoById?id="+id,function (data) {
             var result = data.data;
-            topIndexId =    $.get('/rule/ui/rule/entityItem/edit', null, function (form) {
-                layer.open({
+             $.get('/rule/ui/rule/entityItem/edit', function (form) {
+                topIndexId =  layer.open({
                     type :1,
                     title : '修改',
                     maxmin : true,

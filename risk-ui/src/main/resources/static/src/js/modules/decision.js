@@ -131,6 +131,7 @@ var myUtil = {
     var sceneUtil = {
             subType:1,
             flag :true,
+            isEdit:true,
             v: '1.0.0',
             sceneId:-1,//场景id
             entityImport:[],
@@ -453,7 +454,7 @@ var myUtil = {
                             return '不能为空';
                         }
                         //特殊符号验证
-                        var re =/[`~!@#$%^&*_+<>{}\/'[\]]/im;
+                        var re =/[`~!@#$^&*_<>{}\/'[\]]/im;
                         if (re.test(value))
                         {
                             return '不能输入特殊字符';
@@ -502,6 +503,54 @@ var myUtil = {
            });
         },
         /**
+         * 导入页面打开,导入评分卡和决策
+         */
+        openImportDecision:function (type) {
+            var url = "/rule/ui/src/html/decision/import_scene.html";
+            if(type == 1){
+
+            }else{
+                url = "/rule/ui/src/html/decision/import_grade.html";
+            }
+            //打开导入面板
+            $.get(url,function(html){
+                layer.open({
+                    type: 1,
+                    skin: 'layui-layer-rim', //加上边框
+                    maxmin: false,
+                    title: false,
+                    shadeClose: true, // 点击遮罩关闭层
+                    area: ['550px', '400px'],
+                    content: html,
+                    btn: ['完成','取消'],
+                    shade:0.1,
+                    yes:function(index){
+                        //初始化数据
+                       var sceneId =  active.getCheckData();
+                       if(sceneId > 0 ){
+                           layer.confirm('导入将清空当前所有规则配置，是否继续', {
+                               btn: ['继续','不了'] //按钮
+                           }, function(){
+                               sceneUtil.isEdit = false;
+                               if(type == 1){
+                                   sceneUtil.openSceneRuleInit(sceneId);
+                               }
+                               else {
+                                   sceneUtil.openGradeRuleInit(sceneId);
+                               }
+                           }, function(){
+                           });
+                           sceneUtil.isEdit = true;
+                           layer.close(index);
+                       }
+                        //初始化数据
+                      //  getRuleData(sceneId);
+                  }
+                });
+
+            });
+        },
+        /**
          * 打开定义评分卡的弹窗页面
          * @param sceneId
          */
@@ -519,7 +568,10 @@ var myUtil = {
                         view.innerHTML = html;
                     });
                     //初始化 实体类的值
-                    sceneUtil.sceneId = sceneId;
+                    if(sceneUtil.isEdit){
+                        sceneUtil.sceneId = sceneId;
+                    }
+
                     sceneUtil.dataInit.entityBank();
                     sceneUtil.dataInit.actionBank();
                     sceneUtil.gradeInit();
@@ -532,7 +584,9 @@ var myUtil = {
                 }else{
                     $("#table").html(tableNoDataPt);
                     //初始化 实体类的值
-                    sceneUtil.sceneId = sceneId;
+                    if(sceneUtil.isEdit){
+                        sceneUtil.sceneId = sceneId;
+                    }
                     sceneUtil.gradeInit();
                 }
                 layer.close(index);
@@ -558,14 +612,18 @@ var myUtil = {
                         view.innerHTML = html;
                     });
                     //初始化 实体类的值
-                    sceneUtil.sceneId = sceneId;
+                    if(sceneUtil.isEdit){
+                        sceneUtil.sceneId = sceneId;
+                    }
                     sceneUtil.dataInit.entityBank();
                     sceneUtil.dataInit.actionBank();
                     sceneUtil.sceneInit();
                 }else{
                     $("#table").html(tableNoDataPt);
                     //初始化 实体类的值
-                    sceneUtil.sceneId = sceneId;
+                    if(sceneUtil.isEdit){
+                        sceneUtil.sceneId = sceneId;
+                    }
                     sceneUtil.sceneInit();
                 }
                 layer.close(index);
