@@ -63,8 +63,13 @@
 
 </script>
 <script type="text/html" id="checkboxTpl">
-    <!-- 这里的 checked 的状态只是演示 -->
-    <input type="checkbox" name="isEffect" value="{{d.isEffect}}" title="锁定" lay-filter="lockDemo" {{ d.isEffect == 0 ? 'checked' : '' }}>
+
+
+    {{#  if(d.isEffect === 1){ }}
+    <input type="checkbox" name="status" value="{{d.entityId}}" title="启用" lay-filter="lockDemo" {{ d.isEffect == 1 ? 'checked' : '' }}>
+    {{#  } else { }}
+    <input type="checkbox" name="status" value="{{d.entityId}}" title="停用" lay-filter="lockDemo" >
+    {{#  } }}
 </script>
 <!--操作-->
 <script type="text/html" id="bar">

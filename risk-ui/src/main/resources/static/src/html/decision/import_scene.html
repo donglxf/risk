@@ -85,6 +85,7 @@
             getCheckData: function(){ //获取选中数据
                 var checkStatus = sceneTable.checkStatus('sceneInfoTable')
                     ,data = checkStatus.data;
+                sceneTable.checkStatus().
                if(data.length > 1 || data.length <1 ){
                    layer.msg('必须选中1个策略哦~');
                     return -1;

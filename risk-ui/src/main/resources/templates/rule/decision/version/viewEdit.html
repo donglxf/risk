@@ -34,6 +34,7 @@
         color: red;
         font-weight: bold;
     }
+
 </style>
 <form class="layui-form myform"   >
     <input type="hidden" name="sceneId"  >
@@ -80,15 +81,15 @@
             $ = layui.jquery;
         //监听提交
         form.on('submit(formDemo)', function(data){
-        var iindex =  layer.msg('提交中..', {icon: 16,time:8000,shade :0.4});
+        var loadindex =  layer.msg('提交中..', {icon: 16,time:8000,shade :0.4});
            $.ajax({
-               // cache : true,
+                cache : true,
                 type : "POST",
                 url : '/rule/service/sceneVersion/push',
                 data : data.field,// 你的formid
-                async : false,　timeout : 5000,
+                async : false,
                 success : function(da) {
-                    layer.close(iindex);
+                    layer.close(loadindex);
                     if (da.code == '0') {
                         layer.msg('保存数据成功', {icon: 1,time:1500});
                      //   active.reload();

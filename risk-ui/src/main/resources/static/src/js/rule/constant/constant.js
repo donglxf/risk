@@ -46,7 +46,7 @@ layui.use(['table','form','myutil'], function(){
              {field: 'conKey',  event: 'setItem',title: '类别'}
             ,{field: 'conName', event: 'setItem', title: '名称'}
             ,{field: 'conCode', event: 'setItem', title: 'code'}
-            ,{field: 'isEffect',  event: 'setItem',title: '状态', sort: true,templet: '#checkboxTpl', unresize: true,fixed: 'right'}
+           // ,{field: 'isEffect',  event: 'setItem',title: '状态', sort: true,templet: '#checkboxTpl', unresize: true,fixed: 'right'}
             ,{field: 'conId', title: '操作', fixed: 'right',align:'center', toolbar: '#bar'}
         ]]
     });

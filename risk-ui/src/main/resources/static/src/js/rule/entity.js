@@ -51,7 +51,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
              {field: 'entityName',  event: 'setItem',title: '名称'}
             ,{field: 'entityIdentify', event: 'setItem', title: '标识'}
             ,{field: 'entityDesc', event: 'setItem', title: '描述'}
-           // ,{field: 'isEffect',  event: 'setItem',title: '状态', sort: true,templet: '#checkboxTpl', unresize: true,fixed: 'right'}
+            ,{field: 'isEffect',title: '状态', sort: true,templet: '#checkboxTpl', unresize: true,fixed: 'right'}
             ,{field: 'entityId', title: '操作', fixed: 'right',align:'center', toolbar: '#bar'}
         ]],
         done: function(res, curr, count){
@@ -87,10 +87,6 @@ layui.use(['table','form','laytpl','myutil'], function(){
     $('.demoTable .layui-btn').on('click', function(){
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
-    });
-    //监听锁定操作
-    form.on('checkbox(lockDemo)', function(obj){
-        layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
     });
     //监听单元格编辑
     /*entityTable.on('edit(entityTable)', function(obj){
@@ -143,6 +139,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
             ,{field: 'entityId', title: '操作', fixed: 'right',align:'center', toolbar: '#item_bar'}
         ]]
     });
+
     //监听工具条
     itemTable.on('tool(itemTable)', function(obj){
         var data = obj.data;
@@ -161,6 +158,24 @@ layui.use(['table','form','laytpl','myutil'], function(){
             //  layer.alert('编辑行：<br>'+ JSON.stringify(data))
             editItem(data.itemId);
         }
+    });
+    //监听锁定操作
+    form.on('checkbox(lockDemo)', function(obj){
+        var sta = obj.elem.checked ? 1 : 0;
+        var id = this.value;
+        $.post(preUrl+'/forbidden',{id:id,status:sta},function (data) {
+            if(data.data == '0'){
+                if(obj.elem.checked ){
+                    $(obj.elem).next().find("span").text("启用");
+                }else{
+                    $(obj.elem).next().find("span").text("停用");
+                }
+                layer.msg('操作成功', {icon: 1});
+               // active.reload();
+            }else{
+                layer.msg('操作失败', {icon: 2});
+            }
+        },'json');
     });
     //重载
     //这里以搜索为例

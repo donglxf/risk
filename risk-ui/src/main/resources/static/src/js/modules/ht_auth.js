@@ -36,7 +36,8 @@ layui.define(['jquery', 'tab', 'ht_config'], function (exports) {
                     isAuth = true;
                 }
             });
-            if (!isAuth) {
+            //修改项，张鹏。增加开发模式
+            if (!isAuth&&!config.dev) {
                 $(btn).remove();
             }
         });

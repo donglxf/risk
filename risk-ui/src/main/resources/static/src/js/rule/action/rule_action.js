@@ -46,7 +46,7 @@ layui.use(['table','form','myutil'], function(){
             ,{field: 'actionName', event: 'setItem', title: '动作名称'}
             ,{field: 'actionDesc', event: 'setItem', title: '动作描述'}
             ,{field: 'actionClass', event: 'setItem', title: '动作实现类'}
-            ,{field: 'isEffect',  event: 'setItem',title: '状态', sort: true,templet: '#checkboxTpl', unresize: true,fixed: 'right'}
+          //  ,{field: 'isEffect',  event: 'setItem',title: '状态', sort: true,templet: '#checkboxTpl', unresize: true,fixed: 'right'}
             ,{field: 'actionId', title: '操作', fixed: 'right',align:'center', toolbar: '#bar'}
         ]]
     });

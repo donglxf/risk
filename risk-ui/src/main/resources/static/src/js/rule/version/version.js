@@ -357,7 +357,7 @@ layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
     function save(url, result,id,type) {
 
         $.get(url, function (form) {
-          layer.open({
+            layerTopIndex =  layer.open({
                 type: 1,
                 title: '版本发布',
                 maxmin: true,
