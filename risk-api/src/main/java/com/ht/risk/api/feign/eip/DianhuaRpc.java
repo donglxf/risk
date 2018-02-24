@@ -16,7 +16,7 @@ import java.util.List;
 public interface DianhuaRpc {
 
     /**
-     * 描述：电话邦催收分
+     * 描述：电话邦催收分fdf
      */
     @PostMapping(value = "/collectionMin",headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<DianhuaCollectionMinDtoOut> collectionMin(@RequestBody DianhuaCollectionMinDtoIn input);
