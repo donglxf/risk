@@ -55,6 +55,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
     public Page<ActProcRelease> queryProcReleaseForPage(Page<ActProcRelease> page, ActProcRelease actProcRelease) {
         EntityWrapper<ActProcRelease> entityWrapper = new EntityWrapper<ActProcRelease>();
         entityWrapper.setEntity(actProcRelease);
+        entityWrapper.orderBy("create_time",false);
         return page.setRecords( actProcReleaseMapper.selectPage(page, entityWrapper));
     }
 

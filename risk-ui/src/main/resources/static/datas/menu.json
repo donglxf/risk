@@ -123,18 +123,18 @@
         "children": []
       },
       {
-        "id": "FK_FK-0052",
-        "icon": "fa fa-user",
-        "spread": true,
-        "title": "模型发布",
-        "url": "model/publish/list",
-        "children": []
-      },
-      {
         "id": "FK_FK-0053",
         "icon": "fa fa-user",
         "spread": true,
-        "title": "发布审批",
+        "title": "模型审批",
+        "url": "model/approval/list",
+        "children": []
+      },
+      {
+        "id": "FK_FK-0052",
+        "icon": "fa fa-user",
+        "spread": true,
+        "title": "模型版本管理",
         "url": "model/publish/list",
         "children": []
       }

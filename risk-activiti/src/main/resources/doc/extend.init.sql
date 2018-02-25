@@ -23,7 +23,7 @@ CREATE TABLE ACT_PROC_RELEASE(
   `MODEL_CATEGORY` varchar(64) COMMENT '模型分类',
   `VERSION_TYPE` VARCHAR(2) COMMENT '版本类型，0-测试版，1-正式版',
   `IS_VALIDATE` CHAR NOT NULL DEFAULT '0' COMMENT  '是否验证通过： 0-待验证，1-验证通过，2-验证不通过；默认为0;',
-  `IS_APPROVE` CHAR NOT NULL DEFAULT '0' COMMENT '是否审核通过：0-待审核，1-审核通过，2-审核不通过；默认为0;',
+  `IS_APPROVE` CHAR NOT NULL DEFAULT '0' COMMENT '是否审核通过：0-待审核，1-审核通过，2-审核不通过；3：提交审核；默认为0;',
   `IS_EFFECT` VARCHAR(2) NOT NULL DEFAULT '0' COMMENT '是否生效：0-有效，1-无效',
   `UPDATE_TIME` DATETIME COMMENT '更新时间',
   `UPDATE_USER` VARCHAR(64) COMMENT '更新用户',

@@ -39,8 +39,10 @@ public class TaskController {
         List<TaskVo> tasks = null;
         try {
             String userId = taskVo.getUserId();
+            String procDefId = null;
             List<Task> list = processEngine.getTaskService()//
                     .createTaskQuery()//
+                    .processDefinitionId(procDefId)
                     .taskAssignee(userId)//指定个人任务查询
                     .list();
             tasks = new ArrayList<TaskVo>();

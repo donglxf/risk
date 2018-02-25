@@ -9,6 +9,7 @@ import com.ht.risk.activiti.vo.ActProcReleaseVo;
 import com.ht.risk.common.result.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,19 +42,8 @@ public class ActProcReleaseController {
         pagination.setSize(limit);
         pagination.setCurrent(page);
         EntityWrapper<ActProcRelease> ew = new EntityWrapper<>();
-        if ("" != actProcRelease.getModelName() && actProcRelease.getModelName() != null) {
-            //模糊查询
-            ew.like("MODEL_NAME", "%" + actProcRelease.getModelName() + "%");
-        }
-        if ("" != actProcRelease.getIsValidate() && actProcRelease.getIsValidate() != null) {
-            ew.eq("IS_VALIDATE", actProcRelease.getIsValidate());
-        }
-        if ("" != actProcRelease.getModelCategory() && actProcRelease.getModelCategory() != null) {
-            ew.eq("MODEL_CATEGORY", actProcRelease.getModelCategory());
-        }
-        if ("" != actProcRelease.getIsEffect() && actProcRelease.getIsEffect() != null) {
-            ew.eq("IS_EFFECT", actProcRelease.getIsEffect());
-        }
+        ew.setEntity(actProcRelease);
+        ew.orderBy("create_time");
         Page<ActProcRelease> pages = actProcReleaseService.selectPage(pagination, ew);
         List<ActProcRelease> list = pages.getRecords();
         List<ActProcReleaseVo> queryList = new ArrayList<ActProcReleaseVo>();
@@ -64,7 +54,7 @@ public class ActProcReleaseController {
         return result;
     }
     @RequestMapping(value = "status")
-    @ApiOperation(value = "发布.启用或停用模型")
+    @ApiOperation(value = "发布、启用、审批通过、审批不通过、停用模型")
     public Result publishModelById(ActProcRelease actProcRelease) {
         Result<Object> result = new Result<>();
         boolean flag = actProcReleaseService.updateById(actProcRelease);

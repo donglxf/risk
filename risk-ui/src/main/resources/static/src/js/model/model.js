@@ -5,26 +5,29 @@ layui.use(['table','jquery'], function(){
     table.render({
         elem: '#model_list'
         ,height: 'auto'
-        ,url: '/activiti/list' //数据接口
+        ,url:pathConfig.activitiServicePath+ 'list' //数据接口
         ,id: 'testReload'
         ,page: true //开启分页
         ,cols: [[ //表头\
-             {field: 'modelName', title: '模型名称', width:"30%"}
-            ,{field: 'createDate', title: '创建时间', width:"30%"}
-            ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo', width: "40%"}
+             {field: 'modelName', title: '模型名称', width:"25%"}
+            ,{field: 'createDate', title: '创建时间', width:"25%"}
+            ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo', width: "50%"}
         ]]
     });
     table.render({
         elem: '#version_list'
         ,height: 'auto'
-        ,url: '/config/page' //数据接口
+        ,url: pathConfig.activitiConfigPath+'page' //数据接口
         ,id: "versionReload"
         ,page: true //开启分页
         ,cols: [[ //表头\
-            {field: 'modelProcdefId', title: '模型定义ID', width:"20%"}
+            {field: 'modelProcdefId', title: '模型定义ID', width:"15%"}
+            ,{field: 'versionType', title: '版本类型', width:"15%" ,templet:'#versionTpl'}
             ,{field: 'modelVersion', title: '模型版本', width:"10%"}
-            ,{field: 'createUser', title: '发布人', width:"35%"}
-            ,{field: 'createTime', title: '发布时间', width:"35%"}
+            ,{field: 'isValidate', title: '验证状态', width:"10%" ,templet:'#verfiactionTpl'}
+            ,{field: 'isApprove', title: '审核状态', width:"10%",templet:'#approvalTpl'}
+            ,{field: 'createUser', title: '发布人', width:"20%"}
+            ,{field: 'createTime', title: '发布时间', width:"20%" }
         ]]
     });
     table.on('tool(model)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -85,7 +88,7 @@ layui.use(['table','jquery'], function(){
             $.ajax({
                 cache : true,
                 type : "GET",
-                url : '/activiti/deleteModel?modelId='+modelId,
+                url : pathConfig.activitiServicePath+'deleteModel?modelId='+modelId,
                 timeout : 6000, //超时时间设置，单位毫秒
                 async : false,
                 error : function(request) {
@@ -113,7 +116,7 @@ layui.use(['table','jquery'], function(){
             $.ajax({
                 cache : true,
                 type : "GET",
-                url : '/rule/service/modelDeploy/deploy?modelId='+modelId,
+                url : pathConfig.ruleServicePath+'modelDeploy/deploy?modelId='+modelId,
                 async : false,
                 timeout: 10000,
                 error : function(request) {
@@ -140,7 +143,7 @@ layui.use(['table','jquery'], function(){
             type: 2,
             shade: false,
             title:"模型定义",
-            content: '/rule/ui/modelDetail?modelId='+modelId+"&date="+new Date(),
+            content: pathConfig.ruleUiPath+'modelDetail?modelId='+modelId+"&date="+new Date(),
             zIndex: layer.zIndex, //重点1
             success: function(layero){
                 layer.setTop(layero); //重点2
@@ -174,7 +177,7 @@ function addModel(){
         shade: false,
         title:"新增模型",
         area: ['800px','400px'],
-        content: '/rule/ui/model/addView',
+        content: pathConfig.ruleUiPath+'model/addView',
         zIndex: layer.zIndex, //重点1
         success: function(layero){
             layer.setTop(layero); //重点2

@@ -12,31 +12,33 @@ public class ModelController {
 
     private static Logger logger = LoggerFactory.getLogger(ModelController.class);
 
+    /**
+     * 模型配置列表
+     * @return
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String unDeployList() {
-        return "model/list";
+        return "model/config/list";
     }
 
+    /**
+     * 模型编辑页面
+     * @return
+     */
     @RequestMapping(value = "/modelDetail", method = RequestMethod.GET)
     public String modelDetail() {
         return "modeler";
     }
 
-
-    @RequestMapping(value = "/deployList", method = RequestMethod.GET)
-    public String deployList() {
-        return "model/deploy_list";
-    }
-
+    /**
+     * 模型新增
+     * @return
+     */
     @RequestMapping(value = "/addView", method = RequestMethod.GET)
     public String addView() {
-        return "model/add";
+        return "model/config/add";
     }
 
-    @RequestMapping(value = "/startView", method = RequestMethod.GET)
-    public String startView() {
-        return "model/start";
-    }
 
     @RequestMapping(value = "/verfication", method = RequestMethod.GET)
     public String verification() {
@@ -71,6 +73,28 @@ public class ModelController {
     @RequestMapping(value = "/publish/list", method = RequestMethod.GET)
     public String modelPublish() {
         return "model/version/list";
+    }
+
+    /**
+     * 模型审批
+     *
+     * @return
+     */
+    @RequestMapping(value = "/approval/list", method = RequestMethod.GET)
+    public String modelApproval() {
+        return "model/approval/list";
+    }
+
+
+    @RequestMapping(value = "/deployList", method = RequestMethod.GET)
+    public String deployList() {
+        return "model/deploy_list";
+    }
+
+
+    @RequestMapping(value = "/startView", method = RequestMethod.GET)
+    public String startView() {
+        return "model/start";
     }
 
 }
