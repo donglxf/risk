@@ -188,7 +188,7 @@ public class DroolsExcuteController {
             data = new RuleExcuteResult(1, e.getMessage(), null);
         }
         log.info("规则验证返回结果：" + JSON.toJSONString(data));
-        return null;
+        return data;
     }
 
     public RuleStandardResult saveLog(RuleExecutionObject object, DroolsParamter paramter, RuleSceneVersion ruleVersion, Long executeTime) {
