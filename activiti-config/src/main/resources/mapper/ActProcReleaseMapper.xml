@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.ht.risk.activiti.entity.ActProcRelease">
         <id column="id" property="id" />
         <result column="model_id" property="modelId" />
+        <result column="model_code" property="modelCode" />
         <result column="model_procdef_id" property="modelProcdefId" />
         <result column="model_name" property="modelName" />
         <result column="model_version" property="modelVersion" />
@@ -22,7 +23,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id AS id, model_procdef_id AS modelProcdefId, model_name AS modelName, model_version AS modelVersion, model_category AS modelCategory, version_type AS versionType, is_validate AS isValidate, is_approve AS isApprove, is_effect AS isEffect, update_time AS updateTime, update_user AS updateUser, create_time AS createTime, create_user AS createUser
+        id AS id,model_code as modelCode, model_procdef_id AS modelProcdefId, model_name AS modelName, model_version AS modelVersion, model_category AS modelCategory, version_type AS versionType, is_validate AS isValidate, is_approve AS isApprove, is_effect AS isEffect, update_time AS updateTime, update_user AS updateUser, create_time AS createTime, create_user AS createUser
     </sql>
 
 </mapper>

@@ -44,6 +44,11 @@ public class ActProcRelease extends Model<ActProcRelease> {
 	@TableField("model_id")
 	@ApiModelProperty(required= true,value = "模型ID，与 act_re_model.id_ 关联")
     private String modelId;
+
+	@TableField("model_code")
+	@ApiModelProperty(required= true,value = "模型ID，与 act_re_model.key_ 关联")
+	private String modelCode;
+
     /**
      * 模型定义ID，与 ACT_RE_PROCDEF.ID_ 关联,ACT_RE_PROCDEF 表中有模型部署id
      */
@@ -272,6 +277,14 @@ public class ActProcRelease extends Model<ActProcRelease> {
 
 	public void setIdStr(String idStr) {
 		this.idStr = idStr;
+	}
+
+	public String getModelCode() {
+		return modelCode;
+	}
+
+	public void setModelCode(String modelCode) {
+		this.modelCode = modelCode;
 	}
 
 	@Override

@@ -52,7 +52,7 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
      * 任务状态，0-待执行，1-执行结束，2-执行异常
      */
 	@TableField("status")
-	@ApiModelProperty(required= true,value = "任务状态，0-待执行，1-执行结束，2-执行异常")
+	@ApiModelProperty(required= true,value = "任务状态，0-待执行，1-启动成功，2-执行完成，3-执行异常")
 	private String status;
     /**
      * 任务类型，0-验证任务，1-业务系统调用
