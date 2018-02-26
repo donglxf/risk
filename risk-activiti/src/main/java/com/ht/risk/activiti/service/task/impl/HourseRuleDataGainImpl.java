@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service("hourseRuleDataGain")
 public class HourseRuleDataGainImpl implements HourseRuleDataGain {
 
@@ -19,6 +22,8 @@ public class HourseRuleDataGainImpl implements HourseRuleDataGain {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         LOGGER.error("HourseRuleDataGainImpl execute method excute start...");
+        Map map=new HashMap();
+        execution.setVariable("variableMap",map);
         LOGGER.error("HourseRuleDataGainImpl execute method excute end...");
     }
 }

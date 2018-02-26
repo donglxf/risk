@@ -34,7 +34,7 @@ layui.use(['table', 'form','laydate','myutil'], function () {
             // var modelVerification = new ModelVerification();
             // var contents = modelVerification.initModel(data);
             var da=data.data;
-            var html="<select id=\"isBusinessLine\" class=\"layui-select\" name=\"businessType\" lay-verify=\"\">\n<option value=\"\">选择类型</option>";
+            var html="<select id=\"isBusinessLine\" class=\"layui-select\" name=\"businessType\" lay-verify=\"\">\n<option value=\"\">选择业务线</option>";
             for (var i=0;i<da.length;i++){
                 html+="<option value=\""+da[i].businessId+"\">"+da[i].businessName+"</option>\n";
             }
