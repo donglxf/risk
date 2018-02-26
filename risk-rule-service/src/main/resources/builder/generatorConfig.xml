@@ -16,9 +16,9 @@
         </plugin>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://10.110.1.240:3306/tuandai_bm_core?useUnicode=true&amp;characterEncoding=UTF8"
+                        connectionURL="jdbc:mysql://172.16.200.105:3306/tuandai_bm_core?useUnicode=true&amp;characterEncoding=UTF8"
                         userId="root"
-                        password="tuandai_bm2015">
+                        password="tuandai888">
         </jdbcConnection>
 
         <javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}"/>
