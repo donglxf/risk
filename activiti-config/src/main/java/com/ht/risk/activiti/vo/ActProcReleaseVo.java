@@ -1,6 +1,8 @@
 package com.ht.risk.activiti.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ht.risk.activiti.entity.ActProcRelease;
 import com.ht.ussp.util.BeanUtils;
 
@@ -66,6 +68,7 @@ public class ActProcReleaseVo implements Serializable{
     /**
      * 创建时间
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     /**
      * 创建用户

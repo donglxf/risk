@@ -88,12 +88,12 @@
                 },
                 success : function(da) {
                     if (da.code == 0) {
-                        layer.msg('保存数据成功');
+                        layerTips.msg('保存数据成功');
                         //这里以搜索为例
                       //  var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
                       // layer.closeAll();
                        itemActive.reload();
-                        layer.close(topIndexId);
+                        layerTips.close(topIndexId);
                     } else {
                        layer.msg(data.msg);
                     }

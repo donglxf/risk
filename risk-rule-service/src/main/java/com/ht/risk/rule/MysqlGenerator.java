@@ -89,8 +89,8 @@ public class MysqlGenerator {
                         })
                         .setDriverName("com.mysql.jdbc.Driver")
                         .setUsername("root")
-                        .setPassword("tuandai_bm2015")
-                        .setUrl("jdbc:mysql://10.110.1.240:3306/drools_rule?useUnicode=true&characterEncoding=UTF8")
+                        .setPassword("tuandai888")
+                        .setUrl("jdbc:mysql://172.16.200.105:3306/drools_rule?useUnicode=true&characterEncoding=UTF8")
         ).setStrategy(
                 // 策略配置
                 new StrategyConfig()

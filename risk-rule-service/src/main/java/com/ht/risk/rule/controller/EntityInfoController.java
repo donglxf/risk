@@ -17,9 +17,14 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -210,7 +215,20 @@ public class EntityInfoController {
         EntityInfo entityInfo = entityInfoService.selectById(id);
         return Result.success(entityInfo);
     }
+    @PostMapping ("forbidden")
+    @ApiOperation(value = "禁用")
+    @Transactional(rollbackFor = RuntimeException.class)
+    public Result<Integer> forbidden(Integer status ,Long id){
 
+        if(id != null ){
+            EntityInfo entityInfo =  entityInfoService.selectById(id);
+            entityInfo.setIsEffect(status);
+            entityInfoService.updateById(entityInfo);
+        }else{
+            Result.success(-1);
+        }
+        return Result.success(0);
+    }
     @GetMapping("/delete")
     @ApiOperation(value = "通过id删除信息")
     public Result<Integer> delete( Long id){

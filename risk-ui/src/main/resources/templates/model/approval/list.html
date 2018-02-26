@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>模型审批列表</title>
+    <link rel="stylesheet" href="/rule/ui/plugins/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="demoTable layui-form" style="padding:10px 10px 0px 10px">
+
+    <div class="layui-inline">
+        <input class="layui-input" name="modelName" id="modelNameId" autocomplete="off" placeholder="模型名称">
+    </div>
+    <div class="layui-input-inline" id="business_ser">
+    </div>
+    <button class="layui-btn" data-type="reload" id="model_search">查询</button>
+</div>
+
+<script type="text/html" id="approvalBar">
+    <a class="layui-btn layui-btn-xs " lay-event="pass">通过</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="noPass">不通过</a>
+    <a class="layui-btn layui-btn-xs" lay-event="detail">查看验证信息</a>
+</script>
+<table id="model_approval_list" lay-filter="model" lay-data="{id: 'idModel'}"></table>
+</div>
+<script src="/rule/ui/plugins/layui/layui.js"></script>
+<script src="/rule/ui/src/js/model/model_config.js"></script>
+<script src="/rule/ui/src/js/model/model_approval.js"></script>
+</body>
+</html>

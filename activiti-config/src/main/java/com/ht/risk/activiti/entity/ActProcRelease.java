@@ -116,7 +116,7 @@ public class ActProcRelease extends Model<ActProcRelease> {
      * 是否审核通过：0-待审核，1-审核通过，2-审核不通过；默认为0;
      */
 	@TableField("is_approve")
-	@ApiModelProperty(required= true,value = "是否审核通过：0-待审核，1-审核通过，2-审核不通过；默认为0;")
+	@ApiModelProperty(required= true,value = "是否审核通过：0-待审核，1-审核通过，2-审核不通过；3:提交审核；默认为0;")
 	private String isApprove;
     /**
      * 是否生效：0-有效，1-无效

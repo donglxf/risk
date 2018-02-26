@@ -68,16 +68,16 @@ public class BusinessController {
         return Result.success(0);
     }
 
-    @GetMapping("getInfoById/{id}")
+    @GetMapping("getInfoById")
     @ApiOperation(value = "通过id查询详细信息")
-    public Result<Business> getDateById(@PathVariable(name = "id") Long id){
+    public Result<Business> getDateById( Long id){
         Business business = businessService.selectById(id);
         return Result.success(business);
     }
 
-    @GetMapping("delete/{id}")
+    @GetMapping("delete")
     @ApiOperation(value = "通过id删除信息")
-    public Result<Integer> delete(@PathVariable(name = "id") Long id){
+    public Result<Integer> delete( Long id){
         businessService.deleteById(id);
         return Result.success(0);
     }
