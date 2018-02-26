@@ -51,7 +51,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
              {field: 'entityName',  event: 'setItem',title: '名称'}
             ,{field: 'entityIdentify', event: 'setItem', title: '标识'}
             ,{field: 'entityDesc', event: 'setItem', title: '描述'}
-            ,{field: 'isEffect',title: '状态', sort: true,templet: '#checkboxTpl', unresize: true,fixed: 'right'}
+           // ,{field: 'isEffect',title: '状态', sort: true,templet: '#checkboxTpl', unresize: true,fixed: 'right'}
             ,{field: 'entityId', title: '操作', fixed: 'right',align:'center', toolbar: '#bar'}
         ]],
         done: function(res, curr, count){
