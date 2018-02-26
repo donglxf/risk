@@ -2,12 +2,11 @@ package com.ht.risk.controller;
 
 import javax.annotation.Resource;
 
+import com.ht.risk.api.model.drools.DroolsParamter;
+import com.ht.risk.common.model.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ht.risk.service.DroolsRuleEngineService;
 
@@ -46,4 +45,29 @@ public class DroolsVersionController {
         }
         return str;
     }
+
+	/**
+	 *
+	 * @Title: excuteDroolsScene
+	 * @Description: 根据场景生成规则文件字符串
+	 * @param @param dev 场景名
+	 * @param @return    设定文件
+	 * @return String    返回类型
+	 * @throws
+	 */
+	@RequestMapping("/obtainDroolsVersion")
+	@ResponseBody
+	public Result<String> obtainDroolsVersion(@RequestBody DroolsParamter paramter){
+		Result<String> result = null;
+		String str=null;
+		try {
+			log.info("规则生成id：====="+paramter.getSence());
+			str= droolsRuleEngineService.getDroolsString(Long.parseLong(paramter.getSence()));
+			result = Result.success(str);
+		}catch (Exception e){
+			e.printStackTrace();
+			result = Result.error(1,"获取规则文件异常..");
+		}
+		return result;
+	}
 }

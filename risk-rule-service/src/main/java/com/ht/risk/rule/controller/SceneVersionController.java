@@ -4,6 +4,7 @@ package com.ht.risk.rule.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.ht.risk.api.model.drools.DroolsParamter;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.*;
@@ -133,11 +134,14 @@ public class SceneVersionController {
         double maxVersion = 1.0 + count*0.1;
         version.setVersion(maxVersion+"");
         //获取 规则字符串
-        String ruleDrlStr = droolsRuleRpc.getDroolsVersion(sceneInfo.getSceneId()+"");
+        //String ruleDrlStr = droolsRuleRpc.getDroolsVersion(sceneInfo.getSceneId()+"");
+        DroolsParamter paramter = new DroolsParamter();
+        paramter.setSence(String.valueOf(sceneInfo.getSceneId()));
+        Result result = droolsRuleRpc.obtainDroolsVersion(paramter);
         version.setSceneId(sceneInfo.getSceneId());
         version.setSceneIdentify(identify);
         version.setCreTime(new Date());
-        version.setRuleDrl(ruleDrlStr);
+        version.setRuleDrl(String.valueOf(result.getData()));
         //启用
         version.setStatus(1);
         version.setTestStatus(0);
