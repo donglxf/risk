@@ -706,6 +706,10 @@ var myUtil = {
                     return;
                 }
             });
+            if(entityVal == '' || entityVal == undefined){
+                layer.msg("还没有选择哦");
+                return false;
+            }
             if(!flag){
                 layer.msg("不可重复添加");
                 return false;
@@ -757,6 +761,10 @@ var myUtil = {
                     return;
                 }
             });
+            if(actionVal == '' || actionVal == undefined){
+                layer.msg("还没有选择哦");
+                return false;
+            }
             if(!flag){
                 layer.msg("不可重复添加");
                 return false;
@@ -1801,13 +1809,12 @@ var myUtil = {
                                 layer.msg('恭喜保存成功,是否关闭页面？', {
                                     time: 10000, //20s后自动关闭
                                     btn: ['好的', '不关闭'],
-                                    icon: 1
-                                },function (i) {
-                                    layer.close(i);
-                                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                                    parent.layer.close(index); //再执行关闭
-                                },function (i) {
-                                    layer.close(i);
+                                    icon: 1,
+                                    yes:function(i){
+                                        layer.close(i);
+                                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                        parent.layer.close(index); //再执行关闭
+                                    }
                                 });
                             }else{
                                 layer.msg("恭喜保存成功",{time:1000});
