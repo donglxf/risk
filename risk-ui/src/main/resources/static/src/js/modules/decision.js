@@ -130,6 +130,7 @@ var myUtil = {
 };
     var sceneUtil = {
             subType:1,
+            isEdit:true,
             flag :true,
             v: '1.0.0',
             sceneId:-1,//场景id
