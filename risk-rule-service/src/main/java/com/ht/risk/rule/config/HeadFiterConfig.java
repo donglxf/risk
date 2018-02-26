@@ -18,7 +18,7 @@ import java.util.Enumeration;
  * @return 
  * @date 2018/2/2 18:14
  */
-@Configuration
+//@Configuration
 public class HeadFiterConfig {
     @Bean
     public RequestInterceptor headerInterceptor() {

@@ -234,14 +234,14 @@ public class VariableBindController {
             buf.append(" AND 1=1 ");
         }
         buf.append(" limit " + entityInfo.getExcuteTotal());
-        log.info("自动测试拼装sql================" + buf.toString());
+        log.info("自动验证数据获取sql================" + buf.toString());
         try {
             List<Map<String, Object>> obj = tempDataContainsService.getAutoValidaionData(buf.toString());
-            log.info("getAutoValidaionData=========================" + JSON.toJSONString(obj));
+            log.info("=========================" + JSON.toJSONString(obj));
             return obj;
         } catch (Exception ex) {
             log.error(ex.getMessage());
-            throw new Exception("数据绑定异常，请检查绑定是否正确");
+            throw new Exception("数据绑定异常，请检查变量绑定是否正确");
         }
     }
 

@@ -7,47 +7,53 @@
     <input type="hidden" name="actionId" >
 
     <div class="layui-form-item" >
-        <label class="layui-form-label">业务线:</label>
+        <label class="layui-form-label">业务线<span style="color: red;">＊</span></label>
         <div class="layui-input-block" id="businessDiv">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">数据类型</label>
+        <label class="layui-form-label">数据类型<span style="color: red;">＊</span></label>
         <div class="layui-input-inline">
             <select name="actionType" id="actionType">
                 <option value="">请选择</option>
                 <option value="1">实现</option>
-                <option value="2">自身</option>
+                <!--<option value="2">自身</option>-->
+                <option value="3">提示</option>
             </select>
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">动作名称:</label>
+        <label class="layui-form-label">动作名称<span style="color: red;">＊</span></label>
         <div class="layui-input-block">
-            <input type="text" id="ttt" name="actionName"  lay-verify-max="200"  required  lay-verify="required|name" placeholder="请输入动作名称" autocomplete="off" class="layui-input">
+            <input type="text" id="ttt" name="actionName"  lay-verify-max="200"  required  lay-verify="required" placeholder="请输入动作名称" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">动作描述:</label>
+        <label class="layui-form-label">动作描述<span style="color: red;">＊</span></label>
         <div class="layui-input-block">
             <input type="text"  name="actionDesc" required  lay-verify-max="3000" lay-verify="required" placeholder="请输入动作描述" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">动作实现类:</label>
+        <label class="layui-form-label">实现类<span style="color: red;">＊</span></label>
         <div class="layui-input-block">
             <input type="text"  name="actionClass" required  lay-verify-max="200" lay-verify="required" placeholder="请输入动作实现类" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">方法名:</label>
+        <label class="layui-form-label">方法名<span style="color: red;">＊</span></label>
         <div class="layui-input-block">
             <input type="text" id="method" name="actionMethod"  lay-verify-max="255" required  lay-verify="required" placeholder="请输入动作方法名" autocomplete="off" class="layui-input">
         </div>
     </div>
-
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">动作说明<span>&nbsp;&nbsp;&nbsp;</span></label>
+        <div class="layui-input-block">
+            <input type="text" id="actionOutDesc" name="actionOutDesc"  lay-verify-max="1000" placeholder="请输入动作说明" autocomplete="off" class="layui-input">
+        </div>
+    </div>-->
     <div class="layui-form-item">
-        <label class="layui-form-label">描述:</label>
+        <label class="layui-form-label">描述<span>&nbsp;&nbsp;&nbsp;</span></label>
         <div class="layui-input-block">
             <input type="text" name="remark"  lay-verify-max="3000" placeholder="请输入描述" autocomplete="off" class="layui-input">
         </div>

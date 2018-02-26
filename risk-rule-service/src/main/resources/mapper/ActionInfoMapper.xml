@@ -14,6 +14,7 @@
         <result column="cre_user_id" property="creUserId" />
         <result column="cre_time" property="creTime" />
         <result column="remark" property="remark" />
+        <result column="action_out_desc" property="actionOutDesc" />
     </resultMap>
 
     <resultMap type="com.ht.risk.rule.vo.ActionInfoVo" id="action">

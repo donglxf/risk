@@ -131,7 +131,6 @@ var myUtil = {
     var sceneUtil = {
             subType:1,
             flag :true,
-            isEdit:true,
             v: '1.0.0',
             sceneId:-1,//场景id
             entityImport:[],
@@ -454,7 +453,8 @@ var myUtil = {
                             return '不能为空';
                         }
                         //特殊符号验证
-                        var re =/[`~!@#$^&*_<>{}\/'[\]]/im;
+                        var re = /[@#]/g;
+                        // var re =/[`~!@#$%^&*_+<>{}\/'[\]]/im;
                         if (re.test(value))
                         {
                             return '不能输入特殊字符';

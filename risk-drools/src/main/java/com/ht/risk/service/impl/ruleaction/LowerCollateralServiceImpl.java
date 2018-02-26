@@ -15,8 +15,13 @@ import java.util.List;
 public class LowerCollateralServiceImpl extends DroolsActionService{
 	
 	private Logger log = LoggerFactory.getLogger(LowerCollateralServiceImpl.class);
-	
-	
+
+    /**
+     * 降低抵押率类 ，统计所有降低抵押率之和
+     * @param fact
+     * @param result
+     * @param key
+     */
     public void lowerCollateral(RuleExecutionObject fact, RuleExecutionResult result,String key) {
     	log.info("########lowerCollateral方法开始");
         int scope=0;

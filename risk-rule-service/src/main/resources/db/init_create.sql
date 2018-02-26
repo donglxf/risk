@@ -131,7 +131,7 @@ CREATE TABLE `rule_action_info` (
   `cre_time` datetime NOT NULL COMMENT '创建时间',
   `remark` varchar(3000) DEFAULT NULL COMMENT '备注',
   `business_id` varchar(32) DEFAULT '0' COMMENT '业务线id',
-  `action_method` varchar(255) DEFAULT NULL COMMENT '动作执行方法',
+  `action_method` varchar(255) DEFAULT NULL COMMENT '动作执行方法'
   PRIMARY KEY (`action_id`),
   KEY `action_type` (`action_type`),
   KEY `action_name` (`action_name`)
@@ -382,11 +382,25 @@ CREATE TABLE `risk_model_task` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='风控模型离线任务表';
 
 
+CREATE TABLE `risk_rule_action_version`  (
+  `risk_rule_action_version_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '动作版本关联id',
+  `version_id` bigint(20) NOT NULL COMMENT '版本id',
+  `action_class` varchar(168) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '实体类的名',
+  `action_id` bigint(20) DEFAULT NULL COMMENT '动作id',
+  PRIMARY KEY (`risk_rule_action_version_id`) USING BTREE
+) ENGINE = InnoDB  DEFAULT CHARSET=utf8 COMMENT='规则版本记录表';
+
+
 
 
 INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (3, 1, '评分卡', '评分卡类型', 'com.ht.risk.service.impl.ruleaction.TestActionImpl', 1, 1, '2018-01-24 18:34:35', '不可以删除', '5', 'grade');
 INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (4, 1, '统计', '统计分数', 'com.ht.risk.service.impl.ruleaction.ExcuteTotalScoreServiceImpl', 1, 1, '2018-02-05 09:33:55', 'asa', '5', 'statistics');
 INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (5, 1, '进件', '进件', 'com.ht.risk.service.impl.ruleaction.IntopiecesServiceImpl', 1, 1, '2018-01-24 18:34:50', NULL, '5', 'intoPieces');
+INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (960680035971096578, 1, '禁入', '禁入类', 'com.ht.risk.service.impl.ruleaction.ForbidServiceImpl', 1, 1, '2018-02-06 09:34:30', NULL, '5', 'forbid');
+INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (960709401115484162, 1, '降低抵押率类', '降低抵押率类', 'com.ht.risk.service.impl.ruleaction.LowerCollateralServiceImpl', 1, 1, '2018-02-06 11:31:15', NULL, '5', 'lowerCollateral');
+INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (967243425069694977, 1, '动作提示信息', '提示类动作', 'com.ht.risk.service.impl.ruleaction.AlertInfoActionImpl', 1, 1, '2018-02-24 11:42:58', NULL, '4', 'alertInfo');
+
+
 
 INSERT INTO `` (`action_param_id`, `action_id`, `action_param_name`, `action_param_desc`, `param_identify`, `is_effect`, `cre_user_id`, `cre_time`, `remark`) VALUES (3, 3, '分值', '分值', 'grade', 1, 1, '2017-12-22 10:34:22', NULL);
 INSERT INTO `` (`action_param_id`, `action_id`, `action_param_name`, `action_param_desc`, `param_identify`, `is_effect`, `cre_user_id`, `cre_time`, `remark`) VALUES (6, 3, '权值', '权值-不可以删除', 'grade1', 1, 1, '2018-1-25 11:08:04', '');

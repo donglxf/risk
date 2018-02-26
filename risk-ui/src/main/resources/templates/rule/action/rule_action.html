@@ -56,7 +56,9 @@
 		<div>实现</div>
 	{{# } else if(d.actionType == 2){ }}
 		<div>自身</div>
-	{{# } }}
+	{{# } else if(d.actionType == 3){ }}
+        <div>提示</div>
+    {{# } }}
 </script>
 <script type="text/html" id="checkboxTpl">
     <!-- 这里的 checked 的状态只是演示 -->

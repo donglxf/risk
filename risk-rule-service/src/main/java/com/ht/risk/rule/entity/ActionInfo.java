@@ -105,6 +105,13 @@ public class ActionInfo extends Model<ActionInfo> {
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
 
+	/**
+     * 动作说明，用于满足规则后输出提示信息
+     *//*
+	@TableField("action_out_desc")
+	@ApiModelProperty(required= true,value = "动作说明，用于满足规则后输出提示信息")
+	private String actionOutDesc;*/
+
 
 	public Long getActionId() {
 		return actionId;
@@ -178,6 +185,14 @@ public class ActionInfo extends Model<ActionInfo> {
 		this.remark = remark;
 	}
 
+//	public String getActionOutDesc() {
+//		return actionOutDesc;
+//	}
+//
+//	public void setActionOutDesc(String actionOutDesc) {
+//		this.actionOutDesc = actionOutDesc;
+//	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.actionId;
@@ -204,6 +219,7 @@ public class ActionInfo extends Model<ActionInfo> {
 			", creUserId=" + creUserId +
 			", creTime=" + creTime +
 			", remark=" + remark +
+//			", actionOutDesc=" + actionOutDesc +
 			"}";
 	}
 
