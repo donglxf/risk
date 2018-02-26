@@ -13,6 +13,7 @@ import com.ht.risk.activiti.mapper.RiskValidateBatchMapper;
 import com.ht.risk.activiti.rpc.ActivitiRpc;
 import com.ht.risk.activiti.service.ActProcReleaseService;
 import com.ht.risk.activiti.vo.ActProcReleaseVo;
+import com.ht.risk.activiti.vo.ModelStartVo;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.model.activiti.ModelParamter;
 import com.ht.risk.api.model.activiti.RpcDeployResult;
@@ -81,6 +82,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         ModelParamter modelRpc = modelResult.getData();
         ActProcRelease release = new ActProcRelease();
         release.setModelCategory(modelRpc.getCategory());
+        release.setModelCode(modelRpc.getKey());
         release.setModelId(paramter.getModelId());
         release.setModelName(modelRpc.getName());
         release.setModelVersion(modelVersion);
@@ -114,6 +116,42 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
             return null;
         }
     }
+
+    @Override
+    public String startModel(ModelStartVo modelStartVo) {
+        String modelVersion = modelStartVo.getModelVersion();
+        ActProcRelease release = null;
+        // 版本信息为空，获取模型最新版本
+        if(StringUtils.isEmpty(modelVersion)){
+            release = this.getModelLastedVersion(modelStartVo.getModelCode());
+        }else{
+            release = this.getModelInfo(modelStartVo.getModelCode(),modelStartVo.getModelVersion());
+        }
+        if(release == null){
+            return ActivitiConstants.MODEL_UNEXIST;
+        }
+        ActExcuteTask task  = this.saveTask(release.getId(),ActivitiConstants.EXCUTE_TYPE_SERVICE,null,JSON.toJSONString(modelStartVo.getData()));
+        RpcStartParamter rpcStartParamter = new RpcStartParamter();
+        rpcStartParamter.setProcDefId(release.getModelProcdefId());
+        rpcStartParamter.setData(modelStartVo.getData());
+        // 启动模型
+        Result<String> result = this.start(rpcStartParamter,task.getId());
+        LOGGER.info("startProcess complete... result:"+ JSON.toJSONString(result));
+        // 更新模型任务流程实例ID
+        if (result != null && result.getCode() == 0 && StringUtils.isNotEmpty(result.getData())) {
+            // 模型成功启动
+            task.setProcInstId(result.getData());
+            task.setStatus("1");
+            updateTask(task);
+            return result.getData();
+        }else{
+            //模型启动异常
+            task.setStatus("3");
+            updateTask(task);
+            return null;
+        }
+    }
+
     @Override
     public Long startInputValidateProcess(RpcStartParamter rpcStartParamter) throws Exception {
         LOGGER.info("startProcess start... paramter:"+ JSON.toJSONString(rpcStartParamter));
@@ -186,6 +224,44 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
             return null;
         }
         return releases.get(0).getId();
+    }
+
+    /**
+     * 获取模型最新版本
+     * @param modelCode
+     * @return
+     */
+    private ActProcRelease getModelLastedVersion(String modelCode) {
+        EntityWrapper<ActProcRelease> wrapper = new EntityWrapper<ActProcRelease>();
+        ActProcRelease actProcRelease = new ActProcRelease();
+        actProcRelease.setModelCode(modelCode);
+        actProcRelease.setVersionType("1");
+        wrapper.setEntity(actProcRelease);
+        wrapper.orderBy("model_version",false);
+        List<ActProcRelease> releases = actProcReleaseMapper.selectList(wrapper);
+        if (releases == null || releases.size() == 0) {
+            return null;
+        }
+        return releases.get(0);
+    }
+
+    /**
+     *获取模型信息
+     * @param modelCode
+     * @return
+     */
+    private ActProcRelease getModelInfo(String modelCode,String modeVersion) {
+        EntityWrapper<ActProcRelease> wrapper = new EntityWrapper<ActProcRelease>();
+        ActProcRelease actProcRelease = new ActProcRelease();
+        actProcRelease.setModelCode(modelCode);
+        actProcRelease.setModelVersion(modeVersion);
+        actProcRelease.setVersionType("1");
+        wrapper.setEntity(actProcRelease);
+        List<ActProcRelease> releases = actProcReleaseMapper.selectList(wrapper);
+        if (releases == null || releases.size() == 0) {
+            return null;
+        }
+        return releases.get(0);
     }
 
     private ActExcuteTask saveTask(Long releaseId, String type, Long batchId,String inParamter) {

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.activiti.entity.ActProcRelease;
 import com.ht.risk.activiti.service.ActProcReleaseService;
 import com.ht.risk.activiti.vo.ActProcReleaseVo;
+import com.ht.risk.activiti.vo.ModelStartVo;
 import com.ht.risk.activiti.vo.VerficationModelVo;
 import com.ht.risk.api.model.activiti.ModelParamter;
 import com.ht.risk.api.model.activiti.RpcDeployResult;
@@ -106,6 +107,31 @@ public class ActivitiProcessController {
             return data;
         }
         String procInstId = actProcReleaseService.startProcess(rpcStartParamter);
+        if(StringUtils.isEmpty(procInstId)){
+            data = Result.error(1,"启动模型异常！");
+            LOGGER.info("startProcess invoke start error");
+            return data;
+        }
+        data = Result.success(procInstId);
+        LOGGER.info("startProcess invoke end ...;procInstId:"+procInstId);
+        return data;
+    }
+
+    /**
+     * 模型启动
+     * @param modelStartVo
+     * @return
+     */
+    @RequestMapping("/startModel")
+    public Result startModel(@RequestBody ModelStartVo modelStartVo){
+        LOGGER.info("startProcess invoke start,paramter:"+ JSON.toJSONString(modelStartVo));
+        Result data = null;
+        if(modelStartVo == null || StringUtils.isEmpty(modelStartVo.getModelCode())){
+            data = Result.error(1,"参数异常！");
+            LOGGER.info("startProcess invoke start error,paramter exception...");
+            return data;
+        }
+        String procInstId = actProcReleaseService.startModel(modelStartVo);
         if(StringUtils.isEmpty(procInstId)){
             data = Result.error(1,"启动模型异常！");
             LOGGER.info("startProcess invoke start error");

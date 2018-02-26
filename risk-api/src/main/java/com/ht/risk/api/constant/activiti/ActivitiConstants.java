@@ -25,4 +25,7 @@ public class ActivitiConstants {
      */
     public final static String EXCUTE_TYPE_VERFICATION = "1";
 
+
+    public final static String MODEL_UNEXIST = "model_unexist";
+
 }
