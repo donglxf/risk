@@ -2,6 +2,7 @@ package com.ht.risk.activiti.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.activiti.entity.ActProcRelease;
+import com.ht.risk.activiti.vo.ModelStartVo;
 import com.ht.risk.api.model.activiti.ModelParamter;
 import com.ht.risk.api.model.activiti.RpcDeployResult;
 import com.ht.risk.api.model.activiti.RpcModelReleaseInfo;
@@ -27,6 +28,8 @@ public interface ActProcReleaseService extends BaseService<ActProcRelease> {
     Result<RpcDeployResult> proceDeploy(ModelParamter paramter);
 
     String startProcess(RpcStartParamter rpcStartParamter);
+
+    String startModel(ModelStartVo modelStartVo);
 
     Long startInputValidateProcess(RpcStartParamter paramter)throws Exception;
 

@@ -80,6 +80,7 @@ public class ActivitiController implements ModelDataJsonConstants {
             }
             paramter.setModelId(model.getId());
             paramter.setName(model.getName());
+            paramter.setKey(model.getKey());
             paramter.setCategory(model.getCategory());
             data = Result.success(paramter);
         } catch (Exception e) {
@@ -105,8 +106,12 @@ public class ActivitiController implements ModelDataJsonConstants {
         try {
             paramter.setCategory(paramter.getBusinessId());
             String modelId = activitiService.addModel(paramter);
-            paramter.setModelId(modelId);
-            data = Result.success(paramter);
+            if("EXIST".equals(modelId)){
+                data = Result.error(1, "创建模型失败,模型编码已存在");
+            }else{
+                paramter.setModelId(modelId);
+                data = Result.success(paramter);
+            }
         } catch (Exception e) {
             LOGGER.error("addModel error：", e);
             data = Result.error(1, "创建模型失败");
