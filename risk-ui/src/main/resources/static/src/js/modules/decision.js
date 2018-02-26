@@ -453,7 +453,8 @@ var myUtil = {
                             return '不能为空';
                         }
                         //特殊符号验证
-                        var re =/[`~!@#$%^&*_+<>{}\/'[\]]/im;
+                        var re = /[@#]/g;
+                        // var re =/[`~!@#$%^&*_+<>{}\/'[\]]/im;
                         if (re.test(value))
                         {
                             return '不能输入特殊字符';

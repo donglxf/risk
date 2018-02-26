@@ -14,9 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSON;
 import com.ht.risk.common.model.RuleExcuteResult;
@@ -142,15 +140,15 @@ public class DroolsExcuteController {
     }
 
     /**
-     * 手动测试
+     * 手动验证
      *
-     * @param paramter
      * @return
      */
-    @RequestMapping("/excuteDroolsSceneValidation")
+    @RequestMapping(value = "/excuteDroolsSceneValidation")
     public RuleExcuteResult excuteDroolsSceneValidation(@RequestBody DroolsParamter paramter) {
+        System.out.println("dfdfdfd"+paramter);
         RuleExcuteResult data = null;
-        // 业务数据转化
+//        // 业务数据转化
         try {
             log.info("规则验证入参：" + JSON.toJSONString(paramter));
             Map<String, Object> parmaMap = new HashMap<String, Object>();
@@ -158,11 +156,12 @@ public class DroolsExcuteController {
             if (RuleCallTypeEnum.rule.getType().equals(paramter.getType())) { // 规则调用
                 bool = false;
             }
-
+            String version="测试版";
             Long startTime = System.currentTimeMillis();
             // 1.根据sceneCode 查询最新测试版本
             if (bool) {
                 parmaMap.put("type", "1"); // 正式版
+                version="正式版";
             } else {
                 parmaMap.put("type", "0");
             }
@@ -170,7 +169,7 @@ public class DroolsExcuteController {
             parmaMap.put("version", paramter.getVersion());
             RuleSceneVersion ruleVersion = ruleSceneVersionService.getInfoByVersionId(parmaMap);
             if (ObjectUtils.isEmpty(ruleVersion)) {
-                data = new RuleExcuteResult(1, paramter.getSence() + "参数出错，无可用测试版本信息,请检查", null);
+                data = new RuleExcuteResult(1, paramter.getSence() + "参数出错，无可用"+version+"版本信息,请检查", null);
                 return data;
             }
             RuleExecutionObject object = new RuleExecutionObject();
@@ -189,16 +188,16 @@ public class DroolsExcuteController {
             data = new RuleExcuteResult(1, e.getMessage(), null);
         }
         log.info("规则验证返回结果：" + JSON.toJSONString(data));
-        return data;
+        return null;
     }
 
     public RuleStandardResult saveLog(RuleExecutionObject object, DroolsParamter paramter, RuleSceneVersion ruleVersion, Long executeTime) {
         List<String> logList = new ArrayList<String>();
         RuleExecutionResult res = (RuleExecutionResult) object.getGlobalMap().get("_result");
-        List<String> reulst = (List<String>) res.getMap().get("result");
-        List<String> li = (List<String>) res.getMap().get("ruleList");
+        List<String> reulst = (List<String>) res.getMap().get("result"); // 规则计算返回结果
+        List<String> li = (List<String>) res.getMap().get("ruleList"); // 命中规则列表
         List<String> newList = new ArrayList();
-        if (ObjectUtils.isNotEmpty(li)) {
+        if (ObjectUtils.isNotEmpty(li)) { // 去掉重复命中规则名
             Set set = new HashSet();
             set.addAll(li);
             newList.addAll(set);
@@ -248,7 +247,7 @@ public class DroolsExcuteController {
             }
             logList.add(String.valueOf(logId));
         }
-        object.getGlobalMap().put("logIdList", logList);
+        object.getGlobalMap().put("logIdList", logList); // 日志id集合
         RuleStandardResult ruleResult = new RuleStandardResult();
         ruleResult.setLogIdList(logList);
         ruleResult.setRuleList(li);

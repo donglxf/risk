@@ -2,7 +2,7 @@ package com.ht.risk.api.feign.eip;
 
 /**
  * @Author Huang.zengmeng
- * @Description 7.2.12百融多次申请核查V2
+ * @Description 7.2.12百融多次申请核查       V2
  * @Date 2018/2/8 13:59
  */
 
