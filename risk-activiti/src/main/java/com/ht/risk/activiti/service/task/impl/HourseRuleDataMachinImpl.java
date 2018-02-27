@@ -42,12 +42,12 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             map = new HashMap();
         }
         String age = (String) map.get("borrowerInfo_borrowerAge"); // 借款人年龄
-        String method = (String) map.get(""); // 借款人借款期限
+        String method = (String) map.get("borrower_method"); // 借款人借款期限
         map.put("borrowerInfo_borrowerAgePlusLoanterm", ProvinceUtil.getborrowAge(Integer.parseInt(age), Integer.parseInt(method)));
         // 万达接口调用
         WDEnterpriseDetailReqDto wdReq = new WDEnterpriseDetailReqDto();
-        wdReq.setRegicode("广东鸿特信息咨询有限公司");
-        wdReq.setKeyType("2");
+        wdReq.setRegicode((String) map.get("regicode"));
+        wdReq.setKeyType((String) map.get("keytype"));
         Result<WDEnterpriseDetailRespDtoOut> result = eipServiceInterface.getZhengxinWanda(wdReq);
         JSONObject str = JSONObject.parseObject(JSON.toJSONString(result));
         if (getResultSuccess(str)) { // 执行成功
@@ -57,6 +57,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                 map.put("borrowerInfo_borrowerCompanyStatus", entstatus);
             }
         }
+
         // 天行数科
         NegativeSearchDtoIn negative=new NegativeSearchDtoIn();
         negative.setIdentityCard("");
@@ -66,7 +67,8 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
         if (getResultSuccess(str1)){
             String isCrime=str1.getJSONObject("data").getString("isCrime");
             if("1".equals(isCrime)){
-                map.put("borrowerLawsuit_nonRunningRecords", isCrime);
+                isCrime="有";
+                map.put("borrowerLawsuit_thRecords", isCrime);
             }
         }
 

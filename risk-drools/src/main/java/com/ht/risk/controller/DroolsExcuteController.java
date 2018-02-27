@@ -30,9 +30,6 @@ public class DroolsExcuteController {
     @Resource
     private DroolsRuleEngineService droolsRuleEngineService;
 
-//    @Resource
-//    private RuleSceneService ruleSceneService;
-
     @Resource
     private DroolsLogService droolsLogService;
 
@@ -66,7 +63,7 @@ public class DroolsExcuteController {
 //            parmaMap.put("versionId", paramter.getVersion());
             RuleSceneVersion ruleVersion = ruleSceneVersionService.getInfoByVersionId(parmaMap);
             if (ObjectUtils.isEmpty(ruleVersion)) {
-                data = new RuleExcuteResult(1, paramter.getSence() + "无可用正式版发布信息,请检查", null);
+                data = new RuleExcuteResult(1, paramter.getSence() + "无可用正式版发布信息,请检查", null,null);
                 return data;
             }
             RuleExecutionObject object = new RuleExecutionObject();
@@ -110,7 +107,7 @@ public class DroolsExcuteController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            data = new RuleExcuteResult(1, "执行异常", null);
+            data = new RuleExcuteResult(1, "执行异常", null,null);
         }
         log.info("规则出参：" + JSON.toJSONString(paramter));
         return data;
@@ -134,7 +131,7 @@ public class DroolsExcuteController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            data = new RuleExcuteResult(1, e.getMessage(), null);
+            data = new RuleExcuteResult(1, e.getMessage(), null,null);
         }
         return list;
     }
@@ -174,7 +171,7 @@ public class DroolsExcuteController {
             }
 
             if (ObjectUtils.isEmpty(ruleVersion)) {
-                data = new RuleExcuteResult(1, paramter.getSence() + "参数出错，无可用"+version+"版本信息,请检查", null);
+                data = new RuleExcuteResult(1, paramter.getSence() + "参数出错，无可用"+version+"版本信息,请检查", null,paramter.getVersion());
                 return data;
             }
             RuleExecutionObject object = new RuleExecutionObject();
@@ -187,10 +184,10 @@ public class DroolsExcuteController {
             Long executeTime = endTime - startTime;
             log.info("规则验证执行时间》》》》》" + String.valueOf(executeTime));
 
-            data = new RuleExcuteResult(0, "success", saveLog(object, paramter, ruleVersion, executeTime));
+            data = new RuleExcuteResult(0, "success", saveLog(object, paramter, ruleVersion, executeTime),paramter.getVersion());
         } catch (Exception e) {
             e.printStackTrace();
-            data = new RuleExcuteResult(1, e.getMessage(), null);
+            data = new RuleExcuteResult(1, e.getMessage(), null,paramter.getVersion());
         }
         log.info("规则验证返回结果：" + JSON.toJSONString(data));
         return data;
