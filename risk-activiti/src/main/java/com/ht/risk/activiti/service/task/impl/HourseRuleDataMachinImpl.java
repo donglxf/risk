@@ -22,13 +22,8 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service("hourseRuleDataGain")
-public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
-/**
- * 数据加工接口
- */
 @Service("hourseRuleDataMachin")
-public class HourseRuleDataMachinImpl implements HourseRuleDataMachin {
+public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(HourseRuleDataMachinImpl.class);
 
