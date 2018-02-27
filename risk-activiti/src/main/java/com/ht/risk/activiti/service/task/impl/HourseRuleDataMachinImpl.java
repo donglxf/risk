@@ -44,6 +44,19 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
         String age = (String) map.get("borrowerInfo_borrowerAge"); // 借款人年龄
         String method = (String) map.get("borrower_method"); // 借款人借款期限
         map.put("borrowerInfo_borrowerAgePlusLoanterm", ProvinceUtil.getborrowAge(Integer.parseInt(age), Integer.parseInt(method)));
+
+        String decoration= (String) map.get("houseInfo_decorationStatus"); // 装修情况
+        if("已装修".equals(decoration)){
+
+        }else if("装修中".equals(decoration)){
+
+        }else if("毛坯".equals(decoration)){
+            decoration="roughcast";
+        }
+        map.put("houseInfo_decorationStatus",decoration);
+
+
+
         // 万达接口调用
         WDEnterpriseDetailReqDto wdReq = new WDEnterpriseDetailReqDto();
         wdReq.setRegicode((String) map.get("regicode"));

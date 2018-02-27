@@ -28,21 +28,21 @@ public class HourseRuleDataGainImpl implements HourseRuleDataGain {
         map.put("borrowerInfo_borrowerAge","45"); // 借款人年龄
         map.put("borrower_method","20"); //借款人借款期限
         map.put("borrowerInfo_registerCity","海外"); //借款人户籍
-        map.put("houseInfo_decorationStatus",""); //
+        map.put("borrowerLawsuit_borrowerSuretyCreditBad","有"); //担保人如有失信
         map.put("houseInfo_reserveType","别墅");//房产类型
         map.put("houseInfo_housePropertyArea","500");  //房产面积
-        map.put("","");
-        map.put("","");
-        map.put("","");
-        map.put("","");
-        map.put("","");
-        map.put("","");
-        map.put("","");
-        map.put("","");
-        map.put("","");
-        map.put("","");
-        map.put("","");
-        map.put("","");
+        map.put("borrowerInfo_registerCity","香港");//借款人户籍
+        map.put("houseInfo_houseOwnerRegister","台湾"); //房产权属人籍贯
+        map.put("houseInfo_houseAge","20"); //楼龄
+        map.put("houseInfo_houseMortgageRate","40"); //房产抵押率抵押率
+        map.put("borrowerAmountInfo_expireDateAmount",""); //原业务额度
+        map.put("borrowerCreditInfo_overdueInfo","0");// 逾期记录
+        map.put("houseInfo_houseCityType","cityTypeA"); //城市类型
+        map.put("houseInfo_firstLoans","2000000"); // 一押金额
+        map.put("houseInfo_secondLoans","1000000"); // 二押金额
+//        map.put("","");
+//        map.put("","");
+//        map.put("","");
         execution.setVariable("variableMap",map);
         LOGGER.error("HourseRuleDataGainImpl execute method excute end...");
     }
