@@ -20,7 +20,7 @@ layui.use(['table','jquery','myutil'], function(){
         ,cols: [[ //表头\
             {field: 'modelName', title: '模型名称', width:"20%"}
             ,{field: 'modelVersion', title: '模型版本', width:"20%"}
-            ,{field: 'modelProcdefId', title: '模型定义ID', width:"15%"}
+            ,{field: 'modelCode', title: '模型编码', width:"15%"}
             ,{field: 'createUser', title: '创建人', width:"10%"}
             ,{field: 'createTime', title: '创建时间', width:"15%"}
             ,{fixed: 'right', width:150, align:'center', toolbar: '#approvalBar', width: "20%"}
@@ -32,13 +32,11 @@ layui.use(['table','jquery','myutil'], function(){
         var tr = obj.tr; //获得当前行 tr 的DOM对象
         var id = data.id;
         var deploymentId = data.deploymentId;
-        console.log(data);
         if(layEvent === 'pass'){ //通过
             layer.confirm('您确认审核通过吗？', function(index){
                 updateRelease(id,1);
                 layer.close(index);
             });
-
         }else if(layEvent === 'noPass'){// 不通过
             layer.confirm('您确认审核不通过吗？', function(index){
                 updateRelease(id,2);
@@ -75,7 +73,6 @@ layui.use(['table','jquery','myutil'], function(){
             }
         });
     }
-
     $('#model_search').on('click', function(){
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
@@ -86,7 +83,6 @@ layui.use(['table','jquery','myutil'], function(){
         console.log(type);
         active[type] ? active[type].call(this) : '';
     });
-
     // 审批
     function updateRelease(procReleaseId,isEffect){
         $.ajax({
@@ -108,6 +104,11 @@ layui.use(['table','jquery','myutil'], function(){
             }
         });
     }
+
+    function searchVerficationDetail(){
+
+    }
+
 });
 
 

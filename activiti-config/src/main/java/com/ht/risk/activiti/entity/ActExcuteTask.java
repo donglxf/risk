@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 /**
@@ -88,6 +90,7 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
      * 创建时间
      */
 	@TableField("create_time")
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
 	@ApiModelProperty(required= true,value = "创建时间")
 	private Date createTime;
     /**
@@ -100,6 +103,7 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
      * 结束时间
      */
 	@TableField("update_time")
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
 	@ApiModelProperty(required= true,value = "结束时间")
 	private Date updateTime;
 

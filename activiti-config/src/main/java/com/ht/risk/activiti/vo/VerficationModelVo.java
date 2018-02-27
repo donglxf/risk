@@ -15,6 +15,7 @@ public class VerficationModelVo extends Page{
     private Map<String,Object> data;
     private String batchSize;
     private String modelName;
+    private String modelCode;
     private String modelVersion;
 
 
@@ -80,5 +81,13 @@ public class VerficationModelVo extends Page{
 
     public void setModelVersion(String modelVersion) {
         this.modelVersion = modelVersion;
+    }
+
+    public String getModelCode() {
+        return modelCode;
+    }
+
+    public void setModelCode(String modelCode) {
+        this.modelCode = modelCode;
     }
 }

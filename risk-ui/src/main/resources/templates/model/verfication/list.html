@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>模型管理</title>
+    <title>模型验证列表</title>
     <link rel="stylesheet" href="/rule/ui/plugins/layui/css/layui.css" media="all">
 </head>
 <body>
@@ -11,23 +11,10 @@
 
 <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
     <div class="layui-col-md2">
-        <input type="text" name="modelName" id="modelName" required lay-verify="required" placeholder="请输入模型名称"
-               autocomplete="off"
-               class="layui-input">
+        <input type="text" name="modelName" id="modelName" required lay-verify="required" placeholder="模型名称" autocomplete="off" class="layui-input">
     </div>
-
-    <div class="layui-col-md1 ">
-        <select id="isValidate" class="layui-select" name="isValidate" lay-verify="">
-            <option value="">选择状态</option>
-            <option value="0">待验证</option>
-            <option value="1">验证通过</option>
-            <option value="2">验证不通过</option>
-        </select>
-    </div>
-
     <div class="layui-col-md1">
         <select class="layui-select" id="modelCategory" name="modelCategory" lay-verify="">
-
         </select>
     </div>
     <div class="layui-col-md1">
@@ -52,9 +39,9 @@
 <table id="model_list" lay-filter="model" lay-data="{id: 'idModel'}"></table>
 </div>
 <script src="/rule/ui/plugins/layui/layui.js"></script>
+<script src="/rule/ui/src/js/model/model_config.js"></script>
 <script src="/rule/ui/src/js/model/model_util.js"></script>
 <script src="/rule/ui/src/js/model/model_verification.js"></script>
-<script src="/rule/ui/src/js/model/model_config.js"></script>
 </body>
 
 <script type="text/html" id="bindTpl">
