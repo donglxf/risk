@@ -1,6 +1,9 @@
 package com.ht.risk.activiti.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.activiti.entity.ActExcuteTask;
+import com.ht.risk.activiti.vo.ActExcuteTaskVo;
+import com.ht.risk.activiti.vo.VerficationModelVo;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.common.service.BaseService;
 
@@ -23,4 +26,5 @@ public interface ActExcuteTaskService extends BaseService<ActExcuteTask> {
 
     Map<String,Object> getModelGraph(Map<String,Object> map);
 
+    public Page<ActExcuteTaskVo> verficationTaskPage(Page<ActExcuteTaskVo> page, VerficationModelVo verficationModelVo);
 }

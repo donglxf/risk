@@ -43,7 +43,7 @@ public class ActProcReleaseController {
         pagination.setCurrent(page);
         EntityWrapper<ActProcRelease> ew = new EntityWrapper<>();
         ew.setEntity(actProcRelease);
-        ew.orderBy("create_time");
+        ew.orderBy("create_time",false);
         Page<ActProcRelease> pages = actProcReleaseService.selectPage(pagination, ew);
         List<ActProcRelease> list = pages.getRecords();
         List<ActProcReleaseVo> queryList = new ArrayList<ActProcReleaseVo>();

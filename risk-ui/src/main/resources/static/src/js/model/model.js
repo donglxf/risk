@@ -21,7 +21,7 @@ layui.use(['table','jquery'], function(){
         ,id: "versionReload"
         ,page: true //开启分页
         ,cols: [[ //表头\
-            {field: 'modelProcdefId', title: '模型定义ID', width:"15%"}
+            {field: 'modelCode', title: '模型编码', width:"15%"}
             ,{field: 'versionType', title: '版本类型', width:"15%" ,templet:'#versionTpl'}
             ,{field: 'modelVersion', title: '模型版本', width:"10%"}
             ,{field: 'isValidate', title: '验证状态', width:"10%" ,templet:'#verfiactionTpl'}

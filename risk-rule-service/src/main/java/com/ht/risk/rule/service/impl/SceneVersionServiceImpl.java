@@ -65,10 +65,16 @@ public class SceneVersionServiceImpl extends BaseServiceImpl<SceneVersionMapper,
 
 	@Override
     public SceneVersion querySceneVersionInfoByCodeAndVersion(String code, String version){
-        Map<String,Object> paramter = new HashMap<String,Object>();
+        /*Map<String,Object> paramter = new HashMap<String,Object>();
         paramter.put("scene_identify",code);
-        paramter.put("official_version",version);
-        List<SceneVersion> sceneVersionList = sceneVersionMapper.selectByMap(paramter);
+        paramter.put("official_version",version);*/
+        EntityWrapper<SceneVersion> wrapper = new EntityWrapper<>();
+        SceneVersion sceneVersion = new SceneVersion();
+        sceneVersion.setSceneIdentify(code);
+        sceneVersion.setOfficialVersion(version);
+        wrapper.setEntity(sceneVersion);
+        wrapper.orderBy("cre_time",false);
+        List<SceneVersion> sceneVersionList = sceneVersionMapper.selectList(wrapper);
         if(sceneVersionList != null && sceneVersionList.size() > 0){
             return sceneVersionList.get(0);
         }

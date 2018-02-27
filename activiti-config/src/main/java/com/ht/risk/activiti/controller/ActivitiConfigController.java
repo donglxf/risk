@@ -57,7 +57,6 @@ public class ActivitiConfigController {
         }
         LOGGER.info("queryProcInstId mothod invoke end,reustl:"+ JSON.toJSONString(result));
         return result;
-
     }
 
     @RequestMapping("/queryTasksByBatchId")

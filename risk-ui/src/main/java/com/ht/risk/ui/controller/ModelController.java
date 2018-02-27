@@ -39,7 +39,10 @@ public class ModelController {
         return "model/config/add";
     }
 
-
+    /**
+     * 模型待验证列表
+     * @return
+     */
     @RequestMapping(value = "/verfication", method = RequestMethod.GET)
     public String verification() {
         return "model/verfication/list";
@@ -47,22 +50,22 @@ public class ModelController {
 
     @RequestMapping(value = "/valiable", method = RequestMethod.GET)
     public String valiable() {
-        return "model/verfication/model";
+        return "model/verfication/verfication_task_create";
     }
 
-    @RequestMapping(value = "/valiable/auto", method = RequestMethod.GET)
+/*    @RequestMapping(value = "/valiable/auto", method = RequestMethod.GET)
     public String valiableAuto() {
         return "model/verfication/model_auto";
-    }
+    }*/
 
     @RequestMapping(value = "/verfication/result", method = RequestMethod.GET)
     public String verficationResult() {
-        return "model/verfication/result/list";
+        return "model/verfication/verfication_task_list";
     }
 
     @RequestMapping(value = "/verfication/result/detail", method = RequestMethod.GET)
     public String resultDetail() {
-        return "model/verfication/result/detail";
+        return "model/verfication/detail";
     }
 
     /**

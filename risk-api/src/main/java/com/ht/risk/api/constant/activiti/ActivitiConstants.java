@@ -28,4 +28,12 @@ public class ActivitiConstants {
 
     public final static String MODEL_UNEXIST = "model_unexist";
 
+    public final static String RULE_SENCE_CODE = "RULE_SENCE_CODE";
+
+    public final static String PROC_STATUS = "PROC_STATUS";
+    public final static String PROC_STATUS_WARIT_START = "0";//流程未启动
+    public final static String PROC_STATUS_START = "1";//流程已启动
+    public final static String PROC_STATUS_SUCCESS = "2";//流程执行成功
+    public final static String PROC_STATUS_EXCEPTION = "3";//流程执行异常
+
 }

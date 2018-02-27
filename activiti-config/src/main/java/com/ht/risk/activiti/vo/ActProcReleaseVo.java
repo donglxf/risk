@@ -33,6 +33,11 @@ public class ActProcReleaseVo implements Serializable{
      * 模型名称
      */
     private String modelName;
+
+    /**
+     * 模型编码
+     */
+    private String modelCode;
     /**
      * 模型版本
      */
@@ -239,4 +244,11 @@ public class ActProcReleaseVo implements Serializable{
         this.cornText = cornText;
     }
 
+    public String getModelCode() {
+        return modelCode;
+    }
+
+    public void setModelCode(String modelCode) {
+        this.modelCode = modelCode;
+    }
 }
