@@ -14,9 +14,10 @@ public class AppTest
     }
 
     public static boolean isSpecialChar() {
-        String str = "#121dsdsaaad#fafafdaf";
+        String str = "你好啊.你";
         //String regEx = "^[_`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
         String regEx = "^[^ `~!@#$%^&*()+=|{}''\\\\[\\\\].<>/~@#￥%……&*（）——+|{}]+$";
+        regEx = "^[^&#$<>'\\\"\\\\|\\\\\\\\]*$";
 
 
         Pattern p = Pattern.compile(regEx);

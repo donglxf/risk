@@ -95,7 +95,6 @@ public class RuleInfoController {
                // conditionInfo.setYsf(RuleUtils.getCondition(conditionInfo.getConditionExpression(),conditionInfo.getVal()));
                 //中文描述
                 conditionInfo.setValText(conditionInfo.getVal());
-
                 String val = RuleUtils.getConditionOfVariable(conditionInfo.getConditionExpression());
                 //设置运算符
                 conditionInfo.setYsf(RuleUtils.getCondition(conditionInfo.getConditionExpression(),val));
