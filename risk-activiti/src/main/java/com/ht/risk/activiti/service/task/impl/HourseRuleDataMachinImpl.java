@@ -24,6 +24,11 @@ import java.util.Map;
 
 @Service("hourseRuleDataGain")
 public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
+/**
+ * 数据加工接口
+ */
+@Service("hourseRuleDataMachin")
+public class HourseRuleDataMachinImpl implements HourseRuleDataMachin {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(HourseRuleDataMachinImpl.class);
 

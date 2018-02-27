@@ -28,8 +28,16 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        String senceCode = (String) senceCodeExp.getValue(delegateExecution);
-        String version = (String) versionExp.getValue(delegateExecution);
+        if(senceCodeExp == null){
+            delegateExecution.setVariable(ActivitiConstants.PROC_STATUS,ActivitiConstants.PROC_STATUS_EXCEPTION);
+            return ;
+        }
+        String senceCode = String.valueOf(senceCodeExp.getValue(delegateExecution));
+        delegateExecution.setVariable(ActivitiConstants.RULE_SENCE_CODE,senceCode);
+        String version = null;
+        if(versionExp != null){
+            version = String.valueOf(versionExp.getValue(delegateExecution));
+        }
         LOGGER.info("drools excute start,senceCode："+senceCode+";version:"+version);
         // 策略的业务数据
         Map senceData = (Map)delegateExecution.getVariable(senceCode+ ActivitiConstants.DROOLS_VARIABLE_NAME);
@@ -43,9 +51,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         LOGGER.info("DroolsRuleEngineServiceImpl service paramter:"+ JSON.toJSONString(paramter));
         RuleExcuteResult result = null;
         result = droolsRuleEngineInterface.excuteDroolsSceneValidation(paramter);
-        // 执行成功
         delegateExecution.setVariable(senceCode+"-"+version,result);
-        LOGGER.info("drools excute end,senceCode："+senceCode+";version:"+version);
+        LOGGER.info("DroolsRuleEngineServiceImpl service end , result:"+ JSON.toJSONString(result));
     }
 
     public Expression getSenceCodeExp() {
