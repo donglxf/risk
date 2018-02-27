@@ -6,6 +6,8 @@ import com.ht.risk.activiti.rpc.EipServiceInterface;
 import com.ht.risk.activiti.service.task.HourseRuleDataGain;
 import com.ht.risk.api.comment.EntstatusEnum;
 import com.ht.risk.api.comment.WLInterfaceReturnStatusEnum;
+import com.ht.risk.api.model.eip.NegativeSearchDtoIn;
+import com.ht.risk.api.model.eip.NegativeSearchDtoOut;
 import com.ht.risk.api.model.eip.wanda.WDEnterpriseDetailReqDto;
 import com.ht.risk.api.model.eip.wanda.WDEnterpriseDetailRespDtoOut;
 import com.ht.risk.common.result.Result;
@@ -48,15 +50,31 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
         wdReq.setKeyType("2");
         Result<WDEnterpriseDetailRespDtoOut> result = eipServiceInterface.getZhengxinWanda(wdReq);
         JSONObject str = JSONObject.parseObject(JSON.toJSONString(result));
-        if (WLInterfaceReturnStatusEnum.success.getValue().equals(str.getString("returnCode"))) { // 执行成功
+        if (getResultSuccess(str)) { // 执行成功
             String entstatus = str.getJSONObject("data").getJSONObject("basic").getString("entstatus");
             if (EntstatusEnum.closeUp.getName().equals(entstatus) || EntstatusEnum.liquidate.getName().equals(entstatus)
                     || EntstatusEnum.outOfBusiness.getName().equals(entstatus)) {
                 map.put("borrowerInfo_borrowerCompanyStatus", entstatus);
             }
         }
-        //
+        // 天行数科
+        NegativeSearchDtoIn negative=new NegativeSearchDtoIn();
+        negative.setIdentityCard("");
+        negative.setRealName("");
+        Result<NegativeSearchDtoOut> neResult = eipServiceInterface.getNegativeSearch(negative);
+        JSONObject str1 = JSONObject.parseObject(JSON.toJSONString(neResult));
+        if (getResultSuccess(str1)){
+            String isCrime=str1.getJSONObject("data").getString("isCrime");
+            if("1".equals(isCrime)){
+                map.put("borrowerLawsuit_nonRunningRecords", isCrime);
+            }
+        }
+
 
         LOGGER.error("HourseRuleDataMachinImpl execute method excute end...");
+    }
+
+    public boolean getResultSuccess(JSONObject str){
+        return WLInterfaceReturnStatusEnum.success.getValue().equals(str.getString("returnCode"));
     }
 }
