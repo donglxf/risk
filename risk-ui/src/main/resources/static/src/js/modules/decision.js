@@ -130,6 +130,7 @@ var myUtil = {
 };
     var sceneUtil = {
             subType:1,
+            isEdit:true,
             flag :true,
             v: '1.0.0',
             sceneId:-1,//场景id
@@ -153,9 +154,9 @@ var myUtil = {
                     {value: ">=", text: "大于或等于"},
                     {value: "contains", text: "包含"},
                     {value: "contains^", text: "不包含"},
-                    {value: "like%", text: "开始以"},
-                    {value: "%like", text: "结束以"},
-                    {value: "===", text: "忽略"},
+                   // {value: "like%", text: "开始以"},
+                  //  {value: "%like", text: "结束以"},
+                   // {value: "===", text: "忽略"},
                 ],
                 //数据对象库
                 entitysBank:[],
@@ -1795,6 +1796,7 @@ var myUtil = {
                     type: "POST",
                     url: "/rule/service/rule/saveGrade",
                     data: str,
+                    timeout: 15000,
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     success: function (message) {
@@ -1868,6 +1870,7 @@ var myUtil = {
                 url: "/rule/service/rule/save",
                 data: str,
                 dataType: "json",
+                timeout: 15000,
                 contentType: "application/json; charset=utf-8",
                 success: function (message) {
                     layer.close(iindex);
