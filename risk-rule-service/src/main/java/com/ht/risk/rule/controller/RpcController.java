@@ -22,13 +22,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/rpc/")
 public class RpcController {
+
     @Autowired
     private TempDataContainsService tempDataContainsService;
 
-    @PostMapping("getVariableBindBySenceVersionId")
-    @ApiOperation(value = "根据规则版本获取规则变量绑定信息")
+    @PostMapping("get")
+    @ApiOperation(value = "房速贷准入流程获取数据接口")
     public List<Map<String, Object>> getVariableBindBySenceVersionId() {
-        // 查询变量绑定字段信息
         Map<String, Object> columnMap = new HashMap<String, Object>();
         List<Map<String, Object>> map = tempDataContainsService.getAutoValidaionData("");
         return map;

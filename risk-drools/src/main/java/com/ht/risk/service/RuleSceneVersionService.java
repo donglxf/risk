@@ -21,7 +21,7 @@ public interface RuleSceneVersionService extends BaseService<RuleSceneVersion> {
 	 * @return
 	 * @throws Exception
 	 */
-	public RuleSceneVersion getTestLastVersion(Map<String,Object> parmaMap) throws Exception;
+	public RuleSceneVersion getLastVersionByType(Map<String,Object> parmaMap) throws Exception;
 
 	/**
 	 * 根据版本id获取当前版本记录

@@ -146,18 +146,18 @@ public class DroolsExcuteController {
      */
     @RequestMapping(value = "/excuteDroolsSceneValidation")
     public RuleExcuteResult excuteDroolsSceneValidation(@RequestBody DroolsParamter paramter) {
-        System.out.println("dfdfdfd"+paramter);
         RuleExcuteResult data = null;
-//        // 业务数据转化
+        // 业务数据转化
         try {
             log.info("规则验证入参：" + JSON.toJSONString(paramter));
-            Map<String, Object> parmaMap = new HashMap<String, Object>();
+            RuleSceneVersion ruleVersion=null;
             boolean bool = true; // true-正式,false-测试
             if (RuleCallTypeEnum.rule.getType().equals(paramter.getType())) { // 规则调用
                 bool = false;
             }
             String version="测试版";
             Long startTime = System.currentTimeMillis();
+            Map<String, Object> parmaMap = new HashMap<String, Object>();
             // 1.根据sceneCode 查询最新测试版本
             if (bool) {
                 parmaMap.put("type", "1"); // 正式版
@@ -166,8 +166,13 @@ public class DroolsExcuteController {
                 parmaMap.put("type", "0");
             }
             parmaMap.put("sceneIdentify", paramter.getSence()); // 决策code
-            parmaMap.put("version", paramter.getVersion());
-            RuleSceneVersion ruleVersion = ruleSceneVersionService.getInfoByVersionId(parmaMap);
+            if(StringUtil.strIsNull(paramter.getVersion())){
+                ruleVersion= ruleSceneVersionService.getLastVersionByType (parmaMap);
+            }else{
+                parmaMap.put("version", paramter.getVersion());
+                ruleVersion= ruleSceneVersionService.getInfoByVersionId(parmaMap);
+            }
+
             if (ObjectUtils.isEmpty(ruleVersion)) {
                 data = new RuleExcuteResult(1, paramter.getSence() + "参数出错，无可用"+version+"版本信息,请检查", null);
                 return data;

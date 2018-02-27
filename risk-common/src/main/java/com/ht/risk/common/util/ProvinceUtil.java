@@ -1,14 +1,8 @@
 package com.ht.risk.common.util;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import sun.applet.Main;
-
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
-/**
- * 省市互转
- */
 
 public class ProvinceUtil {
 

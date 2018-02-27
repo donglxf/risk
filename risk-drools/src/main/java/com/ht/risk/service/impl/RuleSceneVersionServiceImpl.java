@@ -25,8 +25,8 @@ public class RuleSceneVersionServiceImpl extends BaseServiceImpl<RuleSceneVersio
 	private RuleSceneVersionMapper ruleSceneVersionMapper;
 	
 	@Override
-	public RuleSceneVersion getTestLastVersion(Map<String,Object> parmaMap) throws Exception{
-		return ruleSceneVersionMapper.getTestLastVersion(parmaMap);
+	public RuleSceneVersion getLastVersionByType(Map<String,Object> parmaMap) throws Exception{
+		return ruleSceneVersionMapper.getLastVersionByType(parmaMap);
 	}
 
 	@Override
