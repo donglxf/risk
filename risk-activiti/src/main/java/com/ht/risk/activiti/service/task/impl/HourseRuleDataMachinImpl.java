@@ -17,6 +17,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
     protected static final Logger LOGGER = LoggerFactory.getLogger(HourseRuleDataMachinImpl.class);
 
     /**
+     *
      * @param execution
      * @throws Exception
      */
