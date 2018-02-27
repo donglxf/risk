@@ -145,7 +145,7 @@ public class RuleUtils {
      */
     public static String getConditionOfVariable(String str) {
 
-        String[] arr = str.split(">(=)?|<(=)?|={1,2}|!=|contains(^)?");
+        String[] arr = str.split(">(=)?|<(=)?|={1,2}|!=|contains\\^|contains");
         if (arr.length < 2) {
             return "";
         }
@@ -207,10 +207,12 @@ public class RuleUtils {
 
     public static void main(String[] args) {
      //   String aa = "$11$==100"
-        System.out.print( getCondition("$11$==100","100"));
-        int count = 1;
-        double maxVersion = 1.0 + count*0.1;
-        System.out.print(maxVersion);
+//        System.out.print( getCondition("$11$==100","100"));
+//        int count = 1;
+//        double maxVersion = 1.0 + count*0.1;
+//        System.out.print(maxVersion);
+
+        System.out.println(getConditionOfVariable("$967228891527647234$contains^香港、澳门、台湾"));
 
     }
 }
