@@ -8,7 +8,6 @@ public class ActivitiConstants {
 
     public final static String PROC_VERSION_PREFIX = "V.";
 
-    public final static String PROC_TASK_ID_CONSTANTS = "proc_task_id";
 
     public final static String DROOLS_VARIABLE_NAME = "DATA";
 
@@ -38,4 +37,10 @@ public class ActivitiConstants {
 
     public final static String SENCE_EXCUTE_RESULT_VAR = "SENCE_EXCUTE_RESULT_";//规则执行结果流程变量标识
 
+    public final static String PROC_MODEL_DATA_kEY = "PROC_MODEL_DATA_kEY";
+
+    public final static String PROC_MODEL_EXCUTE_TYPE_KEY = "EXCUTE_TYPE";// 模型运行模式流程变量key值
+    public final static String PROC_MODEL_EXCUTE_VERFICATION_TYPE = "VERFICATION";// 模型验证模式
+    public final static String PROC_MODEL_EXCUTE_SERVIE_TYPE = "SERVICE";// 模型服务模式
+    public final static String PROC_TASK_ID_VAR_KEY = "proc_task_id";// 模型执行任务taskid在流程变量key值
 }

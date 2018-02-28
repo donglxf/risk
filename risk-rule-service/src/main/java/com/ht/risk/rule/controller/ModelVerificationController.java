@@ -78,16 +78,22 @@ public class ModelVerificationController {
         Map<String, String[]> parameterMap = request.getParameterMap();
         Set<String> keys = parameterMap.keySet();
         Iterator<String> key = keys.iterator();
-        Map<String, Object> dataMap = new HashMap<String, Object>();
-        Map<String, String> senceData = null;
+        //Map<String, Object> dataMap = new HashMap<String, Object>();
+        Map<String, Object> senceData  = new HashMap<String, Object>();
         String[] ary = null;
         String senceCode = null;
         String variableCode = null;
+
+        // 数据拼装
         while (key.hasNext()) {
             String next = key.next();
             String temValue = parameterMap.get(next)[0];
             ary = next.split("#");
             if (ary != null && ary.length == 3) {
+                variableCode = ary[2];
+                senceData.put(variableCode, temValue);
+            }
+           /* if (ary != null && ary.length == 3) {
                 senceCode = ary[1];
                 if (dataMap.containsKey(senceCode + "DATA")) {
                     senceData = (Map<String, String>) dataMap.get(senceCode+ "DATA");
@@ -99,16 +105,15 @@ public class ModelVerificationController {
                     senceData.put(variableCode, temValue);
                     dataMap.put(senceCode + "DATA", senceData);
                 }
-            }
+            }*/
         }
-        dataMap.put(ActivitiConstants.EXCUTE_TYPE_VARIABLE_NAME, "1");
         String procDefId = request.getParameter("model_procDefId");
         String modelVersion = request.getParameter("model_version");
         RpcStartParamter rpcStartParamter = new RpcStartParamter();
         rpcStartParamter.setProcDefId(procDefId);
         rpcStartParamter.setVersion(modelVersion);
-        rpcStartParamter.setType("1");
-        rpcStartParamter.setData(dataMap);
+        rpcStartParamter.setType(ActivitiConstants.PROC_MODEL_EXCUTE_VERFICATION_TYPE);
+        rpcStartParamter.setData(senceData);
         rpcStartParamter.setBatchSize(1);
         LOGGER.info("createSingleVerficationTask mothod invoke,paramter:" + JSON.toJSONString(rpcStartParamter));
         Result<Long> rpcResult = activitiConfigRpc.startInputValidateProcess(rpcStartParamter);

@@ -15,6 +15,7 @@ import com.ht.risk.common.result.Result;
 import com.ht.risk.common.util.ObjectUtils;
 import com.ht.risk.common.util.ProvinceUtil;
 import org.activiti.engine.delegate.DelegateExecution;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +38,25 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
      */
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        LOGGER.error("HourseRuleDataMachinImpl execute method excute start...");
+        LOGGER.info("HourseRuleDataMachinImpl execute method excute start...");
         Map map = (Map) execution.getVariable(ActivitiConstants.DROOLS_VARIABLE_NAME);
         if (ObjectUtils.isEmpty(map)) {
             map = new HashMap();
         }
-        String age = (String) map.get("borrowerInfo_borrowerAge"); // 借款人年龄
-        String method = (String) map.get("borrower_method"); // 借款人借款期限
-        map.put("borrowerInfo_borrowerAgePlusLoanterm", ProvinceUtil.getborrowAge(Integer.parseInt(age), Integer.parseInt(method)));
 
-        String decoration= (String) map.get("houseInfo_decorationStatus"); // 装修情况
+        // 年龄和借款期限处理
+        try {
+            Object ageObj = map.get("borrowerInfo_borrowerAge");
+            Object methodObj = map.get("borrower_method");
+            int age = ageObj != null ? Integer.parseInt(String.valueOf(ageObj)) : 0;
+            int method = methodObj != null ? Integer.parseInt(String.valueOf(methodObj)) : 0;
+            map.put("borrowerInfo_borrowerAgePlusLoanterm", ProvinceUtil.getborrowAge(age, method));
+        }catch(Exception e){
+            LOGGER.error("年龄和借款期限处理异常，"+e.getMessage());
+        }
+
+        // 装修情况处理
+        String decoration= (String) map.get("houseInfo_decorationStatus");
         if("已装修".equals(decoration)){
 
         }else if("装修中".equals(decoration)){
@@ -55,8 +65,10 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             decoration="roughcast";
         }
         map.put("houseInfo_decorationStatus",decoration);
+
+
         // 万达接口调用
-       /* WDEnterpriseDetailReqDto wdReq = new WDEnterpriseDetailReqDto();
+        /*WDEnterpriseDetailReqDto wdReq = new WDEnterpriseDetailReqDto();
         wdReq.setRegicode((String) map.get("regicode"));
         wdReq.setKeyType((String) map.get("keytype"));
         Result<WDEnterpriseDetailRespDtoOut> result = eipServiceInterface.getZhengxinWanda(wdReq);
@@ -67,10 +79,10 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                     || EntstatusEnum.outOfBusiness.getName().equals(entstatus)) {
                 map.put("borrowerInfo_borrowerCompanyStatus", entstatus);
             }
-        }*/
+        }
 
         // 天行数科
-        /*NegativeSearchDtoIn negative=new NegativeSearchDtoIn();
+        NegativeSearchDtoIn negative=new NegativeSearchDtoIn();
         negative.setIdentityCard("");
         negative.setRealName("");
         Result<NegativeSearchDtoOut> neResult = eipServiceInterface.getNegativeSearch(negative);

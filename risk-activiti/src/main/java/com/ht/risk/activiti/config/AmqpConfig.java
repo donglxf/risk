@@ -21,7 +21,7 @@ public class AmqpConfig {
     public final static String ACTIVITI_SELF = "activiti.self";
     public final static String ACTIVITI_SERVICE = "activiti.service";
     public final static String ACTIVITI_ROUTING_KEY = "activiti.service";
-    public final static String ACTIVITI_ROUTING_ALL = "activiti.#";
+    public final static String ACTIVITI_ROUTING_ALL = "activiti.self";
     public final static String ACTIVITI_EXCHANGE = "activitiExchange";
 
     //创建队列

@@ -34,10 +34,10 @@ public class ReceiverService {
     @Resource
     private ActivitiRpc activitiRpc;
 
-    @RabbitListener(queues = "activiti.self")
+    @RabbitListener(queues = "activiti.service")
     public void receiveMessage(String message) {
         LOGGER.info("ReceiverService receiveMessage from quene activiti-result-queue,message"+message);
-        if(StringUtils.isNotEmpty(message)){
+        /*if(StringUtils.isNotEmpty(message)){
             ModelExcuteResult modelResult = null;
             try{
                 modelResult = JSON.parseObject(message,ModelExcuteResult.class);
@@ -45,8 +45,7 @@ public class ReceiverService {
             }catch (Exception e){
                 updateTaskInfo(modelResult.getTaskId(),ActivitiConstants.PROC_STATUS_EXCEPTION);
             }
-        }
-        LOGGER.info("ReceiverService receiveMessage from quene activiti-result-queue,message"+message);
+        }*/
          /*String proceInstId = message;
         if(StringUtils.isNotEmpty(proceInstId)){
             new Thread(new UpdateTaskStatusTask(proceInstId)).start();
@@ -61,7 +60,7 @@ public class ReceiverService {
         ActExcuteTask task = actExcuteTaskMapper.selectById(taskId);
         if (task != null) {
             task.setStatus(status);
-            Long  startL = task.getCreateTime().getTime();
+            Long startL = task.getCreateTime().getTime();
             task.setSpendTime(System.currentTimeMillis() - startL);
             actExcuteTaskMapper.updateById(task);
             return true;
