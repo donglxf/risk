@@ -34,7 +34,7 @@ layui.use(['table', 'form','laydate','myutil'], function () {
             // var modelVerification = new ModelVerification();
             // var contents = modelVerification.initModel(data);
             var da=data.data;
-            var html="<select id=\"isBusinessLine\" class=\"layui-select\" name=\"businessType\" lay-verify=\"\">\n<option value=\"\">选择类型</option>";
+            var html="<select id=\"isBusinessLine\" class=\"layui-select\" name=\"businessType\" lay-verify=\"\">\n<option value=\"\">选择业务线</option>";
             for (var i=0;i<da.length;i++){
                 html+="<option value=\""+da[i].businessId+"\">"+da[i].businessName+"</option>\n";
             }
@@ -224,10 +224,10 @@ layui.use(['table', 'form','laydate','myutil'], function () {
             $.get('/rule/ui/ruleBind/index/edit', null, function(form) {
                 layer.open({
                     type : 1,
-                    title : '修改',
+                    title : '变量绑定',
                     maxmin : true,
                     shadeClose : false, // 点击遮罩关闭层
-                    area : [ '730px', '460px' ],
+                    area : [ '780px', '460px' ],
                     content : form,
                     btn : [ '保存', '取消' ],
                     btnAlign : 'c',

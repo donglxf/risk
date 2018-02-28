@@ -22,10 +22,10 @@
     </sql>
 
     <select id="queryHitRuleByProcInstId" resultType="com.ht.risk.model.HitRule">
-        select d.version_id as senceVersionId,d.title as senceName,a.RULE_NAME as ruleName,a.RULE_DESC as ruleDesc,c.EXECUTE_RULENAME as flag from RISK_RULE_HIS_VERSION a
+        select d.version_id as senceVersionId,d.title as senceName,a.RULE_NAME as ruleName,a.RULE_DESC as ruleDesc,c.EXECUTE_RULENAME as flag from risk_rule_his_version a
         inner join rule_scene_version d on a.SENCE_VERSION_ID = d.version_id
-        inner join RISK_TEST_DROOLS_LOG b on a.SENCE_VERSION_ID = b.SENCE_VERSIONID and d.version_id = b.SENCE_VERSIONID
-        left join RISK_TEST_DROOLS_DETAIL_LOG c on a.RULE_NAME = c.EXECUTE_RULENAME and b.ID = c.DROOLS_LOGID
+        inner join risk_test_drools_log b on a.SENCE_VERSION_ID = b.SENCE_VERSIONID and d.version_id = b.SENCE_VERSIONID
+        left join risk_test_drools_detail_log c on a.RULE_NAME = c.EXECUTE_RULENAME and b.ID = c.DROOLS_LOGID
         where b.PROCINST_ID =  #{procInstId}
     </select>
 

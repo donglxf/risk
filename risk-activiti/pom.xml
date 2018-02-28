@@ -107,6 +107,11 @@
 			<optional>true</optional>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+
 		<!-- activiti start -->
 		<dependency>
 			<groupId>org.activiti</groupId>

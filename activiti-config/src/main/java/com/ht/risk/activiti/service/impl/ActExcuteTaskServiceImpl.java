@@ -1,11 +1,14 @@
 package com.ht.risk.activiti.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.activiti.entity.ActExcuteTask;
 import com.ht.risk.activiti.entity.ActProcRelease;
 import com.ht.risk.activiti.mapper.ActExcuteTaskMapper;
 import com.ht.risk.activiti.mapper.ActProcReleaseMapper;
 import com.ht.risk.activiti.service.ActExcuteTaskService;
+import com.ht.risk.activiti.vo.ActExcuteTaskVo;
+import com.ht.risk.activiti.vo.VerficationModelVo;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
@@ -74,5 +77,11 @@ public class ActExcuteTaskServiceImpl extends BaseServiceImpl<ActExcuteTaskMappe
         resultMap.put("ruleMap",ruleMap);
         resultMap.put("listMap",listMap);
         return resultMap;
+    }
+
+    @Override
+    public Page<ActExcuteTaskVo> verficationTaskPage(Page<ActExcuteTaskVo> page,VerficationModelVo verficationModelVo) {
+        List<ActExcuteTaskVo> taskVos = actExcuteTaskMapper.verficationTaskPage(page,verficationModelVo);
+        return page.setRecords(taskVos);
     }
 }

@@ -30,9 +30,6 @@ public class DroolsExcuteController {
     @Resource
     private DroolsRuleEngineService droolsRuleEngineService;
 
-//    @Resource
-//    private RuleSceneService ruleSceneService;
-
     @Resource
     private DroolsLogService droolsLogService;
 
@@ -66,7 +63,7 @@ public class DroolsExcuteController {
 //            parmaMap.put("versionId", paramter.getVersion());
             RuleSceneVersion ruleVersion = ruleSceneVersionService.getInfoByVersionId(parmaMap);
             if (ObjectUtils.isEmpty(ruleVersion)) {
-                data = new RuleExcuteResult(1, paramter.getSence() + "无可用正式版发布信息,请检查", null);
+                data = new RuleExcuteResult(1, paramter.getSence() + "无可用正式版发布信息,请检查", null,null);
                 return data;
             }
             RuleExecutionObject object = new RuleExecutionObject();
@@ -110,7 +107,7 @@ public class DroolsExcuteController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            data = new RuleExcuteResult(1, "执行异常", null);
+            data = new RuleExcuteResult(1, "执行异常", null,null);
         }
         log.info("规则出参：" + JSON.toJSONString(paramter));
         return data;
@@ -134,7 +131,7 @@ public class DroolsExcuteController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            data = new RuleExcuteResult(1, e.getMessage(), null);
+            data = new RuleExcuteResult(1, e.getMessage(), null,null);
         }
         return list;
     }
@@ -146,18 +143,18 @@ public class DroolsExcuteController {
      */
     @RequestMapping(value = "/excuteDroolsSceneValidation")
     public RuleExcuteResult excuteDroolsSceneValidation(@RequestBody DroolsParamter paramter) {
-        System.out.println("dfdfdfd"+paramter);
         RuleExcuteResult data = null;
-//        // 业务数据转化
+        // 业务数据转化
         try {
             log.info("规则验证入参：" + JSON.toJSONString(paramter));
-            Map<String, Object> parmaMap = new HashMap<String, Object>();
+            RuleSceneVersion ruleVersion=null;
             boolean bool = true; // true-正式,false-测试
             if (RuleCallTypeEnum.rule.getType().equals(paramter.getType())) { // 规则调用
                 bool = false;
             }
             String version="测试版";
             Long startTime = System.currentTimeMillis();
+            Map<String, Object> parmaMap = new HashMap<String, Object>();
             // 1.根据sceneCode 查询最新测试版本
             if (bool) {
                 parmaMap.put("type", "1"); // 正式版
@@ -166,10 +163,15 @@ public class DroolsExcuteController {
                 parmaMap.put("type", "0");
             }
             parmaMap.put("sceneIdentify", paramter.getSence()); // 决策code
-            parmaMap.put("version", paramter.getVersion());
-            RuleSceneVersion ruleVersion = ruleSceneVersionService.getInfoByVersionId(parmaMap);
+            if(StringUtil.strIsNull(paramter.getVersion())){
+                ruleVersion= ruleSceneVersionService.getLastVersionByType (parmaMap);
+            }else{
+                parmaMap.put("version", paramter.getVersion());
+                ruleVersion= ruleSceneVersionService.getInfoByVersionId(parmaMap);
+            }
+
             if (ObjectUtils.isEmpty(ruleVersion)) {
-                data = new RuleExcuteResult(1, paramter.getSence() + "参数出错，无可用"+version+"版本信息,请检查", null);
+                data = new RuleExcuteResult(1, paramter.getSence() + "参数出错，无可用"+version+"版本信息,请检查", null,paramter.getVersion());
                 return data;
             }
             RuleExecutionObject object = new RuleExecutionObject();
@@ -182,10 +184,10 @@ public class DroolsExcuteController {
             Long executeTime = endTime - startTime;
             log.info("规则验证执行时间》》》》》" + String.valueOf(executeTime));
 
-            data = new RuleExcuteResult(0, "success", saveLog(object, paramter, ruleVersion, executeTime));
+            data = new RuleExcuteResult(0, "success", saveLog(object, paramter, ruleVersion, executeTime),paramter.getVersion());
         } catch (Exception e) {
             e.printStackTrace();
-            data = new RuleExcuteResult(1, e.getMessage(), null);
+            data = new RuleExcuteResult(1, e.getMessage(), null,paramter.getVersion());
         }
         log.info("规则验证返回结果：" + JSON.toJSONString(data));
         return data;

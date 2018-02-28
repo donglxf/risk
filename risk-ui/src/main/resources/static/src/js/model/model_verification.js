@@ -10,18 +10,17 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
     var laydate = layui.laydate;
     var form = layui.form;
     var laytpl = layui.laytpl;
-    console.log(pathConfig.activitiConfigPath);
     //第一个实例
     table.render({
         elem: '#model_list'
         , height: 'auto'
-        , url: pathConfig.activitiConfigPath+'actProcRelease/list' //数据接口
+        , url: pathConfig.activitiConfigPath+'actProcRelease/list?isValidate=0' //数据接口
         , page: true //开启分页
         , where: {}
         , cols: [[ //表头\
               {field: 'id', title: '流水号', align: "center", width: "10%",sort: true}
             , {field: 'modelName', title: '模型名称', align: "center", width: "10%"}
-            , {field: 'modelProcdefId', title: '模型定义ID', align: "center", width: "10%"}
+            , {field: 'modelCode', title: '模型编码', align: "center", width: "10%"}
             , {field: 'modelVersion', title: '测试版本号', align: "center", width: "10%",sort: true}
             , {field: 'isBing', title: '变量是否绑定', align: "center", width: "10%",templet: '#bindTpl'}
             , {field: 'isValidate', title: '验证状态', align: "center", width: "10%", templet: '#verficationTpl'}
@@ -69,7 +68,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
                 shade: false,
                 title: "模型手动验证",
                 //请求的弹出层路径
-                content: "/rule/ui/model/valiable",
+                content: pathConfig.ruleUiPath+"model/valiable",
                 zIndex: layer.zIndex, //重点1
                 success: function (layero, index) {
                     layer.setTop(layero); //重点2
@@ -82,7 +81,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
                 shade: false,
                 title: "模型自动验证",
                 //请求的弹出层路径
-                content: "/rule/ui/model/valiable/auto",
+                content: pathConfig.ruleUiPath+"model/valiable/auto",
                 zIndex: layer.zIndex, //重点1
                 success: function (layero, index) {
                     layer.setTop(layero); //重点2
@@ -95,7 +94,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
         $.ajax({
             cache: true,
             type: "POST",
-            url: '/rule/service/actProcRelease/scene/variable/init',
+            url: pathConfig.ruleServicePath+'actProcRelease/scene/variable/init',
             data: data.field,// 你的formid
             async: false,
             success: function (data) {
@@ -109,7 +108,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
         $.ajax({
             cache: true,
             type: "POST",
-            url: '/rule/service/verification/createSingleVerficationTask',
+            url: pathConfig.ruleServicePath+'verification/createSingleVerficationTask',
             data: data.field,// 你的formid
             async: false,
             timeout: 60000,
@@ -129,7 +128,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl'], function () {
         $.ajax({
             cache: true,
             type: "POST",
-            url: '/rule/service/actProcRelease/scene/variable/init/auto',
+            url: pathConfig.ruleServicePath+'actProcRelease/scene/variable/init/auto',
             data: data.field,// 你的formid
             async: false,
             success: function (data) {

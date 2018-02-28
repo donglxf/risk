@@ -7,15 +7,18 @@ import com.ht.risk.activiti.mapper.ActExcuteTaskMapper;
 import com.ht.risk.activiti.mapper.RiskValidateBatchMapper;
 import com.ht.risk.activiti.rpc.ActivitiRpc;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.api.model.activiti.ModelExcuteResult;
 import com.ht.risk.api.model.activiti.ModelParamter;
+import com.ht.risk.api.model.activiti.RuleExcuteDetail;
 import com.ht.risk.common.result.Result;
-import com.ht.risk.common.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/6/21.
@@ -34,13 +37,40 @@ public class ReceiverService {
     @RabbitListener(queues = "activiti.self")
     public void receiveMessage(String message) {
         LOGGER.info("ReceiverService receiveMessage from quene activiti-result-queue,message"+message);
-        String proceInstId = message;
+        if(StringUtils.isNotEmpty(message)){
+            ModelExcuteResult modelResult = null;
+            try{
+                modelResult = JSON.parseObject(message,ModelExcuteResult.class);
+                updateTaskInfo(modelResult.getTaskId(),ActivitiConstants.PROC_STATUS_SUCCESS);
+            }catch (Exception e){
+                updateTaskInfo(modelResult.getTaskId(),ActivitiConstants.PROC_STATUS_EXCEPTION);
+            }
+        }
+        LOGGER.info("ReceiverService receiveMessage from quene activiti-result-queue,message"+message);
+         /*String proceInstId = message;
         if(StringUtils.isNotEmpty(proceInstId)){
             new Thread(new UpdateTaskStatusTask(proceInstId)).start();
-        }
+        }*/
+
     }
 
-    class UpdateTaskStatusTask implements Runnable {
+    private boolean updateTaskInfo(Long taskId,String status){
+        if(taskId == null){
+            return false;
+        }
+        ActExcuteTask task = actExcuteTaskMapper.selectById(taskId);
+        if (task != null) {
+            task.setStatus(status);
+            Long  startL = task.getCreateTime().getTime();
+            task.setSpendTime(System.currentTimeMillis() - startL);
+            actExcuteTaskMapper.updateById(task);
+            return true;
+        }
+        return false;
+
+    }
+
+    /*class UpdateTaskStatusTask implements Runnable {
         private String proceInstId;
 
         public UpdateTaskStatusTask(String proceInstId) {
@@ -66,7 +96,7 @@ public class ReceiverService {
                     }
                     ActExcuteTask task = actExcuteTaskMapper.selectById(Long.parseLong(result));
                     if (task != null) {
-                        task.setStatus("1");
+                        task.setStatus(ActivitiConstants.PROC_STATUS_SUCCESS);
                         Long  startL = task.getCreateTime().getTime();
                         task.setSpendTime(System.currentTimeMillis() - startL);
                         actExcuteTaskMapper.updateById(task);
@@ -84,5 +114,5 @@ public class ReceiverService {
             }
             LOGGER.info("UpdateTaskStatusTask success...procInstId: "+proceInstId);
         }
-    }
+    }*/
 }

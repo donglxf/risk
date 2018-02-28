@@ -8,10 +8,14 @@ import com.ht.risk.activiti.entity.ActProcRelease;
 import com.ht.risk.activiti.entity.RiskValidateBatch;
 import com.ht.risk.activiti.service.ActExcuteTaskService;
 import com.ht.risk.activiti.service.RiskValidateBatchService;
+import com.ht.risk.activiti.vo.ActExcuteTaskVo;
 import com.ht.risk.activiti.vo.VerficationModelVo;
 import com.ht.risk.activiti.vo.VerificationBatchVo;
+import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
+import com.ht.risk.api.model.activiti.RpcModelVerfication;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +37,9 @@ public class VerficationResultController {
     @Resource
     private RiskValidateBatchService riskValidateBatchService;
 
+    @Resource
+    private ActExcuteTaskService actExcuteTaskService;
+
 
     @RequestMapping("/verficationBatchPage")
     public PageResult<List<VerificationBatchVo>> verficationBatchPage(VerficationModelVo verficationModelVo){
@@ -50,5 +57,29 @@ public class VerficationResultController {
         return result;
     }
 
+
+    /**
+     * 查询模型的验证任务列表
+     * @param verficationModelVo
+     * @return
+     */
+    @RequestMapping("/verficationTaskPage")
+    public PageResult<List<ActExcuteTaskVo>> verficationTaskPage(VerficationModelVo verficationModelVo){
+        LOGGER.info("resultPage mothod invoke,paramter:"+ JSON.toJSONString(verficationModelVo));
+        PageResult<List<ActExcuteTaskVo>> result = null;
+        if(verficationModelVo == null || StringUtils.isEmpty(verficationModelVo.getModelCode())){
+            result = PageResult.error(1,"参数异常！");
+            LOGGER.error("verficationTaskPage query exception,parater exception...");
+            return result;
+        }
+        Page<ActExcuteTaskVo> page = new Page<ActExcuteTaskVo>();
+        page.setSize(verficationModelVo.getLimit());
+        page.setCurrent(verficationModelVo.getPage());
+        String modelCode = verficationModelVo.getModelCode();
+        page = actExcuteTaskService.verficationTaskPage(page,verficationModelVo);
+        result =  PageResult.success(page.getRecords(),page.getTotal());
+        LOGGER.info("resultPage mothod invoke,reustl:"+ JSON.toJSONString(result));
+        return result;
+    }
 
 }

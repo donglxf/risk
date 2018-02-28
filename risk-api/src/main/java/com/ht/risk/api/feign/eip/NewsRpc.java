@@ -19,7 +19,7 @@ public interface NewsRpc {
      * @autor 黄增猛
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/negativeSearch", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/negativeSearch",headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<NegativeSearchDtoOut> negativeSearch(@RequestBody NegativeSearchDtoIn input);
 
 

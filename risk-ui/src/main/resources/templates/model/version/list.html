@@ -17,26 +17,35 @@
     <div class="layui-row layui-form">
         <div class="layui-col-xs12">
             <div class="layui-col-xs5" style="padding-right: 10px">
-                <div class="demoTable" style="padding:10px 10px 0px 10px">
-                    查询条件：
-                    <div class="layui-inline">
-                        <input class="layui-input" name="id" id="modelName" autocomplete="off" placeholder="模型名称">
+            <fieldset class="layui-elem-field">
+                <legend>模型定义列表</legend>
+                <div class="layui-field-box">
+
+                        <div class="demoTable" style="padding:10px 10px 0px 10px">
+                            <div class="layui-inline">
+                                <input class="layui-input" name="id" id="modelName" autocomplete="off" placeholder="模型名称">
+                            </div>
+                            <div class="layui-input-inline" id="business_ser">
+                            </div>
+                            <button class="layui-btn" data-type="reload" id="model_search">查询</button>
+                        </div>
+                        <table id="model_list" lay-filter="model" lay-data="{id: 'idModel'}"></table>
                     </div>
-                    <div class="layui-input-inline" id="business_ser">
-                    </div>
-                    <button class="layui-btn" data-type="reload" id="model_search">查询</button>
-                </div>
-                <table id="model_list" lay-filter="model" lay-data="{id: 'idModel'}"></table>
+            </fieldset>
             </div>
             <div class="layui-col-xs7">
-                <div class="demoTable" style="padding:10px 10px 0px 10px">
-                    模型版本：
-                    <div class="layui-inline">
-                        <input class="layui-input" name="id" id="modelVersion" autocomplete="off">
+            <fieldset class="layui-elem-field">
+                <legend>模型版本信息</legend>
+                <div class="layui-field-box">
+                        <div class="demoTable" style="padding:10px 10px 0px 10px">
+                            <div class="layui-inline">
+                                <input class="layui-input" name="id" id="modelVersion" autocomplete="off" placeholder="模型版本">
+                            </div>
+                            <button class="layui-btn" data-type="versionReload" id="version_search">查询</button>
+                        </div>
+                        <table id="version_list" lay-filter="version" lay-data="{id: 'version'}"></table>
                     </div>
-                    <button class="layui-btn" data-type="versionReload" id="version_search">查询</button>
-                </div>
-                <table id="version_list" lay-filter="version" lay-data="{id: 'version'}"></table>
+            </fieldset>
             </div>
         </div>
     </div>

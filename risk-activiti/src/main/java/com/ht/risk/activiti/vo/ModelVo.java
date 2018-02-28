@@ -14,6 +14,7 @@ public class ModelVo implements Serializable{
 
     public ModelVo(Model model){
         this.modelId = model.getId();
+        this.modelCode = model.getKey();
         this.createDate = model.getCreateTime();
         this.modelName = model.getName();
         this.modelType = model.getCategory();
@@ -24,6 +25,7 @@ public class ModelVo implements Serializable{
     private String modelType;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
+    private String modelCode;
 
 
     public String getModelName() {
@@ -56,5 +58,13 @@ public class ModelVo implements Serializable{
 
     public void setModelId(String modelId) {
         this.modelId = modelId;
+    }
+
+    public String getModelCode() {
+        return modelCode;
+    }
+
+    public void setModelCode(String modelCode) {
+        this.modelCode = modelCode;
     }
 }

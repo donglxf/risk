@@ -42,4 +42,20 @@
         </if>
     </select>
 
+    <select id="verficationTaskPage" resultType="com.ht.risk.activiti.vo.ActExcuteTaskVo" parameterType="com.ht.risk.activiti.vo.VerficationModelVo">
+        select c.id as id,b.model_name as modelName,b.model_version as modelVersion,c.create_user as createUser,c.create_time as createTime,c.`status` as modelStatus,c.spend_time as spendTime,c.proc_inst_id AS procInstId from act_proc_release b
+        inner join act_excute_task c on b.id = c.proc_release_id
+        where 1=1
+        <if test="modelCode !=null and modelCode!='' ">
+            and b.model_code = #{modelCode}
+        </if>
+        <if test="modelVersion !=null and modelVersion!='' ">
+            and b.model_version = #{modelVersion}
+        </if>
+        order by c.create_time desc
+    </select>
+
+
+
+
 </mapper>

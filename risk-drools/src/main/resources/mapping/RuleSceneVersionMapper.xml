@@ -23,7 +23,7 @@
         version_id AS versionId, version, type, title, comment, scene_identify AS sceneIdentify, scene_id AS sceneId, cre_time AS creTime, cre_user_id AS creUserId, rule_div AS ruleDiv, rule_drl AS ruleDrl, status
     </sql>
 	
-	<select id="getTestLastVersion" parameterType="map" resultType="com.ht.risk.model.RuleSceneVersion">
+	<select id="getLastVersionByType" parameterType="map" resultType="com.ht.risk.model.RuleSceneVersion">
 		select <include refid="Base_Column_List" />
 		 from rule_scene_version s 
 inner join  (select max(version) versions from rule_scene_version where scene_identify=#{sceneIdentify} and status='1' and type=#{type}) a 
@@ -33,7 +33,7 @@ on s.version=a.versions
 
     <select id="getInfoByVersionId" resultType="com.ht.risk.model.RuleSceneVersion" parameterType="map">
         select <include refid="Base_Column_List" />
-          from rule_scene_version s where version=#{version} and scene_identify=#{sceneIdentify}
+          from rule_scene_version s where version=#{version} and scene_identify=#{sceneIdentify} and type=#{type}
     </select>
 
 </mapper>

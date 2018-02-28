@@ -13,7 +13,11 @@ ModelVerification.prototype = {
      * @returns {string}
      */
     initLabel: function (name) {
-        return '<label class="layui-form-label">' + name + '</label>';
+        var labelNameAry =name.split("_");
+        if(labelNameAry.length == 2){
+            name =labelNameAry[1];
+        }
+        return '<label class="layui-form-label" style="width: 200px">' + name + '</label>';
     },
 
     initSelect: function (name, optionData, tmpValue) {
@@ -184,7 +188,7 @@ ModelVerification.prototype = {
      * @returns {string}
      */
     initDiv: function (data) {
-        var size = 3;
+        var size = 2;
         var length = data.length;
         var count = Math.ceil(length / size); //向上取整
         var html = '';

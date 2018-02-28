@@ -1,6 +1,9 @@
 package com.ht.risk.activiti.mapper;
 
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.ht.risk.activiti.entity.ActExcuteTask;
+import com.ht.risk.activiti.vo.ActExcuteTaskVo;
+import com.ht.risk.activiti.vo.VerficationModelVo;
 import com.ht.risk.common.mapper.SuperMapper;
 
 import java.util.List;
@@ -26,4 +29,6 @@ public interface ActExcuteTaskMapper extends SuperMapper<ActExcuteTask> {
      * @return
      */
     Map<String,Object> getModelExecInfo(Map<String,Object> obj);
+
+    List<ActExcuteTaskVo> verficationTaskPage(Pagination page, VerficationModelVo verficationModelVo);
 }

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>模型验证结果</title>
+    <link rel="stylesheet" href="/rule/ui/plugins/layui/css/layui.css" media="all">
+</head>
+<body>
+
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <div class="layui-col-xs4" style="padding-right: 2px">
+                <fieldset class="layui-elem-field">
+                    <legend>模型定义列表</legend>
+                    <div class="layui-field-box">
+                        <div class="demoTable" style="padding:10px 10px 0px 10px">
+                            <div class="layui-inline">
+                                <input class="layui-input" name="modelName" id="modelName" autocomplete="off" placeholder="模型名称">
+                            </div>
+                            <button class="layui-btn" data-type="reload" id="model_search">查询</button>
+                        </div>
+                        <table id="model_list" lay-filter="model" lay-data="{id: 'idModel'}"></table>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="layui-col-xs8" style="padding-right: 2px">
+                <fieldset class="layui-elem-field">
+                    <legend>模型验证任务列表</legend>
+                    <div class="layui-field-box">
+                        <div class="demoTable" style="padding:10px 10px 0px 10px">
+                            <div class="layui-inline">
+                                <input class="layui-input" name="id" id="modelVersion" autocomplete="off" placeholder="模型版本">
+                            </div>
+                            <button class="layui-btn" data-type="taskReload" id="task_search">查询</button>
+                        </div>
+                        <table id="task_list" lay-filter="task" lay-data="{id: 'idModel'}"></table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="task_hidden_input"/>
+    </div>
+    <script type="text/html" id="taskDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="detail_info">查看验证任务</a>
+    </script>
+    <script type="text/html" id="taskBar">
+        <a class="layui-btn layui-btn-xs" lay-event="detail_info">查看结果</a>
+    </script>
+    <script type="text/html" id="statusTpl">
+        {{#  if(d.modelStatus != '' && d.modelStatus != null && d.modelStatus == '0'){ }}
+        <span>待执行</span>
+        {{# } else  if(d.modelStatus != '' && d.modelStatus != null && d.modelStatus == '1' ){ }}
+        <span>已启动</span>
+        {{# } else  if(d.modelStatus != '' && d.modelStatus != null && d.modelStatus == '2' ){ }}
+        <span>执行成功</span>
+        {{#  } else { }}
+        <span>执行异常</span>
+        {{#  } }}
+    </script>
+    <script src="/rule/ui/plugins/layui/layui.js"></script>
+    <script src="/rule/ui/src/js/model/model_config.js"></script>
+    <script src="/rule/ui/src/js/model/verfication_result_list.js"></script>
+</body>
+</html>

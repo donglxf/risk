@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RuleStandardResult {
-    private List<String> ruleList = new ArrayList<String>();
-    private List<String> result = new ArrayList<>();
-    private List<String> logIdList = new ArrayList<>();
+    private List<String> ruleList = new ArrayList<String>(); // 命中规则列表集合
+    private List<String> result = new ArrayList<>(); // 规则执行结果
+    private List<String> logIdList = new ArrayList<>(); // 规则执行记录日志id
 
     public List<String> getResult() {
         return result;
