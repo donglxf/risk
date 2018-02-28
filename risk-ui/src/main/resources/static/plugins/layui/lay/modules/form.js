@@ -582,7 +582,8 @@ layui.define('layer', function (exports) {
 
     //表单提交事件
     dom.on('submit', ELEM, submit)
-        .on('blur','*[lay-verify]',checkOnBlur)
+     //开启将会使所有的事件加入移开事件的验证
+    //   .on('blur','*[lay-verify]',checkOnBlur)
         .on('click', '*[lay-submit]', submit);
 
     exports(MOD_NAME, form);

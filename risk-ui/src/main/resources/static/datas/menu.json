@@ -127,7 +127,7 @@
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型审批",
-        "url": "model/approval/list",
+          "url": "model/approval/list",
         "children": []
       },
       {
