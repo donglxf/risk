@@ -24,6 +24,18 @@ public class HourseRuleDataGainImpl implements HourseRuleDataGain {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         LOGGER.error("HourseRuleDataGainImpl execute method excute start...");
+        Object dataObj = execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_kEY);
+        Map dataMap = null;
+        if(dataObj != null){
+            dataMap = (Map)dataObj;
+        }else{
+            dataMap = gernerateModelData();
+        }
+        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME,dataMap);
+        LOGGER.error("HourseRuleDataGainImpl execute method excute end...");
+    }
+    // TODO 待完善
+    private Map gernerateModelData(){
         Map map=new HashMap();
         map.put("regicode","广东鸿特信息咨询有限公司");//工商注册号或企 业全称或组织机 构代码
         map.put("keytype","2"); // 查询类型
@@ -41,11 +53,6 @@ public class HourseRuleDataGainImpl implements HourseRuleDataGain {
         map.put("houseInfo_houseCityType","cityTypeA"); //城市类型
         map.put("houseInfo_firstLoans","2000000"); // 一押金额
         map.put("houseInfo_secondLoans","1000000"); // 二押金额
-//        map.put("","");
-//        map.put("","");
-//        map.put("","");
-        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME,map);
-        execution.setVariable(ActivitiConstants.EXCUTE_TYPE_VARIABLE_NAME, RuleCallTypeEnum.modelValidation.getType());
-        LOGGER.error("HourseRuleDataGainImpl execute method excute end...");
+        return map;
     }
 }

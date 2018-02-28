@@ -24,7 +24,7 @@ public class AmqpConfig implements RabbitListenerConfigurer {
 
 
 
-    public final static String ACTIVITI_SELF = "activiti.self";
+    public final static String ACTIVITI_SELF = "activiti.service";
 
     //创建队列
     @Bean
