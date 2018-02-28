@@ -21,4 +21,6 @@ public interface RuleHisVersionMapper extends SuperMapper<RuleHisVersion> {
 
     List<Map<String,Object>> getRuleBatchValidationResult(Map<String,Object> map);
 
+    Map<String,Object> getHisVersionListByVidName(Map<String, Object> paramMap);
+
 }
