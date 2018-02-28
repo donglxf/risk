@@ -33,7 +33,6 @@ public class HourseRuleDataGainImpl implements HourseRuleDataGain {
         map.put("borrowerLawsuit_borrowerSuretyCreditBad","有"); //担保人如有失信
         map.put("houseInfo_reserveType","别墅");//房产类型
         map.put("houseInfo_housePropertyArea","500");  //房产面积
-        map.put("borrowerInfo_registerCity","香港");//借款人户籍
         map.put("houseInfo_houseOwnerRegister","台湾"); //房产权属人籍贯
         map.put("houseInfo_houseAge","20"); //楼龄
         map.put("houseInfo_houseMortgageRate","40"); //房产抵押率抵押率
