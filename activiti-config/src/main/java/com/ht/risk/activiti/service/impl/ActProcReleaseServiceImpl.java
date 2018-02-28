@@ -136,7 +136,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         rpcStartParamter.setData(modelStartVo.getData());
         // 启动模型
         Result<String> result = this.start(rpcStartParamter,task.getId());
-        LOGGER.info("startProcess complete... result:"+ JSON.toJSONString(result));
+        LOGGER.info("startModel complete... result:"+ JSON.toJSONString(result));
         // 更新模型任务流程实例ID
         if (result != null && result.getCode() == 0 && StringUtils.isNotEmpty(result.getData())) {
             // 模型成功启动
@@ -154,7 +154,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
 
     @Override
     public Long startInputValidateProcess(RpcStartParamter rpcStartParamter) throws Exception {
-        LOGGER.info("startProcess start... paramter:"+ JSON.toJSONString(rpcStartParamter));
+        LOGGER.info("startInputValidateProcess start... paramter:"+ JSON.toJSONString(rpcStartParamter));
         // 获取模型版本信息
         Long releaseId = getProcReleaseId(rpcStartParamter.getProcDefId(), rpcStartParamter.getVersion());
         if (releaseId == null) {
@@ -164,7 +164,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         rpcStartParamter.setBatchId(batch.getId());
         ActExcuteTask task  = this.saveTask(releaseId,rpcStartParamter.getType(),rpcStartParamter.getBatchId(),JSON.toJSONString(rpcStartParamter));
         Result<String> result = this.start(rpcStartParamter,task.getId());
-        LOGGER.info("startProcess complete... result:"+ JSON.toJSONString(result));
+        LOGGER.info("startInputValidateProcess complete... result:"+ JSON.toJSONString(result));
         // 更新模型任务流程实例ID
         if (result != null && result.getCode() == 0 && StringUtils.isNotEmpty(result.getData())) {
             task.setProcInstId(result.getData());
@@ -189,7 +189,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
             String procInstId = startProcess(rpcStartParamter);
             ActExcuteTask task  = this.saveTask(releaseId,rpcStartParamter.getType(),rpcStartParamter.getBatchId(),JSON.toJSONString(rpcStartParamter));
             Result<String> result = this.start(rpcStartParamter,task.getId());
-            LOGGER.info("startProcess complete... result:"+ JSON.toJSONString(result));
+            LOGGER.info("startBatchValidateProcess complete... result:"+ JSON.toJSONString(result));
             if (result != null && result.getCode() == 0 && StringUtils.isNotEmpty(result.getData())) {
                 task.setProcInstId(result.getData());
             }else{
@@ -280,8 +280,8 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
     // 启动模型
     private Result<String> start(RpcStartParamter rpcStartParamter,Long taskId) {
         Map<String, Object> data = rpcStartParamter.getData() == null ? new HashMap<String, Object>() : rpcStartParamter.getData();
-        data.put(ActivitiConstants.PROC_TASK_ID_CONSTANTS, taskId);
         rpcStartParamter.setData(data);
+        rpcStartParamter.setTaskId(taskId);
         Result<String> result = activitiRpc.startProcess(rpcStartParamter);
         return  result;
     }

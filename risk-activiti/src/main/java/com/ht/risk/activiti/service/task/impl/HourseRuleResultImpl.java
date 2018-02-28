@@ -1,10 +1,12 @@
 package com.ht.risk.activiti.service.task.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.ht.risk.activiti.rpc.ActivitiConfigInterface;
 import com.ht.risk.activiti.service.impl.TopicSenderServiceImpl;
 import com.ht.risk.activiti.service.task.HourseRuleResult;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.model.activiti.ModelExcuteResult;
+import com.ht.risk.api.model.activiti.RpcActExcuteTask;
 import com.ht.risk.api.model.activiti.RuleExcuteDetail;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.slf4j.Logger;
@@ -21,6 +23,9 @@ public class HourseRuleResultImpl implements HourseRuleResult {
 
     @Resource
     private TopicSenderServiceImpl topicSenderService;
+
+    @Resource
+    private ActivitiConfigInterface activitiConfigInterface;
 
     /**
      *
@@ -56,9 +61,19 @@ public class HourseRuleResultImpl implements HourseRuleResult {
             modelResult.setCode("0");
             modelResult.setMsg("模型执行正常");
             modelResult.setProcInstId(execution.getProcessInstanceId());
-            String taskId = String.valueOf(execution.getVariable(ActivitiConstants.PROC_TASK_ID_CONSTANTS));
-            modelResult.setTaskId(taskId != null ?Long.parseLong(taskId):null);
+            String taskIdStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_TASK_ID_VAR_KEY));
+            Long taskId =taskIdStr != null ?Long.parseLong(taskIdStr):null;
+            modelResult.setTaskId(taskId);
+            // MQ发送消息
             topicSenderService.send(JSON.toJSONString(modelResult));
+            //更新任务状态
+            RpcActExcuteTask task = new RpcActExcuteTask();
+            task.setStatus(ActivitiConstants.PROC_STATUS_SUCCESS);
+            task.setUpdateTime(new Date(System.currentTimeMillis()));
+            task.setId(taskId);
+            task.setOutParamter(JSON.toJSONString(modelResult));
+            task.setProcInstId(execution.getProcessInstanceId());
+            activitiConfigInterface.updateTask(task);
         }
         LOGGER.info("HourseRuleResultImpl execute method excute end...");
     }

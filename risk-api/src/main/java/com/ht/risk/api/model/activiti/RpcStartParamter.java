@@ -22,6 +22,9 @@ public class RpcStartParamter implements Serializable {
      * 类型，1 验证，2 正式调用
      */
     private String type;
+
+    private Long taskId;
+
     private Map<String,Object> data;
     /**
      * 批次大小,批量调用时需要传递
@@ -86,5 +89,13 @@ public class RpcStartParamter implements Serializable {
 
     public void setDatas(List<Map<String, Object>> datas) {
         this.datas = datas;
+    }
+
+    public Long getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
     }
 }

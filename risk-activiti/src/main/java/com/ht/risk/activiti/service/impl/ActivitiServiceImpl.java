@@ -11,6 +11,7 @@ import com.ht.risk.api.model.activiti.ModelParamter;
 import com.ht.risk.api.model.activiti.RpcDeployResult;
 import com.ht.risk.api.model.activiti.RpcSenceInfo;
 import com.ht.risk.api.model.activiti.RpcStartParamter;
+import com.ht.risk.common.comenum.RuleCallTypeEnum;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
@@ -43,10 +44,7 @@ import javax.annotation.Resource;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConstants {
@@ -132,8 +130,16 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
 
 
     public String startProcess(RpcStartParamter paramter) {
+        // 流程定义ID
         String procDefId = paramter.getProcDefId();
-        ProcessInstance instance = runtimeService.startProcessInstanceById(procDefId, paramter.getData());
+        Map<String,Object> modelParamter = new HashMap<String,Object>();
+        // 模型运行所需数据
+        modelParamter.put(ActivitiConstants.PROC_MODEL_DATA_kEY,paramter.getData());
+        // 模型执行类型：type:0 模型验证，1 业务调用
+        modelParamter.put(ActivitiConstants.PROC_MODEL_EXCUTE_TYPE_KEY, paramter.getType());
+        // 模型执行任务流水号
+        modelParamter.put(ActivitiConstants.PROC_TASK_ID_VAR_KEY,paramter.getTaskId());
+        ProcessInstance instance = runtimeService.startProcessInstanceById(procDefId, modelParamter);
         return instance.getId();
     }
 

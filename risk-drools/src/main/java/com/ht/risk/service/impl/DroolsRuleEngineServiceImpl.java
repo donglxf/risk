@@ -438,9 +438,16 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             String expression = conditionInfo.getConditionExpression();
             //获取 ==、>=、<=、>、<、！=后面的变量
             String conditionVariable = RuleUtils.getConditionOfVariable(expression);
-            if (!RuleUtils.checkStyleOfString(conditionVariable.trim())) {
-                expression = expression.replace(conditionVariable, "'" + conditionVariable.trim() + "'");
+            if (RuleUtils.checkContainOfOperator(conditionVariable, "#")) { // 条件包含变量时
+                String s = "this[" + conditionVariable + "]";
+                s = s.replaceAll("\\#", "\"");
+                expression = expression.replace(conditionVariable, s);
+            } else {
+                if (!RuleUtils.checkStyleOfString(conditionVariable.trim())) {
+                    expression = expression.replace(conditionVariable, "'" + conditionVariable.trim() + "'");
+                }
             }
+
             // 1.获取条件参数（比如：$21$ ，21 代表实体属性表id）
             List<String> list = RuleUtils.getConditionParamBetweenChar(conditionInfo.getConditionExpression());
             for (String itemId : list) {
@@ -454,6 +461,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                     mapCondition = "";
                     mapCondition1 = "";
                 }
+
                 expression = expression.replace("$" + itemId + "$",
                         mapCondition + "this[\"" + itemInfo.getEntityIdentify() + "_" + itemInfo.getItemIdentify().trim() + "\"]" + mapCondition1).replace("^", "not ");
             }
@@ -586,7 +594,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                     String realValue = null;
                     // 目前只支持map结构，因此对于pojo设置属性方法暂时取消
                     //判断value值包含##（例如：#3# * 5），如果包含，首先取出item属性 
-                  /*  if (RuleUtils.checkContainOfOperator(paramValue.getParamValue(), "#")) {
+                    /*if (RuleUtils.checkContainOfOperator(paramValue.getParamValue(), "#")) {
                         String tempValue = paramValue.getParamValue();
                         //取出#3#之间的值
                         List<String> strList = RuleUtils.getActionParamBetweenChar(tempValue);
