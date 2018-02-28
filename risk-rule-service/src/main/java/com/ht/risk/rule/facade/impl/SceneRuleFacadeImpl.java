@@ -101,9 +101,12 @@ public class SceneRuleFacadeImpl implements SceneRuleFacade {
                 conditionInfo.setValText(conditionInfo.getVal());
                 //设置运算符
                 String val = RuleUtils.getConditionOfVariable(conditionInfo.getConditionExpression());
-
                 conditionInfo.setYsf(RuleUtils.getCondition(conditionInfo.getConditionExpression(),val));
-
+                //转换去#符合
+                if(val.indexOf("#") >= 0){
+                    conditionInfo.setClazz("conditionEntity");
+                    val = val.replaceAll("#","");
+                }
                 conditionInfo.setVal(val);
                 //设置中文名 运算符
                 conditionInfo.setYsfText(RuleUtils.getCondition(conditionInfo.getConditionDesc(),conditionInfo.getValText()));
