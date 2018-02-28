@@ -6,6 +6,7 @@ import com.ht.risk.activiti.rpc.EipServiceInterface;
 import com.ht.risk.activiti.service.task.HourseRuleDataGain;
 import com.ht.risk.api.comment.EntstatusEnum;
 import com.ht.risk.api.comment.WLInterfaceReturnStatusEnum;
+import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.model.eip.NegativeSearchDtoIn;
 import com.ht.risk.api.model.eip.NegativeSearchDtoOut;
 import com.ht.risk.api.model.eip.wanda.WDEnterpriseDetailReqDto;
@@ -37,7 +38,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         LOGGER.error("HourseRuleDataMachinImpl execute method excute start...");
-        Map map = (Map) execution.getVariable("variableMap");
+        Map map = (Map) execution.getVariable(ActivitiConstants.DROOLS_VARIABLE_NAME);
         if (ObjectUtils.isEmpty(map)) {
             map = new HashMap();
         }
@@ -54,11 +55,8 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             decoration="roughcast";
         }
         map.put("houseInfo_decorationStatus",decoration);
-
-
-
         // 万达接口调用
-        WDEnterpriseDetailReqDto wdReq = new WDEnterpriseDetailReqDto();
+       /* WDEnterpriseDetailReqDto wdReq = new WDEnterpriseDetailReqDto();
         wdReq.setRegicode((String) map.get("regicode"));
         wdReq.setKeyType((String) map.get("keytype"));
         Result<WDEnterpriseDetailRespDtoOut> result = eipServiceInterface.getZhengxinWanda(wdReq);
@@ -69,10 +67,10 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                     || EntstatusEnum.outOfBusiness.getName().equals(entstatus)) {
                 map.put("borrowerInfo_borrowerCompanyStatus", entstatus);
             }
-        }
+        }*/
 
         // 天行数科
-        NegativeSearchDtoIn negative=new NegativeSearchDtoIn();
+        /*NegativeSearchDtoIn negative=new NegativeSearchDtoIn();
         negative.setIdentityCard("");
         negative.setRealName("");
         Result<NegativeSearchDtoOut> neResult = eipServiceInterface.getNegativeSearch(negative);
@@ -83,9 +81,10 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                 isCrime="有";
                 map.put("borrowerLawsuit_thRecords", isCrime);
             }
-        }
+        }*/
 
-
+        //
+        execution.setVariable("flag",0);
         LOGGER.error("HourseRuleDataMachinImpl execute method excute end...");
     }
 

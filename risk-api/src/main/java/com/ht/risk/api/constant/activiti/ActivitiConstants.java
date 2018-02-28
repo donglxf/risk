@@ -36,4 +36,6 @@ public class ActivitiConstants {
     public final static String PROC_STATUS_SUCCESS = "2";//流程执行成功
     public final static String PROC_STATUS_EXCEPTION = "3";//流程执行异常
 
+    public final static String SENCE_EXCUTE_RESULT_VAR = "SENCE_EXCUTE_RESULT_";//规则执行结果流程变量标识
+
 }

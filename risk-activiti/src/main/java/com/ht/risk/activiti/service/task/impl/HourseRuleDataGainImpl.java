@@ -1,6 +1,8 @@
 package com.ht.risk.activiti.service.task.impl;
 
 import com.ht.risk.activiti.service.task.HourseRuleDataGain;
+import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.common.comenum.RuleCallTypeEnum;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +45,8 @@ public class HourseRuleDataGainImpl implements HourseRuleDataGain {
 //        map.put("","");
 //        map.put("","");
 //        map.put("","");
-        execution.setVariable("variableMap",map);
+        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME,map);
+        execution.setVariable(ActivitiConstants.EXCUTE_TYPE_VARIABLE_NAME, RuleCallTypeEnum.modelValidation.getType());
         LOGGER.error("HourseRuleDataGainImpl execute method excute end...");
     }
 }
