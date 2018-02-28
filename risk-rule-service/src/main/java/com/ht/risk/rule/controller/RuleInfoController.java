@@ -96,9 +96,15 @@ public class RuleInfoController {
                 //中文描述
                 conditionInfo.setValText(conditionInfo.getVal());
                 String val = RuleUtils.getConditionOfVariable(conditionInfo.getConditionExpression());
+
+
                 //设置运算符
                 conditionInfo.setYsf(RuleUtils.getCondition(conditionInfo.getConditionExpression(),val));
-
+                //转换去#符合
+                if(val.indexOf("#") >= 0){
+                    conditionInfo.setClazz("conditionEntity");
+                    val = val.replaceAll("#","");
+                }
                 conditionInfo.setVal(val);
 
                 //设置中文名 运算符

@@ -15,7 +15,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id AS id, sence_versionid AS senceVersionid, rule_name AS ruleName, rule_desc AS ruleDesc, is_effect AS isEffect, create_user AS createUser, create_time AS createTime
+        id AS id, sence_version_id AS senceVersionid, rule_name AS ruleName, rule_desc AS ruleDesc, is_effect AS isEffect, create_user AS createUser, create_time AS createTime
     </sql>
     <sql id="Column_List">
         id AS id, sence_version_id AS senceVersionid, rule_name AS ruleName, rule_desc AS ruleDesc, is_effect AS isEffect, create_user AS createUser, create_time AS createTime,executeRule
@@ -32,6 +32,10 @@ where ver.sence_version_id = #{senceVersionId}
     <select id="getRuleBatchValidationResult" resultType="java.util.Map" parameterType="map">
       select  rl.in_paramter,rb.variable_code,rb.variable_name from risk_test_drools_log rl inner join risk_variable_bind rb on rl.sence_versionid=rb.sence_version_id
           where rl.id=#{id} and rl.sence_versionid=#{senceVersionId}
+    </select>
+
+    <select id="getHisVersionListByVidName" resultType="java.util.Map" parameterType="map">
+      select  <include refid="Base_Column_List"/> from risk_rule_his_version rl where sence_version_id=#{versionId} and rule_name=#{ruleName}
     </select>
 
 

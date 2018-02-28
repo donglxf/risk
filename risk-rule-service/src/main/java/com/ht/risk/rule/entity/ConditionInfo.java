@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.ht.risk.rule.vo.RuleItemTable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -23,6 +24,7 @@ import java.util.Date;
  */
 @ApiModel
 @TableName("rule_condition_info")
+@Data
 public class ConditionInfo extends Model<ConditionInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -78,6 +80,9 @@ public class ConditionInfo extends Model<ConditionInfo> {
 	@TableField(exist = false)
 	@ApiModelProperty(required= true,value = "运算符")
 	private String ysf;
+	//样式查询的时候用
+	@TableField(exist = false)
+	private String clazz;
 
 	public String getValText() {
 		return valText;
@@ -138,85 +143,6 @@ public class ConditionInfo extends Model<ConditionInfo> {
      */
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
-	public RuleItemTable getItemTable() {
-		return itemTable;
-	}
-
-	public void setItemTable(RuleItemTable itemTable) {
-		this.itemTable = itemTable;
-	}
-
-	public Long getConditionId() {
-		return conditionId;
-	}
-
-	public void setConditionId(Long conditionId) {
-		this.conditionId = conditionId;
-	}
-
-	public Long getRuleId() {
-		return ruleId;
-	}
-
-	public void setRuleId(Long ruleId) {
-		this.ruleId = ruleId;
-	}
-
-	public String getConditionName() {
-		return conditionName;
-	}
-
-	public void setConditionName(String conditionName) {
-		this.conditionName = conditionName;
-	}
-
-	public String getConditionExpression() {
-		return conditionExpression;
-	}
-
-	public void setConditionExpression(String conditionExpression) {
-		this.conditionExpression = conditionExpression;
-	}
-
-	public String getConditionDesc() {
-		return conditionDesc;
-	}
-
-	public void setConditionDesc(String conditionDesc) {
-		this.conditionDesc = conditionDesc;
-	}
-
-	public Integer getIsEffect() {
-		return isEffect;
-	}
-
-	public void setIsEffect(Integer isEffect) {
-		this.isEffect = isEffect;
-	}
-
-	public Long getCreUserId() {
-		return creUserId;
-	}
-
-	public void setCreUserId(Long creUserId) {
-		this.creUserId = creUserId;
-	}
-
-	public Date getCreTime() {
-		return creTime;
-	}
-
-	public void setCreTime(Date creTime) {
-		this.creTime = creTime;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 
 	@Override
 	protected Serializable pkVal() {

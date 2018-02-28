@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringCloudApplication
 @MapperScan("com.ht.risk.rule.mapper")
 @EnableTransactionManagement 
-@ComponentScan(basePackages= {"com.ht.risk.rule","com.ht.risk.common.exception","com.ht.ussp.init"})
+@ComponentScan(basePackages= {"com.ht.risk.rule","com.ht.risk.common.exception","com.ht.ussp.bean"})
 //////@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 public class RuleServiceApplication {
 	

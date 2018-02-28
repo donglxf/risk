@@ -29,4 +29,11 @@ public interface RuleHisVersionService extends BaseService<RuleHisVersion> {
      * @return
      */
     List<Map<String,Object>> getRuleBatchValidationResult(Map<String, Object> paramMap) ;
+
+    /**
+     * 根据版本id和规则名获取规则信息
+     * @param vo
+     * @return
+     */
+    List<Map<String,Object>> getHisVersionListByVidName(RuleHisVersionVo vo) ;
 }

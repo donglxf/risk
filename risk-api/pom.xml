@@ -33,7 +33,7 @@
 		<dependency>
 			<artifactId>ussp-common</artifactId>
 			<groupId>com.ht.ussp</groupId>
-			<version>0.0.3</version>
+			<version>0.0.7</version>
 		</dependency>
 	</dependencies>
 

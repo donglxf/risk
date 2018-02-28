@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.comenum.ActionEnum;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ActionInfo;
@@ -16,7 +17,10 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
@@ -36,7 +40,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/actionInfo")
 @Api(tags = "ActionInfoController", description = "动作库相关api描述", hidden = true)
-public class ActionInfoController {
+public class ActionInfoController extends BaseController{
     @Autowired
     private ActionInfoService actionInfoService;
 
@@ -62,7 +66,6 @@ public class ActionInfoController {
 	@GetMapping("/getAll")
 	@ApiOperation(value = "通过sceneId查询动作库")
 	public Result<List<ActionInfoVo>> getAll(Long businessId) throws Exception{
-
 		List<ActionInfoVo> list = actionInfoService.findActionAllVos(businessId);
 		return Result.success(list);
 
@@ -95,7 +98,7 @@ public class ActionInfoController {
 	public Result<Integer> edit(ActionInfo actionInfo) {
 		actionInfo.setCreTime(new Date());
 		actionInfo.setIsEffect(1);
-		actionInfo.setCreUserId(Long.valueOf(1));
+		actionInfo.setCreUserId(Long.parseLong(userInfoHelper.getUserId()));
 		actionInfoService.insertOrUpdate(actionInfo);
 		return Result.success(0);
 	}

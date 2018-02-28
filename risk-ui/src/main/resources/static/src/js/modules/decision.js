@@ -343,6 +343,7 @@ var myUtil = {
            var groupNameO =  $(t).parent().parent().parent().prev().find(".groupName");
            $(groupNameO).text(name);
             $(groupNameO).data("value",name);
+            $(groupNameO).attr("data-value",name);
 
         },
             /**
@@ -412,8 +413,27 @@ var myUtil = {
         addCon:function (t) {
             var h =   $(t).parent().find("ul li:last").html();
             var li = '<li>'+h+'</li>';
+            if(h == undefined || h == ''){
+               // layer.msg("当前没有数据哦");
+                li = '<li>\n' +
+                    '                <a href="#" class="entityC" data-value="">对象 &nbsp; </a>.\n' +
+                    '                <a href="#" class="itemC" data-value="">变量&nbsp; </a> &nbsp;\n' +
+                    '                <a href="#" data-value="" class="con">条件 &nbsp; </a>&nbsp;\n' +
+                    '                <a href="#" data-value="" class="val">值&nbsp;&nbsp;</a>\n' +
+                    '                <a href="javascript:void(0); " class="deleteCon" onclick="sceneUtil.deleteCon(this)"> <i\n' +
+                    '            class="layui-icon">&#x1006;</i></a>\n' +
+                    '                </li>';
+
+            }
             $(t).parent().find("ul").append(li);
            // sceneUtil.gradeInit();
+            //设置条件值为空
+            var a = $(t).parent().find("ul li").last().find(".val");
+            a.attr("data-value","");
+            a.attr("data-key","");
+            a.text("输入");
+            a.removeClass("conditionVal");
+            a.removeClass("conditionEntity");
             //优化，仅仅设置条件项
             sceneUtil.conditionInit( $(t).parent().find("ul li").last());
         },
@@ -848,11 +868,25 @@ var myUtil = {
              */
         deleteEntity:function (t,v) {
             var result = [];
+            var f = false;
+            //查看是否有引用
+            $(".entityC").each(function(){
+                var vv = $(this).attr("data-value");
+                if( vv == v ){
+                    f = true;
+                }
+            });
+            //无法删除
+            if(f){
+                layer.msg("该对象正在被使用，无法删除");
+                return;
+            }
             sceneUtil.data.entitysBank.forEach(function(element){
                 if(v != element.value){
                     result.push(element);
                 }
             });
+
             sceneUtil.data.entitysBank = result;
             $(t).parent().parent().parent().remove();
         },
@@ -863,6 +897,20 @@ var myUtil = {
          */
         deleteAction:function (t,v) {
             var result = [];
+            var f = false;
+            //查看是否有引用
+            $(".actionType").each(function(){
+                var vv = $(this).attr("data-value");
+                if( vv == v ){
+                    f = true;
+                }
+            });
+            //无法删除
+            if(f){
+                layer.msg("该对象正在被使用，无法删除");
+                return;
+            }
+
             sceneUtil.data.actionBank.forEach(function(element){
                 if(v != element.value){
                     result.push(element);
@@ -944,6 +992,7 @@ var myUtil = {
                     if (!$.trim(value)) {
                         return '不能为空';
                     }
+                    $(this).attr("data-value",value);
                     //触发变量的选择
                     sceneUtil.actionParam.setParamsHtmls(value,$(this).parent());
                 }
@@ -1029,6 +1078,36 @@ var myUtil = {
 
         },
         /**
+         * 条件值 输入框重新设置
+         */
+            //获取html代码串，并且赋值
+        conditionValInput:function(obj){
+                //得到参数集合
+                //设置下拉事件
+                    var actionValA = $(obj);
+                    $(obj).submenu({
+                        data: [{value:1,text:'输入值'},{value:2,text:'选择变量'}],type:1,
+                        callback: function (obj, value) {
+                            $(actionValA).editable('destroy');
+                            if(value == 1){
+                                //清除原来的事件
+                                $(actionValA).unbind("click");
+                                //加载新的
+                                sceneUtil.bandOneValInit( $(actionValA));
+                                $(actionValA).addClass("conditionVal");
+                                $(actionValA).attr("data-value","");
+                                $(actionValA).text("请输入");
+                            }else{
+                                $(actionValA).attr("data-value","");
+                                $(actionValA).text("请选择变量");
+                                $(actionValA).addClass("conditionEntity");
+                                sceneUtil.actionParam.paramVaEntityBack(actionValA);
+                            }
+                            console.log(obj, value);
+                        }
+                    });
+        },
+        /**
          * 重置变量集合
          * @param entityId
          * @param t
@@ -1106,8 +1185,9 @@ var myUtil = {
             $(obj).parent().find(".val").editable('destroy');
 
             if(constants.length > 0){
+                $(obj).parent().find(".val").unbind("click");
                 //选择常量
-                $(obj).parent().find(".val").parent().find(".val").editable({
+                $(obj).parent().find(".val").editable({
                     type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
                     source: constants,
                     title: "选择常量",           //编辑框的标题
@@ -1123,7 +1203,10 @@ var myUtil = {
                     }
                 });
             }else{
-                sceneUtil.bandOneValInit( $(obj).parent().find(".val"));
+                //设置 输入框模式和可选变量模式
+                // TODO: 改变输入模式
+                sceneUtil.conditionValInput($(obj).parent().find(".val"));
+                // sceneUtil.bandOneValInit( $(obj).parent().find(".val"));
             }
 
         },
@@ -1359,6 +1442,7 @@ var myUtil = {
                         break;
                     }
                 }
+                //绑定常量
                 sceneUtil.bandSelectValInit_constants(this,items,iid);
             });
         },
@@ -1388,7 +1472,7 @@ var myUtil = {
                 var entityId = $(this).data("value");
                 var iid = $(this).next().data("value");
                 sceneUtil.bandSelectValInit_item(this,entitys,entityId);
-                //绑定所有常量
+                //绑定所有对象的变量
                 var items = [];
                 for(var i=0;i<entitys.length;i++){
                     var enid = entitys[i].value;
@@ -1560,6 +1644,12 @@ var myUtil = {
                         var val = $(e).find("a.val").attr("data-value");
                         var valText = $(e).find("a.val").text();
 
+
+                        //变量类型的哦
+                        if($(e).find("a.val").hasClass("conditionEntity")){
+                            val = '#'+$(e).find("a.val").attr("data-key")+'#';
+                        }
+
                         if(val == '' || val == undefined){
                             sceneUtil.flag = false;
                             layer.tips('条件值不能为空', $(e).find("a.val"), {
@@ -1668,7 +1758,10 @@ var myUtil = {
                     var ysfText = $(e).find("a.con").text();
                     var val = $(e).find("a.val").attr("data-value");
                     var valText = $(e).find("a.val").text();
-
+                    //变量类型的哦
+                    if($(e).find("a.val").hasClass("conditionEntity")){
+                        val = '#'+$(e).find("a.val").attr("data-key")+'#';
+                    }
                     if(val == '' || val == undefined){
                         sceneUtil.flag = false;
                         layer.tips('条件值不能为空', $(e).find("a.val"), {

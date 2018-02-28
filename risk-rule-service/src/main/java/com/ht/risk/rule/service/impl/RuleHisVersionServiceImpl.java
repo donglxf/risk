@@ -8,12 +8,14 @@ import com.ht.risk.rule.vo.RuleHisVersionVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author zhangzhen
@@ -31,7 +33,21 @@ public class RuleHisVersionServiceImpl extends BaseServiceImpl<RuleHisVersionMap
     }
 
     @Override
-    public List<Map<String,Object>> getRuleBatchValidationResult(Map<String, Object> paramMap) {
-        return ruleHisVersionMapper.getRuleBatchValidationResult (paramMap);
+    public List<Map<String, Object>> getRuleBatchValidationResult(Map<String, Object> paramMap) {
+        return ruleHisVersionMapper.getRuleBatchValidationResult(paramMap);
+    }
+
+    @Override
+    public List<Map<String, Object>> getHisVersionListByVidName(RuleHisVersionVo vo) {
+        List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
+        List<String> list = vo.gettRuleName();
+        list.forEach(t -> {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("versionId", vo.getVersionId());
+            map.put("ruleName", t);
+            Map m = ruleHisVersionMapper.getHisVersionListByVidName(map);
+            listMap.add(m);
+        });
+        return listMap;
     }
 }

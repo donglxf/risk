@@ -454,8 +454,13 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                     mapCondition = "";
                     mapCondition1 = "";
                 }
-                expression = expression.replace("$" + itemId + "$",
-                        mapCondition + "this[\"" + itemInfo.getEntityIdentify() + "_" + itemInfo.getItemIdentify().trim() + "\"]" + mapCondition1).replace("^", "not ");
+                if (RuleUtils.checkContainOfOperator(conditionVariable, "#")){
+                    expression = expression.replace("$" + itemId + "$",
+                            mapCondition + "this[\"" + itemInfo.getEntityIdentify() + "_" + itemInfo.getItemIdentify().trim() + "\"]" + mapCondition1).replace("^", "not ");
+                }else {
+                    expression = expression.replace("$" + itemId + "$",
+                            mapCondition + "this[\"" + itemInfo.getEntityIdentify() + "_" + itemInfo.getItemIdentify().trim() + "\"]" + mapCondition1).replace("^", "not ");
+                }
             }
 
             //如果是最后一个，则不拼接条件之间关系
@@ -586,7 +591,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                     String realValue = null;
                     // 目前只支持map结构，因此对于pojo设置属性方法暂时取消
                     //判断value值包含##（例如：#3# * 5），如果包含，首先取出item属性 
-                  /*  if (RuleUtils.checkContainOfOperator(paramValue.getParamValue(), "#")) {
+                    /*if (RuleUtils.checkContainOfOperator(paramValue.getParamValue(), "#")) {
                         String tempValue = paramValue.getParamValue();
                         //取出#3#之间的值
                         List<String> strList = RuleUtils.getActionParamBetweenChar(tempValue);

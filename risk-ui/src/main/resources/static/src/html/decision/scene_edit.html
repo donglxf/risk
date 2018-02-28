@@ -97,7 +97,7 @@
             float: right;
             position: absolute;
             right: 10px;
-            bottom: 10px;
+            bottom: 0px;
             color: #5fb878;
         }
         td a.addAct{
@@ -294,7 +294,7 @@
                     <a href="#" class="itemC" data-value="{{con.itemTable.itemId}}">{{con.itemTable.itemName}}</a>
                     &nbsp;
                     <a href="#" data-value="{{con.ysf}}" class="con">{{con.ysfText}}</a>&nbsp;
-                    <a href="#" data-value="{{con.val}}" class="val">{{con.valText}}</a>
+                    <a href="#" data-value="{{con.val}}" data-key="{{con.val}}" class="val {{con.clazz}}">{{con.valText}}</a>
                     <a href="javascript:void(0); " class="deleteCon" onclick="sceneUtil.deleteCon(this)"> <i
                             class="layui-icon">&#x1006;</i></a>
                 </li>
@@ -309,7 +309,7 @@
             <ul class="action_ul">
                 {{#   layui.each(rule.actionRels, function(j, actions ){    }}
                 <li>
-                    <a href="#" class="actionType" data-value="">{{actions.actionInfo.actionName}}</a>
+                    <a href="#" class="actionType" data-value="{{actions.actionInfo.actionId}}">{{actions.actionInfo.actionName}}</a>
                     <div class="param">
                         <!-- (
                          <a href="#" paramId="" class="actionVal" data-value="">请输入</a> ,
