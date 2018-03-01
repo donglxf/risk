@@ -117,7 +117,13 @@
                 },
                 success: function (da) {
                     if (da.code == 0) {
-                       layer.msg("操作成功");
+                        layer.alert('操作成功', function(index){
+                            window.parent.location.reload() // 刷新父页面
+                            // 关闭自身
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(layer.index);
+                            layer.close(index);
+                        });
                     } else {
                         layer.msg(da.msg);
                     }
