@@ -233,9 +233,6 @@ layui.use(['table', 'form','laydate','myutil'], function () {
                     btnAlign : 'c',
                     zIndex: layer.zIndex, //重点1
                     success : function(da, index) {
-                        console.log(">>"+da+">>index:=="+index);
-
-
                         setVariableBindFiled(da, result);
                         $("#senceVersionid").val(versionId);
                         $("#sceneId").val(sceneId);
@@ -247,7 +244,6 @@ layui.use(['table', 'form','laydate','myutil'], function () {
                         // 触发表单的提交事件
                         $('form.layui-form')
                             .find('button[lay-filter=formDemo]').click();
-                        layer.close(index);
                     },
                 });
             });
@@ -265,20 +261,20 @@ layui.use(['table', 'form','laydate','myutil'], function () {
                 "\t\t\t\t\t\t\t<input type=\"hidden\" name=\""+da[i].variableCode+"_bind\" id=\"bindId"+i+"\" value='"+da[i].id+"'>\n" +
                 "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">变量名:</label></td>\n" +
                 "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
-                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"\" name=\""+da[i].variableCode+"\" required\n" +
+                "\t\t\t\t\t\t\t\t<input type=\"text\" lay-verify-max=\"100\" id=\""+da[i].variableCode+"\" name=\""+da[i].variableCode+"\" required\n" +
                 "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入变量名\" autocomplete=\"off\"\n" +
                 "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value=\""+da[i].variableName+"\" readonly>\n" +
                 "\t\t\t\t\t\t\t\t</div>\n" +
                 "\t\t\t\t\t\t\t</td>\n" +
                 "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">表名:</label></td>\n" +
                 "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
-                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"_tableName\" name=\""+da[i].variableCode+"_tableName\" required\n" +
+                "\t\t\t\t\t\t\t\t<input type=\"text\" lay-verify-max=\"100\" id=\""+da[i].variableCode+"_tableName\" name=\""+da[i].variableCode+"_tableName\" required\n" +
                 "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入业务表名\" autocomplete=\"off\"\n" +
                 "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value=\"TEMP_DATA_CONTAINS\" >\n" +
                 "\t\t\t\t\t\t\t</div></td>\n" +
                 "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">列名:</label></td>\n" +
                 "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
-                "\t\t\t\t\t\t\t\t<input type=\"text\" id=\""+da[i].variableCode+"_column\" name=\""+da[i].variableCode+"_column\" required\n" +
+                "\t\t\t\t\t\t\t\t<input type=\"text\" lay-verify-max=\"64\" id=\""+da[i].variableCode+"_column\" name=\""+da[i].variableCode+"_column\" required\n" +
                 "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入列名\" autocomplete=\"off\"\n" +
                 "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value='"+ bindColumn +"'>\n" +
                 "\t\t\t\t\t\t\t</div></td>\n" +

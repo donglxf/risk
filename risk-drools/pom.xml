@@ -22,6 +22,7 @@
 		<pagehelper.version>4.1.6</pagehelper.version>
 		<drools.version>7.0.0.Final</drools.version>
 		<spring-boot-starter-redis-version>1.4.5.RELEASE</spring-boot-starter-redis-version>
+		<start-class>com.ht.risk.DroolsServiceApplication</start-class>
 	</properties>
 
 	<dependencies>

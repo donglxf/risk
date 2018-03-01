@@ -1,6 +1,5 @@
 package com.ht.risk.ui.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -15,6 +15,7 @@
 		<mysql-connector-java.version>5.1.36</mysql-connector-java.version>
 		<alibaba.fastjson.version>1.2.32</alibaba.fastjson.version>
 		<alibaba.druid.version>1.0.31</alibaba.druid.version>
+		<start-class>org.ht.risk.log.LogServiceApplication</start-class>
 	</properties>
 	<dependencies>
 		<!-- spring boot cloud -->

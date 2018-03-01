@@ -1,8 +1,10 @@
 package com.ht.risk.api.feign.eip;
 
-import com.ht.risk.api.model.eip.*;
+import com.ht.risk.api.model.eip.NegativeSearchDtoIn;
+import com.ht.risk.api.model.eip.NegativeSearchDtoOut;
 import com.ht.ussp.core.Result;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  *负面消息 的接口
  */
-@FeignClient(value = "eip-out",path = "/eip/tc"+"/news",url = "http://10.110.1.240:30406")
+@PropertySource("classpath:config.properties")
+@FeignClient(value = "eip-out",path = "/eip/tc"+"/news",url = "{eip.feign.url}")
 public interface NewsRpc {
     /**
      * 描述：负面消息查询

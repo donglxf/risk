@@ -1,6 +1,5 @@
 package com.ht.risk.rule.util;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +118,7 @@ public class RuleUtils {
      * 方法说明: 截取两个#之间的内容
      */
     public static String getParamBetweenChar(String str, String charStr) {
-        Matcher m = Pattern.compile("\\" + charStr + "(.*?)\\" + charStr + "").matcher(str);
+        Matcher m = Pattern.compile("/" + charStr + "(.*?)/" + charStr + "").matcher(str);
         String value = null;
         while (m.find()) {
             value = m.group(1);
@@ -145,7 +144,7 @@ public class RuleUtils {
      */
     public static String getConditionOfVariable(String str) {
 
-        String[] arr = str.split(">(=)?|<(=)?|={1,2}|!=|contains\\^|contains");
+        String[] arr = str.split(">(=)?|<(=)?|={1,2}|!=|\\^contains|contains|memberOf|\\^memberOf");
         if (arr.length < 2) {
             return "";
         }
@@ -212,7 +211,7 @@ public class RuleUtils {
 //        double maxVersion = 1.0 + count*0.1;
 //        System.out.print(maxVersion);
 
-        System.out.println(getConditionOfVariable("$967228891527647234$contains^香港、澳门、台湾"));
+        System.out.println(getConditionOfVariable("$967228891527647234$^contains香港、澳门、台湾"));
 
     }
 }

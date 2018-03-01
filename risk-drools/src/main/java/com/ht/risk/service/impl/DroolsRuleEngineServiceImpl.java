@@ -438,9 +438,16 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             String expression = conditionInfo.getConditionExpression();
             //获取 ==、>=、<=、>、<、！=后面的变量
             String conditionVariable = RuleUtils.getConditionOfVariable(expression);
-            if (!RuleUtils.checkStyleOfString(conditionVariable.trim())) {
-                expression = expression.replace(conditionVariable, "'" + conditionVariable.trim() + "'");
+            if (RuleUtils.checkContainOfOperator(conditionVariable, "#")) { // 条件包含变量时
+                String s = "this[" + conditionVariable + "]";
+                s = s.replaceAll("\\#", "\"");
+                expression = expression.replace(conditionVariable, s);
+            } else {
+                if (!RuleUtils.checkStyleOfString(conditionVariable.trim())) {
+                    expression = expression.replace(conditionVariable, "'" + conditionVariable.trim() + "'");
+                }
             }
+
             // 1.获取条件参数（比如：$21$ ，21 代表实体属性表id）
             List<String> list = RuleUtils.getConditionParamBetweenChar(conditionInfo.getConditionExpression());
             for (String itemId : list) {
@@ -454,13 +461,9 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                     mapCondition = "";
                     mapCondition1 = "";
                 }
-                if (RuleUtils.checkContainOfOperator(conditionVariable, "#")){
-                    expression = expression.replace("$" + itemId + "$",
-                            mapCondition + "this[\"" + itemInfo.getEntityIdentify() + "_" + itemInfo.getItemIdentify().trim() + "\"]" + mapCondition1).replace("^", "not ");
-                }else {
-                    expression = expression.replace("$" + itemId + "$",
-                            mapCondition + "this[\"" + itemInfo.getEntityIdentify() + "_" + itemInfo.getItemIdentify().trim() + "\"]" + mapCondition1).replace("^", "not ");
-                }
+
+                expression = expression.replace("$" + itemId + "$",
+                        mapCondition + "this[\"" + itemInfo.getEntityIdentify() + "_" + itemInfo.getItemIdentify().trim() + "\"]" + mapCondition1).replace("^", "not ");
             }
 
             //如果是最后一个，则不拼接条件之间关系

@@ -1,0 +1,29 @@
+
+zuul:
+  #prefix: /techouse #为zuul设置一个公共的前缀
+  #ignoredServices: '*'
+  routes:
+   risk-ui:
+      path: /rule/ui/** #匹配/techouse/usersystem/** 均路由到cloud-client
+      serviceId: risk-ui
+    rule-service:
+      path: /rule/service/**
+      serviceId: rule-service
+    risk-activiti:
+      path: /activiti/**
+      serviceId: risk-activiti-service
+    risk-drools:
+      path: /drools/**
+      serviceId: risk-drools
+    risk-log:
+      path: /log/**
+      serviceId: risk-log
+    activiti-config:
+      path: /config/**
+      serviceId: activiti-config
+  host:
+    connect-timeout-millis: 6000
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://172.16.200.110:30101/eureka/

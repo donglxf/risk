@@ -4,16 +4,10 @@ spring:
     thymeleaf:
         mode: LEGACYHTML5
         cache: false
-    profiles:
-      active: dev
 server:
     port: 30501
 
 eureka:
-    client:
-        serviceUrl:
-            defaultZone: http://10.110.1.240:30101/eureka/
-            #defaultZone:  http://10.110.1.240:30101/eureka/
     instance:
       prefer-ip-address: true
 

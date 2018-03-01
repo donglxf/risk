@@ -204,8 +204,9 @@ ModelVerification.prototype = {
         var html = '';
         for (var i = 0; i < count; i++) {
             html += '<div class="layui-form-item">';
-            for (var j = 0; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
+            for (var j = 0; j < size && i * size +j < length; j++) {
                 var index = i * size +j;
+                // var index = (i + 1) * (j + 1) - 1;
                 var name=data[index].variableName;
                 html += this.initLabel(name.substring(name.indexOf('_')+1));
                 html += this.initOneValible(data[index]);
@@ -334,29 +335,6 @@ ModelAutoVerification.prototype = {
         return html;
     },
 
-    /**
-     * 渲染每个变量的div
-     * @param data
-     * @returns {string}
-     */
-    initDiv: function (data) {
-        var size = 3;
-        var length = data.length;
-        var count = Math.ceil(length / size);
-        var html = '';
-
-        for (var i = 0; i < count; i++) {
-
-            for (var j = 0; j < size && (i + 1) * (j + 1) - 1 < length; j++) {
-                html += '<div class="layui-form-item">';
-                var index = (i + 1) * (j + 1) - 1;
-                html += this.initLabel(data[index].variableName);//包含一个div
-                html += this.initOneValible(data[index]); //包含两个div
-                html += '</div>';
-            }
-        }
-        return html;
-    },
     /**
      * 渲染单个策列表
      * @param senceData

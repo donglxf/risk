@@ -1318,3 +1318,9 @@ body .layui-util-face  .layui-layer-content{padding:0; background-color:#fff; co
 }
 .layui-anim-fadeout{-webkit-animation-name: layui-fadeout; animation-name: layui-fadeout}
 
+/*mycss*/
+.myform{
+  margin-right:15px;
+
+}
+
