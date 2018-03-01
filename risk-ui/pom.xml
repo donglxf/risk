@@ -7,7 +7,10 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>risk-ui</artifactId>
+	<properties>
+		<start-class>com.ht.risk.ui.UIBootstrap</start-class>
 
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -65,7 +68,7 @@
 	</dependencies>
 	<build>
 		<finalName>risk-rule-ui</finalName>
-		<plugins>
+		<!--<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -76,6 +79,6 @@
 				<dependencies>
 				</dependencies>
 			</plugin>
-		</plugins>
+		</plugins>-->
 	</build>
 </project>
