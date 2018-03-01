@@ -154,7 +154,10 @@ var myUtil = {
                     {value: ">=", text: "大于或等于"},
                     {value: "contains", text: "包含"},
                     {value: "contains^", text: "不包含"},
-                   // {value: "like%", text: "开始以"},
+                    {value: "memberOf", text: "属于"},
+                    {value: "^memberOf", text: "不属于"},
+
+                    // {value: "like%", text: "开始以"},
                   //  {value: "%like", text: "结束以"},
                    // {value: "===", text: "忽略"},
                 ],

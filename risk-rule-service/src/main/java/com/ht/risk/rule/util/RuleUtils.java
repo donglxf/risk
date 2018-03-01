@@ -145,7 +145,7 @@ public class RuleUtils {
      */
     public static String getConditionOfVariable(String str) {
 
-        String[] arr = str.split(">(=)?|<(=)?|={1,2}|!=|contains\\^|contains");
+        String[] arr = str.split(">(=)?|<(=)?|={1,2}|!=|contains\\^|contains|memberOf|^memberOf");
         if (arr.length < 2) {
             return "";
         }
