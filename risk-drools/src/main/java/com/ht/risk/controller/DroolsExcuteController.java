@@ -183,8 +183,8 @@ public class DroolsExcuteController {
             Long endTime = System.currentTimeMillis();
             Long executeTime = endTime - startTime;
             log.info("规则验证执行时间》》》》》" + String.valueOf(executeTime));
-
             data = new RuleExcuteResult(0, "success", saveLog(object, paramter, ruleVersion, executeTime),paramter.getVersion());
+            data.setSenceVersoionId(String.valueOf(ruleVersion.getVersionId()));
         } catch (Exception e) {
             e.printStackTrace();
             data = new RuleExcuteResult(1, e.getMessage(), null,paramter.getVersion());

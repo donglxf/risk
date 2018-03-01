@@ -3,9 +3,12 @@ package com.ht.risk.activiti.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.ht.risk.activiti.entity.ActExcuteTask;
 import com.ht.risk.activiti.entity.ActProcRelease;
+import com.ht.risk.activiti.service.ActExcuteTaskService;
 import com.ht.risk.activiti.service.ActProcReleaseService;
 import com.ht.risk.activiti.vo.ActProcReleaseVo;
+import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.common.result.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +16,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,6 +39,9 @@ public class ActProcReleaseController {
     private static Logger logger = LoggerFactory.getLogger(ActProcReleaseController.class);
     @Autowired
     private ActProcReleaseService actProcReleaseService;
+
+    @Autowired
+    private ActExcuteTaskService actExcuteTaskService;
 
     @GetMapping("list")
     @ApiOperation(value = "查询模型验证信息表")
@@ -65,6 +73,57 @@ public class ActProcReleaseController {
         }
         return result;
     }
+    @RequestMapping(value = "/verficationPass")
+    @ApiOperation(value = "模型验证通过")
+    public Result verficationPass(ActProcRelease actProcRelease){
+        Result<Object> result = new Result<>();
+        if(actProcRelease == null || actProcRelease.getId() == null || StringUtils.isEmpty(actProcRelease.getTaskId())){
+            result = Result.error(1,"参数异常！");
+            return result;
+        }
+        // TODO 1 校验验证状态是否成功
+        Long taskId = Long.parseLong(actProcRelease.getTaskId());
+        ActExcuteTask task = actExcuteTaskService.selectById(taskId);
+        if(task != null && ActivitiConstants.PROC_STATUS_SUCCESS.equals(task.getStatus())){
+            boolean flag = actProcReleaseService.updateById(actProcRelease);
+            if(flag){
+                result = Result.success("更新成功！");
+            }else{
+                result = Result.error(1,"更新失败！");
+            }
+        }else{
+            result = Result.error(2,"模型验证执行未成功");
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/verficationUnPass")
+    @ApiOperation(value = "模型验证不通过")
+    public Result verficationUnPass(ActProcRelease actProcRelease){
+        Result<Object> result = new Result<>();
+        // TODO 1 校验版本状态是否为已验证通过
+        boolean flag = actProcReleaseService.updateById(actProcRelease);
+        if(flag){
+            result = Result.success("更新成功！");
+        }else{
+            result = Result.error(1,"更新失败！");
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/approval")
+    @ApiOperation(value = "模型提交审批")
+    public Result approval(ActProcRelease actProcRelease){
+        Result<Object> result = new Result<>();
+        boolean flag = actProcReleaseService.updateById(actProcRelease);
+        if(flag){
+            result = Result.success("更新成功！");
+        }else{
+            result = Result.error(1,"更新失败！");
+        }
+        return result;
+    }
+
     @RequestMapping(value = "/update")
     @ApiOperation(value = "模型版本信息更新")
     public Result updateProcReleaseInfo(ActProcRelease actProcRelease){

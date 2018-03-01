@@ -154,6 +154,8 @@ public class ActProcRelease extends Model<ActProcRelease> {
 	@ApiModelProperty(required= true,value = "创建用户")
 	private String createUser;
 
+	private transient String taskId;
+
 	public Long getId() {
 		return id;
 	}
@@ -285,6 +287,14 @@ public class ActProcRelease extends Model<ActProcRelease> {
 
 	public void setModelCode(String modelCode) {
 		this.modelCode = modelCode;
+	}
+
+	public String getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
 	}
 
 	@Override

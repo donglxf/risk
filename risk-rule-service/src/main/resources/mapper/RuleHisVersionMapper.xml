@@ -34,8 +34,12 @@ where ver.sence_version_id = #{senceVersionId}
           where rl.id=#{id} and rl.sence_versionid=#{senceVersionId}
     </select>
 
-    <select id="getHisVersionListByVidName" resultType="java.util.Map" parameterType="map">
-      select  <include refid="Base_Column_List"/> from risk_rule_his_version rl where sence_version_id=#{versionId} and rule_name=#{ruleName}
+    <select id="getHisVersionListByVidName" resultType="com.ht.risk.api.model.rule.RpcRuleHisVersion" parameterType="map">
+        select  <include refid="Base_Column_List"/> from risk_rule_his_version rl where sence_version_id=#{versionId} and
+        rule_name in
+        <foreach item="ruleName" collection="ruleNames" separator="," open="(" close=")" index="">
+            #{ruleName}
+        </foreach>
     </select>
 
 

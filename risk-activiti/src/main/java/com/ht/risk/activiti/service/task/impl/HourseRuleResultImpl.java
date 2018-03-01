@@ -2,12 +2,17 @@ package com.ht.risk.activiti.service.task.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.ht.risk.activiti.rpc.ActivitiConfigInterface;
+import com.ht.risk.activiti.rpc.RuleServiceInterface;
 import com.ht.risk.activiti.service.impl.TopicSenderServiceImpl;
 import com.ht.risk.activiti.service.task.HourseRuleResult;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.model.activiti.ModelExcuteResult;
 import com.ht.risk.api.model.activiti.RpcActExcuteTask;
 import com.ht.risk.api.model.activiti.RuleExcuteDetail;
+import com.ht.risk.api.model.rule.RpcRuleDetail;
+import com.ht.risk.api.model.rule.RpcRuleHisVersion;
+import com.ht.risk.api.model.rule.RpcRuleHisVersionParamter;
+import com.ht.risk.common.result.Result;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +31,8 @@ public class HourseRuleResultImpl implements HourseRuleResult {
 
     @Resource
     private ActivitiConfigInterface activitiConfigInterface;
+    @Resource
+    private RuleServiceInterface ruleServiceInterface;
 
     /**
      *
@@ -52,10 +59,7 @@ public class HourseRuleResultImpl implements HourseRuleResult {
         if(details.size()>0){
             for(Iterator<RuleExcuteDetail> iterator = details.iterator(); iterator.hasNext();){
                 detail = iterator.next();
-                if("0".equals(detail.getCode())){
-                    LOGGER.info("HourseRuleResultImpl execute method excute start..."+ JSON.toJSONString(detail));
-                    // TODO 查询规则明星描述
-                }
+                getRulesDesc(detail);
             }
             modelResult.setRuleResultList(details);
             modelResult.setCode("0");
@@ -67,14 +71,50 @@ public class HourseRuleResultImpl implements HourseRuleResult {
             // MQ发送消息
             topicSenderService.send(JSON.toJSONString(modelResult));
             //更新任务状态
-            RpcActExcuteTask task = new RpcActExcuteTask();
-            task.setStatus(ActivitiConstants.PROC_STATUS_SUCCESS);
-            task.setUpdateTime(new Date(System.currentTimeMillis()));
-            task.setId(taskId);
-            task.setOutParamter(JSON.toJSONString(modelResult));
-            task.setProcInstId(execution.getProcessInstanceId());
-            activitiConfigInterface.updateTask(task);
+            updateTask(modelResult,taskId,execution.getProcessInstanceId());
+
         }
         LOGGER.info("HourseRuleResultImpl execute method excute end...");
+    }
+    // 更新任务信息
+    private void updateTask(ModelExcuteResult modelResult,Long taskId,String procInstId){
+        RpcActExcuteTask task = new RpcActExcuteTask();
+        task.setStatus(ActivitiConstants.PROC_STATUS_SUCCESS);
+        task.setUpdateTime(new Date(System.currentTimeMillis()));
+        task.setId(taskId);
+        task.setOutParamter(JSON.toJSONString(modelResult));
+        task.setProcInstId(procInstId);
+        activitiConfigInterface.updateTask(task);
+    }
+
+    // 获取策略表所有命中规则的规则描述
+    private void getRulesDesc(RuleExcuteDetail detail){
+        if(detail != null && detail.getRuleList() != null && detail.getRuleList().size()>0){
+            LOGGER.info("HourseRuleResultImpl execute method excute start..."+ JSON.toJSONString(detail));
+            // TODO 查询规则明星描述
+            RpcRuleHisVersionParamter vo = new RpcRuleHisVersionParamter();
+            vo.setVersionId(Long.parseLong(detail.getSenceVersionId()));
+            vo.settRuleName(detail.getRuleList());
+            Result<List<RpcRuleHisVersion>> ruleDescResult = ruleServiceInterface.getHisVersionListByVidName(vo);
+            if(ruleDescResult != null && ruleDescResult.getCode() == 0 && ruleDescResult.getData() != null){
+                List<RpcRuleHisVersion>  hisVersions = ruleDescResult.getData();
+                if(hisVersions != null){
+                    List<String> ruleList = new ArrayList<>();
+                    List<String> ruleNameList = new ArrayList<>();
+                    RpcRuleHisVersion version = null;
+                    RpcRuleDetail rpcRuleDetail = null;
+                    List<RpcRuleDetail> details = new ArrayList<>();
+                    for(Iterator<RpcRuleHisVersion> vIterator = hisVersions.iterator();vIterator.hasNext();){
+                        version = vIterator.next();
+                        rpcRuleDetail = new RpcRuleDetail();
+                        rpcRuleDetail.setRuleCode(version.getRuleName());
+                        rpcRuleDetail.setRuleDesc(version.getRuleDesc());
+                        details.add(rpcRuleDetail);
+                    }
+                    detail.setRuleList(null);
+                    detail.setRuleDetails(details);
+                }
+            }
+        }
     }
 }

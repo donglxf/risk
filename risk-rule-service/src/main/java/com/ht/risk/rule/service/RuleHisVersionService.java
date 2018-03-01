@@ -1,5 +1,7 @@
 package com.ht.risk.rule.service;
 
+import com.ht.risk.api.model.rule.RpcRuleHisVersion;
+import com.ht.risk.api.model.rule.RpcRuleHisVersionParamter;
 import com.ht.risk.common.service.BaseService;
 import com.ht.risk.rule.entity.RuleHisVersion;
 import com.ht.risk.rule.vo.RuleHisVersionVo;
@@ -32,8 +34,8 @@ public interface RuleHisVersionService extends BaseService<RuleHisVersion> {
 
     /**
      * 根据版本id和规则名获取规则信息
-     * @param vo
+     * @param paramter
      * @return
      */
-    List<Map<String,Object>> getHisVersionListByVidName(RuleHisVersionVo vo) ;
+    List<RpcRuleHisVersion> getHisVersionListByVidName(RpcRuleHisVersionParamter paramter) ;
 }
