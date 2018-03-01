@@ -55,6 +55,7 @@
                     if (da.code == 0) {
                         layer.msg('保存数据成功');
                         active.reload();
+                        layer.close(layer.index);
                     } else {
                        layer.msg(data.msg);
                     }
