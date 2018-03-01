@@ -87,13 +87,14 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	      
 
 	<repositories>
 		<repository>
-			<!-- Maven 自带的中央仓库使用的Id为central 如果其他的仓库声明也是用该Id 就会覆盖中央仓库的配置 -->
+			<!--&lt;!&ndash; Maven 自带的中央仓库使用的Id为central 如果其他的仓库声明也是用该Id 就会覆盖中央仓库的配置 &ndash;&gt;-->
 			<id>central</id>
 			<name>maven-central</name>
-			<url>http://10.110.1.240:8081/repository/maven-public/</url>
+			<url>http://172.16.200.111:8081/repository/maven-public/</url>
 			<layout>default</layout>
 			<releases>
 				<enabled>true</enabled>
@@ -109,14 +110,14 @@
 		<repository>
 			<id>nexus-releases</id>
 			<name>releases</name>
-			<url>http://10.110.1.240:8081/repository/maven-releases/</url>
+			<url>http://172.16.200.111:8081/repository/maven-releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus-snapshots</id>
 			<name>snapshots</name>
-			<url>http://10.110.1.240:8081/repository/maven-snapshots/</url>
+			<url>http://172.16.200.111:8081/repository/maven-snapshots/</url>
 		</snapshotRepository>
-	</distributionManagement>
+	</distributionManagement>-->
 
 	<build>
 		<plugins>
