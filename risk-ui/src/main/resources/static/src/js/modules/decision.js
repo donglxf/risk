@@ -153,7 +153,7 @@ var myUtil = {
                     {value: ">", text: "大于"},
                     {value: ">=", text: "大于或等于"},
                     {value: "contains", text: "包含"},
-                    {value: "contains^", text: "不包含"},
+                    {value: "^contains", text: "不包含"},
                     {value: "memberOf", text: "属于"},
                     {value: "^memberOf", text: "不属于"},
 
