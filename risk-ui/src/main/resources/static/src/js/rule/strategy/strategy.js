@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////
 var preBindUrl = "/rule/service/business/";
 var preUrl = "/rule/service/strategy/";
-var p_sceneId = -1,versionIds=0;
+var versionIds=0,bindIndex=0;
 layui.config({
     base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
 }).extend({ //设定模块别名
@@ -31,8 +31,6 @@ layui.use(['table', 'form','laydate','myutil'], function () {
         url: preBindUrl+"getAll",
         dataType: "json",
         success: function (data) {
-            // var modelVerification = new ModelVerification();
-            // var contents = modelVerification.initModel(data);
             var da=data.data;
             var html="<select id=\"isBusinessLine\" class=\"layui-select\" name=\"businessType\" lay-verify=\"\">\n<option value=\"\">选择业务线</option>";
             for (var i=0;i<da.length;i++){
@@ -42,13 +40,6 @@ layui.use(['table', 'form','laydate','myutil'], function () {
             $("#businessTypes").html(html);
         }
     });
-
-
-
-
-
-
-
 
 
     // 第一个实例
@@ -236,7 +227,7 @@ layui.use(['table', 'form','laydate','myutil'], function () {
                         setVariableBindFiled(da, result);
                         $("#senceVersionid").val(versionId);
                         $("#sceneId").val(sceneId);
-
+                        bindIndex=index;
 
                     },
                     yes : function(index) {

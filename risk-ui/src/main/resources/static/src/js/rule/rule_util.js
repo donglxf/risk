@@ -86,9 +86,9 @@ ModelVerification.prototype = {
     initInput: function (name, tmpValue) {
         var html = '<div class="layui-input-inline">'
         if (tmpValue != null && tmpValue != "") {
-            html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required" placeholder="整形" autocomplete="off" class="layui-input">'
+            html += '<input value= "' + tmpValue + '"' + 'type="text" name="' + name + '" lay-verify="required|number" placeholder="整形" autocomplete="off" class="layui-input">'
         } else {
-            html += '<input type="text" name="' + name + '" lay-verify="required" placeholder="整形" autocomplete="off" class="layui-input">'
+            html += '<input type="text" name="' + name + '" lay-verify="required|number" placeholder="整形" autocomplete="off" class="layui-input">'
         }
         html += '</div>';
         return html;
@@ -206,7 +206,6 @@ ModelVerification.prototype = {
             html += '<div class="layui-form-item">';
             for (var j = 0; j < size && i * size +j < length; j++) {
                 var index = i * size +j;
-                // var index = (i + 1) * (j + 1) - 1;
                 var name=data[index].variableName;
                 html += this.initLabel(name.substring(name.indexOf('_')+1));
                 html += this.initOneValible(data[index]);
