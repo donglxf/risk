@@ -1,6 +1,5 @@
 package com.ht.risk.rule.util;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +118,7 @@ public class RuleUtils {
      * 方法说明: 截取两个#之间的内容
      */
     public static String getParamBetweenChar(String str, String charStr) {
-        Matcher m = Pattern.compile("\\" + charStr + "(.*?)\\" + charStr + "").matcher(str);
+        Matcher m = Pattern.compile("/" + charStr + "(.*?)/" + charStr + "").matcher(str);
         String value = null;
         while (m.find()) {
             value = m.group(1);

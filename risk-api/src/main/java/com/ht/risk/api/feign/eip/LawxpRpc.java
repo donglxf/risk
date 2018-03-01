@@ -3,6 +3,7 @@ package com.ht.risk.api.feign.eip;
 import com.ht.risk.api.model.eip.*;
 import com.ht.ussp.core.Result;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @Description
  * @Date 2018/2/7 14:59
  */
-@FeignClient(value = "eip-out",path = "/eip/tc"+"/lawxp",url = "http://192.168.14.230:30406")
+@PropertySource("classpath:config.properties")
+@FeignClient(value = "eip-out",path = "/eip/tc"+"/lawxp",url = "{eip.feign.url}")
 public interface LawxpRpc {
 
     /**

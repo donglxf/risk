@@ -2,38 +2,27 @@ package com.ht.risk.rule.controller;
 
 
 import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
-import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
-import com.ht.risk.api.model.activiti.RpcModelVerfication;
 import com.ht.risk.api.model.activiti.RpcStartParamter;
 import com.ht.risk.api.model.drools.DroolsParamter;
-import com.ht.risk.api.model.log.RpcHitRuleInfo;
-import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
-import com.ht.risk.rule.entity.ActReModel;
-import com.ht.risk.rule.entity.VariableBind;
 import com.ht.risk.rule.rpc.ActivitiConfigRpc;
-import com.ht.risk.rule.service.ActReModelService;
 import com.ht.risk.rule.service.ModelAnalysisSerivce;
-import com.ht.risk.rule.util.StringUtil;
 import com.ht.risk.rule.vo.ModelVerficationVo;
-import com.ht.risk.rule.vo.SenceParamterVo;
 import com.ht.risk.rule.vo.VerficationResultVo;
-import io.swagger.annotations.ApiOperation;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>

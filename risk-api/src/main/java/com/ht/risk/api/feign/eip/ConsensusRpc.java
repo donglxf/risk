@@ -1,15 +1,15 @@
 package com.ht.risk.api.feign.eip;
 
-import com.ht.risk.api.model.eip.*;
+import com.ht.risk.api.model.eip.ConsensusReqDto;
+import com.ht.risk.api.model.eip.ConsensusRespDto;
 import com.ht.ussp.core.Result;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
-
-@FeignClient(value = "eip-out",path = "/eip/tc",url = "http://192.168.14.230:30406")
+@PropertySource("classpath:config.properties")
+@FeignClient(value = "eip-out",path = "/eip/tc",url = "{eip.feign.url}")
 public interface ConsensusRpc {
 
     /**

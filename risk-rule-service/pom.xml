@@ -9,20 +9,13 @@
     <artifactId>risk-rule-service</artifactId>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- MyBatis Generator -->
-        <!-- Java接口和实体类 -->
-        <targetJavaProject>${basedir}/src/main/java</targetJavaProject>
-        <targetMapperPackage>com.tdw.cams.account.mapper</targetMapperPackage>
-        <targetModelPackage>com.tdw.cams.account.entity</targetModelPackage>
-        <!-- XML生成路径 -->
-        <targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
-        <targetXMLPackage>mapper</targetXMLPackage>
         <!-- 依赖版本 -->
         <mapper.version>3.3.6</mapper.version>
         <pagehelper.version>4.1.1</pagehelper.version>
         <mybatisplus.version>2.1.6</mybatisplus.version>
         <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
         <drools.version>7.0.0.Final</drools.version>
+        <start-class>com.ht.risk.rule.RuleServiceApplication</start-class>
     </properties>
 
     <dependencies>
@@ -148,7 +141,7 @@
     </dependencies>
 
     <build>
-        <finalName>cams-account-service</finalName>
+        <finalName>risk-rule-service</finalName>
         <plugins>
             <!-- 此插件用来生成通用mapper的代码 -->
             <plugin>

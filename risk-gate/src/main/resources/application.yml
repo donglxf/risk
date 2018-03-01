@@ -6,6 +6,8 @@ spring:
         cache: false
     activemq:
       broker-url:
+    profiles:
+      active: dev
     session:
       timeout: 36000 #一天的有效期
 server:

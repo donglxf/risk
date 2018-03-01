@@ -23,6 +23,7 @@
 		<mybatisplus.version>2.1.6</mybatisplus.version>
 		<mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
 		<drools.version>7.0.0.Final</drools.version>
+		<start-class>com.ht.risk.eip.RiskEipApplication</start-class>
 	</properties>
 
 	<dependencies>
@@ -139,7 +140,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>cams-account-service</finalName>
+		<finalName>risk-eip-service</finalName>
 		<plugins>
 			<!-- 此插件用来生成通用mapper的代码 -->
 			<plugin>
