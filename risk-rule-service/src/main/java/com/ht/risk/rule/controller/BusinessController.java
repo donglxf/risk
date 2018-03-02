@@ -4,6 +4,7 @@ package com.ht.risk.rule.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.Business;
@@ -32,7 +33,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/business")
-public class BusinessController {
+public class BusinessController extends BaseController {
     @Autowired
     private BusinessService businessService;
 
@@ -67,7 +68,7 @@ public class BusinessController {
     @Transactional()
     public Result<Integer> edit( @Validated Business business){
         business.setCreTime(new Date());
-        business.setCreUserId("无");
+        business.setCreUserId(this.getUserId());
         businessService.insertOrUpdate(business);
         return Result.success(0);
     }

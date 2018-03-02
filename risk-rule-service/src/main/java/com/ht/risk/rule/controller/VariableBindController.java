@@ -10,6 +10,7 @@ import com.ht.risk.api.comment.VerficationTypeEnum;
 import com.ht.risk.api.constant.rule.RuleConstant;
 import com.ht.risk.api.model.drools.DroolsParamter;
 import com.ht.risk.common.comenum.RuleCallTypeEnum;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.rule.entity.*;
 import com.ht.risk.rule.service.*;
 //import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
@@ -44,7 +45,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @RestController
 @RequestMapping("/variableBind/")
-public class VariableBindController {
+public class VariableBindController extends BaseController {
 
     protected static final Logger log = LoggerFactory.getLogger(VariableBindController.class);
 
@@ -150,11 +151,13 @@ public class VariableBindController {
             entityInfo.setBindColumn(map.get(varCode + "_column")[0]);
             entityInfo.setCreateTime(new Date());
             entityInfo.setIsEffect("1");
+            entityInfo.setCreateUser(this.getUserId());
             variableBindService.insertOrUpdate(entityInfo);
         }
         // 更新版本信息表 绑定状态
         SceneVersion sc = sceneVersionService.selectById(map.get("senceVersionid")[0]);
         sc.setIsBindVar("1");
+        sc.setCreUserId(Long.parseLong(this.getUserId()));
         sceneVersionService.insertOrUpdate(sc);
         return Result.success(0);
     }
@@ -169,6 +172,7 @@ public class VariableBindController {
         batch.setBatchSize(1);
         batch.setSenceVersionId(String.valueOf(entityInfo.getSenceVersionId()));
         batch.setVerficationType(String.valueOf(VerficationTypeEnum.manu.getValue()));
+        batch.setCreateUser(this.getUserId());
         senceVerficationBatchService.insert(batch);
 
         //封装规则验证所需数据
@@ -268,6 +272,7 @@ public class VariableBindController {
             batch.setBatchSize(recordMap.size());
             batch.setSenceVersionId(String.valueOf(entityInfo.getSenceVersionId()));
             batch.setVerficationType(String.valueOf(VerficationTypeEnum.auto.getValue()));
+            batch.setCreateUser(this.getUserId());
             senceVerficationBatchService.insertOrUpdate(batch);
 
             List<DroolsParamter> list = new ArrayList<DroolsParamter>();
@@ -335,6 +340,7 @@ public class VariableBindController {
             maxVersion = Float.parseFloat(((String) maxVersionMap.get("maxVersion"))) + 0.1f;
         }
         scene.setOfficialVersion(String.valueOf(maxVersion));
+        scene.setCreUserId(Long.parseLong(this.getUserId()));
         sceneVersionService.insertOrUpdate(scene);
 
 

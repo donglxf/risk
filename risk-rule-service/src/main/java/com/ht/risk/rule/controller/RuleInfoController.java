@@ -3,7 +3,9 @@ package com.ht.risk.rule.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.Result;
+import com.ht.risk.common.util.DateUtils;
 import com.ht.risk.rule.entity.*;
 import com.ht.risk.rule.facade.SceneRuleFacade;
 import com.ht.risk.rule.service.*;
@@ -38,7 +40,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/rule")
 @Api(tags = "RuleInfoController", description = "规则相关api描述", hidden = true)
-public class RuleInfoController {
+public class RuleInfoController extends BaseController {
 
     @Autowired
     private InfoService infoService;
@@ -167,6 +169,7 @@ public class RuleInfoController {
             rel.setSceneId(sceneId);
             rel.setEntityItemId(Long.parseLong(itme));
             rel.setSort(i);
+            rel.setCreTime(DateUtils.getDate());
             sceneItemRelService.insert(rel);
             i++;
         }
@@ -244,6 +247,7 @@ public class RuleInfoController {
             rel.setSceneId(sceneId);
             rel.setEntityItemId(Long.parseLong(itme));
             rel.setSort(i);
+            rel.setCreTime(DateUtils.getDate());
             sceneItemRelService.insert(rel);
             i++;
         }

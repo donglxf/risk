@@ -4,6 +4,7 @@ package com.ht.risk.rule.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.SceneInfo;
@@ -31,7 +32,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sceneInfo")
 @Api(tags = "SceneInfoController", description = "场景相关api描述", hidden = true)
-public class SceneInfoController {
+public class SceneInfoController extends BaseController{
     @Autowired
     private SceneInfoService sceneInfoService;
 
@@ -68,8 +69,7 @@ public class SceneInfoController {
     public Result<Integer> edit(SceneInfo sceneInfo){
         sceneInfo.setCreTime(new Date());
         sceneInfo.setIsEffect(1);
-        long a = 11;
-        sceneInfo.setCreUserId(a);
+        sceneInfo.setCreUserId(Long.parseLong(this.getUserId()));
         sceneInfoService.insertOrUpdate(sceneInfo);
         return Result.success(0);
     }
