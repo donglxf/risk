@@ -25,6 +25,9 @@ public class RpcActExcuteTaskInfo implements Serializable{
      * 任务状态，0-待执行，1-执行结束，2-执行异常
      */
     private String status;
+
+    private String type;
+
     /**
      * 入参
      */
@@ -112,5 +115,13 @@ public class RpcActExcuteTaskInfo implements Serializable{
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

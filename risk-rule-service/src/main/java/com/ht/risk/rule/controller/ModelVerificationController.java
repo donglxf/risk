@@ -59,6 +59,21 @@ public class ModelVerificationController {
         LOGGER.info("querySingleVerficationInfo mothod invoke end,result:" + JSON.toJSONString(result));
         return result;
     }
+    /**
+     * 查询模型验证任务相关信息
+     *
+     * @param verficationVo
+     * @return
+     */
+    @RequestMapping("/queryTaskServiceResult")
+    public Result queryTaskServiceResult(ModelVerficationVo verficationVo) {
+        LOGGER.info("querySingleVerficationInfo mothod invoke,paramter:" + JSON.toJSONString(verficationVo));
+        Result result = null;
+        VerficationResultVo resultVo = modelAnalysisSerivce.queryTaskVerficationResult(verficationVo.getTaskId());
+        result = Result.success(resultVo);
+        LOGGER.info("querySingleVerficationInfo mothod invoke end,result:" + JSON.toJSONString(result));
+        return result;
+    }
 
     @RequestMapping("/createSingleVerficationTask")
     public Result createSingleVerficationTask(HttpServletRequest request) {
@@ -101,7 +116,7 @@ public class ModelVerificationController {
         RpcStartParamter rpcStartParamter = new RpcStartParamter();
         rpcStartParamter.setProcDefId(procDefId);
         rpcStartParamter.setVersion(modelVersion);
-        rpcStartParamter.setType(ActivitiConstants.PROC_MODEL_EXCUTE_VERFICATION_TYPE);
+        rpcStartParamter.setType(ActivitiConstants.EXCUTE_TYPE_VERFICATION);
         rpcStartParamter.setData(senceData);
         rpcStartParamter.setBatchSize(1);
         LOGGER.info("createSingleVerficationTask mothod invoke,paramter:" + JSON.toJSONString(rpcStartParamter));

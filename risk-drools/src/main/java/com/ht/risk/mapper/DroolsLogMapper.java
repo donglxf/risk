@@ -2,6 +2,10 @@ package com.ht.risk.mapper;
 
 import com.ht.risk.common.mapper.SuperMapper;
 import com.ht.risk.model.DroolsLog;
+import com.ht.risk.model.HitRule;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +17,7 @@ import com.ht.risk.model.DroolsLog;
  */
 public interface DroolsLogMapper extends SuperMapper<DroolsLog> {
 
+    List<HitRule> queryHitRuleByProcInstId(String procInstId);
+
+    List<HitRule> queryHitRuleByProcInstIds(Map<String, List<String>> paramter);
 }

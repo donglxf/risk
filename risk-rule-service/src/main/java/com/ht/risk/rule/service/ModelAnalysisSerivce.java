@@ -44,6 +44,13 @@ public interface ModelAnalysisSerivce {
      */
     public VerficationResultVo queryTaskVerficationResult(Long taskId);
 
+    /**
+     * 查询模型任务信息
+     * @param taskId
+     * @return
+     */
+    public VerficationResultVo queryTaskServiceResult(Long taskId);
+
     public Long createBatchVerficationTask();
 
     public Long createSingleVerficationTask();

@@ -58,6 +58,8 @@ public class ActProcReleaseVo implements Serializable{
      * 是否审核通过：0-待审核，1-审核通过，2-审核不通过；默认为0;
      */
     private String isApprove;
+
+    private String approveTaskId;
     /**
      * 是否生效：0-有效，1-无效
      */
@@ -250,5 +252,13 @@ public class ActProcReleaseVo implements Serializable{
 
     public void setModelCode(String modelCode) {
         this.modelCode = modelCode;
+    }
+
+    public String getApproveTaskId() {
+        return approveTaskId;
+    }
+
+    public void setApproveTaskId(String approveTaskId) {
+        this.approveTaskId = approveTaskId;
     }
 }

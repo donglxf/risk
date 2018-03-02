@@ -2,6 +2,7 @@ package com.ht.risk.rule.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.mapper.Condition;
+import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.api.model.activiti.RpcModelReleaseInfo;
 import com.ht.risk.api.model.activiti.RpcModelVerfication;
@@ -156,6 +157,8 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         }
         RpcActExcuteTaskInfo task = taskResult.getData();
         resultVo.setProcReleaseId(task.getProcReleaseId());
+        String type = task.getType();
+
         // 获取模型定义信息
         rpcModelVerfication.setProcReleaseId(Long.parseLong(task.getProcReleaseId()));
         Result<RpcModelReleaseInfo> releaseInfoResult = activitiConfigRpc.getProcReleaseById(rpcModelVerfication);
@@ -179,7 +182,129 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
             resultVo.setMessage("模型执行成功。。。");
             return resultVo;
         }
-        Result<List<RpcDroolsLog>> logResult = droolsLogRpc.queryTestModelDroolsLogs(rpcDroolsLog);
+        Result<List<RpcDroolsLog>> logResult = null;
+        if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(type)){
+            logResult= droolsLogRpc.queryModelDroolsLogs(rpcDroolsLog);
+        }else{
+            logResult= droolsLogRpc.queryTestModelDroolsLogs(rpcDroolsLog);
+        }
+        LOGGER.info("rpc:activitiConfigRpc.queryTestModelDroolsLogs ,result:"+JSON.toJSONString(logResult));
+        if(logResult == null || logResult.getCode() != 0 || logResult.getData() == null){
+            resultVo.setMessage("模型执行异常，未触发规则引擎。。。");
+            resultVo.setValidateFlag("1");
+            return resultVo;
+        }
+        List<RpcDroolsLog> logs = logResult.getData();
+        List<Long> versionIds = new ArrayList<Long>();
+        ModelSence sence = null;
+        SenceParamterVo paramterVo = null;
+        for(Iterator<ModelSence> iterator = sences.iterator();iterator.hasNext();){
+            sence = iterator.next();
+            versionIds.add(sence.getSenceVersionId());
+            paramterVo = new SenceParamterVo();
+            paramterVo.setSenceName(sence.getSceneName());
+            senceMap.put(String.valueOf(sence.getSenceVersionId()),paramterVo);
+        }
+        List<VariableBind> binds = variableBindMapper.selectList(Condition.create().in("sence_version_id",versionIds));
+        String variableCode = null;
+        VariableBind bind = null;
+        VariableVo vo = null;
+        List<VariableVo> vos = null;
+        SenceParamterVo senceParamterVo = null;
+        for(Iterator<VariableBind> iterator = binds.iterator();iterator.hasNext();){
+            bind = iterator.next();
+            variableCode = bind.getVariableCode();
+            vo = new VariableVo(bind);
+            if(senceMap.containsKey(String.valueOf(bind.getSenceVersionId()))){
+                paramterVo =senceMap.get(String.valueOf(bind.getSenceVersionId()));
+                if(paramterVo.getData() != null){
+                    vo.setValue(String.valueOf(paramterVo.getData().get(vo.getValibaleEn())));
+                }
+                paramterVo.addVariableVo(vo);
+            }
+        }
+        Result<List<RpcHitRuleInfo>> result = null;
+        if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(type)){
+            result= droolsLogRpc.getHitRuleInfo(task.getProcInstId());
+        }else{
+            result= droolsLogRpc.getTestHitRuleInfo(task.getProcInstId());
+        }
+
+        if(result == null || result.getCode() != 0){
+            return null;
+        }
+        List<RpcHitRuleInfo> hitRuleInfoDatas= result.getData();
+        List<RpcHitRuleInfo> tmp = null;
+        RpcHitRuleInfo tmpRule = null;
+        HitRuleInfoVo ruleInfoVo = null;
+        List<RpcHitRuleInfo> hitRules = new ArrayList<RpcHitRuleInfo>();
+        for(Iterator<RpcHitRuleInfo> iterator = hitRuleInfoDatas.iterator();iterator.hasNext();){
+            tmpRule = iterator.next();
+            String senceVersionId = String.valueOf(tmpRule.getSenceVersionId());
+            if(senceMap.containsKey(senceVersionId)){
+                paramterVo =senceMap.get(senceVersionId);
+                ruleInfoVo = new HitRuleInfoVo(tmpRule);
+                paramterVo.addHitRuleVo(ruleInfoVo);
+            }
+            if(tmpRule.getCount() > 0){
+                hitRules.add(tmpRule);
+            }
+        }
+
+        Set set = senceMap.keySet();
+        List<SenceParamterVo> list = new ArrayList<SenceParamterVo>();
+        for (Iterator<String> iterator = set.iterator(); iterator.hasNext(); ) {
+            list.add(senceMap.get(iterator.next()));
+        }
+        resultVo.setSences(list);
+        resultVo.setHitRules(hitRules);
+        resultVo.setMessage("模型执行成功。。。");
+        resultVo.setValidateFlag("0");
+        return resultVo;
+    }
+
+    @Override
+    public VerficationResultVo queryTaskServiceResult(Long taskId) {
+        LOGGER.info("queryTaskVerficationResult method invoke start,paramter:"+taskId);
+        VerficationResultVo resultVo = new VerficationResultVo();
+        Map<String,SenceParamterVo> senceMap = new HashMap<String,SenceParamterVo>();
+        // 查询任务详情
+        RpcModelVerfication rpcModelVerfication = new RpcModelVerfication();
+        rpcModelVerfication.setTaskId(taskId);
+        resultVo.setTaskId(String.valueOf(taskId));
+        Result<RpcActExcuteTaskInfo> taskResult = activitiConfigRpc.getTaskInfoById(rpcModelVerfication);
+        LOGGER.info("rpc:activitiConfigRpc.queryTasksByBatchId ,result:"+JSON.toJSONString(taskResult));
+        if(taskResult == null || taskResult.getCode() != 0 ||  taskResult.getData() == null){
+            resultVo.setMessage("模型执行失败,未查询模型执行信息。。。");
+            resultVo.setValidateFlag("1");
+            return resultVo;
+        }
+        RpcActExcuteTaskInfo task = taskResult.getData();
+        resultVo.setProcReleaseId(task.getProcReleaseId());
+        // 获取模型定义信息
+        rpcModelVerfication.setProcReleaseId(Long.parseLong(task.getProcReleaseId()));
+        Result<RpcModelReleaseInfo> releaseInfoResult = activitiConfigRpc.getProcReleaseById(rpcModelVerfication);
+        LOGGER.info("rpc:activitiConfigRpc.getProcReleaseById ,result:"+JSON.toJSONString(releaseInfoResult));
+        if(releaseInfoResult == null || releaseInfoResult.getCode() != 0 || releaseInfoResult.getData() == null){
+            resultVo.setMessage("模型执行失败,未查询模型定义信息。。。");
+            resultVo.setValidateFlag("1");
+            return resultVo;
+        }
+        // 查询任务规则命中信息
+        RpcDroolsLog rpcDroolsLog = new RpcDroolsLog();
+        rpcDroolsLog.setProcinstId(task.getProcInstId());
+        if(task.getProcInstId() == null){
+            resultVo.setMessage("模型执行失败，模型实例未启动。。。");
+            resultVo.setValidateFlag("1");
+            return resultVo;
+        }
+        // 获取模型关联决策信息
+        List<ModelSence> sences = modelSenceMapper.queryModelSenceInfo(releaseInfoResult.getData().getModelProcdefId());
+        if(sences == null || sences.size() ==0){
+            resultVo.setMessage("模型执行成功。。。");
+            return resultVo;
+        }
+        Result<List<RpcDroolsLog>> logResult = droolsLogRpc.queryModelDroolsLogs(rpcDroolsLog);
         LOGGER.info("rpc:activitiConfigRpc.queryTestModelDroolsLogs ,result:"+JSON.toJSONString(logResult));
         if(logResult == null || logResult.getCode() != 0 || logResult.getData() == null){
             resultVo.setMessage("模型执行异常，未触发规则引擎。。。");
