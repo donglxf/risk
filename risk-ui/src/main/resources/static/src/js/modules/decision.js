@@ -1626,6 +1626,17 @@ var myUtil = {
                     var groupName = $(groupTd).find("span a.groupName").text();
                     var weight = ($(groupTd).find(".qz").val()== undefined || $(groupTd).find(".qz").val() == '')?1:$(groupTd).find(".qz").val();
                     if(weightIndexList.length <= groupIndex){
+                        var exp=/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/;
+                        if(!exp.test(weight) ){
+                            sceneUtil.flag = false;
+                            layer.msg("权值只能为数字类型");
+                            return ;
+                        }
+                        /*    if (!String.fromCharCode(weight).match(/[0-9\.]/)) {
+                            sceneUtil.flag = false;
+                            layer.msg("权值只能为数字类型");
+                            return ;
+                        }*/
                         weightIndexList.push(weight);
                         groupNameList.push(groupName);
                     }else{

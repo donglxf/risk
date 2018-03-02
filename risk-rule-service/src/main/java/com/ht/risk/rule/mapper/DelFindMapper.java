@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface DelFindMapper {
 
-    @Select("select count(*) from ${table} where ${col} = #{kid}")
-    public Integer findCount(@Param(value = "table")String table ,@Param(value = "col") String col,@Param(value = "kid") Object kid);
+    @Select("select count(*) from ${table} where ${col} = #{kid} ${where}")
+    public Integer findCount(@Param(value = "table")String table ,@Param(value = "col") String col,@Param(value = "kid") Object kid,@Param("where") String where);
 
 }
