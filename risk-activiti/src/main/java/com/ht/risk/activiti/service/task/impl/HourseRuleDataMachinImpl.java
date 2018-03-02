@@ -94,7 +94,6 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                 map.put("borrowerLawsuit_thRecords", isCrime);
             }
         }*/
-
         //
         execution.setVariable("flag",0);
         LOGGER.error("HourseRuleDataMachinImpl execute method excute end...");

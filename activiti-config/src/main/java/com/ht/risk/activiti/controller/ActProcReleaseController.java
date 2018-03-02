@@ -85,6 +85,11 @@ public class ActProcReleaseController {
         Long taskId = Long.parseLong(actProcRelease.getTaskId());
         ActExcuteTask task = actExcuteTaskService.selectById(taskId);
         if(task != null && ActivitiConstants.PROC_STATUS_SUCCESS.equals(task.getStatus())){
+            ActProcRelease release = actProcReleaseService.selectById(actProcRelease);
+            if(!"0".equals(release.getIsApprove())){
+                result = Result.error(2,"该版本已提交审批,不能更新验证状态");
+                return result;
+            }
             boolean flag = actProcReleaseService.updateById(actProcRelease);
             if(flag){
                 result = Result.success("更新成功！");
@@ -101,7 +106,20 @@ public class ActProcReleaseController {
     @ApiOperation(value = "模型验证不通过")
     public Result verficationUnPass(ActProcRelease actProcRelease){
         Result<Object> result = new Result<>();
-        // TODO 1 校验版本状态是否为已验证通过
+        if(actProcRelease == null || actProcRelease.getId() == null ){
+            result = Result.error(1,"参数异常！");
+            return result;
+        }
+        ActProcRelease release = actProcReleaseService.selectById(actProcRelease);
+        if(!"0".equals(release.getIsApprove())){
+            result = Result.error(2,"该版本已提交审批,不能更新验证状态");
+            return result;
+        }
+        // 已验证通过
+        if("1".equals(release.getIsValidate())){
+            result = Result.error(2,"该版本已验证通过");
+            return result;
+        }
         boolean flag = actProcReleaseService.updateById(actProcRelease);
         if(flag){
             result = Result.success("更新成功！");
@@ -115,6 +133,27 @@ public class ActProcReleaseController {
     @ApiOperation(value = "模型提交审批")
     public Result approval(ActProcRelease actProcRelease){
         Result<Object> result = new Result<>();
+        if(actProcRelease == null || actProcRelease.getId() == null || StringUtils.isEmpty(actProcRelease.getTaskId())){
+            result = Result.error(1,"参数异常！");
+            return result;
+        }
+        Long taskId = Long.parseLong(actProcRelease.getTaskId());
+        ActExcuteTask task = actExcuteTaskService.selectById(taskId);
+        if(task == null || !ActivitiConstants.PROC_STATUS_SUCCESS.equals(task.getStatus())){
+            result = Result.error(1,"该版本模型执行异常，无法提交审批！");
+            return result;
+        }
+        ActProcRelease release = actProcReleaseService.selectById(actProcRelease);
+        // 已验证通过
+        if("3".equals(release.getIsValidate()) || !"0".equals(release.getIsApprove())){
+            result = Result.error(2,"该版本已提交审批");
+            return result;
+        }
+        if("2".equals(release.getIsValidate())){
+            result = Result.error(2,"该版本验证不通过，无法提交审批");
+            return result;
+        }
+        actProcRelease.setApproveTaskId(String.valueOf(taskId));
         boolean flag = actProcReleaseService.updateById(actProcRelease);
         if(flag){
             result = Result.success("更新成功！");
@@ -128,6 +167,7 @@ public class ActProcReleaseController {
     @ApiOperation(value = "模型版本信息更新")
     public Result updateProcReleaseInfo(ActProcRelease actProcRelease){
         Result<Object> result = new Result<>();
+        ActProcRelease release = actProcReleaseService.selectById(actProcRelease);
         boolean flag = actProcReleaseService.updateById(actProcRelease);
         if(flag){
             result = Result.success("更新成功！");
@@ -136,6 +176,5 @@ public class ActProcReleaseController {
         }
         return result;
     }
-
 }
 

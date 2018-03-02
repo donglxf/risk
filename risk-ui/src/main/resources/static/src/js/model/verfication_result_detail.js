@@ -1,4 +1,9 @@
-layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
+layui.config({
+    base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
+}).extend({ //设定模块别名
+    myutil: 'common' //如果 mymod.js 是在根目录，也可以不用设定别名
+});
+layui.use(['table', 'jquery', 'element', 'laytpl','myutil'], function () {
     var $ = layui.jquery;
     var element = layui.element;
     var laytpl = layui.laytpl;
@@ -10,7 +15,7 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
     $.ajax({
         cache : true,
         type : "GET",
-        url : '/rule/service/verification/queryTaskVerficationResult',
+        url : pathConfig.ruleServicePath+'verification/queryTaskVerficationResult',
         data:{
             "taskId":taskId
         },
@@ -58,18 +63,77 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
             return ;
         }
         var procReleaseId = $("#procReleaseId").val();
-        verficationProcRelease(procReleaseId,1);
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: pathConfig.activitiConfigPath+'actProcRelease/verficationPass',
+            async: false,
+            data: {
+                id:procReleaseId,
+                isValidate:1,
+                taskId:taskId
+            },
+            timeout: 60000,
+            error : function(request) {
+                layer.closeAll('loading');
+                layer.msg("网络异常!");
+            },
+            success: function (data) {
+                layer.closeAll('loading');
+                layer.msg(data.msg);
+            }
+        });
+
+        //verficationProcRelease(procReleaseId,1);
     });
     $("#unpass").click( function() {
         layer.load();
         var procReleaseId = $("#procReleaseId").val();
-        verficationProcRelease(procReleaseId,2);
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: pathConfig.activitiConfigPath+'actProcRelease/verficationUnPass',
+            async: false,
+            data: {
+                id:procReleaseId,
+                isValidate:2,
+                taskId:taskId
+            },
+            timeout: 60000,
+            error : function(request) {
+                layer.closeAll('loading');
+                layer.msg("网络异常!");
+            },
+            success: function (data) {
+                layer.closeAll('loading');
+                layer.msg(data.msg);
+            }
+        });
     });
     // 发起审批
     $("#approve").click( function() {
         layer.load();
         var procReleaseId = $("#procReleaseId").val();
-        approveProcRelease(procReleaseId,3);
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: pathConfig.activitiConfigPath+'actProcRelease/approval',
+            async: false,
+            data: {
+                id:procReleaseId,
+                isApprove:3,
+                taskId:taskId
+            },
+            timeout: 60000,
+            error : function(request) {
+                layer.closeAll('loading');
+                layer.msg("网络异常!");
+            },
+            success: function (data) {
+                layer.closeAll('loading');
+                layer.msg(data.msg);
+            }
+        });
     });
 
     function approveProcRelease(procReleaseId,isApprove){

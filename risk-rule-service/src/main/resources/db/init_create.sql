@@ -401,6 +401,44 @@ INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, a
 INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (967243425069694977, 1, '动作提示信息', '提示类动作', 'com.ht.risk.service.impl.ruleaction.AlertInfoActionImpl', 1, 1, '2018-02-24 11:42:58', NULL, '4', 'alertInfo');
 
 
+INSERT INTO `rule_constant_info` VALUES (967284545634177025, '征信', '征信状态', '0', 'creditInfoStatus', 1, 1, '2018-02-24 14:26:37', '', '4');
+INSERT INTO `rule_constant_info` VALUES (967285349820665858, '征信', '呆账', '1', 'creditInfoStatusBad', 1, 1, '2018-02-24 14:29:33', '呆账', '0');
+INSERT INTO `rule_constant_info` VALUES (967285450601402370, '征信', '次级', '1', 'creditInfoStatusSecondary', 1, 1, '2018-02-24 14:30:43', '次级', '0');
+INSERT INTO `rule_constant_info` VALUES (967285480771031041, '征信', '可疑', '1', 'creditInfoStatusQuestionable', 1, 1, '2018-02-24 14:31:02', '可疑', '0');
+INSERT INTO `rule_constant_info` VALUES (967285512211533826, '征信', '损失', '1', 'creditInfoStatusLoss', 1, 1, '2018-02-24 14:31:17', '损失', '0');
+INSERT INTO `rule_constant_info` VALUES (967285545799520257, '征信', '代偿', '1', 'creditInfoStatusCompensated', 1, 1, '2018-02-24 14:31:40', '代偿', '0');
+INSERT INTO `rule_constant_info` VALUES (967286751959715841, '楼龄', '装修情况', '0', 'decorationStatus', 1, 1, '2018-02-24 14:36:18', '', '4');
+INSERT INTO `rule_constant_info` VALUES (967287105875087361, '楼龄', '毛坯', '1', 'roughcast', 1, 1, '2018-02-24 14:37:47', '毛坯', '0');
+INSERT INTO `rule_constant_info` VALUES (967287251375493121, '楼龄', '精装', '1', 'hardcover', 1, 1, '2018-02-24 14:37:07', '精装', '0');
+INSERT INTO `rule_constant_info` VALUES (968418086359257089, '房产所在城市类型', '房产所在城市类型', '0', 'houseCityType', 1, 1, '2018-02-27 17:30:53', '', '4');
+INSERT INTO `rule_constant_info` VALUES (968418418791403522, '房产所在城市类型', '城市类型B', '1', 'cityTypeA', 1, 1, '2018-02-27 17:35:03', '城市类型B', '0');
+INSERT INTO `rule_constant_info` VALUES (968418504447479809, '房产所在城市类型', '城市类型B', '1', 'cityTypeB', 1, 1, '2018-02-27 17:32:18', '城市类型B', '0');
+INSERT INTO `rule_constant_info` VALUES (968418568108625922, '房产所在城市类型', '城市类型C', '1', 'cityTypeC', 1, 1, '2018-02-27 17:32:34', '城市类型C', '0');
+
+# 变量
+INSERT INTO rule_entity_info(entity_id, entity_name, entity_desc, entity_identify, pkg_name, cre_user_id, cre_time, is_effect, remark, business_id) VALUES (969382695431663617, '房贷准入规则业务参数', '房贷准入规则业务参数', 'houseInfo', NULL, NULL, '2018-03-02 09:23:51', 1, NULL, '4');
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969382876877254657, 969382695431663617, '借款人年龄', 'borrowerAge', '借款人年龄', 1, '2018-03-02 09:37:42', 1, NULL, 'Double', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969383041797287938, 969382695431663617, '是否主借款人', 'isMainCustomer', '是否主借款人', 1, '2018-03-02 09:25:02', 1, NULL, 'String', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969383121480675330, 969382695431663617, '借款人姓名', 'customerName', '借款人姓名', 1, '2018-03-02 09:25:21', 1, NULL, 'String', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969383191567495169, 969382695431663617, '借款人身份证号码', 'identifyCard', '借款人身份证号码', 1, '2018-03-02 09:25:38', 1, NULL, 'String', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969383272425287682, 969382695431663617, '借款人户籍省份', 'accountProvince', '借款人户籍省份', 1, '2018-03-02 09:25:57', 1, NULL, 'String', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969383440470077441, 969382695431663617, '房产权属人户籍身份', 'hkHouseSheng', '房产权属人户籍身份', 1, '2018-03-02 09:26:37', 1, NULL, 'String', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969383523181752321, 969382695431663617, '担保人姓名', 'guaranteeName', '担保人姓名', 1, '2018-03-02 09:26:57', 1, NULL, 'String', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969383583185465345, 969382695431663617, '担保人身份证', 'guaranteeIdentifyCard', '担保人身份证', 1, '2018-03-02 09:27:11', 1, NULL, 'String', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969383649442885634, 969382695431663617, '担保人身份证是否有记录', 'partyIdentityCard', '担保人身份证是否有记录', 1, '2018-03-02 09:27:27', 1, NULL, 'String', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969384057812905985, 969382695431663617, '业务类型', 'BusinessTypeDetails', '业务类型', 1, '2018-03-02 09:29:04', 1, NULL, 'String', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969384123608952833, 969382695431663617, '我司借款期限', 'months', '我司借款期限', 1, '2018-03-02 09:37:30', 1, NULL, 'Double', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969384232254009346, 969382695431663617, '房产类型', 'reserveType', '房产类型', 1, '2018-03-02 09:29:46', 1, NULL, 'String', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969385264270897153, 969382695431663617, '房产面积', 'hourseArea', '房产面积', 1, '2018-03-02 09:33:52', 1, NULL, 'Integer', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969385357808070658, 969382695431663617, '装修情况', 'renovationStatus', '装修情况', 1, '2018-03-02 09:34:14', 1, NULL, 'CONSTANT', 967286751959715841);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969385527060819969, 969382695431663617, '房产开盘时间', 'openTime', '房产开盘时间', 1, '2018-03-02 09:34:55', 1, NULL, 'String', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969385938228441089, 969382695431663617, '抵押区域', 'guaranteesType', '抵押区域', 1, '2018-03-02 09:36:33', 1, NULL, 'String', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969386003877687298, 969382695431663617, '展期额度', 'extensionAmount', '展期额度', 1, '2018-03-02 09:37:54', 1, NULL, 'Double', NULL);
+INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, item_desc, cre_user_id, cre_time, is_effect, remark, data_type, constant_id) VALUES (969386081744941058, 969382695431663617, '原业务额度', 'originalBusinessLine', '原业务额度', 1, '2018-03-02 09:37:07', 1, NULL, 'String', NULL);
+
+
+
+
 
 INSERT INTO `` (`action_param_id`, `action_id`, `action_param_name`, `action_param_desc`, `param_identify`, `is_effect`, `cre_user_id`, `cre_time`, `remark`) VALUES (3, 3, '分值', '分值', 'grade', 1, 1, '2017-12-22 10:34:22', NULL);
 INSERT INTO `` (`action_param_id`, `action_id`, `action_param_name`, `action_param_desc`, `param_identify`, `is_effect`, `cre_user_id`, `cre_time`, `remark`) VALUES (6, 3, '权值', '权值-不可以删除', 'grade1', 1, 1, '2018-1-25 11:08:04', '');

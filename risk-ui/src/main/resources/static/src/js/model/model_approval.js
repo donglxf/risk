@@ -32,6 +32,7 @@ layui.use(['table','jquery','myutil'], function(){
         var tr = obj.tr; //获得当前行 tr 的DOM对象
         var id = data.id;
         var deploymentId = data.deploymentId;
+        var taskId = data.approveTaskId;
         if(layEvent === 'pass'){ //通过
             layer.confirm('您确认审核通过吗？', function(index){
                 updateRelease(id,1);
@@ -42,7 +43,20 @@ layui.use(['table','jquery','myutil'], function(){
                 updateRelease(id,2);
                 layer.close(index);
             });
-        } else if(layEvent === 'detail'){ //查看详情
+        } else if(layEvent == 'detail'){ //查看详情
+            $("#task_hidden_input").val(taskId);
+            var layIndex =layer.open({
+                type: 2,
+                shade: false,
+                area: ['1000px', '600px'],
+                title: "模型验证结果",
+                //请求的弹出层路径
+                content: "/rule/ui/model/verfication/result/detail",
+                zIndex: layer.zIndex, //重点1
+                success: function (layero, index) {
+                    layer.setTop(layero); //重点2
+                }
+            });
         }
     });
     var active = {

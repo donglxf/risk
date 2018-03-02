@@ -80,9 +80,7 @@ public class ActivitiProcessController extends BaseController {
             return data;
         }
         try{
-            String userId = userInfoHelper.getUserId();
-            userId = StringUtils.isEmpty(userId)?"admin":userId;
-            data = actProcReleaseService.proceDeploy(paramter,userId);
+            data = actProcReleaseService.proceDeploy(paramter,getUserId());
         }catch(Exception e){
             data = Result.error(1,"部署流程异常,错误信息："+e.getMessage());
             LOGGER.error("部署流程异常!",e);
@@ -110,9 +108,7 @@ public class ActivitiProcessController extends BaseController {
             LOGGER.info("startProcess invoke start error,paramter exception...");
             return data;
         }
-        String userId = userInfoHelper.getUserId();
-        userId = StringUtils.isEmpty(userId)?"admin":userId;
-        String procInstId = actProcReleaseService.startProcess(rpcStartParamter,userId);
+        String procInstId = actProcReleaseService.startProcess(rpcStartParamter,getUserId());
         if(StringUtils.isEmpty(procInstId)){
             data = Result.error(1,"启动模型异常！");
             LOGGER.info("startProcess invoke start error");
@@ -137,9 +133,7 @@ public class ActivitiProcessController extends BaseController {
             LOGGER.info("startProcess invoke start error,paramter exception...");
             return data;
         }
-        String userId = userInfoHelper.getUserId();
-        userId = StringUtils.isEmpty(userId)?"admin":userId;
-        String taskid = actProcReleaseService.startModel(modelStartVo,userId);
+        String taskid = actProcReleaseService.startModel(modelStartVo,getUserId());
         if(StringUtils.isEmpty(taskid)){
             data = Result.error(1,"启动模型异常！");
             LOGGER.info("startProcess invoke start error");
@@ -167,9 +161,7 @@ public class ActivitiProcessController extends BaseController {
         }
         Long batchId = null;
         try {
-            String userId = userInfoHelper.getUserId();
-            userId = StringUtils.isEmpty(userId)?"admin":userId;
-            batchId = actProcReleaseService.startBatchValidateProcess(rpcStartParamter,userId);
+            batchId = actProcReleaseService.startBatchValidateProcess(rpcStartParamter,getUserId());
         } catch (Exception e) {
             data = Result.error(1,"批量启动模型异常！");
             LOGGER.info("startProcess invoke start error");
@@ -196,9 +188,7 @@ public class ActivitiProcessController extends BaseController {
         }
         Long batchId = null;
         try {
-            String userId = userInfoHelper.getUserId();
-            userId = StringUtils.isEmpty(userId)?"admin":userId;
-            batchId = actProcReleaseService.startInputValidateProcess(rpcStartParamter,userId);
+            batchId = actProcReleaseService.startInputValidateProcess(rpcStartParamter,getUserId());
         } catch (Exception e) {
             e.printStackTrace();
             data = Result.error(1,"启动模型异常！");

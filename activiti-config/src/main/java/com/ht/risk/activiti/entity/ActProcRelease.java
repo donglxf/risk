@@ -123,6 +123,10 @@ public class ActProcRelease extends Model<ActProcRelease> {
 	@TableField("is_approve")
 	@ApiModelProperty(required= true,value = "是否审核通过：0-待审核，1-审核通过，2-审核不通过；3:提交审核；默认为0;")
 	private String isApprove;
+
+	@TableField("approve_task_id")
+	@ApiModelProperty(required= true,value = "模型验证关联任务Id")
+	private String approveTaskId;
     /**
      * 是否生效：0-有效，1-无效
      */
@@ -295,6 +299,14 @@ public class ActProcRelease extends Model<ActProcRelease> {
 
 	public void setTaskId(String taskId) {
 		this.taskId = taskId;
+	}
+
+	public String getApproveTaskId() {
+		return approveTaskId;
+	}
+
+	public void setApproveTaskId(String approveTaskId) {
+		this.approveTaskId = approveTaskId;
 	}
 
 	@Override
