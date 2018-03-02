@@ -1,24 +1,13 @@
 package com.ht.risk.activiti.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.ht.risk.activiti.entity.ActExcuteTask;
-import com.ht.risk.activiti.entity.RiskValidateBatch;
 import com.ht.risk.activiti.mapper.ActExcuteTaskMapper;
-import com.ht.risk.activiti.mapper.RiskValidateBatchMapper;
 import com.ht.risk.activiti.rpc.ActivitiRpc;
-import com.ht.risk.api.constant.activiti.ActivitiConstants;
-import com.ht.risk.api.model.activiti.ModelExcuteResult;
-import com.ht.risk.api.model.activiti.ModelParamter;
-import com.ht.risk.api.model.activiti.RuleExcuteDetail;
-import com.ht.risk.common.result.Result;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by Administrator on 2016/6/21.
@@ -28,11 +17,11 @@ public class ReceiverService {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ReceiverService.class);
 
-    @Resource
+  /*  @Resource
     private ActExcuteTaskMapper actExcuteTaskMapper;
 
     @Resource
-    private ActivitiRpc activitiRpc;
+    private ActivitiRpc activitiRpc;*/
 
     /*@RabbitListener(queues = "activiti.service")
     public void receiveMessage(String message) {
@@ -53,7 +42,7 @@ public class ReceiverService {
 
     }*/
 
-    private boolean updateTaskInfo(Long taskId,String status){
+    /*private boolean updateTaskInfo(Long taskId,String status){
         if(taskId == null){
             return false;
         }
@@ -67,7 +56,7 @@ public class ReceiverService {
         }
         return false;
 
-    }
+    }*/
 
     /*class UpdateTaskStatusTask implements Runnable {
         private String proceInstId;

@@ -1,4 +1,9 @@
-layui.use(['table','jquery','laydate'], function(){
+layui.config({
+    base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
+}).extend({ //设定模块别名
+    myutil: 'common' //如果 mymod.js 是在根目录，也可以不用设定别名
+});
+layui.use(['table','jquery','laydate','myutil'], function(){
     var table = layui.table;
     var $ = layui.jquery;
     table.render({
