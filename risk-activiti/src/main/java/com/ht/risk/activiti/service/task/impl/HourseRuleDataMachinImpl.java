@@ -68,7 +68,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
 
 
         // 万达接口调用
-        WDEnterpriseDetailReqDto wdReq = new WDEnterpriseDetailReqDto();
+        /*WDEnterpriseDetailReqDto wdReq = new WDEnterpriseDetailReqDto();
         wdReq.setRegicode((String) map.get("regicode"));
         wdReq.setKeyType((String) map.get("keytype"));
         Result<WDEnterpriseDetailRespDtoOut> result = eipServiceInterface.getZhengxinWanda(wdReq);
@@ -93,7 +93,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                 isCrime="有";
                 map.put("borrowerLawsuit_thRecords", isCrime);
             }
-        }
+        }*/
         //
         execution.setVariable("flag",0);
         LOGGER.error("HourseRuleDataMachinImpl execute method excute end...");

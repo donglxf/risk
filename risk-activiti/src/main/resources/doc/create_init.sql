@@ -44,6 +44,7 @@ create table `act_proc_release` (
   `is_auto_validate` char(1) character set utf8 collate utf8_bin not null default '0' comment '是否自动验证通过： 0-待验证，1-验证通过，2-验证不通过；默认为0;',
   `is_manual_validate` char(1) character set utf8 collate utf8_bin not null default '0' comment '是否手动验证通过： 0-待验证，1-验证通过，2-验证不通过；默认为0;',
   `is_approve` char(1) character set utf8 collate utf8_bin not null default '0' comment '是否审核通过：0-待审核，1-审核通过，2-审核不通过；默认为0;',
+  `approve_task_id` bigint(20)  comment '模型验证关联任务Id',
   `is_effect` varchar(2) character set utf8 collate utf8_bin not null default '0' comment '是否生效：0-有效，1-无效',
   `update_time` datetime null default null comment '更新时间',
   `update_user` varchar(64) character set utf8 collate utf8_bin null default null comment '更新用户',

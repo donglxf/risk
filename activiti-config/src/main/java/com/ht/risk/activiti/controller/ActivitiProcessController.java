@@ -80,7 +80,7 @@ public class ActivitiProcessController extends BaseController {
             return data;
         }
         try{
-            data = actProcReleaseService.proceDeploy(paramter,userInfoHelper.getUserId());
+            data = actProcReleaseService.proceDeploy(paramter,getUserId());
         }catch(Exception e){
             data = Result.error(1,"部署流程异常,错误信息："+e.getMessage());
             LOGGER.error("部署流程异常!",e);
@@ -108,7 +108,7 @@ public class ActivitiProcessController extends BaseController {
             LOGGER.info("startProcess invoke start error,paramter exception...");
             return data;
         }
-        String procInstId = actProcReleaseService.startProcess(rpcStartParamter,userInfoHelper.getUserId());
+        String procInstId = actProcReleaseService.startProcess(rpcStartParamter,getUserId());
         if(StringUtils.isEmpty(procInstId)){
             data = Result.error(1,"启动模型异常！");
             LOGGER.info("startProcess invoke start error");
@@ -133,7 +133,7 @@ public class ActivitiProcessController extends BaseController {
             LOGGER.info("startProcess invoke start error,paramter exception...");
             return data;
         }
-        String taskid = actProcReleaseService.startModel(modelStartVo,userInfoHelper.getUserId());
+        String taskid = actProcReleaseService.startModel(modelStartVo,getUserId());
         if(StringUtils.isEmpty(taskid)){
             data = Result.error(1,"启动模型异常！");
             LOGGER.info("startProcess invoke start error");
@@ -161,7 +161,7 @@ public class ActivitiProcessController extends BaseController {
         }
         Long batchId = null;
         try {
-            batchId = actProcReleaseService.startBatchValidateProcess(rpcStartParamter,userInfoHelper.getUserId());
+            batchId = actProcReleaseService.startBatchValidateProcess(rpcStartParamter,getUserId());
         } catch (Exception e) {
             data = Result.error(1,"批量启动模型异常！");
             LOGGER.info("startProcess invoke start error");
@@ -188,7 +188,7 @@ public class ActivitiProcessController extends BaseController {
         }
         Long batchId = null;
         try {
-            batchId = actProcReleaseService.startInputValidateProcess(rpcStartParamter,userInfoHelper.getUserId());
+            batchId = actProcReleaseService.startInputValidateProcess(rpcStartParamter,getUserId());
         } catch (Exception e) {
             e.printStackTrace();
             data = Result.error(1,"启动模型异常！");

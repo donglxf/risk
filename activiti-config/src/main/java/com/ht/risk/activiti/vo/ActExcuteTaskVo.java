@@ -16,7 +16,7 @@ public class ActExcuteTaskVo implements Serializable {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
     /**
      * 批次号，验证任务调用时存在
      */
@@ -68,11 +68,11 @@ public class ActExcuteTaskVo implements Serializable {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
