@@ -6,10 +6,14 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ActionParamInfo;
 import com.ht.risk.rule.service.ActionParamInfoService;
+import com.ht.risk.rule.util.anno.OperationDelete;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
@@ -61,6 +65,7 @@ public class ActionParamInfoController {
 	
 	@GetMapping("delete")
 	@ApiOperation(value = "通过id删除信息")
+	@OperationDelete(tableColumn = {"rule_action_param_value_info&action_param_id"},idVal = "#id")
 	public Result<Integer> delete( Long id) {
 		actionParamInfoService.deleteById(id);
 		return Result.success(0);

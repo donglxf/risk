@@ -86,11 +86,15 @@ layui.use(['table','form','myutil'], function(){
         } else if(obj.event === 'del'){
             layer.confirm('真的删除行么', function(index){
                 $.get(preUrl+'delete?id='+data.actionId,function (data) {
-                    layer.msg("删除成功！");
-                    obj.del();
-                    layer.close(index);
-                });
-
+                    if(data.code < 0){
+                        layer.msg('删除失败，该数据正在被其他数据引用', {icon: 5});
+                        layer.close(index);
+                    }else{
+                        layer.msg("删除成功！");
+                        obj.del();
+                        layer.close(index);
+                    }
+                },'json');
             });
         } else if(obj.event === 'edit'){
           //  layer.alert('编辑行：<br>'+ JSON.stringify(data))
@@ -129,10 +133,15 @@ layui.use(['table','form','myutil'], function(){
         } else if(obj.event === 'del2'){
             layer.confirm('真的删除行么', function(index){
                 $.get(preItemUrl+'delete?id='+data.actionParamId,function (data) {
-                    layer.msg("删除成功！");
-                    obj.del();
-                    layer.close(index);
-                });
+                    if(data.code < 0){
+                        layer.msg('删除失败，该数据正在被其他数据引用', {icon: 5});
+                        layer.close(index);
+                    }else{
+                        layer.msg("删除成功！");
+                        obj.del();
+                        layer.close(index);
+                    }
+                },'json');
 
             });
         } else if(obj.event === 'edit2'){

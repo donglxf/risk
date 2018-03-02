@@ -11,6 +11,7 @@ import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ActionInfo;
 import com.ht.risk.rule.service.ActionInfoService;
 import com.ht.risk.rule.service.SceneInfoService;
+import com.ht.risk.rule.util.anno.OperationDelete;
 import com.ht.risk.rule.vo.ActionInfoVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -105,6 +106,7 @@ public class ActionInfoController extends BaseController{
     
     @GetMapping("delete")
 	@ApiOperation(value = "通过id删除信息")
+	@OperationDelete(tableColumn = {"rule_action_rule_rel&action_id","rule_action_param_info&action_id"},idVal = "#id")
 	public Result<Integer> delete( Long id) {
     	actionInfoService.deleteById(id);
 		return Result.success(0);
