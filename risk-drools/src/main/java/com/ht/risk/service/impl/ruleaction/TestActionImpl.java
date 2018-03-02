@@ -23,6 +23,7 @@ import com.ht.risk.service.DroolsActionService;
 @Service
 public class TestActionImpl extends DroolsActionService {
     private Logger log = LoggerFactory.getLogger(TestActionImpl.class);
+
     /**
      * Date 2017/7/24
      * Author lihao [lihao@sinosoft.com]
@@ -31,34 +32,35 @@ public class TestActionImpl extends DroolsActionService {
      *
      * @param fact   参数
      * @param result 结果集
-     * @param key // 业务变量
-     * @param grade // 权值
+     * @param key    // 业务变量
+     * @param grade  // 权值
      */
-    public void grade(RuleExecutionObject fact, RuleExecutionResult result,String key,String grade) {
-    	//遍历map信息
+    public void grade(RuleExecutionObject fact, RuleExecutionResult result, String key, String grade) {
+        //遍历map信息
         for (Map.Entry<String, Object> entry : result.getMap().entrySet()) {
 //            System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
         }
-        
-        int scope=0;
-        Object total= result.getMap() .get("scope");
-        if(null != total){
-        	scope=Integer.parseInt(String.valueOf(total));
+
+        float scope = 0;
+        Object total = result.getMap().get("scope");
+        if (null != total) {
+            scope = Integer.parseInt(String.valueOf(total));
         }
         Object val = result.getMap().get(key);
-        if(null != val){
-            Class a=val.getClass();
-            if(a == Double.class){
-        	    scope += Double.parseDouble(String.valueOf(val));
-            }else {
-                scope += Integer.parseInt(String.valueOf(val));
+        if (null != val) {
+            Class a = val.getClass();
+            float gra = (float) result.getMap().get(key);
+            if (a == Double.class) {
+                scope += Double.parseDouble(String.valueOf(val)) * gra;
+            } else {
+                scope += Integer.parseInt(String.valueOf(val)) * gra;
             }
         }
         result.getMap().put("scope", scope);
         log.info("TestActionImpl 执行");
-        System.out.println("总得分>>>>>>>>::"+result.getMap().get("scope"));
-        
-        
+        System.out.println("总得分>>>>>>>>::" + result.getMap().get("scope"));
+
+
     }
 
 }

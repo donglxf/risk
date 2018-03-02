@@ -241,7 +241,7 @@ public class VariableBindController {
             return obj;
         } catch (Exception ex) {
             log.error(ex.getMessage());
-            throw new Exception("数据绑定异常，请检查变量绑定是否正确");
+            throw new Exception("数据绑定异常，请检查变量绑定信息是否正确");
         }
     }
 
