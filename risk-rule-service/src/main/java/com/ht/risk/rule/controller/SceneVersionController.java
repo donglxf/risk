@@ -13,7 +13,7 @@ import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.*;
 import com.ht.risk.rule.rpc.DroolsRuleRpc;
 import com.ht.risk.rule.service.*;
-import com.ht.risk.rule.vo.RuleHisVersionVo;
+import com.ht.risk.rule.util.CalculateUtils;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -135,7 +133,8 @@ public class SceneVersionController extends BaseController {
         //wrapperCount.eq("type",0);
         int count = sceneVersionService.selectCount(wrapperCount);
         //获取最大版本号 以0.1 为单位递增
-        double maxVersion = 1.0 + count * 0.1;
+
+        double maxVersion = CalculateUtils.add(1.0,CalculateUtils.mul(count,0.1));;
         version.setVersion(maxVersion + "");
         //获取 规则字符串
         //String ruleDrlStr = droolsRuleRpc.getDroolsVersion(sceneInfo.getSceneId()+"");
@@ -202,7 +201,7 @@ public class SceneVersionController extends BaseController {
         wrapperCount.eq("type", 1);
         int count = sceneVersionService.selectCount(wrapperCount);
         //获取最大版本号 以0.1 为单位递增
-        double maxVersion = 1.0 + count * 0.1;
+        double maxVersion =  CalculateUtils.add(1.0,CalculateUtils.mul(count,0.1));
         version.setOfficialVersion(maxVersion + "");
         version.setType(1);
         sceneVersionService.updateById(version);

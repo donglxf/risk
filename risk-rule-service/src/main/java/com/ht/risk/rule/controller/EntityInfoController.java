@@ -234,7 +234,7 @@ public class EntityInfoController extends BaseController {
     }
     @GetMapping("/delete")
     @ApiOperation(value = "通过id删除信息")
-    @OperationDelete(tableColumn = {"rule_entity_item_info&entity_id","scene_entity_rel_id&entity_id","scene_entity_rel_id&entity_id"},idVal = "#id")
+    @OperationDelete(tableColumn = {"rule_entity_item_info&entity_id","rule_scene_entity_rel&entity_id"},idVal = "#id")
     public Result<Integer> delete( Long id){
          entityInfoService.deleteById(id);
         return Result.success(0);

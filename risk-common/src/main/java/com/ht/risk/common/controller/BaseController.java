@@ -19,5 +19,10 @@ public class BaseController {
         String userId = userInfoHelper.getUserId();
         return userId = StringUtils.isEmpty(userId) ? "-1" : userId;
     }
+    public long getUserId4Long() {
+        String userId = userInfoHelper.getUserId();
+         userId = StringUtils.isEmpty(userId) ? "-1" : userId;
+        return Long.parseLong(userId);
+    }
 
 }

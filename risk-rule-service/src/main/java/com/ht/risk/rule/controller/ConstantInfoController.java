@@ -78,13 +78,18 @@ public class ConstantInfoController extends BaseController {
 	@ApiOperation(value = "通过id删除信息")
 	@OperationDelete(tableColumn = {"rule_entity_item_info&constant_id"},idVal = "#id")
 	public Result<Integer> delete( Long id) {
+		//TODO:如果为父，则查是否有 子
+	/*	ConstantInfo constantInfo = constantInfoService.selectById(id);
+		if("0".equals(constantInfo.getConType())){
+
+		}*/
 		constantInfoService.deleteById(id);
 		return Result.success(0);
 	}
 
-	@GetMapping("getInfoById/{id}")
+	@GetMapping("getInfoById")
 	@ApiOperation(value = "通过id查询详细信息")
-	public Result<ConstantInfo> getDateById(@PathVariable(name = "id") Long id) {
+	public Result<ConstantInfo> getDateById( Long id) {
 		ConstantInfo entityInfo = constantInfoService.selectById(id);
 		return Result.success(entityInfo);
 	}

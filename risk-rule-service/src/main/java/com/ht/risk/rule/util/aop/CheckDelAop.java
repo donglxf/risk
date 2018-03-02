@@ -50,10 +50,15 @@ public  class CheckDelAop {
 			//获取id的值
 			Object idVal = getDelIdVal(idSpel,method,pjp.getArgs());
 			for (int i = 0; i < tables.length; i++) {
-				String table = tables[i].split("&")[0];
-				String cum = tables[i].split("&")[1];
+				String[] table_cum = tables[i].split("&");
+				String table = table_cum[0];
+				String cum = table_cum[1];
+				String where = "";
+				if(table_cum.length > 2){
+					where = table_cum[2];
+				}
 				//执行数据库操作
-				Integer count = delFindMapper.findCount(table,cum,idVal);
+				Integer count = delFindMapper.findCount(table,cum,idVal,where);
 				if(count > 0){
 					return Result.error(-1,"删除失败，改数据正被其他数据引用");
 				}
