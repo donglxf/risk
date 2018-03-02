@@ -26,7 +26,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:30101/eureka/
-
+ht.config.ui:
+  gatewayUrl: /
 ---
 spring:
   profiles: dev
@@ -36,7 +37,8 @@ spring:
         enabled: true
     bus:
       enabled: true
-
+ht.config.ui:
+  gatewayUrl: http://172.16.200.110:30111/
 eureka:
   client:
     serviceUrl:
