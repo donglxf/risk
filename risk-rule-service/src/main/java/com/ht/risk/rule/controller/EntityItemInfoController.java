@@ -7,12 +7,16 @@ import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.EntityItemInfo;
 import com.ht.risk.rule.service.EntityItemInfoService;
+import com.ht.risk.rule.util.anno.OperationDelete;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
@@ -70,6 +74,7 @@ public class EntityItemInfoController {
 
     @GetMapping("/delete")
     @ApiOperation(value = "通过id删除信息")
+    @OperationDelete(tableColumn = {"rule_scene_item_rel&entity_item_id"},idVal = "#id")
     public Result<Integer> delete(Long id){
         itemInfoService.deleteById(id);
         return Result.success(0);

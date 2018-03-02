@@ -11,6 +11,7 @@ import com.ht.risk.rule.entity.EntityItemInfo;
 import com.ht.risk.rule.service.ConstantInfoService;
 import com.ht.risk.rule.service.EntityInfoService;
 import com.ht.risk.rule.service.EntityItemInfoService;
+import com.ht.risk.rule.util.anno.OperationDelete;
 import com.ht.risk.rule.vo.EntitySelectVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -231,6 +232,7 @@ public class EntityInfoController {
     }
     @GetMapping("/delete")
     @ApiOperation(value = "通过id删除信息")
+    @OperationDelete(tableColumn = {"rule_entity_item_info&entity_id","scene_entity_rel_id&entity_id","scene_entity_rel_id&entity_id"},idVal = "#id")
     public Result<Integer> delete( Long id){
          entityInfoService.deleteById(id);
         return Result.success(0);

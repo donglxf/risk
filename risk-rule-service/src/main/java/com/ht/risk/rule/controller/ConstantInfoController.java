@@ -7,6 +7,7 @@ import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ConstantInfo;
 import com.ht.risk.rule.service.ConstantInfoService;
+import com.ht.risk.rule.util.anno.OperationDelete;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
@@ -72,9 +73,10 @@ public class ConstantInfoController {
 		return Result.success(list);
 	}
 
-	@GetMapping("delete/{id}")
+	@GetMapping("delete")
 	@ApiOperation(value = "通过id删除信息")
-	public Result<Integer> delete(@PathVariable(name = "id") Long id) {
+	@OperationDelete(tableColumn = {"rule_entity_item_info&constant_id"},idVal = "#id")
+	public Result<Integer> delete( Long id) {
 		constantInfoService.deleteById(id);
 		return Result.success(0);
 	}

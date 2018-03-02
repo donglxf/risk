@@ -8,12 +8,16 @@ import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.Business;
 import com.ht.risk.rule.service.BusinessService;
+import com.ht.risk.rule.util.anno.OperationDelete;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
@@ -77,7 +81,9 @@ public class BusinessController {
 
     @GetMapping("delete")
     @ApiOperation(value = "通过id删除信息")
+    @OperationDelete(tableColumn = {"rule_entity_info&business_id","rule_action_info&business_id","act_re_model&category_"},idVal = "#id")
     public Result<Integer> delete( Long id){
+        //判断是否有其他绑定数据
         businessService.deleteById(id);
         return Result.success(0);
     }

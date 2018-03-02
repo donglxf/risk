@@ -9,6 +9,7 @@ import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.rule.service.InfoService;
 import com.ht.risk.rule.service.SceneInfoService;
+import com.ht.risk.rule.util.anno.OperationDelete;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
@@ -80,9 +81,10 @@ public class SceneInfoController {
         return Result.success(sceneInfo);
     }
 
-    @GetMapping("delete/{id}")
+    @GetMapping("delete")
     @ApiOperation(value = "通过id删除信息")
-    public Result<Integer> delete(@PathVariable(name = "id") Long id){
+    @OperationDelete(tableColumn = {"rule_scene_version&scene_id"},idVal = "#id")
+    public Result<Integer> delete( Long id){
         sceneInfoService.deleteById(id);
         infoService.clearBySceneId(id);
         return Result.success(0);

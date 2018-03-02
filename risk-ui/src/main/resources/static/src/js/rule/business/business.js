@@ -129,10 +129,16 @@ layui.use(['table','form','laytpl','myutil','ht_auth'], function() {
         } else if (obj.event === 'del') {
             layer.confirm('真的删除行么', function (index) {
                 $.get(business.baseUrl + 'delete?id=' + data.businessId, function (data) {
-                    layer.msg("删除成功！");
-                    obj.del();
-                    layer.close(index);
-                });
+                    if(data.code < 0){
+                        layer.msg('删除失败，该数据正在被其他数据引用', {icon: 5});
+                        layer.close(index);
+                    }else{
+                        layer.msg("删除成功！");
+                        obj.del();
+                        layer.close(index);
+                    }
+
+                },'json');
             });
         }else if(obj.event === 'edit'){
             edit(data.businessId);
