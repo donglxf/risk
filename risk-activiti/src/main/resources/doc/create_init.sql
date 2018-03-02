@@ -1,3 +1,4 @@
+drop table if exists `act_excute_task`;
 create table `act_excute_task` (
   `id` bigint(20) not null comment '主键',
   `batch_id` bigint(20) null default null comment '批次号，验证任务调用时存在',
@@ -6,16 +7,17 @@ create table `act_excute_task` (
   `status` varchar(32) character set utf8 collate utf8_bin null default null comment '任务状态，0-待执行，1-启动成功，2-执行完成，3-执行异常',
   `type` varchar(32) character set utf8 collate utf8_bin null default null comment '任务类型，0-验证任务，1-业务系统调用',
   `in_paramter` longtext character set utf8 collate utf8_bin null comment '入参',
-  `out_paramter` longtext character set utf8 collate utf8_bin null comment '出参',
+  `out_paramter` longtext character set utf8 collate utf8_bin null comment '出参，MQ message内容',
   `spend_time` bigint(20) null default null comment '花费时间',
   `remark` varchar(5000) character set utf8 collate utf8_bin null default null comment '备注',
   `create_time` datetime not null comment '创建时间',
   `create_user` varchar(64) character set utf8 collate utf8_bin null default null comment '创建用户',
   `update_time` datetime null default null comment '结束时间',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_bin;
+) engine = innodb character set = utf8 collate utf8_bin COMMENT '模型版本记录表';
 
-create table `risk_validate_batch` (
+drop table if exists `act_validate_batch`;
+create table `act_validate_batch` (
   `id` bigint(20) not null comment '主键,批次号',
   `proc_release_id` varchar(64) character set utf8 collate utf8_bin not null comment '流程部署id，与 act_re_procdef.deployment_id 关联',
   `batch_size` int(12) not null comment '批次大小',
@@ -27,7 +29,7 @@ create table `risk_validate_batch` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_bin;
 
-
+drop table if exists `act_proc_release`;
 create table `act_proc_release` (
   `id` bigint(20) not null comment '主键',
   `model_id` varchar(64) character set utf8 collate utf8_bin not null comment '模型id，与 act_re_model.id_ 关联',

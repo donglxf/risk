@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2018-01-19
  */
 @ApiModel
-@TableName("risk_validate_batch")
+@TableName("act_validate_batch")
 public class RiskValidateBatch extends Model<RiskValidateBatch> {
 
     private static final long serialVersionUID = 1L;

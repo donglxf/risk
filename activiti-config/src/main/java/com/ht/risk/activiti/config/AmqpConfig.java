@@ -18,11 +18,8 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 /**
  * Created by Administrator on 2016/6/21.
  */
-@Configuration
+//@Configuration
 public class AmqpConfig implements RabbitListenerConfigurer {
-
-
-
 
     public final static String ACTIVITI_SELF = "activiti.service";
 

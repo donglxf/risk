@@ -76,8 +76,6 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         RuleStandardResult ruleInfo = result.getData();
         String logId = ruleInfo.getLogIdList() != null && ruleInfo.getLogIdList().size()>0 ? ruleInfo.getLogIdList().get(0):"";
         detail.setSenceVersionId(result.getSenceVersoionId());
-        detail.setCode(String.valueOf(result.getCode()));
-        detail.setMsg(result.getMsg());
         detail.setLogId(logId);
         detail.setRuleList(ruleInfo.getRuleList());
         return  detail;

@@ -1,5 +1,6 @@
 package com.ht.risk.rule.mapper;
 
+import com.ht.risk.api.model.rule.RpcRuleHisVersion;
 import com.ht.risk.common.mapper.SuperMapper;
 import com.ht.risk.rule.entity.RuleHisVersion;
 import com.ht.risk.rule.vo.RuleHisVersionVo;
@@ -21,6 +22,6 @@ public interface RuleHisVersionMapper extends SuperMapper<RuleHisVersion> {
 
     List<Map<String,Object>> getRuleBatchValidationResult(Map<String,Object> map);
 
-    Map<String,Object> getHisVersionListByVidName(Map<String, Object> paramMap);
+    List<RpcRuleHisVersion> getHisVersionListByVidName(Map<String, Object> paramMap);
 
 }

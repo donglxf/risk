@@ -1,17 +1,18 @@
 package com.ht.risk.api.model.activiti;
 
+import com.ht.risk.api.model.rule.RpcRuleDetail;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RuleExcuteDetail implements Serializable{
 
-    private String code;
-    private String msg;
     private String senceVersionId;
     private String senceName;
     private String logId;
+    private List<RpcRuleDetail> ruleDetails;
     private List<String> ruleList;
-    private List<String> ruleNameList;
 
     public String getSenceVersionId() {
         return senceVersionId;
@@ -37,22 +38,6 @@ public class RuleExcuteDetail implements Serializable{
         this.ruleList = ruleList;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
     public String getSenceName() {
         return senceName;
     }
@@ -61,12 +46,11 @@ public class RuleExcuteDetail implements Serializable{
         this.senceName = senceName;
     }
 
-    public List<String> getRuleNameList() {
-        return ruleNameList;
+    public List<RpcRuleDetail> getRuleDetails() {
+        return ruleDetails;
     }
 
-    public void setRuleNameList(List<String> ruleNameList) {
-        this.ruleNameList = ruleNameList;
+    public void setRuleDetails(List<RpcRuleDetail> ruleDetails) {
+        this.ruleDetails = ruleDetails;
     }
-
 }

@@ -33,12 +33,30 @@ zuul:
     connect-timeout-millis: 6000
 
 hystrix:
+  threadpool:
+    default:
+      coreSize: 2000
   command:
     default:
       execution:
         isolation:
+          semaphore:
+            maxConcurrentRequests: 1000
           thread:
-            timeoutInMilliseconds: 6000
+            timeoutInMilliseconds: 60000
+          strategy: THREAD
+      fallback:
+         isolation:
+          semaphore:
+            maxConcurrentRequests: 1000
+
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 6000
 ribbon:
   ConnectTimeout: 60000
   ReadTimeout: 60000

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.api.model.drools.DroolsParamter;
+import com.ht.risk.api.model.rule.RpcRuleHisVersion;
+import com.ht.risk.api.model.rule.RpcRuleHisVersionParamter;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.*;
@@ -168,9 +170,9 @@ public class SceneVersionController {
 
     @PostMapping("getHisVersionListByVidName")
     @ApiOperation(value = "根据版本id和规则名获取规则信息")
-    public PageResult<List<Map<String, Object>>> getHisVersionListByVidName(@RequestBody RuleHisVersionVo vo) {
-        List<Map<String, Object>> listMap = ruleHisVersionService.getHisVersionListByVidName(vo);
-        return PageResult.success(listMap, 0);
+    public Result<List<RpcRuleHisVersion>> getHisVersionListByVidName(@RequestBody RpcRuleHisVersionParamter paramter) {
+        List<RpcRuleHisVersion> listMap = ruleHisVersionService.getHisVersionListByVidName(paramter);
+        return Result.success(listMap);
     }
 
     @PostMapping("push4zs")

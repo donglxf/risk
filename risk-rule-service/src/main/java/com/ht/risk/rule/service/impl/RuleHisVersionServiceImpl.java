@@ -1,5 +1,7 @@
 package com.ht.risk.rule.service.impl;
 
+import com.ht.risk.api.model.rule.RpcRuleHisVersion;
+import com.ht.risk.api.model.rule.RpcRuleHisVersionParamter;
 import com.ht.risk.rule.entity.RuleHisVersion;
 import com.ht.risk.rule.mapper.RuleHisVersionMapper;
 import com.ht.risk.rule.service.RuleHisVersionService;
@@ -38,16 +40,11 @@ public class RuleHisVersionServiceImpl extends BaseServiceImpl<RuleHisVersionMap
     }
 
     @Override
-    public List<Map<String, Object>> getHisVersionListByVidName(RuleHisVersionVo vo) {
-        List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
-        List<String> list = vo.gettRuleName();
-        list.forEach(t -> {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("versionId", vo.getVersionId());
-            map.put("ruleName", t);
-            Map m = ruleHisVersionMapper.getHisVersionListByVidName(map);
-            listMap.add(m);
-        });
-        return listMap;
+    public List<RpcRuleHisVersion> getHisVersionListByVidName(RpcRuleHisVersionParamter paramter) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("versionId", paramter.getVersionId());
+        map.put("ruleNames",paramter.gettRuleName() );
+        List<RpcRuleHisVersion> rules = ruleHisVersionMapper.getHisVersionListByVidName(map);
+        return rules;
     }
 }

@@ -21,7 +21,7 @@
 
 
     <select id="queryValidateBatchList" parameterType="com.ht.risk.activiti.entity.RiskValidateBatch" resultType="com.ht.risk.activiti.entity.RiskValidateBatch">
-        select B.model_name,B.model_version,A.id,A.proc_release_id,A.`status` from risk_validate_batch A INNER JOIN act_proc_release B ON A.proc_release_id = B.id
+        select B.model_name,B.model_version,A.id,A.proc_release_id,A.`status` from act_validate_batch A INNER JOIN act_proc_release B ON A.proc_release_id = B.id
         WHERE 1=1
         <if test="modelName != null and modelName != '' ">
           and B.model_name = #{modelName}
