@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.api.model.drools.DroolsParamter;
 import com.ht.risk.api.model.rule.RpcRuleHisVersion;
 import com.ht.risk.api.model.rule.RpcRuleHisVersionParamter;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.*;
@@ -34,7 +35,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/sceneVersion")
-public class SceneVersionController {
+public class SceneVersionController extends BaseController {
 
     @Autowired
     private RuleHisVersionService ruleHisVersionService;
@@ -150,6 +151,7 @@ public class SceneVersionController {
         version.setTestStatus(0);
         //测试版
         version.setType(0);
+        version.setCreUserId(Long.parseLong(this.getUserId()));
         sceneVersionService.insert(version);
         //保存 版本附带信息
         sceneVersionService.addRuleDescAndVarids(sceneInfo, version);

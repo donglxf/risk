@@ -3,10 +3,12 @@ package com.ht.risk.rule.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ConstantInfo;
 import com.ht.risk.rule.service.ConstantInfoService;
+import com.ht.risk.rule.util.anno.OperationDelete;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
@@ -27,7 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/constantInfo")
 @Api(tags = "ConstantInfoController", description = "常量对象相关api描述", hidden = true)
-public class ConstantInfoController {
+public class ConstantInfoController extends BaseController {
 
 	@Autowired
 	private ConstantInfoService constantInfoService;
@@ -72,9 +74,10 @@ public class ConstantInfoController {
 		return Result.success(list);
 	}
 
-	@GetMapping("delete/{id}")
+	@GetMapping("delete")
 	@ApiOperation(value = "通过id删除信息")
-	public Result<Integer> delete(@PathVariable(name = "id") Long id) {
+	@OperationDelete(tableColumn = {"rule_entity_item_info&constant_id"},idVal = "#id")
+	public Result<Integer> delete( Long id) {
 		constantInfoService.deleteById(id);
 		return Result.success(0);
 	}
@@ -92,6 +95,7 @@ public class ConstantInfoController {
 	public Result<Integer> edit(ConstantInfo entityInfo) {
 		entityInfo.setCreTime(new Date());
 		entityInfo.setIsEffect(1);
+		entityInfo.setCreUserId(Long.parseLong(this.getUserId()));
 		constantInfoService.insertOrUpdate(entityInfo);
 		return Result.success(0);
 	}

@@ -4,11 +4,13 @@ package com.ht.risk.rule.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.rule.service.InfoService;
 import com.ht.risk.rule.service.SceneInfoService;
+import com.ht.risk.rule.util.anno.OperationDelete;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
@@ -30,7 +32,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sceneInfo")
 @Api(tags = "SceneInfoController", description = "场景相关api描述", hidden = true)
-public class SceneInfoController {
+public class SceneInfoController extends BaseController{
     @Autowired
     private SceneInfoService sceneInfoService;
 
@@ -67,8 +69,7 @@ public class SceneInfoController {
     public Result<Integer> edit(SceneInfo sceneInfo){
         sceneInfo.setCreTime(new Date());
         sceneInfo.setIsEffect(1);
-        long a = 11;
-        sceneInfo.setCreUserId(a);
+        sceneInfo.setCreUserId(Long.parseLong(this.getUserId()));
         sceneInfoService.insertOrUpdate(sceneInfo);
         return Result.success(0);
     }
@@ -80,9 +81,10 @@ public class SceneInfoController {
         return Result.success(sceneInfo);
     }
 
-    @GetMapping("delete/{id}")
+    @GetMapping("delete")
     @ApiOperation(value = "通过id删除信息")
-    public Result<Integer> delete(@PathVariable(name = "id") Long id){
+    @OperationDelete(tableColumn = {"rule_scene_version&scene_id"},idVal = "#id")
+    public Result<Integer> delete( Long id){
         sceneInfoService.deleteById(id);
         infoService.clearBySceneId(id);
         return Result.success(0);

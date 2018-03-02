@@ -3,13 +3,18 @@ package com.ht.risk.rule.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ActionParamInfo;
 import com.ht.risk.rule.service.ActionParamInfoService;
+import com.ht.risk.rule.util.anno.OperationDelete;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +29,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/actionParamInfo")
-public class ActionParamInfoController {
+public class ActionParamInfoController extends BaseController {
 	
 	@Autowired
 	private ActionParamInfoService actionParamInfoService;
@@ -47,7 +52,7 @@ public class ActionParamInfoController {
 	public Result<Integer> edit(ActionParamInfo actionParamInfo) {
 		actionParamInfo.setCreTime(new Date());
 		actionParamInfo.setIsEffect(1);
-		actionParamInfo.setCreUserId(new Long(1));
+		actionParamInfo.setCreUserId(new Long(this.getUserId()));
 		actionParamInfoService.insertOrUpdate(actionParamInfo);
 		return Result.success(0);
 	}
@@ -61,6 +66,7 @@ public class ActionParamInfoController {
 	
 	@GetMapping("delete")
 	@ApiOperation(value = "通过id删除信息")
+	@OperationDelete(tableColumn = {"rule_action_param_value_info&action_param_id"},idVal = "#id")
 	public Result<Integer> delete( Long id) {
 		actionParamInfoService.deleteById(id);
 		return Result.success(0);

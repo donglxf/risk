@@ -20,6 +20,7 @@
 					<input type="hidden" name="senceId" id="senceId">
 					<input type="hidden" name="version" id="version">
 					<input type="hidden" name="sceneIdentify" id="sceneIdentify">
+					<input type="hidden" name="stateCode" id="stateCode" value="1"><!-- 存储验证状态 -->
 					<div class="layui-form-item">
 						<label class="layui-form-label">验证次数:</label>
 						<div class="layui-col-md2">
@@ -95,27 +96,31 @@
 
         // 验证通过
         form.on('submit(validationPass)', function (data) {
-            $.ajax({
-                cache: true,
-                type: "POST",
-                url: '/rule/service/strategy/variablePass',
-                data: data.field,// 你的formid
-                async: false,
-
-                success: function (da) {
-                    if (da.code == 0) {
-                        layer.alert('操作成功', function(index){
-                            window.parent.location.reload() // 刷新父页面
-                            // 关闭自身
-                            var index = parent.layer.getFrameIndex(window.name);
-                            parent.layer.close(layer.index);
-                            layer.close(index);
-                        });
-                    } else {
-                        layer.msg(data.msg);
+            var stateCode=$("#stateCode").val();
+            if(stateCode !="" && stateCode!=undefined && stateCode!=null && stateCode==0) {
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url: '/rule/service/strategy/variablePass',
+                    data: data.field,// 你的formid
+                    async: false,
+                    success: function (da) {
+                        if (da.code == 0) {
+                            layer.alert('操作成功', function (index) {
+                                window.parent.location.reload() // 刷新父页面
+                                // 关闭自身
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(layer.index);
+                                layer.close(index);
+                            });
+                        } else {
+                            layer.msg(data.msg);
+                        }
                     }
-                }
-            });
+                });
+            }else{
+                layer.msg("请先完成验证!");
+			}
             return false;
         });
 
@@ -138,6 +143,7 @@
                     } else {
                         layer.msg(da.msg);
                     }
+                    $("#stateCode").val(da.code);
                 }
             });
             return false;

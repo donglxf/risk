@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.rule.service.ModelTaskService;
 import org.apache.commons.lang.StringUtils;
 import org.quartz.JobDataMap;
@@ -40,7 +41,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/modelTask")
 @Api(tags = "ModelTaskController", description = "离线任务接口")
-public class ModelTaskController {
+public class ModelTaskController extends BaseController {
 	
     @Autowired
     private ModelTaskService modelTaskService;
@@ -96,6 +97,7 @@ public class ModelTaskController {
         modelTask.setCornText(cornText);
         modelTask.setTaskStatus("1");//默认任务停止，通过界面启动
         modelTask.setCreateTime(new Date());
+        modelTask.setCreateUser(this.getUserId());
         boolean ret = modelTaskService.insertOrUpdate(modelTask);
         if(ret) {
         	return Result.success(0);
@@ -120,7 +122,7 @@ public class ModelTaskController {
     	ModelTask modelTask = listTask.get(0);
     	modelTask.setTaskStatus("1");
     	modelTask.setUpdateTime(new Date());
-    	modelTask.setCreateUser("todo");
+    	modelTask.setCreateUser(this.getUserId());
         boolean ret = modelTaskService.insertOrUpdate(modelTask);
         if(ret) {//成功，继续添加任务到任务状态
             String jobName = "modelTaskJob"+modelTask.getModelProcdefId();//job前缀抽出到配置文件
@@ -145,7 +147,7 @@ public class ModelTaskController {
     	List<ModelTask> listTask = modelTaskService.selectByMap(paramMap);
     	ModelTask modelTask = listTask.get(0);
     	modelTask.setTaskStatus("2");
-    	modelTask.setCreateUser("todo ");
+    	modelTask.setCreateUser(this.getUserId());
         boolean ret = modelTaskService.insertOrUpdate(modelTask);
         if(ret) {//成功，继续添加任务到任务状态
         	String jobName = "modelTaskJob"+modelTask.getModelProcdefId();
