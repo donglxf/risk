@@ -60,6 +60,7 @@ public class ActExcuteTaskServiceImpl extends BaseServiceImpl<ActExcuteTaskMappe
         rpcTask.setRemark(task.getRemark());
         rpcTask.setSpendTime(task.getSpendTime());
         rpcTask.setStatus(task.getStatus());
+        rpcTask.setType(task.getType());
         return rpcTask;
     }
 

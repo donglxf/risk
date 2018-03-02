@@ -14,6 +14,7 @@
         <result column="version_type" property="versionType" />
         <result column="is_validate" property="isValidate" />
         <result column="is_approve" property="isApprove" />
+        <result column="approve_task_id" property="approveTaskId" />
         <result column="is_effect" property="isEffect" />
         <result column="update_time" property="updateTime" />
         <result column="update_user" property="updateUser" />
@@ -23,7 +24,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id AS id,model_code as modelCode, model_procdef_id AS modelProcdefId, model_name AS modelName, model_version AS modelVersion, model_category AS modelCategory, version_type AS versionType, is_validate AS isValidate, is_approve AS isApprove, is_effect AS isEffect, update_time AS updateTime, update_user AS updateUser, create_time AS createTime, create_user AS createUser
+        id AS id,model_code as modelCode, model_procdef_id AS modelProcdefId, model_name AS modelName, model_version AS modelVersion, model_category AS modelCategory, version_type AS versionType, is_validate AS isValidate, is_approve AS isApprove,approve_task_id as approveTaskId , is_effect AS isEffect, update_time AS updateTime, update_user AS updateUser, create_time AS createTime, create_user AS createUser
     </sql>
 
 </mapper>

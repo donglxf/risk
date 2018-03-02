@@ -3,6 +3,7 @@ package com.ht.risk.rule.controller;
 import java.util.Date;
 import java.util.List;
 
+import com.ht.risk.common.controller.BaseController;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +33,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/constantItemInfo")
 @Api(tags = "ConstantItemInfoController", description = "常量对象相关api描述", hidden = true)
-public class ConstantItemInfoController {
+public class ConstantItemInfoController extends BaseController {
 
 	@Autowired
 	private ConstantInfoService constantInfoService;
@@ -74,6 +75,7 @@ public class ConstantItemInfoController {
 		entityInfo.setCreTime(new Date());
 		entityInfo.setIsEffect(1);
 		entityInfo.setConType("1");
+		entityInfo.setCreUserId(Long.parseLong(this.getUserId()));
 		constantInfoService.insertOrUpdate(entityInfo);
 		return Result.success(0);
 	}

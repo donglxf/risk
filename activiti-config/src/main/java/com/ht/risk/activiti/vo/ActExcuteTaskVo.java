@@ -1,6 +1,9 @@
 package com.ht.risk.activiti.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ht.risk.activiti.entity.ActExcuteTask;
+import org.springframework.beans.BeanUtils;
+import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +15,15 @@ public class ActExcuteTaskVo implements Serializable {
     private String modelName;
     private String modelVersion;
     private String modelStatus;
+
+    public ActExcuteTaskVo(){
+        super();
+    }
+
+    public ActExcuteTaskVo(ActExcuteTask task){
+        this.id = String.valueOf(task.getId());
+        BeanUtils.copyProperties(task,this);
+    }
 
     /**
      * 主键

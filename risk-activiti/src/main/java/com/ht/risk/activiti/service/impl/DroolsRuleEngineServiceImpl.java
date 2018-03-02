@@ -62,7 +62,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     // 获取规则执行类型
     private String getDroolsExcuteType(String modelExcuteType){
         // 服务模式
-        if(ActivitiConstants.PROC_MODEL_EXCUTE_SERVIE_TYPE.equals(modelExcuteType)){
+        if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelExcuteType)){
             return RuleCallTypeEnum.model.getType();
         }
         // 验证模式

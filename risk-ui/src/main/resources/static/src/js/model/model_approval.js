@@ -33,6 +33,7 @@ layui.use(['table','jquery','myutil'], function(){
         var id = data.id;
         var deploymentId = data.deploymentId;
         var taskId = data.approveTaskId;
+        console.log(data);
         if(layEvent === 'pass'){ //通过
             layer.confirm('您确认审核通过吗？', function(index){
                 updateRelease(id,1);

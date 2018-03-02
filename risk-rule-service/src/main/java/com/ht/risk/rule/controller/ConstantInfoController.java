@@ -3,6 +3,7 @@ package com.ht.risk.rule.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ConstantInfo;
@@ -28,7 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/constantInfo")
 @Api(tags = "ConstantInfoController", description = "常量对象相关api描述", hidden = true)
-public class ConstantInfoController {
+public class ConstantInfoController extends BaseController {
 
 	@Autowired
 	private ConstantInfoService constantInfoService;
@@ -99,6 +100,7 @@ public class ConstantInfoController {
 	public Result<Integer> edit(ConstantInfo entityInfo) {
 		entityInfo.setCreTime(new Date());
 		entityInfo.setIsEffect(1);
+		entityInfo.setCreUserId(Long.parseLong(this.getUserId()));
 		constantInfoService.insertOrUpdate(entityInfo);
 		return Result.success(0);
 	}

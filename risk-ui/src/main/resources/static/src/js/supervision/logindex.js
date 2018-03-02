@@ -184,22 +184,18 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
 
 
     function modelEdit(logId) {
-        p_logId=logId;
-            layer.open({
-                type : 2,
-                title : '查看详情',
-                maxmin : true,
-                shadeClose : false, // 点击遮罩关闭层
-                area : [ '730px', '460px' ],
-                content : '/rule/ui/supervision/log/view',
-                btn : [ '关闭'],
-                btnAlign : 'c',
-                zIndex: layer.zIndex, //重点1
-                success : function(da, index) {
-
-                    layer.setTop(da); //重点2
-                }
-
+        $("#task_hidden_input").val(logId);
+        var layIndex =layer.open({
+            type: 2,
+            shade: false,
+            area: ['1000px', '600px'],
+            title: "模型验证结果",
+            //请求的弹出层路径
+            content: "/rule/ui/model/verfication/result/detail",
+            zIndex: layer.zIndex, //重点1
+            success: function (layero, index) {
+                layer.setTop(layero); //重点2
+            }
         });
     }
 

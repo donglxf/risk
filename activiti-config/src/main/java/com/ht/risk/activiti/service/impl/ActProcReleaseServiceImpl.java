@@ -101,7 +101,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         if (releaseId == null) {
             return null;
         }
-        ActExcuteTask task  = this.saveTask(releaseId,rpcStartParamter.getType(),rpcStartParamter.getBatchId(),JSON.toJSONString(rpcStartParamter),userId);
+        ActExcuteTask task  = this.saveTask(releaseId,ActivitiConstants.EXCUTE_TYPE_VERFICATION,rpcStartParamter.getBatchId(),JSON.toJSONString(rpcStartParamter),userId);
         Result<String> result = this.start(rpcStartParamter,task.getId());
         LOGGER.info("startProcess complete... result:"+ JSON.toJSONString(result));
         // 更新模型任务流程实例ID

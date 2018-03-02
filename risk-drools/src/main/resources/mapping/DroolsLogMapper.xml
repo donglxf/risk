@@ -22,4 +22,25 @@
         id AS id, procinst_id AS procinstId, model_name AS modelName, sence_versionid AS senceVersionid, in_paramter AS inParamter, out_paramter AS outParamter, execute_total AS executeTotal, type AS type, create_time AS createTime,execute_time as executeTime
     </sql>
 
+    <select id="queryHitRuleByProcInstId" resultType="com.ht.risk.model.HitRule">
+        select d.version_id as senceVersionId,d.title as senceName,a.RULE_NAME as ruleName,a.RULE_DESC as ruleDesc,c.EXECUTE_RULENAME as flag from risk_rule_his_version a
+        inner join rule_scene_version d on a.SENCE_VERSION_ID = d.version_id
+        inner join risk_drools_log b on a.SENCE_VERSION_ID = b.SENCE_VERSIONID and d.version_id = b.SENCE_VERSIONID
+        left join risk_drools_detail_log c on a.RULE_NAME = c.EXECUTE_RULENAME and b.ID = c.DROOLS_LOGID
+        where b.PROCINST_ID =  #{procInstId}
+    </select>
+
+    <select id="queryHitRuleByProcInstIds" resultType="com.ht.risk.model.HitRule" parameterType="java.util.Map">
+        select d.version_id as senceVersionId,d.title as senceName,a.RULE_NAME as ruleName,a.RULE_DESC as ruleDesc,sum(1) as flag from RISK_RULE_HIS_VERSION a
+        inner join rule_scene_version d on a.SENCE_VERSION_ID = d.version_id
+        inner join risk_drools_log b on a.SENCE_VERSION_ID = b.SENCE_VERSIONID and d.version_id = b.SENCE_VERSIONID
+        inner join risk_drools_detail_log c on a.RULE_NAME = c.EXECUTE_RULENAME and b.ID = c.DROOLS_LOGID
+        where
+        b.PROCINST_ID in
+        <foreach item="procInstId" collection="procInstIds" separator="," open="(" close=")" index="">
+            #{procInstId}
+        </foreach>
+        group by d.version_id,d.title,a.RULE_DESC,a.RULE_NAME;
+    </select>
+
 </mapper>

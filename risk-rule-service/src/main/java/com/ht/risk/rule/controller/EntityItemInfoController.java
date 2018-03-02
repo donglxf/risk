@@ -3,6 +3,7 @@ package com.ht.risk.rule.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.EntityItemInfo;
@@ -32,7 +33,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/entityItemInfo")
 @Api(tags = "EntityInfoController", description = "变量相关api描述")
-public class EntityItemInfoController {
+public class EntityItemInfoController extends BaseController {
 
 
     @Autowired
@@ -66,7 +67,7 @@ public class EntityItemInfoController {
     public Result<Integer> edit(EntityItemInfo itemInfo){
         itemInfo.setCreTime(new Date());
         itemInfo.setIsEffect(1);
-        itemInfo.setCreUserId(1L);
+        itemInfo.setCreUserId(Long.parseLong(this.getUserId()));
         itemInfoService.insertOrUpdate(itemInfo);
         return Result.success(1);
     }

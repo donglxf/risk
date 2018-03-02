@@ -8,6 +8,7 @@ import com.ht.risk.activiti.entity.ActExcuteTask;
 import com.ht.risk.activiti.entity.ActProcRelease;
 import com.ht.risk.activiti.service.ActExcuteTaskService;
 import com.ht.risk.activiti.service.ActProcReleaseService;
+import com.ht.risk.activiti.vo.ActExcuteTaskVo;
 import com.ht.risk.api.model.activiti.RpcActExcuteTaskInfo;
 import com.ht.risk.api.model.activiti.RpcModelReleaseInfo;
 import com.ht.risk.api.model.activiti.RpcModelVerfication;
@@ -23,10 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Date;
+import java.util.*;
 
 @RestController
 @RequestMapping("")
@@ -151,8 +149,7 @@ public class ActivitiConfigController {
 
     @GetMapping("/model/page")
     @ApiOperation(value = "分页查询")
-    public PageResult<List<ActExcuteTask>> page(String date, String modId, Integer page, Integer limit) {
-
+    public PageResult<List<ActExcuteTaskVo>> page(String date, String modId, Integer page, Integer limit) {
         Wrapper<ActExcuteTask> wrapper = new EntityWrapper<>();
         if (StringUtils.isNotBlank(date)) {
             wrapper.or().ge("create_time", date);
@@ -165,7 +162,12 @@ public class ActivitiConfigController {
         pages.setCurrent(page);
         pages.setSize(limit);
         pages = actExcuteTaskService.selectPage(pages,wrapper);
-        return PageResult.success(pages.getRecords(), pages.getTotal());
+        List<ActExcuteTask> tasks = pages.getRecords();
+        List<ActExcuteTaskVo> vos = new ArrayList<ActExcuteTaskVo>();
+        for(int i=0;i<tasks.size();i++){
+            vos.add(new ActExcuteTaskVo(tasks.get(i)));
+        }
+        return PageResult.success(vos, pages.getTotal());
     }
 
 

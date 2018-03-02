@@ -3,6 +3,7 @@ package com.ht.risk.rule.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ActionParamInfo;
 import com.ht.risk.rule.service.ActionParamInfoService;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/actionParamInfo")
-public class ActionParamInfoController {
+public class ActionParamInfoController extends BaseController {
 	
 	@Autowired
 	private ActionParamInfoService actionParamInfoService;
@@ -51,7 +52,7 @@ public class ActionParamInfoController {
 	public Result<Integer> edit(ActionParamInfo actionParamInfo) {
 		actionParamInfo.setCreTime(new Date());
 		actionParamInfo.setIsEffect(1);
-		actionParamInfo.setCreUserId(new Long(1));
+		actionParamInfo.setCreUserId(new Long(this.getUserId()));
 		actionParamInfoService.insertOrUpdate(actionParamInfo);
 		return Result.success(0);
 	}

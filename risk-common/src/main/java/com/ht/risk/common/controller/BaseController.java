@@ -17,7 +17,7 @@ public class BaseController {
 
     public String getUserId() {
         String userId = userInfoHelper.getUserId();
-        return userId = StringUtils.isEmpty(userId) ? "admin" : userId;
+        return userId = StringUtils.isEmpty(userId) ? "-1" : userId;
     }
     public long getUserId4Long() {
         String userId = userInfoHelper.getUserId();
