@@ -1,3 +1,4 @@
+drop table if exists `risk_business`;
 create table `risk_business` (
   `business_id` bigint(20) not null auto_increment,
   `business_name` varchar(32) character set utf8 collate utf8_general_ci null default null comment '业务线名',
@@ -8,7 +9,7 @@ create table `risk_business` (
   primary key (`business_id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 4;
 
-
+drop table if exists `risk_drools_log`;
 create table `risk_drools_log` (
   `id` bigint(20) not null,
   `batch_id` bigint(20) DEFAULT  null COMMENT '验证批次号',
@@ -24,6 +25,7 @@ create table `risk_drools_log` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci;
 
+drop table if exists `risk_drools_detail_log`;
 create table `risk_drools_detail_log` (
   `id` bigint(20) not null,
   `drools_logid` bigint(20) not null,
@@ -31,7 +33,7 @@ create table `risk_drools_detail_log` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci;
 
-
+drop table if exists `risk_model_release`;
 create table `risk_model_release` (
   `id` varchar(64) character set utf8 collate utf8_bin not null comment '主键',
   `model_procdef_id` varchar(64) character set utf8 collate utf8_bin not null comment '模型定义id，与 act_re_procdef.id_ 关联',
@@ -49,6 +51,7 @@ create table `risk_model_release` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_bin;
 
+drop table if exists `risk_model_sence`;
 create table `risk_model_sence` (
   `id` bigint(20) not null comment '主键',
   `model_procdef_id` varchar(64) character set utf8 collate utf8_bin not null comment '模型定义id',
@@ -59,6 +62,7 @@ create table `risk_model_sence` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_bin;
 
+drop table if exists `risk_rule_his_version`;
 create table `risk_rule_his_version` (
   `id` bigint(20) not null comment '主键',
   `sence_version_id` bigint(20) not null comment '決策版本流水',
@@ -70,6 +74,8 @@ create table `risk_rule_his_version` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_bin;
 
+
+drop table if exists `risk_sence_verfication_batch`;
 create table `risk_sence_verfication_batch` (
   `id` bigint(20) not null comment '主键,批次号',
   `sence_version_id` varchar(64) character set utf8 collate utf8_bin not null comment '決策版本流水',
@@ -81,6 +87,7 @@ create table `risk_sence_verfication_batch` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_bin;
 
+drop table if exists `risk_test_drools_detail_log`;
 create table `risk_test_drools_detail_log` (
   `id` bigint(20) not null,
   `drools_logid` bigint(20) not null,
@@ -88,6 +95,7 @@ create table `risk_test_drools_detail_log` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci;
 
+drop table if exists `risk_test_drools_log`;
 create table `risk_test_drools_log` (
   `id` bigint(20) not null,
   `batch_id` bigint(20) DEFAULT  null COMMENT '验证批次号',
@@ -104,6 +112,7 @@ create table `risk_test_drools_log` (
 
 
 
+drop table if exists `risk_variable_bind`;
 create table `risk_variable_bind` (
   `id` bigint(20) not null comment '主键,流水号',
   `sence_version_id` bigint(20) not null comment '決策版本流水',
@@ -120,6 +129,7 @@ create table `risk_variable_bind` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_bin;
 
+drop table if exists `rule_action_info`;
 CREATE TABLE `rule_action_info` (
   `action_id` bigint(20) NOT NULL COMMENT '主键',
   `action_type` int(11) NOT NULL COMMENT '动作类型(1实现2自身)',
@@ -131,13 +141,13 @@ CREATE TABLE `rule_action_info` (
   `cre_time` datetime NOT NULL COMMENT '创建时间',
   `remark` varchar(3000) DEFAULT NULL COMMENT '备注',
   `business_id` varchar(32) DEFAULT '0' COMMENT '业务线id',
-  `action_method` varchar(255) DEFAULT NULL COMMENT '动作执行方法'
+  `action_method` varchar(255) DEFAULT NULL COMMENT '动作执行方法',
   PRIMARY KEY (`action_id`),
   KEY `action_type` (`action_type`),
   KEY `action_name` (`action_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='规则动作定义信息';
 
-
+drop table if exists `rule_action_param_info`;
 create table `rule_action_param_info` (
   `action_param_id` bigint(20) not null comment '主键',
   `action_id` bigint(20) not null comment '动作id',
@@ -154,6 +164,7 @@ create table `rule_action_param_info` (
   index `param_identify`(`param_identify`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '动作参数信息表';
 
+drop table if exists `rule_action_param_value_info`;
 create table `rule_action_param_value_info` (
   `action_param_value_id` bigint(20) not null comment '主键',
   `rule_action_rel_id` bigint(20) not null comment '动作规则关系主键',
@@ -169,6 +180,7 @@ create table `rule_action_param_value_info` (
   index `action_param_id`(`action_param_id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '动作参数对应的属性值信息表';
 
+drop table if exists `rule_action_rule_rel`;
 create table `rule_action_rule_rel` (
   `rule_action_rel_id` bigint(20) not null comment '主键',
   `action_id` bigint(20) not null comment '动作',
@@ -182,6 +194,7 @@ create table `rule_action_rule_rel` (
   index `rule_id`(`rule_id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '动作与规则信息关系表';
 
+drop table if exists `rule_condition_info`;
 create table `rule_condition_info` (
   `condition_id` bigint(20) not null comment '主键',
   `rule_id` bigint(20) not null comment '规则',
@@ -198,6 +211,7 @@ create table `rule_condition_info` (
   index `rule_id`(`rule_id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '规则条件信息表';
 
+drop table if exists `rule_constant_info`;
 create table `rule_constant_info` (
   `con_id` bigint(20) not null comment '主键',
   `con_key` varchar(200) character set utf8 collate utf8_general_ci not null comment '常量类别',
@@ -212,6 +226,7 @@ create table `rule_constant_info` (
   primary key (`con_id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci;
 
+drop table if exists `rule_entity_info`;
 create table `rule_entity_info` (
   `entity_id` bigint(20) not null comment '主键',
   `entity_name` varchar(50) character set utf8 collate utf8_general_ci not null comment '名称',
@@ -228,6 +243,7 @@ create table `rule_entity_info` (
   index `entity_name`(`entity_name`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '规则引擎实体信息表';
 
+drop table if exists `rule_entity_item_info`;
 create table `rule_entity_item_info` (
   `item_id` bigint(20) not null comment '主键',
   `entity_id` bigint(20) not null comment '实体id',
@@ -245,6 +261,7 @@ create table `rule_entity_item_info` (
   index `item_identify`(`item_identify`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '实体属性信息';
 
+drop table if exists `rule_group`;
 create table `rule_group` (
   `rule_group_id` bigint(20) not null auto_increment comment '规则分组id',
   `rule_id` bigint(20) not null comment '规则id',
@@ -256,6 +273,7 @@ create table `rule_group` (
   primary key (`rule_group_id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 1;
 
+drop table if exists `rule_info`;
 create table `rule_info` (
   `rule_id` bigint(20) not null comment '主键',
   `scene_id` bigint(20) not null comment '场景',
@@ -271,6 +289,7 @@ create table `rule_info` (
   index `rule_name`(`rule_name`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '规则信息';
 
+drop table if exists `rule_property_info`;
 create table `rule_property_info` (
   `rule_property_id` bigint(20) not null comment '主键',
   `rule_property_identify` varchar(200) character set utf8 collate utf8_general_ci not null comment '标识',
@@ -284,6 +303,7 @@ create table `rule_property_info` (
   index `rule_property_name`(`rule_property_name`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '规则基础属性信息表';
 
+drop table if exists `rule_property_rel`;
 create table `rule_property_rel` (
   `rule_pro_rel_id` bigint(20) not null comment '主键',
   `rule_id` bigint(20) not null comment '规则',
@@ -294,6 +314,7 @@ create table `rule_property_rel` (
   index `rule_property_id`(`rule_property_id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '规则属性配置表';
 
+drop table if exists `rule_scene_entity_rel`;
 create table `rule_scene_entity_rel` (
   `scene_entity_rel_id` bigint(20) not null comment '主键',
   `scene_id` bigint(20) null default null comment '场景',
@@ -303,6 +324,7 @@ create table `rule_scene_entity_rel` (
   index `entity_id`(`entity_id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '场景实体关联表';
 
+drop table if exists `rule_scene_info`;
 create table `rule_scene_info` (
   `scene_id` bigint(20) not null comment '主键',
   `scene_identify` varchar(50) character set utf8 collate utf8_general_ci not null comment '标识',
@@ -321,6 +343,7 @@ create table `rule_scene_info` (
   index `scene_name`(`scene_name`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '规则引擎使用场景';
 
+drop table if exists `rule_scene_item_rel`;
 create table `rule_scene_item_rel` (
   `id` bigint(20) not null auto_increment,
   `scene_id` bigint(20) null default null comment '场景id',
@@ -331,6 +354,7 @@ create table `rule_scene_item_rel` (
   primary key (`id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 187;
 
+drop table if exists `rule_scene_version`;
 create table `rule_scene_version` (
   `version_id` bigint(20) not null auto_increment comment '版本记录id',
   `version` varchar(32) character set utf8 collate utf8_general_ci not null comment '版本号 ',
@@ -352,6 +376,7 @@ create table `rule_scene_version` (
   primary key (`version_id`)
 ) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 4;
 
+drop table if exists `rule_variable`;
 create table `rule_variable` (
   `variable_id` bigint(20) not null comment '主键',
   `variable_name` varchar(200) character set utf8 collate utf8_general_ci not null comment '变量名称',
@@ -369,6 +394,7 @@ create table `rule_variable` (
   index `variable_name`(`variable_name`)
 ) engine = innodb character set = utf8 collate utf8_general_ci comment '规则引擎常用变量';
 
+drop table if exists `risk_model_task`;
 CREATE TABLE `risk_model_task` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `model_procdef_id` varchar(64) NOT NULL COMMENT '模型id',
@@ -381,7 +407,7 @@ CREATE TABLE `risk_model_task` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='风控模型离线任务表';
 
-
+drop table if exists `risk_rule_action_version`;
 CREATE TABLE `risk_rule_action_version`  (
   `risk_rule_action_version_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '动作版本关联id',
   `version_id` bigint(20) NOT NULL COMMENT '版本id',
@@ -396,17 +422,17 @@ CREATE TABLE `risk_rule_action_version`  (
 INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (3, 1, '评分卡', '评分卡类型', 'com.ht.risk.service.impl.ruleaction.TestActionImpl', 1, 1, '2018-01-24 18:34:35', '不可以删除', '5', 'grade');
 INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (4, 1, '统计', '统计分数', 'com.ht.risk.service.impl.ruleaction.ExcuteTotalScoreServiceImpl', 1, 1, '2018-02-05 09:33:55', 'asa', '5', 'statistics');
 INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (5, 1, '进件', '进件', 'com.ht.risk.service.impl.ruleaction.IntopiecesServiceImpl', 1, 1, '2018-01-24 18:34:50', NULL, '5', 'intoPieces');
-INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (960680035971096578, 1, '禁入', '禁入类', 'com.ht.risk.service.impl.ruleaction.ForbidServiceImpl', 1, 1, '2018-02-06 09:34:30', NULL, '5', 'forbid');
-INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (960709401115484162, 1, '降低抵押率类', '降低抵押率类', 'com.ht.risk.service.impl.ruleaction.LowerCollateralServiceImpl', 1, 1, '2018-02-06 11:31:15', NULL, '5', 'lowerCollateral');
-INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (967243425069694977, 1, '动作提示信息', '提示类动作', 'com.ht.risk.service.impl.ruleaction.AlertInfoActionImpl', 1, 1, '2018-02-24 11:42:58', NULL, '4', 'alertInfo');
+INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (1, 1, '禁入', '禁入类', 'com.ht.risk.service.impl.ruleaction.ForbidServiceImpl', 1, 1, '2018-02-06 09:34:30', NULL, '5', 'forbid');
+INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (2, 1, '降低抵押率类', '降低抵押率类', 'com.ht.risk.service.impl.ruleaction.LowerCollateralServiceImpl', 1, 1, '2018-02-06 11:31:15', NULL, '5', 'lowerCollateral');
+INSERT INTO rule_action_info(action_id, action_type, action_name, action_desc, action_class, is_effect, cre_user_id, cre_time, remark, business_id, action_method) VALUES (6, 1, '动作提示信息', '提示类动作', 'com.ht.risk.service.impl.ruleaction.AlertInfoActionImpl', 1, 1, '2018-02-24 11:42:58', NULL, '4', 'alertInfo');
 
 
-INSERT INTO `rule_constant_info` VALUES (967284545634177025, '征信', '征信状态', '0', 'creditInfoStatus', 1, 1, '2018-02-24 14:26:37', '', '4');
-INSERT INTO `rule_constant_info` VALUES (967285349820665858, '征信', '呆账', '1', 'creditInfoStatusBad', 1, 1, '2018-02-24 14:29:33', '呆账', '0');
-INSERT INTO `rule_constant_info` VALUES (967285450601402370, '征信', '次级', '1', 'creditInfoStatusSecondary', 1, 1, '2018-02-24 14:30:43', '次级', '0');
-INSERT INTO `rule_constant_info` VALUES (967285480771031041, '征信', '可疑', '1', 'creditInfoStatusQuestionable', 1, 1, '2018-02-24 14:31:02', '可疑', '0');
-INSERT INTO `rule_constant_info` VALUES (967285512211533826, '征信', '损失', '1', 'creditInfoStatusLoss', 1, 1, '2018-02-24 14:31:17', '损失', '0');
-INSERT INTO `rule_constant_info` VALUES (967285545799520257, '征信', '代偿', '1', 'creditInfoStatusCompensated', 1, 1, '2018-02-24 14:31:40', '代偿', '0');
+-- INSERT INTO `rule_constant_info` VALUES (967284545634177025, '征信', '征信状态', '0', 'creditInfoStatus', 1, 1, '2018-02-24 14:26:37', '', '4');
+-- INSERT INTO `rule_constant_info` VALUES (967285349820665858, '征信', '呆账', '1', 'creditInfoStatusBad', 1, 1, '2018-02-24 14:29:33', '呆账', '0');
+-- INSERT INTO `rule_constant_info` VALUES (967285450601402370, '征信', '次级', '1', 'creditInfoStatusSecondary', 1, 1, '2018-02-24 14:30:43', '次级', '0');
+-- INSERT INTO `rule_constant_info` VALUES (967285480771031041, '征信', '可疑', '1', 'creditInfoStatusQuestionable', 1, 1, '2018-02-24 14:31:02', '可疑', '0');
+-- INSERT INTO `rule_constant_info` VALUES (967285512211533826, '征信', '损失', '1', 'creditInfoStatusLoss', 1, 1, '2018-02-24 14:31:17', '损失', '0');
+-- INSERT INTO `rule_constant_info` VALUES (967285545799520257, '征信', '代偿', '1', 'creditInfoStatusCompensated', 1, 1, '2018-02-24 14:31:40', '代偿', '0');
 INSERT INTO `rule_constant_info` VALUES (967286751959715841, '楼龄', '装修情况', '0', 'decorationStatus', 1, 1, '2018-02-24 14:36:18', '', '4');
 INSERT INTO `rule_constant_info` VALUES (967287105875087361, '楼龄', '毛坯', '1', 'roughcast', 1, 1, '2018-02-24 14:37:47', '毛坯', '0');
 INSERT INTO `rule_constant_info` VALUES (967287251375493121, '楼龄', '精装', '1', 'hardcover', 1, 1, '2018-02-24 14:37:07', '精装', '0');
@@ -440,8 +466,8 @@ INSERT INTO rule_entity_item_info(item_id, entity_id, item_name, item_identify, 
 
 
 
-INSERT INTO `` (`action_param_id`, `action_id`, `action_param_name`, `action_param_desc`, `param_identify`, `is_effect`, `cre_user_id`, `cre_time`, `remark`) VALUES (3, 3, '分值', '分值', 'grade', 1, 1, '2017-12-22 10:34:22', NULL);
-INSERT INTO `` (`action_param_id`, `action_id`, `action_param_name`, `action_param_desc`, `param_identify`, `is_effect`, `cre_user_id`, `cre_time`, `remark`) VALUES (6, 3, '权值', '权值-不可以删除', 'grade1', 1, 1, '2018-1-25 11:08:04', '');
+INSERT INTO `rule_action_param_info` (`action_param_id`, `action_id`, `action_param_name`, `action_param_desc`, `param_identify`, `is_effect`, `cre_user_id`, `cre_time`, `remark`) VALUES (3, 3, '分值', '分值', 'grade', 1, 1, '2017-12-22 10:34:22', NULL);
+INSERT INTO `rule_action_param_info` (`action_param_id`, `action_id`, `action_param_name`, `action_param_desc`, `param_identify`, `is_effect`, `cre_user_id`, `cre_time`, `remark`) VALUES (6, 3, '权值', '权值-不可以删除', 'grade1', 1, 1, '2018-1-25 11:08:04', '');
 
 
 INSERT INTO rule_property_info(rule_property_id, rule_property_identify, rule_property_name, rule_property_desc, default_value, is_effect, remark) VALUES (1, 'salience', '优先级', '用来设置规则执行的优先级，salience 属性的值是一个数字，数字越大执行优先级越高，同时它的值可以是一个负数。默认情况下，规则的ssalience 默认值为0，所以如果我们不手动设置规则的salience 属性，那么它的执行顺序是随机（但是一般都是按照加载顺序。）', '0', 1, NULL);
