@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableDiscoveryClient
 @SpringCloudApplication
 @EnableTransactionManagement
-@ComponentScan(basePackages= {"com.ht.risk.activiti","com.ht.risk.common.exception"})
+@ComponentScan(basePackages= {"com.ht.risk.activiti","com.ht.risk.common.exception","com.ht.ussp.bean"})
 public class ActivitiServiceApplication{
 	
 	public static void main(String[] args) {

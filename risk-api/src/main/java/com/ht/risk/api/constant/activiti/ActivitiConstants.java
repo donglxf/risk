@@ -37,7 +37,9 @@ public class ActivitiConstants {
 
     public final static String SENCE_EXCUTE_RESULT_VAR = "SENCE_EXCUTE_RESULT_";//规则执行结果流程变量标识
 
-    public final static String PROC_MODEL_DATA_kEY = "PROC_MODEL_DATA_kEY";
+    public final static String PROC_EXCUTE_MSG = "PROC_EXCUTE_MSG";//规则执行结果流程变量标识
+
+    public final static String PROC_MODEL_DATA_KEY = "PROC_MODEL_DATA_KEY";
 
     public final static String PROC_MODEL_EXCUTE_TYPE_KEY = "EXCUTE_TYPE";// 模型运行模式流程变量key值
     public final static String PROC_TASK_ID_VAR_KEY = "proc_task_id";// 模型执行任务taskid在流程变量key值

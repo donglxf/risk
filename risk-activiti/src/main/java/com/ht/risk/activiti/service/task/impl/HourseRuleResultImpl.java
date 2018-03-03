@@ -47,21 +47,24 @@ public class HourseRuleResultImpl implements HourseRuleResult {
         Map<String,Object> result = execution.getVariables();
         Set<String> nameKey = result.keySet();
         String name = null;
-        RuleExcuteDetail detail = null;
+        List<RuleExcuteDetail> returnDetail = null;
         List<RuleExcuteDetail> details = new ArrayList<RuleExcuteDetail>();
+        Map<String,List<RuleExcuteDetail>> resultMap = new HashMap<String,List<RuleExcuteDetail>>();
         for(Iterator<String> iterator = nameKey.iterator(); iterator.hasNext();){
             name = iterator.next();
             if(name.startsWith(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR) && result.get(name) != null){
-                detail = (RuleExcuteDetail)result.get(name);
-                details.add(detail);
+                returnDetail = (List<RuleExcuteDetail>)result.get(name);
+                resultMap.put(name,returnDetail);
+                details.addAll(returnDetail);
             }
         }
+        RuleExcuteDetail detail = null;
         if(details.size()>0){
             for(Iterator<RuleExcuteDetail> iterator = details.iterator(); iterator.hasNext();){
                 detail = iterator.next();
                 getRulesDesc(detail);
             }
-            modelResult.setRuleResultList(details);
+            modelResult.setRuleResultList(resultMap);
             modelResult.setCode("0");
             modelResult.setMsg("模型执行正常");
             modelResult.setProcInstId(execution.getProcessInstanceId());
@@ -91,7 +94,6 @@ public class HourseRuleResultImpl implements HourseRuleResult {
     private void getRulesDesc(RuleExcuteDetail detail){
         if(detail != null && detail.getRuleList() != null && detail.getRuleList().size()>0){
             LOGGER.info("HourseRuleResultImpl execute method excute start..."+ JSON.toJSONString(detail));
-            // TODO 查询规则明星描述
             RpcRuleHisVersionParamter vo = new RpcRuleHisVersionParamter();
             vo.setVersionId(Long.parseLong(detail.getSenceVersionId()));
             vo.settRuleName(detail.getRuleList());

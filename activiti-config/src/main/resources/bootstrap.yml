@@ -1,6 +1,6 @@
 spring:
   application:
-    name: risk-activiti-extend
+    name: risk-activiti-service
   cloud:
     config:
       discovery:
@@ -25,7 +25,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:30101/eureka/
+      defaultZone: http://192.168.13.16:30101//eureka/
 
 ---
 spring:
@@ -40,7 +40,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://ussp-registry-app:30101/eureka/
+      defaultZone: http://172.16.200.110:30101/eureka/
 
 ---
 spring:

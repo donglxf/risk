@@ -10,12 +10,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EnableFeignClients(basePackages = {"com.ht.risk.api.feign.eip"})
+@EnableFeignClients(basePackages = {"com.ht.ussp.client","com.ht.risk.api.feign.eip"})
 @EnableDiscoveryClient
 @SpringCloudApplication
 @MapperScan("com.ht.risk.eip.mapper")
 @EnableTransactionManagement
-@ComponentScan(basePackages= {"com.ht.risk.eip","com.ht.risk.common.exception"})
+@ComponentScan(basePackages= {"com.ht.risk.eip","com.ht.risk.common.exception","com.ht.ussp.bean"})
 public class RiskEipApplication {
 
 	public static void main(String[] args) {

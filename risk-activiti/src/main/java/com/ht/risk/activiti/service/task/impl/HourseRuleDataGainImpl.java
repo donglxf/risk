@@ -4,11 +4,13 @@ import com.ht.risk.activiti.service.task.HourseRuleDataGain;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.common.comenum.RuleCallTypeEnum;
 import org.activiti.engine.delegate.DelegateExecution;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service("hourseRuleDataGain")
@@ -24,14 +26,38 @@ public class HourseRuleDataGainImpl implements HourseRuleDataGain {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         LOGGER.error("HourseRuleDataGainImpl execute method excute start...");
-        Object dataObj = execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_kEY);
+        Object dataObj = execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
         Map dataMap = null;
         if(dataObj != null){
             dataMap = (Map)dataObj;
         }else{
             dataMap = gernerateModelData();
         }
-        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME,dataMap);
+        if(dataMap == null){
+            return;
+        }
+        execution.setVariable(ActivitiConstants.PROC_MODEL_DATA_KEY,dataMap);
+        // 数据校验
+        String businessId = String.valueOf(dataMap.get("businessId"));
+        String businessType = String.valueOf(dataMap.get("businessId"));
+        String months = String.valueOf(dataMap.get("months"));
+        StringBuffer msg = new StringBuffer();
+        if(StringUtils.isEmpty(businessId) || StringUtils.isEmpty(businessType)  || StringUtils.isEmpty(months) ){
+            msg.append("合同单号、是否标准件、申请期限必填信息为空;");
+        }
+        Object borrowerObj = dataMap.get("borrowerInfo");
+        if(borrowerObj == null){
+            msg.append("借款人信息为空;");
+        }
+        Object houseInfoObj = dataMap.get("houseInfo");
+        if(borrowerObj == null){
+            msg.append("房产信息为空;");
+        }
+        Object guaranteeInfoObj = dataMap.get("guaranteeInfo");
+        if(borrowerObj == null){
+            msg.append("担保信息为空;");
+        }
+        execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg.toString());
         LOGGER.error("HourseRuleDataGainImpl execute method excute end...");
     }
     // TODO 待完善

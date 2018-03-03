@@ -134,7 +134,7 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
         String procDefId = paramter.getProcDefId();
         Map<String,Object> modelParamter = new HashMap<String,Object>();
         // 模型运行所需数据
-        modelParamter.put(ActivitiConstants.PROC_MODEL_DATA_kEY,paramter.getData());
+        modelParamter.put(ActivitiConstants.PROC_MODEL_DATA_KEY,paramter.getData());
         // 模型执行类型：type:0 模型验证，1 业务调用
         modelParamter.put(ActivitiConstants.PROC_MODEL_EXCUTE_TYPE_KEY, paramter.getType());
         // 模型执行任务流水号

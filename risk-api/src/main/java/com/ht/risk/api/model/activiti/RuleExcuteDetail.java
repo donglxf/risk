@@ -5,6 +5,7 @@ import com.ht.risk.api.model.rule.RpcRuleDetail;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RuleExcuteDetail implements Serializable{
 
@@ -13,6 +14,7 @@ public class RuleExcuteDetail implements Serializable{
     private String logId;
     private List<RpcRuleDetail> ruleDetails;
     private List<String> ruleList;
+    private Map<String,Object> inParamter;
 
     public String getSenceVersionId() {
         return senceVersionId;
@@ -52,5 +54,13 @@ public class RuleExcuteDetail implements Serializable{
 
     public void setRuleDetails(List<RpcRuleDetail> ruleDetails) {
         this.ruleDetails = ruleDetails;
+    }
+
+    public Map<String, Object> getInParamter() {
+        return inParamter;
+    }
+
+    public void setInParamter(Map<String, Object> inParamter) {
+        this.inParamter = inParamter;
     }
 }

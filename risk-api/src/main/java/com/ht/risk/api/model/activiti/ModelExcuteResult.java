@@ -2,6 +2,7 @@ package com.ht.risk.api.model.activiti;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public class ModelExcuteResult implements Serializable{
 
@@ -9,7 +10,7 @@ public class ModelExcuteResult implements Serializable{
     private String msg;
     private String procInstId;
     private Long taskId;
-    private List<RuleExcuteDetail> ruleResultList;
+    private Map<String,List<RuleExcuteDetail>> ruleResultList;
 
     public String getCode() {
         return code;
@@ -43,11 +44,11 @@ public class ModelExcuteResult implements Serializable{
         this.taskId = taskId;
     }
 
-    public List<RuleExcuteDetail> getRuleResultList() {
+    public Map<String, List<RuleExcuteDetail>> getRuleResultList() {
         return ruleResultList;
     }
 
-    public void setRuleResultList(List<RuleExcuteDetail> ruleResultList) {
+    public void setRuleResultList(Map<String, List<RuleExcuteDetail>> ruleResultList) {
         this.ruleResultList = ruleResultList;
     }
 }

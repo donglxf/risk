@@ -34,6 +34,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
         // 获取决策编码
+        String msg = String.valueOf(delegateExecution.getVariable(ActivitiConstants.PROC_EXCUTE_MSG));
         String senceCode = String.valueOf(senceCodeExp.getValue(delegateExecution));
         String version = null;
         if(versionExp != null){
@@ -41,23 +42,31 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         }
         LOGGER.info("drools excute start,senceCode："+senceCode+";version:"+version);
         // drools引擎所需数据
-        Object senceObj = delegateExecution.getVariable(ActivitiConstants.DROOLS_VARIABLE_NAME);
+        Object senceObj = delegateExecution.getVariable(ActivitiConstants.DROOLS_VARIABLE_NAME+senceCode);
         // 模型执行模式
         String modelType = String.valueOf(delegateExecution.getVariable(ActivitiConstants.PROC_MODEL_EXCUTE_TYPE_KEY));
         // 获取规则执行模式
         String ruleType = getDroolsExcuteType(modelType);
         Map senceMap = null;
-        if(senceObj != null){
-            senceMap = (Map)senceObj;
-        }
-        RuleExcuteDetail detail = null;
         // drools引擎执行
-        RuleExcuteResult result = this.excuteRules(senceCode,version,senceMap,delegateExecution.getProcessInstanceId(),ruleType);
-        if(result != null){
-            detail = matainExcuteDetail(result);
-            delegateExecution.setVariable(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR+senceCode,detail);
+        RuleExcuteDetail detail = null;
+        List<RuleExcuteDetail> details = new ArrayList<RuleExcuteDetail>();
+        try{
+            List<Map<String,Object>> datas = ( List<Map<String,Object>>)senceObj;
+            for(int i =0;i<datas.size();i++){
+                RuleExcuteResult result = this.excuteRules(senceCode,version,datas.get(i),delegateExecution.getProcessInstanceId(),ruleType);
+                if(result != null){
+                    detail = matainExcuteDetail(result);
+                    detail.setInParamter(datas.get(i));
+                    details.add(detail);
+                }
+            }
+            delegateExecution.setVariable(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR+senceCode,details);
+        }catch (Exception e){
+            msg += "决策编码为："+senceCode+"；执行异常";
         }
-        LOGGER.info("DroolsRuleEngineServiceImpl service end , result:"+ JSON.toJSONString(detail));
+        delegateExecution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg.toString());
+        LOGGER.info("DroolsRuleEngineServiceImpl service end , result:"+ JSON.toJSONString(details));
     }
     // 获取规则执行类型
     private String getDroolsExcuteType(String modelExcuteType){

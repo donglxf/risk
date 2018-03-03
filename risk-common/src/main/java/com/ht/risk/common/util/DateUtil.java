@@ -22,6 +22,8 @@ public class DateUtil
      */
     public static final String FULL_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 
+	public static final String DATE_FORMAT = "yyyy-MM-dd";
+
 	/**
 	 * 获取当前日期及时间
 	 * @return 返回当前日期及时间
