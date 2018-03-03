@@ -4,7 +4,9 @@ import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.ConditionInfo;
 import com.ht.risk.rule.mapper.ConditionInfoMapper;
 import com.ht.risk.rule.service.ConditionInfoService;
-import org.springframework.cache.annotation.Cacheable;
+import com.ht.ussp.bean.LoginUserInfoHelper;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +24,8 @@ import java.util.List;
 @Service
 public class ConditionInfoServiceImpl extends BaseServiceImpl<ConditionInfoMapper, ConditionInfo> implements ConditionInfoService {
 
+    @Autowired
+    LoginUserInfoHelper userInfoHelper;
     @Resource
     private ConditionInfoMapper conditionInfoMapper;
 
@@ -46,7 +50,7 @@ public class ConditionInfoServiceImpl extends BaseServiceImpl<ConditionInfoMappe
         long creUid = 111;
         conditionInfo.setRuleId(ruleId);
         conditionInfo.setCreTime(new Date());
-        conditionInfo.setCreUserId(creUid);
+        conditionInfo.setCreUserId(StringUtils.isEmpty( userInfoHelper.getUserId()) ? "-1" :  userInfoHelper.getUserId());
         conditionInfo.setIsEffect(1);
         conditionInfo.setConditionName("我就是个测试");
         this.conditionInfoMapper.insert(conditionInfo);

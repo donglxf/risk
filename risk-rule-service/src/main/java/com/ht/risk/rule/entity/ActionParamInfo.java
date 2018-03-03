@@ -1,15 +1,16 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * <p>
  * 动作参数信息表
@@ -20,6 +21,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel
 @TableName("rule_action_param_info")
+@Data
 public class ActionParamInfo extends Model<ActionParamInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -65,7 +67,7 @@ public class ActionParamInfo extends Model<ActionParamInfo> {
      */
 	@TableField("cre_user_id")
 	@ApiModelProperty(required= true,value = "创建人")
-	private Long creUserId;
+	private String creUserId;
     /**
      * 创建时间
      */
@@ -79,77 +81,6 @@ public class ActionParamInfo extends Model<ActionParamInfo> {
 	private String remark;
 
 
-	public Long getActionParamId() {
-		return actionParamId;
-	}
-
-	public void setActionParamId(Long actionParamId) {
-		this.actionParamId = actionParamId;
-	}
-
-	public Long getActionId() {
-		return actionId;
-	}
-
-	public void setActionId(Long actionId) {
-		this.actionId = actionId;
-	}
-
-	public String getActionParamName() {
-		return actionParamName;
-	}
-
-	public void setActionParamName(String actionParamName) {
-		this.actionParamName = actionParamName;
-	}
-
-	public String getActionParamDesc() {
-		return actionParamDesc;
-	}
-
-	public void setActionParamDesc(String actionParamDesc) {
-		this.actionParamDesc = actionParamDesc;
-	}
-
-	public String getParamIdentify() {
-		return paramIdentify;
-	}
-
-	public void setParamIdentify(String paramIdentify) {
-		this.paramIdentify = paramIdentify;
-	}
-
-	public Integer getIsEffect() {
-		return isEffect;
-	}
-
-	public void setIsEffect(Integer isEffect) {
-		this.isEffect = isEffect;
-	}
-
-	public Long getCreUserId() {
-		return creUserId;
-	}
-
-	public void setCreUserId(Long creUserId) {
-		this.creUserId = creUserId;
-	}
-
-	public Date getCreTime() {
-		return creTime;
-	}
-
-	public void setCreTime(Date creTime) {
-		this.creTime = creTime;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 
 	@Override
 	protected Serializable pkVal() {

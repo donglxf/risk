@@ -127,7 +127,7 @@ public class SceneInfoVersion extends Model<SceneInfoVersion> {
 	 */
 	@TableField("v.cre_user_id")
 	@ApiModelProperty(required= true,value = "创建用户")
-	private Long creUserId;
+	private String creUserId;
 	/**
 	 * 规则html
 	 */
@@ -270,13 +270,6 @@ public class SceneInfoVersion extends Model<SceneInfoVersion> {
 		this.isEffect = isEffect;
 	}
 
-	public Long getCreUserId() {
-		return creUserId;
-	}
-
-	public void setCreUserId(Long creUserId) {
-		this.creUserId = creUserId;
-	}
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
 	public Date getCreTime() {
 		return creTime;

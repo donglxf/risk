@@ -70,7 +70,7 @@ public class SceneInfo extends Model<SceneInfo> {
      */
 	@TableField("cre_user_id")
 	@ApiModelProperty(required= true,value = "创建人")
-	private Long creUserId;
+	private String creUserId;
     /**
      * 创建时间
      */
@@ -84,77 +84,6 @@ public class SceneInfo extends Model<SceneInfo> {
 	private String remark;
 
 
-	public Long getSceneId() {
-		return sceneId;
-	}
-
-	public void setSceneId(Long sceneId) {
-		this.sceneId = sceneId;
-	}
-
-	public String getSceneIdentify() {
-		return sceneIdentify;
-	}
-
-	public void setSceneIdentify(String sceneIdentify) {
-		this.sceneIdentify = sceneIdentify;
-	}
-
-	public Integer getSceneType() {
-		return sceneType;
-	}
-
-	public void setSceneType(Integer sceneType) {
-		this.sceneType = sceneType;
-	}
-
-	public String getSceneName() {
-		return sceneName;
-	}
-
-	public void setSceneName(String sceneName) {
-		this.sceneName = sceneName;
-	}
-
-	public String getSceneDesc() {
-		return sceneDesc;
-	}
-
-	public void setSceneDesc(String sceneDesc) {
-		this.sceneDesc = sceneDesc;
-	}
-
-	public Integer getIsEffect() {
-		return isEffect;
-	}
-
-	public void setIsEffect(Integer isEffect) {
-		this.isEffect = isEffect;
-	}
-
-	public Long getCreUserId() {
-		return creUserId;
-	}
-
-	public void setCreUserId(Long creUserId) {
-		this.creUserId = creUserId;
-	}
-
-	public Date getCreTime() {
-		return creTime;
-	}
-
-	public void setCreTime(Date creTime) {
-		this.creTime = creTime;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 
 	@Override
 	protected Serializable pkVal() {

@@ -207,7 +207,7 @@ public class EntityInfoController extends BaseController {
     public Result<Integer> edit(EntityInfo entityInfo){
         entityInfo.setCreTime(new Date());
         entityInfo.setIsEffect(1);
-        entityInfo.setCreUserId(Long.parseLong(this.getUserId()));
+        entityInfo.setCreUserId(this.getUserId());
         entityInfoService.insertOrUpdate(entityInfo);
         return Result.success(0);
     }

@@ -2,11 +2,14 @@ package com.ht.risk.rule.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.*;
 import com.ht.risk.rule.mapper.*;
 import com.ht.risk.rule.service.InfoService;
-import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.util.StringUtil;
+import com.ht.ussp.bean.LoginUserInfoHelper;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,7 +26,8 @@ import java.util.List;
  */
 @Service
 public class InfoServiceImpl extends BaseServiceImpl<InfoMapper, Info> implements InfoService {
-
+    @Autowired
+    LoginUserInfoHelper userInfoHelper;
     @Resource
     private InfoMapper infoMapper;
 
@@ -140,7 +144,7 @@ public class InfoServiceImpl extends BaseServiceImpl<InfoMapper, Info> implement
         //添加规则
         Info rule = new Info();
         rule.setCreTime(new Date());
-        rule.setCreUserId(creUid);
+        rule.setCreUserId(StringUtils.isEmpty( userInfoHelper.getUserId()) ? "-1" :  userInfoHelper.getUserId());
         rule.setIsEffect(1);
         rule.setRuleName(scene.getSceneIdentify()+":"+index);
         rule.setRuleDesc("规则-"+index);

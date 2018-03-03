@@ -67,7 +67,7 @@ public class EntityItemInfoController extends BaseController {
     public Result<Integer> edit(EntityItemInfo itemInfo){
         itemInfo.setCreTime(new Date());
         itemInfo.setIsEffect(1);
-        itemInfo.setCreUserId(Long.parseLong(this.getUserId()));
+        itemInfo.setCreUserId(this.getUserId());
         itemInfoService.insertOrUpdate(itemInfo);
         return Result.success(1);
     }

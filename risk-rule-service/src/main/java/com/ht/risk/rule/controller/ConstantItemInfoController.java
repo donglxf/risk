@@ -1,9 +1,15 @@
 package com.ht.risk.rule.controller;
 
-import java.util.Date;
-import java.util.List;
-
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.controller.BaseController;
+import com.ht.risk.common.result.PageResult;
+import com.ht.risk.common.result.Result;
+import com.ht.risk.rule.entity.ConstantInfo;
+import com.ht.risk.rule.service.ConstantInfoService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,16 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.ht.risk.common.result.PageResult;
-import com.ht.risk.common.result.Result;
-import com.ht.risk.rule.entity.ConstantInfo;
-import com.ht.risk.rule.service.ConstantInfoService;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import java.util.Date;
+import java.util.List;
 
 /**
 * @ClassName: ConstantItemInfoController
@@ -75,7 +73,7 @@ public class ConstantItemInfoController extends BaseController {
 		entityInfo.setCreTime(new Date());
 		entityInfo.setIsEffect(1);
 		entityInfo.setConType("1");
-		entityInfo.setCreUserId(Long.parseLong(this.getUserId()));
+		entityInfo.setCreUserId(getUserId());
 		constantInfoService.insertOrUpdate(entityInfo);
 		return Result.success(0);
 	}

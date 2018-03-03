@@ -8,7 +8,7 @@ spring:
     bus:
       enabled: false
   profiles:
-    active: local
+    active: dev
 eureka:
   instance:
     prefer-ip-address: true
@@ -40,7 +40,8 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://ussp-registry-app:30101/eureka/
+     defaultZone: http://ussp-registry-app:30101/eureka/
+     # defaultZone: http://172.16.200.110:30101/eureka/
 
 ---
 spring:

@@ -1,15 +1,15 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
 /**
  * <p>
  * 动作与规则信息关系表
@@ -20,6 +20,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel
 @TableName("rule_action_rule_rel")
+@Data
 public class ActionRuleRel extends Model<ActionRuleRel> {
 
     private static final long serialVersionUID = 1L;
@@ -55,7 +56,7 @@ public class ActionRuleRel extends Model<ActionRuleRel> {
      */
 	@TableField("cre_user_id")
 	@ApiModelProperty(required= true,value = "创建人")
-	private Long creUserId;
+	private String creUserId;
     /**
      * 创建时间
      */
@@ -68,68 +69,6 @@ public class ActionRuleRel extends Model<ActionRuleRel> {
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
 
-	public ActionInfo getActionInfo() {
-		return actionInfo;
-	}
-
-	public void setActionInfo(ActionInfo actionInfo) {
-		this.actionInfo = actionInfo;
-	}
-	public Long getRuleActionRelId() {
-		return ruleActionRelId;
-	}
-
-	public void setRuleActionRelId(Long ruleActionRelId) {
-		this.ruleActionRelId = ruleActionRelId;
-	}
-
-	public Long getActionId() {
-		return actionId;
-	}
-
-	public void setActionId(Long actionId) {
-		this.actionId = actionId;
-	}
-
-	public Long getRuleId() {
-		return ruleId;
-	}
-
-	public void setRuleId(Long ruleId) {
-		this.ruleId = ruleId;
-	}
-
-	public Integer getIsEffect() {
-		return isEffect;
-	}
-
-	public void setIsEffect(Integer isEffect) {
-		this.isEffect = isEffect;
-	}
-
-	public Long getCreUserId() {
-		return creUserId;
-	}
-
-	public void setCreUserId(Long creUserId) {
-		this.creUserId = creUserId;
-	}
-
-	public Date getCreTime() {
-		return creTime;
-	}
-
-	public void setCreTime(Date creTime) {
-		this.creTime = creTime;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 
 	@Override
 	protected Serializable pkVal() {

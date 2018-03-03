@@ -31,7 +31,7 @@ layui.define(['layer','laytpl','form','ht_ajax','ht_config'], function(exports) 
                     type : "GET",
                     url : '/rule/service/check/key',
                     data : {key:value,
-                        type:$(item).attr("type"),
+                        type:$(item).attr("identifyType"),
                         other:$(".other").val()},// 你的formid
                     async : false,
                     dataType:'json',

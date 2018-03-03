@@ -70,7 +70,7 @@ public class ConstantInfo extends Model<ConstantInfo> {
      */
 	@TableField("cre_user_id")
 	@ApiModelProperty(required= true,value = "创建人")
-	private Long creUserId;
+	private String creUserId;
     /**
      * 创建时间
      */
@@ -84,77 +84,6 @@ public class ConstantInfo extends Model<ConstantInfo> {
 	private String remark;
 
 
-	public Long getConId() {
-		return conId;
-	}
-
-	public void setConId(Long conId) {
-		this.conId = conId;
-	}
-
-	public String getConKey() {
-		return conKey;
-	}
-
-	public void setConKey(String conKey) {
-		this.conKey = conKey;
-	}
-
-	public String getConName() {
-		return conName;
-	}
-
-	public void setConName(String conName) {
-		this.conName = conName;
-	}
-
-	public String getConType() {
-		return conType;
-	}
-
-	public void setConType(String conType) {
-		this.conType = conType;
-	}
-
-	public String getConCode() {
-		return conCode;
-	}
-
-	public void setConCode(String conCode) {
-		this.conCode = conCode;
-	}
-
-	public Integer getIsEffect() {
-		return isEffect;
-	}
-
-	public void setIsEffect(Integer isEffect) {
-		this.isEffect = isEffect;
-	}
-
-	public Long getCreUserId() {
-		return creUserId;
-	}
-
-	public void setCreUserId(Long creUserId) {
-		this.creUserId = creUserId;
-	}
-
-	public Date getCreTime() {
-		return creTime;
-	}
-
-	public void setCreTime(Date creTime) {
-		this.creTime = creTime;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 
 	@Override
 	protected Serializable pkVal() {

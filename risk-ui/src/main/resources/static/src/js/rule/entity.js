@@ -204,7 +204,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
     };
     //新增
     $("#entity_btn_add").on('click',function () {
-        $.get('/rule/ui/rule/entity/edit', null, function (form) {
+        $.get('/rule/ui/src/html/entity/entity_edit.html', null, function (form) {
             topIndexId =  layer.open({
                 type :1,
                 title : '新增',
@@ -230,7 +230,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
     function  edit(id) {
         $.get(preUrl+"getInfoById?id="+id,function (data) {
             var result = data.data;
-            $.get('/rule/ui/rule/entity/edit', null, function (form) {
+            $.get('/rule/ui/src/html/entity/entity_edit.html', null, function (form) {
                 topIndexId =  layer.open({
                     type :1,
                     title : '修改',
@@ -297,7 +297,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
             layer.msg("必须选择一个数据对象哦");
         }
 
-        $.get('/rule/ui/rule/entityItem/edit', null, function (form) {
+        $.get('/rule/ui/src/html/entity/item_edit.html', null, function (form) {
             topIndexId =   layer.open({
                 type :1,
                 title : '新增',
@@ -322,7 +322,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
     function  editItem(id) {
         $.get(preItemUrl+"getInfoById?id="+id,function (data) {
             var result = data.data;
-             $.get('/rule/ui/rule/entityItem/edit', function (form) {
+             $.get('/rule/ui/src/html/entity/item_edit.html', function (form) {
                 topIndexId =  layer.open({
                     type :1,
                     title : '修改',

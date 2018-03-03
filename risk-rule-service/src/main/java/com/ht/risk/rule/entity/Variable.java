@@ -1,15 +1,14 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.util.Date;
 /**
  * <p>
  * 规则引擎常用变量
@@ -71,7 +70,7 @@ public class Variable extends Model<Variable> {
      */
 	@TableField("cre_user_id")
 	@ApiModelProperty(required= true,value = "创建人")
-	private Long creUserId;
+	private String creUserId;
     /**
      * 创建时间
      */
@@ -141,11 +140,11 @@ public class Variable extends Model<Variable> {
 		this.isEffect = isEffect;
 	}
 
-	public Long getCreUserId() {
+	public String getCreUserId() {
 		return creUserId;
 	}
 
-	public void setCreUserId(Long creUserId) {
+	public void setCreUserId(String creUserId) {
 		this.creUserId = creUserId;
 	}
 
