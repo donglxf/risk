@@ -1,13 +1,13 @@
 [
   {
-    "id": "FK_FK-001",
-    "icon": "fa fa-plug",
+    "id": "FK_M01",
+    "icon": "fa fa-sitemap",
     "spread": true,
     "title": "业务线管理",
     "url": null,
     "children": [
       {
-        "id": "FK_FK-0011",
+        "id": "FK_M0101",
         "icon": "fa fa-user",
         "spread": true,
         "title": "业务线管理",
@@ -17,22 +17,22 @@
     ]
   },
   {
-    "id": "FK_FK-002",
-    "icon": "fa fa-user",
+    "id": "FK_M02",
+    "icon": "fa fa-sitemap",
     "spread": true,
     "title": "规则管理",
     "url": null,
     "children": [
       {
-        "id": "FK_FK-0021",
+        "id": "FK_M0201",
         "icon": "fa fa-user",
         "spread": true,
         "title": "变量管理",
-        "url": "rule/entity",
+        "url": "src/html/other/entity_index.html",
         "children": []
       },
       {
-        "id": "FK_FK-0022",
+        "id": "FK_M0202",
         "icon": "fa fa-user",
         "spread": true,
         "title": "常量管理",
@@ -40,7 +40,7 @@
         "children": []
       },
       {
-        "id": "FK_FK-0023",
+        "id": "FK_M0203",
         "icon": "fa fa-user",
         "spread": true,
         "title": "动作管理",
@@ -48,7 +48,7 @@
         "children": []
       },
       {
-        "id": "FK_FK-0024",
+        "id": "FK_M0204",
         "icon": "fa fa-user",
         "spread": true,
         "title": "策略管理",
@@ -58,14 +58,14 @@
     ]
   },
   {
-    "id": "FK_FK-003",
-    "icon": "",
+    "id": "FK_M03",
+    "icon": "fa fa-sitemap",
     "spread": true,
     "title": "模型管理",
-    "url": "",
+    "url": null,
     "children": [
       {
-        "id": "FK_FK-0031",
+        "id": "FK_M0301",
         "icon": "fa fa-user",
         "spread": true,
         "title": "模型配置",
@@ -75,31 +75,31 @@
     ]
   },
   {
-    "id": "FK_FK-004",
-    "icon": "",
+    "id": "FK_M04",
+    "icon": "fa fa-sitemap",
     "spread": true,
     "title": "验证中心",
-    "url": "",
+    "url": null,
     "children": [
       {
-        "id": "FK_FK-0041",
-        "icon": "fa fa-user",
+        "id": "FK_M0401",
+        "icon": "",
         "spread": true,
         "title": "决策验证",
-        "url": "strategy/index",
+        "url": "src/html/other/strategy_index.html",
         "children": []
       },
       {
-        "id": "FK_FK-0043",
-        "icon": "fa fa-user",
+        "id": "FK_M0402",
+        "icon": "",
         "spread": true,
         "title": "模型验证",
         "url": "model/verfication",
         "children": []
       },
       {
-        "id": "FK_FK-0044",
-        "icon": "fa fa-user",
+        "id": "FK_M0403",
+        "icon": "",
         "spread": true,
         "title": "模型验证结果",
         "url": "/rule/ui/model/verfication/result",
@@ -108,31 +108,31 @@
     ]
   },
   {
-    "id": "FK_FK-005",
-    "icon": "",
+    "id": "FK_M05",
+    "icon": "fa fa-sitemap",
     "spread": true,
     "title": "发布管理",
-    "url": "",
+    "url": null,
     "children": [
       {
-        "id": "FK_FK-0051",
-        "icon": "fa fa-user",
+        "id": "FK_M0501",
+        "icon": "",
         "spread": true,
         "title": "策略版本管理",
         "url": "src/html/version/list.html",
         "children": []
       },
       {
-        "id": "FK_FK-0053",
-        "icon": "fa fa-user",
+        "id": "FK_M0502",
+        "icon": "",
         "spread": true,
         "title": "模型审批",
-          "url": "model/approval/list",
+        "url": "model/approval/list",
         "children": []
       },
       {
-        "id": "FK_FK-0052",
-        "icon": "fa fa-user",
+        "id": "FK_M0503",
+        "icon": "",
         "spread": true,
         "title": "模型版本管理",
         "url": "model/publish/list",
@@ -141,34 +141,34 @@
     ]
   },
   {
-    "id": "FK_FK-008",
-    "icon": "",
+    "id": "FK_M06",
+    "icon": "fa fa-sitemap",
     "spread": true,
     "title": "监控管理",
-    "url": "",
+    "url": null,
     "children": [
       {
-        "id": "FK_FK-0081",
-        "icon": "fa fa-user",
+        "id": "FK_M0601",
+        "icon": "fa fa-table",
         "spread": true,
         "title": "日志查询",
         "url": "supervision/log/index",
         "children": []
       },
       {
-        "id": "FK_FK-0082",
-        "icon": "fa fa-user",
-        "spread": true,
-        "title": "模型报告",
-        "url": "supervision/model/report",
-        "children": []
-      },
-      {
-        "id": "FK_FK-0083",
-        "icon": "fa fa-user",
+        "id": "FK_M0603",
+        "icon": "fa fa-table",
         "spread": true,
         "title": "策略报告",
         "url": "supervision/rule/report",
+        "children": []
+      },
+      {
+        "id": "FK_M0602",
+        "icon": "fa fa-table",
+        "spread": true,
+        "title": "模型报告",
+        "url": "supervision/model/report",
         "children": []
       }
     ]

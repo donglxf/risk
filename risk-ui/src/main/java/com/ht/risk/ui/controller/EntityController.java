@@ -23,7 +23,7 @@ public class EntityController {
         return "/rule/entity/rule_entity_item_edit";
     }
 
-    @RequestMapping(value = "/entity",method = RequestMethod.GET)
+    @RequestMapping(value = "entity",method = RequestMethod.GET)
     public String ruleEntity(){
         return "/rule/entity/rule_entity";
     }
