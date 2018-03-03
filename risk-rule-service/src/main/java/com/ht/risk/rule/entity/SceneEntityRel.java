@@ -1,14 +1,14 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
 /**
  * <p>
  * 场景实体关联表
@@ -19,6 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel
 @TableName("rule_scene_entity_rel")
+@Data
 public class SceneEntityRel extends Model<SceneEntityRel> {
 
     private static final long serialVersionUID = 1L;
@@ -43,29 +44,6 @@ public class SceneEntityRel extends Model<SceneEntityRel> {
 	private Long entityId;
 
 
-	public Long getSceneEntityRelId() {
-		return sceneEntityRelId;
-	}
-
-	public void setSceneEntityRelId(Long sceneEntityRelId) {
-		this.sceneEntityRelId = sceneEntityRelId;
-	}
-
-	public Long getSceneId() {
-		return sceneId;
-	}
-
-	public void setSceneId(Long sceneId) {
-		this.sceneId = sceneId;
-	}
-
-	public Long getEntityId() {
-		return entityId;
-	}
-
-	public void setEntityId(Long entityId) {
-		this.entityId = entityId;
-	}
 
 	@Override
 	protected Serializable pkVal() {

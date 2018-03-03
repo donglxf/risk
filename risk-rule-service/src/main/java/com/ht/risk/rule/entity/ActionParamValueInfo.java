@@ -76,7 +76,7 @@ public class ActionParamValueInfo extends Model<ActionParamValueInfo> {
      */
 	@TableField("cre_user_id")
 	@ApiModelProperty(required= true,value = "创建人")
-	private Long creUserId;
+	private String creUserId;
     /**
      * 创建时间
      */
@@ -88,71 +88,6 @@ public class ActionParamValueInfo extends Model<ActionParamValueInfo> {
      */
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
-
-
-	public Long getActionParamValueId() {
-		return actionParamValueId;
-	}
-
-	public void setActionParamValueId(Long actionParamValueId) {
-		this.actionParamValueId = actionParamValueId;
-	}
-
-	public Long getRuleActionRelId() {
-		return ruleActionRelId;
-	}
-
-	public void setRuleActionRelId(Long ruleActionRelId) {
-		this.ruleActionRelId = ruleActionRelId;
-	}
-
-	public Long getActionParamId() {
-		return actionParamId;
-	}
-
-	public void setActionParamId(Long actionParamId) {
-		this.actionParamId = actionParamId;
-	}
-
-	public String getParamValue() {
-		return paramValue;
-	}
-
-	public void setParamValue(String paramValue) {
-		this.paramValue = paramValue;
-	}
-
-	public Integer getIsEffect() {
-		return isEffect;
-	}
-
-	public void setIsEffect(Integer isEffect) {
-		this.isEffect = isEffect;
-	}
-
-	public Long getCreUserId() {
-		return creUserId;
-	}
-
-	public void setCreUserId(Long creUserId) {
-		this.creUserId = creUserId;
-	}
-
-	public Date getCreTime() {
-		return creTime;
-	}
-
-	public void setCreTime(Date creTime) {
-		this.creTime = creTime;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 
 	@Override
 	protected Serializable pkVal() {

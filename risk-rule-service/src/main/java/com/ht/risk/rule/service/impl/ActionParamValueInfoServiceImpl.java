@@ -10,6 +10,9 @@ import com.ht.risk.rule.mapper.ActionParamValueInfoMapper;
 import com.ht.risk.rule.mapper.ActionRuleRelMapper;
 import com.ht.risk.rule.service.ActionParamValueInfoService;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
+import com.ht.ussp.bean.LoginUserInfoHelper;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,7 +29,8 @@ import java.util.List;
  */
 @Service
 public class ActionParamValueInfoServiceImpl extends BaseServiceImpl<ActionParamValueInfoMapper, ActionParamValueInfo> implements ActionParamValueInfoService {
-
+    @Autowired
+    LoginUserInfoHelper userInfoHelper;
     @Resource
     private ActionParamValueInfoMapper actionParamValueInfoMapper;
 
@@ -38,6 +42,7 @@ public class ActionParamValueInfoServiceImpl extends BaseServiceImpl<ActionParam
 
     @Resource
     private ActionInfoMapper actionInfoMapper;
+
 
 
     /**
@@ -71,14 +76,14 @@ public class ActionParamValueInfoServiceImpl extends BaseServiceImpl<ActionParam
             rel.setActionId(paramInfo.getActionId());
             rel.setCreTime(new Date());
             rel.setIsEffect(1);
-            rel.setCreUserId(creUser);
+            rel.setCreUserId( StringUtils.isEmpty( userInfoHelper.getUserId()) ? "-1" :  userInfoHelper.getUserId());
             actionRuleRelMapper.insert(rel);
         }
         //方法名
         ActionInfo actionInfo = actionInfoMapper.selectById(paramInfo.getActionId());
         //添加值得表
         actionValue.setCreTime(new Date());
-        actionValue.setCreUserId(creUser);
+        actionValue.setCreUserId(StringUtils.isEmpty( userInfoHelper.getUserId()) ? "-1" :  userInfoHelper.getUserId());
         actionValue.setIsEffect(1);
         actionValue.setRuleActionRelId(rel.getRuleActionRelId());
         actionValue.setRemark("["+actionInfo.getActionName()+"]:"+actionValue.getParamValue()+"("+paramInfo.getActionParamName()+")");

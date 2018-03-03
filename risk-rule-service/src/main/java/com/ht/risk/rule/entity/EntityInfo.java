@@ -68,7 +68,7 @@ public class EntityInfo extends Model<EntityInfo> {
      */
     @TableField("cre_user_id")
     @ApiModelProperty(required = true, value = "创建人")
-    private Long creUserId;
+    private String creUserId;
     /**
      * 创建时间
      */
@@ -92,85 +92,6 @@ public class EntityInfo extends Model<EntityInfo> {
     private List<EntityItemInfo> items;
 
 
-    public Long getEntityId() {
-        return entityId;
-    }
-
-    public void setEntityId(Long entityId) {
-        this.entityId = entityId;
-    }
-
-    public String getEntityName() {
-        return entityName;
-    }
-
-    public void setEntityName(String entityName) {
-        this.entityName = entityName;
-    }
-
-    public String getEntityDesc() {
-        return entityDesc;
-    }
-
-    public void setEntityDesc(String entityDesc) {
-        this.entityDesc = entityDesc;
-    }
-
-    public String getEntityIdentify() {
-        return entityIdentify;
-    }
-
-    public void setEntityIdentify(String entityIdentify) {
-        this.entityIdentify = entityIdentify;
-    }
-
-    public String getPkgName() {
-        return pkgName;
-    }
-
-    public void setPkgName(String pkgName) {
-        this.pkgName = pkgName;
-    }
-
-    public Long getCreUserId() {
-        return creUserId;
-    }
-
-    public void setCreUserId(Long creUserId) {
-        this.creUserId = creUserId;
-    }
-
-    public Date getCreTime() {
-        return creTime;
-    }
-
-    public void setCreTime(Date creTime) {
-        this.creTime = creTime;
-    }
-
-    public Integer getIsEffect() {
-        return isEffect;
-    }
-
-    public void setIsEffect(Integer isEffect) {
-        this.isEffect = isEffect;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public List<EntityItemInfo> getItems() {
-        return items;
-    }
-
-    public void setItems(List<EntityItemInfo> items) {
-        this.items = items;
-    }
 
     @Override
     protected Serializable pkVal() {

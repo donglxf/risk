@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @ApiModel
 @TableName("rule_info")
+@Data
 public class Info extends Model<Info> {
 
     private static final long serialVersionUID = 1L;
@@ -72,7 +74,7 @@ public class Info extends Model<Info> {
      */
 	@TableField("cre_user_id")
 	@ApiModelProperty(required= true,value = "创建人")
-	private Long creUserId;
+	private String creUserId;
     /**
      * 创建时间
      */
@@ -85,100 +87,6 @@ public class Info extends Model<Info> {
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
 
-	public RuleGroup getGroup() {
-		return group;
-	}
-
-	public void setGroup(RuleGroup group) {
-		this.group = group;
-	}
-
-	public Long getRuleId() {
-		return ruleId;
-	}
-
-	public void setRuleId(Long ruleId) {
-		this.ruleId = ruleId;
-	}
-
-	public Long getSceneId() {
-		return sceneId;
-	}
-
-	public void setSceneId(Long sceneId) {
-		this.sceneId = sceneId;
-	}
-
-	public String getRuleName() {
-		return ruleName;
-	}
-
-	public void setRuleName(String ruleName) {
-		this.ruleName = ruleName;
-	}
-
-	public String getRuleDesc() {
-		return ruleDesc;
-	}
-
-	public void setRuleDesc(String ruleDesc) {
-		this.ruleDesc = ruleDesc;
-	}
-
-	public Integer getRuleEnabled() {
-		return ruleEnabled;
-	}
-
-	public void setRuleEnabled(Integer ruleEnabled) {
-		this.ruleEnabled = ruleEnabled;
-	}
-
-	public Integer getIsEffect() {
-		return isEffect;
-	}
-
-	public void setIsEffect(Integer isEffect) {
-		this.isEffect = isEffect;
-	}
-
-	public Long getCreUserId() {
-		return creUserId;
-	}
-
-	public void setCreUserId(Long creUserId) {
-		this.creUserId = creUserId;
-	}
-
-	public Date getCreTime() {
-		return creTime;
-	}
-
-	public void setCreTime(Date creTime) {
-		this.creTime = creTime;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-	public List<ConditionInfo> getCons() {
-		return cons;
-	}
-
-	public void setCons(List<ConditionInfo> cons) {
-		this.cons = cons;
-	}
-
-	public List<ActionRuleRel> getActionRels() {
-		return actionRels;
-	}
-
-	public void setActionRels(List<ActionRuleRel> actionRels) {
-		this.actionRels = actionRels;
-	}
 
 	@Override
 	protected Serializable pkVal() {

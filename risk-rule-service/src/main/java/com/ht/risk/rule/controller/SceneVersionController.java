@@ -150,7 +150,7 @@ public class SceneVersionController extends BaseController {
         version.setTestStatus(0);
         //测试版
         version.setType(0);
-        version.setCreUserId(Long.parseLong(this.getUserId()));
+        version.setCreUserId(this.getUserId());
         sceneVersionService.insert(version);
         //保存 版本附带信息
         sceneVersionService.addRuleDescAndVarids(sceneInfo, version);

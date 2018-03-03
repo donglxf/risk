@@ -92,7 +92,7 @@ public class ActionInfo extends Model<ActionInfo> {
      */
 	@TableField("cre_user_id")
 	@ApiModelProperty(required= true,value = "创建人")
-	private Long creUserId;
+	private String creUserId;
     /**
      * 创建时间
      */
@@ -113,77 +113,6 @@ public class ActionInfo extends Model<ActionInfo> {
 	private String actionOutDesc;*/
 
 
-	public Long getActionId() {
-		return actionId;
-	}
-
-	public void setActionId(Long actionId) {
-		this.actionId = actionId;
-	}
-
-	public Integer getActionType() {
-		return actionType;
-	}
-
-	public void setActionType(Integer actionType) {
-		this.actionType = actionType;
-	}
-
-	public String getActionName() {
-		return actionName;
-	}
-
-	public void setActionName(String actionName) {
-		this.actionName = actionName;
-	}
-
-	public String getActionDesc() {
-		return actionDesc;
-	}
-
-	public void setActionDesc(String actionDesc) {
-		this.actionDesc = actionDesc;
-	}
-
-	public String getActionClass() {
-		return actionClass;
-	}
-
-	public void setActionClass(String actionClass) {
-		this.actionClass = actionClass;
-	}
-
-	public Integer getIsEffect() {
-		return isEffect;
-	}
-
-	public void setIsEffect(Integer isEffect) {
-		this.isEffect = isEffect;
-	}
-
-	public Long getCreUserId() {
-		return creUserId;
-	}
-
-	public void setCreUserId(Long creUserId) {
-		this.creUserId = creUserId;
-	}
-
-	public Date getCreTime() {
-		return creTime;
-	}
-
-	public void setCreTime(Date creTime) {
-		this.creTime = creTime;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 
 //	public String getActionOutDesc() {
 //		return actionOutDesc;
@@ -196,14 +125,6 @@ public class ActionInfo extends Model<ActionInfo> {
 	@Override
 	protected Serializable pkVal() {
 		return this.actionId;
-	}
-
-	public String getActionMethod() {
-		return actionMethod;
-	}
-
-	public void setActionMethod(String actionMethod) {
-		this.actionMethod = actionMethod;
 	}
 
 	@Override

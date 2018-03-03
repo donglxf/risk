@@ -1,14 +1,14 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
 /**
  * <p>
  * 规则基础属性信息表
@@ -19,6 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel
 @TableName("rule_property_info")
+@Data
 public class PropertyInfo extends Model<PropertyInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -66,61 +67,6 @@ public class PropertyInfo extends Model<PropertyInfo> {
 	private String remark;
 
 
-	public Long getRulePropertyId() {
-		return rulePropertyId;
-	}
-
-	public void setRulePropertyId(Long rulePropertyId) {
-		this.rulePropertyId = rulePropertyId;
-	}
-
-	public String getRulePropertyIdentify() {
-		return rulePropertyIdentify;
-	}
-
-	public void setRulePropertyIdentify(String rulePropertyIdentify) {
-		this.rulePropertyIdentify = rulePropertyIdentify;
-	}
-
-	public String getRulePropertyName() {
-		return rulePropertyName;
-	}
-
-	public void setRulePropertyName(String rulePropertyName) {
-		this.rulePropertyName = rulePropertyName;
-	}
-
-	public String getRulePropertyDesc() {
-		return rulePropertyDesc;
-	}
-
-	public void setRulePropertyDesc(String rulePropertyDesc) {
-		this.rulePropertyDesc = rulePropertyDesc;
-	}
-
-	public String getDefaultValue() {
-		return defaultValue;
-	}
-
-	public void setDefaultValue(String defaultValue) {
-		this.defaultValue = defaultValue;
-	}
-
-	public Integer getIsEffect() {
-		return isEffect;
-	}
-
-	public void setIsEffect(Integer isEffect) {
-		this.isEffect = isEffect;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 
 	@Override
 	protected Serializable pkVal() {

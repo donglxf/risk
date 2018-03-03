@@ -1,20 +1,23 @@
 package com.ht.risk.rule.controller;
 
-import java.util.*;
-import java.util.concurrent.ForkJoinPool;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.ht.risk.api.comment.VerficationTypeEnum;
 import com.ht.risk.api.constant.rule.RuleConstant;
 import com.ht.risk.api.model.drools.DroolsParamter;
 import com.ht.risk.common.comenum.RuleCallTypeEnum;
 import com.ht.risk.common.controller.BaseController;
+import com.ht.risk.common.result.PageResult;
+import com.ht.risk.common.result.Result;
+import com.ht.risk.common.util.ObjectUtils;
 import com.ht.risk.rule.entity.*;
+import com.ht.risk.rule.rpc.DroolsRuleRpc;
 import com.ht.risk.rule.service.*;
-//import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
-import org.apache.commons.lang.StringUtils;
+import com.ht.risk.rule.vo.VariableBindVo;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +25,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.ht.risk.common.result.PageResult;
-import com.ht.risk.common.result.Result;
-import com.ht.risk.common.util.ObjectUtils;
-import com.ht.risk.rule.rpc.DroolsRuleRpc;
-import com.ht.risk.rule.vo.VariableBindVo;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
-import io.swagger.annotations.ApiOperation;
+//import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 
 /**
  * <p>
@@ -157,7 +152,7 @@ public class VariableBindController extends BaseController {
         // 更新版本信息表 绑定状态
         SceneVersion sc = sceneVersionService.selectById(map.get("senceVersionid")[0]);
         sc.setIsBindVar("1");
-        sc.setCreUserId(Long.parseLong(this.getUserId()));
+        sc.setCreUserId(getUserId());
         sceneVersionService.insertOrUpdate(sc);
         return Result.success(0);
     }
@@ -340,7 +335,7 @@ public class VariableBindController extends BaseController {
             maxVersion = Float.parseFloat(((String) maxVersionMap.get("maxVersion"))) + 0.1f;
         }
         scene.setOfficialVersion(String.valueOf(maxVersion));
-        scene.setCreUserId(Long.parseLong(this.getUserId()));
+        scene.setCreUserId(getUserId());
         sceneVersionService.insertOrUpdate(scene);
 
 

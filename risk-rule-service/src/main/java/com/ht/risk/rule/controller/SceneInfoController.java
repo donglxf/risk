@@ -69,7 +69,7 @@ public class SceneInfoController extends BaseController{
     public Result<Integer> edit(SceneInfo sceneInfo){
         sceneInfo.setCreTime(new Date());
         sceneInfo.setIsEffect(1);
-        sceneInfo.setCreUserId(Long.parseLong(this.getUserId()));
+        sceneInfo.setCreUserId(this.getUserId());
         sceneInfoService.insertOrUpdate(sceneInfo);
         return Result.success(0);
     }

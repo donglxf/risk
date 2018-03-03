@@ -1,15 +1,16 @@
 package com.ht.risk.rule.entity;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.enums.IdType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+
 /**
  * <p>
  * 
@@ -20,6 +21,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel
 @TableName("risk_rule_action_version")
+@Data
 public class RuleActionVersion extends Model<RuleActionVersion> {
 
     private static final long serialVersionUID = 1L;
@@ -50,37 +52,6 @@ public class RuleActionVersion extends Model<RuleActionVersion> {
 	private Long actionId;
 
 
-	public Long getRiskRuleActionVersionId() {
-		return riskRuleActionVersionId;
-	}
-
-	public void setRiskRuleActionVersionId(Long riskRuleActionVersionId) {
-		this.riskRuleActionVersionId = riskRuleActionVersionId;
-	}
-
-	public Long getVersionId() {
-		return versionId;
-	}
-
-	public void setVersionId(Long versionId) {
-		this.versionId = versionId;
-	}
-
-	public String getActionClass() {
-		return actionClass;
-	}
-
-	public void setActionClass(String actionClass) {
-		this.actionClass = actionClass;
-	}
-
-	public Long getActionId() {
-		return actionId;
-	}
-
-	public void setActionId(Long actionId) {
-		this.actionId = actionId;
-	}
 
 	@Override
 	protected Serializable pkVal() {

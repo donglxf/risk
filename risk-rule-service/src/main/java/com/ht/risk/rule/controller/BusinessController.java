@@ -82,7 +82,7 @@ public class BusinessController extends BaseController {
 
     @GetMapping("delete")
     @ApiOperation(value = "通过id删除信息")
-    @OperationDelete(tableColumn = {"rule_entity_info&business_id","rule_action_info&business_id","act_re_model&category_"},idVal = "#id")
+    @OperationDelete(tableColumn = {"rule_entity_info&business_id","rule_action_info&business_id"},idVal = "#id")
     public Result<Integer> delete( Long id){
         //判断是否有其他绑定数据
         businessService.deleteById(id);

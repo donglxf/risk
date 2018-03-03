@@ -99,7 +99,7 @@ public class ActionInfoController extends BaseController{
 	public Result<Integer> edit(ActionInfo actionInfo) {
 		actionInfo.setCreTime(new Date());
 		actionInfo.setIsEffect(1);
-		actionInfo.setCreUserId(getUserId4Long());
+		actionInfo.setCreUserId(getUserId());
 		actionInfoService.insertOrUpdate(actionInfo);
 		return Result.success(0);
 	}
