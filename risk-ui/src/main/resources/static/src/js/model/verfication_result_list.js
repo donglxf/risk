@@ -96,7 +96,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','myutil'], function () {
                 area: ['1000px', '600px'],
                 title: "模型验证结果",
                 //请求的弹出层路径
-                content: "/rule/ui/model/verfication/result/detail",
+                content: pathConfig.ruleUiPath+"model/verfication/result/detail",
                 zIndex: layer.zIndex, //重点1
                 success: function (layero, index) {
                     layer.setTop(layero); //重点2

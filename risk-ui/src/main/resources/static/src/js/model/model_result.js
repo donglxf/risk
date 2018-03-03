@@ -9,7 +9,7 @@ layui.use(['table','jquery','laydate','myutil'], function(){
     table.render({
         elem: '#model_list'
         ,height: 'auto'
-        ,url: '/rule/service/model/list' //数据接口
+        ,url: pathConfig.ruleServicePath+'model/list' //数据接口
         ,page: true //开启分页
         ,cols: [[ //表头\
              {field: 'name', title: '模型名称', width:"20%"}
@@ -159,7 +159,7 @@ layui.use(['table','jquery','laydate','myutil'], function(){
                 type: 2,
                 shade: false,
                 title:modelName,
-                content: "/rule/ui/model/valiable",
+                content: pathConfig.ruleUiPath+"model/valiable",
                 area: ['1000px', '600px'],
                 zIndex: layer.zIndex, //重点1
                 success: function(layero,index){

@@ -9,7 +9,7 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
     table.render({
         elem: '#batch_list'
         , height: 'auto'
-        , url: '/config/verficationBatchPage' //数据接口
+        , url: pathConfig.activitiConfigPath+'verficationBatchPage' //数据接口
         , page: true //开启分页
         , where: {}
         , cols: [[ //表头\
@@ -42,7 +42,7 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
             table.render({
                 elem: '#task_list'
                 , height: 'auto'
-                , url: '/config/queryProcInstId?batchId='+batchId //数据接口
+                , url: pathConfig.activitiConfigPath+'queryProcInstId?batchId='+batchId //数据接口
                 , page: true //开启分页
                 , where: {}
                 , cols: [[ //表头\
@@ -67,7 +67,7 @@ layui.use(['table', 'jquery', 'laydate', 'form'], function () {
                 area: ['1000px', '600px'],
                 title: "模型验证结果",
                 //请求的弹出层路径
-                content: "/rule/ui/model/verfication/result/detail",
+                content: pathConfig.ruleUiPath+"model/verfication/result/detail",
                 zIndex: layer.zIndex, //重点1
                 success: function (layero, index) {
                     layer.setTop(layero); //重点2

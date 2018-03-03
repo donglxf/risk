@@ -141,7 +141,7 @@ layui.use(['table', 'jquery', 'element', 'laytpl','myutil'], function () {
         $.ajax({
             cache: true,
             type: "POST",
-            url: '/config/actProcRelease/update',
+            url: pathConfig.activitiConfigPath+'actProcRelease/update',
             async: false,
             data: {
                 id:procReleaseId,
@@ -165,7 +165,7 @@ layui.use(['table', 'jquery', 'element', 'laytpl','myutil'], function () {
         $.ajax({
             cache: true,
             type: "POST",
-            url: '/config/actProcRelease/update',
+            url: pathConfig.activitiConfigPath+'actProcRelease/update',
             async: false,
             data: {
                 id:procReleaseId,

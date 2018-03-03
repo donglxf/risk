@@ -10,7 +10,7 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
     $.ajax({
         cache : true,
         type : "GET",
-        url : '/rule/service/verification/queryTaskVerficationResult',
+        url : pathConfig.ruleServicePath+'verification/queryTaskVerficationResult',
         data:{
             "taskId":taskId
         },
@@ -77,7 +77,7 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
         $.ajax({
             cache: true,
             type: "POST",
-            url: '/config/actProcRelease/update',
+            url: pathConfig.activitiConfigPath+'actProcRelease/update',
             async: false,
             data: {
                 id:procReleaseId,
@@ -101,7 +101,7 @@ layui.use(['table', 'jquery', 'element', 'laytpl'], function () {
         $.ajax({
             cache: true,
             type: "POST",
-            url: '/config/actProcRelease/update',
+            url: pathConfig.activitiConfigPath+'actProcRelease/update',
             async: false,
             data: {
                 id:procReleaseId,

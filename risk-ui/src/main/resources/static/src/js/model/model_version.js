@@ -14,7 +14,7 @@ layui.use(['table','jquery','myutil'], function(){
     table.render({
         elem: '#model_list'
         ,height: 'auto'
-        ,url: '/activiti/list' //数据接口
+        ,url: pathConfig.activitiServicePath+'list' //数据接口
         ,id: 'testReload'
         ,page: true //开启分页
         ,cols: [[ //表头\
@@ -26,7 +26,7 @@ layui.use(['table','jquery','myutil'], function(){
     table.render({
         elem: '#version_list'
         ,height: 'auto'
-        ,url: '/config/page' //数据接口
+        ,url: pathConfig.activitiConfigPath+'page' //数据接口
         ,id: "versionReload"
         ,page: true //开启分页
         ,cols: [[ //表头\
@@ -116,7 +116,7 @@ layui.use(['table','jquery','myutil'], function(){
         $.ajax({
             cache : true,
             type : "POST",
-            url : '/config/actProcRelease/status',
+            url : pathConfig.activitiConfigPath+'actProcRelease/status',
             data:{
                 id:procReleaseId,
                 isEffect:isEffect,

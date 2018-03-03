@@ -63,7 +63,7 @@ ModelVerification.prototype = {
 
         $.ajax({
             type: "get",
-            url: "/rule/service/actProcRelease/scene/variable/constant",
+            url: pathConfig.ruleServicePath+"ctProcRelease/scene/variable/constant",
             async: false,//同步请求
             data: {
                 variableCode: variableCode

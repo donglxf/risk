@@ -11,7 +11,7 @@ layui.use(['table', 'jquery','laytpl','myutil'], function () {
     table.render({
         elem: '#model_publish_list'
         , height: 'auto'
-        , url: '/rule/service/actProcRelease/list' //数据接口
+        , url:pathConfig.ruleServicePath+ 'actProcRelease/list' //数据接口
         , page: true //开启分页
         , cols: [[ //表头\
             {field: 'id', title: '序号', width: "15%", align: "center", sort: true}
@@ -75,7 +75,7 @@ layui.use(['table', 'jquery','laytpl','myutil'], function () {
             $.ajax({
                 cache: true,
                 type: "PUT",
-                url: '/rule/service/actProcRelease/status?id=' + modelId + '&flag=' + flag,
+                url: pathConfig.ruleServicePath+'actProcRelease/status?id=' + modelId + '&flag=' + flag,
                 timeout: 6000, //超时时间设置，单位毫秒
                 async: false,
                 error: function (request) {
@@ -85,7 +85,7 @@ layui.use(['table', 'jquery','laytpl','myutil'], function () {
                     if (data.code == "1") {
                         layer.msg("操作失败")
                     }
-                    window.location.href = '/rule/ui/model/publish/list';
+                    window.location.href = pathConfig.ruleUiPath+'model/publish/list';
                 }
             });
         });
@@ -98,7 +98,7 @@ layui.use(['table', 'jquery','laytpl','myutil'], function () {
         $.ajax({
             cache: true,
             type: "GET",
-            url: '/rule/service/business/getAll',
+            url: pathConfig.ruleServicePath+'business/getAll',
             timeout: 6000, //超时时间设置，单位毫秒
             async: false,
             success: function (data) {

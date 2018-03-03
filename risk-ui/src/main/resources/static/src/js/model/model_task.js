@@ -11,7 +11,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl','myutil'], function () 
         $.ajax({
             cache: true,
             type: "POST",
-            url: '/rule/service/actProcRelease/scene/variable/init',
+            url: pathConfig.ruleServicePath+'actProcRelease/scene/variable/init',
             data: data.field,// 你的formid
             async: false,
             success: function (data) {
@@ -26,7 +26,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl','myutil'], function () 
         $.ajax({
             cache: true,
             type: "POST",
-            url: '/rule/service/verification/createSingleVerficationTask',
+            url: pathConfig.ruleServicePath+'verification/createSingleVerficationTask',
             data: data.field,// 你的formid
             async: false,
             timeout: 60000,

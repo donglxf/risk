@@ -161,7 +161,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl','myutil'], function () 
         $.ajax({
             cache: true,
             type: "GET",
-            url: '/rule/service/business/getAll',
+            url: pathConfig.ruleServicePath+'business/getAll',
             timeout: 6000, //超时时间设置，单位毫秒
             async: false,
             success: function (data) {

@@ -10,7 +10,7 @@ layui.use(['table','jquery','myutil'], function(){
     table.render({
         elem: '#info_list'
         ,height: 'auto'
-        ,url: '/activiti/list' //数据接口
+        ,url: pathConfig.activitiServicePath+'list' //数据接口
         ,page: true //开启分页
         ,cols: [[ //表头\
             {field: 'name',event: 'setItem', title: '模型名称', width:"30%"},
@@ -28,7 +28,7 @@ layui.use(['table','jquery','myutil'], function(){
         if(layEvent === 'setItem'){ //行点击事件
             console.log('deployId = '+deployId);
             table.reload('deploy_list', {
-                url: '/activiti/getDeployVersionList',
+                url: pathConfig.activitiServicePath+'getDeployVersionList',
                 where: {
                    "deployId":deployId
                 } //设定异步数据接口的额外参数
@@ -40,7 +40,7 @@ layui.use(['table','jquery','myutil'], function(){
     table.render({
         elem: '#deploy_list'
         ,height: 'auto'
-        ,url: '/activiti/getDeployVersionList' //数据接口
+        ,url: pathConfig.activitiServicePath+'getDeployVersionList' //数据接口
         ,page: false //开启分页
         ,cols: [[ //表头\
             {field: 'deploymentId', title: '发布ID', width:"34%"},
