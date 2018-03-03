@@ -92,7 +92,7 @@
     </dependencies>
 
     <build>
-        <finalName>cams-account-service</finalName>
+        <finalName>risk-activiti-extend</finalName>
         <plugins>
             <!-- 此插件用来生成通用mapper的代码 -->
             <plugin>

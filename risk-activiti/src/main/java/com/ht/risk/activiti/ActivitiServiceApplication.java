@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"com.ht.ussp.client","com.ht.risk.activiti.rpc"})
 @EnableDiscoveryClient
 @SpringCloudApplication
 @EnableTransactionManagement
