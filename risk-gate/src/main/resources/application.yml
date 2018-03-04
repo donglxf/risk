@@ -22,13 +22,11 @@ zuul:
     rule-service:
       path: /rule/service/**
     risk-activiti:
-      path: /activiti/**
+      path: /activiti/service/**
     risk-drools:
       path: /drools/**
-    risk-log:
-      path: /log/**
     activiti-config:
-      path: /config/**
+      path: /activiti/extend/**
   host:
     connect-timeout-millis: 6000
 
