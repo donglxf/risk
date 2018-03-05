@@ -74,7 +74,7 @@ public class RuleSceneVersion extends Model<RuleSceneVersion> {
      */
 	@TableField("cre_user_id")
 	@ApiModelProperty(required= true,value = "创建用户")
-	private Long creUserId;
+	private String creUserId;
     /**
      * 规则html
      */
@@ -158,11 +158,11 @@ public class RuleSceneVersion extends Model<RuleSceneVersion> {
 		this.creTime = creTime;
 	}
 
-	public Long getCreUserId() {
+	public String getCreUserId() {
 		return creUserId;
 	}
 
-	public void setCreUserId(Long creUserId) {
+	public void setCreUserId(String creUserId) {
 		this.creUserId = creUserId;
 	}
 
