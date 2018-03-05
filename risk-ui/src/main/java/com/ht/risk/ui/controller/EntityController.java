@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class EntityController {
     @RequestMapping(value = "entity/edit",method = RequestMethod.GET)
     public String ruleEntityEdit(){
-        return "/rule/entity/rule_entity_edit";
+        return "rule/entity/rule_entity_edit";
     }
 
     @RequestMapping(value = "entityItem/edit",method = RequestMethod.GET)
     public String ruleEntityItemEdit(){
-        return "/rule/entity/rule_entity_item_edit";
+        return "rule/entity/rule_entity_item_edit";
     }
 
     @RequestMapping(value = "entity",method = RequestMethod.GET)
     public String ruleEntity(){
-        return "/rule/entity/rule_entity";
+        return "rule/entity/rule_entity";
     }
 
 }

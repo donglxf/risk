@@ -105,13 +105,15 @@ public class ActivitiController implements ModelDataJsonConstants {
         Result<ModelParamter> data = null;
         try {
             paramter.setCategory(paramter.getBusinessId());
-            String modelId = activitiService.addModel(paramter);
-            if("EXIST".equals(modelId)){
-                data = Result.error(1, "创建模型失败,模型编码已存在");
-            }else{
-                paramter.setModelId(modelId);
-                data = Result.success(paramter);
+            String key  = paramter.getKey();
+            List modelList = repositoryService.createModelQuery().modelKey(key).list();
+            if(modelList != null && modelList.size() > 0){
+                data = Result.error(1, "创建模型失败，模型编码已存在！");
+                return data;
             }
+            String modelId = activitiService.addModel(paramter);
+            paramter.setModelId(modelId);
+            data = Result.success(paramter);
         } catch (Exception e) {
             LOGGER.error("addModel error：", e);
             data = Result.error(1, "创建模型失败");
@@ -133,6 +135,11 @@ public class ActivitiController implements ModelDataJsonConstants {
             if (paramter == null || StringUtils.isEmpty(paramter.getModelId())) {
                 LOGGER.error("delete model error.");
                 data = Result.error(1, "参数异常.");
+                return data;
+            }
+            Model model = repositoryService.createModelQuery().modelId(paramter.getModelId()).singleResult();
+            if(model != null && StringUtils.isNotEmpty(model.getDeploymentId()) ){
+                data = Result.error(1, "模型已部署，无法删除！");
                 return data;
             }
             repositoryService.deleteModel(paramter.getModelId());

@@ -77,11 +77,6 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
 
 
     public String addModel(ModelParamter paramter) throws Exception {
-        String key  = paramter.getKey();
-        List modelList = repositoryService.createModelQuery().modelKey(key).list();
-        if(modelList != null && modelList.size() > 0){
-            return "EXIST";
-        }
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode editorNode = objectMapper.createObjectNode();
         editorNode.put("id", "canvas");
