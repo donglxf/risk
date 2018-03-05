@@ -55,6 +55,7 @@ public class HourseRuleResultImpl implements HourseRuleResult {
             name = iterator.next();
             if(name.startsWith(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR) && result.get(name) != null){
                 returnDetail = (List<RuleExcuteDetail>)result.get(name);
+                name = name.replace(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR,"");
                 resultMap.put(name,returnDetail);
                 details.addAll(returnDetail);
             }
