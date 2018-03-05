@@ -96,7 +96,7 @@ activitiModeler
             function fetchModel(modelId) {
                 var modelUrl = getModel(modelId);
                 console.log(modelUrl);
-                $http({method: 'GET', url: modelUrl}).
+                $http({method: 'GET', url: modelUrl,headers: {app: "FK"},}).
                     success(function (data, status, headers, config) {
                         $rootScope.editor = new ORYX.Editor(data);
                         $rootScope.modelData = angular.fromJson(data);
@@ -108,7 +108,7 @@ activitiModeler
             }
             
             function getModel(modelId){
-            	return "/activiti/service/editModel?modelId="+modelId;
+            	return ACTIVITI.CONFIG.contextRoot+"editModel?modelId="+modelId;
             }
             
             function initScrollHandling() {

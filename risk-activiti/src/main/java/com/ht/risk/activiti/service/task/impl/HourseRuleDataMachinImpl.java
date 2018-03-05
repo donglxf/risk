@@ -42,32 +42,88 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         LOGGER.info("HourseRuleDataMachinImpl execute method excute start...");
-        Object modelObj = execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
-        List<Map<String,Object>> droolsData = null;
-        Map map = null;
-        if(modelObj != null){
-            map = (Map)modelObj;
+        StringBuffer msg = new StringBuffer("");
+        Object dataObj = execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
+        Map dataMap = null;
+        if(dataObj == null){
+            dataMap = new HashMap();
+            msg.append("模型所需数据为空;");
         }else{
-            map = new HashMap();
+            dataMap = (Map)dataObj;
         }
-        String msg = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_MSG));
-        // 年龄和借款期限处理
+        // 数据校验
+        msg.append(dataValidate(dataMap));
+        String modelType = String.valueOf(execution.getVariable(ActivitiConstants.PROC_MODEL_EXCUTE_TYPE_KEY));
+        if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)){// 服务类型
+            // 年龄和借款期限处理
+            dataMachin(dataMap,execution);
+        }else{// 验证类型
+            verficationDataMachin(dataMap,execution);
+        }
+        execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg.toString());
+        LOGGER.error("HourseRuleDataMachinImpl execute method excute end...");
+    }
+    // 根据房产位置获取决策版本
+    private int  getRuleVersionFlag(String address){
+        if(StringUtils.isEmpty(address)){
+            return 0;
+        }
+        if(address.contains("北京市")){
+            return 1;
+        }
+        if(address.contains("上海市")){
+            return 2;
+        }
+        if(address.contains("广州市")){
+            return 3;
+        }
+        return 0;
+    }
+
+    // 数据校验
+    private StringBuffer  dataValidate(Map dataMap){
+        // 获取流程变量
+        StringBuffer msg = new StringBuffer("");
+        // 数据校验
+        String businessId = String.valueOf(dataMap.get("businessId"));
+        String businessType = String.valueOf(dataMap.get("businessId"));
+        String months = String.valueOf(dataMap.get("months"));
+        if(StringUtils.isEmpty(businessId) || StringUtils.isEmpty(businessType)  || StringUtils.isEmpty(months) ){
+            msg.append("合同单号、是否标准件、申请期限必填信息为空;");
+        }
+        Object borrowerObj = dataMap.get("borrowerInfo");
+        if(borrowerObj == null){
+            msg.append("借款人信息为空;");
+        }
+        Object houseInfoObj = dataMap.get("houseInfo");
+        if(borrowerObj == null){
+            msg.append("房产信息为空;");
+        }
+        Object guaranteeInfoObj = dataMap.get("guaranteeInfo");
+        if(borrowerObj == null){
+            msg.append("担保信息为空;");
+        }
+        return msg;
+    }
+    // 数据处理
+    private StringBuffer dataMachin(Map dataMap,DelegateExecution execution){
+        StringBuffer msg = new StringBuffer("");
+        List<Map<String,Object>> droolsData = null;
         try {
-            String businessId = String.valueOf(map.get("businessId"));
-            String businessType = String.valueOf(map.get("businessType"));
-            String months = String.valueOf(map.get("months"));
-
-            Object borrowerObj = map.get("borrowerInfo");
-            Object houseInfoObj = map.get("houseInfo");
-            Object guaranteeInfoObj = map.get("guaranteeInfo");
-
+            String businessId = String.valueOf(dataMap.get("businessId"));
+            String businessType = String.valueOf(dataMap.get("businessType"));
+            String months = String.valueOf(dataMap.get("months"));
+            // 借款人信息
+            Object borrowerObj = dataMap.get("borrowerInfo");
+            // 房产信息
+            Object houseInfoObj = dataMap.get("houseInfo");
+            // 担保人信息
+            Object guaranteeInfoObj = dataMap.get("guaranteeInfo");
             List<Map<String,Object>> houseInfos = ( List<Map<String,Object>>)houseInfoObj;
             List<Map<String,Object>> guaranteeInfos = ( List<Map<String,Object>>)guaranteeInfoObj;
             List<Map<String,Object>> borrowers = ( List<Map<String,Object>>)borrowerObj;
-
             Object ageObj = null;
             Object methodObj = null;
-
             droolsData = new ArrayList<Map<String,Object>>();
             // 借款人信息处理
             Map<String,Object> borrowerMap = null;
@@ -96,7 +152,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                 if("0".equals(oldLaiStr)){
                     guaranteeMap.put("guaranteeInfo_negative","是");
                 }else if("3".equals(oldLaiStr)){
-                    msg += "老赖接口异常;";
+                    msg.append("老赖接口异常;");
                 }
                 else{
                     guaranteeMap.put("guaranteeInfo_negative","否");
@@ -105,7 +161,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                 if("0".equals(negativeStr)){
                     guaranteeMap.put("guaranteeInfo_oldLai","有");
                 }else if("3".equals(oldLaiStr)){
-                    msg += "天行数科接口异常;";
+                    msg.append("天行数科接口异常;");
                 }
                 else{
                     guaranteeMap.put("guaranteeInfo_oldLai","无");
@@ -117,55 +173,45 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             // 房产信息处理
             droolsData = new ArrayList<Map<String,Object>>();
             Map<String,Object> houseInfoMap = null;
+            String address = null;
             for(int i= 0;i<houseInfos.size();i++){
+                houseInfoMap = houseInfos.get(i);
+                address =  String.valueOf(houseInfoMap.get("houseInfo_HouseShi"));
                 houseInfoMap =houseInfos.get(i);
                 String openTimeStr = String.valueOf(houseInfoMap.get("houseInfo_openTime"));
                 houseInfoMap.put("houseInfo_hourseAge",caculateHourseAge(openTimeStr));
                 droolsData.add(houseInfos.get(i));
             }
+            // 设置规则版本
+            execution.setVariable("flag",getRuleVersionFlag(address));
             // 房产决策变量
             execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME+"hourse_hourseInfo",droolsData);
         }catch(Exception e){
-            msg += "数据加工异常；";
-            LOGGER.error("年龄和借款期限处理异常，"+e.getMessage());
+            msg.append("数据加工异常；");
         }
+        return msg;
+    }
 
-
-
-
-        /*// 装修情况处理
-        String decoration= (String) map.get("houseInfo_decorationStatus");
-        if("已装修".equals(decoration)){
-
-        }else if("装修中".equals(decoration)){
-
-        }else if("毛坯".equals(decoration)){
-            decoration="roughcast";
+    private StringBuffer verficationDataMachin(Map dataMap,DelegateExecution execution){
+        StringBuffer msg = new StringBuffer("");
+        String address = null;
+        Map<String,Object> houseInfos = (Map<String,Object>)dataMap.get(ActivitiConstants.DROOLS_VARIABLE_NAME+"hourse_hourseInfo");
+        Map<String,Object> guaranteeInfos = ( Map<String,Object>)dataMap.get(ActivitiConstants.DROOLS_VARIABLE_NAME+"hourse_guaranteeInfo");
+        Map<String,Object> borrowers = ( Map<String,Object>)dataMap.get(ActivitiConstants.DROOLS_VARIABLE_NAME+"hourse_borrower");
+        if(houseInfos != null){
+            address =  String.valueOf(houseInfos.get("houseInfo_HouseShi"));
         }
-        map.put("houseInfo_decorationStatus",decoration);*/
-
-        /*try {
-            // 万达接口调用
-            WDEnterpriseDetailReqDto wdReq = new WDEnterpriseDetailReqDto();
-            wdReq.setRegicode((String) map.get("regicode"));
-            wdReq.setKeyType((String) map.get("keytype"));
-            Result<WDEnterpriseDetailRespDtoOut> result = eipServiceInterface.getZhengxinWanda(wdReq);
-            JSONObject str = JSONObject.parseObject(JSON.toJSONString(result));
-            if (getResultSuccess(str)) { // 执行成功
-                String entstatus = str.getJSONObject("data").getJSONObject("basic").getString("entstatus");
-                if (EntstatusEnum.closeUp.getName().equals(entstatus) || EntstatusEnum.liquidate.getName().equals(entstatus)
-                        || EntstatusEnum.outOfBusiness.getName().equals(entstatus)) {
-                    map.put("borrowerInfo_borrowerCompanyStatus", entstatus);
-                }
-            }
-
-        } catch (Exception e) {
-            LOGGER.error("年龄和借款期限处理异常，" + e.getMessage());
-            msg += "万达接口调用异常；";
-        }*/
-        execution.setVariable("flag",0);
-        execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg.toString());
-        LOGGER.error("HourseRuleDataMachinImpl execute method excute end...");
+        List<Map<String,Object>> houseInfoList = new ArrayList<Map<String,Object>>();
+        houseInfoList.add(houseInfos);
+        List<Map<String,Object>> guaranteeInfoList = new ArrayList<Map<String,Object>>();
+        guaranteeInfoList.add(guaranteeInfos);
+        List<Map<String,Object>> borrowerList = new ArrayList<Map<String,Object>>();
+        borrowerList.add(borrowers);
+        execution.setVariable("flag",getRuleVersionFlag(address));
+        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME+"hourse_hourseInfo",houseInfoList);
+        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME+"hourse_guaranteeInfo",guaranteeInfoList);
+        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME+"hourse_borrower",borrowerList);
+        return  msg;
     }
 
     public boolean getResultSuccess(JSONObject str){

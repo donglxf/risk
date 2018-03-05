@@ -42,6 +42,7 @@ public class HourseRuleResultImpl implements HourseRuleResult {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         LOGGER.info("HourseRuleResultImpl execute method excute start...");
+        String msg = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_MSG));
         ModelExcuteResult modelResult = new ModelExcuteResult();
         // 获取执行结果
         Map<String,Object> result = execution.getVariables();
@@ -71,11 +72,11 @@ public class HourseRuleResultImpl implements HourseRuleResult {
             String taskIdStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_TASK_ID_VAR_KEY));
             Long taskId =taskIdStr != null ?Long.parseLong(taskIdStr):null;
             modelResult.setTaskId(taskId);
+            modelResult.setProcMsg(msg);
             // MQ发送消息
             topicSenderService.send(JSON.toJSONString(modelResult));
             //更新任务状态
             updateTask(modelResult,taskId,execution.getProcessInstanceId());
-
         }
         LOGGER.info("HourseRuleResultImpl execute method excute end...");
     }

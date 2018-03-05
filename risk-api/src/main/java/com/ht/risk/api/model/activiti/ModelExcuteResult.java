@@ -10,6 +10,7 @@ public class ModelExcuteResult implements Serializable{
     private String msg;
     private String procInstId;
     private Long taskId;
+    private String procMsg;
     private Map<String,List<RuleExcuteDetail>> ruleResultList;
 
     public String getCode() {
@@ -50,5 +51,12 @@ public class ModelExcuteResult implements Serializable{
 
     public void setRuleResultList(Map<String, List<RuleExcuteDetail>> ruleResultList) {
         this.ruleResultList = ruleResultList;
+    }
+    public String getProcMsg() {
+        return procMsg;
+    }
+
+    public void setProcMsg(String procMsg) {
+        this.procMsg = procMsg;
     }
 }

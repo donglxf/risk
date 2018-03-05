@@ -21,5 +21,9 @@
 var ACTIVITI = ACTIVITI || {};
 
 ACTIVITI.CONFIG = {
-	'contextRoot' : '/activiti',
+	'contextRoot' : '/activiti/service/',
 };
+
+var headers  = {
+    app: "FK" /*系统编码统一通过http headers进行传输*/
+}

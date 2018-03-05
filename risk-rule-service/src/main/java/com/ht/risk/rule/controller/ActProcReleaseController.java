@@ -70,7 +70,9 @@ public class ActProcReleaseController {
         verfication.setProcReleaseId(Long.parseLong(actProcRealeseId));
         Result<RpcModelReleaseInfo> rpcModelReleaseInfoResult = activitiConfigRpc.getProcReleaseById(verfication);
         if(rpcModelReleaseInfoResult == null || rpcModelReleaseInfoResult.getCode() != 0 || rpcModelReleaseInfoResult.getData() ==null){
-            return null;
+            result = Result.success();
+            result.setMsg("模型没有关联变量！");
+            return result;
         }
         RpcModelReleaseInfo actProcRelease = rpcModelReleaseInfoResult.getData();
         ActProcReleaseVo actProcReleaseVo = new ActProcReleaseVo();

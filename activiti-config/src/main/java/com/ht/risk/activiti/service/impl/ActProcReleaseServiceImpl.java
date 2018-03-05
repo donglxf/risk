@@ -132,6 +132,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         ActExcuteTask task  = this.saveTask(release.getId(),ActivitiConstants.EXCUTE_TYPE_SERVICE,null,JSON.toJSONString(modelStartVo.getData()),userId);
         RpcStartParamter rpcStartParamter = new RpcStartParamter();
         rpcStartParamter.setProcDefId(release.getModelProcdefId());
+        rpcStartParamter.setType(ActivitiConstants.EXCUTE_TYPE_SERVICE);
         rpcStartParamter.setData(modelStartVo.getData());
         // 启动模型
         Result<String> result = this.start(rpcStartParamter,task.getId());
