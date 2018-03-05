@@ -158,6 +158,7 @@ public class ActivitiConfigController {
         if(StringUtils.isNotBlank(modId)){
             wrapper.eq("id",modId);
         }
+        wrapper.orderBy("create_time",false);
         Page<ActExcuteTask> pages = new Page<>();
         pages.setCurrent(page);
         pages.setSize(limit);
