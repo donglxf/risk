@@ -1,5 +1,6 @@
 package com.ht.risk.rule.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.rule.entity.ActionParamInfo;
 import com.ht.risk.rule.mapper.ActionParamInfoMapper;
@@ -40,6 +41,14 @@ public class ActionParamInfoServiceImpl extends BaseServiceImpl<ActionParamInfoM
             throw new NullPointerException("参数缺失");
         }
         return this.actionParamInfoMapper.findRuleActionParamByActionId(actionId);
+    }
+
+    @Override
+    public boolean checkKey(String key,String other) {
+        Integer count = this.baseMapper.selectCount(new EntityWrapper<ActionParamInfo>()
+                .eq("param_identify", key));
+        count = count == null?0:count;
+        return count > 0 ? true:false;
     }
 
 }

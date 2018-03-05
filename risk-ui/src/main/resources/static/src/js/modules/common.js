@@ -22,16 +22,17 @@ layui.define(['layer','laytpl','form','ht_ajax','ht_config'], function(exports) 
             var id = $("input[isId=true]").val();
             var flag = false;
             var msg = '';
-            if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+            var type=$(item).attr("identifyType"); // 动作类型不需要验证特殊字符
+            if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value) && type != 5){
                 return '不能有特殊字符';
             }
-            if(id == undefined || id == ''){
+            // if(id == undefined || id == ''){
                 $.ajax({
                     cache : true,
                     type : "GET",
                     url : '/rule/service/check/key',
                     data : {key:value,
-                        type:$(item).attr("identifyType"),
+                        type:type,
                         other:$(".other").val()},// 你的formid
                     async : false,
                     dataType:'json',
@@ -48,7 +49,7 @@ layui.define(['layer','laytpl','form','ht_ajax','ht_config'], function(exports) 
                 });
                 if(flag)
                     return msg;
-            }
+            // }
         },
         name: function(value, item){ //value：表单的值、item：表单的DOM对象
             if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
