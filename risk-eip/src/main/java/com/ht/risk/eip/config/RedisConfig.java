@@ -30,7 +30,7 @@ import java.util.Map;
  * @auther 张鹏
  * @create
  */
-@Configuration
+//@Configuration
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
 

@@ -248,12 +248,11 @@ layui.use(['table','form','myutil'], function(){
                 success: function (layero, index) {
                     var result = {"conId":conId,"conKey":conKey};
                     setFromValues(layero, result);
+
                 }
                 ,yes: function (index) {
-                    //layedit.sync(editIndex);
                     //触发表单的提交事件
                     $('form.layui-form').find('button[lay-filter=formDemo]').click();
-                    layer.close(index);
                 },
             });
         });
