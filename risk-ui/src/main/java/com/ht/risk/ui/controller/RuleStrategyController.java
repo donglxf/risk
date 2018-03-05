@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RuleStrategyController {
     @RequestMapping(value = "index",method = RequestMethod.GET)
     public String strategyIndex(){
-        return "/rule/strategy/strategyIndex";
+        return "rule/strategy/strategyIndex";
     }
 
     @RequestMapping(value = "manualTest",method = RequestMethod.GET)
     public String ruleEntityItemEdit(){
-        return "/rule/strategy/manualTest";
+        return "rule/strategy/manualTest";
     }
 
     @RequestMapping(value = "autoTest",method = RequestMethod.GET)
     public String ruleEntity(){
-        return "/rule/strategy/autoTest";
+        return "rule/strategy/autoTest";
     }
 
 }

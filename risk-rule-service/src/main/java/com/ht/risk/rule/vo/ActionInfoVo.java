@@ -60,7 +60,7 @@ public class ActionInfoVo {
      */
 	@TableField("cre_user_id")
 	@ApiModelProperty(required= true,value = "创建人")
-	private Long creUserId;
+	private String creUserId;
     /**
      * 创建时间
      */
@@ -121,11 +121,11 @@ public class ActionInfoVo {
 		this.isEffect = isEffect;
 	}
 
-	public Long getCreUserId() {
+	public String getCreUserId() {
 		return creUserId;
 	}
 
-	public void setCreUserId(Long creUserId) {
+	public void setCreUserId(String creUserId) {
 		this.creUserId = creUserId;
 	}
 

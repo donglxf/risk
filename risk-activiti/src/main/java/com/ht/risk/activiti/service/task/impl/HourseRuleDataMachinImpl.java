@@ -68,14 +68,35 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
         if(StringUtils.isEmpty(address)){
             return 0;
         }
-        if(address.contains("北京市")){
+        if(address.contains("北京")){
             return 1;
         }
-        if(address.contains("上海市")){
+        if(address.contains("上海")){
             return 2;
         }
-        if(address.contains("广州市")){
+        if(address.contains("广州")){
             return 3;
+        }
+        if(address.contains("成都")){
+            return 4;
+        }
+        if(address.contains("重庆")){
+            return 5;
+        }
+        if(address.contains("杭州")){
+            return 6;
+        }
+        if(address.contains("义乌")){
+            return 7;
+        }
+        if(address.contains("苏州")){
+            return 8;
+        }
+        if(address.contains("厦门")){
+            return 9;
+        }
+        if(address.contains("武汉")){
+            return 10;
         }
         return 0;
     }

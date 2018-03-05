@@ -87,8 +87,13 @@
 		<a href="javascript:void(0)" onclick="showRuleTestResult('{{d.logId}}','{{d.versionId}}')">查看详情</a>
 	</script>
 	<script>
+        layui.config({
+            base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
+        }).extend({ //设定模块别名
+            myutil:'common',
+        });
     //Demo
-    layui.use(['form','table'], function(){
+    layui.use(['form','table','myutil'], function(){
         var form = layui.form;
         var app = layui.app,
             layerTips = layui.layer,

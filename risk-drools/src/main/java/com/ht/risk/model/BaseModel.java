@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class BaseModel implements Serializable {
     //创建人
-    private Long creUserId;
+    private String creUserId;
     //创建时间
     private Date creTime;
     //是否有效
@@ -20,11 +20,11 @@ public class BaseModel implements Serializable {
     //备注
     private String remark;
 
-    public Long getCreUserId() {
+    public String getCreUserId() {
         return creUserId;
     }
 
-    public void setCreUserId(Long creUserId) {
+    public void setCreUserId(String creUserId) {
         this.creUserId = creUserId;
     }
 
