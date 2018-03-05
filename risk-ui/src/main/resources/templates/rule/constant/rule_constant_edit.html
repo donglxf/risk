@@ -62,6 +62,8 @@
                       //  var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
                       // layer.closeAll();
                        active.reload();
+
+                        layer.close(topIndex);
                     } else {
                        layer.msg(data.msg);
                     }

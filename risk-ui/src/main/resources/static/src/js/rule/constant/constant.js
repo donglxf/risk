@@ -3,7 +3,7 @@
 var preItemUrl = "/rule/service/entityItemInfo/";
 var preUrl = "/rule/service/constantInfo/";
 var layer,entityTable,itemTable,table,active,itemActive;
-var conId ,conKey,conType;
+var conId ,conKey,conType,topIndex;
 layui.config({
     base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
 }).extend({ //设定模块别名
@@ -177,7 +177,7 @@ layui.use(['table','form','myutil'], function(){
     //新增
     $("#entity_btn_add").on('click',function () {
         $.get('/rule/ui/rule/constant/edit', null, function (form) {
-            layer.open({
+            topIndex =  layer.open({
                 type :1,
                 title : '新增',
                 maxmin : true,
@@ -194,7 +194,7 @@ layui.use(['table','form','myutil'], function(){
                     //layedit.sync(editIndex);
                     //触发表单的提交事件
                     $('form.layui-form').find('button[lay-filter=formDemo]').click();
-                    layer.close(index);
+                  //  layer.close(index);
                 },
             });
         });
@@ -203,7 +203,7 @@ layui.use(['table','form','myutil'], function(){
         $.get(preUrl+"getInfoById?id="+id,function (data) {
             var result = data.data;
             $.get('/rule/ui/rule/constant/edit', null, function (form) {
-                layer.open({
+                topIndex = layer.open({
                     type :1,
                     title : '修改',
                     maxmin : true,
@@ -236,7 +236,7 @@ layui.use(['table','form','myutil'], function(){
         }
 
         $.get('/rule/ui/rule/constant/itemEdit', null, function (form) {
-            layer.open({
+            topIndex =   layer.open({
                 type :1,
                 title : '新增',
                 maxmin : true,
@@ -248,11 +248,12 @@ layui.use(['table','form','myutil'], function(){
                 success: function (layero, index) {
                     var result = {"conId":conId,"conKey":conKey};
                     setFromValues(layero, result);
-
                 }
                 ,yes: function (index) {
+                    //layedit.sync(editIndex);
                     //触发表单的提交事件
                     $('form.layui-form').find('button[lay-filter=formDemo]').click();
+                   // layer.close(index);
                 },
             });
         });
@@ -261,7 +262,7 @@ layui.use(['table','form','myutil'], function(){
         $.get(preUrl+"getInfoById/"+id,function (data) {
             var result = data.data;
             $.get('/rule/ui/rule/constant/itemEdit', null, function (form) {
-                layer.open({
+                topIndex =  layer.open({
                     type :1,
                     title : '修改',
                     maxmin : true,
@@ -283,7 +284,7 @@ layui.use(['table','form','myutil'], function(){
                         //layedit.sync(editIndex);
                         //触发表单的提交事件
                         $('form.layui-form').find('button[lay-filter=formDemo]').click();
-                        layer.close(index);
+                       // layer.close(index);
                     },
                 });
             });

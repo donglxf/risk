@@ -18,7 +18,8 @@ spring:
   profiles: local
   cloud:
     config:
-      enabled: false
+     # discovery:
+        enabled: false
     bus:
       enabled: false
 

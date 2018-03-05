@@ -22,7 +22,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">数据类型</label>
             <div class="layui-input-inline">
-                <select name="dataType" id="dataId"lay-filter="type" >
+                <select name="dataType" lay-verify="required" id="dataId" lay-filter="type" >
                     <option value="">请选择</option>
                     <option value="STRING">字符串</option>
                     <option value="INTEGER"  >整形</option>
@@ -36,7 +36,7 @@
     <div class="layui-form-item" id="constantDiv" style="display: none">
         <label class="layui-form-label">常量选择</label>
         <div class="layui-input-inline">
-            <select name="constantId" id="constantId"  lay-filter="constant">
+            <select name="constantId" id="constantId" lay-verify="constant" lay-filter="constant">
                 <option value="">请选择</option>
             </select>
         </div>
@@ -68,13 +68,26 @@
 
 </script>
 <script>
+
     //Demo
     layui.use('form', function(){
         var form = layui.form;
         var app = layui.app,
             layerTips = layui.layer,
             $ = layui.jquery;
-
+        form.verify({
+            /**
+             * 常量是否选择
+             */
+            constant: function(value, item){ //value：表单的值、item：表单的DOM对象
+                var dataId = $("#dataId").val();
+                if(dataId == 'CONSTANT'){
+                    if($("#constantId").val() == '' || $("#constantId").val() == undefined ){
+                        return "常量选择不能为空";
+                    }
+                }
+            }
+        });
         //监听提交
         form.on('submit(formDemo)', function(data){
            $.ajax({

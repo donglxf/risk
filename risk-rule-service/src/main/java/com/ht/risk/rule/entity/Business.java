@@ -60,7 +60,7 @@ public class Business extends Model<Business> {
      */
 	@TableField("cre_time")
 	@ApiModelProperty(required= true,value = "创建时间")
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
 	private Date creTime;
 
 
