@@ -60,7 +60,7 @@
     function graphTime(da){
         console.log("模型平均响应时间"+da);
         var xAxisArr=new Array(da.ruleMap.length);
-        var seriesArr=new Array(da.listMap.length);
+        var seriesArr=new Array(da.listMap.length); // 响应时间
         for(var i=0;i<da.ruleMap.length ;i++){
             xAxisArr[i]=da.ruleMap[i].modelName;
         }
@@ -83,7 +83,6 @@
             animation:true,// 是否开启动画
             tooltip: {
                 formatter: function (params) {
-                    console.log(params.dataIndex);
                     var html="<label>调用次数："+da.listMap[params.dataIndex].excuteTotal+"</label><br/>"
 					+"<label>响应时间:"+params.data+"</label>";
                     return html;
@@ -92,7 +91,7 @@
             series: [{
                 data: seriesArr,
                 type: 'bar',
-                barWidth:6
+                barWidth:5
             }],
             animationEasing: 'elasticOut',
             animationDelayUpdate: function (idx) {
@@ -152,7 +151,7 @@
             $.ajax({
                 cache: true,
                 type: "POST",
-                url: '/config/modelStatistic/', // 数据接口
+                url: '/activiti/extend/modelStatistic/', // 数据接口
                 data: data.field,// 你的formid
                 async: false,
                 error: function (request) {
