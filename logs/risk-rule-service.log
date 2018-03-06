@@ -1,0 +1,1008 @@
+2018-03-05 00:01:41,518  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 00:06:41,541  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 00:11:41,565  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 00:16:41,589  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 00:21:41,612  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 00:26:41,635  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 00:31:41,659  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 00:36:41,682  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 00:41:41,706  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 00:46:41,729  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 00:51:41,753  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 00:56:41,785  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 01:01:41,807  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 01:06:41,831  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 01:11:41,854  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 01:16:41,877  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 01:21:41,901  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 01:26:41,924  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 01:31:41,947  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 01:36:41,970  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 01:41:41,994  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 01:46:42,018  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 01:51:42,041  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 01:56:42,064  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 02:01:42,088  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 02:06:42,112  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 02:11:42,134  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 02:16:42,158  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 02:21:42,181  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 02:26:42,204  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 02:31:42,227  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 02:36:42,251  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 02:41:42,274  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 02:46:42,298  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 02:51:42,321  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 02:56:42,352  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 03:01:42,374  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 03:06:42,398  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 03:11:42,422  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 03:16:42,445  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 03:21:42,472  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 03:26:42,498  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 03:31:42,522  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 03:36:42,545  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 03:41:42,569  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 03:46:42,592  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 03:51:42,628  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 03:56:42,651  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 04:01:42,674  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 04:06:42,697  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 04:11:42,721  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 04:16:42,744  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 04:21:42,768  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 04:26:42,790  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 04:31:42,823  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 04:36:42,847  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 04:41:42,870  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 04:46:42,894  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 04:51:42,917  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 04:56:42,941  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 05:01:42,964  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 05:06:42,987  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 05:11:43,010  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 05:16:43,033  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 05:21:43,057  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 05:26:43,080  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 05:31:43,103  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 05:36:43,127  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 05:41:43,150  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 05:46:43,174  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 05:51:43,197  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 05:56:43,220  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 06:01:43,243  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 06:06:43,266  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 06:11:43,289  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 06:16:43,312  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 06:21:43,335  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 06:26:43,358  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 06:31:43,382  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 06:36:43,405  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 06:41:43,428  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 06:46:43,452  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 06:51:43,475  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 06:56:43,499  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 07:01:43,522  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 07:06:43,545  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 07:11:43,568  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 07:16:43,592  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 07:21:43,615  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 07:26:43,638  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 07:31:43,662  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 07:36:43,685  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 07:41:43,708  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 07:46:43,740  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 07:51:43,764  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 07:56:43,787  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 08:01:43,810  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 08:06:43,834  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 08:11:43,858  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 08:16:43,883  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 08:21:43,907  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 08:26:43,931  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 08:31:43,954  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 08:36:43,978  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 08:41:44,002  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 08:46:44,025  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 08:51:44,049  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 08:56:44,072  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 09:01:44,107  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 09:06:44,131  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 09:11:44,154  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 09:16:44,178  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 09:21:44,201  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 09:26:44,233  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 09:31:44,257  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 14:00:54,527  INFO [background-preinit][Version:] - HV000001: Hibernate Validator 6.0.7.Final
+2018-03-05 14:00:54,948  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@5eae2feb: startup date [Mon Mar 05 14:00:54 CST 2018]; root of context hierarchy
+2018-03-05 14:00:55,092  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 14:00:55,132  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'configurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$59b312e4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 14:00:55,651  INFO [restartedMain][ActivitiServiceApplication:] - The following profiles are active: local
+2018-03-05 14:00:55,666  INFO [restartedMain][AnnotationConfigEmbeddedWebApplicationContext:] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7028d91: startup date [Mon Mar 05 14:00:55 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@5eae2feb
+2018-03-05 14:00:57,376  WARN [restartedMain][ClassPathMapperScanner:] - No MyBatis mapper was found in '[com.ht.risk.activiti]' package. Please check your configuration.
+2018-03-05 14:00:57,429  WARN [restartedMain][ClassPathMapperScanner:] - No MyBatis mapper was found in '[com.ht.risk.activiti]' package. Please check your configuration.
+2018-03-05 14:00:57,474  INFO [restartedMain][RepositoryConfigurationDelegate:] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-03-05 14:00:57,745  INFO [restartedMain][GenericScope:] - BeanFactory id=2899f388-ec9a-3e15-894f-a710c79e3abd
+2018-03-05 14:00:57,760  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 14:00:57,808  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration' of type [org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration$$EnhancerBySpringCGLIB$$404ce15] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 14:00:57,878  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$3d990fe7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 14:00:58,135  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$59b312e4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 14:00:58,799  INFO [restartedMain][TomcatEmbeddedServletContainer:] - Tomcat initialized with port(s): 30504 (http)
+2018-03-05 14:00:58,808  INFO [restartedMain][StandardService:] - Starting service [Tomcat]
+2018-03-05 14:00:58,809  INFO [restartedMain][StandardEngine:] - Starting Servlet Engine: Apache Tomcat/8.5.23
+2018-03-05 14:00:58,944  INFO [localhost-startStop-1][[/]:] - Initializing Spring embedded WebApplicationContext
+2018-03-05 14:00:58,944  INFO [localhost-startStop-1][ContextLoader:] - Root WebApplicationContext: initialization completed in 3278 ms
+2018-03-05 14:00:59,218  INFO [localhost-startStop-1][ServletRegistrationBean:] - Mapping servlet: 'dispatcherServlet' to [/]
+2018-03-05 14:00:59,219  INFO [localhost-startStop-1][ServletRegistrationBean:] - Mapping servlet: 'webServlet' to [/h2-console/*]
+2018-03-05 14:00:59,222  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-03-05 14:00:59,222  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-03-05 14:00:59,222  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-03-05 14:00:59,222  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'requestContextFilter' to: [/*]
+2018-03-05 14:01:01,730  INFO [restartedMain][ProcessEngineImpl:] - ProcessEngine default created
+2018-03-05 14:01:01,731  INFO [restartedMain][AbstractAsyncJobExecutor:] - Starting up the default async job executor [org.activiti.spring.SpringAsyncExecutor].
+2018-03-05 14:01:01,733  INFO [Thread-25][AcquireTimerJobsRunnable:] - starting to acquire async jobs due
+2018-03-05 14:01:01,733  INFO [Thread-26][AcquireAsyncJobsDueRunnable:] - starting to acquire async jobs due
+2018-03-05 14:01:02,589  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@53d6847: startup date [Mon Mar 05 14:01:02 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7028d91
+2018-03-05 14:01:02,604  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 14:01:03,045  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@4ceaed2a: startup date [Mon Mar 05 14:01:03 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7028d91
+2018-03-05 14:01:03,065  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 14:01:03,095  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@36b3f9b6: startup date [Mon Mar 05 14:01:03 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7028d91
+2018-03-05 14:01:03,104  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 14:01:03,173  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@36cb17f0: startup date [Mon Mar 05 14:01:03 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7028d91
+2018-03-05 14:01:03,181  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 14:01:03,213  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@54352a0: startup date [Mon Mar 05 14:01:03 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7028d91
+2018-03-05 14:01:03,220  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 14:01:03,697  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/list]}" onto public com.ht.risk.common.result.PageResult<java.util.List<com.ht.risk.activiti.vo.ModelVo>> com.ht.risk.activiti.controller.ActivitiController.list(com.ht.risk.activiti.vo.ModelPage)
+2018-03-05 14:01:03,698  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/getModelInfo]}" onto public com.ht.risk.common.result.Result<com.ht.risk.api.model.activiti.ModelParamter> com.ht.risk.activiti.controller.ActivitiController.getModelInfo(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 14:01:03,698  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/addModeler],methods=[GET]}" onto public com.ht.risk.common.result.Result<com.ht.risk.api.model.activiti.ModelParamter> com.ht.risk.activiti.controller.ActivitiController.addModel(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 14:01:03,698  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/deleteModel]}" onto public com.ht.risk.common.result.Result<com.ht.risk.api.model.activiti.ModelParamter> com.ht.risk.activiti.controller.ActivitiController.deleteModel(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 14:01:03,698  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/deploy]}" onto public com.ht.risk.common.result.Result<com.ht.risk.api.model.activiti.RpcDeployResult> com.ht.risk.activiti.controller.ActivitiController.deploy(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 14:01:03,699  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/start]}" onto public com.ht.risk.common.result.Result<java.lang.String> com.ht.risk.activiti.controller.ActivitiController.startProcess(com.ht.risk.api.model.activiti.RpcStartParamter)
+2018-03-05 14:01:03,699  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/editModel]}" onto public com.fasterxml.jackson.databind.node.ObjectNode com.ht.risk.activiti.controller.ActivitiController.getEditorJson(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 14:01:03,700  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/model/save],methods=[POST]}" onto public void com.ht.risk.activiti.controller.ActivitiController.saveModel(java.lang.String,org.springframework.util.MultiValueMap<java.lang.String, java.lang.String>)
+2018-03-05 14:01:03,700  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/editor/stencilset]}" onto public java.lang.String com.ht.risk.activiti.controller.ActivitiController.getStencilset()
+2018-03-05 14:01:03,700  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/getProcInstVarObj]}" onto public java.lang.Object com.ht.risk.activiti.controller.ActivitiController.getProcInstVarObj(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 14:01:03,701  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/task/completeTask]}" onto public com.ht.risk.common.result.Result com.ht.risk.activiti.controller.TaskController.completeTask(com.ht.risk.activiti.vo.TaskVo)
+2018-03-05 14:01:03,701  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/task/queryUserTaskList]}" onto public com.ht.risk.common.result.Result<java.util.List<com.ht.risk.activiti.vo.TaskVo>> com.ht.risk.activiti.controller.TaskController.queryUserTaskList(com.ht.risk.activiti.vo.TaskVo)
+2018-03-05 14:01:03,702  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/common/config.js],methods=[GET],produces=[application/javascript]}" onto public java.lang.String com.ht.ussp.bean.GatewayURLHelper.config()
+2018-03-05 14:01:03,704  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/swagger-resources/configuration/security]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-03-05 14:01:03,704  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/swagger-resources/configuration/ui]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-03-05 14:01:03,704  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/swagger-resources]}" onto public org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-03-05 14:01:03,706  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-03-05 14:01:03,707  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-03-05 14:01:03,975  INFO [restartedMain][PropertySourcedRequestMappingHandlerMapping:] - Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2018-03-05 14:01:04,086  INFO [restartedMain][URLConfigurationSource:] - URLs to be used as dynamic configuration source: [file:/D:/%e9%a3%8e%e6%8e%a7/workspaces/risk/risk-api/target/classes/config.properties]
+2018-03-05 14:01:04,095  INFO [restartedMain][URLConfigurationSource:] - URLs to be used as dynamic configuration source: [file:/D:/%e9%a3%8e%e6%8e%a7/workspaces/risk/risk-api/target/classes/config.properties]
+2018-03-05 14:01:04,375  INFO [restartedMain][RequestMappingHandlerAdapter:] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7028d91: startup date [Mon Mar 05 14:00:55 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@5eae2feb
+2018-03-05 14:01:04,383  INFO [restartedMain][RequestMappingHandlerAdapter:] - Detected @ModelAttribute methods in loginUserInfoHelper
+2018-03-05 14:01:04,383  INFO [restartedMain][RequestMappingHandlerAdapter:] - Detected @ModelAttribute methods in orgInfoHelper
+2018-03-05 14:01:04,495  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/swagger-ui.html] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 14:01:04,495  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/webjars*] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 14:01:04,495  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 14:01:04,495  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 14:01:04,519  INFO [restartedMain][ExceptionHandlerExceptionResolver:] - Detected @ExceptionHandler methods in exceptionControllerAdvice
+2018-03-05 14:01:04,565  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 14:01:08,322  INFO [restartedMain][OptionalLiveReloadServer:] - LiveReload server is running on port 35729
+2018-03-05 14:01:08,609  WARN [restartedMain][EurekaStarterDeprecationWarningAutoConfiguration:] - spring-cloud-starter-eureka is deprecated as of Spring Cloud Netflix 1.4.0, please migrate to spring-cloud-starter-netflix-eureka
+2018-03-05 14:01:08,659  INFO [Thread-30][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@60481792: startup date [Mon Mar 05 14:01:08 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7028d91
+2018-03-05 14:01:08,677  INFO [restartedMain][AnnotationMBeanExporter:] - Registering beans for JMX exposure on startup
+2018-03-05 14:01:08,677  WARN [Thread-30][ResourceApiSynchHelper:] - 同步API资源发生异常，请尝试重启服务。异常：Error processing condition on org.springframework.cloud.netflix.ribbon.eureka.EurekaRibbonClientConfiguration.ribbonPing
+2018-03-05 14:01:08,679  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-03-05 14:01:08,686  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'environmentManager' has been autodetected for JMX exposure
+2018-03-05 14:01:08,687  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'rabbitConnectionFactory' has been autodetected for JMX exposure
+2018-03-05 14:01:08,688  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'configurationPropertiesRebinder' has been autodetected for JMX exposure
+2018-03-05 14:01:08,689  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'refreshScope' has been autodetected for JMX exposure
+2018-03-05 14:01:08,691  INFO [restartedMain][AnnotationMBeanExporter:] - Located managed bean 'environmentManager': registering with JMX server as MBean [org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager]
+2018-03-05 14:01:08,917  INFO [restartedMain][AnnotationMBeanExporter:] - Located managed bean 'refreshScope': registering with JMX server as MBean [org.springframework.cloud.context.scope.refresh:name=refreshScope,type=RefreshScope]
+2018-03-05 14:01:08,930  INFO [restartedMain][AnnotationMBeanExporter:] - Located managed bean 'configurationPropertiesRebinder': registering with JMX server as MBean [org.springframework.cloud.context.properties:name=configurationPropertiesRebinder,context=7028d91,type=ConfigurationPropertiesRebinder]
+2018-03-05 14:01:08,935  INFO [restartedMain][AnnotationMBeanExporter:] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2018-03-05 14:01:08,936  INFO [restartedMain][AnnotationMBeanExporter:] - Located managed bean 'rabbitConnectionFactory': registering with JMX server as MBean [org.springframework.amqp.rabbit.connection:name=rabbitConnectionFactory,type=CachingConnectionFactory]
+2018-03-05 14:01:09,250  INFO [restartedMain][DefaultLifecycleProcessor:] - Starting beans in phase 0
+2018-03-05 14:01:09,258  INFO [restartedMain][InstanceInfoFactory:] - Setting initial instance status as: STARTING
+2018-03-05 14:01:09,292  INFO [restartedMain][DiscoveryClient:] - Initializing Eureka in region us-east-1
+2018-03-05 14:01:09,410  INFO [restartedMain][DiscoveryJerseyProvider:] - Using JSON encoding codec LegacyJacksonJson
+2018-03-05 14:01:09,410  INFO [restartedMain][DiscoveryJerseyProvider:] - Using JSON decoding codec LegacyJacksonJson
+2018-03-05 14:01:09,484  INFO [restartedMain][DiscoveryJerseyProvider:] - Using XML encoding codec XStreamXml
+2018-03-05 14:01:09,484  INFO [restartedMain][DiscoveryJerseyProvider:] - Using XML decoding codec XStreamXml
+2018-03-05 14:01:09,695  INFO [restartedMain][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 14:01:09,747  INFO [restartedMain][DiscoveryClient:] - Disable delta property : false
+2018-03-05 14:01:09,747  INFO [restartedMain][DiscoveryClient:] - Single vip registry refresh property : null
+2018-03-05 14:01:09,747  INFO [restartedMain][DiscoveryClient:] - Force full registry fetch : false
+2018-03-05 14:01:09,747  INFO [restartedMain][DiscoveryClient:] - Application is null : false
+2018-03-05 14:01:09,747  INFO [restartedMain][DiscoveryClient:] - Registered Applications size is zero : true
+2018-03-05 14:01:09,747  INFO [restartedMain][DiscoveryClient:] - Application version is -1: true
+2018-03-05 14:01:09,747  INFO [restartedMain][DiscoveryClient:] - Getting all instance registry info from the eureka server
+2018-03-05 14:01:09,853  INFO [restartedMain][DiscoveryClient:] - The response status is 200
+2018-03-05 14:01:09,854  INFO [restartedMain][DiscoveryClient:] - Starting heartbeat executor: renew interval is: 30
+2018-03-05 14:01:09,857  INFO [restartedMain][InstanceInfoReplicator:] - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2018-03-05 14:01:09,859  INFO [restartedMain][DiscoveryClient:] - Discovery Client initialized at timestamp 1520229669859 with initial instances count: 5
+2018-03-05 14:01:09,905  INFO [restartedMain][EurekaServiceRegistry:] - Registering application risk-activiti-service with eureka with status UP
+2018-03-05 14:01:09,905  INFO [restartedMain][DiscoveryClient:] - Saw local status change event StatusChangeEvent [timestamp=1520229669905, current=UP, previous=STARTING]
+2018-03-05 14:01:09,907  INFO [DiscoveryClient-InstanceInfoReplicator-0][DiscoveryClient:] - DiscoveryClient_RISK-ACTIVITI-SERVICE/zhangz-PC:risk-activiti-service:30504: registering service...
+2018-03-05 14:01:09,907  INFO [restartedMain][DefaultLifecycleProcessor:] - Starting beans in phase 2147483647
+2018-03-05 14:01:09,908  INFO [restartedMain][DocumentationPluginsBootstrapper:] - Context refreshed
+2018-03-05 14:01:09,982  INFO [DiscoveryClient-InstanceInfoReplicator-0][DiscoveryClient:] - DiscoveryClient_RISK-ACTIVITI-SERVICE/zhangz-PC:risk-activiti-service:30504 - registration status: 204
+2018-03-05 14:01:09,982  INFO [restartedMain][DocumentationPluginsBootstrapper:] - Found 1 custom documentation plugin(s)
+2018-03-05 14:01:10,018  INFO [restartedMain][ApiListingReferenceScanner:] - Scanning for api listing references
+2018-03-05 14:01:10,413  INFO [restartedMain][Http11NioProtocol:] - Initializing ProtocolHandler ["http-nio-30504"]
+2018-03-05 14:01:10,424  INFO [restartedMain][Http11NioProtocol:] - Starting ProtocolHandler ["http-nio-30504"]
+2018-03-05 14:01:10,433  INFO [restartedMain][NioSelectorPool:] - Using a shared selector for servlet write/read
+2018-03-05 14:01:10,513  INFO [restartedMain][TomcatEmbeddedServletContainer:] - Tomcat started on port(s): 30504 (http)
+2018-03-05 14:01:10,515  INFO [restartedMain][EurekaAutoServiceRegistration:] - Updating port to 30504
+2018-03-05 14:01:10,523  INFO [restartedMain][ActivitiInitRunner:] - ActivitiInitRunner runing ...
+2018-03-05 14:01:10,542  INFO [restartedMain][ActivitiInitRunner:] - ActivitiInitRunner complete ...
+2018-03-05 14:01:10,544  INFO [restartedMain][ActivitiServiceApplication:] - Started ActivitiServiceApplication in 16.838 seconds (JVM running for 21.027)
+2018-03-05 14:06:09,772  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 14:11:09,796  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 14:16:09,819  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 14:21:09,842  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 14:26:09,866  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 14:31:09,890  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 14:36:09,918  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 14:41:09,942  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 14:46:09,966  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 14:51:09,989  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 16:34:13,924  INFO [background-preinit][Version:] - HV000001: Hibernate Validator 6.0.7.Final
+2018-03-05 16:34:15,609  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@6568bf6a: startup date [Mon Mar 05 16:34:15 CST 2018]; root of context hierarchy
+2018-03-05 16:34:15,811  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:34:15,872  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'configurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$4ae681b7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 16:34:16,446  INFO [restartedMain][ActivitiServiceApplication:] - The following profiles are active: local
+2018-03-05 16:34:16,468  INFO [restartedMain][AnnotationConfigEmbeddedWebApplicationContext:] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6be7775e: startup date [Mon Mar 05 16:34:16 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@6568bf6a
+2018-03-05 16:34:18,702  WARN [restartedMain][ClassPathMapperScanner:] - No MyBatis mapper was found in '[com.ht.risk.activiti]' package. Please check your configuration.
+2018-03-05 16:34:19,603  WARN [restartedMain][ClassPathMapperScanner:] - No MyBatis mapper was found in '[com.ht.risk.activiti]' package. Please check your configuration.
+2018-03-05 16:34:19,698  INFO [restartedMain][RepositoryConfigurationDelegate:] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-03-05 16:34:20,498  INFO [restartedMain][GenericScope:] - BeanFactory id=2899f388-ec9a-3e15-894f-a710c79e3abd
+2018-03-05 16:34:20,514  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:34:20,569  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration' of type [org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration$$EnhancerBySpringCGLIB$$f5383ce8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 16:34:20,642  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$2ecc7eba] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 16:34:20,908  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$4ae681b7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 16:34:21,921  INFO [restartedMain][TomcatEmbeddedServletContainer:] - Tomcat initialized with port(s): 30504 (http)
+2018-03-05 16:34:21,932  INFO [restartedMain][StandardService:] - Starting service [Tomcat]
+2018-03-05 16:34:21,933  INFO [restartedMain][StandardEngine:] - Starting Servlet Engine: Apache Tomcat/8.5.23
+2018-03-05 16:34:22,359  INFO [localhost-startStop-1][[/]:] - Initializing Spring embedded WebApplicationContext
+2018-03-05 16:34:22,359  INFO [localhost-startStop-1][ContextLoader:] - Root WebApplicationContext: initialization completed in 5891 ms
+2018-03-05 16:34:22,649  INFO [localhost-startStop-1][ServletRegistrationBean:] - Mapping servlet: 'dispatcherServlet' to [/]
+2018-03-05 16:34:22,650  INFO [localhost-startStop-1][ServletRegistrationBean:] - Mapping servlet: 'webServlet' to [/h2-console/*]
+2018-03-05 16:34:22,654  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-03-05 16:34:22,654  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-03-05 16:34:22,654  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-03-05 16:34:22,654  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'requestContextFilter' to: [/*]
+2018-03-05 16:34:33,017  INFO [restartedMain][ProcessEngineImpl:] - ProcessEngine default created
+2018-03-05 16:34:33,018  INFO [restartedMain][AbstractAsyncJobExecutor:] - Starting up the default async job executor [org.activiti.spring.SpringAsyncExecutor].
+2018-03-05 16:34:33,020  INFO [Thread-47][AcquireTimerJobsRunnable:] - starting to acquire async jobs due
+2018-03-05 16:34:33,020  INFO [Thread-48][AcquireAsyncJobsDueRunnable:] - starting to acquire async jobs due
+2018-03-05 16:34:34,075  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@202b601a: startup date [Mon Mar 05 16:34:34 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6be7775e
+2018-03-05 16:34:34,090  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:34:34,474  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@42e4980a: startup date [Mon Mar 05 16:34:34 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6be7775e
+2018-03-05 16:34:34,484  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:34:34,540  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@6e168532: startup date [Mon Mar 05 16:34:34 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6be7775e
+2018-03-05 16:34:34,550  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:34:34,583  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@2919a92c: startup date [Mon Mar 05 16:34:34 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6be7775e
+2018-03-05 16:34:34,592  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:34:34,647  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@46a43008: startup date [Mon Mar 05 16:34:34 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6be7775e
+2018-03-05 16:34:34,656  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:34:35,188  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/list]}" onto public com.ht.risk.common.result.PageResult<java.util.List<com.ht.risk.activiti.vo.ModelVo>> com.ht.risk.activiti.controller.ActivitiController.list(com.ht.risk.activiti.vo.ModelPage)
+2018-03-05 16:34:35,189  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/getProcInstVarObj]}" onto public java.lang.Object com.ht.risk.activiti.controller.ActivitiController.getProcInstVarObj(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 16:34:35,189  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/getModelInfo]}" onto public com.ht.risk.common.result.Result<com.ht.risk.api.model.activiti.ModelParamter> com.ht.risk.activiti.controller.ActivitiController.getModelInfo(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 16:34:35,189  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/addModeler],methods=[GET]}" onto public com.ht.risk.common.result.Result<com.ht.risk.api.model.activiti.ModelParamter> com.ht.risk.activiti.controller.ActivitiController.addModel(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 16:34:35,189  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/deleteModel]}" onto public com.ht.risk.common.result.Result<com.ht.risk.api.model.activiti.ModelParamter> com.ht.risk.activiti.controller.ActivitiController.deleteModel(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 16:34:35,190  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/deploy]}" onto public com.ht.risk.common.result.Result<com.ht.risk.api.model.activiti.RpcDeployResult> com.ht.risk.activiti.controller.ActivitiController.deploy(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 16:34:35,190  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/start]}" onto public com.ht.risk.common.result.Result<java.lang.String> com.ht.risk.activiti.controller.ActivitiController.startProcess(com.ht.risk.api.model.activiti.RpcStartParamter)
+2018-03-05 16:34:35,190  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/editModel]}" onto public com.fasterxml.jackson.databind.node.ObjectNode com.ht.risk.activiti.controller.ActivitiController.getEditorJson(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 16:34:35,191  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/model/save],methods=[POST]}" onto public void com.ht.risk.activiti.controller.ActivitiController.saveModel(java.lang.String,org.springframework.util.MultiValueMap<java.lang.String, java.lang.String>)
+2018-03-05 16:34:35,191  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/editor/stencilset]}" onto public java.lang.String com.ht.risk.activiti.controller.ActivitiController.getStencilset()
+2018-03-05 16:34:35,192  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/task/queryUserTaskList]}" onto public com.ht.risk.common.result.Result<java.util.List<com.ht.risk.activiti.vo.TaskVo>> com.ht.risk.activiti.controller.TaskController.queryUserTaskList(com.ht.risk.activiti.vo.TaskVo)
+2018-03-05 16:34:35,192  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/task/completeTask]}" onto public com.ht.risk.common.result.Result com.ht.risk.activiti.controller.TaskController.completeTask(com.ht.risk.activiti.vo.TaskVo)
+2018-03-05 16:34:35,192  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/common/config.js],methods=[GET],produces=[application/javascript]}" onto public java.lang.String com.ht.ussp.bean.GatewayURLHelper.config()
+2018-03-05 16:34:35,195  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/swagger-resources/configuration/ui]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-03-05 16:34:35,195  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/swagger-resources]}" onto public org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-03-05 16:34:35,196  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/swagger-resources/configuration/security]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-03-05 16:34:35,198  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-03-05 16:34:35,198  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-03-05 16:34:35,508  INFO [restartedMain][PropertySourcedRequestMappingHandlerMapping:] - Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2018-03-05 16:34:35,628  INFO [restartedMain][URLConfigurationSource:] - URLs to be used as dynamic configuration source: [file:/D:/%e9%a3%8e%e6%8e%a7/workspaces/risk/risk-api/target/classes/config.properties]
+2018-03-05 16:34:35,648  INFO [restartedMain][URLConfigurationSource:] - URLs to be used as dynamic configuration source: [file:/D:/%e9%a3%8e%e6%8e%a7/workspaces/risk/risk-api/target/classes/config.properties]
+2018-03-05 16:34:35,907  INFO [restartedMain][RequestMappingHandlerAdapter:] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6be7775e: startup date [Mon Mar 05 16:34:16 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@6568bf6a
+2018-03-05 16:34:35,916  INFO [restartedMain][RequestMappingHandlerAdapter:] - Detected @ModelAttribute methods in loginUserInfoHelper
+2018-03-05 16:34:35,916  INFO [restartedMain][RequestMappingHandlerAdapter:] - Detected @ModelAttribute methods in orgInfoHelper
+2018-03-05 16:34:36,031  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/swagger-ui.html] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 16:34:36,031  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/webjars*] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 16:34:36,031  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 16:34:36,031  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 16:34:36,056  INFO [restartedMain][ExceptionHandlerExceptionResolver:] - Detected @ExceptionHandler methods in exceptionControllerAdvice
+2018-03-05 16:34:36,101  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 16:34:39,836  INFO [Thread-52][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@72b8c591: startup date [Mon Mar 05 16:34:39 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6be7775e
+2018-03-05 16:34:39,900  INFO [Thread-52][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:34:40,013  INFO [restartedMain][OptionalLiveReloadServer:] - LiveReload server is running on port 35729
+2018-03-05 16:34:40,336  WARN [restartedMain][EurekaStarterDeprecationWarningAutoConfiguration:] - spring-cloud-starter-eureka is deprecated as of Spring Cloud Netflix 1.4.0, please migrate to spring-cloud-starter-netflix-eureka
+2018-03-05 16:34:40,646  INFO [restartedMain][AnnotationMBeanExporter:] - Registering beans for JMX exposure on startup
+2018-03-05 16:34:40,647  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-03-05 16:34:40,654  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'environmentManager' has been autodetected for JMX exposure
+2018-03-05 16:34:40,656  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'rabbitConnectionFactory' has been autodetected for JMX exposure
+2018-03-05 16:34:40,657  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'configurationPropertiesRebinder' has been autodetected for JMX exposure
+2018-03-05 16:34:40,657  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'refreshScope' has been autodetected for JMX exposure
+2018-03-05 16:34:40,659  INFO [restartedMain][AnnotationMBeanExporter:] - Located managed bean 'environmentManager': registering with JMX server as MBean [org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager]
+2018-03-05 16:34:40,692  INFO [restartedMain][AnnotationMBeanExporter:] - Located managed bean 'refreshScope': registering with JMX server as MBean [org.springframework.cloud.context.scope.refresh:name=refreshScope,type=RefreshScope]
+2018-03-05 16:34:40,704  INFO [restartedMain][AnnotationMBeanExporter:] - Located managed bean 'configurationPropertiesRebinder': registering with JMX server as MBean [org.springframework.cloud.context.properties:name=configurationPropertiesRebinder,context=6be7775e,type=ConfigurationPropertiesRebinder]
+2018-03-05 16:34:40,709  INFO [restartedMain][AnnotationMBeanExporter:] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2018-03-05 16:34:40,710  INFO [restartedMain][AnnotationMBeanExporter:] - Located managed bean 'rabbitConnectionFactory': registering with JMX server as MBean [org.springframework.amqp.rabbit.connection:name=rabbitConnectionFactory,type=CachingConnectionFactory]
+2018-03-05 16:34:40,752  INFO [Thread-52][ChainedDynamicProperty:] - Flipping property: ussp-uc-app.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-03-05 16:34:40,771  INFO [Thread-52][ShutdownEnabledTimer:] - Shutdown hook installed for: NFLoadBalancer-PingTimer-ussp-uc-app
+2018-03-05 16:34:40,776  INFO [Thread-52][BaseLoadBalancer:] - Client: ussp-uc-app instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=ussp-uc-app,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2018-03-05 16:34:40,780  INFO [Thread-52][DynamicServerListLoadBalancer:] - Using serverListUpdater PollingServerListUpdater
+2018-03-05 16:34:40,788  INFO [Thread-52][InstanceInfoFactory:] - Setting initial instance status as: STARTING
+2018-03-05 16:34:40,804  INFO [Thread-52][DiscoveryClient:] - Initializing Eureka in region us-east-1
+2018-03-05 16:34:40,884  INFO [Thread-52][DiscoveryJerseyProvider:] - Using JSON encoding codec LegacyJacksonJson
+2018-03-05 16:34:40,884  INFO [Thread-52][DiscoveryJerseyProvider:] - Using JSON decoding codec LegacyJacksonJson
+2018-03-05 16:34:40,963  INFO [Thread-52][DiscoveryJerseyProvider:] - Using XML encoding codec XStreamXml
+2018-03-05 16:34:40,963  INFO [Thread-52][DiscoveryJerseyProvider:] - Using XML decoding codec XStreamXml
+2018-03-05 16:34:41,050  INFO [restartedMain][DefaultLifecycleProcessor:] - Starting beans in phase 0
+2018-03-05 16:34:41,288  INFO [Thread-52][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 16:34:41,341  INFO [Thread-52][DiscoveryClient:] - Disable delta property : false
+2018-03-05 16:34:41,341  INFO [Thread-52][DiscoveryClient:] - Single vip registry refresh property : null
+2018-03-05 16:34:41,341  INFO [Thread-52][DiscoveryClient:] - Force full registry fetch : false
+2018-03-05 16:34:41,341  INFO [Thread-52][DiscoveryClient:] - Application is null : false
+2018-03-05 16:34:41,341  INFO [Thread-52][DiscoveryClient:] - Registered Applications size is zero : true
+2018-03-05 16:34:41,341  INFO [Thread-52][DiscoveryClient:] - Application version is -1: true
+2018-03-05 16:34:41,341  INFO [Thread-52][DiscoveryClient:] - Getting all instance registry info from the eureka server
+2018-03-05 16:34:41,437  INFO [Thread-52][DiscoveryClient:] - The response status is 200
+2018-03-05 16:34:41,438  INFO [Thread-52][DiscoveryClient:] - Starting heartbeat executor: renew interval is: 30
+2018-03-05 16:34:41,441  INFO [Thread-52][InstanceInfoReplicator:] - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2018-03-05 16:34:41,443  INFO [Thread-52][DiscoveryClient:] - Discovery Client initialized at timestamp 1520238881443 with initial instances count: 2
+2018-03-05 16:34:41,489  INFO [restartedMain][EurekaServiceRegistry:] - Registering application risk-activiti-service with eureka with status UP
+2018-03-05 16:34:41,490  INFO [Thread-52][DynamicServerListLoadBalancer:] - DynamicServerListLoadBalancer for client ussp-uc-app initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=ussp-uc-app,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@2ce53fe2
+2018-03-05 16:34:41,491  INFO [restartedMain][DiscoveryClient:] - Saw local status change event StatusChangeEvent [timestamp=1520238881490, current=UP, previous=STARTING]
+2018-03-05 16:34:41,492  INFO [DiscoveryClient-InstanceInfoReplicator-0][DiscoveryClient:] - DiscoveryClient_RISK-ACTIVITI-SERVICE/zhangz-PC:risk-activiti-service:30504: registering service...
+2018-03-05 16:34:41,494  INFO [restartedMain][DefaultLifecycleProcessor:] - Starting beans in phase 2147483647
+2018-03-05 16:34:41,494  INFO [restartedMain][DocumentationPluginsBootstrapper:] - Context refreshed
+2018-03-05 16:34:41,511  INFO [restartedMain][DocumentationPluginsBootstrapper:] - Found 1 custom documentation plugin(s)
+2018-03-05 16:34:41,518  INFO [DiscoveryClient-InstanceInfoReplicator-0][DiscoveryClient:] - DiscoveryClient_RISK-ACTIVITI-SERVICE/zhangz-PC:risk-activiti-service:30504 - registration status: 204
+2018-03-05 16:34:41,538  INFO [restartedMain][ApiListingReferenceScanner:] - Scanning for api listing references
+2018-03-05 16:34:41,591  WARN [Thread-52][ResourceApiSynchHelper:] - 同步API资源发生异常，请尝试重启服务。异常：com.netflix.client.ClientException: Load balancer does not have available server for client: ussp-uc-app
+2018-03-05 16:34:41,756  INFO [restartedMain][Http11NioProtocol:] - Initializing ProtocolHandler ["http-nio-30504"]
+2018-03-05 16:34:41,765  INFO [restartedMain][Http11NioProtocol:] - Starting ProtocolHandler ["http-nio-30504"]
+2018-03-05 16:34:41,774  INFO [restartedMain][NioSelectorPool:] - Using a shared selector for servlet write/read
+2018-03-05 16:34:41,791  INFO [restartedMain][TomcatEmbeddedServletContainer:] - Tomcat started on port(s): 30504 (http)
+2018-03-05 16:34:41,792  INFO [restartedMain][EurekaAutoServiceRegistration:] - Updating port to 30504
+2018-03-05 16:34:41,794  INFO [restartedMain][ActivitiInitRunner:] - ActivitiInitRunner runing ...
+2018-03-05 16:34:41,815  INFO [restartedMain][ActivitiInitRunner:] - ActivitiInitRunner complete ...
+2018-03-05 16:34:41,816  INFO [restartedMain][ActivitiServiceApplication:] - Started ActivitiServiceApplication in 28.723 seconds (JVM running for 31.23)
+2018-03-05 16:35:11,263  INFO [http-nio-30504-exec-1][[/]:] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-03-05 16:35:11,263  INFO [http-nio-30504-exec-1][DispatcherServlet:] - FrameworkServlet 'dispatcherServlet': initialization started
+2018-03-05 16:35:11,293  INFO [http-nio-30504-exec-1][DispatcherServlet:] - FrameworkServlet 'dispatcherServlet': initialization completed in 30 ms
+2018-03-05 16:35:11,351  INFO [http-nio-30504-exec-1][ActivitiController:] - start model,paramter:{"batchId":970578455421898753,"batchSize":1,"data":{"DATAhourse_borrower":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"DATAhourse_guaranteeInfo":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"DATAhourse_hourseInfo":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"}},"procDefId":"hourseInfo:9:25591","taskId":970578455447064578,"type":"1","version":"V.9"}
+2018-03-05 16:35:11,368  INFO [http-nio-30504-exec-1][BpmnDeployer:] - Processing resource 房贷准入规则模型(勿动).hourseInfo.png
+2018-03-05 16:35:11,368  INFO [http-nio-30504-exec-1][BpmnDeployer:] - Processing resource 房贷准入规则模型(勿动).bpmn20.xml
+2018-03-05 16:35:11,617  INFO [http-nio-30504-exec-1][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute start...
+2018-03-05 16:35:11,618 ERROR [http-nio-30504-exec-1][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute end...
+2018-03-05 16:35:11,619  INFO [http-nio-30504-exec-1][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_borrower;version:null
+2018-03-05 16:35:11,634  INFO [http-nio-30504-exec-1][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"processInstanceId":"60001","sence":"hourse_borrower","type":"4"}
+2018-03-05 16:35:11,637  INFO [http-nio-30504-exec-1][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@3734c25f: startup date [Mon Mar 05 16:35:11 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6be7775e
+2018-03-05 16:35:11,660  INFO [http-nio-30504-exec-1][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:35:11,678  INFO [http-nio-30504-exec-1][ChainedDynamicProperty:] - Flipping property: risk-drools.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-03-05 16:35:11,680  INFO [http-nio-30504-exec-1][ShutdownEnabledTimer:] - Shutdown hook installed for: NFLoadBalancer-PingTimer-risk-drools
+2018-03-05 16:35:11,681  INFO [http-nio-30504-exec-1][BaseLoadBalancer:] - Client: risk-drools instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=risk-drools,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2018-03-05 16:35:11,681  INFO [http-nio-30504-exec-1][DynamicServerListLoadBalancer:] - Using serverListUpdater PollingServerListUpdater
+2018-03-05 16:35:11,682  INFO [http-nio-30504-exec-1][DynamicServerListLoadBalancer:] - DynamicServerListLoadBalancer for client risk-drools initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=risk-drools,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@76a19942
+2018-03-05 16:35:11,702  INFO [http-nio-30504-exec-1][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[]
+2018-03-05 16:35:11,702  INFO [http-nio-30504-exec-1][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_hourseInfo;version:null
+2018-03-05 16:35:11,702  INFO [http-nio-30504-exec-1][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"processInstanceId":"60001","sence":"hourse_hourseInfo","type":"4"}
+2018-03-05 16:35:11,703  INFO [http-nio-30504-exec-1][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[]
+2018-03-05 16:35:11,703  INFO [http-nio-30504-exec-1][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_guaranteeInfo;version:null
+2018-03-05 16:35:11,703  INFO [http-nio-30504-exec-1][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"processInstanceId":"60001","sence":"hourse_guaranteeInfo","type":"4"}
+2018-03-05 16:35:11,704  INFO [http-nio-30504-exec-1][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[]
+2018-03-05 16:35:11,704  INFO [http-nio-30504-exec-1][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...
+2018-03-05 16:35:11,704  INFO [http-nio-30504-exec-1][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute end...
+2018-03-05 16:35:11,704  INFO [http-nio-30504-exec-1][ProcessEndEventListeners:] - ProcessTestServiceImpl onEvent invoke...PROCESS_COMPLETED
+2018-03-05 16:35:11,751  INFO [http-nio-30504-exec-1][ActivitiController:] - start model sucess.
+2018-03-05 16:36:12,722  INFO [PollingServerListUpdater-1][ChainedDynamicProperty:] - Flipping property: risk-drools.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-03-05 16:36:18,135  INFO [http-nio-30504-exec-5][ActivitiController:] - start model,paramter:{"batchId":970578737342042114,"batchSize":1,"data":{"DATAhourse_borrower":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"DATAhourse_guaranteeInfo":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"DATAhourse_hourseInfo":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"}},"procDefId":"hourseInfo:9:25591","taskId":970578737358819330,"type":"1","version":"V.9"}
+2018-03-05 16:36:18,141  INFO [http-nio-30504-exec-5][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute start...
+2018-03-05 16:36:18,141 ERROR [http-nio-30504-exec-5][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute end...
+2018-03-05 16:36:18,141  INFO [http-nio-30504-exec-5][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_borrower;version:null
+2018-03-05 16:36:18,141  INFO [http-nio-30504-exec-5][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"processInstanceId":"60025","sence":"hourse_borrower","type":"4"}
+2018-03-05 16:36:19,155  INFO [http-nio-30504-exec-6][ActivitiController:] - start model,paramter:{"batchId":970578741611843586,"batchSize":1,"data":{"DATAhourse_borrower":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"DATAhourse_guaranteeInfo":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"DATAhourse_hourseInfo":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"}},"procDefId":"hourseInfo:9:25591","taskId":970578741645398017,"type":"1","version":"V.9"}
+2018-03-05 16:36:19,160  INFO [http-nio-30504-exec-6][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute start...
+2018-03-05 16:36:19,160 ERROR [http-nio-30504-exec-6][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute end...
+2018-03-05 16:36:19,160  INFO [http-nio-30504-exec-6][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_borrower;version:null
+2018-03-05 16:36:19,160  INFO [http-nio-30504-exec-6][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"processInstanceId":"60045","sence":"hourse_borrower","type":"4"}
+2018-03-05 16:36:24,979  INFO [http-nio-30504-exec-7][ActivitiController:] - start model,paramter:{"batchId":970578766052052994,"batchSize":1,"data":{"DATAhourse_borrower":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"DATAhourse_guaranteeInfo":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"DATAhourse_hourseInfo":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"}},"procDefId":"hourseInfo:9:25591","taskId":970578766073024514,"type":"1","version":"V.9"}
+2018-03-05 16:36:24,985  INFO [http-nio-30504-exec-7][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute start...
+2018-03-05 16:36:24,985 ERROR [http-nio-30504-exec-7][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute end...
+2018-03-05 16:36:24,985  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_borrower;version:null
+2018-03-05 16:36:24,985  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"processInstanceId":"60065","sence":"hourse_borrower","type":"4"}
+2018-03-05 16:36:25,362  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970578766999900162","ruleList":["hourse_borrower:2","hourse_borrower:8"],"senceVersionId":"7"}]
+2018-03-05 16:36:25,362  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_hourseInfo;version:null
+2018-03-05 16:36:25,362  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"processInstanceId":"60065","sence":"hourse_hourseInfo","type":"4"}
+2018-03-05 16:36:25,363  INFO [http-nio-30504-exec-6][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970578766999900164","ruleList":["hourse_borrower:2","hourse_borrower:8"],"senceVersionId":"7"}]
+2018-03-05 16:36:25,363  INFO [http-nio-30504-exec-6][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_hourseInfo;version:null
+2018-03-05 16:36:25,363  INFO [http-nio-30504-exec-6][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"processInstanceId":"60045","sence":"hourse_hourseInfo","type":"4"}
+2018-03-05 16:36:25,364  INFO [http-nio-30504-exec-5][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970578766999900163","ruleList":["hourse_borrower:2","hourse_borrower:8"],"senceVersionId":"7"}]
+2018-03-05 16:36:25,364  INFO [http-nio-30504-exec-5][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_hourseInfo;version:null
+2018-03-05 16:36:25,364  INFO [http-nio-30504-exec-5][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"processInstanceId":"60025","sence":"hourse_hourseInfo","type":"4"}
+2018-03-05 16:36:25,587  INFO [http-nio-30504-exec-5][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970578768585347074","ruleList":["hourse_hourseInfo:4"],"senceVersionId":"4"}]
+2018-03-05 16:36:25,587  INFO [http-nio-30504-exec-5][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_guaranteeInfo;version:null
+2018-03-05 16:36:25,587  INFO [http-nio-30504-exec-5][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"processInstanceId":"60025","sence":"hourse_guaranteeInfo","type":"4"}
+2018-03-05 16:36:25,591  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970578768610512897","ruleList":["hourse_hourseInfo:4"],"senceVersionId":"4"}]
+2018-03-05 16:36:25,591  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_guaranteeInfo;version:null
+2018-03-05 16:36:25,591  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"processInstanceId":"60065","sence":"hourse_guaranteeInfo","type":"4"}
+2018-03-05 16:36:25,593  INFO [http-nio-30504-exec-6][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970578768610512898","ruleList":["hourse_hourseInfo:4"],"senceVersionId":"4"}]
+2018-03-05 16:36:25,593  INFO [http-nio-30504-exec-6][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_guaranteeInfo;version:null
+2018-03-05 16:36:25,594  INFO [http-nio-30504-exec-6][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"processInstanceId":"60045","sence":"hourse_guaranteeInfo","type":"4"}
+2018-03-05 16:36:25,773  INFO [http-nio-30504-exec-5][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970578769319350273","ruleList":["hourse_guaranteeInfo:2"],"senceVersionId":"5"}]
+2018-03-05 16:36:25,773  INFO [http-nio-30504-exec-5][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...
+2018-03-05 16:36:25,773  INFO [http-nio-30504-exec-5][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970578768585347074","ruleList":["hourse_hourseInfo:4"],"senceVersionId":"4"}
+2018-03-05 16:36:25,776  INFO [http-nio-30504-exec-5][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@66801a59: startup date [Mon Mar 05 16:36:25 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6be7775e
+2018-03-05 16:36:25,776  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970578769390653443","ruleList":["hourse_guaranteeInfo:2"],"senceVersionId":"5"}]
+2018-03-05 16:36:25,776  INFO [http-nio-30504-exec-7][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...
+2018-03-05 16:36:25,776  INFO [http-nio-30504-exec-7][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970578768610512897","ruleList":["hourse_hourseInfo:4"],"senceVersionId":"4"}
+2018-03-05 16:36:25,777  INFO [http-nio-30504-exec-6][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970578769390653442","ruleList":["hourse_guaranteeInfo:2"],"senceVersionId":"5"}]
+2018-03-05 16:36:25,777  INFO [http-nio-30504-exec-6][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...
+2018-03-05 16:36:25,777  INFO [http-nio-30504-exec-6][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970578768610512898","ruleList":["hourse_hourseInfo:4"],"senceVersionId":"4"}
+2018-03-05 16:36:25,796  INFO [http-nio-30504-exec-5][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:36:25,804  INFO [http-nio-30504-exec-5][ChainedDynamicProperty:] - Flipping property: rule-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-03-05 16:36:25,805  INFO [http-nio-30504-exec-5][ShutdownEnabledTimer:] - Shutdown hook installed for: NFLoadBalancer-PingTimer-rule-service
+2018-03-05 16:36:25,806  INFO [http-nio-30504-exec-5][BaseLoadBalancer:] - Client: rule-service instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=rule-service,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2018-03-05 16:36:25,806  INFO [http-nio-30504-exec-5][DynamicServerListLoadBalancer:] - Using serverListUpdater PollingServerListUpdater
+2018-03-05 16:36:25,807  INFO [http-nio-30504-exec-5][ChainedDynamicProperty:] - Flipping property: rule-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-03-05 16:36:25,840  INFO [http-nio-30504-exec-5][DynamicServerListLoadBalancer:] - DynamicServerListLoadBalancer for client rule-service initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=rule-service,current list of Servers=[10.110.1.165:30502],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:10.110.1.165:30502;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 08:00:00 CST 1970;	First connection made: Thu Jan 01 08:00:00 CST 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@7762acc6
+2018-03-05 16:36:25,908  INFO [http-nio-30504-exec-5][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970578769319350273","ruleList":["hourse_guaranteeInfo:2"],"senceVersionId":"5"}
+2018-03-05 16:36:25,908  INFO [http-nio-30504-exec-6][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970578769390653442","ruleList":["hourse_guaranteeInfo:2"],"senceVersionId":"5"}
+2018-03-05 16:36:25,911  INFO [http-nio-30504-exec-7][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970578769390653443","ruleList":["hourse_guaranteeInfo:2"],"senceVersionId":"5"}
+2018-03-05 16:36:25,917  INFO [http-nio-30504-exec-5][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970578766999900163","ruleList":["hourse_borrower:2","hourse_borrower:8"],"senceVersionId":"7"}
+2018-03-05 16:36:25,926  INFO [http-nio-30504-exec-7][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970578766999900162","ruleList":["hourse_borrower:2","hourse_borrower:8"],"senceVersionId":"7"}
+2018-03-05 16:36:25,927  INFO [http-nio-30504-exec-6][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970578766999900164","ruleList":["hourse_borrower:2","hourse_borrower:8"],"senceVersionId":"7"}
+2018-03-05 16:36:25,950  INFO [http-nio-30504-exec-5][ProcessEndEventListeners:] - send topicExchange,message is:{"code":"0","msg":"模型执行正常","procInstId":"60025","procMsg":"借款人信息为空;房产信息为空;担保信息为空;","ruleResultList":{"hourse_hourseInfo":[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970578768585347074","ruleDetails":[{"ruleCode":"hourse_hourseInfo:4","ruleDesc":"如果$房贷房产信息:房产类型$等于别墅，并且$房贷房产信息:装修情况$等于毛坯，并且$房贷房产信息:楼龄$大于15那么=>[输出]:禁入(输出值)"}],"senceVersionId":"4"}],"hourse_guaranteeInfo":[{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970578769319350273","ruleDetails":[{"ruleCode":"hourse_guaranteeInfo:2","ruleDesc":"如果$房贷担保人信息:担保人有失信情况$等于有那么=>[输出]:不能作为担保人(输出值)"}],"senceVersionId":"5"}],"hourse_borrower":[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970578766999900163","ruleDetails":[{"ruleCode":"hourse_borrower:2","ruleDesc":"如果$房贷借款人信息:借款人年龄$大于70那么=>[输出]:禁入(输出值)"},{"ruleCode":"hourse_borrower:8","ruleDesc":"如果$房贷借款人信息:借款人户籍省份$等于台湾省那么=>[输出]:凭他项出款并且最高抵押率降低5%(输出值)"}],"senceVersionId":"7"}]},"taskId":970578737358819330}
+2018-03-05 16:36:25,953  INFO [http-nio-30504-exec-7][ProcessEndEventListeners:] - send topicExchange,message is:{"code":"0","msg":"模型执行正常","procInstId":"60065","procMsg":"借款人信息为空;房产信息为空;担保信息为空;","ruleResultList":{"hourse_hourseInfo":[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970578768610512897","ruleDetails":[{"ruleCode":"hourse_hourseInfo:4","ruleDesc":"如果$房贷房产信息:房产类型$等于别墅，并且$房贷房产信息:装修情况$等于毛坯，并且$房贷房产信息:楼龄$大于15那么=>[输出]:禁入(输出值)"}],"senceVersionId":"4"}],"hourse_guaranteeInfo":[{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970578769390653443","ruleDetails":[{"ruleCode":"hourse_guaranteeInfo:2","ruleDesc":"如果$房贷担保人信息:担保人有失信情况$等于有那么=>[输出]:不能作为担保人(输出值)"}],"senceVersionId":"5"}],"hourse_borrower":[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970578766999900162","ruleDetails":[{"ruleCode":"hourse_borrower:2","ruleDesc":"如果$房贷借款人信息:借款人年龄$大于70那么=>[输出]:禁入(输出值)"},{"ruleCode":"hourse_borrower:8","ruleDesc":"如果$房贷借款人信息:借款人户籍省份$等于台湾省那么=>[输出]:凭他项出款并且最高抵押率降低5%(输出值)"}],"senceVersionId":"7"}]},"taskId":970578766073024514}
+2018-03-05 16:36:25,957  INFO [http-nio-30504-exec-6][ProcessEndEventListeners:] - send topicExchange,message is:{"code":"0","msg":"模型执行正常","procInstId":"60045","procMsg":"借款人信息为空;房产信息为空;担保信息为空;","ruleResultList":{"hourse_hourseInfo":[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970578768610512898","ruleDetails":[{"ruleCode":"hourse_hourseInfo:4","ruleDesc":"如果$房贷房产信息:房产类型$等于别墅，并且$房贷房产信息:装修情况$等于毛坯，并且$房贷房产信息:楼龄$大于15那么=>[输出]:禁入(输出值)"}],"senceVersionId":"4"}],"hourse_guaranteeInfo":[{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970578769390653442","ruleDetails":[{"ruleCode":"hourse_guaranteeInfo:2","ruleDesc":"如果$房贷担保人信息:担保人有失信情况$等于有那么=>[输出]:不能作为担保人(输出值)"}],"senceVersionId":"5"}],"hourse_borrower":[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970578766999900164","ruleDetails":[{"ruleCode":"hourse_borrower:2","ruleDesc":"如果$房贷借款人信息:借款人年龄$大于70那么=>[输出]:禁入(输出值)"},{"ruleCode":"hourse_borrower:8","ruleDesc":"如果$房贷借款人信息:借款人户籍省份$等于台湾省那么=>[输出]:凭他项出款并且最高抵押率降低5%(输出值)"}],"senceVersionId":"7"}]},"taskId":970578741645398017}
+2018-03-05 16:36:25,978  INFO [http-nio-30504-exec-8][ActivitiController:] - start model,paramter:{"batchId":970578770246356994,"batchSize":1,"data":{"DATAhourse_borrower":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"DATAhourse_guaranteeInfo":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"DATAhourse_hourseInfo":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"}},"procDefId":"hourseInfo:9:25591","taskId":970578770271522818,"type":"1","version":"V.9"}
+2018-03-05 16:36:25,983  INFO [http-nio-30504-exec-8][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute start...
+2018-03-05 16:36:25,983 ERROR [http-nio-30504-exec-8][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute end...
+2018-03-05 16:36:25,983  INFO [http-nio-30504-exec-8][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_borrower;version:null
+2018-03-05 16:36:25,983  INFO [http-nio-30504-exec-8][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"processInstanceId":"60121","sence":"hourse_borrower","type":"4"}
+2018-03-05 16:36:26,148  INFO [http-nio-30504-exec-6][CachingConnectionFactory:] - Created new connection: rabbitConnectionFactory#6d31b3b8:0/SimpleConnection@5a3a9ab0 [delegate=amqp://admin@172.16.200.111:5672/, localPort= 55334]
+2018-03-05 16:36:26,152  INFO [http-nio-30504-exec-8][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970578770921574401","ruleList":["hourse_borrower:2","hourse_borrower:8"],"senceVersionId":"7"}]
+2018-03-05 16:36:26,153  INFO [http-nio-30504-exec-8][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_hourseInfo;version:null
+2018-03-05 16:36:26,153  INFO [http-nio-30504-exec-8][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"processInstanceId":"60121","sence":"hourse_hourseInfo","type":"4"}
+2018-03-05 16:36:26,236  INFO [http-nio-30504-exec-5][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@ed5c4f: startup date [Mon Mar 05 16:36:26 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6be7775e
+2018-03-05 16:36:26,262  INFO [http-nio-30504-exec-5][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:36:26,274  INFO [http-nio-30504-exec-5][ChainedDynamicProperty:] - Flipping property: risk-activiti-extend.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-03-05 16:36:26,275  INFO [http-nio-30504-exec-5][ShutdownEnabledTimer:] - Shutdown hook installed for: NFLoadBalancer-PingTimer-risk-activiti-extend
+2018-03-05 16:36:26,275  INFO [http-nio-30504-exec-5][BaseLoadBalancer:] - Client: risk-activiti-extend instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=risk-activiti-extend,current list of Servers=[10.110.1.165:30505],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:10.110.1.165:30505;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 08:00:00 CST 1970;	First connection made: Thu Jan 01 08:00:00 CST 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@6219e5fe
+2018-03-05 16:36:26,276  INFO [http-nio-30504-exec-5][DynamicServerListLoadBalancer:] - Using serverListUpdater PollingServerListUpdater
+2018-03-05 16:36:26,277  INFO [http-nio-30504-exec-5][ChainedDynamicProperty:] - Flipping property: risk-activiti-extend.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-03-05 16:36:26,277  INFO [http-nio-30504-exec-5][DynamicServerListLoadBalancer:] - DynamicServerListLoadBalancer for client risk-activiti-extend initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=risk-activiti-extend,current list of Servers=[10.110.1.165:30505],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:10.110.1.165:30505;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 08:00:00 CST 1970;	First connection made: Thu Jan 01 08:00:00 CST 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@6219e5fe
+2018-03-05 16:36:26,305  INFO [http-nio-30504-exec-8][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970578771605245954","ruleList":["hourse_hourseInfo:4"],"senceVersionId":"4"}]
+2018-03-05 16:36:26,306  INFO [http-nio-30504-exec-8][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_guaranteeInfo;version:null
+2018-03-05 16:36:26,306  INFO [http-nio-30504-exec-8][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"processInstanceId":"60121","sence":"hourse_guaranteeInfo","type":"4"}
+2018-03-05 16:36:26,362  INFO [http-nio-30504-exec-5][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute end...
+2018-03-05 16:36:26,363  INFO [http-nio-30504-exec-5][ProcessEndEventListeners:] - ProcessTestServiceImpl onEvent invoke...PROCESS_COMPLETED
+2018-03-05 16:36:26,375  INFO [http-nio-30504-exec-6][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute end...
+2018-03-05 16:36:26,375  INFO [http-nio-30504-exec-6][ProcessEndEventListeners:] - ProcessTestServiceImpl onEvent invoke...PROCESS_COMPLETED
+2018-03-05 16:36:26,384  INFO [http-nio-30504-exec-7][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute end...
+2018-03-05 16:36:26,384  INFO [http-nio-30504-exec-7][ProcessEndEventListeners:] - ProcessTestServiceImpl onEvent invoke...PROCESS_COMPLETED
+2018-03-05 16:36:26,394  INFO [http-nio-30504-exec-5][ActivitiController:] - start model sucess.
+2018-03-05 16:36:26,406  INFO [http-nio-30504-exec-6][ActivitiController:] - start model sucess.
+2018-03-05 16:36:26,410  INFO [http-nio-30504-exec-7][ActivitiController:] - start model sucess.
+2018-03-05 16:36:26,428  INFO [http-nio-30504-exec-8][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970578772116951041","ruleList":["hourse_guaranteeInfo:2"],"senceVersionId":"5"}]
+2018-03-05 16:36:26,428  INFO [http-nio-30504-exec-8][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...
+2018-03-05 16:36:26,428  INFO [http-nio-30504-exec-8][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970578771605245954","ruleList":["hourse_hourseInfo:4"],"senceVersionId":"4"}
+2018-03-05 16:36:26,436  INFO [http-nio-30504-exec-8][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970578772116951041","ruleList":["hourse_guaranteeInfo:2"],"senceVersionId":"5"}
+2018-03-05 16:36:26,443  INFO [http-nio-30504-exec-8][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970578770921574401","ruleList":["hourse_borrower:2","hourse_borrower:8"],"senceVersionId":"7"}
+2018-03-05 16:36:26,453  INFO [http-nio-30504-exec-8][ProcessEndEventListeners:] - send topicExchange,message is:{"code":"0","msg":"模型执行正常","procInstId":"60121","procMsg":"借款人信息为空;房产信息为空;担保信息为空;","ruleResultList":{"hourse_hourseInfo":[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970578771605245954","ruleDetails":[{"ruleCode":"hourse_hourseInfo:4","ruleDesc":"如果$房贷房产信息:房产类型$等于别墅，并且$房贷房产信息:装修情况$等于毛坯，并且$房贷房产信息:楼龄$大于15那么=>[输出]:禁入(输出值)"}],"senceVersionId":"4"}],"hourse_guaranteeInfo":[{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970578772116951041","ruleDetails":[{"ruleCode":"hourse_guaranteeInfo:2","ruleDesc":"如果$房贷担保人信息:担保人有失信情况$等于有那么=>[输出]:不能作为担保人(输出值)"}],"senceVersionId":"5"}],"hourse_borrower":[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970578770921574401","ruleDetails":[{"ruleCode":"hourse_borrower:2","ruleDesc":"如果$房贷借款人信息:借款人年龄$大于70那么=>[输出]:禁入(输出值)"},{"ruleCode":"hourse_borrower:8","ruleDesc":"如果$房贷借款人信息:借款人户籍省份$等于台湾省那么=>[输出]:凭他项出款并且最高抵押率降低5%(输出值)"}],"senceVersionId":"7"}]},"taskId":970578770271522818}
+2018-03-05 16:36:26,472  INFO [http-nio-30504-exec-8][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute end...
+2018-03-05 16:36:26,472  INFO [http-nio-30504-exec-8][ProcessEndEventListeners:] - ProcessTestServiceImpl onEvent invoke...PROCESS_COMPLETED
+2018-03-05 16:36:26,493  INFO [http-nio-30504-exec-8][ActivitiController:] - start model sucess.
+2018-03-05 16:36:26,807  INFO [PollingServerListUpdater-0][ChainedDynamicProperty:] - Flipping property: rule-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-03-05 16:36:27,277  INFO [PollingServerListUpdater-1][ChainedDynamicProperty:] - Flipping property: risk-activiti-extend.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-03-05 16:37:17,525  INFO [http-nio-30504-exec-4][ActivitiController:] - start model,paramter:{"batchSize":0,"data":{"businessId":"123","businessType":"123","months":"23","borrowerInfo":[{"borrowerInfo_customerName":"张桢","borrowerInfo_identifyCard":"430423198908245810","borrowerInfo_accountProvince":"台湾省","borrowerInfo_borrowerAge":"99","borrowerInfo_isMainCustomer":"是"},{"borrowerInfo_customerName":"张桢","borrowerInfo_identifyCard":"430423198908245810","borrowerInfo_accountProvince":"台湾省","borrowerInfo_borrowerAge":"99","borrowerInfo_isMainCustomer":"是"}],"houseInfo":[{"houseInfo_houseNo":"001001","houseInfo_hkHouseSheng":"台湾省","houseInfo_HouseSheng":"台湾省","houseInfo_HouseShi":"台北市","houseInfo_HouseXian":"傻逼县","houseInfo_reserveType":"01","houseInfo_hourseArea":"366","houseInfo_renovationStatus":"毛坯","houseInfo_openTime":"1017-12-13"},{"houseInfo_houseNo":"001001","houseInfo_hkHouseSheng":"台湾省","houseInfo_HouseSheng":"台湾省","houseInfo_HouseShi":"台北市","houseInfo_HouseXian":"傻逼县","houseInfo_reserveType":"01","houseInfo_hourseArea":"366","houseInfo_renovationStatus":"毛坯","houseInfo_openTime":"1017-12-13"},{"houseInfo_houseNo":"001001","houseInfo_hkHouseSheng":"台湾省","houseInfo_HouseSheng":"台湾省","houseInfo_HouseShi":"台北市","houseInfo_HouseXian":"傻逼县","houseInfo_reserveType":"01","houseInfo_hourseArea":"366","houseInfo_renovationStatus":"毛坯","houseInfo_openTime":"1017-12-13"}],"guaranteeInfo":[{"guaranteeInfo_guaranteeName":"张桢","guaranteeInfo_guaranteeIdentifyCard":"430423198908245810"},{"guaranteeInfo_guaranteeName":"张桢","guaranteeInfo_guaranteeIdentifyCard":"430423198908245810"}]},"procDefId":"hourseInfo:7:25482","taskId":970578986458533890,"type":"0"}
+2018-03-05 16:37:17,536  INFO [http-nio-30504-exec-4][BpmnDeployer:] - Processing resource 房贷准入规则模型-01.bpmn20.xml
+2018-03-05 16:37:17,555  INFO [http-nio-30504-exec-4][BpmnDeployer:] - Processing resource 房贷准入规则模型-01.hourseInfo.png
+2018-03-05 16:37:17,559  INFO [http-nio-30504-exec-4][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute start...
+2018-03-05 16:37:17,595  INFO [http-nio-30504-exec-4][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@67c0eead: startup date [Mon Mar 05 16:37:17 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6be7775e
+2018-03-05 16:37:17,616  INFO [http-nio-30504-exec-4][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:37:17,623  INFO [http-nio-30504-exec-4][ChainedDynamicProperty:] - Flipping property: risk-eip.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-03-05 16:37:17,624  INFO [http-nio-30504-exec-4][ShutdownEnabledTimer:] - Shutdown hook installed for: NFLoadBalancer-PingTimer-risk-eip
+2018-03-05 16:37:17,634  INFO [http-nio-30504-exec-4][BaseLoadBalancer:] - Client: risk-eip instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=risk-eip,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2018-03-05 16:37:17,634  INFO [http-nio-30504-exec-4][DynamicServerListLoadBalancer:] - Using serverListUpdater PollingServerListUpdater
+2018-03-05 16:37:17,635  INFO [http-nio-30504-exec-4][DynamicServerListLoadBalancer:] - DynamicServerListLoadBalancer for client risk-eip initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=risk-eip,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@6907856b
+2018-03-05 16:37:17,652 ERROR [http-nio-30504-exec-4][HourseRuleDataMachinImpl:] - 老赖接口异常，identityCard:430423198908245810;name:张桢com.netflix.client.ClientException: Load balancer does not have available server for client: risk-eip
+2018-03-05 16:37:17,652 ERROR [http-nio-30504-exec-4][HourseRuleDataMachinImpl:] - 天行数科接口异常，identityCard:430423198908245810;name:张桢com.netflix.client.ClientException: Load balancer does not have available server for client: risk-eip
+2018-03-05 16:37:17,653 ERROR [http-nio-30504-exec-4][HourseRuleDataMachinImpl:] - 老赖接口异常，identityCard:430423198908245810;name:张桢com.netflix.client.ClientException: Load balancer does not have available server for client: risk-eip
+2018-03-05 16:37:17,653 ERROR [http-nio-30504-exec-4][HourseRuleDataMachinImpl:] - 天行数科接口异常，identityCard:430423198908245810;name:张桢com.netflix.client.ClientException: Load balancer does not have available server for client: risk-eip
+2018-03-05 16:37:17,669 ERROR [http-nio-30504-exec-4][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute end...
+2018-03-05 16:37:17,689  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_borrower;version:null
+2018-03-05 16:37:17,689  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"borrowerInfo_customerName":"张桢","borrowerInfo_identifyCard":"430423198908245810","borrowerInfo_accountProvince":"台湾省","borrowerInfo_borrowerAge":"99","borrowerInfo_isMainCustomer":"是","borrowerInfo_borrowerAgePlusLoanterm":99.0,"business_id":"123","business_Type":"123","business_months":"23"},"processInstanceId":"60157","sence":"hourse_borrower","type":"3"}
+2018-03-05 16:37:17,850  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"borrowerInfo_customerName":"张桢","borrowerInfo_identifyCard":"430423198908245810","borrowerInfo_accountProvince":"台湾省","borrowerInfo_borrowerAge":"99","borrowerInfo_isMainCustomer":"是","borrowerInfo_borrowerAgePlusLoanterm":99.0,"business_id":"123","business_Type":"123","business_months":"23"},"processInstanceId":"60157","sence":"hourse_borrower","type":"3"}
+2018-03-05 16:37:17,994  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"borrowerInfo_customerName":"张桢","borrowerInfo_identifyCard":"430423198908245810","borrowerInfo_accountProvince":"台湾省","borrowerInfo_borrowerAge":"99","borrowerInfo_isMainCustomer":"是","borrowerInfo_borrowerAgePlusLoanterm":99.0,"business_id":"123","business_Type":"123","business_months":"23"},"logId":"","ruleList":["hourse_borrower:2","hourse_borrower:3","hourse_borrower:8"],"senceVersionId":"7"},{"inParamter":{"borrowerInfo_customerName":"张桢","borrowerInfo_identifyCard":"430423198908245810","borrowerInfo_accountProvince":"台湾省","borrowerInfo_borrowerAge":"99","borrowerInfo_isMainCustomer":"是","borrowerInfo_borrowerAgePlusLoanterm":99.0,"business_id":"123","business_Type":"123","business_months":"23"},"logId":"","ruleList":["hourse_borrower:2","hourse_borrower:3","hourse_borrower:8"],"senceVersionId":"7"}]
+2018-03-05 16:37:17,995  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_hourseInfo;version:null
+2018-03-05 16:37:17,995  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_houseNo":"001001","houseInfo_hkHouseSheng":"台湾省","houseInfo_HouseSheng":"台湾省","houseInfo_HouseShi":"台北市","houseInfo_HouseXian":"傻逼县","houseInfo_reserveType":"01","houseInfo_hourseArea":"366","houseInfo_renovationStatus":"毛坯","houseInfo_openTime":"1017-12-13","houseInfo_hourseAge":-1000},"processInstanceId":"60157","sence":"hourse_hourseInfo","type":"3"}
+2018-03-05 16:37:18,161  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_houseNo":"001001","houseInfo_hkHouseSheng":"台湾省","houseInfo_HouseSheng":"台湾省","houseInfo_HouseShi":"台北市","houseInfo_HouseXian":"傻逼县","houseInfo_reserveType":"01","houseInfo_hourseArea":"366","houseInfo_renovationStatus":"毛坯","houseInfo_openTime":"1017-12-13","houseInfo_hourseAge":-1000},"processInstanceId":"60157","sence":"hourse_hourseInfo","type":"3"}
+2018-03-05 16:37:18,258  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_houseNo":"001001","houseInfo_hkHouseSheng":"台湾省","houseInfo_HouseSheng":"台湾省","houseInfo_HouseShi":"台北市","houseInfo_HouseXian":"傻逼县","houseInfo_reserveType":"01","houseInfo_hourseArea":"366","houseInfo_renovationStatus":"毛坯","houseInfo_openTime":"1017-12-13","houseInfo_hourseAge":-1000},"processInstanceId":"60157","sence":"hourse_hourseInfo","type":"3"}
+2018-03-05 16:37:18,367  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"houseInfo_houseNo":"001001","houseInfo_hkHouseSheng":"台湾省","houseInfo_HouseSheng":"台湾省","houseInfo_HouseShi":"台北市","houseInfo_HouseXian":"傻逼县","houseInfo_reserveType":"01","houseInfo_hourseArea":"366","houseInfo_renovationStatus":"毛坯","houseInfo_openTime":"1017-12-13","houseInfo_hourseAge":-1000},"logId":"","ruleList":[],"senceVersionId":"4"},{"inParamter":{"houseInfo_houseNo":"001001","houseInfo_hkHouseSheng":"台湾省","houseInfo_HouseSheng":"台湾省","houseInfo_HouseShi":"台北市","houseInfo_HouseXian":"傻逼县","houseInfo_reserveType":"01","houseInfo_hourseArea":"366","houseInfo_renovationStatus":"毛坯","houseInfo_openTime":"1017-12-13","houseInfo_hourseAge":-1000},"logId":"","ruleList":[],"senceVersionId":"4"},{"inParamter":{"houseInfo_houseNo":"001001","houseInfo_hkHouseSheng":"台湾省","houseInfo_HouseSheng":"台湾省","houseInfo_HouseShi":"台北市","houseInfo_HouseXian":"傻逼县","houseInfo_reserveType":"01","houseInfo_hourseArea":"366","houseInfo_renovationStatus":"毛坯","houseInfo_openTime":"1017-12-13","houseInfo_hourseAge":-1000},"logId":"","ruleList":[],"senceVersionId":"4"}]
+2018-03-05 16:37:18,367  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_guaranteeInfo;version:null
+2018-03-05 16:37:18,367  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"guaranteeInfo_guaranteeName":"张桢","guaranteeInfo_guaranteeIdentifyCard":"430423198908245810","guaranteeInfo_negative":"否","guaranteeInfo_oldLai":"无"},"processInstanceId":"60157","sence":"hourse_guaranteeInfo","type":"3"}
+2018-03-05 16:37:18,472  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"guaranteeInfo_guaranteeName":"张桢","guaranteeInfo_guaranteeIdentifyCard":"430423198908245810","guaranteeInfo_negative":"否","guaranteeInfo_oldLai":"无"},"processInstanceId":"60157","sence":"hourse_guaranteeInfo","type":"3"}
+2018-03-05 16:37:18,545  INFO [http-nio-30504-exec-4][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"guaranteeInfo_guaranteeName":"张桢","guaranteeInfo_guaranteeIdentifyCard":"430423198908245810","guaranteeInfo_negative":"否","guaranteeInfo_oldLai":"无"},"logId":"","ruleList":[],"senceVersionId":"5"},{"inParamter":{"guaranteeInfo_guaranteeName":"张桢","guaranteeInfo_guaranteeIdentifyCard":"430423198908245810","guaranteeInfo_negative":"否","guaranteeInfo_oldLai":"无"},"logId":"","ruleList":[],"senceVersionId":"5"}]
+2018-03-05 16:37:18,545  INFO [http-nio-30504-exec-4][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...
+2018-03-05 16:37:18,545  INFO [http-nio-30504-exec-4][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"borrowerInfo_customerName":"张桢","borrowerInfo_identifyCard":"430423198908245810","borrowerInfo_accountProvince":"台湾省","borrowerInfo_borrowerAge":"99","borrowerInfo_isMainCustomer":"是","borrowerInfo_borrowerAgePlusLoanterm":99.0,"business_id":"123","business_Type":"123","business_months":"23"},"logId":"","ruleList":["hourse_borrower:2","hourse_borrower:3","hourse_borrower:8"],"senceVersionId":"7"}
+2018-03-05 16:37:18,555  INFO [http-nio-30504-exec-4][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"borrowerInfo_customerName":"张桢","borrowerInfo_identifyCard":"430423198908245810","borrowerInfo_accountProvince":"台湾省","borrowerInfo_borrowerAge":"99","borrowerInfo_isMainCustomer":"是","borrowerInfo_borrowerAgePlusLoanterm":99.0,"business_id":"123","business_Type":"123","business_months":"23"},"logId":"","ruleList":["hourse_borrower:2","hourse_borrower:3","hourse_borrower:8"],"senceVersionId":"7"}
+2018-03-05 16:37:18,587  INFO [http-nio-30504-exec-4][ProcessEndEventListeners:] - send topicExchange,message is:{"code":"0","msg":"模型执行正常","procInstId":"60157","procMsg":"","ruleResultList":{"hourse_hourseInfo":[{"inParamter":{"houseInfo_houseNo":"001001","houseInfo_hkHouseSheng":"台湾省","houseInfo_HouseSheng":"台湾省","houseInfo_HouseShi":"台北市","houseInfo_HouseXian":"傻逼县","houseInfo_reserveType":"01","houseInfo_hourseArea":"366","houseInfo_renovationStatus":"毛坯","houseInfo_openTime":"1017-12-13","houseInfo_hourseAge":-1000},"logId":"","ruleList":[],"senceVersionId":"4"},{"inParamter":{"houseInfo_houseNo":"001001","houseInfo_hkHouseSheng":"台湾省","houseInfo_HouseSheng":"台湾省","houseInfo_HouseShi":"台北市","houseInfo_HouseXian":"傻逼县","houseInfo_reserveType":"01","houseInfo_hourseArea":"366","houseInfo_renovationStatus":"毛坯","houseInfo_openTime":"1017-12-13","houseInfo_hourseAge":-1000},"logId":"","ruleList":[],"senceVersionId":"4"},{"inParamter":{"houseInfo_houseNo":"001001","houseInfo_hkHouseSheng":"台湾省","houseInfo_HouseSheng":"台湾省","houseInfo_HouseShi":"台北市","houseInfo_HouseXian":"傻逼县","houseInfo_reserveType":"01","houseInfo_hourseArea":"366","houseInfo_renovationStatus":"毛坯","houseInfo_openTime":"1017-12-13","houseInfo_hourseAge":-1000},"logId":"","ruleList":[],"senceVersionId":"4"}],"hourse_guaranteeInfo":[{"inParamter":{"guaranteeInfo_guaranteeName":"张桢","guaranteeInfo_guaranteeIdentifyCard":"430423198908245810","guaranteeInfo_negative":"否","guaranteeInfo_oldLai":"无"},"logId":"","ruleList":[],"senceVersionId":"5"},{"inParamter":{"guaranteeInfo_guaranteeName":"张桢","guaranteeInfo_guaranteeIdentifyCard":"430423198908245810","guaranteeInfo_negative":"否","guaranteeInfo_oldLai":"无"},"logId":"","ruleList":[],"senceVersionId":"5"}],"hourse_borrower":[{"inParamter":{"borrowerInfo_customerName":"张桢","borrowerInfo_identifyCard":"430423198908245810","borrowerInfo_accountProvince":"台湾省","borrowerInfo_borrowerAge":"99","borrowerInfo_isMainCustomer":"是","borrowerInfo_borrowerAgePlusLoanterm":99.0,"business_id":"123","business_Type":"123","business_months":"23"},"logId":"","ruleDetails":[{"ruleCode":"hourse_borrower:2","ruleDesc":"如果$房贷借款人信息:借款人年龄$大于70那么=>[输出]:禁入(输出值)"},{"ruleCode":"hourse_borrower:3","ruleDesc":"如果$房贷借款人信息:借款人年龄加借款期限$大于70那么=>[输出]:禁入(输出值)"},{"ruleCode":"hourse_borrower:8","ruleDesc":"如果$房贷借款人信息:借款人户籍省份$等于台湾省那么=>[输出]:凭他项出款并且最高抵押率降低5%(输出值)"}],"senceVersionId":"7"},{"inParamter":{"borrowerInfo_customerName":"张桢","borrowerInfo_identifyCard":"430423198908245810","borrowerInfo_accountProvince":"台湾省","borrowerInfo_borrowerAge":"99","borrowerInfo_isMainCustomer":"是","borrowerInfo_borrowerAgePlusLoanterm":99.0,"business_id":"123","business_Type":"123","business_months":"23"},"logId":"","ruleDetails":[{"ruleCode":"hourse_borrower:2","ruleDesc":"如果$房贷借款人信息:借款人年龄$大于70那么=>[输出]:禁入(输出值)"},{"ruleCode":"hourse_borrower:3","ruleDesc":"如果$房贷借款人信息:借款人年龄加借款期限$大于70那么=>[输出]:禁入(输出值)"},{"ruleCode":"hourse_borrower:8","ruleDesc":"如果$房贷借款人信息:借款人户籍省份$等于台湾省那么=>[输出]:凭他项出款并且最高抵押率降低5%(输出值)"}],"senceVersionId":"7"}]},"taskId":970578986458533890}
+2018-03-05 16:37:18,606  INFO [http-nio-30504-exec-4][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute end...
+2018-03-05 16:37:18,607  INFO [http-nio-30504-exec-4][ProcessEndEventListeners:] - ProcessTestServiceImpl onEvent invoke...PROCESS_COMPLETED
+2018-03-05 16:37:18,630  INFO [http-nio-30504-exec-4][ActivitiController:] - start model sucess.
+2018-03-05 16:39:41,366  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 16:44:41,390  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 16:49:41,413  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 16:53:57,724  INFO [http-nio-30504-exec-7][ActivitiController:] - start model,paramter:{"batchId":970583181391679490,"batchSize":1,"data":{"DATAhourse_borrower":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"DATAhourse_guaranteeInfo":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"DATAhourse_hourseInfo":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"}},"procDefId":"hourseInfo:9:25591","taskId":970583181483954178,"type":"1","version":"V.9"}
+2018-03-05 16:53:57,728  INFO [http-nio-30504-exec-7][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute start...
+2018-03-05 16:53:57,729 ERROR [http-nio-30504-exec-7][HourseRuleDataMachinImpl:] - HourseRuleDataMachinImpl execute method excute end...
+2018-03-05 16:53:57,729  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_borrower;version:null
+2018-03-05 16:53:57,729  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"processInstanceId":"60191","sence":"hourse_borrower","type":"4"}
+2018-03-05 16:53:57,945  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970583182415024129","ruleList":["hourse_borrower:2","hourse_borrower:8"],"senceVersionId":"7"}]
+2018-03-05 16:53:57,945  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_hourseInfo;version:null
+2018-03-05 16:53:57,945  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"processInstanceId":"60191","sence":"hourse_hourseInfo","type":"4"}
+2018-03-05 16:53:58,101  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970583183157415937","ruleList":["hourse_hourseInfo:4"],"senceVersionId":"4"}]
+2018-03-05 16:53:58,101  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - drools excute start,senceCode：hourse_guaranteeInfo;version:null
+2018-03-05 16:53:58,101  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service paramter:{"data":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"processInstanceId":"60191","sence":"hourse_guaranteeInfo","type":"4"}
+2018-03-05 16:53:58,289  INFO [http-nio-30504-exec-7][DroolsRuleEngineServiceImpl:] - DroolsRuleEngineServiceImpl service end , result:[{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970583183945945090","ruleList":["hourse_guaranteeInfo:2"],"senceVersionId":"5"}]
+2018-03-05 16:53:58,289  INFO [http-nio-30504-exec-7][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...
+2018-03-05 16:53:58,289  INFO [http-nio-30504-exec-7][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970583183157415937","ruleList":["hourse_hourseInfo:4"],"senceVersionId":"4"}
+2018-03-05 16:53:58,334  INFO [http-nio-30504-exec-7][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970583183945945090","ruleList":["hourse_guaranteeInfo:2"],"senceVersionId":"5"}
+2018-03-05 16:53:58,342  INFO [http-nio-30504-exec-7][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute start...{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970583182415024129","ruleList":["hourse_borrower:2","hourse_borrower:8"],"senceVersionId":"7"}
+2018-03-05 16:53:58,348  INFO [http-nio-30504-exec-7][ProcessEndEventListeners:] - send topicExchange,message is:{"code":"0","msg":"模型执行正常","procInstId":"60191","procMsg":"借款人信息为空;房产信息为空;担保信息为空;","ruleResultList":{"hourse_hourseInfo":[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAgePlusLoanterm":"11","guaranteeInfo_negative":"否","houseInfo_hourseArea":"211","houseInfo_hourseAge":"20","houseInfo_renovationStatus":"毛坯"},"logId":"970583183157415937","ruleDetails":[{"ruleCode":"hourse_hourseInfo:4","ruleDesc":"如果$房贷房产信息:房产类型$等于别墅，并且$房贷房产信息:装修情况$等于毛坯，并且$房贷房产信息:楼龄$大于15那么=>[输出]:禁入(输出值)"}],"senceVersionId":"4"}],"hourse_guaranteeInfo":[{"inParamter":{"borrowerInfo_borrowerAge":"90","guaranteeInfo_oldLai":"有","guaranteeInfo_negative":"否","borrowerInfo_accountProvince":"台湾省"},"logId":"970583183945945090","ruleDetails":[{"ruleCode":"hourse_guaranteeInfo:2","ruleDesc":"如果$房贷担保人信息:担保人有失信情况$等于有那么=>[输出]:不能作为担保人(输出值)"}],"senceVersionId":"5"}],"hourse_borrower":[{"inParamter":{"houseInfo_reserveType":"别墅","borrowerInfo_borrowerAge":"90","borrowerInfo_borrowerAgePlusLoanterm":"11","houseInfo_hourseAge":"20","borrowerInfo_accountProvince":"台湾省","houseInfo_renovationStatus":"毛坯"},"logId":"970583182415024129","ruleDetails":[{"ruleCode":"hourse_borrower:2","ruleDesc":"如果$房贷借款人信息:借款人年龄$大于70那么=>[输出]:禁入(输出值)"},{"ruleCode":"hourse_borrower:8","ruleDesc":"如果$房贷借款人信息:借款人户籍省份$等于台湾省那么=>[输出]:凭他项出款并且最高抵押率降低5%(输出值)"}],"senceVersionId":"7"}]},"taskId":970583181483954178}
+2018-03-05 16:53:58,367  INFO [http-nio-30504-exec-7][HourseRuleResultImpl:] - HourseRuleResultImpl execute method excute end...
+2018-03-05 16:53:58,367  INFO [http-nio-30504-exec-7][ProcessEndEventListeners:] - ProcessTestServiceImpl onEvent invoke...PROCESS_COMPLETED
+2018-03-05 16:53:58,388  INFO [http-nio-30504-exec-7][ActivitiController:] - start model sucess.
+2018-03-05 16:54:41,436  INFO [AsyncResolver-bootstrap-executor-0][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 16:55:39,783  INFO [http-nio-30504-exec-2][ActivitiController:] - deploy model,paramter:{"modelId":"25567"}
+2018-03-05 16:55:40,598  INFO [http-nio-30504-exec-2][BpmnDeployer:] - Processing resource 房贷准入规则模型(勿动).bpmn20.xml
+2018-03-05 16:55:40,750  INFO [http-nio-30504-exec-3][ActivitiController:] - deploy model,paramter:{"modelId":"25567"}
+2018-03-05 16:55:41,266  INFO [http-nio-30504-exec-3][BpmnDeployer:] - Processing resource 房贷准入规则模型(勿动).bpmn20.xml
+2018-03-05 16:55:45,246  INFO [http-nio-30504-exec-4][ActivitiController:] - deploy model,paramter:{"modelId":"25567"}
+2018-03-05 16:55:45,282  INFO [http-nio-30504-exec-4][BpmnDeployer:] - Processing resource 房贷准入规则模型(勿动).bpmn20.xml
+2018-03-05 16:55:45,686  INFO [http-nio-30504-exec-5][ActivitiController:] - 获取模型信息,参数paramter:{"modelId":"25567"}
+2018-03-05 16:55:45,686  INFO [http-nio-30504-exec-5][ActivitiServiceImpl:] - getModelInfo invoke paramter modelId = 25567
+2018-03-05 16:55:45,695 ERROR [http-nio-30504-exec-3][CommandContext:] - Error while closing command context
+org.apache.ibatis.exceptions.PersistenceException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'hourseInfo-10-' for key 'ACT_UNIQ_PROCDEF'
+### The error may involve org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity.insertProcessDefinition-Inline
+### The error occurred while setting parameters
+### SQL: insert into ACT_RE_PROCDEF(ID_, REV_, CATEGORY_, NAME_, KEY_, VERSION_, DEPLOYMENT_ID_, RESOURCE_NAME_, DGRM_RESOURCE_NAME_, DESCRIPTION_, HAS_START_FORM_KEY_, HAS_GRAPHICAL_NOTATION_ , SUSPENSION_STATE_, TENANT_ID_)     values (?,       1,             ?,             ?,             ?,              ?,             ?,             ?,             ?,             ?,             ?,             ?,             ?,             ?)
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'hourseInfo-10-' for key 'ACT_UNIQ_PROCDEF'
+	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:200) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:185) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.activiti.engine.impl.db.DbSqlSession.flushRegularInsert(DbSqlSession.java:830) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.db.DbSqlSession.flushPersistentObjects(DbSqlSession.java:811) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.db.DbSqlSession.flushInserts(DbSqlSession.java:794) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.db.DbSqlSession.flush(DbSqlSession.java:615) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.interceptor.CommandContext.flushSessions(CommandContext.java:212) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.interceptor.CommandContext.close(CommandContext.java:138) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.interceptor.CommandContextInterceptor.execute(CommandContextInterceptor.java:66) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.spring.SpringTransactionInterceptor$1.doInTransaction(SpringTransactionInterceptor.java:47) ~[activiti-spring-5.22.0.jar:5.22.0]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:133) ~[spring-tx-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.activiti.spring.SpringTransactionInterceptor.execute(SpringTransactionInterceptor.java:45) ~[activiti-spring-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.interceptor.LogInterceptor.execute(LogInterceptor.java:31) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.cfg.CommandExecutorImpl.execute(CommandExecutorImpl.java:40) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.cfg.CommandExecutorImpl.execute(CommandExecutorImpl.java:35) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.RepositoryServiceImpl.deploy(RepositoryServiceImpl.java:79) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.repository.DeploymentBuilderImpl.deploy(DeploymentBuilderImpl.java:156) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at com.ht.risk.activiti.service.impl.ActivitiServiceImpl.deploy(ActivitiServiceImpl.java:118) ~[classes/:?]
+	at com.ht.risk.activiti.controller.ActivitiController.deploy(ActivitiController.java:163) ~[classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_111]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_111]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_111]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_111]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:133) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:827) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:738) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:967) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:901) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:872) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) ~[tomcat-embed-websocket-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:108) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:478) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1459) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [?:1.8.0_111]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [?:1.8.0_111]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_111]
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'hourseInfo-10-' for key 'ACT_UNIQ_PROCDEF'
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_111]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_111]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_111]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_111]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.Util.getInstance(Util.java:408) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:936) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3973) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3909) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2527) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2680) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2484) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1858) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.PreparedStatement.execute(PreparedStatement.java:1197) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:493) ~[druid-1.0.11.jar:1.0.11]
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:46) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:198) ~[mybatis-3.4.5.jar:3.4.5]
+	... 72 more
+2018-03-05 16:55:45,699 ERROR [http-nio-30504-exec-3][ActivitiController:] - deploy model error,error message：
+org.apache.ibatis.exceptions.PersistenceException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'hourseInfo-10-' for key 'ACT_UNIQ_PROCDEF'
+### The error may involve org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity.insertProcessDefinition-Inline
+### The error occurred while setting parameters
+### SQL: insert into ACT_RE_PROCDEF(ID_, REV_, CATEGORY_, NAME_, KEY_, VERSION_, DEPLOYMENT_ID_, RESOURCE_NAME_, DGRM_RESOURCE_NAME_, DESCRIPTION_, HAS_START_FORM_KEY_, HAS_GRAPHICAL_NOTATION_ , SUSPENSION_STATE_, TENANT_ID_)     values (?,       1,             ?,             ?,             ?,              ?,             ?,             ?,             ?,             ?,             ?,             ?,             ?,             ?)
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'hourseInfo-10-' for key 'ACT_UNIQ_PROCDEF'
+	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:200) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:185) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.activiti.engine.impl.db.DbSqlSession.flushRegularInsert(DbSqlSession.java:830) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.db.DbSqlSession.flushPersistentObjects(DbSqlSession.java:811) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.db.DbSqlSession.flushInserts(DbSqlSession.java:794) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.db.DbSqlSession.flush(DbSqlSession.java:615) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.interceptor.CommandContext.flushSessions(CommandContext.java:212) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.interceptor.CommandContext.close(CommandContext.java:138) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.interceptor.CommandContextInterceptor.execute(CommandContextInterceptor.java:66) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.spring.SpringTransactionInterceptor$1.doInTransaction(SpringTransactionInterceptor.java:47) ~[activiti-spring-5.22.0.jar:5.22.0]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:133) ~[spring-tx-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.activiti.spring.SpringTransactionInterceptor.execute(SpringTransactionInterceptor.java:45) ~[activiti-spring-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.interceptor.LogInterceptor.execute(LogInterceptor.java:31) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.cfg.CommandExecutorImpl.execute(CommandExecutorImpl.java:40) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.cfg.CommandExecutorImpl.execute(CommandExecutorImpl.java:35) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.RepositoryServiceImpl.deploy(RepositoryServiceImpl.java:79) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.repository.DeploymentBuilderImpl.deploy(DeploymentBuilderImpl.java:156) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at com.ht.risk.activiti.service.impl.ActivitiServiceImpl.deploy(ActivitiServiceImpl.java:118) ~[classes/:?]
+	at com.ht.risk.activiti.controller.ActivitiController.deploy(ActivitiController.java:163) ~[classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_111]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_111]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_111]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_111]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:133) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:827) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:738) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:967) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:901) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:872) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) ~[tomcat-embed-websocket-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:108) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:478) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1459) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [?:1.8.0_111]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [?:1.8.0_111]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_111]
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'hourseInfo-10-' for key 'ACT_UNIQ_PROCDEF'
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_111]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_111]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_111]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_111]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.Util.getInstance(Util.java:408) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:936) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3973) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3909) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2527) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2680) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2484) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1858) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.mysql.jdbc.PreparedStatement.execute(PreparedStatement.java:1197) ~[mysql-connector-java-5.1.45.jar:5.1.45]
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:493) ~[druid-1.0.11.jar:1.0.11]
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:46) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76) ~[mybatis-3.4.5.jar:3.4.5]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:198) ~[mybatis-3.4.5.jar:3.4.5]
+	... 72 more
+2018-03-05 16:55:45,707  INFO [http-nio-30504-exec-5][ActivitiServiceImpl:] - getModelInfo invoke end 
+2018-03-05 16:55:45,707  INFO [http-nio-30504-exec-5][ActivitiController:] - 获取模型信息！
+2018-03-05 16:55:46,246  INFO [http-nio-30504-exec-6][ActivitiController:] - deploy model,paramter:{"modelId":"25567"}
+2018-03-05 16:55:46,263 ERROR [http-nio-30504-exec-4][ActivitiController:] - deploy model error,error message：
+org.activiti.engine.ActivitiOptimisticLockingException: org.activiti.engine.impl.persistence.entity.ModelEntity@4611c1c was updated by another transaction concurrently
+	at org.activiti.engine.impl.db.DbSqlSession.flushUpdates(DbSqlSession.java:877) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.db.DbSqlSession.flush(DbSqlSession.java:616) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.interceptor.CommandContext.flushSessions(CommandContext.java:212) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.interceptor.CommandContext.close(CommandContext.java:138) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.interceptor.CommandContextInterceptor.execute(CommandContextInterceptor.java:66) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.spring.SpringTransactionInterceptor$1.doInTransaction(SpringTransactionInterceptor.java:47) ~[activiti-spring-5.22.0.jar:5.22.0]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:133) ~[spring-tx-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.activiti.spring.SpringTransactionInterceptor.execute(SpringTransactionInterceptor.java:45) ~[activiti-spring-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.interceptor.LogInterceptor.execute(LogInterceptor.java:31) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.cfg.CommandExecutorImpl.execute(CommandExecutorImpl.java:40) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.cfg.CommandExecutorImpl.execute(CommandExecutorImpl.java:35) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at org.activiti.engine.impl.RepositoryServiceImpl.saveModel(RepositoryServiceImpl.java:216) ~[activiti-engine-5.22.0.jar:5.22.0]
+	at com.ht.risk.activiti.service.impl.ActivitiServiceImpl.deploy(ActivitiServiceImpl.java:120) ~[classes/:?]
+	at com.ht.risk.activiti.controller.ActivitiController.deploy(ActivitiController.java:163) ~[classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_111]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_111]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_111]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_111]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:133) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:827) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:738) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:967) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:901) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:872) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846) ~[spring-webmvc-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) ~[tomcat-embed-websocket-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:108) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:478) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1459) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [?:1.8.0_111]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [?:1.8.0_111]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_111]
+2018-03-05 16:55:46,348  INFO [http-nio-30504-exec-6][BpmnDeployer:] - Processing resource 房贷准入规则模型(勿动).bpmn20.xml
+2018-03-05 16:55:46,714  INFO [http-nio-30504-exec-7][ActivitiController:] - 获取模型信息,参数paramter:{"modelId":"25567"}
+2018-03-05 16:55:46,714  INFO [http-nio-30504-exec-7][ActivitiServiceImpl:] - getModelInfo invoke paramter modelId = 25567
+2018-03-05 16:55:46,719  INFO [http-nio-30504-exec-7][ActivitiServiceImpl:] - getModelInfo invoke end 
+2018-03-05 16:55:46,720  INFO [http-nio-30504-exec-7][ActivitiController:] - 获取模型信息！
+2018-03-05 16:56:52,772  INFO [background-preinit][Version:] - HV000001: Hibernate Validator 6.0.7.Final
+2018-03-05 16:56:53,822  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@3c8a42c5: startup date [Mon Mar 05 16:56:53 CST 2018]; root of context hierarchy
+2018-03-05 16:56:54,194  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:56:54,254  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'configurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$e396e78c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 16:56:56,085  INFO [restartedMain][ActivitiServiceApplication:] - The following profiles are active: local
+2018-03-05 16:56:56,142  INFO [restartedMain][AnnotationConfigEmbeddedWebApplicationContext:] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49e9addf: startup date [Mon Mar 05 16:56:56 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@3c8a42c5
+2018-03-05 16:56:58,961  WARN [restartedMain][ClassPathMapperScanner:] - No MyBatis mapper was found in '[com.ht.risk.activiti]' package. Please check your configuration.
+2018-03-05 16:56:59,023  WARN [restartedMain][ClassPathMapperScanner:] - No MyBatis mapper was found in '[com.ht.risk.activiti]' package. Please check your configuration.
+2018-03-05 16:56:59,183  INFO [restartedMain][RepositoryConfigurationDelegate:] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-03-05 16:56:59,639  INFO [restartedMain][GenericScope:] - BeanFactory id=2899f388-ec9a-3e15-894f-a710c79e3abd
+2018-03-05 16:56:59,655  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:56:59,826  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration' of type [org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration$$EnhancerBySpringCGLIB$$8de8a2bd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 16:56:59,976  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c77ce48f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 16:57:00,288  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$e396e78c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 16:57:01,367  INFO [restartedMain][TomcatEmbeddedServletContainer:] - Tomcat initialized with port(s): 30504 (http)
+2018-03-05 16:57:01,379  INFO [restartedMain][StandardService:] - Starting service [Tomcat]
+2018-03-05 16:57:01,380  INFO [restartedMain][StandardEngine:] - Starting Servlet Engine: Apache Tomcat/8.5.23
+2018-03-05 16:57:01,560  INFO [localhost-startStop-1][[/]:] - Initializing Spring embedded WebApplicationContext
+2018-03-05 16:57:01,560  INFO [localhost-startStop-1][ContextLoader:] - Root WebApplicationContext: initialization completed in 5418 ms
+2018-03-05 16:57:01,923  INFO [localhost-startStop-1][ServletRegistrationBean:] - Mapping servlet: 'dispatcherServlet' to [/]
+2018-03-05 16:57:01,924  INFO [localhost-startStop-1][ServletRegistrationBean:] - Mapping servlet: 'webServlet' to [/h2-console/*]
+2018-03-05 16:57:01,927  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-03-05 16:57:01,928  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-03-05 16:57:01,928  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-03-05 16:57:01,928  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'requestContextFilter' to: [/*]
+2018-03-05 16:57:04,513  INFO [restartedMain][ProcessEngineImpl:] - ProcessEngine default created
+2018-03-05 16:57:04,515  INFO [restartedMain][AbstractAsyncJobExecutor:] - Starting up the default async job executor [org.activiti.spring.SpringAsyncExecutor].
+2018-03-05 16:57:04,516  INFO [Thread-44][AcquireTimerJobsRunnable:] - starting to acquire async jobs due
+2018-03-05 16:57:04,516  INFO [Thread-45][AcquireAsyncJobsDueRunnable:] - starting to acquire async jobs due
+2018-03-05 16:57:04,564  INFO [restartedMain][BpmnDeployer:] - Processing resource D:\风控\workspaces\risk\risk-activiti\target\classes\processes\leave.bpmn
+2018-03-05 16:57:06,052  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@20289e61: startup date [Mon Mar 05 16:57:06 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49e9addf
+2018-03-05 16:57:06,080  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:57:06,509  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@cd8b127: startup date [Mon Mar 05 16:57:06 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49e9addf
+2018-03-05 16:57:06,530  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:57:06,578  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@1d731a90: startup date [Mon Mar 05 16:57:06 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49e9addf
+2018-03-05 16:57:06,587  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:57:06,634  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@19633189: startup date [Mon Mar 05 16:57:06 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49e9addf
+2018-03-05 16:57:06,642  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:57:06,677  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@66059b4e: startup date [Mon Mar 05 16:57:06 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49e9addf
+2018-03-05 16:57:06,685  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:57:07,257  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/list]}" onto public com.ht.risk.common.result.PageResult<java.util.List<com.ht.risk.activiti.vo.ModelVo>> com.ht.risk.activiti.controller.ActivitiController.list(com.ht.risk.activiti.vo.ModelPage)
+2018-03-05 16:57:07,258  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/getModelInfo]}" onto public com.ht.risk.common.result.Result<com.ht.risk.api.model.activiti.ModelParamter> com.ht.risk.activiti.controller.ActivitiController.getModelInfo(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 16:57:07,258  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/addModeler],methods=[GET]}" onto public com.ht.risk.common.result.Result<com.ht.risk.api.model.activiti.ModelParamter> com.ht.risk.activiti.controller.ActivitiController.addModel(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 16:57:07,258  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/deleteModel]}" onto public com.ht.risk.common.result.Result<com.ht.risk.api.model.activiti.ModelParamter> com.ht.risk.activiti.controller.ActivitiController.deleteModel(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 16:57:07,258  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/deploy]}" onto public com.ht.risk.common.result.Result<com.ht.risk.api.model.activiti.RpcDeployResult> com.ht.risk.activiti.controller.ActivitiController.deploy(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 16:57:07,258  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/start]}" onto public com.ht.risk.common.result.Result<java.lang.String> com.ht.risk.activiti.controller.ActivitiController.startProcess(com.ht.risk.api.model.activiti.RpcStartParamter)
+2018-03-05 16:57:07,258  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/editModel]}" onto public com.fasterxml.jackson.databind.node.ObjectNode com.ht.risk.activiti.controller.ActivitiController.getEditorJson(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 16:57:07,259  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/model/save],methods=[POST]}" onto public void com.ht.risk.activiti.controller.ActivitiController.saveModel(java.lang.String,org.springframework.util.MultiValueMap<java.lang.String, java.lang.String>)
+2018-03-05 16:57:07,259  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/editor/stencilset]}" onto public java.lang.String com.ht.risk.activiti.controller.ActivitiController.getStencilset()
+2018-03-05 16:57:07,259  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/getProcInstVarObj]}" onto public java.lang.Object com.ht.risk.activiti.controller.ActivitiController.getProcInstVarObj(com.ht.risk.api.model.activiti.ModelParamter)
+2018-03-05 16:57:07,260  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/task/completeTask]}" onto public com.ht.risk.common.result.Result com.ht.risk.activiti.controller.TaskController.completeTask(com.ht.risk.activiti.vo.TaskVo)
+2018-03-05 16:57:07,260  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/task/queryUserTaskList]}" onto public com.ht.risk.common.result.Result<java.util.List<com.ht.risk.activiti.vo.TaskVo>> com.ht.risk.activiti.controller.TaskController.queryUserTaskList(com.ht.risk.activiti.vo.TaskVo)
+2018-03-05 16:57:07,261  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/common/config.js],methods=[GET],produces=[application/javascript]}" onto public java.lang.String com.ht.ussp.bean.GatewayURLHelper.config()
+2018-03-05 16:57:07,263  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/swagger-resources/configuration/security]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-03-05 16:57:07,264  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/swagger-resources/configuration/ui]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-03-05 16:57:07,264  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/swagger-resources]}" onto public org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-03-05 16:57:07,266  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-03-05 16:57:07,266  INFO [restartedMain][RequestMappingHandlerMapping:] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-03-05 16:57:07,581  INFO [restartedMain][PropertySourcedRequestMappingHandlerMapping:] - Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2018-03-05 16:57:07,820  INFO [restartedMain][URLConfigurationSource:] - URLs to be used as dynamic configuration source: [file:/D:/%e9%a3%8e%e6%8e%a7/workspaces/risk/risk-api/target/classes/config.properties]
+2018-03-05 16:57:07,925  INFO [restartedMain][URLConfigurationSource:] - URLs to be used as dynamic configuration source: [file:/D:/%e9%a3%8e%e6%8e%a7/workspaces/risk/risk-api/target/classes/config.properties]
+2018-03-05 16:57:08,540  INFO [restartedMain][RequestMappingHandlerAdapter:] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49e9addf: startup date [Mon Mar 05 16:56:56 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@3c8a42c5
+2018-03-05 16:57:08,548  INFO [restartedMain][RequestMappingHandlerAdapter:] - Detected @ModelAttribute methods in loginUserInfoHelper
+2018-03-05 16:57:08,548  INFO [restartedMain][RequestMappingHandlerAdapter:] - Detected @ModelAttribute methods in orgInfoHelper
+2018-03-05 16:57:08,668  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/swagger-ui.html] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 16:57:08,668  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/webjars*] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 16:57:08,668  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 16:57:08,668  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 16:57:08,697  INFO [restartedMain][ExceptionHandlerExceptionResolver:] - Detected @ExceptionHandler methods in exceptionControllerAdvice
+2018-03-05 16:57:08,762  INFO [restartedMain][SimpleUrlHandlerMapping:] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-05 16:57:11,092  INFO [restartedMain][OptionalLiveReloadServer:] - LiveReload server is running on port 35729
+2018-03-05 16:57:11,475  WARN [restartedMain][EurekaStarterDeprecationWarningAutoConfiguration:] - spring-cloud-starter-eureka is deprecated as of Spring Cloud Netflix 1.4.0, please migrate to spring-cloud-starter-netflix-eureka
+2018-03-05 16:57:11,537  INFO [restartedMain][AnnotationMBeanExporter:] - Registering beans for JMX exposure on startup
+2018-03-05 16:57:11,539  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-03-05 16:57:11,546  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'environmentManager' has been autodetected for JMX exposure
+2018-03-05 16:57:11,547  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'rabbitConnectionFactory' has been autodetected for JMX exposure
+2018-03-05 16:57:11,548  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'configurationPropertiesRebinder' has been autodetected for JMX exposure
+2018-03-05 16:57:11,549  INFO [restartedMain][AnnotationMBeanExporter:] - Bean with name 'refreshScope' has been autodetected for JMX exposure
+2018-03-05 16:57:11,551  INFO [restartedMain][AnnotationMBeanExporter:] - Located managed bean 'environmentManager': registering with JMX server as MBean [org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager]
+2018-03-05 16:57:11,580  INFO [restartedMain][AnnotationMBeanExporter:] - Located managed bean 'refreshScope': registering with JMX server as MBean [org.springframework.cloud.context.scope.refresh:name=refreshScope,type=RefreshScope]
+2018-03-05 16:57:11,590  INFO [restartedMain][AnnotationMBeanExporter:] - Located managed bean 'configurationPropertiesRebinder': registering with JMX server as MBean [org.springframework.cloud.context.properties:name=configurationPropertiesRebinder,context=49e9addf,type=ConfigurationPropertiesRebinder]
+2018-03-05 16:57:11,595  INFO [restartedMain][AnnotationMBeanExporter:] - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2018-03-05 16:57:11,597  INFO [restartedMain][AnnotationMBeanExporter:] - Located managed bean 'rabbitConnectionFactory': registering with JMX server as MBean [org.springframework.amqp.rabbit.connection:name=rabbitConnectionFactory,type=CachingConnectionFactory]
+2018-03-05 16:57:11,791  INFO [Thread-51][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@41fa6e74: startup date [Mon Mar 05 16:57:11 CST 2018]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@49e9addf
+2018-03-05 16:57:11,849  INFO [Thread-51][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 16:57:11,938  INFO [restartedMain][DefaultLifecycleProcessor:] - Starting beans in phase 0
+2018-03-05 16:57:11,952  INFO [restartedMain][InstanceInfoFactory:] - Setting initial instance status as: STARTING
+2018-03-05 16:57:12,038  INFO [restartedMain][DiscoveryClient:] - Initializing Eureka in region us-east-1
+2018-03-05 16:57:12,263  INFO [restartedMain][DiscoveryJerseyProvider:] - Using JSON encoding codec LegacyJacksonJson
+2018-03-05 16:57:12,263  INFO [restartedMain][DiscoveryJerseyProvider:] - Using JSON decoding codec LegacyJacksonJson
+2018-03-05 16:57:12,265  INFO [Thread-51][ChainedDynamicProperty:] - Flipping property: ussp-uc-app.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2018-03-05 16:57:12,311  INFO [Thread-51][ShutdownEnabledTimer:] - Shutdown hook installed for: NFLoadBalancer-PingTimer-ussp-uc-app
+2018-03-05 16:57:12,329  INFO [Thread-51][BaseLoadBalancer:] - Client: ussp-uc-app instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=ussp-uc-app,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2018-03-05 16:57:12,339  INFO [Thread-51][DynamicServerListLoadBalancer:] - Using serverListUpdater PollingServerListUpdater
+2018-03-05 16:57:12,412  INFO [restartedMain][DiscoveryJerseyProvider:] - Using XML encoding codec XStreamXml
+2018-03-05 16:57:12,412  INFO [restartedMain][DiscoveryJerseyProvider:] - Using XML decoding codec XStreamXml
+2018-03-05 16:57:12,709  INFO [restartedMain][ConfigClusterResolver:] - Resolving eureka endpoints via configuration
+2018-03-05 16:57:12,794  INFO [restartedMain][DiscoveryClient:] - Disable delta property : false
+2018-03-05 16:57:12,794  INFO [restartedMain][DiscoveryClient:] - Single vip registry refresh property : null
+2018-03-05 16:57:12,794  INFO [restartedMain][DiscoveryClient:] - Force full registry fetch : false
+2018-03-05 16:57:12,794  INFO [restartedMain][DiscoveryClient:] - Application is null : false
+2018-03-05 16:57:12,794  INFO [restartedMain][DiscoveryClient:] - Registered Applications size is zero : true
+2018-03-05 16:57:12,794  INFO [restartedMain][DiscoveryClient:] - Application version is -1: true
+2018-03-05 16:57:12,794  INFO [restartedMain][DiscoveryClient:] - Getting all instance registry info from the eureka server
+2018-03-05 16:57:12,932  INFO [restartedMain][DiscoveryClient:] - The response status is 200
+2018-03-05 16:57:12,934  INFO [restartedMain][DiscoveryClient:] - Starting heartbeat executor: renew interval is: 30
+2018-03-05 16:57:12,938  INFO [restartedMain][InstanceInfoReplicator:] - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2018-03-05 16:57:12,941  INFO [restartedMain][DiscoveryClient:] - Discovery Client initialized at timestamp 1520240232940 with initial instances count: 6
+2018-03-05 16:57:12,989  INFO [restartedMain][EurekaServiceRegistry:] - Registering application risk-activiti-service with eureka with status UP
+2018-03-05 16:57:12,989  INFO [restartedMain][DiscoveryClient:] - Saw local status change event StatusChangeEvent [timestamp=1520240232989, current=UP, previous=STARTING]
+2018-03-05 16:57:12,989  INFO [Thread-51][DynamicServerListLoadBalancer:] - DynamicServerListLoadBalancer for client ussp-uc-app initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=ussp-uc-app,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@f8ce869
+2018-03-05 16:57:12,990  INFO [DiscoveryClient-InstanceInfoReplicator-0][DiscoveryClient:] - DiscoveryClient_RISK-ACTIVITI-SERVICE/zhangz-PC:risk-activiti-service:30504: registering service...
+2018-03-05 16:57:12,993  INFO [restartedMain][DefaultLifecycleProcessor:] - Starting beans in phase 2147483647
+2018-03-05 16:57:12,993  INFO [restartedMain][DocumentationPluginsBootstrapper:] - Context refreshed
+2018-03-05 16:57:13,031  INFO [restartedMain][DocumentationPluginsBootstrapper:] - Found 1 custom documentation plugin(s)
+2018-03-05 16:57:13,033  INFO [DiscoveryClient-InstanceInfoReplicator-0][DiscoveryClient:] - DiscoveryClient_RISK-ACTIVITI-SERVICE/zhangz-PC:risk-activiti-service:30504 - registration status: 204
+2018-03-05 16:57:13,084  INFO [restartedMain][ApiListingReferenceScanner:] - Scanning for api listing references
+2018-03-05 16:57:13,222  WARN [Thread-51][ResourceApiSynchHelper:] - 同步API资源发生异常，请尝试重启服务。异常：com.netflix.client.ClientException: Load balancer does not have available server for client: ussp-uc-app
+2018-03-05 16:57:13,400  INFO [restartedMain][Http11NioProtocol:] - Initializing ProtocolHandler ["http-nio-30504"]
+2018-03-05 16:57:13,410  INFO [restartedMain][Http11NioProtocol:] - Starting ProtocolHandler ["http-nio-30504"]
+2018-03-05 16:57:13,417  INFO [restartedMain][NioSelectorPool:] - Using a shared selector for servlet write/read
+2018-03-05 16:57:13,439  INFO [restartedMain][TomcatEmbeddedServletContainer:] - Tomcat started on port(s): 30504 (http)
+2018-03-05 16:57:13,440  INFO [restartedMain][EurekaAutoServiceRegistration:] - Updating port to 30504
+2018-03-05 16:57:13,442  INFO [restartedMain][ActivitiInitRunner:] - ActivitiInitRunner runing ...
+2018-03-05 16:57:13,457  INFO [restartedMain][ActivitiInitRunner:] - ActivitiInitRunner complete ...
+2018-03-05 16:57:13,459  INFO [restartedMain][ActivitiServiceApplication:] - Started ActivitiServiceApplication in 24.585 seconds (JVM running for 52.263)
+2018-03-05 21:17:09,139  INFO [background-preinit][Version:] - HV000001: Hibernate Validator 6.0.7.Final
+2018-03-05 21:17:21,426  INFO [restartedMain][AnnotationConfigApplicationContext:] - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@3065049e: startup date [Mon Mar 05 21:17:21 CST 2018]; root of context hierarchy
+2018-03-05 21:17:21,584  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 21:17:21,628  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'configurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$bf68c271] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 21:17:22,185  INFO [restartedMain][ActivitiServiceApplication:] - The following profiles are active: local
+2018-03-05 21:17:22,203  INFO [restartedMain][AnnotationConfigEmbeddedWebApplicationContext:] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@694ea8e2: startup date [Mon Mar 05 21:17:22 CST 2018]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@3065049e
+2018-03-05 21:17:24,288  WARN [restartedMain][ClassPathMapperScanner:] - No MyBatis mapper was found in '[com.ht.risk.activiti]' package. Please check your configuration.
+2018-03-05 21:17:24,339  WARN [restartedMain][ClassPathMapperScanner:] - No MyBatis mapper was found in '[com.ht.risk.activiti]' package. Please check your configuration.
+2018-03-05 21:17:24,418  INFO [restartedMain][RepositoryConfigurationDelegate:] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-03-05 21:17:24,799  INFO [restartedMain][GenericScope:] - BeanFactory id=2899f388-ec9a-3e15-894f-a710c79e3abd
+2018-03-05 21:17:24,814  INFO [restartedMain][AutowiredAnnotationBeanPostProcessor:] - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2018-03-05 21:17:24,868  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration' of type [org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration$$EnhancerBySpringCGLIB$$69ba7da2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 21:17:24,941  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$a34ebf74] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 21:17:25,265  INFO [restartedMain][PostProcessorRegistrationDelegate$BeanPostProcessorChecker:] - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$bf68c271] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-05 21:17:26,137  INFO [restartedMain][TomcatEmbeddedServletContainer:] - Tomcat initialized with port(s): 30504 (http)
+2018-03-05 21:17:26,148  INFO [restartedMain][StandardService:] - Starting service [Tomcat]
+2018-03-05 21:17:26,151  INFO [restartedMain][StandardEngine:] - Starting Servlet Engine: Apache Tomcat/8.5.23
+2018-03-05 21:17:26,270  INFO [localhost-startStop-1][[/]:] - Initializing Spring embedded WebApplicationContext
+2018-03-05 21:17:26,270  INFO [localhost-startStop-1][ContextLoader:] - Root WebApplicationContext: initialization completed in 4067 ms
+2018-03-05 21:17:26,726  INFO [localhost-startStop-1][ServletRegistrationBean:] - Mapping servlet: 'dispatcherServlet' to [/]
+2018-03-05 21:17:26,727  INFO [localhost-startStop-1][ServletRegistrationBean:] - Mapping servlet: 'webServlet' to [/h2-console/*]
+2018-03-05 21:17:26,732  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-03-05 21:17:26,732  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-03-05 21:17:26,732  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-03-05 21:17:26,732  INFO [localhost-startStop-1][FilterRegistrationBean:] - Mapping filter: 'requestContextFilter' to: [/*]
