@@ -30,7 +30,7 @@ layui.use(['table','jquery','myutil'], function(){
         ,id: "versionReload"
         ,page: true //开启分页
         ,cols: [[ //表头\
-             {field: 'modelProcdefId', title: '模型定义ID', width:"20%"}
+             {field: 'modelCode', title: '模型编码', width:"20%"}
             ,{field: 'modelVersion', title: '模型版本', width:"10%",templet:'#versionTpl'}
             ,{field: 'isEffect', title: '状态', width:"10%", templet: '#statusTpl'}
             ,{field: 'createUser', title: '发布人', width:"20%"}
@@ -43,13 +43,13 @@ layui.use(['table','jquery','myutil'], function(){
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
         var modelId = data.modelId;
+        $("#modelId").val(modelId);
         var deploymentId = data.deploymentId;
         console.log(data);
          if(layEvent === 'version'){ //查看
             queryVersionList(modelId);
         }
     });
-
     table.on('tool(version)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
@@ -129,6 +129,7 @@ layui.use(['table','jquery','myutil'], function(){
             },
             success : function(data) {
                 layer.msg(data.msg);
+                var modelId = $("#modelId").val();
                 queryVersionList(modelId);
             }
         });
