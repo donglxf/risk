@@ -72,9 +72,10 @@
 
 
 <script>
+	//  决策平均响应时间图
 	function graphTime(da){
-        var xAxisArr=new Array(da.ruleMap.length);
-        var seriesArr=new Array(da.listMap.length);
+        var xAxisArr=new Array(da.ruleMap.length); // 决策
+        var seriesArr=new Array(da.listMap.length); // 响应时间
 		for(var i=0;i<da.ruleMap.length ;i++){
             xAxisArr[i]=da.ruleMap[i].title;
 		}
@@ -105,7 +106,7 @@
 			series: [{
 				data: seriesArr,
                 type: 'bar',
-                barWidth:6
+                barWidth:5
 			}],
             animationEasing: 'elasticOut',
             animationDelayUpdate: function (idx) {
@@ -117,6 +118,7 @@
 		}
 	}
 
+	// 规则命中量图
 	function ruleExecuteTotal(da){
         var xAxisArr=new Array(da.ruleExecuteTotal.length);
         var seriesArr=new Array(da.ruleExecuteTotal.length);
@@ -152,7 +154,7 @@
 			series: [{
 				data: seriesArr,
 				type: 'bar',
-                barWidth:6
+                barWidth:5
 			}],
             animationEasing: 'elasticOut',
             animationDelayUpdate: function (idx) {
