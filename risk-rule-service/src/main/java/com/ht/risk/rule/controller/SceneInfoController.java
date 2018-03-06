@@ -74,9 +74,9 @@ public class SceneInfoController extends BaseController{
         return Result.success(0);
     }
 
-    @GetMapping("getInfoById/{id}")
+    @GetMapping("getInfoById")
     @ApiOperation(value = "通过id查询详细信息")
-    public Result<SceneInfo> getDateById(@PathVariable(name = "id") Long id){
+    public Result<SceneInfo> getDateById( Long id){
         SceneInfo sceneInfo = sceneInfoService.selectById(id);
         return Result.success(sceneInfo);
     }

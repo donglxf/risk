@@ -146,7 +146,7 @@ public class DroolsExcuteController {
         RuleExcuteResult data = null;
         // 业务数据转化
         try {
-            log.info("规则验证入参：" + JSON.toJSONString(paramter));
+            log.info("excuteDroolsSceneValidation==>规则验证入参：" + JSON.toJSONString(paramter));
             RuleSceneVersion ruleVersion=null;
             boolean bool = true; // true-正式,false-测试
             if (RuleCallTypeEnum.rule.getType().equals(paramter.getType())) { // 规则调用
@@ -170,7 +170,7 @@ public class DroolsExcuteController {
                 ruleVersion= ruleSceneVersionService.getInfoByVersionId(parmaMap);
             }
 
-            if (ObjectUtils.isEmpty(ruleVersion)) {
+            if (null == ruleVersion) {
                 data = new RuleExcuteResult(1, paramter.getSence() + "参数出错，无可用"+version+"版本信息,请检查", null,paramter.getVersion());
                 return data;
             }
@@ -182,14 +182,14 @@ public class DroolsExcuteController {
             object = this.droolsRuleEngineService.excute1(object, ruleVersion);
             Long endTime = System.currentTimeMillis();
             Long executeTime = endTime - startTime;
-            log.info("规则验证执行时间》》》》》" + String.valueOf(executeTime));
+            log.info("rule exec time》》》》》" + String.valueOf(executeTime));
             data = new RuleExcuteResult(0, "success", saveLog(object, paramter, ruleVersion, executeTime),paramter.getVersion());
             data.setSenceVersoionId(String.valueOf(ruleVersion.getVersionId()));
         } catch (Exception e) {
             e.printStackTrace();
             data = new RuleExcuteResult(1, e.getMessage(), null,paramter.getVersion());
         }
-        log.info("规则验证返回结果：" + JSON.toJSONString(data));
+        log.info("rule exe result>>>：" + JSON.toJSONString(data));
         return data;
     }
 
