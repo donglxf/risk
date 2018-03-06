@@ -185,6 +185,7 @@ function addModel(){
         content: pathConfig.ruleUiPath+'model/addView',
         zIndex: layer.zIndex, //重点1
         success: function(layero){
+            layer.msg(data.msg);
             layer.setTop(layero); //重点2
         }
     });

@@ -9,13 +9,15 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@EnableFeignClients(basePackages = {"com.ht.risk.rpc"})
+@EnableFeignClients(basePackages = {"com.ht.ussp.client","com.ht.risk.rpc"})
 @EnableTransactionManagement
 @EnableDiscoveryClient 
 @SpringBootApplication
 @MapperScan("com.ht.risk.mapper")
+@ComponentScan(basePackages= {"com.ht.risk","com.ht.risk.common.exception","com.ht.ussp.bean"})
 public class DroolsServiceApplication extends SpringBootServletInitializer {
 
 	static Logger logger = LoggerFactory.getLogger(DroolsServiceApplication.class);

@@ -1,5 +1,6 @@
 package com.ht.risk.rule.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.ActionInfo;
@@ -125,5 +126,13 @@ public class ActionInfoServiceImpl extends BaseServiceImpl<ActionInfoMapper, Act
     @Override
     public List<ActionInfoVo> findActionAllVos(Long businessId) {
         return this.actionInfoMapper.findActionAllVos( businessId);
+    }
+
+    @Override
+    public boolean checkKey(String key,String other) {
+        Integer count = this.baseMapper.selectCount(new EntityWrapper<ActionInfo>()
+                .eq("action_class", key));
+        count = count == null?0:count;
+        return count > 0 ? true:false;
     }
 }

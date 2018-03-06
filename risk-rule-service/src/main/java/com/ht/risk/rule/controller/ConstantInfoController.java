@@ -89,7 +89,7 @@ public class ConstantInfoController extends BaseController {
 
 	@GetMapping("getInfoById")
 	@ApiOperation(value = "通过id查询详细信息")
-	public Result<ConstantInfo> getDateById( Long id) {
+	public Result<ConstantInfo> getDateById(Long id) {
 		ConstantInfo entityInfo = constantInfoService.selectById(id);
 		return Result.success(entityInfo);
 	}
