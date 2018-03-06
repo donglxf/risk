@@ -1,11 +1,11 @@
 package com.ht.risk.rule.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.ActionParamInfo;
+import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.rule.mapper.ActionParamInfoMapper;
 import com.ht.risk.rule.service.ActionParamInfoService;
-import com.ht.risk.common.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -42,11 +42,17 @@ public class ActionParamInfoServiceImpl extends BaseServiceImpl<ActionParamInfoM
         }
         return this.actionParamInfoMapper.findRuleActionParamByActionId(actionId);
     }
-
     @Override
-    public boolean checkKey(String key,String other) {
-        Integer count = this.baseMapper.selectCount(new EntityWrapper<ActionParamInfo>()
-                .eq("param_identify", key));
+    public boolean checkKey(String key,String other,Long id) {
+        Integer count = 0;
+        if(id != null ){
+             count = this.baseMapper.selectCount(new EntityWrapper<ActionParamInfo>()
+                    .eq("param_identify", key).and().ne("action_param_id",id));
+        }else{
+             count = this.baseMapper.selectCount(new EntityWrapper<ActionParamInfo>()
+                    .eq("param_identify", key));
+        }
+
         count = count == null?0:count;
         return count > 0 ? true:false;
     }

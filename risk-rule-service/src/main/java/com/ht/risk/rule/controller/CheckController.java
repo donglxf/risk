@@ -28,9 +28,9 @@ public class CheckController {
 
     @GetMapping("key")
     @ApiOperation(value = "查询所有的常量")
-    public Result<Integer> getAll(String key,Integer type,String other){
+    public Result<Integer> getAll(String key,Integer type,String other,Long id){
 
-        boolean flag = checkKeyFacade.checkKey(key,type,other);
+        boolean flag = checkKeyFacade.checkKey(key,type,other,id);
         if(flag){
             return Result.error(-1,"保存失败，该标识已存在！");
         }else{

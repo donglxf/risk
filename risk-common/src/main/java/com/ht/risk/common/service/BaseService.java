@@ -10,6 +10,6 @@ public interface BaseService<T> extends IService<T>{
      * @param key
      * @return
      */
-    boolean checkKey(String key,String other);
+    boolean checkKey(String key,String other,Long id);
 
 }

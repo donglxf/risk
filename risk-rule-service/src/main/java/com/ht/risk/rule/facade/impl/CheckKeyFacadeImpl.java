@@ -25,29 +25,32 @@ public class CheckKeyFacadeImpl implements CheckKeyFacade {
     private EntityItemInfoService entityItemInfoService;
 
     @Autowired
+    private ActionParamInfoService actionParamInfoService;
+
+    @Autowired
     private ConstantInfoService constantInfoService;
 
     @Autowired
     private ActionInfoService actionInfoService;
 
-    @Autowired
-    private ActionParamInfoService actionParamInfoService;
+
+
 
     @Override
-    public boolean checkKey(String key,Integer type,String other) {
+    public boolean checkKey(String key,Integer type,String other,Long id) {
         switch (type){
             case 1:
-              return entityInfoService.checkKey(key,null);
+              return entityInfoService.checkKey(key,null,id);
             case 2:
-                return entityItemInfoService.checkKey(key,other);
+                return entityItemInfoService.checkKey(key,other,id);
             case 3:
-                return sceneInfoService.checkKey(key,null);
+                return sceneInfoService.checkKey(key,null,id);
             case 4:
-                return constantInfoService.checkKey(key,null);
+                return actionParamInfoService.checkKey(key,null,id);
             case 5:
-                return actionInfoService.checkKey(key,null);
+                return constantInfoService.checkKey(key,null,id);
             case 6:
-                return actionParamInfoService.checkKey(key,null);
+                return actionInfoService.checkKey(key,null,id);
             default:
                 return false;
         }
