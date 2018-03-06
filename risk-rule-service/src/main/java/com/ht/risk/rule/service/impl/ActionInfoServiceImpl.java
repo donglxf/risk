@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.rule.entity.ActionInfo;
+import com.ht.risk.rule.entity.ActionParamInfo;
 import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.rule.mapper.ActionInfoMapper;
 import com.ht.risk.rule.mapper.ActionRuleRelMapper;
@@ -129,9 +130,16 @@ public class ActionInfoServiceImpl extends BaseServiceImpl<ActionInfoMapper, Act
     }
 
     @Override
-    public boolean checkKey(String key,String other) {
-        Integer count = this.baseMapper.selectCount(new EntityWrapper<ActionInfo>()
-                .eq("action_class", key));
+    public boolean checkKey(String key,String other,Long id) {
+        Integer count = 0;
+        if(id != null ){
+            count = this.baseMapper.selectCount(new EntityWrapper<ActionInfo>()
+                    .eq("action_class", key).and().ne("action_id",id));
+        }else{
+            count = this.baseMapper.selectCount(new EntityWrapper<ActionInfo>()
+                    .eq("action_class", key));
+        }
+
         count = count == null?0:count;
         return count > 0 ? true:false;
     }

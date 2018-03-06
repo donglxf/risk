@@ -3,6 +3,7 @@ package com.ht.risk.rule.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
+import com.ht.risk.rule.entity.EntityItemInfo;
 import com.ht.risk.rule.entity.SceneInfo;
 import com.ht.risk.rule.mapper.SceneInfoMapper;
 import com.ht.risk.rule.service.SceneInfoService;
@@ -44,10 +45,19 @@ public class SceneInfoServiceImpl extends BaseServiceImpl<SceneInfoMapper, Scene
     }
 
     @Override
-    public boolean checkKey(String key,String other) {
-        Integer count = this.baseMapper.selectCount(new EntityWrapper<SceneInfo>()
-                .eq("scene_identify", key));
+    public boolean checkKey(String key,String other,Long id) {
+
+        Integer count = 0;
+        if(id != null ){
+            count = this.baseMapper.selectCount(new EntityWrapper<SceneInfo>()
+                    .eq("scene_identify", key).and().ne("scene_id",id));
+        }else{
+            count = this.baseMapper.selectCount(new EntityWrapper<SceneInfo>()
+                    .eq("scene_identify", key));
+        }
+
         count = count == null?0:count;
+
         return count > 0 ? true:false;
     }
 

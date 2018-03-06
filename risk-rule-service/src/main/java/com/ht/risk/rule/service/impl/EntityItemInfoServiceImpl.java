@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
 import com.ht.risk.common.util.ObjectUtils;
+import com.ht.risk.rule.entity.EntityInfo;
 import com.ht.risk.rule.entity.EntityItemInfo;
 import com.ht.risk.rule.mapper.EntityItemInfoMapper;
 import com.ht.risk.rule.service.EntityItemInfoService;
@@ -88,10 +89,15 @@ public class EntityItemInfoServiceImpl extends BaseServiceImpl<EntityItemInfoMap
 		return list;
 	}
     @Override
-    public boolean checkKey(String key,String other) {
-        Integer count = this.baseMapper.selectCount(new EntityWrapper<EntityItemInfo>()
-                .eq("item_identify", key)
-        .eq("entity_id",other));
+    public boolean checkKey(String key,String other,Long id) {
+        Integer count = 0;
+        if(id != null ){
+            count = this.baseMapper.selectCount(new EntityWrapper<EntityItemInfo>()
+                    .eq("item_identify", key).and().ne("item_id",id));
+        }else{
+            count = this.baseMapper.selectCount(new EntityWrapper<EntityItemInfo>()
+                    .eq("item_identify", key));
+        }
         count = count == null?0:count;
         return count > 0 ? true:false;
     }
