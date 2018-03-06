@@ -1,3 +1,4 @@
+use BOA;
 
 DELETE FROM `HT_BOA_IN_USER` WHERE USER_ID = 'admin-fk';
 INSERT INTO `HT_BOA_IN_USER` (`USER_ID`, `USER_NAME`, `ORG_CODE`, `ROOT_ORG_CODE`, `ORG_PATH`, `EMAIL`, `ID_NO`, `MOBILE`, `CREATE_OPERATOR`, `DEL_FLAG`, `JOB_NUMBER`) VALUES ('admin-fk', '风险决策系统', 'ed41362d-ac09-4bd0-8d6d-7423fe3b3d2b', '', '', '580220754@qq.com', NULL, '13686288088', 'admin-uc', 0, 'HX-00007');

@@ -2,7 +2,7 @@
 -- 创建数据库
 CREATE DATABASE IF NOT EXISTS drools_rule DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
 
-
+use drools_rule;
 
 drop table if exists `risk_business`;
 create table `risk_business` (

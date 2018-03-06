@@ -1,4 +1,4 @@
-
+use drools_rule;
 # 业务线
 INSERT INTO risk_business(business_id, business_name, business_desc, status, cre_user_id, cre_time) VALUES (4, '房贷', '房贷', 1, '-1', '2018-03-03 13:51:45');
 INSERT INTO risk_business(business_id, business_name, business_desc, status, cre_user_id, cre_time) VALUES (5, '车贷', '车贷', 1, '-1', '2018-03-03 13:52:48');
