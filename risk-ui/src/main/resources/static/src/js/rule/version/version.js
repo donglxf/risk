@@ -451,7 +451,7 @@ layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
     });
     //修改
     function sceneEdit(id,type) {
-        $.get("/rule/service/sceneInfo/" + "getInfoById/" + id, function (data) {
+        $.get("/rule/service/sceneInfo/" + "getInfoById?id=" + id, function (data) {
             var result = data.data;
             if(type == 1){
                 sceneSave("/rule/ui/rule/decision/scene/edit", result);
