@@ -4,7 +4,7 @@
     <legend>数据对象信息添加</legend>
 </fieldset>
 <form class="layui-form" action="">
-    <input type="hidden" name="conId" >
+    <input type="hidden"  isId=true name="conId" >
 
     <div class="layui-form-item" >
         <label class="layui-form-label">业务线<span style="color: red;">＊</span></label>
@@ -26,7 +26,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">code<span style="color: red;">＊</span></label>
         <div class="layui-input-block">
-            <input type="text" name="conCode"  lay-verify-max="50"  required  lay-verify="required|name" placeholder="请输入code" autocomplete="off" class="layui-input">
+            <input type="text" name="conCode"  lay-verify-max="50" identifyType="5" lay-verify="required|name|identify" required   placeholder="请输入code" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item" style="display: none;">

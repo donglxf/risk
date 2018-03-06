@@ -259,7 +259,7 @@ layui.use(['table','form','myutil'], function(){
         });
     });
     function  editItem(id) {
-        $.get(preUrl+"getInfoById/"+id,function (data) {
+        $.get(preUrl+"getInfoById?id="+id,function (data) {
             var result = data.data;
             $.get('/rule/ui/rule/constant/itemEdit', null, function (form) {
                 topIndex =  layer.open({

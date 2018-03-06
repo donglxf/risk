@@ -57,7 +57,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER_ADDRESS}
+      defaultZone: http://ussp-registry-app:30101/eureka/
 
 ---
 spring:
@@ -72,7 +72,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER_ADDRESS}
+      defaultZone: http://ussp-registry-app:30101/eureka/
 
 ---
 spring:

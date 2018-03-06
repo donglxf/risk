@@ -25,14 +25,16 @@ layui.define(['layer','laytpl','form','ht_ajax','ht_config'], function(exports) 
             if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
                 return '不能有特殊字符';
             }
-            if(id == undefined || id == ''){
+          //  if(id == undefined || id == ''){
                 $.ajax({
                     cache : true,
                     type : "GET",
                     url : '/rule/service/check/key',
                     data : {key:value,
                         type:$(item).attr("identifyType"),
-                        other:$(".other").val()},// 你的formid
+                        other:$(".other").val()
+                        , id:id},// 你的formid
+
                     async : false,
                     dataType:'json',
                     error : function(request) {
@@ -48,7 +50,7 @@ layui.define(['layer','laytpl','form','ht_ajax','ht_config'], function(exports) 
                 });
                 if(flag)
                     return msg;
-            }
+           // }
         },
         name: function(value, item){ //value：表单的值、item：表单的DOM对象
             if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){

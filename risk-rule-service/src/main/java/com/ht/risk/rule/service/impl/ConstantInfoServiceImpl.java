@@ -3,6 +3,7 @@ package com.ht.risk.rule.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
+import com.ht.risk.rule.entity.ActionParamInfo;
 import com.ht.risk.rule.entity.ConstantInfo;
 import com.ht.risk.rule.entity.EntityItemInfo;
 import com.ht.risk.rule.mapper.ConstantInfoMapper;
@@ -57,5 +58,18 @@ public class ConstantInfoServiceImpl extends BaseServiceImpl<ConstantInfoMapper,
             }
         }
         return itemvo;
+    }
+    @Override
+    public boolean checkKey(String key,String other,Long id ) {
+        Integer count = 0;
+        if(id != null ){
+            count = this.baseMapper.selectCount(new EntityWrapper<ConstantInfo>()
+                    .eq("con_code", key).and().ne("con_id",id));
+        }else{
+            count = this.baseMapper.selectCount(new EntityWrapper<ConstantInfo>()
+                    .eq("con_code", key));
+        }
+        count = count == null?0:count;
+        return count > 0 ? true:false;
     }
 }

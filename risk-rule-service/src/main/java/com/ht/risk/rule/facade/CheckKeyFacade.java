@@ -14,5 +14,5 @@ public interface CheckKeyFacade {
      * @param key
      * @return
      */
-    public boolean checkKey(String key,Integer type,String other);
+    public boolean checkKey(String key,Integer type,String other,Long id);
 }

@@ -1,9 +1,7 @@
 package com.ht.risk.rule.facade.impl;
 
 import com.ht.risk.rule.facade.CheckKeyFacade;
-import com.ht.risk.rule.service.EntityInfoService;
-import com.ht.risk.rule.service.EntityItemInfoService;
-import com.ht.risk.rule.service.SceneInfoService;
+import com.ht.risk.rule.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,15 +24,27 @@ public class CheckKeyFacadeImpl implements CheckKeyFacade {
     @Autowired
     private EntityItemInfoService entityItemInfoService;
 
+    @Autowired
+    private ActionParamInfoService actionParamInfoService;
+
+    @Autowired
+    private ConstantInfoService constantInfoService;
+
+
+
     @Override
-    public boolean checkKey(String key,Integer type,String other) {
+    public boolean checkKey(String key,Integer type,String other,Long id) {
         switch (type){
             case 1:
-              return entityInfoService.checkKey(key,null);
+              return entityInfoService.checkKey(key,null,id);
             case 2:
-                return entityItemInfoService.checkKey(key,other);
+                return entityItemInfoService.checkKey(key,other,id);
             case 3:
-                return sceneInfoService.checkKey(key,null);
+                return sceneInfoService.checkKey(key,null,id);
+            case 4:
+                return actionParamInfoService.checkKey(key,null,id);
+            case 5:
+                return constantInfoService.checkKey(key,null,id);
             default:
                 return false;
         }
