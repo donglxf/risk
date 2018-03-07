@@ -2,11 +2,11 @@ package com.ht.risk.eip.controller;
 
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.PropertyNamingStrategy;
-import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.ht.risk.api.feign.eip.DianhuaRpc;
-import com.ht.risk.api.model.eip.*;
+import com.ht.risk.api.model.eip.ContactFastReqDto;
+import com.ht.risk.api.model.eip.ContactFastRespDtoOut;
+import com.ht.risk.api.model.eip.DianhuaCollectionMinDtoIn;
+import com.ht.risk.api.model.eip.DianhuaCollectionMinDtoOut;
 import com.ht.ussp.core.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/dianhua")
-@Api(tags = "DianhuaController", description = "", hidden = true)
+@Api(tags = "DianhuaController", description = "电话相关（邦）", hidden = true)
 public class DianhuaController {
 
     @Autowired

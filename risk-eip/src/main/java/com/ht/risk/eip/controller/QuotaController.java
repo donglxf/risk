@@ -1,23 +1,18 @@
 package com.ht.risk.eip.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.ht.risk.api.feign.eip.CreditLimitRpc;
 import com.ht.risk.api.model.eip.QuotaApplyDtoIn;
 import com.ht.risk.api.model.eip.QuotaApplyDtoOut;
 import com.ht.ussp.core.Result;
-
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-
-@RestController
-@RequestMapping("/quota")
-@Api(tags = "Quota", description = "额度操作", hidden = true)
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+//不需要
+//@RestController
+//@RequestMapping("/quota")
+//@Api(tags = "Quota", description = "额度操作", hidden = true)
 public class QuotaController {
 
     @Autowired

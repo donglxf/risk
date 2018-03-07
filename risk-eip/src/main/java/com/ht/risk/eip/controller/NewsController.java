@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/news")
-@Api(tags = "BlackController", description = "新闻消息接口", hidden = true)
+@Api(tags = "BlackController", description = "天行数科", hidden = true)
 public class NewsController {
 
     @Autowired
     private NewsRpc tcRpc;
 
     @PostMapping("/negativeSearch")
-    @ApiOperation(value = "负面消息查询",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "天行数科犯罪信息",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Result<NegativeSearchDtoOut> negativeSearch(@RequestBody NegativeSearchDtoIn input) throws Exception{
         Result<NegativeSearchDtoOut> result =  tcRpc.negativeSearch(input);
