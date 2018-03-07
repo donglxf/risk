@@ -30,9 +30,9 @@ public class TaobaoController {
     @PostMapping("/judicialSale")
     @ApiOperation(value = "淘宝司法拍卖", httpMethod = "POST")
     @ResponseBody
-    public Result<TaobaoJudicialAuctionRespDto> negativeSearch(@RequestBody  TaobaoJudicialAuctionReqDto input) throws Exception {
+    public Result<TaobaoJudicialAuctionRespDto[]> negativeSearch(@RequestBody  TaobaoJudicialAuctionReqDto input) throws Exception {
         System.out.println(">>>>>>>>>");
-        Result<TaobaoJudicialAuctionRespDto> result = taobaoRpc.judicialSale(input);
+        Result<TaobaoJudicialAuctionRespDto[]> result = taobaoRpc.judicialSale(input);
         System.out.println("<<<<<<<<<<<"+JSON.toJSONString(result));
         return result;
     }
