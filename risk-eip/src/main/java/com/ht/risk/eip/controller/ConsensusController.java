@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/consensus")
-@Api(tags = "ConsensusController", description = "", hidden = true)
+@Api(tags = "ConsensusController", description = "舆情查询", hidden = true)
 public class ConsensusController {
 
     @Autowired

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/zhengxin")
-@Api(tags = "ZhengxinController", description = "", hidden = true)
+@Api(tags = "ZhengxinController", description = "征信相关", hidden = true)
 public class ZhengxinController {
 
     @Autowired

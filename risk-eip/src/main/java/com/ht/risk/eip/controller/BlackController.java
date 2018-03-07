@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,6 +52,12 @@ public class BlackController {
         Result<FrontSeaDtoOut> result =  tcRpc.frontSea(input);
         return result;
     }
+    @PostMapping("/baiqishi")
+    @ApiOperation(value = "白骑士黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<BaiqishiDtoOut> baiqishi( NetLoanIn input) throws Exception{
+        Result<BaiqishiDtoOut> result =  tcRpc.baiqishi(input);
+        return result;
+    }
 
 
     @PostMapping("/mobileValid")
@@ -60,10 +67,10 @@ public class BlackController {
         return result;
     }
 
-    @PostMapping("/bairong")
-    @ApiOperation(value = "百融反欺诈特殊黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<BairongDtoOut> bairong(BairongDtoIn input) throws Exception{
-        Result<BairongDtoOut> result =  tcRpc.bairong(input);
+   @PostMapping("/klRiskBlackList")
+    @ApiOperation(value = "考拉黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<KlRiskBlackListRespDto> bairong(@RequestBody KlRiskBlackListReqDto input) throws Exception{
+        Result<KlRiskBlackListRespDto> result =  tcRpc.klRiskBlack(input);
         return result;
     }
 

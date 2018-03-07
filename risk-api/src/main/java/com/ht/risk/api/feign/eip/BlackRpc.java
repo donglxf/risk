@@ -75,7 +75,7 @@ public interface BlackRpc {
      * @date 2018/2/5 9:38
      */
     @PostMapping(value = "/baiqishi", headers = { "app=FK", "content-type=application/json" },produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    Result<NetLoanOut> baiqishi(@RequestBody NetLoanIn input);
+    Result<BaiqishiDtoOut> baiqishi(@RequestBody NetLoanIn input);
 
 
     /**
@@ -87,6 +87,18 @@ public interface BlackRpc {
      */
     @PostMapping(value = "/bairong", headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<BairongDtoOut> bairong(@RequestBody BairongDtoIn input);
+
+    /**
+     * 描述：7.2.6	考拉特殊黑名单
+     * @param input
+     * @return a
+     * @autor 张鹏
+     * @date 2018/2/5 9:38
+     */
+    @PostMapping(value = "/klRiskBlackList", headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    Result<KlRiskBlackListRespDto> klRiskBlack(@RequestBody KlRiskBlackListReqDto input);
+
+
 
 
 }

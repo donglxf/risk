@@ -1,10 +1,7 @@
 package com.ht.risk.eip.controller;
 
 import com.ht.risk.api.feign.eip.CommonRpc;
-import com.ht.risk.api.feign.eip.DemoRpc;
 import com.ht.risk.api.model.eip.MessageDtoIn;
-import com.ht.risk.api.model.eip.QueryUserInformationAuthDtoIn;
-import com.ht.risk.api.model.eip.QueryUserInformationAuthDtoOut;
 import com.ht.ussp.core.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,8 +26,8 @@ public class CommonController {
     @Autowired
     private CommonRpc commonRpc;
 
-    @Autowired
-    private DemoRpc demoRpc;
+//    @Autowired
+//    private DemoRpc demoRpc;
 
     @PostMapping("/sendSms")
     @ApiOperation(value = "短信发送",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -38,12 +35,12 @@ public class CommonController {
         Result result =  commonRpc.sendSms(input);
         return result;
     }
-    @PostMapping("/queryUserInformationAuth")
-    @ApiOperation(value = "demo测试",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<QueryUserInformationAuthDtoOut> queryUserInformationAuth(QueryUserInformationAuthDtoIn input) throws Exception{
-        Result<QueryUserInformationAuthDtoOut> result =  demoRpc.queryUserInformationAuth(input);
-        return result;
-    }
+//    @PostMapping("/queryUserInformationAuth")
+//    @ApiOperation(value = "demo测试",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public Result<QueryUserInformationAuthDtoOut> queryUserInformationAuth(QueryUserInformationAuthDtoIn input) throws Exception{
+//        Result<QueryUserInformationAuthDtoOut> result =  demoRpc.queryUserInformationAuth(input);
+//        return result;
+//    }
 
 }
 
