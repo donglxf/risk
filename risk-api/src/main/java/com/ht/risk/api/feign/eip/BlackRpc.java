@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  *黑名单 的接口
  */
 @PropertySource("classpath:config.properties")
-@FeignClient(value = "eip-out",path = "/eip/tc"+"/black",url = "{eip.feign.url}")
+@FeignClient(value = "eip-out",path = "/eip/tc"+"/black")
+//@RequestMapping(headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
 public interface BlackRpc {
     /**
      * 描述：网贷黑名单
@@ -21,7 +22,7 @@ public interface BlackRpc {
      * @autor 张鹏
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/netLoan", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/netLoan",headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<NetLoanOut> netLoan(@RequestBody NetLoanIn input);
 
     /**
@@ -31,7 +32,7 @@ public interface BlackRpc {
      * @autor 张鹏
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/oldLai", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/oldLai",headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<OldLaiOut> oldLai(@RequestBody OldLaiIn input);
 
     /**
@@ -41,7 +42,7 @@ public interface BlackRpc {
      * @autor 张鹏
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/self", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/self",headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<SelfDtoOut> self(@RequestBody OldLaiIn input);
 
     /**
@@ -51,7 +52,7 @@ public interface BlackRpc {
      * @autor 张鹏
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/frontSea", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/frontSea",headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<FrontSeaDtoOut> frontSea(@RequestBody FrontSeaDtoIn input);
 
 
@@ -62,7 +63,7 @@ public interface BlackRpc {
      * @autor 黄增猛
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/mobileValid", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/mobileValid",headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<MobileValidDtoOut> mobileValid(@RequestBody MobileValidDtoIn input);
 
 
@@ -73,7 +74,7 @@ public interface BlackRpc {
      * @autor 张鹏
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/baiqishi", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/baiqishi", headers = { "app=FK", "content-type=application/json" },produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<NetLoanOut> baiqishi(@RequestBody NetLoanIn input);
 
 
@@ -84,7 +85,7 @@ public interface BlackRpc {
      * @autor 张鹏
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/bairong", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/bairong", headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<BairongDtoOut> bairong(@RequestBody BairongDtoIn input);
 
 

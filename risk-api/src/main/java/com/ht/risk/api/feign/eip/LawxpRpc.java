@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @Date 2018/2/7 14:59
  */
 @PropertySource("classpath:config.properties")
-@FeignClient(value = "eip-out",path = "/eip/tc"+"/lawxp",url = "{eip.feign.url}")
+@FeignClient(value = "eip-out",path = "/eip/tc"+"/lawxp")
 public interface LawxpRpc {
 
     /**
