@@ -1,12 +1,13 @@
 package com.ht.risk.api.model.activiti;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.ht.risk.api.model.rule.RpcRuleDetail;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RuleExcuteDetail implements Serializable{
 
     private String senceVersionId;

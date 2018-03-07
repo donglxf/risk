@@ -11,6 +11,7 @@ public class ModelExcuteResult implements Serializable{
     private String procInstId;
     private Long taskId;
     private String procMsg;
+    private String businessKey;
     private Map<String,List<RuleExcuteDetail>> ruleResultList;
 
     public String getCode() {
@@ -58,5 +59,13 @@ public class ModelExcuteResult implements Serializable{
 
     public void setProcMsg(String procMsg) {
         this.procMsg = procMsg;
+    }
+
+    public String getBusinessKey() {
+        return businessKey;
+    }
+
+    public void setBusinessKey(String businessKey) {
+        this.businessKey = businessKey;
     }
 }

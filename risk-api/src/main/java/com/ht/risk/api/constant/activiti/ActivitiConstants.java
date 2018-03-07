@@ -43,4 +43,6 @@ public class ActivitiConstants {
 
     public final static String PROC_MODEL_EXCUTE_TYPE_KEY = "excuteType";// 模型运行模式流程变量key值
     public final static String PROC_TASK_ID_VAR_KEY = "proc_task_id";// 模型执行任务taskid在流程变量key值
+
+    public final static String PROC_BUSINESS_KEY = "PROC_BUSINESS_KEY";// 流程业务
 }

@@ -56,9 +56,9 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
         String modelType = String.valueOf(execution.getVariable(ActivitiConstants.PROC_MODEL_EXCUTE_TYPE_KEY));
         if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)){// 服务类型
             // 年龄和借款期限处理
-            dataMachin(dataMap,execution);
+            msg.append(dataMachin(dataMap,execution));
         }else{// 验证类型
-            verficationDataMachin(dataMap,execution);
+            msg.append(verficationDataMachin(dataMap,execution));
         }
         execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg.toString());
         LOGGER.error("HourseRuleDataMachinImpl execute method excute end...");
@@ -117,11 +117,11 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             msg.append("借款人信息为空;");
         }
         Object houseInfoObj = dataMap.get("houseInfo");
-        if(borrowerObj == null){
+        if(houseInfoObj == null){
             msg.append("房产信息为空;");
         }
         Object guaranteeInfoObj = dataMap.get("guaranteeInfo");
-        if(borrowerObj == null){
+        if(guaranteeInfoObj == null){
             msg.append("担保信息为空;");
         }
         return msg;
@@ -134,15 +134,16 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             String businessId = String.valueOf(dataMap.get("businessId"));
             String businessType = String.valueOf(dataMap.get("businessType"));
             String months = String.valueOf(dataMap.get("months"));
+            execution.setVariable(ActivitiConstants.PROC_BUSINESS_KEY,businessId);
             // 借款人信息
             Object borrowerObj = dataMap.get("borrowerInfo");
             // 房产信息
             Object houseInfoObj = dataMap.get("houseInfo");
             // 担保人信息
             Object guaranteeInfoObj = dataMap.get("guaranteeInfo");
-            List<Map<String,Object>> houseInfos = ( List<Map<String,Object>>)houseInfoObj;
-            List<Map<String,Object>> guaranteeInfos = ( List<Map<String,Object>>)guaranteeInfoObj;
-            List<Map<String,Object>> borrowers = ( List<Map<String,Object>>)borrowerObj;
+            List<Map<String,Object>> houseInfos = houseInfoObj !=null ? ( List<Map<String,Object>>)houseInfoObj:new ArrayList<Map<String,Object>>();
+            List<Map<String,Object>> guaranteeInfos = guaranteeInfoObj !=null ? ( List<Map<String,Object>>)guaranteeInfoObj:new ArrayList<Map<String,Object>>();
+            List<Map<String,Object>> borrowers = borrowerObj !=null ? ( List<Map<String,Object>>)borrowerObj:new ArrayList<Map<String,Object>>();
             Object ageObj = null;
             Object methodObj = null;
             droolsData = new ArrayList<Map<String,Object>>();
@@ -173,7 +174,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                 if("0".equals(oldLaiStr)){
                     guaranteeMap.put("guaranteeInfo_negative","是");
                 }else if("3".equals(oldLaiStr)){
-                    msg.append("老赖接口异常;");
+                    msg.append("身份证：").append(identityCard).append(",老赖接口异常;");
                 }
                 else{
                     guaranteeMap.put("guaranteeInfo_negative","否");
@@ -181,8 +182,8 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                 String negativeStr = getNegativeSearch(identityCard,name);
                 if("0".equals(negativeStr)){
                     guaranteeMap.put("guaranteeInfo_oldLai","有");
-                }else if("3".equals(oldLaiStr)){
-                    msg.append("天行数科接口异常;");
+                }else if("3".equals(negativeStr)){
+                    msg.append("身份证：").append(identityCard).append(",天行数科接口异常;");
                 }
                 else{
                     guaranteeMap.put("guaranteeInfo_oldLai","无");
@@ -287,7 +288,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             return  "1";
         } catch (Exception e) {
             LOGGER.error("老赖接口异常，identityCard:"+identityCard+";name:"+name +e.getMessage());
-            return   "老赖接口异常";
+            return "3";
         }
     }
 }

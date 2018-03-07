@@ -31,8 +31,8 @@ layui.use(['table','jquery','myutil'], function(){
             ,{field: 'modelVersion', title: '模型版本', width:"10%"}
             ,{field: 'isValidate', title: '验证状态', width:"10%" ,templet:'#verfiactionTpl'}
             ,{field: 'isApprove', title: '审核状态', width:"10%",templet:'#approvalTpl'}
-            ,{field: 'createUser', title: '发布人', width:"20%"}
-            ,{field: 'createTime', title: '发布时间', width:"20%" }
+            ,{field: 'createUser', title: '创建人', width:"20%"}
+            ,{field: 'createTime', title: '创建时间', width:"20%" }
         ]]
     });
     table.on('tool(model)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"

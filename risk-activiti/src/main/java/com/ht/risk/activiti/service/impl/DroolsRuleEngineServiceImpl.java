@@ -34,7 +34,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
         // 获取决策编码
-        String msg = String.valueOf(delegateExecution.getVariable(ActivitiConstants.PROC_EXCUTE_MSG));
+        StringBuffer msg = new StringBuffer(String.valueOf(delegateExecution.getVariable(ActivitiConstants.PROC_EXCUTE_MSG)));
         String senceCode = String.valueOf(senceCodeExp.getValue(delegateExecution));
         String version = null;
         if(versionExp != null){
@@ -53,17 +53,19 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         List<RuleExcuteDetail> details = new ArrayList<RuleExcuteDetail>();
         try{
             List<Map<String,Object>> datas = ( List<Map<String,Object>>)senceObj;
-            for(int i =0;i<datas.size();i++){
-                RuleExcuteResult result = this.excuteRules(senceCode,version,datas.get(i),delegateExecution.getProcessInstanceId(),ruleType);
-                if(result != null){
-                    detail = matainExcuteDetail(result);
-                    detail.setInParamter(datas.get(i));
-                    details.add(detail);
+            if(datas != null &&  datas.size() > 0){
+                for(int i =0;i<datas.size();i++){
+                    RuleExcuteResult result = this.excuteRules(senceCode,version,datas.get(i),delegateExecution.getProcessInstanceId(),ruleType);
+                    if(result != null && result.getData() != null && result.getData().getRuleList() != null && result.getData().getRuleList().size()>0){
+                        detail = matainExcuteDetail(result);
+                        detail.setInParamter(datas.get(i));
+                        details.add(detail);
+                    }
                 }
             }
             delegateExecution.setVariable(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR+senceCode,details);
         }catch (Exception e){
-            msg += "决策编码为："+senceCode+"；执行异常";
+            msg.append("决策编码为：").append(senceCode).append("；执行异常");
         }
         delegateExecution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg.toString());
         LOGGER.info("DroolsRuleEngineServiceImpl service end , result:"+ JSON.toJSONString(details));

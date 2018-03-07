@@ -43,6 +43,7 @@ public class HourseRuleResultImpl implements HourseRuleResult {
     public void execute(DelegateExecution execution) throws Exception {
         LOGGER.info("HourseRuleResultImpl execute method excute start...");
         String msg = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_MSG));
+        String modelType = String.valueOf(execution.getVariable(ActivitiConstants.PROC_MODEL_EXCUTE_TYPE_KEY));
         ModelExcuteResult modelResult = new ModelExcuteResult();
         // 获取执行结果
         Map<String,Object> result = execution.getVariables();
@@ -56,7 +57,9 @@ public class HourseRuleResultImpl implements HourseRuleResult {
             if(name.startsWith(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR) && result.get(name) != null){
                 returnDetail = (List<RuleExcuteDetail>)result.get(name);
                 name = name.replace(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR,"");
-                resultMap.put(name,returnDetail);
+                if(returnDetail != null&& returnDetail.size()>0){
+                    resultMap.put(name,returnDetail);
+                }
                 details.addAll(returnDetail);
             }
         }
@@ -74,8 +77,12 @@ public class HourseRuleResultImpl implements HourseRuleResult {
             Long taskId =taskIdStr != null ?Long.parseLong(taskIdStr):null;
             modelResult.setTaskId(taskId);
             modelResult.setProcMsg(msg);
+            String businessKey = String.valueOf(execution.getVariable(ActivitiConstants.PROC_BUSINESS_KEY));
+            modelResult.setBusinessKey(businessKey);
             // MQ发送消息
-            topicSenderService.send(JSON.toJSONString(modelResult));
+            if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)) {// 服务类型
+                topicSenderService.send(JSON.toJSONString(modelResult));
+            }
             //更新任务状态
             updateTask(modelResult,taskId,execution.getProcessInstanceId());
         }
@@ -94,7 +101,14 @@ public class HourseRuleResultImpl implements HourseRuleResult {
 
     // 获取策略表所有命中规则的规则描述
     private void getRulesDesc(RuleExcuteDetail detail){
-        if(detail != null && detail.getRuleList() != null && detail.getRuleList().size()>0){
+        if(detail == null || detail.getRuleList() == null){
+            return ;
+        }
+        if(detail.getRuleList().size() == 0){
+            detail.setRuleList(null);
+            return ;
+        }
+        if(detail.getRuleList().size()>0){
             LOGGER.info("HourseRuleResultImpl execute method excute start..."+ JSON.toJSONString(detail));
             RpcRuleHisVersionParamter vo = new RpcRuleHisVersionParamter();
             vo.setVersionId(Long.parseLong(detail.getSenceVersionId()));
