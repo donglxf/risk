@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 @PropertySource("classpath:config.properties")
-@FeignClient(value = "eip-out",path = "/eip/tc"+"/dianhua",url = "{eip.feign.url}")
+@FeignClient(value = "eip-out",path = "/eip/tc"+"/dianhua")
 public interface DianhuaRpc {
 
     /**

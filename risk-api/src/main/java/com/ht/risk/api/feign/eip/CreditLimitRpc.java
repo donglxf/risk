@@ -11,6 +11,6 @@ import com.ht.ussp.core.Result;
 
 @FeignClient("CLMS-LIMIT-SERVICE")
 public interface CreditLimitRpc {
-    @GetMapping(value = "/quota/apply", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/quota/apply",headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<QuotaApplyDtoOut> callQuotaApply(@RequestBody QuotaApplyDtoIn quotaApplyDtoIn);
 }

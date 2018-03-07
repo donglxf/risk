@@ -8,9 +8,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 @PropertySource("classpath:config.properties")
 @FeignClient(value = "eip-out",path = "/eip/tc"+"/zhengxin")
-public interface ZhengxinRpc {
+public interface StRpc {
 
     /**
      * 描述：万达征信
