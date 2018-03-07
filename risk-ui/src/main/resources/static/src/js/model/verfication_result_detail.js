@@ -26,6 +26,10 @@ layui.use(['table', 'jquery', 'element', 'laytpl','myutil'], function () {
         },
         success : function(data) {
             if(data.code == 0){
+                var flag = $("#verfication_layui_btn_div_show", parent.document).val();
+                if("1" == flag){
+                    $("#verfication_layui_btn_div").css("display","")
+                }
                 var hitRules = data.data.hitRules;
                 $("#procReleaseId").val(data.data.procReleaseId);
                 $("#taskId").val(data.data.taskId);
