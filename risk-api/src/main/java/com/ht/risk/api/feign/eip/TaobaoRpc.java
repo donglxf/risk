@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 @PropertySource("classpath:config.properties")
-@FeignClient(value = "eip-out",path = "/eip/tc"+"/taobao",url = "http://192.168.14.230:30406")
+@FeignClient(value = "eip-out",path = "/eip/tc"+"/taobao")
 public interface TaobaoRpc {
 
     /**

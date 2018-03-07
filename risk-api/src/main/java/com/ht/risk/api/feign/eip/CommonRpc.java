@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  *负面消息 的接口
  */
 @PropertySource("classpath:config.properties")
-@FeignClient(value = "eip-out",path = "/eip/common",url = "{eip.feign.url}")
+@FeignClient(value = "eip-out",path = "/eip/common")
 public interface CommonRpc {
     /**
      * 描述：短信发送
@@ -21,7 +21,7 @@ public interface CommonRpc {
      * @autor 张鹏
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/sendSms", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/sendSms",headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result sendSms(@RequestBody MessageDtoIn input);
 
 }

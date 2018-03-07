@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  *负面消息 的接口
  */
 @PropertySource("classpath:config.properties")
-@FeignClient(value = "eip-out",path = "/eip/tc"+"/news",url = "{eip.feign.url}")
+@FeignClient(value = "eip-out",path = "/eip/tc"+"/news")
 public interface NewsRpc {
     /**
      * 描述：负面消息查询
