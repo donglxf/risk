@@ -207,7 +207,7 @@ layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
     form.on('checkbox(lockDemo)', function(obj){
         var sta = obj.elem.checked ? 1 : 0;
         var id = this.value;
-        $.post(scene.baseUrl+"/forbidden",{versionId:id,status:sta},function (data) {
+        $.post(scene.baseUrl+"forbidden",{versionId:id,status:sta},function (data) {
             if(data.data == '0'){
                 if(obj.elem.checked ){
                     $(obj.elem).next().find("span").text("正常");
