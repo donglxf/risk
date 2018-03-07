@@ -22,6 +22,7 @@ import com.ht.risk.rule.vo.HitRuleInfoVo;
 import com.ht.risk.rule.vo.SenceParamterVo;
 import com.ht.risk.rule.vo.VariableVo;
 import com.ht.risk.rule.vo.VerficationResultVo;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -156,6 +157,11 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
             return resultVo;
         }
         RpcActExcuteTaskInfo task = taskResult.getData();
+        if(task == null || StringUtils.isEmpty(task.getStatus()) || ActivitiConstants.PROC_STATUS_EXCEPTION.equals(task.getStatus())){
+            resultVo.setMessage("模型执行失败。。。");
+            resultVo.setValidateFlag("1");
+            return resultVo;
+        }
         resultVo.setProcReleaseId(task.getProcReleaseId());
         String type = task.getType();
 
@@ -190,7 +196,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         }
         LOGGER.info("rpc:activitiConfigRpc.queryTestModelDroolsLogs ,result:"+JSON.toJSONString(logResult));
         if(logResult == null || logResult.getCode() != 0 || logResult.getData() == null){
-            resultVo.setMessage("模型执行异常，未触发规则引擎。。。");
+            resultVo.setMessage("未触发规则引擎。。。");
             resultVo.setValidateFlag("1");
             return resultVo;
         }
