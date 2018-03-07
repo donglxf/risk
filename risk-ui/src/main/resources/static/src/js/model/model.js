@@ -100,12 +100,12 @@ layui.use(['table','jquery','myutil'], function(){
                     layer.msg("删除失败！");
                 },
                 success : function(data) {
+                    console.log(data);
                     if(data.code == 0){
                         layer.msg("删除成功！");
                         obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                         layer.close(index);
-                    }
-                    if(data.code == 1){
+                    }else {
                         layer.msg(data.msg);
                     }
                 }
@@ -133,8 +133,7 @@ layui.use(['table','jquery','myutil'], function(){
                     layer.closeAll('loading');
                     if(data.code == 0){
                         layer.msg("发布成功！");
-                    }
-                    if(data.code == 1){
+                    }else {
                         layer.msg(data.msg);
                     }
                 }

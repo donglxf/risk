@@ -12,14 +12,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">模型编码<span style="color: red">&nbsp;*</span></label>
             <div class="layui-input-block">
-                <input type="text" name="key" lay-verify="required" autocomplete="off" placeholder="模型编码"
+                <input type="text" name="key" lay-verify="required|name" lay-verify-max="32" autocomplete="off" placeholder="模型编码"
                        class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">模型名称<span style="color: red">&nbsp;*</span></label>
             <div class="layui-input-block">
-                <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="模型名称"
+                <input type="text" name="name" lay-verify="required" lay-verify-max="32" autocomplete="off" placeholder="模型名称"
                        class="layui-input">
             </div>
         </div>
@@ -31,7 +31,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">模型描述</label>
             <div class="layui-input-block">
-                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                <textarea name="desc" placeholder="请输入内容"  lay-verify-max="255" class="layui-textarea"></textarea>
             </div>
         </div>
 

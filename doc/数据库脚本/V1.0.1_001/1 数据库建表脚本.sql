@@ -13,7 +13,7 @@ create table `risk_business` (
   `cre_user_id` varchar(32) character set utf8 collate utf8_general_ci null default null comment '创建人',
   `cre_time` datetime not null comment '创建时间',
   primary key (`business_id`)
-) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 4;
+) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 4 COMMENT '业务线表';
 
 drop table if exists `risk_drools_log`;
 create table `risk_drools_log` (
@@ -29,7 +29,7 @@ create table `risk_drools_log` (
   `create_time` datetime null default current_timestamp comment '插入时间',
   execute_time BIGINT(20) COMMENT '执行时间',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_general_ci;
+) engine = innodb character set = utf8 collate utf8_general_ci COMMENT '规则执行日志表';
 
 drop table if exists `risk_drools_detail_log`;
 create table `risk_drools_detail_log` (
@@ -37,9 +37,9 @@ create table `risk_drools_detail_log` (
   `drools_logid` bigint(20) not null,
   `execute_rulename` varchar(100) character set utf8 collate utf8_general_ci null default null comment '命中的规则',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_general_ci;
+) engine = innodb character set = utf8 collate utf8_general_ci COMMENT '规则执行日志表，规则命中详细信息';
 
-drop table if exists `risk_model_release`;
+/*drop table if exists `risk_model_release`;
 create table `risk_model_release` (
   `id` varchar(64) character set utf8 collate utf8_bin not null comment '主键',
   `model_procdef_id` varchar(64) character set utf8 collate utf8_bin not null comment '模型定义id，与 act_re_procdef.id_ 关联',
@@ -55,7 +55,7 @@ create table `risk_model_release` (
   `create_time` datetime not null comment '创建时间',
   `create_user` varchar(64) character set utf8 collate utf8_bin null default null comment '创建用户',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_bin;
+) engine = innodb character set = utf8 collate utf8_bin COMMENT '模型与决策关联关系表，模型发布后插入';*/
 
 drop table if exists `risk_model_sence`;
 create table `risk_model_sence` (
@@ -66,7 +66,7 @@ create table `risk_model_sence` (
   `create_time` datetime not null comment '创建时间',
   `create_user` varchar(64) character set utf8 collate utf8_bin null default null comment '创建用户',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_bin;
+) engine = innodb character set = utf8 collate utf8_bin COMMENT '模型与决策关联关系表，模型发布后插入';
 
 drop table if exists `risk_rule_his_version`;
 create table `risk_rule_his_version` (
@@ -78,7 +78,7 @@ create table `risk_rule_his_version` (
   `create_user` varchar(64) character set utf8 collate utf8_bin null default null comment '创建用户',
   `create_time` datetime null default null comment '创建时间',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_bin;
+) engine = innodb character set = utf8 collate utf8_bin COMMENT '规则历史记录表，规则发布版本后插入';
 
 
 drop table if exists `risk_sence_verfication_batch`;
@@ -91,7 +91,7 @@ create table `risk_sence_verfication_batch` (
   `create_user` varchar(64) character set utf8 collate utf8_bin null default null comment '创建用户',
   `end_time` TIMESTAMP  COMMENT '结束时间',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_bin;
+) engine = innodb character set = utf8 collate utf8_bin COMMENT '规则验证批次表';
 
 drop table if exists `risk_test_drools_detail_log`;
 create table `risk_test_drools_detail_log` (
@@ -99,7 +99,7 @@ create table `risk_test_drools_detail_log` (
   `drools_logid` bigint(20) not null,
   `execute_rulename` varchar(100) character set utf8 collate utf8_general_ci null default null comment '命中的规则',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_general_ci;
+) engine = innodb character set = utf8 collate utf8_general_ci COMMENT '规则验证日志详情表';
 
 drop table if exists `risk_test_drools_log`;
 create table `risk_test_drools_log` (
@@ -114,7 +114,7 @@ create table `risk_test_drools_log` (
   `type` varchar(2) character set utf8 collate utf8_general_ci null default null comment '决策执行类型：0-直接调用，1-模型调用',
   `create_time` datetime null default current_timestamp comment '插入时间',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_general_ci;
+) engine = innodb character set = utf8 collate utf8_general_ci COMMENT '规则验证日志表';
 
 
 
@@ -133,7 +133,7 @@ create table `risk_variable_bind` (
   `create_user` varchar(64) character set utf8 collate utf8_bin null default null comment '创建用户',
   `create_time` datetime not null comment '创建时间',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_bin;
+) engine = innodb character set = utf8 collate utf8_bin COMMENT '规则变量绑定表';
 
 drop table if exists `rule_action_info`;
 CREATE TABLE `rule_action_info` (
@@ -230,7 +230,7 @@ create table `rule_constant_info` (
   `remark` varchar(3000) character set utf8 collate utf8_general_ci not null default '' comment '备注',
   `business_id` varchar(32) character set utf8 collate utf8_general_ci null default '0' comment '业务线id',
   primary key (`con_id`)
-) engine = innodb character set = utf8 collate utf8_general_ci;
+) engine = innodb character set = utf8 collate utf8_general_ci  COMMENT '常量表';
 
 drop table if exists `rule_entity_info`;
 create table `rule_entity_info` (
@@ -277,7 +277,7 @@ create table `rule_group` (
   `scene_id` bigint(20) null default null comment '场景id',
   `name` varchar(64) character set utf8 collate utf8_general_ci null default null comment '名称',
   primary key (`rule_group_id`)
-) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 1;
+) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 1  COMMENT '评分卡分组表';
 
 drop table if exists `rule_info`;
 create table `rule_info` (
@@ -358,7 +358,7 @@ create table `rule_scene_item_rel` (
   `cre_time` timestamp null default null,
   `entity_id` bigint(20) null default null comment '实体类id',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 187;
+) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 187  COMMENT '策略表';
 
 drop table if exists `rule_scene_version`;
 create table `rule_scene_version` (
@@ -380,7 +380,7 @@ create table `rule_scene_version` (
   `business_line` varchar(100) character set utf8 collate utf8_general_ci null default null comment '业务线，1-房速贷，2-现金贷',
   `is_bind_var` varchar(2) character set utf8 collate utf8_general_ci null default null comment '是否绑定变量，1-绑定，0-未绑定',
   primary key (`version_id`)
-) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 4;
+) engine = innodb character set = utf8 collate utf8_general_ci auto_increment = 4  COMMENT '策略版本控制表';
 
 drop table if exists `rule_variable`;
 create table `rule_variable` (
@@ -439,7 +439,7 @@ create table `act_excute_task` (
   `create_user` varchar(64) character set utf8 collate utf8_bin null default null comment '创建用户',
   `update_time` datetime null default null comment '结束时间',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_bin COMMENT '模型版本记录表';
+) engine = innodb character set = utf8 collate utf8_bin COMMENT '模型执行记录表';
 
 drop table if exists `act_validate_batch`;
 create table `act_validate_batch` (
@@ -452,7 +452,7 @@ create table `act_validate_batch` (
   `create_time` datetime not null comment '创建时间',
   `create_user` varchar(64) character set utf8 collate utf8_bin null default null comment '创建用户',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_bin;
+) engine = innodb character set = utf8 collate utf8_bin COMMENT '模型执行批次表';
 
 drop table if exists `act_proc_release`;
 create table `act_proc_release` (
@@ -476,4 +476,4 @@ create table `act_proc_release` (
   `create_time` datetime not null comment '创建时间',
   `create_user` varchar(64) character set utf8 collate utf8_bin null default null comment '创建用户',
   primary key (`id`)
-) engine = innodb character set = utf8 collate utf8_bin;
+) engine = innodb character set = utf8 collate utf8_bin COMMENT '模型版本控制表';

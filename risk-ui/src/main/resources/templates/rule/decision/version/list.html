@@ -207,20 +207,20 @@
 
 <!--操作-->
 <script type="text/html" id="bar">
-    <button class="layui-btn layui-btn-sm" lay-event="push">
+    <button class="layui-btn layui-btn-sm"  ht-auth="push" lay-event="push">
        发布测试版  <!--&nbsp;<i class="layui-icon">&#xe609;</i>-->
     </button>
 </script>
 <!--定义规则-->
 <script type="text/html" id="bar_rule_defined">
-    <button class="layui-btn layui-btn-sm" lay-event="rule_defined">
+    <button class="layui-btn layui-btn-sm"  ht-auth="rule-edit" lay-event="rule_defined">
        规则定义  &nbsp;<i class="layui-icon">&#xe628;</i>
     </button>
 </script>
 
 <!--操作-->
 <script type="text/html" id="toolbar">
-    <button class="layui-btn layui-btn-sm" title="查看规则" lay-event="ruleLook">
+    <button class="layui-btn layui-btn-sm" title="查看规则"  ht-auth="ruleLook" lay-event="">
          查看&nbsp;<i class="layui-icon">&#xe615;</i>
     </button>
 </script>

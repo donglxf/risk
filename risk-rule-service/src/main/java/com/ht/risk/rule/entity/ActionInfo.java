@@ -149,6 +149,10 @@ public class ActionInfo extends Model<ActionInfo> {
 	 */
 	public String getActionClazzIdentify() {
 		int index = actionClass.lastIndexOf(".");
+		if(index+1 == actionClass.length()){
+			actionClass = actionClass.substring(0,index);
+			index  = actionClass.lastIndexOf(".");
+		}
 		return actionClass.substring(index + 1).substring(0, 1).toLowerCase() +
 				actionClass.substring(index + 1).substring(1);
 	}

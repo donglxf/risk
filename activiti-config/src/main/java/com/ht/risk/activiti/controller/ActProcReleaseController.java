@@ -154,6 +154,7 @@ public class ActProcReleaseController {
             return result;
         }
         actProcRelease.setApproveTaskId(String.valueOf(taskId));
+        actProcRelease.setIsValidate("1");
         boolean flag = actProcReleaseService.updateById(actProcRelease);
         if(flag){
             result = Result.success("更新成功！");
