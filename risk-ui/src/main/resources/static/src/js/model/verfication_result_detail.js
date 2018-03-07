@@ -34,6 +34,9 @@ layui.use(['table', 'jquery', 'element', 'laytpl','myutil'], function () {
                 $("#procReleaseId").val(data.data.procReleaseId);
                 $("#taskId").val(data.data.taskId);
                 $("#validateFlag").val(data.data.validateFlag);
+                if('1' == data.data.validateFlag ){
+                    $("#verfication_layui_btn_div").css("display","");
+                }
                 var ruleHtml = "模型执行结果："+data.data.message+"\n";
                 if(hitRules != null && hitRules.length >0){
                     ruleHtml += "命中如下规则："+"\n";
@@ -55,7 +58,9 @@ layui.use(['table', 'jquery', 'element', 'laytpl','myutil'], function () {
             }
             if(data.code == 1){
                 layer.msg("查询失败！");
+                $("#verfication_layui_btn_div").css("display","");
             }
+            layer.closeAll('loading');
         }
     });
 
@@ -63,7 +68,8 @@ layui.use(['table', 'jquery', 'element', 'laytpl','myutil'], function () {
         layer.load();
         var validateFlag = $("#validateFlag").val();
         if(validateFlag == '1'){
-            layer.msg("模型验证未通过，不能更新模型验证状态为通过！");
+            layer.msg("模型验证未成功，不能更新模型验证状态！");
+            layer.closeAll('loading');
             return ;
         }
         var procReleaseId = $("#procReleaseId").val();
@@ -92,6 +98,11 @@ layui.use(['table', 'jquery', 'element', 'laytpl','myutil'], function () {
     });
     $("#unpass").click( function() {
         layer.load();
+        if(validateFlag == '1'){
+            layer.msg("模型验证未成功，不能更新模型验证状态！");
+            layer.closeAll('loading');
+            return ;
+        }
         var procReleaseId = $("#procReleaseId").val();
         $.ajax({
             cache: true,
@@ -117,6 +128,12 @@ layui.use(['table', 'jquery', 'element', 'laytpl','myutil'], function () {
     // 发起审批
     $("#approve").click( function() {
         layer.load();
+        var validateFlag = $("#validateFlag").val();
+        if(validateFlag == '1'){
+            layer.msg("模型验证未成功，不能发起审批！");
+            layer.closeAll('loading');
+            return ;
+        }
         var procReleaseId = $("#procReleaseId").val();
         $.ajax({
             cache: true,
