@@ -26,7 +26,7 @@ layui.use(['table','jquery','myutil'], function(){
     table.render({
         elem: '#version_list'
         ,height: 'auto'
-        ,url: pathConfig.activitiConfigPath+'page' //数据接口
+        ,url: pathConfig.activitiConfigPath+'page?isApprove=1' //数据接口
         ,id: "versionReload"
         ,page: true //开启分页
         ,cols: [[ //表头\
