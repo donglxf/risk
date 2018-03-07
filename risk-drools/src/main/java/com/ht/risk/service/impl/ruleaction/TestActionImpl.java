@@ -44,16 +44,29 @@ public class TestActionImpl extends DroolsActionService {
         float scope = 0;
         Object total = result.getMap().get("scope");
         if (null != total) {
-            scope = Integer.parseInt(String.valueOf(total));
+            scope = Float.parseFloat(String.valueOf(total));
         }
         Object val = result.getMap().get(key);
         if (null != val) {
             Class a = val.getClass();
-            float gra = (float) result.getMap().get(key);
-            if (a == Double.class) {
-                scope += Double.parseDouble(String.valueOf(val)) * gra;
+            Object gra = result.getMap().get(grade);
+            if (null != gra) {
+                Class g = gra.getClass();
+                if (g == Double.class ) {
+                    scope += Double.parseDouble(String.valueOf(val)) * (Double) gra;
+                }else if (g == Float.class ){
+                    scope += Float.parseFloat(String.valueOf(val)) * (Float) gra;
+                }else if( g == Integer.class){
+                    scope += Integer.parseInt(String.valueOf(val)) * (Integer) gra;
+                }
             } else {
-                scope += Integer.parseInt(String.valueOf(val)) * gra;
+                if (a == Double.class ) {
+                    scope += Double.parseDouble(String.valueOf(val)) ;
+                }else if (a == Float.class ){
+                    scope += Float.parseFloat(String.valueOf(val));
+                }else if( a == Integer.class){
+                    scope += Integer.parseInt(String.valueOf(val));
+                }
             }
         }
         result.getMap().put("scope", scope);

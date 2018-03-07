@@ -1,4 +1,0 @@
-2018-02-02 15:38:24,377  WARN [Thread-26][ResourceApiSynch:] - 同步API资源发生异常，请尝试重启服务。异常：status 500 reading UCClient#resourceApiAynch(ApiResourceDto); content:
-{"timestamp":1517557104515,"status":500,"error":"Internal Server Error","exception":"java.lang.NumberFormatException","message":"For input string: \"api_151738228239182\"","path":"/auth/api/aynch"}
-2018-02-02 15:39:09,964  WARN [Thread-21][ResourceApiSynch:] - 同步API资源发生异常，请尝试重启服务。异常：status 500 reading UCClient#resourceApiAynch(ApiResourceDto); content:
-{"timestamp":1517557150125,"status":500,"error":"Internal Server Error","exception":"java.lang.NumberFormatException","message":"For input string: \"api_151738228239182\"","path":"/auth/api/aynch"}
