@@ -245,8 +245,12 @@ layui.use(['table', 'form','laydate','myutil'], function () {
         var size = da.length;
         for(var i=0;i<size;i++){
             var bindColumn=da[i].bindColumn;
-            if(da[i].bindColumn== null ){
+            var bindTab=da[i].bindTable
+            if(bindColumn== null ){
                 bindColumn='';
+            }
+            if(bindTab== null ){
+                bindTab='';
             }
             $("#bindColumnTable").append("<tr>\n" +
                 "\t\t\t\t\t\t\t<input type=\"hidden\" name=\""+da[i].variableCode+"_bind\" id=\"bindId"+i+"\" value='"+da[i].id+"'>\n" +
@@ -261,7 +265,7 @@ layui.use(['table', 'form','laydate','myutil'], function () {
                 "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
                 "\t\t\t\t\t\t\t\t<input type=\"text\" lay-verify-max=\"100\" id=\""+da[i].variableCode+"_tableName\" name=\""+da[i].variableCode+"_tableName\" required\n" +
                 "\t\t\t\t\t\t\t\t\t   lay-verify=\"required\" placeholder=\"请输入业务表名\" autocomplete=\"off\"\n" +
-                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value=\"TEMP_DATA_CONTAINS\" >\n" +
+                "\t\t\t\t\t\t\t\t\t   class=\"layui-input\" value=\""+bindTab+"\" >\n" +
                 "\t\t\t\t\t\t\t</div></td>\n" +
                 "\t\t\t\t\t\t\t<td><label class=\"layui-form-label mylabel\">列名:</label></td>\n" +
                 "\t\t\t\t\t\t\t<td><div class=\"layui-input-block mycss\">\n" +
