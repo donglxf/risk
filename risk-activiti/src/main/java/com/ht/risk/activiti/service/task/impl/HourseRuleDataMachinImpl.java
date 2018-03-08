@@ -242,9 +242,9 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
 
     private int caculateHourseAge(String openTimeStr){
         try{
-            Date openTime = DateUtil.getDate(openTimeStr,DateUtil.DATE_FORMAT);
-            int mouth = DateUtil.getDiffMonths(new Date(System.currentTimeMillis()),openTime);
-            return mouth/12;
+            int year = Integer.parseInt(openTimeStr);
+            int currentYear = DateUtil.getYear(new Date(System.currentTimeMillis()));
+            return currentYear - year;
         }catch (Exception e){
             LOGGER.error("转换楼龄异常，openTimeStr："+openTimeStr);
         }

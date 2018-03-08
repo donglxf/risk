@@ -14,6 +14,7 @@ public class ModelParamter implements Serializable {
 	private String businessId;
 	private String processId;
 	private String variableName;
+	private String userId;
 
 	public String getModelId() {
 		return modelId;
@@ -77,5 +78,13 @@ public class ModelParamter implements Serializable {
 
 	public void setBusinessId(String businessId) {
 		this.businessId = businessId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 }

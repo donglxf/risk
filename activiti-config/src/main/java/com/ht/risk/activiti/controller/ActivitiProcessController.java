@@ -16,10 +16,7 @@ import com.ht.risk.common.result.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -36,7 +33,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("")
-public class ActivitiProcessController extends BaseController {
+public class ActivitiProcessController{
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ActivitiProcessController.class);
     @Resource
@@ -80,7 +77,7 @@ public class ActivitiProcessController extends BaseController {
             return data;
         }
         try{
-            data = actProcReleaseService.proceDeploy(paramter,getUserId());
+            data = actProcReleaseService.proceDeploy(paramter,paramter.getUserId());
         }catch(Exception e){
             data = Result.error(1,"部署流程异常,错误信息："+e.getMessage());
             LOGGER.error("部署流程异常!",e);
@@ -108,7 +105,7 @@ public class ActivitiProcessController extends BaseController {
             LOGGER.info("startProcess invoke start error,paramter exception...");
             return data;
         }
-        String procInstId = actProcReleaseService.startProcess(rpcStartParamter,getUserId());
+        String procInstId = actProcReleaseService.startProcess(rpcStartParamter,rpcStartParamter.getUserId());
         if(StringUtils.isEmpty(procInstId)){
             data = Result.error(1,"启动模型异常！");
             LOGGER.info("startProcess invoke start error");
@@ -133,7 +130,7 @@ public class ActivitiProcessController extends BaseController {
             LOGGER.info("startProcess invoke start error,paramter exception...");
             return data;
         }
-        String taskid = actProcReleaseService.startModel(modelStartVo,getUserId());
+        String taskid = actProcReleaseService.startModel(modelStartVo,StringUtils.isEmpty(modelStartVo.getUserId())?"admin-fk":modelStartVo.getUserId());
         if(StringUtils.isEmpty(taskid)){
             data = Result.error(1,"启动模型异常！");
             LOGGER.info("startProcess invoke start error");
@@ -150,7 +147,7 @@ public class ActivitiProcessController extends BaseController {
      * @return
      */
     // TODO 自动验证
-    @RequestMapping("/verficationBatch")
+    /*@RequestMapping("/verficationBatch")
     public Result<Long> startBatchValidateProcess(@RequestBody RpcStartParamter rpcStartParamter){
         LOGGER.info("startProcess invoke start,paramter:"+ JSON.toJSONString(rpcStartParamter));
         Result<Long> data = null;
@@ -161,7 +158,7 @@ public class ActivitiProcessController extends BaseController {
         }
         Long batchId = null;
         try {
-            batchId = actProcReleaseService.startBatchValidateProcess(rpcStartParamter,getUserId());
+            batchId = actProcReleaseService.startBatchValidateProcess(rpcStartParamter,this.getUserName());
         } catch (Exception e) {
             data = Result.error(1,"批量启动模型异常！");
             LOGGER.info("startProcess invoke start error");
@@ -170,7 +167,7 @@ public class ActivitiProcessController extends BaseController {
         data = Result.success(batchId);
         LOGGER.info("startProcess invoke end ...;batchId:"+batchId);
         return data;
-    }
+    }*/
 
     /**
      * 启动模型，用户输入数据
@@ -188,7 +185,7 @@ public class ActivitiProcessController extends BaseController {
         }
         Long batchId = null;
         try {
-            batchId = actProcReleaseService.startInputValidateProcess(rpcStartParamter,getUserId());
+            batchId = actProcReleaseService.startInputValidateProcess(rpcStartParamter,rpcStartParamter.getUserId());
         } catch (Exception e) {
             e.printStackTrace();
             data = Result.error(1,"启动模型异常！");
