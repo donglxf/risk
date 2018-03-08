@@ -114,7 +114,7 @@ layui.use(['table','form','myutil'], function(){
         ,cellMinWidth: 80
         ,url: '/rule/service/actionParamInfo/getAll' //数据接口
         // data:[{"conId":1,"entityName":"测试规则","entityDesc":"测试规则引擎","entityIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
-         ,page: true
+         ,page: false
         ,id:'itemT'
         ,cols: [[ //表头
             {field: 'actionParamId', title: 'ID',  sort: true, fixed: 'left'}
@@ -156,10 +156,11 @@ layui.use(['table','form','myutil'], function(){
             //var demoReload = $('#demoReload');
             //执行重载
             table.reload('itemT', {
-                page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-                ,where: {
+                // page: {
+                //     curr: 1 //重新从第 1 页开始
+                // }
+                // ,
+                where: {
                 	actionId: actionId
                 }
             });

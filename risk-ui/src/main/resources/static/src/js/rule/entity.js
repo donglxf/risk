@@ -133,7 +133,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
         ,cellMinWidth: 80
         ,url: '/rule/service/entityItemInfo/getAll' //数据接口
         // data:[{"entityId":1,"entityName":"测试规则","entityDesc":"测试规则引擎","entityIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
-         ,page: true
+        ,page: false
         ,id:'itemT'
         ,cols: [[ //表头
             {field: 'itemId', title: 'ID',  sort: true, fixed: 'left'}
@@ -142,6 +142,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
             ,{field: 'dataType', title: '类型'}
             ,{field: 'entityId', title: '操作', fixed: 'right',align:'center', toolbar: '#item_bar'}
         ]]
+
     });
 
     //监听工具条
@@ -193,10 +194,10 @@ layui.use(['table','form','laytpl','myutil'], function(){
             //var demoReload = $('#demoReload');
             //执行重载
             table.reload('itemT', {
-                page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-                ,where: {
+             //   page: {
+                  //  curr: 1 //重新从第 1 页开始
+              //  }
+                where: {
                     entityId: entityId
                 }
             });

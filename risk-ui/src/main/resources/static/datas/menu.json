@@ -28,7 +28,7 @@
         "icon": "fa fa-user",
         "spread": true,
         "title": "变量管理",
-        "url": "src/html/other/entity_index.html",
+        "url": "src/html/entity/entity_index.html",
         "children": []
       },
       {
