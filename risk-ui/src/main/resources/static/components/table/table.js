@@ -73,7 +73,7 @@ ModuleTable.fn.extend = function(options) {
             //     time: 0,
             //     skin: 'kit-table'
             // });
-            layer.confirm('真的删除行么', function(index) {
+            layer.confirm('是否删除？', function(index) {
                 obj.del(); //删除对应行（tr）的DOM结构
                 layer.close(index);
                 //向服务端发送删除指令

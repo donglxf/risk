@@ -88,7 +88,7 @@ layui.use(['table','jquery','myutil'], function(){
             layer.msg("模型已部署，无法删除！");
             return;
         }
-        layer.confirm('真的删除行么', function(index){
+        layer.confirm('是否删除？', function(index){
             //向服务端发送删除指令
             $.ajax({
                 cache : true,

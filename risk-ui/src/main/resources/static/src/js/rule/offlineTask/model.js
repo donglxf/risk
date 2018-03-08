@@ -166,7 +166,7 @@ layui.use([ 'table', 'form', 'myutil', 'laydate' ], function() {
 		var frequencyType = $("#frequencyType").val();
 		var enableStatus = $("#enableStatus").val();
 		//刪除任务
-		layer.confirm('真的删除行么', function(index) {
+		layer.confirm('是否删除？', function(index) {
 			$.get(preModelTaskUrl + "delete/" + taskId, function(data) {
 				modelTableActive.reload();
 			}, 'json');
