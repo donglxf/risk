@@ -1,6 +1,5 @@
 
 ///////////////////////////////////////////////////////////////////////
-var preItemUrl = "/rule/service/entityItemInfo/";
 var preUrl = "/rule/service/constantInfo/";
 var layer,entityTable,itemTable,table,active,itemActive;
 var conId ,conKey,conType,topIndex;
