@@ -29,5 +29,6 @@ public class DroolsServiceApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DroolsServiceApplication.class, args);
+		System.err.println("ヾ(◍°∇°◍)ﾉﾞ    DroolsServiceApplication启动成功      ヾ(◍°∇°◍)ﾉﾞ\n");
 	}
 }
