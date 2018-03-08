@@ -35,7 +35,7 @@ layui.use(['table', 'jquery', 'element', 'laytpl','myutil'], function () {
                 $("#taskId").val(data.data.taskId);
                 $("#validateFlag").val(data.data.validateFlag);
                 if('1' == data.data.validateFlag ){
-                    $("#verfication_layui_btn_div").css("display","");
+                    $("#verfication_layui_btn_div").css("display","none");
                 }
                 var ruleHtml = "模型执行结果："+data.data.message+"\n";
                 if(hitRules != null && hitRules.length >0){

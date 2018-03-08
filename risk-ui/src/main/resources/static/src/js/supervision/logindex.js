@@ -92,7 +92,8 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
             }, {
                 field: 'status',
                 event: 'setItem',
-                title: '状态'
+                title: '执行状态',
+                templet: '#statusTpl'
             }, {
                 field: 'inParamter',
                 event: 'setItem',
@@ -104,7 +105,8 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
             }, {
                 field: 'type',
                 event: 'setItem',
-                title: '类型'
+                title: '调用类型',
+                templet: '#typeTpl'
             }, {
                 field: 'spendTime',
                 event: 'setItem',

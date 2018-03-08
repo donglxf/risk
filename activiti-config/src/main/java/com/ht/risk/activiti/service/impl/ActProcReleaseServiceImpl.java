@@ -110,7 +110,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
             updateTask(task);
             return result.getData();
         }else{
-            task.setStatus("4");
+            task.setStatus(ActivitiConstants.PROC_STATUS_EXCEPTION);
             updateTask(task);
             return null;
         }
@@ -141,12 +141,11 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         if (result != null && result.getCode() == 0 && StringUtils.isNotEmpty(result.getData())) {
             // 模型成功启动
             task.setProcInstId(result.getData());
-            task.setStatus("1");
             updateTask(task);
             return String.valueOf(task.getId());
         }else{
             //模型启动异常
-            task.setStatus("3");
+            task.setStatus(ActivitiConstants.PROC_STATUS_EXCEPTION);
             updateTask(task);
             return null;
         }

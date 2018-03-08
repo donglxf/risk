@@ -98,6 +98,26 @@
     </button>
 </script>
 
+<script type="text/html" id="statusTpl">
+    {{#  if(d.status != '' && d.status != null && d.status == '0'){ }}
+    <span>待执行</span>
+    {{# } else  if(d.status != '' && d.status != null && d.status == '1' ){ }}
+    <span>已启动</span>
+    {{# } else  if(d.status != '' && d.status != null && d.status == '2' ){ }}
+    <span>执行成功</span>
+    {{#  } else { }}
+    <span>执行异常</span>
+    {{#  } }}
+</script>
+
+<script type="text/html" id="typeTpl">
+    {{#  if(d.type != '' && d.type != null && d.type == '1'){ }}
+    <span>模型验证</span>
+    {{#  } else { }}
+    <span>外部调用</span>
+    {{#  } }}
+</script>
+
 
 <script>
     //Demo
