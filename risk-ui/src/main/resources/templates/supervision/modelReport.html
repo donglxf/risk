@@ -53,84 +53,19 @@
 <script src="/rule/ui/src/js/rule/rule_util.js"></script>
 <script src="/rule/ui/src/js/supervision/ruleReport.js"></script>
 <script src="/rule/ui/plugins/echarts/echarts.js"></script>
-<script src="/rule/ui/plugins/jquery-1.9.1.min.js"></script>
 
 
 <script>
-    function graphTime(da){
-        console.log("模型平均响应时间"+da);
-        var xAxisArr=new Array(da.ruleMap.length);
-        var seriesArr=new Array(da.listMap.length); // 响应时间
-        for(var i=0;i<da.ruleMap.length ;i++){
-            xAxisArr[i]=da.ruleMap[i].modelName;
-        }
-        for(var i=0;i<da.listMap.length ;i++){
-            seriesArr[i]=da.listMap[i].spendTime;
-        }
+    layui.config({
+        base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
+    }).extend({ //设定模块别名
+        myutil: 'common' //如果 mymod.js 是在根目录，也可以不用设定别名
 
-        var dom = document.getElementById("container");
-        var myChart = echarts.init(dom);
-        var app = {};
-        option = null;
-        option = {
-            xAxis: {
-                type: 'category',
-                data: xAxisArr
-            },
-            yAxis: {
-                type: 'value'
-            },
-            animation:true,// 是否开启动画
-            tooltip: {
-                formatter: function (params) {
-                    var html="<label>调用次数："+da.listMap[params.dataIndex].excuteTotal+"</label><br/>"
-					+"<label>响应时间:"+params.data+"</label>";
-                    return html;
-                }
-            },
-            series: [{
-                data: seriesArr,
-                type: 'bar',
-                barWidth:5
-            }],
-            animationEasing: 'elasticOut',
-            animationDelayUpdate: function (idx) {
-                return idx * 5;
-            }
-        };
-        if (option && typeof option === "object") {
-            myChart.setOption(option, true);
-        }
-    }
+    });
 
-
-    function formatRuleContent(ruleName){
-        console.log(ruleName);
-        var html = $
-            .ajax({
-                cache: true,
-                type: "GET",
-                url: '/rule/service/ruleReport/formatRuleName/', // 数据接口
-                data: {"ruleName":ruleName},// 你的formid
-                async: false,
-                error: function (request) {
-                },
-                success: function (da) {
-                    return da;
-                }
-            });
-        return html;
-    }
-
-    function addDate(date,days){
-        var d=new Date(date);
-        d.setDate(d.getDate()+days);
-        var m=d.getMonth()+1;
-        return d.getFullYear()+'-'+m+'-'+d.getDate();
-    }
 
     //Demo
-    layui.use(['form','laydate'], function(){
+    layui.use(['form','laydate','myutil'], function(){
         var form = layui.form;
         var app = layui.app,
             layerTips = layui.layer,
@@ -144,6 +79,80 @@
             elem: '#endDate',
             value:addDate(new Date(),0)
         });
+
+
+        function graphTime(da){
+            console.log("模型平均响应时间"+da);
+            var xAxisArr=new Array(da.ruleMap.length);
+            var seriesArr=new Array(da.listMap.length); // 响应时间
+            for(var i=0;i<da.ruleMap.length ;i++){
+                xAxisArr[i]=da.ruleMap[i].modelName;
+            }
+            for(var i=0;i<da.listMap.length ;i++){
+                seriesArr[i]=da.listMap[i].spendTime;
+            }
+
+            var dom = document.getElementById("container");
+            var myChart = echarts.init(dom);
+            var app = {};
+            option = null;
+            option = {
+                xAxis: {
+                    type: 'category',
+                    data: xAxisArr
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                animation:true,// 是否开启动画
+                tooltip: {
+                    formatter: function (params) {
+                        var html="<label>调用次数："+da.listMap[params.dataIndex].excuteTotal+"</label><br/>"
+                            +"<label>响应时间:"+params.data+"</label>";
+                        return html;
+                    }
+                },
+                series: [{
+                    data: seriesArr,
+                    type: 'bar',
+                    barWidth:5
+                }],
+                animationEasing: 'elasticOut',
+                animationDelayUpdate: function (idx) {
+                    return idx * 5;
+                }
+            };
+            if (option && typeof option === "object") {
+                myChart.setOption(option, true);
+            }
+        }
+
+
+        function formatRuleContent(ruleName){
+            console.log(ruleName);
+            var html = $
+                .ajax({
+                    cache: true,
+                    type: "GET",
+                    url: '/rule/service/ruleReport/formatRuleName/', // 数据接口
+                    data: {"ruleName":ruleName},// 你的formid
+                    async: false,
+                    error: function (request) {
+                    },
+                    success: function (da) {
+                        return da;
+                    }
+                });
+            return html;
+        }
+
+        function addDate(date,days){
+            var d=new Date(date);
+            d.setDate(d.getDate()+days);
+            var m=d.getMonth()+1;
+            return d.getFullYear()+'-'+m+'-'+d.getDate();
+        }
+
 
         getModelDate('');
 

@@ -77,8 +77,8 @@ public class RuleReportController {
             Date curentDate= DateUtils.getDate("yyyy-MM-dd");
             Date beforeDate=DateUtils.addDays(curentDate,-30);
             log.info(DateUtils.getDateString(beforeDate)+">>>>>>>>>>>>.");
-            map.put("startTime", DateUtils.getDateString(beforeDate));
-            map.put("endTime", DateUtils.getDateString(curentDate));
+            map.put("startTime", DateUtils.getDateString(beforeDate)+" 00:00:00");
+            map.put("endTime", DateUtils.getDateString(curentDate)+" 23:59:59");
         }
         Map<String, Object> resultMap = sceneVersionService.staticRuleExecuteInfo(map); // 平均响应时间
         List<Map<String,Object>> ls= sceneVersionService.staticRuleExecuteTotal(map); // 规则执行次数

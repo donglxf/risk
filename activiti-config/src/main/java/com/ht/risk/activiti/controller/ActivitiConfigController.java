@@ -139,8 +139,8 @@ public class ActivitiConfigController {
             Date curentDate=DateUtils.getDate("yyyy-MM-dd");
             Date beforeDate=DateUtils.addDays(curentDate,-30);
             LOGGER.info(DateUtils.getDateString(beforeDate)+">>>>>>>>>>>>.");
-            map.put("startTime", DateUtils.getDateString(beforeDate));
-            map.put("endTime", DateUtils.getDateString(curentDate));
+            map.put("startTime", DateUtils.getDateString(beforeDate)+" 00:00:00");
+            map.put("endTime", DateUtils.getDateString(curentDate)+" 23:59:59");
         }
         Map<String, Object> resultMap = actExcuteTaskService.getModelGraph (map); // 平均响应时间
         return Result.success(resultMap);

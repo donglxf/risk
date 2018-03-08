@@ -90,7 +90,7 @@ layui.use(['table','form','myutil'], function(){
         if(obj.event === 'detail'){
             layer.msg('ID：'+ data.conId + ' 的查看操作');
         } else if(obj.event === 'del'){
-            layer.confirm('真的删除行么', function(index){
+            layer.confirm('是否删除？', function(index){
                 $.get(preUrl+'delete?id='+data.conId,function (data) {
                     if(data.code < 0){
                         layer.msg('删除失败，该数据正在被其他数据引用', {icon: 5});
