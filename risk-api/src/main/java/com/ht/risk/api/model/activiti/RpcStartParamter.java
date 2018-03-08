@@ -10,6 +10,8 @@ public class RpcStartParamter implements Serializable {
      * 模型定义ID
      */
     private String procDefId;
+
+    private String userId;
     /**
      * 模型版本
      */
@@ -97,5 +99,13 @@ public class RpcStartParamter implements Serializable {
 
     public void setTaskId(Long taskId) {
         this.taskId = taskId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

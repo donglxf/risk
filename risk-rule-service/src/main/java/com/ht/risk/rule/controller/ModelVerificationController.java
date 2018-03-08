@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.model.activiti.RpcStartParamter;
 import com.ht.risk.api.model.drools.DroolsParamter;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.rpc.ActivitiConfigRpc;
 import com.ht.risk.rule.service.ModelAnalysisSerivce;
@@ -34,7 +35,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/verification")
-public class ModelVerificationController {
+public class ModelVerificationController extends BaseController{
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ModelVerificationController.class);
 
@@ -119,6 +120,7 @@ public class ModelVerificationController {
         rpcStartParamter.setType(ActivitiConstants.EXCUTE_TYPE_VERFICATION);
         rpcStartParamter.setData(dataMap);
         rpcStartParamter.setBatchSize(1);
+        rpcStartParamter.setUserId(this.getUserId());
         LOGGER.info("createSingleVerficationTask mothod invoke,paramter:" + JSON.toJSONString(rpcStartParamter));
         Result<Long> rpcResult = activitiConfigRpc.startInputValidateProcess(rpcStartParamter);
         LOGGER.info("createSingleVerficationTask mothod invoke,paramter:" + JSON.toJSONString(rpcResult));

@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class ModelStartVo implements Serializable{
 
+
+    private static final long serialVersionUID = 7969576144352432139L;
     /**
      * 模型编码
      */
@@ -25,6 +27,8 @@ public class ModelStartVo implements Serializable{
      * 业务数据
      */
     private Map<String,Object> data;
+
+    private String userId;
 
     public String getModelCode() {
         return modelCode;
@@ -64,5 +68,13 @@ public class ModelStartVo implements Serializable{
 
     public void setData(Map<String, Object> data) {
         this.data = data;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

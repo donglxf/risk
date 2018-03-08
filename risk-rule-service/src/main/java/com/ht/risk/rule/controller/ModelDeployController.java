@@ -3,6 +3,7 @@ package com.ht.risk.rule.controller;
 import com.alibaba.fastjson.JSON;
 import com.ht.risk.api.model.activiti.ModelParamter;
 import com.ht.risk.api.model.activiti.RpcDeployResult;
+import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.service.ModelDeployService;
 import org.apache.commons.lang3.StringUtils;
@@ -23,7 +24,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/modelDeploy")
-public class ModelDeployController {
+public class ModelDeployController extends BaseController{
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ModelDeployController.class);
 
@@ -40,6 +41,7 @@ public class ModelDeployController {
         }
         Result<RpcDeployResult> result = null;
         try{
+            paramter.setUserId(this.getUserId());
             result = modelDeployService.modelDeploy(paramter);
         }catch(Exception e){
             data = Result.error(1,"部署流程异常,错误信息："+e.getMessage());
