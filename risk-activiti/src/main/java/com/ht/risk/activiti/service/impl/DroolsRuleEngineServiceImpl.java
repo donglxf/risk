@@ -65,7 +65,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             }
             delegateExecution.setVariable(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR+senceCode,details);
         }catch (Exception e){
-            msg.append("决策编码为：").append(senceCode).append("；执行异常");
+            msg.append("决策编码为：").append(senceCode).append(",执行异常；");
         }
         delegateExecution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg.toString());
         LOGGER.info("DroolsRuleEngineServiceImpl service end , result:"+ JSON.toJSONString(details));
