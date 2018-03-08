@@ -4,12 +4,12 @@
     <legend>场景信息添加</legend>
 </fieldset>
 <form class="layui-form" style="margin-right: 20px" action="">
-    <input type="hidden" name="businessId" >
+    <input type="hidden" name="businessId" isId=true >
 
     <div class="layui-form-item">
         <label class="layui-form-label">业务线名:</label>
         <div class="layui-input-block">
-            <input type="text" name="businessName" required lay-verify-max="32" lay-verify="required|name" placeholder="请输入业务线名（长度最多32位）" autocomplete="off" class="layui-input">
+            <input type="text" name="businessName" required  identifyType="7"  lay-verify-max="32" lay-verify="required|name|identify" placeholder="请输入业务线名（长度最多32位）" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
