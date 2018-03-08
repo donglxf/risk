@@ -64,27 +64,27 @@ public class HourseRuleResultImpl implements HourseRuleResult {
             }
         }
         RuleExcuteDetail detail = null;
+        String taskIdStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_TASK_ID_VAR_KEY));
+        Long taskId =taskIdStr != null ?Long.parseLong(taskIdStr):null;
+        modelResult.setCode("0");
+        modelResult.setMsg("模型执行正常");
+        modelResult.setProcInstId(execution.getProcessInstanceId());
+        modelResult.setTaskId(taskId);
+        modelResult.setProcMsg(msg);
+        String businessKey = String.valueOf(execution.getVariable(ActivitiConstants.PROC_BUSINESS_KEY));
+        modelResult.setBusinessKey(businessKey);
         if(details.size()>0){
             for(Iterator<RuleExcuteDetail> iterator = details.iterator(); iterator.hasNext();){
                 detail = iterator.next();
                 getRulesDesc(detail);
             }
             modelResult.setRuleResultList(resultMap);
-            modelResult.setCode("0");
-            modelResult.setMsg("模型执行正常");
-            modelResult.setProcInstId(execution.getProcessInstanceId());
-            String taskIdStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_TASK_ID_VAR_KEY));
-            Long taskId =taskIdStr != null ?Long.parseLong(taskIdStr):null;
-            modelResult.setTaskId(taskId);
-            modelResult.setProcMsg(msg);
-            String businessKey = String.valueOf(execution.getVariable(ActivitiConstants.PROC_BUSINESS_KEY));
-            modelResult.setBusinessKey(businessKey);
-            // MQ发送消息
-            if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)) {// 服务类型
-                topicSenderService.send(JSON.toJSONString(modelResult));
-            }
-            //更新任务状态
-            updateTask(modelResult,taskId,execution.getProcessInstanceId());
+        }
+        //更新任务状态
+        updateTask(modelResult,taskId,execution.getProcessInstanceId());
+        // MQ发送消息
+        if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)) {// 服务类型
+            topicSenderService.send(JSON.toJSONString(modelResult));
         }
         LOGGER.info("HourseRuleResultImpl execute method excute end...");
     }

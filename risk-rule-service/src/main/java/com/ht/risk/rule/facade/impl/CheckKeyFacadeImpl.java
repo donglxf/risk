@@ -34,6 +34,10 @@ public class CheckKeyFacadeImpl implements CheckKeyFacade {
     private ActionInfoService actionInfoService;
 
 
+    @Autowired
+    private BusinessService businessService;
+
+
 
 
     @Override
@@ -51,6 +55,8 @@ public class CheckKeyFacadeImpl implements CheckKeyFacade {
                 return constantInfoService.checkKey(key,null,id);
             case 6:
                 return actionInfoService.checkKey(key,null,id);
+            case 7:
+                return businessService.checkKey(key,null,id);
             default:
                 return false;
         }

@@ -102,7 +102,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
         if(obj.event === 'detail'){
             layer.msg('ID：'+ data.id + ' 的查看操作');
         } else if(obj.event === 'del'){
-            layer.confirm('真的删除行么', function(index){
+            layer.confirm('是否删除？', function(index){
                 $.get(preUrl+'delete?id='+data.entityId,function (data) {
                     if(data.code < 0){
                         layer.msg('删除失败，该数据正在被其他数据引用', {icon: 5});
@@ -150,7 +150,7 @@ layui.use(['table','form','laytpl','myutil'], function(){
         if(obj.event === 'detail'){
             layer.msg('ID：'+ data.id + ' 的查看操作');
         } else if(obj.event === 'del2'){
-            layer.confirm('真的删除行么', function(index){
+            layer.confirm('是否删除？', function(index){
                 $.get(preItemUrl+'delete?id='+data.itemId,function (data) {
                     if(data.code < 0){
                         layer.msg('删除失败，该数据正在被其他数据引用', {icon: 5});
