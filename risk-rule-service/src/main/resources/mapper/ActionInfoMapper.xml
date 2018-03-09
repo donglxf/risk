@@ -157,5 +157,43 @@
             AND  a.business_id = #{businessId}
         </if>
     </select>
+    
+    <update id="updateInfo" parameterType="com.ht.risk.rule.entity.ActionInfo">
+        update  rule_action_info
+          <set>
+              <if test="businessId != null">
+                  business_id = #{businessId},
+              </if>
+              <if test="actionType != null">
+                  action_type = #{actionType},
+              </if>
+              <if test="actionName != null">
+                  action_name =#{actionName},
+              </if>
+              <if test="actionDesc != null">
+                  action_desc= #{actionDesc},
+              </if>
+              <if test="actionClass != null">
+                  action_class=#{actionClass},
+              </if>
+              <if test="actionMethod != null">
+                  action_Method=#{actionMethod},
+              </if>
+              <if test="isEffect != null">
+                  is_Effect = #{isEffect},
+              </if>
+              <if test="creUserId != null">
+                  cre_User_Id = #{creUserId},
+              </if>
+              <if test="remark != null">
+                  remark= #{remark},
+              </if>
+              <if test="creTime != null">
+                  cre_Time=#{creTime}
+              </if>
+
+          </set>
+        where action_id = #{actionId}
+    </update>
 
 </mapper>

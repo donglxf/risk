@@ -75,10 +75,14 @@
             $ = layui.jquery;
         //监听提交
         form.on('submit(formDemo)', function(data){
+            var url = '/rule/service/actionInfo/edit';
+            if(actionMark =='update' ){
+                url = '/rule/service/actionInfo/update';
+            }
            $.ajax({
                 cache : true,
                 type : "POST",
-                url : '/rule/service/actionInfo/edit',
+                url : url,
                 data : data.field,// 你的formid
                 async : false,
                 error : function(request) {

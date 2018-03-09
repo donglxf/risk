@@ -143,4 +143,9 @@ public class ActionInfoServiceImpl extends BaseServiceImpl<ActionInfoMapper, Act
         count = count == null?0:count;
         return count > 0 ? true:false;
     }
+
+    @Override
+   public boolean update(ActionInfo actionInfo){
+        return actionInfoMapper.updateInfo(actionInfo);
+    }
 }

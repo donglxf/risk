@@ -92,4 +92,6 @@ public interface ActionInfoService extends BaseService<ActionInfo> {
      * @return
      */
     List<ActionInfoVo> findActionAllVos(Long businessId);
+
+    public boolean update(ActionInfo actionInfo);
 }

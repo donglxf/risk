@@ -2,7 +2,7 @@
 ///////////////////////////////////////////////////////////////////////
 var preItemUrl = "/rule/service/actionParamInfo/";
 var preUrl = "/rule/service/actionInfo/";
-var layer,entityTable,itemTable,table,active,itemActive,topIndex;
+var layer,entityTable,itemTable,table,active,itemActive,topIndex,actionMark='insert';
 var actionId;
 layui.config({
     base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
@@ -168,6 +168,7 @@ layui.use(['table','form','myutil'], function(){
     };
     //新增
     $("#action_btn_add").on('click',function () {
+        actionMark='insert';
         $.get('/rule/ui/ruleAction/edit', null, function (form) {
             topIndex = layer.open({
                 type :1,
@@ -191,6 +192,7 @@ layui.use(['table','form','myutil'], function(){
         });
     });
     function  edit(id) {
+        actionMark='update';
         $.get(preUrl+"getInfoById?id="+id,function (data) {
             var result = data.data;
             $.get('/rule/ui/ruleAction/edit', null, function (form) {
