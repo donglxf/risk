@@ -193,7 +193,7 @@ public class EntityInfoController extends BaseController {
             wrapper.or().like("entity_identify",key);
         }
         if(businessId != null ){
-            wrapper.eq("business_id",businessId);
+            wrapper.andNew().eq("business_id",businessId);
         }
          Page<EntityInfo> pages = new Page<>();
          pages.setCurrent(page);

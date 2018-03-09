@@ -48,7 +48,7 @@ public class ConstantInfoController extends BaseController {
 			 wrapper.or().like("con_code", key);
 		}
 		if(businessId != null ){
-			wrapper.eq("business_id",businessId);
+			wrapper.andNew().eq("business_id",businessId);
 		}
 		wrapper.andNew("con_type<>1");
 		Page<ConstantInfo> pages = new Page<>();

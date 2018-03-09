@@ -49,7 +49,7 @@ public class EntityItemInfoController extends BaseController {
             wrapper.or().like("item_identify",key);
         }
 
-        wrapper.eq("entity_id",entityId);
+        wrapper.andNew().eq("entity_id",entityId);
         List<EntityItemInfo> list = itemInfoService.selectList(wrapper);
         return PageResult.success(list,10);
     }

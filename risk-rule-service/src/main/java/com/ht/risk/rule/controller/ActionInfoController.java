@@ -84,7 +84,7 @@ public class ActionInfoController extends BaseController{
 			 wrapper.or().like("action_class", key);
 		}
 		if(businessId != null ){
-			wrapper.eq("business_id",businessId);
+			wrapper.andNew().eq("business_id",businessId);
 		}
 		Page<ActionInfo> pages = new Page<>();
 		pages.setCurrent(page);

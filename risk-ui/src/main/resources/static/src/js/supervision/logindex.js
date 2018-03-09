@@ -76,10 +76,6 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
                 field: 'id',
                 event: 'setItem',
                 title: 'id'
-            },{
-                field: 'batchId',
-                event: 'setItem',
-                title: '批次号'
             }, {
                 field: 'procInstId',
                 event: 'setItem',
