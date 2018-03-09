@@ -22,7 +22,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">数据类型</label>
             <div class="layui-input-inline">
-                <select name="dataType" id="dataId"lay-filter="type" >
+                <select name="dataType" required  lay-verify="required" id="dataId"lay-filter="type" >
                     <option value="">请选择</option>
                     <option value="STRING">字符串</option>
                     <option value="INTEGER" >整形</option>

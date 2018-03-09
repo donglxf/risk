@@ -204,19 +204,23 @@ var myUtil = {
          */
         addGradeRow: function (t) {
             var maxIndex = 1;
+
             $(".index").each(function(){
-                var iid = $(this).attr("data-index");
-                if(maxIndex < iid){
-                    maxIndex = iid;
-                }
+                maxIndex ++;
+                // maxIndex ++;
+                // var iid = $(this).attr("data-index");
+                // if(maxIndex < iid){
+                //     maxIndex = iid;
+                // }
             });
             // console.log($('#trTpl').find(".ctr").html());
             var tr = $(t).parent().parent().parent();
             tr.after(tr.clone());
             //设置行的disp
             $(tr).next().find("td.index").show();
-
-            $(tr).next().find("td.index").attr("data-index", 1+parseInt(maxIndex));
+            var newIndex = 1 + parseInt(maxIndex);
+            console.log("new Index "+ newIndex);
+            $(tr).next().find("td.index").attr("data-index", newIndex);
             //$(tr).next().find("td.index").attr("rowspan",1);
             //设置index的值
             // $("#table tbody tr:last").find("td.index").show();
@@ -261,6 +265,10 @@ var myUtil = {
              */
             deleteRow: function (t) {
                 var tr = $(t).parent().parent().parent();
+                if(tr.index() == 0){
+                    layer.msg("第一行初始化数据不可删除");
+                    return;
+                }
                 var rowspan = $(tr).find("td.index").attr("rowspan");
                 if(rowspan > 1){
                     $(tr).next().find("td.index").show();
@@ -272,6 +280,10 @@ var myUtil = {
             ,
         deleteSceneRow: function (t) {
             var tr = $(t).parent().parent().parent();
+            if(tr.index() == 0){
+                layer.msg("第一行初始化数据不可删除");
+                return;
+            }
             $(t).parent().parent().parent().remove();
         }
         ,
@@ -724,6 +736,7 @@ var myUtil = {
             var entityVal = $("#entitSelectId").val();
             var  entity = {};
             var flag = true;
+            //判断是否已经被加过
             sceneUtil.data.entitysBank.forEach(function(element){
                 if(entityVal == element.value){
                     flag = false;
@@ -738,7 +751,7 @@ var myUtil = {
                 layer.msg("不可重复添加");
                 return false;
             }
-
+            //导入数据
             for(var i = 0; i < sceneUtil.entityImport.length;i++){
                 if(entityVal == sceneUtil.entityImport[i].value){
                     entity = sceneUtil.entityImport[i];
@@ -746,6 +759,7 @@ var myUtil = {
                     break;
                 }
             }
+            //设置数据
             sceneUtil.data.entitysBank.push(entity);
             var h = '<li>\n' +
                 '                <div class="layui-form-item">\n' +
@@ -1608,6 +1622,7 @@ var myUtil = {
                 var weightIndexList = [];
                 var groupNameList = [];
                 sceneUtil.data.itemsBank = [];
+                var groupList = [];
                 $("#table>tbody>tr").each(function () {
                     subForm = {
                         //权值
@@ -1625,26 +1640,33 @@ var myUtil = {
                     var groupIndex = $(groupTd).data("index");
                     var groupName = $(groupTd).find("span a.groupName").text();
                     var weight = ($(groupTd).find(".qz").val()== undefined || $(groupTd).find(".qz").val() == '')?1:$(groupTd).find(".qz").val();
-                    if(weightIndexList.length <= groupIndex){
+                    //设置权值，和分组名
+                   var hasGroup = false;
+                    for(var i=0;i< groupList.length ;i++){
+                        //查找 权值是否存在
+                        if(groupIndex == groupList[i].groupIndex){
+                            groupName = groupList[i].name;
+                            weight = groupList[i].weight;
+                            hasGroup = true;
+                        }
+                    }
+                    if(hasGroup){
+
+                    }else{
+                        var group =  {index:groupIndex,name:groupName,weight:weight};
+                        groupList.push(group);
+                    }
                         var exp=/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/;
                         if(!exp.test(weight) ){
                             sceneUtil.flag = false;
                             layer.msg("权值只能为数字类型");
                             return ;
                         }
-                        /*    if (!String.fromCharCode(weight).match(/[0-9\.]/)) {
-                            sceneUtil.flag = false;
-                            layer.msg("权值只能为数字类型");
-                            return ;
-                        }*/
-                        weightIndexList.push(weight);
-                        groupNameList.push(groupName);
-                    }else{
-                        weight = weightIndexList[groupIndex];
-                        groupName = groupName;
-                    }
+                        //weight = weightIndexList[groupIndex];
+                        //groupName = groupName;
                     subForm.group = {index:groupIndex,name:groupName,weight:weight};
                     //拼条件
+
                     var conTd = $(this).find("td").eq(1);
                     $(conTd).find("ul li").each(function(i,e){
                         //拼条件 的变量 ，运算符 ，值

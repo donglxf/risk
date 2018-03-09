@@ -27,7 +27,7 @@ import java.util.Map;
  */
 @Service
 public class ConstantInfoServiceImpl extends BaseServiceImpl<ConstantInfoMapper, ConstantInfo> implements ConstantInfoService {
-    //定义：常量id和变量之间的对应关系
+    //定义：常量id和变量之间的对应关系,但是有很多的问题
     public static Map<Long,List<EntitySelectVo>> constantMap = new HashMap<>();
     @Autowired
     private ConstantInfoMapper constantInfoMapper;
@@ -35,6 +35,7 @@ public class ConstantInfoServiceImpl extends BaseServiceImpl<ConstantInfoMapper,
     public EntitySelectVo setItemConstants(EntitySelectVo itemvo,EntityItemInfo item) {
         Long constantId = item.getConstantId();
         if(constantId != null ){
+            constantMap = new HashMap<>();
             List<EntitySelectVo> constants = constantMap.get(constantId);
             if(constants == null || constants.size() < 1){
                 ConstantInfo constantInfo = constantInfoMapper.selectById(constantId);
@@ -52,7 +53,7 @@ public class ConstantInfoServiceImpl extends BaseServiceImpl<ConstantInfoMapper,
                     constantSons.add(constantSon);
                 }
                 itemvo.setSons(constantSons);
-                constantMap.put(constantId,constantSons);
+                //constantMap.put(constantId,constantSons);
             }else {
                 itemvo.setSons(constants);
             }
