@@ -2,7 +2,7 @@
 ///////////////////////////////////////////////////////////////////////
 var preUrl = "/rule/service/constantInfo/";
 var layer,entityTable,itemTable,table,active,itemActive;
-var conId ,conKey,conType,topIndex;
+var conId ,conKey,conType,topIndex,insertOrUpdate='insert';
 layui.config({
     base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
 }).extend({ //设定模块别名
@@ -123,7 +123,7 @@ layui.use(['table','form','myutil'], function(){
         ,cellMinWidth: 80
         ,url: '/rule/service/constantItemInfo/getAll/' //数据接口
         // data:[{"conId":1,"entityName":"测试规则","entityDesc":"测试规则引擎","entityIdentify":"testrule","pkgName":"com.sky.testrule","creUserId":1,"creTime":1500522092000,"isEffect":1,"remark":null}]
-         ,page: true
+         ,page: false
         ,id:'itemT'
         ,cols: [[ //表头
             {field: 'conId', title: 'ID',  sort: true, fixed: 'left'}
@@ -138,7 +138,7 @@ layui.use(['table','form','myutil'], function(){
         if(obj.event === 'detail'){
             layer.msg('ID：'+ data.id + ' 的查看操作');
         } else if(obj.event === 'del2'){
-            layer.confirm('真的删除行么', function(index){
+            layer.confirm('是否删除？', function(index){
                 $.get(preUrl+'delete?id='+data.conId,function (data) {
                     if(data.code < 0){
                         layer.msg('删除失败，该数据正在被其他数据引用', {icon: 5});
@@ -163,10 +163,10 @@ layui.use(['table','form','myutil'], function(){
             //var demoReload = $('#demoReload');
             //执行重载
             table.reload('itemT', {
-                page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-                ,where: {
+                // page: {
+                //     curr: 1 //重新从第 1 页开始
+                // }
+                where: {
                 	conType: conType,
                 	conKey: conKey
                 }
@@ -175,10 +175,11 @@ layui.use(['table','form','myutil'], function(){
     };
     //新增
     $("#entity_btn_add").on('click',function () {
+        insertOrUpdate='insert';
         $.get('/rule/ui/rule/constant/edit', null, function (form) {
             topIndex =  layer.open({
                 type :1,
-                title : '新增',
+                title : '新增分类',
                 maxmin : true,
                 shadeClose : false, // 点击遮罩关闭层
                 area : [ '550px', '360px' ],
@@ -199,6 +200,7 @@ layui.use(['table','form','myutil'], function(){
         });
     });
     function  edit(id) {
+        insertOrUpdate='update';
         $.get(preUrl+"getInfoById?id="+id,function (data) {
             var result = data.data;
             $.get('/rule/ui/rule/constant/edit', null, function (form) {
