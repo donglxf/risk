@@ -68,20 +68,20 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="http://m.zhengjinfan.cn/images/0.jpg" class="layui-nav-img">
-                    Van
+                <a id="userName" href="javascript:;">
+                    <!--<img src="http://m.zhengjinfan.cn/images/0.jpg" class="layui-nav-img">-->
+                    无法用户信息
                 </a>
-                <dl class="layui-nav-child">
-                    <dd>
-                        <a href="javascript:;" kit-target
-                           data-options="{url:'/html/user/userInfo.html',icon:'&#xe658;',title:'基本资料',id:'966'}"><span>基本资料</span></a>
-                    </dd>
-                    <dd>
-                        <a href="javascript:;" kit-target
-                           data-options="{url:'/html/user/changePwd.html',icon:'&#xe658;',title:'修改密码',id:'967'}">修改密码</a>
-                    </dd>
-                </dl>
+                <!--<dl class="layui-nav-child">-->
+                    <!--<dd>-->
+                        <!--<a href="javascript:;" kit-target-->
+                           <!--data-options="{url:'/html/user/userInfo.html',icon:'&#xe658;',title:'基本资料',id:'966'}"><span>基本资料</span></a>-->
+                    <!--</dd>-->
+                    <!--<dd>-->
+                        <!--<a href="javascript:;" kit-target-->
+                           <!--data-options="{url:'/html/user/changePwd.html',icon:'&#xe658;',title:'修改密码',id:'967'}">修改密码</a>-->
+                    <!--</dd>-->
+                <!--</dl>-->
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;" id="login_out">
@@ -197,6 +197,16 @@
             });
             //初始化权限资源
             ht_auth.load();
+                //设置登录用户名
+                $.get("/rule/service/user/getUserInfo",function (data) {
+                    if(data.code == 0){
+                        $("#userName").text(data.data.userName);
+                    }else{
+                        $("#userName").text("无法获取用户");
+                    }
+
+                },'json');
+
         });
     });
 </script>

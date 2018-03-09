@@ -50,10 +50,10 @@ public class SceneInfoController extends BaseController{
             wrapper.or().like("scene_identify",key);
         }
         if(businessId != null ){
-            wrapper.eq("business_id",businessId);
+            wrapper.andNew().eq("business_id",businessId);
         }
         if(sceneType != null ){
-            wrapper.eq("scene_type",sceneType);
+            wrapper.andNew().eq("scene_type",sceneType);
         }
         wrapper.orderBy("cre_time",false);
         Page<SceneInfo> pages = new Page<>();
