@@ -44,6 +44,11 @@
         var app = layui.app,
             layerTips = layui.layer,
             $ = layui.jquery;
+        if(insertOrUpdate=='update'){
+            $("input[name='conKey']").attr("readonly","readonly");
+        }else{
+            $("input[name='conKey']").removeAttr("readonly");
+        }
         //监听提交
         form.on('submit(formDemo)', function(data){
            $.ajax({
@@ -60,8 +65,8 @@
                         layer.msg('保存数据成功');
                         //这里以搜索为例
                         var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
-                       layer.close(index);
-                       active.reload();
+                        layer.close(index);
+                        active.reload();
 
                         layer.close(topIndex);
                     } else {
