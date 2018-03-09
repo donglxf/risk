@@ -93,7 +93,18 @@ public class ActionInfoController extends BaseController{
 		return PageResult.success(pages.getRecords(), pages.getTotal());
 	}
     
-    @PostMapping("edit")
+    @PostMapping("update")
+	@ApiOperation(value = "动作新增or修改")
+	@Transactional()
+	public Result<Integer> update(ActionInfo actionInfo) {
+		actionInfo.setCreTime(new Date());
+		actionInfo.setIsEffect(1);
+		actionInfo.setCreUserId(getUserId());
+		actionInfoService.update(actionInfo);
+		return Result.success(0);
+	}
+
+	@PostMapping("edit")
 	@ApiOperation(value = "动作新增or修改")
 	@Transactional()
 	public Result<Integer> edit(ActionInfo actionInfo) {

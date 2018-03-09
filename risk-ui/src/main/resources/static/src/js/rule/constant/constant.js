@@ -98,6 +98,7 @@ layui.use(['table','form','myutil'], function(){
                     }else{
                         layer.msg("删除成功！");
                         obj.del();
+                        itemActive.reload();
                         layer.close(index);
                     }
                 },'json');

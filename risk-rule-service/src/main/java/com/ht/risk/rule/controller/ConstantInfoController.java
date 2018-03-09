@@ -107,7 +107,7 @@ public class ConstantInfoController extends BaseController {
 			ConstantInfo parentConstant=constantInfoService.selectOne(wrapper);
 			Integer count = delFindMapper.findCount("rule_entity_item_info","constant_id",parentConstant.getConId(),"");
 			if(count > 0){
-				return Result.error(-1,"删除失败，改数据正被其他数据引用");
+				return Result.error(-1,"删除失败，该数据正被其他数据引用");
 			}
 		}
 		constantInfoService.deleteById(id);

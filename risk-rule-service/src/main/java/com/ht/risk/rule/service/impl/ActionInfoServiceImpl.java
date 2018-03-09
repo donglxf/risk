@@ -145,7 +145,7 @@ public class ActionInfoServiceImpl extends BaseServiceImpl<ActionInfoMapper, Act
     }
 
     @Override
-   public boolean insertOrUpdate(ActionInfo actionInfo){
-        return actionInfoMapper.insertOrUpdate(actionInfo);
+   public boolean update(ActionInfo actionInfo){
+        return actionInfoMapper.updateInfo(actionInfo);
     }
 }

@@ -158,7 +158,7 @@
         </if>
     </select>
     
-    <update id="insertOrUpdate" parameterType="com.ht.risk.rule.entity.ActionInfo">
+    <update id="updateInfo" parameterType="com.ht.risk.rule.entity.ActionInfo">
         update  rule_action_info
           <set>
               <if test="businessId != null">

@@ -74,5 +74,5 @@ public interface ActionInfoMapper extends SuperMapper<ActionInfo> {
      */
     List<ActionInfoVo> findActionAllVos(@Param("businessId") Long businessId);
 
-    boolean insertOrUpdate(ActionInfo info);
+    boolean updateInfo(ActionInfo info);
 }
