@@ -8,19 +8,25 @@
     <input type="hidden" name="itemId" isId=true >
 
     <div class="layui-form-item">
-        <label class="layui-form-label">字段名:</label>
+        <label class="layui-form-label">字段名:
+            <span style="color: red;">＊</span>
+        </label>
         <div class="layui-input-block">
             <input type="text" name="itemName" required  lay-verify-max="32" lay-verify="required" placeholder="请输入字段名" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">唯一标识:</label>
+        <label class="layui-form-label">唯一标识:
+            <span class="my-required">＊</span>
+        </label>
         <div class="layui-input-block">
             <input type="text" id="ttt" value="" name="itemIdentify"  lay-verify-max="32" required identifyType="2" lay-verify="required|identify" placeholder="请输入唯一标识" autocomplete="off" class="layui-input">
         </div>
     </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">数据类型</label>
+            <label class="layui-form-label">数据类型
+                <span class="my-required">＊</span>
+            </label>
             <div class="layui-input-inline">
                 <select name="dataType" required  lay-verify="required" id="dataId"lay-filter="type" >
                     <option value="">请选择</option>
@@ -35,7 +41,9 @@
         </div>
 
     <div class="layui-form-item" id="constantDiv" style="display: none">
-        <label class="layui-form-label">常量选择</label>
+        <label class="layui-form-label">常量选择
+            <span class="my-required">＊</span>
+        </label>
         <div class="layui-input-inline">
             <select name="constantId" id="constantId" lay-verify="constant" lay-filter="constant">
                 <option value="">请选择</option>
@@ -44,7 +52,9 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">描述:</label>
+        <label class="layui-form-label">描述:
+            <span class="my-required">＊</span>
+        </label>
         <div class="layui-input-block">
             <input type="text" name="itemDesc"  lay-verify-max="32" required  lay-verify="required" placeholder="请输入描述" autocomplete="off" class="layui-input">
         </div>

@@ -8,25 +8,30 @@
 
 
     <div class="layui-form-item" >
-        <label class="layui-form-label">业务线:</label>
+        <label class="layui-form-label">业务线:<span class="my-required">＊</span></label>
         <div class="layui-input-block" id="businessDiv">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">对象名:</label>
+        <label class="layui-form-label">对象名:<span class="my-required">＊</span></label>
         <div class="layui-input-block">
             <input type="text" name="entityName" required lay-verify-max="32" lay-verify="required|name" placeholder="请输入对象名" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">唯一标识:</label>
+        <label class="layui-form-label">唯一标识:
+            <span class="my-required">＊</span>
+        </label>
         <div class="layui-input-block">
             <input type="text" id="ttt" value=""  lay-verify-max="32" name="entityIdentify" identifyType="1" required  lay-verify="required|name|identify" placeholder="请输入唯一标识" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">描述:</label>
+        <label class="layui-form-label">描述:
+            <span class="my-required">＊</span>
+        </label>
+
         <div class="layui-input-block">
             <input type="text" name="entityDesc" required   lay-verify-max="255" lay-verify="required|name" placeholder="请输入描述" autocomplete="off" class="layui-input">
         </div>

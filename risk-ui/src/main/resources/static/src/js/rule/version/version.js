@@ -98,13 +98,13 @@ scene.cols = function () {
             align:'center',
             title: '创建用户'}
         ,*/
-        {field: 'status',
-            align:'center',
-            title: '状态',
-            sort:true,
-            templet: '#statusTpl',
-        }
-        ,
+        // {field: 'status',
+        //     align:'center',
+        //     title: '状态',
+        //     sort:true,
+        //     templet: '#statusTpl',
+        // }
+        // ,
         {field: 'sceneId',
             title: '操作',
             fixed: 'right',
@@ -365,7 +365,6 @@ layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
      * @param result
      */
     function save(url, result,id,type) {
-
         $.get(url, function (form) {
             layerTopIndex =  layer.open({
                 type: 1,

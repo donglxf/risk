@@ -39,18 +39,20 @@
 <form class="layui-form myform"   >
     <input type="hidden" name="sceneId"  >
 
-    <input type="hidden" name="ruleDiv" >
+    <input type="hidden" id="ruleDiv" name="ruleDiv" >
 
     <div class="layui-form-item">
-        <label class="layui-form-label">标题:</label>
+        <label class="layui-form-label">标题:
+            <span style="color: red;">＊</span></label>
         <div class="layui-input-block">
             <input type="text" name="title"  required  lay-verify="required|name"  lay-verify-max="128"  placeholder="请输入标题名" autocomplete="off" class="layui-input form-control">
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">相关描述</label>
+        <label class="layui-form-label">相关描述:
+            <span style="color: red;">＊</span></label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入描述内容" name="comment" class="layui-textarea form-control"></textarea>
+            <textarea placeholder="请输入描述内容" lay-verify-max="512" name="comment" class="layui-textarea form-control"></textarea>
         </div>
     </div>
     <div class="layui-form-item" style="display: none;">
@@ -62,7 +64,8 @@
     </div>
 </form>
 <fieldset class="layui-elem-field">
-    <legend class="lay-legend">规则详情</legend>
+    <legend class="lay-legend">规则详情
+    </legend>
     <div class="layui-field-box">
 
         <table class="layui-table"   id="tableView">
@@ -81,7 +84,12 @@
             $ = layui.jquery;
         //监听提交
         form.on('submit(formDemo)', function(data){
-        var loadindex =  layer.msg('提交中..', {icon: 16,time:8000,shade :0.4});
+
+        if($("#ruleDiv").val() == '' || $("#ruleDiv").val() == undefined){
+            layer.msg("当前没有配置规则，不可发布");
+            return false;
+        }
+            var loadindex =  layer.msg('提交中..', {icon: 16,time:8000,shade :0.4});
            $.ajax({
                 cache : true,
                 type : "POST",

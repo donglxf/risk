@@ -7,13 +7,17 @@
     <input type="hidden" name="businessId" isId=true >
 
     <div class="layui-form-item">
-        <label class="layui-form-label">业务线名:</label>
+        <label class="layui-form-label">业务线名:
+            <span class="my-required">＊</span>
+        </label>
         <div class="layui-input-block">
             <input type="text" name="businessName" required  identifyType="7"  lay-verify-max="32" lay-verify="required|name|identify" placeholder="请输入业务线名（长度最多32位）" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">描述:</label>
+        <label class="layui-form-label">描述:
+            <span class="my-required">＊</span>
+        </label>
         <div class="layui-input-block">
             <input type="text" id=""  value="" name="businessDesc" lay-verify-max="255" required  lay-verify="required|name" placeholder="请输入描述(长度最多255位)" autocomplete="off" class="layui-input">
         </div>

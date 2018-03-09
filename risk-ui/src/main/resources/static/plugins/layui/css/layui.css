@@ -1323,4 +1323,8 @@ body .layui-util-face  .layui-layer-content{padding:0; background-color:#fff; co
   margin-right:15px;
 
 }
+.my-required{
+  color: red;
+  margin-left: 2px;
+}
 
