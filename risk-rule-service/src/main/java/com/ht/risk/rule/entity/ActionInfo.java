@@ -102,6 +102,7 @@ public class ActionInfo extends Model<ActionInfo> {
     /**
      * 备注
      */
+	@TableField("remark")
 	@ApiModelProperty(required= true,value = "备注")
 	private String remark;
 

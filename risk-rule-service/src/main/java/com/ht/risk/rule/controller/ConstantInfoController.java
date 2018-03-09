@@ -7,6 +7,7 @@ import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.PageResult;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.entity.ConstantInfo;
+import com.ht.risk.rule.mapper.DelFindMapper;
 import com.ht.risk.rule.service.ConstantInfoService;
 import com.ht.risk.rule.util.anno.OperationDelete;
 import io.swagger.annotations.Api;
@@ -33,6 +34,9 @@ public class ConstantInfoController extends BaseController {
 
 	@Autowired
 	private ConstantInfoService constantInfoService;
+
+	@Autowired
+	private DelFindMapper delFindMapper;
 
 	@GetMapping("page")
 	@ApiOperation(value = "分页查询")
@@ -75,17 +79,44 @@ public class ConstantInfoController extends BaseController {
 	}
 
 	@GetMapping("delete")
-	@ApiOperation(value = "通过id删除信息")
+	@ApiOperation(value = "通过id删除父常量信息")
 	@OperationDelete(tableColumn = {"rule_entity_item_info&constant_id"},idVal = "#id")
 	public Result<Integer> delete( Long id) {
-		//TODO:如果为父，则查是否有 子
-	/*	ConstantInfo constantInfo = constantInfoService.selectById(id);
-		if("0".equals(constantInfo.getConType())){
-
-		}*/
+		ConstantInfo constantInfo = constantInfoService.selectById(id);
+		if("0".equals(constantInfo.getConType())){  // 父节点
+			Wrapper<ConstantInfo> wrapper = new EntityWrapper<>();
+			wrapper.eq("con_key",constantInfo.getConKey());
+			wrapper.eq("con_type","1");
+			List<ConstantInfo> list=constantInfoService.selectList(wrapper);
+			list.forEach(t -> {
+				constantInfoService.deleteById(t.getConId());
+			});
+		}
 		constantInfoService.deleteById(id);
 		return Result.success(0);
 	}
+
+	@GetMapping("deleteItemConstant")
+	@ApiOperation(value = "通过id删除子常量信息")
+	public Result<Integer> deleteItemConstantById( Long id) {
+		ConstantInfo constantInfo = constantInfoService.selectById(id);
+		if("1".equals(constantInfo.getConType())){  // 子节点
+			Wrapper<ConstantInfo> wrapper = new EntityWrapper<>();
+			wrapper.eq("con_key",constantInfo.getConKey());
+			wrapper.eq("con_type","0");
+			ConstantInfo parentConstant=constantInfoService.selectOne(wrapper);
+			Integer count = delFindMapper.findCount("rule_entity_item_info","constant_id",parentConstant.getConId(),"");
+			if(count > 0){
+				return Result.error(-1,"删除失败，改数据正被其他数据引用");
+			}
+		}
+		constantInfoService.deleteById(id);
+		return Result.success(0);
+	}
+
+
+
+
 
 	@GetMapping("getInfoById")
 	@ApiOperation(value = "通过id查询详细信息")
