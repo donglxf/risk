@@ -64,10 +64,10 @@ public class SceneVersionController extends BaseController {
         if (sceneType != null) {
             // wrapper.eq("scene_type",sceneType);
         }
-        wrapper.eq("test_status", 0);
-        wrapper.eq("type", 0);
+        wrapper.andNew().eq("test_status", 0);
+        wrapper.andNew().eq("type", 0);
         if (sceneId != null) {
-            wrapper.eq("v.scene_id", sceneId);
+            wrapper.andNew().eq("v.scene_id", sceneId);
         }
         wrapper.orderBy("v.scene_id");
         wrapper.orderBy("v.version", false);
@@ -88,9 +88,9 @@ public class SceneVersionController extends BaseController {
             wrapper.or().like("title", key);
         }
         //测试状态为 1 测试必须先都通过了
-        wrapper.eq("test_status", 1);
+        wrapper.andNew().eq("test_status", 1);
         if (sceneId != null) {
-            wrapper.eq("v.scene_id", sceneId);
+            wrapper.andNew().eq("v.scene_id", sceneId);
         }
         wrapper.orderBy("test_status");
         wrapper.orderBy("v.version", false);
