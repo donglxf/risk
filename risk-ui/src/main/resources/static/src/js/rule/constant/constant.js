@@ -179,7 +179,7 @@ layui.use(['table','form','myutil'], function(){
         $.get('/rule/ui/rule/constant/edit', null, function (form) {
             topIndex =  layer.open({
                 type :1,
-                title : '新增',
+                title : '新增分类',
                 maxmin : true,
                 shadeClose : false, // 点击遮罩关闭层
                 area : [ '550px', '360px' ],
