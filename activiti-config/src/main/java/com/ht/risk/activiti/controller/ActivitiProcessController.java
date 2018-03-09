@@ -45,14 +45,17 @@ public class ActivitiProcessController{
      * @return
      */
     @GetMapping("/page")
-    public PageResult<List<ActProcReleaseVo>> queryProcReleaseForPage(Page<ActProcRelease> page, ActProcRelease actProcRelease){
+    public PageResult<List<ActProcReleaseVo>> queryProcReleaseForPage(ActProcRelease actProcRelease,int limit,int page){
         LOGGER.info("查询模型版本分页信息开始");
         PageResult<List<ActProcReleaseVo>> result = null;
         if(actProcRelease == null || actProcRelease.getModelId() == null){
             result =PageResult.success(null,0);
             return result;
         }
-        Page<ActProcRelease> modelReleasePage = actProcReleaseService.queryProcReleaseForPage(page,actProcRelease);
+        Page<ActProcRelease> modelReleasePage =  new Page<ActProcRelease>();
+        modelReleasePage.setCurrent(page);
+        modelReleasePage.setSize(limit);
+        modelReleasePage = actProcReleaseService.queryProcReleaseForPage(modelReleasePage,actProcRelease);
         List<ActProcReleaseVo> releaseVos = new ArrayList<ActProcReleaseVo>(modelReleasePage.getRecords().size());
         for (Iterator<ActProcRelease> iterator = modelReleasePage.getRecords().iterator(); iterator.hasNext();){
             releaseVos.add(new ActProcReleaseVo(iterator.next()));

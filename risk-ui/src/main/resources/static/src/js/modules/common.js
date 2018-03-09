@@ -56,7 +56,7 @@ layui.define(['layer','laytpl','form','ht_ajax','ht_config'], function(exports) 
             if(!new RegExp("^[a-zA-Z0-9_.\u4e00-\u9fa5\\s·]+$").test(value)){
                 return '不能有特殊字符';
             }
-            if(/^\d+\d+\d$/.test(value)){
+            if(/^\d+$/.test(value)){
                 return '不能全为数字';
             }
         },
@@ -65,10 +65,10 @@ layui.define(['layer','laytpl','form','ht_ajax','ht_config'], function(exports) 
                 return '不能有特殊字符';
             }
             if(/(^\_)|(\__)|(\_+$)/.test(value)){
-                return '用户名首尾不能出现下划线\'_\'';
+                return '首尾不能出现下划线\'_\'';
             }
-            if(/^\d+\d+\d$/.test(value)){
-                return '用户名不能全为数字';
+            if(/^\d+$/.test(value)){
+                return '不能全为数字';
             }
         }
     });

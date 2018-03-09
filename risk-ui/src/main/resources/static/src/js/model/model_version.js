@@ -33,8 +33,8 @@ layui.use(['table','jquery','myutil'], function(){
              {field: 'modelCode', title: '模型编码', width:"20%"}
             ,{field: 'modelVersion', title: '模型版本', width:"10%",templet:'#versionTpl'}
             ,{field: 'isEffect', title: '状态', width:"10%", templet: '#statusTpl'}
-            ,{field: 'createUser', title: '发布人', width:"20%"}
-            ,{field: 'createTime', title: '发布时间', width:"20%"}
+            ,{field: 'createUser', title: '创建人', width:"20%"}
+            ,{field: 'createTime', title: '创建时间', width:"20%"}
             ,{fixed: 'right', width:150, align:'center', toolbar: '#versionBar', width: "20%"}
         ]]
     });
