@@ -44,8 +44,7 @@ public class ModelDeployServiceImpl implements ModelDeployService {
                 sence = new ModelSence();
                 sence.setModelProcdefId(rpcDeployResult.getProcessDefineId());
                 sence.setCreateTime(new Date(System.currentTimeMillis()));
-                //TODO 操作用户设置
-                sence.setCreateUser("Robot");
+                sence.setCreateUser(paramter.getUserId());
                 sceneVersionId = getSenceVersionId(rpcSence.getSenceCode(),rpcSence.getSenceVersion());
                 if(sceneVersionId == null){
                     continue;
