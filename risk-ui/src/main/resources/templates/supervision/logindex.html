@@ -27,6 +27,13 @@
                     </div>
                 </div>
                 <div class="layui-input-inline">
+                    <label class="layui-form-label">结束日期:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="endDate" id="endDate" lay-verify="date" placeholder="yyyy-MM-dd"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-input-inline">
                     <label class="layui-form-label">单号:</label>
                     <div class="layui-input-inline">
                         <input type="text" name="logId" id="logId" autocomplete="off" class="layui-input">
@@ -45,6 +52,13 @@
                     <label class="layui-form-label">开始日期:</label>
                     <div class="layui-input-inline">
                         <input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-MM-dd"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">结束日期:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-MM-dd"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -128,6 +142,10 @@
             $ = layui.jquery, laydata = layui.laydate;
         laydata.render({
             elem: '#startDate'
+        });laydata.render({
+            elem: '#endDate'
+        });laydata.render({
+            elem: '#endTime'
         });
         laydata.render({
             elem: '#startTime'

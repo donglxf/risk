@@ -53,7 +53,7 @@ public class ActionParamInfoController extends BaseController {
 		actionParamInfo.setCreTime(new Date());
 		actionParamInfo.setIsEffect(1);
 		actionParamInfo.setCreUserId(getUserId());
-		actionParamInfoService.insertOrUpdate(actionParamInfo);
+		actionParamInfoService.updateParamInfo(actionParamInfo);
 		return Result.success(0);
 	}
 	

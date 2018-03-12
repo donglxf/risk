@@ -187,6 +187,7 @@ public class DroolsExcuteController {
             data.setSenceVersoionId(String.valueOf(ruleVersion.getVersionId()));
         } catch (Exception e) {
             e.printStackTrace();
+            log.error(e.getMessage());
             data = new RuleExcuteResult(1, e.getMessage(), null,paramter.getVersion());
         }
         log.info("rule exe result>>>：" + JSON.toJSONString(data));

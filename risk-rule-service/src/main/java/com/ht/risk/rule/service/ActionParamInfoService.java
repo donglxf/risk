@@ -26,4 +26,12 @@ public interface ActionParamInfoService extends BaseService<ActionParamInfo> {
      */
     List<ActionParamInfo> findRuleActionParamByActionId(final Long actionId);
 
+    /**
+     * 重写insertOrupdate 方法
+     * @param info ActionParamInfo
+     * @return
+     */
+
+    boolean  updateParamInfo(ActionParamInfo info);
+
 }
