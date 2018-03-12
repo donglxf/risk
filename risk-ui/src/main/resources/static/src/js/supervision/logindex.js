@@ -125,7 +125,15 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
     active = {
         reload: function () {
             // var demoReload = $('#demoReload');
-
+            var startDate=$('#startDate').val();
+            var endDate=$('#endDate').val();
+            var d1 = new Date(startDate.replace(/\-/g, "\/"));
+            var d2 = new Date(endDate.replace(/\-/g, "\/"));
+            if(startDate!=""&&endDate!=""&& d1 > d2)
+            {
+                alert("开始时间不能大于结束时间！");
+                return false;
+            }
             // 执行重载
             table.reload('demos', {
                 page: {
@@ -133,8 +141,8 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
                     // 重新从第 1 页开始
                 },
                 where: {
-                    date: $('#startDate').val(),
-                    endDate: $('#endDate').val(),
+                    date: startDate,
+                    endDate: endDate,
                     logId:$('#logId').val()
                 }
             });
@@ -146,7 +154,15 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
     modelActive = {
         reload: function () {
             // var demoReload = $('#demoReload');
-
+            var startDate=$('#startTime').val();
+            var endDate=$('#endTime').val();
+            var d1 = new Date(startDate.replace(/\-/g, "\/"));
+            var d2 = new Date(endDate.replace(/\-/g, "\/"));
+            if(startDate!=""&&endDate!=""&& d1 > d2)
+            {
+                alert("开始时间不能大于结束时间！");
+                return false;
+            }
             // 执行重载
             table.reload('modelTab', {
                 page: {
@@ -154,8 +170,8 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
                     // 重新从第 1 页开始
                 },
                 where: {
-                    date: $('#startTime').val(),
-                    endDate: $('#endTime').val(),
+                    date: startDate,
+                    endDate:endDate ,
                     modId:$('#modId').val()
                 }
             });
