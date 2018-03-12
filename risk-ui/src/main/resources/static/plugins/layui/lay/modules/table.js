@@ -1105,11 +1105,13 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function (exports) {
                     , anim: -1
                     , maxWidth: (device.ios || device.android) ? 300 : 600
                     , isOutAnim: false
+                  //  ,shadeClose:true
                     , skin: 'layui-table-tips'
                     , success: function (layero, index) {
                         layero.find('.layui-table-tips-c').on('click', function () {
                             layer.close(index);
                         });
+
                     }
                 });
             }
@@ -1179,6 +1181,15 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function (exports) {
         _WIN.on('resize', function () { //自适应
             that.fullSize();
             that.scrollPatch();
+        });
+        //add by tanrq 2018/3/12 解决省略信息，打开后无法关闭的bug
+        _WIN.on('click',function (a){
+            if( !$(a.target).hasClass("layui-table-cell")&&  $(a.target).parents(".layui-table-tips").length==0 ){
+                layer.close(that.tipsIndex);
+            }
+            if( !Math.round($(a.target).prop('scrollWidth')) > Math.round($(a.target).outerWidth()) &&  $(a.target).parents(".layui-table-tips").length==0){
+                layer.close(that.tipsIndex);
+            }
         });
     };
 
@@ -1303,6 +1314,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function (exports) {
         delete data[table.config.indexName];
         return data;
     };
+
 
     //自动完成渲染
     table.init();
