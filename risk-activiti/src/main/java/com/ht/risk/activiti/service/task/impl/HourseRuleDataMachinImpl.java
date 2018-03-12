@@ -145,20 +145,30 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             List<Map<String,Object>> guaranteeInfos = guaranteeInfoObj !=null ? ( List<Map<String,Object>>)guaranteeInfoObj:new ArrayList<Map<String,Object>>();
             List<Map<String,Object>> borrowers = borrowerObj !=null ? ( List<Map<String,Object>>)borrowerObj:new ArrayList<Map<String,Object>>();
             Object ageObj = null;
-            Object methodObj = null;
             droolsData = new ArrayList<Map<String,Object>>();
             // 借款人信息处理
             Map<String,Object> borrowerMap = null;
             for(int i= 0;i<borrowers.size();i++){
                 borrowerMap =borrowers.get(i);
                 ageObj = borrowerMap.get("borrowerInfo_borrowerAge");
-                methodObj = borrowerMap.get("borrower_method");
                 int age = ageObj != null ? Integer.parseInt(String.valueOf(ageObj)) : 0;
-                int method = methodObj != null ? Integer.parseInt(String.valueOf(methodObj)) : 0;
+                int method = months != null ? Integer.parseInt(String.valueOf(months)) : 0;
                 borrowerMap.put("borrowerInfo_borrowerAgePlusLoanterm", ProvinceUtil.getborrowAge(age, method));
                 borrowerMap.put("business_id",businessId);
                 borrowerMap.put("business_Type",businessType);
                 borrowerMap.put("business_months",months);
+                String identityCard = String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
+                String name = String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
+                // 是否有前科
+                String negativeStr = getNegativeSearch(identityCard,name);
+                if("0".equals(negativeStr)){
+                    borrowerMap.put("borrowerInfo_newNegative","是");
+                }else if("3".equals(negativeStr)){
+                    msg.append("身份证：").append(identityCard).append(",天行数科接口异常;");
+                }
+                else{
+                    borrowerMap.put("borrowerInfo_newNegative","否");
+                }
                 droolsData.add(borrowerMap);
             }
             // 借款人决策变量
@@ -170,23 +180,15 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                 guaranteeMap = guaranteeInfos.get(i);
                 String identityCard = String.valueOf(guaranteeMap.get("guaranteeInfo_guaranteeIdentifyCard"));
                 String name = String.valueOf(guaranteeMap.get("guaranteeInfo_guaranteeName"));
+                // 借款人是否是老赖
                 String oldLaiStr = getOldLai(identityCard,name);
                 if("0".equals(oldLaiStr)){
-                    guaranteeMap.put("guaranteeInfo_negative","是");
+                    guaranteeMap.put("guaranteeInfo_oldLai","是");
                 }else if("3".equals(oldLaiStr)){
                     msg.append("身份证：").append(identityCard).append(",老赖接口异常;");
                 }
                 else{
-                    guaranteeMap.put("guaranteeInfo_negative","否");
-                }
-                String negativeStr = getNegativeSearch(identityCard,name);
-                if("0".equals(negativeStr)){
-                    guaranteeMap.put("guaranteeInfo_oldLai","有");
-                }else if("3".equals(negativeStr)){
-                    msg.append("身份证：").append(identityCard).append(",天行数科接口异常;");
-                }
-                else{
-                    guaranteeMap.put("guaranteeInfo_oldLai","无");
+                    guaranteeMap.put("guaranteeInfo_oldLai","否");
                 }
                 droolsData.add(guaranteeMap);
             }
