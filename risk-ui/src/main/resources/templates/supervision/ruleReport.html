@@ -87,12 +87,15 @@
             layerTips = layui.layer,
             $ = layui.jquery,laydata=layui.laydate;
         laydata.render({
-            elem: '#startDate',
-            value:addDate(new Date(),-30)
+            elem: '#startDate'
+//            ,value:addDate(new Date(),-30),
+//            done:function () {
+//				$("#startDate").val("");
+//            }
         });
         laydata.render({
-            elem: '#endDate',
-            value:addDate(new Date(),0)
+            elem: '#endDate'
+//			,value:addDate(new Date(),0)
         });
 //  决策平均响应时间图
         function graphTime(da){
@@ -234,11 +237,21 @@
                 });
 		}
         form.on('submit(formDemo)',function (data) {
+            var startDate=$('#startDate').val();
+            var endDate=$('#endDate').val();
+            alert(startDate);
+            var d1 = new Date(startDate.replace(/\-/g, "\/"));
+            var d2 = new Date(endDate.replace(/\-/g, "\/"));
+            if(startDate!=""&&endDate!=""&& d1 > d2)
+            {
+                alert("开始时间不能大于结束时间！");
+                return false;
+            }
             getRuleDate(data);
         });
 
-        form.on('select(aihao)', function(data){
-            var ht=$('.layui-form-select .layui-this').last().html(); // 获取选中下拉框的html文本
+        form.on('select(getWay)', function(data){
+//            var ht=$('.layui-form-select .layui-this').last().html(); // 获取选中下拉框的html文本
             $("#sceneId").val(data.value);
             //console.log(data); //得到select原始DOM对象
             //console.log(data.elem); //得到select原始DOM对象
