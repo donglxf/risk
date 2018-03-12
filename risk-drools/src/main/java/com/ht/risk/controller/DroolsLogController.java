@@ -47,15 +47,17 @@ public class DroolsLogController {
 
 	@GetMapping("page")
 	@ApiOperation(value = "分页查询")
-	public PageResult<List<DroolsLog>> page(String date, String logId,Integer page, Integer limit) {
+	public PageResult<List<DroolsLog>> page(String date, String endDate, String logId,Integer page, Integer limit) {
 
 		Wrapper<DroolsLog> wrapper = new EntityWrapper<>();
 		if (StringUtils.isNotBlank(date)) {
-			wrapper.or().ge("create_time", date);
-
+			wrapper.and().ge("create_time", date+" 00:00:00");
+		}
+		if (StringUtils.isNotBlank(endDate)) {
+			wrapper.and().le("create_time", endDate+" 23:59:59");
 		}
 		if(StringUtils.isNotBlank(logId)){
-			wrapper.eq("id",logId);
+			wrapper.and().like("id",logId);
 		}
 		wrapper.orderBy("create_time",false);
 		Page<DroolsLog> pages = new Page<>();

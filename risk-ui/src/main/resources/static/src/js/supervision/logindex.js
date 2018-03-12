@@ -134,6 +134,7 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
                 },
                 where: {
                     date: $('#startDate').val(),
+                    endDate: $('#endDate').val(),
                     logId:$('#logId').val()
                 }
             });
@@ -154,6 +155,7 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
                 },
                 where: {
                     date: $('#startTime').val(),
+                    endDate: $('#endTime').val(),
                     modId:$('#modId').val()
                 }
             });

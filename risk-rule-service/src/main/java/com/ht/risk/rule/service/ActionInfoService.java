@@ -93,5 +93,10 @@ public interface ActionInfoService extends BaseService<ActionInfo> {
      */
     List<ActionInfoVo> findActionAllVos(Long businessId);
 
+    /**
+     * 重写insertOrupdate方法
+     * @param actionInfo
+     * @return
+     */
     public boolean update(ActionInfo actionInfo);
 }
