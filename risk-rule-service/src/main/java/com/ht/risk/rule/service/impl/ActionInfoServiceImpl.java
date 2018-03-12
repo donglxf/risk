@@ -3,6 +3,7 @@ package com.ht.risk.rule.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ht.risk.common.service.impl.BaseServiceImpl;
+import com.ht.risk.common.util.ObjectUtils;
 import com.ht.risk.rule.entity.ActionInfo;
 import com.ht.risk.rule.entity.ActionParamInfo;
 import com.ht.risk.rule.entity.SceneInfo;
@@ -12,6 +13,8 @@ import com.ht.risk.rule.service.ActionInfoService;
 import com.ht.risk.rule.util.StringUtil;
 import com.ht.risk.rule.vo.ActionInfoVo;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +31,8 @@ import java.util.List;
  */
 @Service
 public class ActionInfoServiceImpl extends BaseServiceImpl<ActionInfoMapper, ActionInfo> implements ActionInfoService {
+
+    protected static final Logger log = LoggerFactory.getLogger(ActionInfoServiceImpl.class);
 
     @Resource
     private ActionInfoMapper actionInfoMapper;
@@ -146,6 +151,16 @@ public class ActionInfoServiceImpl extends BaseServiceImpl<ActionInfoMapper, Act
 
     @Override
    public boolean update(ActionInfo actionInfo){
-        return actionInfoMapper.updateInfo(actionInfo);
+        try {
+            if (ObjectUtils.isNotEmpty(actionInfo.getActionId())) {
+                this.updateAllColumnById(actionInfo);
+            } else {
+                this.insert(actionInfo);
+            }
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        return false;
     }
 }

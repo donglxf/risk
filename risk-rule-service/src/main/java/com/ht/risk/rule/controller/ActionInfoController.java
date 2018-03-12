@@ -93,16 +93,16 @@ public class ActionInfoController extends BaseController{
 		return PageResult.success(pages.getRecords(), pages.getTotal());
 	}
     
-    @PostMapping("update")
-	@ApiOperation(value = "动作新增or修改")
-	@Transactional()
-	public Result<Integer> update(ActionInfo actionInfo) {
-		actionInfo.setCreTime(new Date());
-		actionInfo.setIsEffect(1);
-		actionInfo.setCreUserId(getUserId());
-		actionInfoService.update(actionInfo);
-		return Result.success(0);
-	}
+//    @PostMapping("update")
+//	@ApiOperation(value = "动作新增or修改")
+//	@Transactional()
+//	public Result<Integer> update(ActionInfo actionInfo) {
+//		actionInfo.setCreTime(new Date());
+//		actionInfo.setIsEffect(1);
+//		actionInfo.setCreUserId(getUserId());
+//		actionInfoService.update(actionInfo);
+//		return Result.success(0);
+//	}
 
 	@PostMapping("edit")
 	@ApiOperation(value = "动作新增or修改")
@@ -111,7 +111,7 @@ public class ActionInfoController extends BaseController{
 		actionInfo.setCreTime(new Date());
 		actionInfo.setIsEffect(1);
 		actionInfo.setCreUserId(getUserId());
-		actionInfoService.insertOrUpdate(actionInfo);
+		actionInfoService.update(actionInfo);
 		return Result.success(0);
 	}
     

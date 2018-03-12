@@ -76,9 +76,6 @@
         //监听提交
         form.on('submit(formDemo)', function(data){
             var url = '/rule/service/actionInfo/edit';
-            if(actionMark =='update' ){
-                url = '/rule/service/actionInfo/update';
-            }
            $.ajax({
                 cache : true,
                 type : "POST",
