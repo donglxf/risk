@@ -44,7 +44,7 @@
 		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
 			<legend>模型平均响应时间(ms)</legend>
 		</fieldset>
-		<div id="container" style="width: 100%;height: 300px;"></div>
+		<div id="container" style="width: 100%;height: 400px;"></div>
 	</div>
 
 </div>
@@ -72,11 +72,13 @@
             $ = layui.jquery,laydata=layui.laydate;
         //alert(addDate(new Date(),-30));
         laydata.render({
-            elem: '#startDate'
+            elem: '#startDate',
+            type: 'datetime'
 //            ,value:addDate(new Date(),-30)
         });
         laydata.render({
-            elem: '#endDate'
+            elem: '#endDate',
+            type: 'datetime'
 //            ,value:addDate(new Date(),0)
         });
 
@@ -86,7 +88,7 @@
             var xAxisArr=new Array(da.ruleMap.length);
             var seriesArr=new Array(da.listMap.length); // 响应时间
             for(var i=0;i<da.ruleMap.length ;i++){
-                xAxisArr[i]=da.ruleMap[i].modelName;
+                xAxisArr[i]=da.ruleMap[i].modelName+"_"+da.ruleMap[i].modelVersion;
             }
             for(var i=0;i<da.listMap.length ;i++){
                 seriesArr[i]=da.listMap[i].spendTime;
@@ -99,7 +101,11 @@
             option = {
                 xAxis: {
                     type: 'category',
-                    data: xAxisArr
+                    data: xAxisArr,
+                    axisLabel:{
+                        interval:0,//横轴信息全部显示
+                        rotate:-10,//-10度角倾斜显示
+                    }
                 },
                 yAxis: {
                     type: 'value'
@@ -115,8 +121,17 @@
                 series: [{
                     data: seriesArr,
                     type: 'bar',
-                    barWidth:5
+                    barWidth:7
                 }],
+                title: {
+                    text: 'x-模型名，y-调用量',
+					align:'left',
+                    left: 30,
+					textStyle:{
+                        color:'red',
+                        fontWeight:'normal'
+					}
+                },
                 animationEasing: 'elasticOut',
                 animationDelayUpdate: function (idx) {
                     return idx * 5;
@@ -177,9 +192,9 @@
             var endDate=$('#endDate').val();
             var d1 = new Date(startDate.replace(/\-/g, "\/"));
             var d2 = new Date(endDate.replace(/\-/g, "\/"));
-            if(startDate!=""&&endDate!=""&& d1 > d2)
+            if(startDate!=""&&endDate!=""&& d1 >= d2)
             {
-                alert("开始时间不能大于结束时间！");
+                alert("开始时间不能大于等于结束时间！");
                 return false;
             }
             getModelDate(data);

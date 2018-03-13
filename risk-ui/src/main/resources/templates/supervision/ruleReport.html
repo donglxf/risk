@@ -87,14 +87,16 @@
             layerTips = layui.layer,
             $ = layui.jquery,laydata=layui.laydate;
         laydata.render({
-            elem: '#startDate'
+            elem: '#startDate',
+			type:'datetime'
 //            ,value:addDate(new Date(),-30),
 //            done:function () {
 //				$("#startDate").val("");
 //            }
         });
         laydata.render({
-            elem: '#endDate'
+            elem: '#endDate',
+            type:'datetime'
 //			,value:addDate(new Date(),0)
         });
 //  决策平均响应时间图
@@ -115,7 +117,11 @@
             option = {
                 xAxis: {
                     type: 'category',
-                    data: xAxisArr
+                    data: xAxisArr,
+                    axisLabel:{
+                        interval:0,//横轴信息全部显示
+                        rotate:-10,//-10度角倾斜显示
+                    }
                 },
                 yAxis: {
                     type: 'value'
@@ -131,8 +137,17 @@
                 series: [{
                     data: seriesArr,
                     type: 'bar',
-                    barWidth:5
+                    barWidth:7
                 }],
+                title: {
+                    text: 'x-决策名，y-响应时间',
+                    align:'left',
+                    left: 30,
+                    textStyle:{
+                        color:'red',
+                        fontWeight:'normal'
+                    }
+                },
                 animationEasing: 'elasticOut',
                 animationDelayUpdate: function (idx) {
                     return idx * 5;
@@ -159,7 +174,11 @@
                 xAxis: {
                     type: 'category',
                     boundaryGap: false,
-                    data: xAxisArr
+                    data: xAxisArr,
+                    axisLabel:{
+                        interval:0,//横轴信息全部显示
+                        rotate:-10,//-10度角倾斜显示
+                    }
                 },
                 yAxis: {
                     type: 'value'
@@ -179,8 +198,17 @@
                 series: [{
                     data: seriesArr,
                     type: 'bar',
-                    barWidth:5
+                    barWidth:7
                 }],
+				title: {
+                    text: 'x-规则名，y-调用次数',
+                    align:'left',
+                    left: 30,
+                    textStyle:{
+                        color:'red',
+                        fontWeight:'normal'
+                    }
+                },
                 animationEasing: 'elasticOut',
                 animationDelayUpdate: function (idx) {
                     return idx * 5;
@@ -197,7 +225,7 @@
                 .ajax({
                     cache: true,
                     type: "GET",
-                    url: '/rule/service/ruleReport/formatRuleName/', // 数据接口
+                    url: '/rule/service/ruleReport/formatRuleName', // 数据接口
                     data: {"ruleName":ruleName},// 你的formid
                     async: false,
                     error: function (request) {
@@ -228,6 +256,7 @@
                     data: data.field,// 你的formid
                     async: false,
                     error: function (request) {
+                        alert("error");
                     },
                     success: function (da) {
                         console.log(da);
@@ -241,9 +270,9 @@
             var endDate=$('#endDate').val();
             var d1 = new Date(startDate.replace(/\-/g, "\/"));
             var d2 = new Date(endDate.replace(/\-/g, "\/"));
-            if(startDate!=""&&endDate!=""&& d1 > d2)
+            if(startDate!=""&&endDate!=""&& d1 >= d2)
             {
-                alert("开始时间不能大于结束时间！");
+                alert("开始时间不能大于等于结束时间！");
                 return false;
             }
             getRuleDate(data);
