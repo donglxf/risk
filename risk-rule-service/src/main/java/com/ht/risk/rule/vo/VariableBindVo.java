@@ -22,6 +22,16 @@ public class VariableBindVo extends VariableBind {
 
 	private String version; // 版本号
 
+	private String testState;
+
+	public String getTestState() {
+		return testState;
+	}
+
+	public void setTestState(String testState) {
+		this.testState = testState;
+	}
+
 	/**
 	 * 取值方式 0-随机，1-倒序
 	 */
