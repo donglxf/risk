@@ -129,9 +129,9 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
             var endDate=$('#endDate').val();
             var d1 = new Date(startDate.replace(/\-/g, "\/"));
             var d2 = new Date(endDate.replace(/\-/g, "\/"));
-            if(startDate!=""&&endDate!=""&& d1 > d2)
+            if(startDate!=""&&endDate!=""&& d1 >= d2)
             {
-                alert("开始时间不能大于结束时间！");
+                alert("开始时间不能大于等于结束时间！");
                 return false;
             }
             // 执行重载

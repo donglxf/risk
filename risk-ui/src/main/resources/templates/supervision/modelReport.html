@@ -72,11 +72,13 @@
             $ = layui.jquery,laydata=layui.laydate;
         //alert(addDate(new Date(),-30));
         laydata.render({
-            elem: '#startDate'
+            elem: '#startDate',
+            type: 'datetime'
 //            ,value:addDate(new Date(),-30)
         });
         laydata.render({
-            elem: '#endDate'
+            elem: '#endDate',
+            type: 'datetime'
 //            ,value:addDate(new Date(),0)
         });
 
@@ -177,9 +179,9 @@
             var endDate=$('#endDate').val();
             var d1 = new Date(startDate.replace(/\-/g, "\/"));
             var d2 = new Date(endDate.replace(/\-/g, "\/"));
-            if(startDate!=""&&endDate!=""&& d1 > d2)
+            if(startDate!=""&&endDate!=""&& d1 >= d2)
             {
-                alert("开始时间不能大于结束时间！");
+                alert("开始时间不能大于等于结束时间！");
                 return false;
             }
             getModelDate(data);

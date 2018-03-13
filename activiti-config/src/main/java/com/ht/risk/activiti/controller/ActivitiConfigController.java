@@ -152,10 +152,10 @@ public class ActivitiConfigController {
     public PageResult<List<ActExcuteTaskVo>> page(String date,String endDate, String modId, Integer page, Integer limit) {
         Wrapper<ActExcuteTask> wrapper = new EntityWrapper<>();
         if (StringUtils.isNotBlank(date)) {
-            wrapper.and().ge("create_time", date+" 00:00:00");
+            wrapper.and().ge("create_time", date);
         }
         if (StringUtils.isNotBlank(endDate)) {
-            wrapper.and().le("create_time", endDate+" 23:59:59");
+            wrapper.and().le("create_time", endDate);
         }
         if(StringUtils.isNotBlank(modId)){
             wrapper.and().like("id",modId);

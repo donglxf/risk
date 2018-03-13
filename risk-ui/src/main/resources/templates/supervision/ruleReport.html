@@ -87,14 +87,16 @@
             layerTips = layui.layer,
             $ = layui.jquery,laydata=layui.laydate;
         laydata.render({
-            elem: '#startDate'
+            elem: '#startDate',
+			type:'datetime'
 //            ,value:addDate(new Date(),-30),
 //            done:function () {
 //				$("#startDate").val("");
 //            }
         });
         laydata.render({
-            elem: '#endDate'
+            elem: '#endDate',
+            type:'datetime'
 //			,value:addDate(new Date(),0)
         });
 //  决策平均响应时间图
@@ -228,6 +230,7 @@
                     data: data.field,// 你的formid
                     async: false,
                     error: function (request) {
+                        alert("error");
                     },
                     success: function (da) {
                         console.log(da);
@@ -241,9 +244,9 @@
             var endDate=$('#endDate').val();
             var d1 = new Date(startDate.replace(/\-/g, "\/"));
             var d2 = new Date(endDate.replace(/\-/g, "\/"));
-            if(startDate!=""&&endDate!=""&& d1 > d2)
+            if(startDate!=""&&endDate!=""&& d1 >= d2)
             {
-                alert("开始时间不能大于结束时间！");
+                alert("开始时间不能大于等于结束时间！");
                 return false;
             }
             getRuleDate(data);

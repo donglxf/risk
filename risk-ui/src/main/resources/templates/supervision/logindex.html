@@ -141,14 +141,18 @@
             layerTips = layui.layer,
             $ = layui.jquery, laydata = layui.laydate;
         laydata.render({
-            elem: '#startDate'
+            elem: '#startDate',
+            type:'datetime'
         });laydata.render({
-            elem: '#endDate'
+            elem: '#endDate',
+            type:'datetime'
         });laydata.render({
-            elem: '#endTime'
+            elem: '#endTime',
+            type:'datetime'
         });
         laydata.render({
-            elem: '#startTime'
+            elem: '#startTime',
+            type:'datetime'
         });
         form.render("");
     });
