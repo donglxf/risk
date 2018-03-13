@@ -17,19 +17,19 @@
         <li>模型日志</li>
     </ul>
     <div class="layui-tab-content" style="height: 100px;">
-        <div class="layui-tab-item layui-show">
+        <div class="layui-tab-item layui-show layui-form">
             <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
                 <div class="layui-input-inline">
                     <label class="layui-form-label">开始日期:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="startDate" id="startDate" lay-verify="date" placeholder="yyyy-MM-dd"
+                        <input type="text" name="startDate" id="startDate" lay-verify="date" placeholder="yyyy-MM-dd hh:mm:ss"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-input-inline">
                     <label class="layui-form-label">结束日期:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="endDate" id="endDate" lay-verify="date" placeholder="yyyy-MM-dd"
+                        <input type="text" name="endDate" id="endDate" lay-verify="date" placeholder="yyyy-MM-dd hh:mm:ss"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -46,26 +46,38 @@
 
             <table id="demo" lay-filter="entityTable"></table>
         </div>
-        <div class="layui-tab-item"><!--  -->
+        <div class="layui-tab-item layui-form"><!--  -->
             <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
+
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">流水号:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="modId" id="modId" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">调用类型:</label>
+                    <div class="layui-input-inline">
+                        <select name="type" id = "type" lay-verify="required">
+                            <option value=""></option>
+                            <option value="1">模型验证</option>
+                            <option value="0">外部调用</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="layui-input-inline">
                     <label class="layui-form-label">开始日期:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-MM-dd"
+                        <input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-MM-dd hh:mm:ss"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-input-inline">
                     <label class="layui-form-label">结束日期:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-MM-dd"
+                        <input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-MM-dd hh:mm:ss"
                                autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-input-inline">
-                    <label class="layui-form-label">模型id:</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="modId" id="modId" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
@@ -154,7 +166,7 @@
             elem: '#startTime',
             type:'datetime'
         });
-        form.render("");
+        form.render("select");
     });
 </script>
 </body>

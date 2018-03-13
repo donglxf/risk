@@ -10,7 +10,3 @@ eureka:
     instance:
       prefer-ip-address: true
 
-    client:
-      service-url:
-        defaultZone: http://192.168.13.170:30101/eureka/
-

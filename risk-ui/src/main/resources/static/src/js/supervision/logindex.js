@@ -35,11 +35,6 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
                 event: 'setItem',
                 title: '模型实例id'
             }, {
-                field: 'modelName',
-                event: 'setItem',
-                title: '模型名',
-                fixed: 'right'
-            }, {
                 field: 'senceVersionid',
                 event: 'setItem',
                 title: '决策版本号'
@@ -75,7 +70,7 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
             {
                 field: 'id',
                 event: 'setItem',
-                title: 'id'
+                title: '流水号'
             }, {
                 field: 'procInstId',
                 event: 'setItem',
@@ -154,6 +149,7 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
     modelActive = {
         reload: function () {
             // var demoReload = $('#demoReload');
+            var type=$('#type').val();
             var startDate=$('#startTime').val();
             var endDate=$('#endTime').val();
             var d1 = new Date(startDate.replace(/\-/g, "\/"));
@@ -172,6 +168,7 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
                 where: {
                     date: startDate,
                     endDate:endDate ,
+                    type:type,
                     modId:$('#modId').val()
                 }
             });
