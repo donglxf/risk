@@ -129,8 +129,8 @@ public class ActivitiConfigController {
         Map<String, String[]> paramMap = request.getParameterMap();
         Map<String, Object> map = new HashMap<>();
         if(ObjectUtils.isNotEmpty(paramMap)) {
-            String startTime = StringUtils.isNotBlank(paramMap.get("startDate")[0]) ? paramMap.get("startDate")[0] + " 00:00:00" : null;
-            String endTime = StringUtils.isNotBlank(paramMap.get("endDate")[0]) ? paramMap.get("endDate")[0] + " 23:59:59" : null;
+            String startTime = StringUtils.isNotBlank(paramMap.get("startDate")[0]) ? paramMap.get("startDate")[0] : null;
+            String endTime = StringUtils.isNotBlank(paramMap.get("endDate")[0]) ? paramMap.get("endDate")[0]: null;
             String getWay = paramMap.get("getWay")[0];
             map.put("startTime", startTime);
             map.put("endTime", endTime);
@@ -139,8 +139,8 @@ public class ActivitiConfigController {
             Date curentDate=DateUtils.getDate("yyyy-MM-dd");
             Date beforeDate=DateUtils.addDays(curentDate,-30);
             LOGGER.info(DateUtils.getDateString(beforeDate)+">>>>>>>>>>>>.");
-            map.put("startTime", DateUtils.getDateString(beforeDate)+" 00:00:00");
-            map.put("endTime", DateUtils.getDateString(curentDate)+" 23:59:59");
+            map.put("startTime", DateUtils.getDateString(beforeDate));
+            map.put("endTime", DateUtils.getDateString(curentDate));
         }
         Map<String, Object> resultMap = actExcuteTaskService.getModelGraph (map); // 平均响应时间
         return Result.success(resultMap);

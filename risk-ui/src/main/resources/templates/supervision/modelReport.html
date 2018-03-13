@@ -88,7 +88,7 @@
             var xAxisArr=new Array(da.ruleMap.length);
             var seriesArr=new Array(da.listMap.length); // 响应时间
             for(var i=0;i<da.ruleMap.length ;i++){
-                xAxisArr[i]=da.ruleMap[i].modelName;
+                xAxisArr[i]=da.ruleMap[i].modelName+"_"+da.ruleMap[i].modelVersion;
             }
             for(var i=0;i<da.listMap.length ;i++){
                 seriesArr[i]=da.listMap[i].spendTime;
