@@ -157,23 +157,31 @@ public class DroolsExcuteController {
             Map<String, Object> parmaMap = new HashMap<String, Object>();
             // 1.根据sceneCode 查询最新测试版本
             if (bool) {
-                parmaMap.put("type", "1"); // 正式版
+                parmaMap.put("type", 1); // 正式版
                 version="正式版";
             } else {
-                parmaMap.put("type", "0");
+                parmaMap.put("type", 0);
             }
             parmaMap.put("sceneIdentify", paramter.getSence()); // 决策code
-            if(StringUtil.strIsNull(paramter.getVersion())){
+            parmaMap.put("version",paramter.getVersion());
+            List<RuleSceneVersion> versions = ruleSceneVersionService.getSenceVersion(parmaMap);
+            if(versions == null || versions.size() ==0){
+                data = new RuleExcuteResult(1, paramter.getSence() + "参数出错，无可用"+version+"版本信息,请检查", null,paramter.getVersion());
+                return data;
+            }
+            ruleVersion = versions.get(0);
+
+            /*if(StringUtil.strIsNull(paramter.getVersion())){
                 ruleVersion= ruleSceneVersionService.getLastVersionByType (parmaMap);
             }else{
                 parmaMap.put("version", paramter.getVersion());
                 ruleVersion= ruleSceneVersionService.getInfoByVersionId(parmaMap);
             }
-
             if (null == ruleVersion) {
                 data = new RuleExcuteResult(1, paramter.getSence() + "参数出错，无可用"+version+"版本信息,请检查", null,paramter.getVersion());
                 return data;
-            }
+            }*/
+
             RuleExecutionObject object = new RuleExecutionObject();
             RuleExecutionResult result = new RuleExecutionResult();
             object.setGlobal("_result", result);

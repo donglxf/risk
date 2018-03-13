@@ -157,17 +157,19 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                 borrowerMap.put("business_id",businessId);
                 borrowerMap.put("business_Type",businessType);
                 borrowerMap.put("business_months",months);
-                String identityCard = String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
-                String name = String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
                 // 是否有前科
-                String negativeStr = getNegativeSearch(identityCard,name);
-                if("0".equals(negativeStr)){
-                    borrowerMap.put("borrowerInfo_newNegative","是");
-                }else if("3".equals(negativeStr)){
-                    msg.append("身份证：").append(identityCard).append(",天行数科接口异常;");
-                }
-                else{
-                    borrowerMap.put("borrowerInfo_newNegative","否");
+                String identityCard = borrowerMap.get("borrowerInfo_customerName") == null?null:String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
+                String name = borrowerMap.get("borrowerInfo_identifyCard") == null ?null:String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
+                if(StringUtils.isNotEmpty(identityCard) && StringUtils.isNotEmpty(name)){
+                    String negativeStr = getNegativeSearch(identityCard,name);
+                    if("0".equals(negativeStr)){
+                        borrowerMap.put("borrowerInfo_newNegative","是");
+                    }else if("3".equals(negativeStr)){
+                        msg.append("身份证：").append(identityCard).append(",天行数科接口异常;");
+                    }
+                    else{
+                        borrowerMap.put("borrowerInfo_newNegative","否");
+                    }
                 }
                 droolsData.add(borrowerMap);
             }
@@ -178,17 +180,19 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             Map<String,Object> guaranteeMap = null;
             for(int i= 0;i<guaranteeInfos.size();i++){
                 guaranteeMap = guaranteeInfos.get(i);
-                String identityCard = String.valueOf(guaranteeMap.get("guaranteeInfo_guaranteeIdentifyCard"));
-                String name = String.valueOf(guaranteeMap.get("guaranteeInfo_guaranteeName"));
                 // 借款人是否是老赖
-                String oldLaiStr = getOldLai(identityCard,name);
-                if("0".equals(oldLaiStr)){
-                    guaranteeMap.put("guaranteeInfo_oldLai","是");
-                }else if("3".equals(oldLaiStr)){
-                    msg.append("身份证：").append(identityCard).append(",老赖接口异常;");
-                }
-                else{
-                    guaranteeMap.put("guaranteeInfo_oldLai","否");
+                String identityCard = guaranteeMap.get("guaranteeInfo_guaranteeIdentifyCard") == null?null:String.valueOf(guaranteeMap.get("guaranteeInfo_guaranteeIdentifyCard"));
+                String name = guaranteeMap.get("guaranteeInfo_guaranteeName") == null? null:String.valueOf(guaranteeMap.get("guaranteeInfo_guaranteeName"));
+                if(StringUtils.isNotEmpty(identityCard) && StringUtils.isNotEmpty(name)){
+                    String oldLaiStr = getOldLai(identityCard,name);
+                    if("0".equals(oldLaiStr)){
+                        guaranteeMap.put("guaranteeInfo_oldLai","是");
+                    }else if("3".equals(oldLaiStr)){
+                        msg.append("身份证：").append(identityCard).append(",老赖接口异常;");
+                    }
+                    else{
+                        guaranteeMap.put("guaranteeInfo_oldLai","否");
+                    }
                 }
                 droolsData.add(guaranteeMap);
             }

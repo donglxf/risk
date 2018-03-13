@@ -36,4 +36,24 @@ on s.version=a.versions
           from rule_scene_version s where version=#{version} and scene_identify=#{sceneIdentify} and type=#{type}
     </select>
 
+    <select id="getSenceVersion" resultType="com.ht.risk.model.RuleSceneVersion" parameterType="map">
+        select <include refid="Base_Column_List" />
+        from rule_scene_version s where scene_identify=#{sceneIdentify} and status = '1'
+        <if test="type==1">
+            and type = 1
+            <if test="version!= null and version != ''">
+                and official_version = #{version}
+            </if>
+            order by official_version+0 desc
+        </if>
+        <if test="type==0">
+            and type = 0
+            <if test="version!= null and version != ''">
+                and version = #{version}
+            </if>
+            order by version+0 desc
+        </if>
+        limit 0,1
+    </select>
+
 </mapper>

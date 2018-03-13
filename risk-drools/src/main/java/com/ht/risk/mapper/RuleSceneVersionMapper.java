@@ -1,5 +1,6 @@
 package com.ht.risk.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ht.risk.common.mapper.SuperMapper;
@@ -32,4 +33,6 @@ public interface RuleSceneVersionMapper extends SuperMapper<RuleSceneVersion> {
 	 * @return
 	 */
 	public RuleSceneVersion getInfoByVersionId(Map<String,Object> parmaMap);
+
+	public List<RuleSceneVersion> getSenceVersion(Map<String,Object> parmaMap);
 }

@@ -1,5 +1,6 @@
 package com.ht.risk.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,10 @@ public class RuleSceneVersionServiceImpl extends BaseServiceImpl<RuleSceneVersio
 	@Override
 	public RuleSceneVersion getInfoByVersionId(Map<String,Object> parmaMap) throws Exception{
 		return ruleSceneVersionMapper.getInfoByVersionId(parmaMap);
+	}
+
+	public List<RuleSceneVersion> getSenceVersion(Map<String,Object> parmaMap){
+		return ruleSceneVersionMapper.getSenceVersion(parmaMap);
 	}
 
 }

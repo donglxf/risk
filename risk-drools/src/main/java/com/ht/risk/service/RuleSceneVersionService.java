@@ -1,5 +1,6 @@
 package com.ht.risk.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ht.risk.common.service.BaseService;
@@ -30,5 +31,13 @@ public interface RuleSceneVersionService extends BaseService<RuleSceneVersion> {
 	 * @throws Exception
 	 */
 	public RuleSceneVersion getInfoByVersionId(Map<String,Object> parmaMap) throws Exception;
+
+
+	/**
+	 * 查询当前模型使用版本
+	 * @param parmaMap
+	 * @return
+	 */
+	public List<RuleSceneVersion> getSenceVersion(Map<String,Object> parmaMap);
 	
 }
