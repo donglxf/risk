@@ -10,6 +10,8 @@
 	<properties>
 		<start-class>com.ht.risk.ui.UIBootstrap</start-class>
 
+		<!--代码自动部署-->
+		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -81,5 +83,16 @@
 				</dependencies>
 			</plugin>
 		</plugins>-->
+		<plugins>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+			</plugin>
+
+		</plugins>
 	</build>
 </project>

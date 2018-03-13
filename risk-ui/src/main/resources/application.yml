@@ -6,7 +6,6 @@ spring:
         cache: false
 server:
     port: 30501
-
 eureka:
     instance:
       prefer-ip-address: true

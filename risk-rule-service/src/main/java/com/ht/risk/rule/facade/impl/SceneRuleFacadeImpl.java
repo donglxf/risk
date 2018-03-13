@@ -35,16 +35,8 @@ public class SceneRuleFacadeImpl implements SceneRuleFacade {
 
 
     @Autowired
-    private ActionParamValueInfoService actionParamValueInfoService;
-
-    @Autowired
     private ConditionInfoService conditionInfoService;
 
-    @Autowired
-    private SceneItemRelService sceneItemRelService;
-
-    @Autowired
-    private SceneEntityRelService sceneEntityRelService;
 
     @Autowired
     private EntityItemInfoService entityItemInfoService;
@@ -52,8 +44,6 @@ public class SceneRuleFacadeImpl implements SceneRuleFacade {
     @Autowired
     private ActionRuleRelService actionRuleRelService;
 
-    @Autowired
-    private RuleGroupService ruleGroupService;
 
     @Override
     @Cacheable(value = "risk-rule",key = "'getRules:'+#sceneId")
@@ -72,7 +62,7 @@ public class SceneRuleFacadeImpl implements SceneRuleFacade {
             return null;
         }
         //获取实体类集合
-        List<EntityInfo> entityInfos = sceneEntityRelService.findBaseRuleEntityListByScene(sceneInfo);
+      //  List<EntityInfo> entityInfos = sceneEntityRelService.findBaseRuleEntityListByScene(sceneInfo);
         //获取变量集合
         //  List<RuleItemTable> itemTables =  sceneItemRelService.findItemTables(sceneId);
         int i = 0;
