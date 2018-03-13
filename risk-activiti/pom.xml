@@ -17,6 +17,10 @@
 		<mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
 		<drools.version>7.0.0.Final</drools.version>
 		<start-class>com.ht.risk.activiti.ActivitiServiceApplication</start-class>
+
+		<!--代码自动部署-->
+		<start-class>com.ht.eip.out.OutApplication</start-class>
+		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
 
 	<dependencies>
@@ -320,6 +324,17 @@
 
 	<build>
 		<finalName>risk-activiti</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
 	</build>
 
 

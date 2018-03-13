@@ -130,8 +130,8 @@ public class RuleInfoController extends BaseController {
     @GetMapping("getGradeCardAll")
     @ApiOperation(value = "查询所有的规则")
     public Result< Map<String ,Object >> getGradeCardAll(Long sceneId) throws  Exception{
-        Map<String ,Object > result = new HashMap<>();
-        result = sceneRuleFacade.getScene4Grade(sceneId);
+        //Map<String ,Object > result = new HashMap<>();
+        Map<String ,Object > result = sceneRuleFacade.getScene4Grade(sceneId);
         if(result == null ){
             return Result.error(-1,"暂无数据");
         }else{

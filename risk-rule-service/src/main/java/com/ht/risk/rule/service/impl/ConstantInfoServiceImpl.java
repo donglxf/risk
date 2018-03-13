@@ -28,7 +28,7 @@ import java.util.Map;
 @Service
 public class ConstantInfoServiceImpl extends BaseServiceImpl<ConstantInfoMapper, ConstantInfo> implements ConstantInfoService {
     //定义：常量id和变量之间的对应关系,但是有很多的问题
-    public static Map<Long,List<EntitySelectVo>> constantMap = new HashMap<>();
+    private  Map<Long,List<EntitySelectVo>> constantMap = new HashMap<>();
     @Autowired
     private ConstantInfoMapper constantInfoMapper;
     @Override

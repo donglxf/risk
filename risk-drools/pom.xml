@@ -23,6 +23,10 @@
 		<drools.version>7.0.0.Final</drools.version>
 		<spring-boot-starter-redis-version>1.4.5.RELEASE</spring-boot-starter-redis-version>
 		<start-class>com.ht.risk.DroolsServiceApplication</start-class>
+
+		<!--代码自动部署-->
+		<start-class>com.ht.eip.out.OutApplication</start-class>
+		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
 
 	<dependencies>
@@ -190,6 +194,14 @@
 					<fork>true</fork>
 				</configuration>
 			</plugin>
+				<plugin>
+					<groupId>pl.project13.maven</groupId>
+					<artifactId>git-commit-id-plugin</artifactId>
+				</plugin>
+				<plugin>
+					<groupId>com.spotify</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+				</plugin>
 		</plugins>
 	</build>
 
