@@ -7,7 +7,7 @@ layui.config({
 }).extend({ //设定模块别名
     myutil:'common',
 });
-layui.use(['table', 'form','laydate'], function () {
+layui.use(['table', 'form','laydate','myutil'], function () {
     /**
      * 设置表单值
      *
