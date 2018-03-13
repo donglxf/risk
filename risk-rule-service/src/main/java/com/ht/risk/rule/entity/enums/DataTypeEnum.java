@@ -12,7 +12,7 @@ public enum DataTypeEnum implements IEnum {
     /**
      * 整形
      */
-    INTEGER("Integer", "整形"),
+    INTEGER("Integer", "整型"),
     /**
      * 布尔类型
      */
