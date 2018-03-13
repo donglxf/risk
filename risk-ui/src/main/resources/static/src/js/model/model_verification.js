@@ -9,6 +9,8 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl','myutil'], function () 
     var laydate = layui.laydate;
     var form = layui.form;
     var laytpl = layui.laytpl;
+    var common = layui.myutil;
+    common.business.init("",$("#business_ser"),"businessId_ser");
     //第一个实例
     table.render({
         elem: '#model_list'
@@ -17,15 +19,14 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl','myutil'], function () 
         , page: true //开启分页
         , where: {}
         , cols: [[ //表头\
-              {field: 'id', title: '流水号', align: "center", width: "10%",sort: true}
-            , {field: 'modelName', title: '模型名称', align: "center", width: "10%"}
-            , {field: 'modelCode', title: '模型编码', align: "center", width: "10%"}
-            , {field: 'modelVersion', title: '测试版本号', align: "center", width: "10%",sort: true}
-            , {field: 'isBing', title: '变量是否绑定', align: "center", width: "10%",templet: '#bindTpl'}
+              {field: 'id', title: '流水号', align: "center", width: "15%",sort: true}
+            , {field: 'modelName', title: '模型名称', align: "center", width: "20%"}
+            , {field: 'modelCode', title: '模型编码', align: "center", width: "15%"}
+            , {field: 'modelVersion', title: '测试版本号', align: "center", width: "5%",sort: true}
             , {field: 'isValidate', title: '验证状态', align: "center", width: "10%", templet: '#verficationTpl'}
             , {field: 'createUser', title: '创建人', align: "center", width: "10%"}
             , {field: 'createTime', title: '创建时间', align: "center", width: "10%"}
-            , {fixed: 'right', title: "操作", align: 'center', toolbar: '#barDemo', width: "20%"}
+            , {fixed: 'right', title: "操作", align: 'center', toolbar: '#barDemo', width: "15%"}
         ]]
     });
 
@@ -33,7 +34,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','laytpl','myutil'], function () 
         reload: function () {
             var modelName = $('#modelName').val();
             var isValidate = $('#isValidate').val();
-            var modelCategory = $('#modelCategory').val();
+            var modelCategory = $('#businessId_ser').val();
             //执行重载
             table.reload('model_list', {
                 page: {
