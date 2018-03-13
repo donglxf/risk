@@ -43,6 +43,7 @@
                 <div class="layui-container" id="validateResults">
                     <button class="layui-btn" lay-submit lay-filter="start_verification">开始验证</button>
                     <button class="layui-btn" lay-submit lay-filter="verification_pass">验证通过</button>
+                    <button class="layui-btn" lay-submit lay-filter="verification_nopass">验证不通过</button>
                     <div class="layui-form-item">
                         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                             <legend>验证结果</legend>
@@ -116,7 +117,40 @@
                 $.ajax({
                     cache: true,
                     type: "POST",
-                    url: '/rule/service/strategy/variablePass',
+                    url: '/rule/service/strategy/variablePass?testState=1',
+                    data: data.field,// 你的formid
+                    async: false,
+                    error: function (request) {
+                        alert("Connection error");
+                    },
+                    success: function (da) {
+                        if (da.code == 0) {
+                            layer.alert('操作成功', function(index){
+                                window.parent.location.reload() // 刷新父页面
+                                // 关闭自身
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(layer.index);
+                                layer.close(index);
+                            });
+                        } else {
+                            layer.msg(da.msg);
+                        }
+                    }
+                });
+            }else{
+                layer.msg("请先完成验证!");
+            }
+            return false;
+        });
+
+        // 验证不通过
+        form.on('submit(verification_nopass)', function (data) {
+            var stateCode=$("#stateCode").val();
+            if(stateCode !="" && stateCode!=undefined && stateCode!=null && stateCode==0){
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url: '/rule/service/strategy/variablePass?testState=2',
                     data: data.field,// 你的formid
                     async: false,
                     error: function (request) {

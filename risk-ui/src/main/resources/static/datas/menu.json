@@ -86,7 +86,7 @@
         "icon": "",
         "spread": true,
         "title": "决策验证",
-        "url": "src/html/other/strategy_index.html",
+        "url": "strategy/index",
         "children": []
       },
       {

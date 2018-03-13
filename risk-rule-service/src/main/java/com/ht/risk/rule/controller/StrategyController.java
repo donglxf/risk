@@ -99,12 +99,12 @@ public class StrategyController {
 
 
     @PostMapping("variablePass")
-    @ApiOperation(value = "规则验证通过")
+    @ApiOperation(value = "规则验证通过or不通过")
     public PageResult<Integer> variablePass(VariableBindVo entityInfo) {
         Wrapper<SceneVersion> wrapper = new EntityWrapper<>();
         wrapper.eq("version_id", entityInfo.getSenceVersionId());
         SceneVersion scene = sceneVersionService.selectOne(wrapper);
-        scene.setTestStatus(1);
+        scene.setTestStatus(Integer.parseInt(entityInfo.getTestState()));
         sceneVersionService.updateById(scene);
         return PageResult.success(0);
     }

@@ -7,7 +7,7 @@ layui.config({
 }).extend({ //设定模块别名
     myutil:'common',
 });
-layui.use(['table', 'form','laydate','myutil'], function () {
+layui.use(['table', 'form','laydate'], function () {
     /**
      * 设置表单值
      *
@@ -25,21 +25,6 @@ layui.use(['table', 'form','laydate','myutil'], function () {
     var entityTable = layui.table;
     var itemTable = layui.table;
     var app = layui.app, $ = layui.jquery, form = layui.form;
-
-    $.ajax({
-        type: "get",
-        url: preBindUrl+"getAll",
-        dataType: "json",
-        success: function (data) {
-            var da=data.data;
-            var html="<select id=\"isBusinessLine\" class=\"layui-select\" name=\"businessType\" lay-verify=\"\">\n<option value=\"\">选择业务线</option>";
-            for (var i=0;i<da.length;i++){
-                html+="<option value=\""+da[i].businessId+"\">"+da[i].businessName+"</option>\n";
-            }
-            html+="</select>";
-            $("#businessTypes").html(html);
-        }
-    });
 
 
     // 第一个实例
