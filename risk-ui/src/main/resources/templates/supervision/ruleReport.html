@@ -239,7 +239,6 @@
         form.on('submit(formDemo)',function (data) {
             var startDate=$('#startDate').val();
             var endDate=$('#endDate').val();
-            alert(startDate);
             var d1 = new Date(startDate.replace(/\-/g, "\/"));
             var d2 = new Date(endDate.replace(/\-/g, "\/"));
             if(startDate!=""&&endDate!=""&& d1 > d2)
