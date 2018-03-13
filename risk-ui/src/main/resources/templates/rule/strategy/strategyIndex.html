@@ -3,21 +3,19 @@
 <head>
 <meta charset="utf-8">
 <title>table模块快速使用</title>
-<link rel="stylesheet" href="/rule/ui/plugins/layui/css/layui.css"
-	media="all">
-<link rel="stylesheet"
-	href="/rule/ui/plugins/font-awesome/css/font-awesome.min.css"
-	media="all" />
+	<link rel="stylesheet" href="/rule/ui/plugins/layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="/rule/ui/plugins/font-awesome/css/font-awesome.min.css" media="all" />
 </head>
 <body>
 
 	<div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
+
 		<div class="layui-col-md2">
 			<input type="text" name="modelName" id="modelName"  required  placeholder="请输入决策名称" autocomplete="off"
 				   class="layui-input">
 		</div>
 
-		<div class="layui-col-md1">
+		<div class="layui-form layui-col-md1">
 
 			<select id="isBusinessType" class="layui-select" name="businessType" lay-verify="">
 				<option value="">选择决策类型</option>
@@ -26,13 +24,8 @@
 			</select>
 		</div>
 
-		<div class="layui-col-md1">
-			<label  id="businessTypes"></label>
-			<!--<select class="layui-select" id="isBusinessLine" name="businessLine" lay-verify="">-->
-				<!--<option value="">选择业务</option>-->
-				<!--<option value="4">房速贷</option>-->
-				<!--<option value="5">车贷</option>-->
-			<!--</select>-->
+		<div class="layui-form layui-col-md1">
+			<label  id="business_ser"></label>
 		</div>
 		<div class="layui-col-md1">
 			<button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
@@ -77,8 +70,10 @@
 	<script type="text/html" id="testStatus">
 		{{#  if(d.testStatus == 1){ }}
 		<div>通过</div>
-		{{# } else{ }}
+		{{# } else if(d.testStatus == 2){  }}
 		<div  style="color: red;">未通过</div>
+		{{# } else{ }}
+		<div>待验证</div>
 		{{# } }}
 </script>
 	<!--操作-->
@@ -93,12 +88,32 @@
 </script>
 <script>
     //Demo
-    layui.use('form', function(){
+    layui.config({
+        base: '/rule/ui/src/js/modules/' //假设这是你存放拓展模块的根目录
+    }).extend({ //设定模块别名
+        myutil:'common',
+    });
+    layui.use(['table','form','myutil'], function(){
         var form = layui.form;
-        var app = layui.app,
-            layerTips = layui.layer,
-            $ = layui.jquery;
-        
+        var app = layui.app, $ = layui.jquery;
+
+        $.ajax({
+            type: "get",
+            url: preBindUrl+"getAll",
+            dataType: "json",
+            success: function (data) {
+                var da=data.data;
+                var html="<select id=\"isBusinessLine\" class=\"layui-select\" name=\"businessType\" lay-verify=\"\">\n<option value=\"\">选择业务线</option>";
+                for (var i=0;i<da.length;i++){
+                    html+="<option value=\""+da[i].businessId+"\">"+da[i].businessName+"</option>\n";
+                }
+                html+="</select>";
+                $("#business_ser").html(html);
+                form.render('select');
+            }
+        });
+		form.render('select');
+
         form.on('select(droolsVariable)', function(data){
         	var ht=$('.layui-form-select .layui-this').last().html();
         	$("#variableName").val(ht);
@@ -133,6 +148,7 @@
             });
             return false;
         });
+        form.render('select');
         form.render();
     });
 </script>

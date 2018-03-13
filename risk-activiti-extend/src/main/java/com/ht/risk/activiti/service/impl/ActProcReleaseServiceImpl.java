@@ -231,13 +231,17 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
      * @return
      */
     private ActProcRelease getModelLastedVersion(String modelCode) {
-        EntityWrapper<ActProcRelease> wrapper = new EntityWrapper<ActProcRelease>();
+/*        EntityWrapper<ActProcRelease> wrapper = new EntityWrapper<ActProcRelease>();
         ActProcRelease actProcRelease = new ActProcRelease();
         actProcRelease.setModelCode(modelCode);
         actProcRelease.setVersionType("1");
+        actProcRelease.setIsEffect("0");
         wrapper.setEntity(actProcRelease);
         wrapper.orderBy("model_version",false);
-        List<ActProcRelease> releases = actProcReleaseMapper.selectList(wrapper);
+        List<ActProcRelease> releases = actProcReleaseMapper.selectList(wrapper);*/
+        Map<String,Object> paramter = new HashMap<String,Object>();
+        paramter.put("modelCode",modelCode);
+        List<ActProcRelease> releases = actProcReleaseMapper.getModelLastedVersion(paramter);
         if (releases == null || releases.size() == 0) {
             return null;
         }
