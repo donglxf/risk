@@ -17,7 +17,6 @@
         <drools.version>7.0.0.Final</drools.version>
         <start-class>com.ht.risk.rule.RuleServiceApplication</start-class>
         <!--代码自动部署-->
-        <start-class>com.ht.eip.out.OutApplication</start-class>
         <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 

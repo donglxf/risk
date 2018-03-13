@@ -19,7 +19,6 @@
 		<start-class>com.ht.risk.activiti.ActivitiServiceApplication</start-class>
 
 		<!--代码自动部署-->
-		<start-class>com.ht.eip.out.OutApplication</start-class>
 		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
 
