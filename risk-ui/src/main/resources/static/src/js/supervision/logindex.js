@@ -201,7 +201,7 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
         var layIndex =layer.open({
             type: 2,
             shade: false,
-            area: ['1000px', '600px'],
+            area: ['1200px', '800px'],
             title: "模型验证结果",
             //请求的弹出层路径
             content: pathConfig.ruleUiPath+"model/verfication/result/detail",

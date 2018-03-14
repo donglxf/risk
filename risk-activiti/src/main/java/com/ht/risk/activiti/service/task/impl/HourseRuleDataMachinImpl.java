@@ -158,8 +158,8 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                 borrowerMap.put("business_Type",businessType);
                 borrowerMap.put("business_months",months);
                 // 是否有前科
-                String identityCard = borrowerMap.get("borrowerInfo_customerName") == null?null:String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
-                String name = borrowerMap.get("borrowerInfo_identifyCard") == null ?null:String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
+                String name = borrowerMap.get("borrowerInfo_customerName") == null?null:String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
+                String identityCard = borrowerMap.get("borrowerInfo_identifyCard") == null ?null:String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
                 if(StringUtils.isNotEmpty(identityCard) && StringUtils.isNotEmpty(name)){
                     String negativeStr = getNegativeSearch(identityCard,name);
                     if("0".equals(negativeStr)){
@@ -264,15 +264,19 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             negative.setIdentityCard(identityCard);
             negative.setRealName(name);
             Result<NegativeSearchDtoOut> neResult = eipServiceInterface.getNegativeSearch(negative);
+            LOGGER.info("HourseRuleDataMachinImpl getNegativeSearch neResult"+JSON.toJSONString(neResult));
             JSONObject str1 = JSONObject.parseObject(JSON.toJSONString(neResult));
             if(neResult != null && neResult.getData() != null && "1".equals(neResult.getData().getIsCrime())){
                 return "0";
             }
+            LOGGER.info(""+neResult );
+            LOGGER.info(""+neResult.getData().getIsCrime() );
             if(neResult == null || neResult.getCode() != 0){
                 return   "3";
             }
             return  "1";
         } catch (Exception e) {
+            e.printStackTrace();
             LOGGER.error("天行数科接口异常，identityCard:"+identityCard+";name:"+name +e.getMessage());
             return   "3";
         }
@@ -285,6 +289,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             input.setIdentityCard(identityCard);
             input.setRealName(name);
             com.ht.ussp.core.Result<OldLaiOut> neResult = eipServiceInterface.oldLai(input);
+            LOGGER.info("HourseRuleDataMachinImpl getOldLai neResult"+JSON.toJSONString(neResult));
             if(neResult != null && neResult.getData() != null && StringUtils.isNotEmpty(neResult.getData().getGistId())){
                 return "0";
             }
@@ -293,6 +298,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             }
             return  "1";
         } catch (Exception e) {
+            e.printStackTrace();
             LOGGER.error("老赖接口异常，identityCard:"+identityCard+";name:"+name +e.getMessage());
             return "3";
         }
