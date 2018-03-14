@@ -18,10 +18,7 @@ import com.ht.risk.rule.mapper.VariableBindMapper;
 import com.ht.risk.rule.rpc.ActivitiConfigRpc;
 import com.ht.risk.rule.rpc.DroolsLogRpc;
 import com.ht.risk.rule.service.ModelAnalysisSerivce;
-import com.ht.risk.rule.vo.HitRuleInfoVo;
-import com.ht.risk.rule.vo.SenceParamterVo;
-import com.ht.risk.rule.vo.VariableVo;
-import com.ht.risk.rule.vo.VerficationResultVo;
+import com.ht.risk.rule.vo.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -422,6 +419,69 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
             }
         }
         return null;
+    }
+
+    //TODO
+    @Override
+    public ModelLogDetailVo queryModelLogResult(String procInstId, String type,String taskId) {
+        LOGGER.info("queryTaskVerficationResult method invoke start,paramter:"+procInstId);
+        ModelLogDetailVo resultVo = new ModelLogDetailVo();
+        if(StringUtils.isEmpty(type) || StringUtils.isEmpty(taskId)){
+            resultVo.setMsg("参数异常。。。");
+            return resultVo;
+        }
+        if(StringUtils.isEmpty(procInstId)){
+            resultVo.setMsg("模型执行异常。。。");
+            return resultVo;
+        }
+        // 查询任务详情
+        RpcModelVerfication rpcModelVerfication = new RpcModelVerfication();
+        rpcModelVerfication.setTaskId(Long.parseLong(taskId));
+        Result<RpcActExcuteTaskInfo> taskResult = activitiConfigRpc.getTaskInfoById(rpcModelVerfication);
+        LOGGER.info("rpc:activitiConfigRpc.queryTasksByBatchId ,result:"+JSON.toJSONString(taskResult));
+        if(taskResult == null || taskResult.getCode() != 0 ||  taskResult.getData() == null){
+            resultVo.setMsg("模型执行失败,未查询模型执行信息。。。");
+            return resultVo;
+        }
+        RpcActExcuteTaskInfo task = taskResult.getData();
+        String outParamter = task.getOutParamter();
+        if(StringUtils.isNotEmpty(outParamter)){
+            Map<String,Object> outParamterMap = JSON.parseObject(outParamter,Map.class);
+            resultVo.setModelMsg(String.valueOf(outParamterMap.get("procMsg")));
+        }
+        Result<List<RpcHitRuleInfo>> result = null;
+        if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(type)){
+            result= droolsLogRpc.getHitRuleInfo(procInstId);
+        }else{
+            result= droolsLogRpc.getTestHitRuleInfo(procInstId);
+        }
+        if(result == null || result.getCode() != 0){
+            return null;
+        }
+        List<RpcHitRuleInfo> hitRuleInfoDatas= result.getData();
+        RpcHitRuleInfo tmpRule = null;
+        Map<String,RpcHitRuleInfo> ruleMap = new HashMap<String,RpcHitRuleInfo>();
+        for(Iterator<RpcHitRuleInfo> iterator = hitRuleInfoDatas.iterator();iterator.hasNext();){
+            tmpRule = iterator.next();
+            if(tmpRule.getCount() == 0){
+                continue;
+            }
+            if(ruleMap.containsKey(tmpRule.getRuleName())){
+                tmpRule = ruleMap.get(tmpRule.getRuleName());
+                tmpRule.setCount(tmpRule.getCount()+1);
+            }else{
+                ruleMap.put(tmpRule.getRuleName(),tmpRule);
+            }
+        }
+        List<RpcHitRuleInfo> hitRules = new ArrayList<RpcHitRuleInfo>();
+        Set<String> ruleKey = ruleMap.keySet();
+        for(Iterator<String> iterator = ruleKey.iterator();iterator.hasNext();){
+            String key = iterator.next();
+            hitRules.add(ruleMap.get(key));
+        }
+        resultVo.setHitRules(hitRules);
+        resultVo.setMsg("模型执行成功。。。");
+        return resultVo;
     }
 
 

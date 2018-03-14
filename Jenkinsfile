@@ -1,19 +1,20 @@
 pipeline {
-    agent any
-        tools {
-            //工具名称必须在Jenkins 管理Jenkins → 全局工具配置中预配置。
-            maven 'M3'
-        }
-    stages {
-        stage('Example Build') {
-            steps {
+  agent any
+  stages {
+    stage('sonar') {
+      steps {
+       sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://172.16.200.111:9000'
+        //tool(type: 'sonarqube scanner', name: 'sonarScanner1')
+      }
+    }
+  }
+  post {
+        failure { 
+            emailext attachLog: true, body: '$DEFAULT_CONTENT',  recipientProviders: [[$class: 'RequesterRecipientProvider'], [$class: 'DevelopersRecipientProvider']], subject: '$DEFAULT_SUBJECT'
+             }
+      }
 
-
-                 sh "mvn install"
-                sh 'docker ps'
-                echo 'Deploying1....'
-                echo 'Deploying2....'
-            }
-        }
-        }
+  tools {
+    maven 'M3'
+  }
 }

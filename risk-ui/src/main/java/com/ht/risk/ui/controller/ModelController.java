@@ -68,6 +68,11 @@ public class ModelController {
         return "model/verfication/detail";
     }
 
+    @RequestMapping(value = "/verfication/log/modelLogDetail", method = RequestMethod.GET)
+    public String modelLogDetail() {
+        return "model/verfication/model_log_detail";
+    }
+
     /**
      * 模型发布
      *

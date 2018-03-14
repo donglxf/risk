@@ -9,6 +9,7 @@ import com.ht.risk.common.controller.BaseController;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.rule.rpc.ActivitiConfigRpc;
 import com.ht.risk.rule.service.ModelAnalysisSerivce;
+import com.ht.risk.rule.vo.ModelLogDetailVo;
 import com.ht.risk.rule.vo.ModelVerficationVo;
 import com.ht.risk.rule.vo.VerficationResultVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -60,6 +61,25 @@ public class ModelVerificationController extends BaseController{
         LOGGER.info("querySingleVerficationInfo mothod invoke end,result:" + JSON.toJSONString(result));
         return result;
     }
+
+    /**
+     * 查询模型验证任务相关信息
+     *
+     * @return
+     */
+    @RequestMapping("/queryModelLogResult")
+    public Result queryModelLogResult(String procInstId,String type,String taskId) {
+        LOGGER.info("querySingleVerficationInfo mothod invoke,procInstId:" + procInstId+";type="+type);
+        Result result = null;
+        ModelLogDetailVo resultVo = modelAnalysisSerivce.queryModelLogResult(procInstId,type,taskId);
+        result = Result.success(resultVo);
+        LOGGER.info("querySingleVerficationInfo mothod invoke end,result:" + JSON.toJSONString(result));
+        return result;
+    }
+
+
+
+
     /**
      * 查询模型验证任务相关信息
      *
