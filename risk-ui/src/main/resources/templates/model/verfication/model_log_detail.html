@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>模型验证结果</title>
+    <link rel="stylesheet" href="/rule/ui/plugins/layui/css/layui.css" media="all">
+    <style>
+        .layui-colla-content{
+            padding: 0px 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-row layui-form">
+        <div class="layui-col-xs12">
+            <div class="layui-collapse" lay-filter="test" id="main_content">
+
+                <div class="layui-colla-item">
+                    <input type="hidden" id="procReleaseId"/>
+                    <input type="hidden" id="taskId"/>
+                    <input type="hidden" id="validateFlag"/>
+                    <h2 class="layui-colla-title">规则命中结果</h2>
+                    <div class="layui-colla-content layui-show">
+                        <div class="layui-row" style="padding: 10px 10px" >
+                            <div class="layui-col-xs12" style="padding-right: 10px" >
+                                <div class="layui-form-item layui-form-text">
+                                    <textarea placeholder="请输入内容" rows="10" class="layui-textarea" id="modelResult" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/rule/ui/plugins/layui/layui.js"></script>
+    <script src="/rule/ui/src/js/model/model_config.js"></script>
+    <script src="/rule/ui/src/js/model/model_log_detail.js"></script>
+</body>
+</html>
