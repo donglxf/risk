@@ -1,6 +1,7 @@
 package com.ht.risk.rule.service;
 
 import com.ht.risk.api.model.log.RpcHitRuleInfo;
+import com.ht.risk.rule.vo.ModelLogDetailVo;
 import com.ht.risk.rule.vo.SenceParamterVo;
 import com.ht.risk.rule.vo.VerficationResultVo;
 
@@ -56,4 +57,11 @@ public interface ModelAnalysisSerivce {
     public Long createSingleVerficationTask();
 
     public Map<String,Object> getAutoVerficationData(String senceCode,String version);
+
+    /**
+     * 查询模型调用日志接口
+     * @param taskId
+     * @return
+     */
+    ModelLogDetailVo queryModelLogResult(String procInstId, String type,String taskId);
 }

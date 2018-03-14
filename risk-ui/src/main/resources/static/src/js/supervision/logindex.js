@@ -190,21 +190,25 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
     modelTable.on('tool(modelTable)',function(obj){
         var data = obj.data;
         if (obj.event === 'view'){
-            modelEdit(data.id);
+            modelEdit(data.procInstId,data.type,data.id);
         }
     });
 
 
 
-    function modelEdit(logId) {
-        $("#task_hidden_input").val(logId);
+    function modelEdit(procInstId,type,taskId) {
+        console.log(procInstId);
+        $("#procInstId_hidden_input").val(procInstId);
+        $("#taskId_hidden_input").val(taskId);
+        $("#type_hidden_input").val(type);
+        console.log(type);
         var layIndex =layer.open({
             type: 2,
             shade: false,
-            area: ['1200px', '800px'],
+            area: ['1000px', '600px'],
             title: "模型验证结果",
             //请求的弹出层路径
-            content: pathConfig.ruleUiPath+"model/verfication/result/detail",
+            content: pathConfig.ruleUiPath+"model/verfication/log/modelLogDetail",
             zIndex: layer.zIndex, //重点1
             success: function (layero, index) {
                 layer.setTop(layero); //重点2
