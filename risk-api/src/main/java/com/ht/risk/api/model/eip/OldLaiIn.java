@@ -13,4 +13,7 @@ public class OldLaiIn {
 
 	@ApiModelProperty(value = "真实姓名")
 	private String realName;
+
+	@ApiModelProperty(value = "查询类型")
+	private String queryType;
 }
