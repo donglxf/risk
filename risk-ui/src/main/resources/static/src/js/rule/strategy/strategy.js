@@ -26,6 +26,21 @@ layui.use(['table', 'form','laydate','myutil'], function () {
     var itemTable = layui.table;
     var app = layui.app, $ = layui.jquery, form = layui.form;
 
+    $.ajax({
+        type: "get",
+        url: preBindUrl+"getAll",
+        dataType: "json",
+        success: function (data) {
+            var da=data.data;
+            var html="<select id=\"isBusinessLine\" class=\"layui-select\" name=\"businessType\" lay-verify=\"\">\n<option value=\"\">选择业务线</option>";
+            for (var i=0;i<da.length;i++){
+                html+="<option value=\""+da[i].businessId+"\">"+da[i].businessName+"</option>\n";
+            }
+            html+="</select>";
+            $("#business_ser").html(html);
+            form.render('select');
+        }
+    });
 
     // 第一个实例
     entityTable.render({

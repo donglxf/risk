@@ -171,17 +171,6 @@ public class DroolsExcuteController {
             }
             ruleVersion = versions.get(0);
 
-            /*if(StringUtil.strIsNull(paramter.getVersion())){
-                ruleVersion= ruleSceneVersionService.getLastVersionByType (parmaMap);
-            }else{
-                parmaMap.put("version", paramter.getVersion());
-                ruleVersion= ruleSceneVersionService.getInfoByVersionId(parmaMap);
-            }
-            if (null == ruleVersion) {
-                data = new RuleExcuteResult(1, paramter.getSence() + "参数出错，无可用"+version+"版本信息,请检查", null,paramter.getVersion());
-                return data;
-            }*/
-
             RuleExecutionObject object = new RuleExecutionObject();
             RuleExecutionResult result = new RuleExecutionResult();
             object.setGlobal("_result", result);
