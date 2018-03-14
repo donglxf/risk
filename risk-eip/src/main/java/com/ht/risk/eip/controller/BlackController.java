@@ -29,20 +29,20 @@ public class BlackController {
 
     @PostMapping("/netLoan")
     @ApiOperation(value = "网贷黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<NetLoanOut> netLoan(NetLoanIn input) throws Exception{
+    public Result<NetLoanOut> netLoan(@RequestBody NetLoanIn input) throws Exception{
         Result<NetLoanOut> result =  tcRpc.netLoan(input);
         return result;
     }
 
     @PostMapping("/oldLai")
     @ApiOperation(value = "老赖黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<OldLaiOut> oldLai(OldLaiIn input) throws Exception{
+    public Result<OldLaiOut> oldLai(@RequestBody OldLaiIn input) throws Exception{
         Result<OldLaiOut> result =  tcRpc.oldLai(input);
         return result;
     }
     @PostMapping("/self")
     @ApiOperation(value = "自有黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<SelfDtoOut> self(OldLaiIn input) throws Exception{
+    public Result<SelfDtoOut> self(@RequestBody OldLaiIn input) throws Exception{
         Result<SelfDtoOut> result =  tcRpc.self(input);
         return result;
     }
@@ -54,7 +54,7 @@ public class BlackController {
     }
     @PostMapping("/baiqishi")
     @ApiOperation(value = "白骑士黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<BaiqishiDtoOut> baiqishi( NetLoanIn input) throws Exception{
+    public Result<BaiqishiDtoOut> baiqishi(@RequestBody NetLoanIn input) throws Exception{
         Result<BaiqishiDtoOut> result =  tcRpc.baiqishi(input);
         return result;
     }
@@ -62,7 +62,7 @@ public class BlackController {
 
     @PostMapping("/mobileValid")
     @ApiOperation(value = "手机号验证",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<MobileValidDtoOut> oldLai(MobileValidDtoIn input) throws Exception{
+    public Result<MobileValidDtoOut> oldLai(@RequestBody MobileValidDtoIn input) throws Exception{
         Result<MobileValidDtoOut> result =  tcRpc.mobileValid(input);
         return result;
     }
