@@ -48,7 +48,7 @@ public class BlackController {
     }
     @PostMapping("/frontSea")
     @ApiOperation(value = "前海黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<FrontSeaDtoOut> frontSea(FrontSeaDtoIn input) throws Exception{
+    public Result<FrontSeaDtoOut> frontSea(@RequestBody FrontSeaDtoIn input) throws Exception{
         Result<FrontSeaDtoOut> result =  tcRpc.frontSea(input);
         return result;
     }
