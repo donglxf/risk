@@ -286,6 +286,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             OldLaiIn input = new OldLaiIn();
             input.setIdentityCard(identityCard);
             input.setRealName(name);
+            input.setQueryType("1");
             com.ht.ussp.core.Result<OldLaiOut> neResult = eipServiceInterface.oldLai(input);
             LOGGER.info("HourseRuleDataMachinImpl getOldLai neResult"+JSON.toJSONString(neResult));
             if(neResult != null && neResult.getData() != null && StringUtils.isNotEmpty(neResult.getData().getGistId())){
