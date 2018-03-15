@@ -1522,8 +1522,8 @@ public abstract class DateUtils extends org.apache.commons.lang3.time.DateUtils 
 	 */
 	public static final String getDateString(Date date, String pattern) {
 		if (date == null || pattern == null || pattern.equals("")) {
-			String message = "One of arguments is null or is a space string! date: \""
-					+ date.toString() + "\", pattern : \"" + pattern + "\".";
+			String message = "One of arguments is null or is a space string! date: \""+
+					  "\", pattern : \"" + pattern + "\".";
 			logger.warn(message);
 			throw new java.lang.NullPointerException(message);
 		}

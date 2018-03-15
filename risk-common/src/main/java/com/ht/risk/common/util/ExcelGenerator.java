@@ -18,7 +18,7 @@ public class ExcelGenerator {
 
     public static void main(String[] args) throws Exception, InvalidFormatException {
         //批量生成实体类
-       excuteEntity("D:\\user2.xlsx");
+   //    excuteEntity("D:\\user2.xlsx");
     }
 
     /**
@@ -27,7 +27,8 @@ public class ExcelGenerator {
      * @throws Exception
      */
     public static  void excuteEnityOne(String  path) throws  Exception{
-        File file = new File("D:\\user.xlsx");
+        File file = new File(path);
+       // File file = new File("D:\\user.xlsx");
         String fileName = file.getName();
         String className = "demo";
         File file1 = null;
