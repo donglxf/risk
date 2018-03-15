@@ -68,7 +68,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','myutil'], function () {
                 elem: '#task_list'
                 , height: 'auto'
                 , id:"taskTable"
-                , url: pathConfig.activitiConfigPath+'verficationTaskPage?modelCode='+modelCode //数据接口
+                , url: pathConfig.activitiConfigPath+'verficationTaskPage?type=1&modelCode='+modelCode //数据接口
                 , page: true //开启分页
                 , where: {}
                 , cols: [[ //表头\
@@ -93,7 +93,7 @@ layui.use(['table', 'jquery', 'laydate', 'form','myutil'], function () {
             var layIndex =layer.open({
                 type: 2,
                 shade: false,
-                area: ['1200px', '800px'],
+                area: ['1200px', '600px'],
                 title: "模型验证结果",
                 //请求的弹出层路径
                 content: pathConfig.ruleUiPath+"model/verfication/result/detail",

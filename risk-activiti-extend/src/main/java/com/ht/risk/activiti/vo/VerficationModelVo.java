@@ -9,6 +9,7 @@ import java.util.Map;
 public class VerficationModelVo extends Page{
 
     private Long procReleaseId;
+    private String type;
     private Long batchId;
     private String procDefId;
     private String version;
@@ -89,5 +90,13 @@ public class VerficationModelVo extends Page{
 
     public void setModelCode(String modelCode) {
         this.modelCode = modelCode;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

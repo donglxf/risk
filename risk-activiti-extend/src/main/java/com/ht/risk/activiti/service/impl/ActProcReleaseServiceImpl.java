@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * <p>
@@ -41,6 +42,14 @@ import java.util.*;
 public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMapper, ActProcRelease> implements ActProcReleaseService {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ActProcReleaseServiceImpl.class);
+
+    // 获取当前cpu个数
+    private static int  corePoolSize = Runtime.getRuntime().availableProcessors();
+    private static int  maximumPoolSize = Runtime.getRuntime().availableProcessors()*2;
+    private static BlockingQueue blockingQueue=new LinkedBlockingQueue<>();
+
+    private static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
+     corePoolSize,  maximumPoolSize,  60L, TimeUnit.SECONDS, blockingQueue);
 
     @Resource
     private ActProcReleaseMapper actProcReleaseMapper;
@@ -56,13 +65,13 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
     public Page<ActProcRelease> queryProcReleaseForPage(Page<ActProcRelease> page, ActProcRelease actProcRelease) {
         EntityWrapper<ActProcRelease> entityWrapper = new EntityWrapper<ActProcRelease>();
         entityWrapper.setEntity(actProcRelease);
-        entityWrapper.orderBy("create_time",false);
-        return page.setRecords( actProcReleaseMapper.selectPage(page, entityWrapper));
+        entityWrapper.orderBy("create_time", false);
+        return page.setRecords(actProcReleaseMapper.selectPage(page, entityWrapper));
     }
 
 
     @Override
-    public Result<RpcDeployResult> proceDeploy(ModelParamter paramter,String userId) {
+    public Result<RpcDeployResult> proceDeploy(ModelParamter paramter, String userId) {
         // 部署流程到引擎
         Result<RpcDeployResult> rpcResult = activitiRpc.modelDeploy(paramter);
         if (rpcResult == null) {
@@ -96,20 +105,20 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
     }
 
     @Override
-    public String startProcess(RpcStartParamter rpcStartParamter,String userId) {
+    public String startProcess(RpcStartParamter rpcStartParamter, String userId) {
         Long releaseId = getProcReleaseId(rpcStartParamter.getProcDefId(), rpcStartParamter.getVersion());
         if (releaseId == null) {
             return null;
         }
-        ActExcuteTask task  = this.saveTask(releaseId,ActivitiConstants.EXCUTE_TYPE_VERFICATION,rpcStartParamter.getBatchId(),JSON.toJSONString(rpcStartParamter),userId);
-        Result<String> result = this.start(rpcStartParamter,task.getId());
-        LOGGER.info("startProcess complete... result:"+ JSON.toJSONString(result));
+        ActExcuteTask task = this.saveTask(releaseId, ActivitiConstants.EXCUTE_TYPE_VERFICATION, rpcStartParamter.getBatchId(), JSON.toJSONString(rpcStartParamter), userId);
+        Result<String> result = this.start(rpcStartParamter, task.getId());
+        LOGGER.info("startProcess complete... result:" + JSON.toJSONString(result));
         // 更新模型任务流程实例ID
         if (result != null && result.getCode() == 0 && StringUtils.isNotEmpty(result.getData())) {
             task.setProcInstId(result.getData());
             updateTask(task);
             return result.getData();
-        }else{
+        } else {
             task.setStatus(ActivitiConstants.PROC_STATUS_EXCEPTION);
             updateTask(task);
             return null;
@@ -117,57 +126,46 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
     }
 
     @Override
-    public String startModel(ModelStartVo modelStartVo,String userId) {
+    public String startModel(ModelStartVo modelStartVo, String userId) {
         String modelVersion = modelStartVo.getModelVersion();
         ActProcRelease release = null;
         // 版本信息为空，获取模型最新版本
-        if(StringUtils.isEmpty(modelVersion)){
+        if (StringUtils.isEmpty(modelVersion)) {
             release = this.getModelLastedVersion(modelStartVo.getModelCode());
-        }else{
-            release = this.getModelInfo(modelStartVo.getModelCode(),modelStartVo.getModelVersion());
+        } else {
+            release = this.getModelInfo(modelStartVo.getModelCode(), modelStartVo.getModelVersion());
         }
-        if(release == null){
+        if (release == null) {
             return ActivitiConstants.MODEL_UNEXIST;
         }
-        ActExcuteTask task  = this.saveTask(release.getId(),ActivitiConstants.EXCUTE_TYPE_SERVICE,null,JSON.toJSONString(modelStartVo.getData()),userId);
+        ActExcuteTask task = this.saveTask(release.getId(), ActivitiConstants.EXCUTE_TYPE_SERVICE, null, JSON.toJSONString(modelStartVo.getData()), userId);
         RpcStartParamter rpcStartParamter = new RpcStartParamter();
         rpcStartParamter.setProcDefId(release.getModelProcdefId());
         rpcStartParamter.setType(ActivitiConstants.EXCUTE_TYPE_SERVICE);
         rpcStartParamter.setData(modelStartVo.getData());
-        // 启动模型
-        Result<String> result = this.start(rpcStartParamter,task.getId());
-        LOGGER.info("startModel complete... result:"+ JSON.toJSONString(result));
-        // 更新模型任务流程实例ID
-        if (result != null && result.getCode() == 0 && StringUtils.isNotEmpty(result.getData())) {
-            // 模型成功启动
-            task.setProcInstId(result.getData());
-            updateTask(task);
-            return String.valueOf(task.getId());
-        }else{
-            //模型启动异常
-            task.setStatus(ActivitiConstants.PROC_STATUS_EXCEPTION);
-            updateTask(task);
-            return null;
-        }
+        // TODO 启动模型
+        this.SycnStart(rpcStartParamter, task);
+        return String.valueOf(task.getId());
     }
 
+
     @Override
-    public Long startInputValidateProcess(RpcStartParamter rpcStartParamter,String userId) throws Exception {
-        LOGGER.info("startInputValidateProcess start... paramter:"+ JSON.toJSONString(rpcStartParamter));
+    public Long startInputValidateProcess(RpcStartParamter rpcStartParamter, String userId) throws Exception {
+        LOGGER.info("startInputValidateProcess start... paramter:" + JSON.toJSONString(rpcStartParamter));
         // 获取模型版本信息
         Long releaseId = getProcReleaseId(rpcStartParamter.getProcDefId(), rpcStartParamter.getVersion());
         if (releaseId == null) {
             return null;
         }
-        RiskValidateBatch batch = saveBatchInfo(releaseId,userId);
+        RiskValidateBatch batch = saveBatchInfo(releaseId, userId);
         rpcStartParamter.setBatchId(batch.getId());
-        ActExcuteTask task  = this.saveTask(releaseId,rpcStartParamter.getType(),rpcStartParamter.getBatchId(),JSON.toJSONString(rpcStartParamter),userId);
-        Result<String> result = this.start(rpcStartParamter,task.getId());
-        LOGGER.info("startInputValidateProcess complete... result:"+ JSON.toJSONString(result));
+        ActExcuteTask task = this.saveTask(releaseId, rpcStartParamter.getType(), rpcStartParamter.getBatchId(), JSON.toJSONString(rpcStartParamter), userId);
+        Result<String> result = this.start(rpcStartParamter, task.getId());
+        LOGGER.info("startInputValidateProcess complete... result:" + JSON.toJSONString(result));
         // 更新模型任务流程实例ID
         if (result != null && result.getCode() == 0 && StringUtils.isNotEmpty(result.getData())) {
             task.setProcInstId(result.getData());
-        }else{
+        } else {
             task.setStatus("4");
         }
         updateTask(task);
@@ -175,23 +173,23 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
     }
 
     @Override
-    public Long startBatchValidateProcess(RpcStartParamter rpcStartParamter,String userId) throws Exception {
+    public Long startBatchValidateProcess(RpcStartParamter rpcStartParamter, String userId) throws Exception {
         // 获取模型版本信息
         Long releaseId = getProcReleaseId(rpcStartParamter.getProcDefId(), rpcStartParamter.getVersion());
         if (releaseId == null) {
             return null;
         }
-        RiskValidateBatch batch = saveBatchInfo(releaseId,userId);
+        RiskValidateBatch batch = saveBatchInfo(releaseId, userId);
         for (int i = 0; i < batch.getBatchSize(); i++) {
             rpcStartParamter.setData(rpcStartParamter.getDatas().get(i));
             rpcStartParamter.setBatchId(batch.getId());
-            String procInstId = startProcess(rpcStartParamter,userId);
-            ActExcuteTask task  = this.saveTask(releaseId,rpcStartParamter.getType(),rpcStartParamter.getBatchId(),JSON.toJSONString(rpcStartParamter),userId);
-            Result<String> result = this.start(rpcStartParamter,task.getId());
-            LOGGER.info("startBatchValidateProcess complete... result:"+ JSON.toJSONString(result));
+            String procInstId = startProcess(rpcStartParamter, userId);
+            ActExcuteTask task = this.saveTask(releaseId, rpcStartParamter.getType(), rpcStartParamter.getBatchId(), JSON.toJSONString(rpcStartParamter), userId);
+            Result<String> result = this.start(rpcStartParamter, task.getId());
+            LOGGER.info("startBatchValidateProcess complete... result:" + JSON.toJSONString(result));
             if (result != null && result.getCode() == 0 && StringUtils.isNotEmpty(result.getData())) {
                 task.setProcInstId(result.getData());
-            }else{
+            } else {
                 task.setStatus("4");
             }
             updateTask(task);
@@ -227,6 +225,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
 
     /**
      * 获取模型最新版本
+     *
      * @param modelCode
      * @return
      */
@@ -239,8 +238,8 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         wrapper.setEntity(actProcRelease);
         wrapper.orderBy("model_version",false);
         List<ActProcRelease> releases = actProcReleaseMapper.selectList(wrapper);*/
-        Map<String,Object> paramter = new HashMap<String,Object>();
-        paramter.put("modelCode",modelCode);
+        Map<String, Object> paramter = new HashMap<String, Object>();
+        paramter.put("modelCode", modelCode);
         List<ActProcRelease> releases = actProcReleaseMapper.getModelLastedVersion(paramter);
         if (releases == null || releases.size() == 0) {
             return null;
@@ -249,11 +248,12 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
     }
 
     /**
-     *获取模型信息
+     * 获取模型信息
+     *
      * @param modelCode
      * @return
      */
-    private ActProcRelease getModelInfo(String modelCode,String modeVersion) {
+    private ActProcRelease getModelInfo(String modelCode, String modeVersion) {
         EntityWrapper<ActProcRelease> wrapper = new EntityWrapper<ActProcRelease>();
         ActProcRelease actProcRelease = new ActProcRelease();
         actProcRelease.setModelCode(modelCode);
@@ -267,7 +267,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         return releases.get(0);
     }
 
-    private ActExcuteTask saveTask(Long releaseId, String type, Long batchId,String inParamter,String userId) {
+    private ActExcuteTask saveTask(Long releaseId, String type, Long batchId, String inParamter, String userId) {
         ActExcuteTask task = new ActExcuteTask();
         task.setProcReleaseId(releaseId);
         task.setType(StringUtils.isEmpty(type) ? "1" : type);
@@ -279,16 +279,24 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         return task;
     }
 
+    private void SycnStart(RpcStartParamter rpcStartParamter, ActExcuteTask task) {
+        Map<String, Object> data = rpcStartParamter.getData() == null ? new HashMap<String, Object>() : rpcStartParamter.getData();
+        rpcStartParamter.setData(data);
+        rpcStartParamter.setTaskId(task.getId());
+        threadPoolExecutor.execute(new SycnStartModel(rpcStartParamter, task));
+        //new Thread().start();
+    }
+
     // 启动模型
-    private Result<String> start(RpcStartParamter rpcStartParamter,Long taskId) {
+    private Result<String> start(RpcStartParamter rpcStartParamter, Long taskId) {
         Map<String, Object> data = rpcStartParamter.getData() == null ? new HashMap<String, Object>() : rpcStartParamter.getData();
         rpcStartParamter.setData(data);
         rpcStartParamter.setTaskId(taskId);
         Result<String> result = activitiRpc.startProcess(rpcStartParamter);
-        return  result;
+        return result;
     }
 
-    private RiskValidateBatch saveBatchInfo(Long releaseId,String userId){
+    private RiskValidateBatch saveBatchInfo(Long releaseId, String userId) {
         RiskValidateBatch batch = new RiskValidateBatch();
         batch.setProcReleaseId(releaseId);
         batch.setBatchSize(1);
@@ -300,7 +308,56 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         riskValidateBatchMapper.insert(batch);
         return batch;
     }
+
     private void updateTask(ActExcuteTask task) {
         actExcuteTaskMapper.updateById(task);
+    }
+
+    class SycnStartModel implements Runnable {
+
+        public SycnStartModel() {
+            super();
+        }
+
+        public SycnStartModel(RpcStartParamter rpcStartParamter, ActExcuteTask task) {
+            super();
+            this.rpcStartParamter = rpcStartParamter;
+            this.task = task;
+        }
+
+        private RpcStartParamter rpcStartParamter;
+        private ActExcuteTask task;
+
+        @Override
+        public void run() {
+            Result<String> result = activitiRpc.startProcess(rpcStartParamter);
+            LOGGER.info("startModel complete... result:" + JSON.toJSONString(result));
+            // 更新模型任务流程实例ID
+            if (result != null && result.getCode() == 0 && StringUtils.isNotEmpty(result.getData())) {
+                // 模型成功启动
+                task.setProcInstId(result.getData());
+                updateTask(task);
+            } else {
+                //模型启动异常
+                task.setStatus(ActivitiConstants.PROC_STATUS_EXCEPTION);
+                updateTask(task);
+            }
+        }
+
+        public RpcStartParamter getRpcStartParamter() {
+            return rpcStartParamter;
+        }
+
+        public void setRpcStartParamter(RpcStartParamter rpcStartParamter) {
+            this.rpcStartParamter = rpcStartParamter;
+        }
+
+        public ActExcuteTask getTask() {
+            return task;
+        }
+
+        public void setTask(ActExcuteTask task) {
+            this.task = task;
+        }
     }
 }

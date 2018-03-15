@@ -269,8 +269,6 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             if(neResult != null && neResult.getData() != null && "1".equals(neResult.getData().getIsCrime())){
                 return "0";
             }
-            LOGGER.info(""+neResult );
-            LOGGER.info(""+neResult.getData().getIsCrime() );
             if(neResult == null || neResult.getCode() != 0){
                 return   "3";
             }

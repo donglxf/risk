@@ -31,9 +31,11 @@ layui.use(['table', 'jquery', 'element', 'laytpl','myutil'], function () {
                 var hitRules = data.data.hitRules;
                 var ruleHtml = "模型执行结果："+data.data.msg+"\n";
                 ruleHtml += "\n";
-                ruleHtml += "模型执行信息如下："+"\n";
-                ruleHtml += data.data.modelMsg+"\n";
-                ruleHtml += "\n";
+                if(data.data.modelMsg != null && data.data.modelMsg != ""){
+                    ruleHtml += "模型执行信息如下："+"\n";
+                    ruleHtml += data.data.modelMsg+"\n";
+                    ruleHtml += "\n";
+                }
                 if(hitRules != null && hitRules.length >0){
                     ruleHtml += "命中如下规则："+"\n";
                     for(var i=0;i<hitRules.length;i++){

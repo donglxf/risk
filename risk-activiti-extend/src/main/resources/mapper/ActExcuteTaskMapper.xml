@@ -49,6 +49,9 @@
         <if test="modelCode !=null and modelCode!='' ">
             and b.model_code = #{modelCode}
         </if>
+        <if test="type !=null and type!='' ">
+            and c.type = #{type}
+        </if>
         <if test="modelVersion !=null and modelVersion!='' ">
             and b.model_version = #{modelVersion}
         </if>

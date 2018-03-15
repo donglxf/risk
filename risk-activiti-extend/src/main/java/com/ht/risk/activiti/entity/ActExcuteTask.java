@@ -60,7 +60,7 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
      * 任务类型，0-验证任务，1-业务系统调用
      */
 	@TableField("type")
-	@ApiModelProperty(required= true,value = "任务类型，0-验证任务，1-业务系统调用")
+	@ApiModelProperty(required= true,value = "任务类型，1-验证任务，0-业务系统调用")
 	private String type;
     /**
      * 入参
