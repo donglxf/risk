@@ -314,7 +314,7 @@ layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
             title: '定义规则',
             maxmin: false,
             shadeClose: false, // 点击遮罩关闭层
-            area: ['780px', '85%'],
+            area: ['880px', '88%'],
             content: url,
             //skin: 'layui-layer-rim', //加上边框
             success: function(layero, index){
