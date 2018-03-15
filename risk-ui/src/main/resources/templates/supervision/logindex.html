@@ -127,14 +127,16 @@
 </script>
 
 <script type="text/html" id="statusTpl">
-    {{#  if(d.status != '' && d.status != null && d.status == '0'){ }}
+    {{#  if(d.status != '' && d.status != null && (d.status == '0' || d.status == '')){ }}
     <span>待执行</span>
     {{# } else  if(d.status != '' && d.status != null && d.status == '1' ){ }}
     <span>已启动</span>
     {{# } else  if(d.status != '' && d.status != null && d.status == '2' ){ }}
     <span>执行成功</span>
-    {{#  } else { }}
+    {{# } else  if(d.status != '' && d.status != null && d.status == '3' ){ }}
     <span>执行异常</span>
+    {{#  } else { }}
+    <span>{{d.status }}</span>
     {{#  } }}
 </script>
 
