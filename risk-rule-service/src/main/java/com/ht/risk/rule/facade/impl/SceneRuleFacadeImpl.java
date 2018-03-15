@@ -110,7 +110,7 @@ public class SceneRuleFacadeImpl implements SceneRuleFacade {
                 List<ActionParamValueInfo> paramValueInfos =  rel.getActionInfo().getParamValueInfoList();
                 for (Iterator<ActionParamValueInfo> iter = paramValueInfos.iterator(); iter.hasNext();) {
                     ActionParamValueInfo pvIter = iter.next();
-                    if(pvIter.getActionParamId() == 6L || pvIter.equals(6)){
+                    if(pvIter.getActionParamId() == 6L ){
                         iter.remove();
                     }
                 }
