@@ -13,6 +13,7 @@ import com.ht.risk.api.model.rule.RpcRuleDetail;
 import com.ht.risk.api.model.rule.RpcRuleHisVersion;
 import com.ht.risk.api.model.rule.RpcRuleHisVersionParamter;
 import com.ht.risk.common.result.Result;
+import com.ht.risk.common.util.StringUtils;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service("hourseRuleResult")
 public class HourseRuleResultImpl implements HourseRuleResult {
@@ -126,7 +129,7 @@ public class HourseRuleResultImpl implements HourseRuleResult {
                         version = vIterator.next();
                         rpcRuleDetail = new RpcRuleDetail();
                         rpcRuleDetail.setRuleCode(version.getRuleName());
-                        rpcRuleDetail.setRuleDesc(version.getRuleDesc());
+                        rpcRuleDetail.setRuleDesc(formatResultStr(version.getRuleDesc()));
                         details.add(rpcRuleDetail);
                     }
                     detail.setRuleList(null);
@@ -135,4 +138,18 @@ public class HourseRuleResultImpl implements HourseRuleResult {
             }
         }
     }
+
+    private static String formatResultStr(String str){
+        if(StringUtils.isEmpty(str)){
+            return "";
+        }
+        str = str.replaceAll("\\:","#").replaceAll("\\[输出\\]\\#","").replaceAll("\\(输出值\\)","").replaceAll("那么","");
+        while(str.contains("#")){
+            str = str.replaceFirst("\\$(.*?)\\#","");
+            str = str.replaceFirst("\\$","");
+        }
+        return str;
+    }
+
+
 }
