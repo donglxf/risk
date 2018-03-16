@@ -15,7 +15,7 @@ public class ProvinceUtil {
     public static double getborrowAge(int age,int borrowMonth){
         DecimalFormat df=new DecimalFormat("0.0");
         BigDecimal ageb=new BigDecimal(String.valueOf(age));
-        BigDecimal bigDecimal=new BigDecimal(String.valueOf(df.format((float)borrowMonth/12)));
+        BigDecimal bigDecimal=new BigDecimal(String.valueOf(df.format((double)borrowMonth/12)));
         BigDecimal result=bigDecimal.add(ageb);
         return Double.parseDouble(result.toString());
     }

@@ -141,7 +141,6 @@ public class ActProcReleaseController {
                 String next = key.next();
                 String temValue = parameterMap.get(next)[0];
                 String[] strings = next.split("#");
-                logger.info(strings.toString());
                 if(strings.length == 3){
                     EntityWrapper<VariableBind> wrapper = new EntityWrapper<>();
                     wrapper.eq("SENCE_VERSION_ID", strings[0]);

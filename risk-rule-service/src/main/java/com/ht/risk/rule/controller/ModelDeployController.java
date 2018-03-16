@@ -48,8 +48,8 @@ public class ModelDeployController extends BaseController{
             LOGGER.error("部署流程异常!",e);
             return data;
         }
-        if(result != null && result.getCode() != 0){
-            data = Result.error(2,"部署流程异常,错误信息："+result.getMsg());
+        if(result == null || result.getCode() != 0 || result.getData() == null){
+            data = Result.error(2,"部署流程异常");
             return data;
         }
         data = Result.success(result.getData().getDeploymentId());
