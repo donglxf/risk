@@ -369,7 +369,7 @@ public class DateUtil
 	public static Date getDateTime(String dateTimeStr)
 	{
 		Date date = null;
-		if(dateTimeStr != null && !dateTimeStr.equals(""))
+		if(dateTimeStr != null && "".equals(dateTimeStr))
 		{
 			try
 			{
@@ -764,7 +764,7 @@ public class DateUtil
 	 * @return
 	 * @author maoliang
 	 */
-	public static Date[][] makeCalendar(int year, int month)
+	/*public static Date[][] makeCalendar(int year, int month)
 	{
 		Date[][] dateArray = new Date[6][7];
 		//Object[][]
@@ -795,7 +795,7 @@ public class DateUtil
 		}
 
 		return dateArray;
-	}
+	}*/
 
 	/**
 	 * 根据给定的开始、结束日期，以周为循环生成一个n*7列的二维数组，空闲位为Null
@@ -842,7 +842,7 @@ public class DateUtil
 	 * @return
 	 * @author maoliang
 	 */
-	public static List<Date> getWeekEndList(Integer year)
+/*	public static List<Date> getWeekEndList(Integer year)
 	{
 		Date date = DateUtil.getDate(year + "-01-01");
 		//次年的第一天
@@ -859,7 +859,7 @@ public class DateUtil
 			date = DateUtil.addDay2Date(1, date);
 		}
 		return weekendList;
-	}
+	}*/
 	
 	/**
 	 * 获取指定年份的休息日列表
@@ -868,7 +868,7 @@ public class DateUtil
 	 * @return
 	 * @author maoliang
 	 */
-	public static List<Date> getDayList(Integer year)
+/*	public static List<Date> getDayList(Integer year)
 	{
 		Date date = DateUtil.getDate(year + "-01-01");
 		//次年的第一天
@@ -880,7 +880,7 @@ public class DateUtil
 			date = DateUtil.addDay2Date(1, date);
 		}
 		return dayList;
-	}
+	}*/
 	
 	/**
      * 字符串转换为日期
@@ -981,7 +981,7 @@ public class DateUtil
 	{
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(datetime);
-		int year = cal.get(Calendar.YEAR);
+		//int year = cal.get(Calendar.YEAR);
 		int month =cal.get(Calendar.MONTH)+1;
 		int day =cal.get(Calendar.DAY_OF_MONTH);
 		return month+"月"+day+"日";
