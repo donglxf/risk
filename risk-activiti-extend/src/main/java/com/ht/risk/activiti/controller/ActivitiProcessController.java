@@ -87,7 +87,7 @@ public class ActivitiProcessController{
             return data;
         }
         if(data == null || data.getCode() != 0){
-            data = Result.error(2,"部署流程异常,错误信息："+data.getMsg());
+            data = Result.error(2,"部署流程异常...");
             return data;
         }
         LOGGER.info("模型部署结束！");

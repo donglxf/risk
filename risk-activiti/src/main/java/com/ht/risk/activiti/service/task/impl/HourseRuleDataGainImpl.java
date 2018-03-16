@@ -33,9 +33,6 @@ public class HourseRuleDataGainImpl implements HourseRuleDataGain {
         }else{
             dataMap = gernerateModelData();
         }
-        if(dataMap == null){
-            return;
-        }
         execution.setVariable(ActivitiConstants.PROC_MODEL_DATA_KEY,dataMap);
         // 数据校验
         String businessId = String.valueOf(dataMap.get("businessId"));
