@@ -1,10 +1,14 @@
 package com.ht.risk.eip.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.ht.risk.api.feign.eip.BlackRpc;
 import com.ht.risk.api.model.eip.*;
 import com.ht.ussp.core.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +28,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/black")
 @Api(tags = "BlackController", description = "黑名单接口", hidden = true)
 public class BlackController {
+
+    protected static final Logger log = LoggerFactory.getLogger(BlackController.class);
+
     @Autowired
     private BlackRpc tcRpc;
 
@@ -37,7 +44,11 @@ public class BlackController {
     @PostMapping("/oldLai")
     @ApiOperation(value = "老赖黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result<OldLaiOut> oldLai(@RequestBody OldLaiIn input) throws Exception{
+        long startTime=System.currentTimeMillis();
+        log.info("start BlackController->oldLai:"+startTime);
         Result<OldLaiOut> result =  tcRpc.oldLai(input);
+        log.info("end BlackController->oldLai:"+String.valueOf(System.currentTimeMillis()-startTime));
+        log.info(JSON.toJSONString(result));
         return result;
     }
     @PostMapping("/self")
