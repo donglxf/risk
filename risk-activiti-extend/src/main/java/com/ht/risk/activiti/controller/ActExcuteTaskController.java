@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/task")
@@ -36,10 +37,11 @@ public class ActExcuteTaskController {
             task.setId(rpcActExcuteTask.getId());
             task = actExcuteTaskService.selectById(task);
             if(task != null){
+                long currentTime = System.currentTimeMillis();
                 task.setStatus(rpcActExcuteTask.getStatus());
-                task.setSpendTime(rpcActExcuteTask.getUpdateTime().getTime() - task.getCreateTime().getTime());
+                task.setSpendTime(currentTime - task.getCreateTime().getTime());
                 task.setOutParamter(rpcActExcuteTask.getOutParamter());
-                task.setUpdateTime(rpcActExcuteTask.getUpdateTime());
+                task.setUpdateTime(new Date(currentTime));
                 task.setProcInstId(rpcActExcuteTask.getProcInstId());
                 boolean flag = actExcuteTaskService.updateById(task);
                 result = Result.success(flag);
