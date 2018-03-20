@@ -1656,12 +1656,12 @@ var myUtil = {
                         var group =  {index:groupIndex,name:groupName,weight:weight};
                         groupList.push(group);
                     }
-                        var exp=/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/;
+                      /*  var exp=/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/;
                         if(!exp.test(weight) ){
                             sceneUtil.flag = false;
                             layer.msg("权值只能为数字类型");
                             return ;
-                        }
+                        }*/
                         //weight = weightIndexList[groupIndex];
                         //groupName = groupName;
                     subForm.group = {index:groupIndex,name:groupName,weight:weight};
