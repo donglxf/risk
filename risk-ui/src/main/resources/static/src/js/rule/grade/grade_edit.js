@@ -45,6 +45,7 @@ layui.use(['table','form','laytpl','sceneUtil','myutil'], function() {
             $(".qzdiv").show();
         }else{
             $(".qzdiv").hide();
+            $(".qz").val(1);
         }
     });
 

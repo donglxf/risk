@@ -365,7 +365,7 @@
             </span>
             <a href="javascript:void(0); " title="添加" class="addTypeTr" onclick="sceneUtil.addTypeTr(this)"> <i
                     class="layui-icon">&#xe61f;</i></a>
-            {{#if (rule.group.weight != 1 ){ }}
+            {{#if ( d.hasWeight == 1 ){ }}
             <div class="form-group qzdiv">
                 <input type="number" readonly="readonly" class="form-control qz" value="{{rule.group.weight}}" id="exampleInputName2" placeholder="权值">
             </div>
