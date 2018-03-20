@@ -65,19 +65,16 @@ rule-ui:
     listOfServers: 127.0.0.1:30501 #为cloud-client服务指定一组服务地址，应该是用于负载均衡
 rule-service:
   ribbon:
-    listOfServers: 127.0.0.1:30502
+    listOfServers: 127.0.0.1:30506
 risk-drools:
   ribbon:
-    listOfServers: 127.0.0.1:30503
-risk-log:
-  ribbon:
-    listOfServers: 127.0.0.1:30506
+    listOfServers: 127.0.0.1:30511
 risk-activiti:
   ribbon:
-    listOfServers: 127.0.0.1:30504
+    listOfServers: 127.0.0.1:30516
 activiti-config:
   ribbon:
-    listOfServers: 127.0.0.1:30505
+    listOfServers: 127.0.0.1:30521
 
 eureka:
     client:
