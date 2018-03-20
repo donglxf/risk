@@ -27,7 +27,7 @@ nbdist/
 /risk-eip/mvnw
 /risk-eip/mvnw.cmd
 /risk-eip/.gitignore
-
+/logs
 /risk-eip/.mvn/wrapper/maven-wrapper.properties
 /risk-eip/.mvn/wrapper/maven-wrapper.jar
 /risk-activiti/src/main/resources/application.properties

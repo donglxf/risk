@@ -42,9 +42,7 @@ ht.config.ui:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://ussp-registry-app:30101/eureka/
-      #defaultZone: http://172.16.200.110:30101/eureka/
-     # http://172.16.200.110:30111/
+      defaultZone: http://172.16.200.110:30101/eureka/
 
 ---
 spring:
@@ -60,7 +58,7 @@ ht.config.ui:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://ussp-registry-app:30101/eureka/
+      defaultZone: http://172.16.200.112:30101/eureka/
 
 ---
 spring:
