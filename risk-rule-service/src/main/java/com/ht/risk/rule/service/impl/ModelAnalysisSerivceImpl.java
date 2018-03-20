@@ -149,13 +149,13 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         Result<RpcActExcuteTaskInfo> taskResult = activitiConfigRpc.getTaskInfoById(rpcModelVerfication);
         LOGGER.info("rpc:activitiConfigRpc.queryTasksByBatchId ,result:"+JSON.toJSONString(taskResult));
         if(taskResult == null || taskResult.getCode() != 0 ||  taskResult.getData() == null){
-            resultVo.setMessage("模型执行失败,未查询模型执行信息。。。");
+            resultVo.setMessage("模型执行失败,未查询模型执行信息！");
             resultVo.setValidateFlag("1");
             return resultVo;
         }
         RpcActExcuteTaskInfo task = taskResult.getData();
         if(task == null || StringUtils.isEmpty(task.getStatus()) || ActivitiConstants.PROC_STATUS_EXCEPTION.equals(task.getStatus())){
-            resultVo.setMessage("模型执行失败。。。");
+            resultVo.setMessage("模型执行失败！");
             resultVo.setValidateFlag("1");
             return resultVo;
         }
@@ -167,7 +167,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         Result<RpcModelReleaseInfo> releaseInfoResult = activitiConfigRpc.getProcReleaseById(rpcModelVerfication);
         LOGGER.info("rpc:activitiConfigRpc.getProcReleaseById ,result:"+JSON.toJSONString(releaseInfoResult));
         if(releaseInfoResult == null || releaseInfoResult.getCode() != 0 || releaseInfoResult.getData() == null){
-            resultVo.setMessage("模型执行失败,未查询模型定义信息。。。");
+            resultVo.setMessage("模型执行失败,未查询模型定义信息！");
             resultVo.setValidateFlag("1");
             return resultVo;
         }
@@ -175,14 +175,14 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         RpcDroolsLog rpcDroolsLog = new RpcDroolsLog();
         rpcDroolsLog.setProcinstId(task.getProcInstId());
         if(task.getProcInstId() == null){
-            resultVo.setMessage("模型执行失败，模型实例未启动。。。");
+            resultVo.setMessage("模型执行失败，模型实例未启动！");
             resultVo.setValidateFlag("1");
             return resultVo;
         }
         // 获取模型关联决策信息
         List<ModelSence> sences = modelSenceMapper.queryModelSenceInfo(releaseInfoResult.getData().getModelProcdefId());
         if(sences == null || sences.size() ==0){
-            resultVo.setMessage("模型执行成功。。。");
+            resultVo.setMessage("模型执行成功！");
             return resultVo;
         }
         Result<List<RpcDroolsLog>> logResult = null;
@@ -193,7 +193,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         }
         LOGGER.info("rpc:activitiConfigRpc.queryTestModelDroolsLogs ,result:"+JSON.toJSONString(logResult));
         if(logResult == null || logResult.getCode() != 0 || logResult.getData() == null){
-            resultVo.setMessage("未触发规则引擎。。。");
+            resultVo.setMessage("未触发规则引擎！");
             resultVo.setValidateFlag("1");
             return resultVo;
         }
@@ -261,7 +261,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         }
         resultVo.setSences(list);
         resultVo.setHitRules(hitRules);
-        resultVo.setMessage("模型执行成功。。。");
+        resultVo.setMessage("模型执行成功！");
         resultVo.setValidateFlag("0");
         return resultVo;
     }
@@ -278,7 +278,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         Result<RpcActExcuteTaskInfo> taskResult = activitiConfigRpc.getTaskInfoById(rpcModelVerfication);
         LOGGER.info("rpc:activitiConfigRpc.queryTasksByBatchId ,result:"+JSON.toJSONString(taskResult));
         if(taskResult == null || taskResult.getCode() != 0 ||  taskResult.getData() == null){
-            resultVo.setMessage("模型执行失败,未查询模型执行信息。。。");
+            resultVo.setMessage("模型执行失败,未查询模型执行信息！");
             resultVo.setValidateFlag("1");
             return resultVo;
         }
@@ -289,7 +289,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         Result<RpcModelReleaseInfo> releaseInfoResult = activitiConfigRpc.getProcReleaseById(rpcModelVerfication);
         LOGGER.info("rpc:activitiConfigRpc.getProcReleaseById ,result:"+JSON.toJSONString(releaseInfoResult));
         if(releaseInfoResult == null || releaseInfoResult.getCode() != 0 || releaseInfoResult.getData() == null){
-            resultVo.setMessage("模型执行失败,未查询模型定义信息。。。");
+            resultVo.setMessage("模型执行失败,未查询模型定义信息！");
             resultVo.setValidateFlag("1");
             return resultVo;
         }
@@ -297,20 +297,20 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         RpcDroolsLog rpcDroolsLog = new RpcDroolsLog();
         rpcDroolsLog.setProcinstId(task.getProcInstId());
         if(task.getProcInstId() == null){
-            resultVo.setMessage("模型执行失败，模型实例未启动。。。");
+            resultVo.setMessage("模型执行失败，模型实例未启动！");
             resultVo.setValidateFlag("1");
             return resultVo;
         }
         // 获取模型关联决策信息
         List<ModelSence> sences = modelSenceMapper.queryModelSenceInfo(releaseInfoResult.getData().getModelProcdefId());
         if(sences == null || sences.size() ==0){
-            resultVo.setMessage("模型执行成功。。。");
+            resultVo.setMessage("模型执行成功！");
             return resultVo;
         }
         Result<List<RpcDroolsLog>> logResult = droolsLogRpc.queryModelDroolsLogs(rpcDroolsLog);
         LOGGER.info("rpc:activitiConfigRpc.queryTestModelDroolsLogs ,result:"+JSON.toJSONString(logResult));
         if(logResult == null || logResult.getCode() != 0 || logResult.getData() == null){
-            resultVo.setMessage("模型执行异常，未触发规则引擎。。。");
+            resultVo.setMessage("模型执行异常，未触发规则引擎！");
             resultVo.setValidateFlag("1");
             return resultVo;
         }
@@ -372,7 +372,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         }
         resultVo.setSences(list);
         resultVo.setHitRules(hitRules);
-        resultVo.setMessage("模型执行成功。。。");
+        resultVo.setMessage("模型执行成功！");
         resultVo.setValidateFlag("0");
         return resultVo;
     }
