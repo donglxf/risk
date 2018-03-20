@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EnableFeignClients(basePackages = {"com.ht.ussp.client","com.ht.risk.api.feign.eip"})
+@EnableFeignClients(basePackages = {"com.ht.ussp.client","com.ht.risk.eip.Rpc","com.ht.risk.api.feign.eip"})
 @EnableDiscoveryClient
 @SpringCloudApplication
 @MapperScan("com.ht.risk.eip.mapper")

@@ -142,7 +142,22 @@
 			<artifactId>feign-core</artifactId>
 			<version>8.18.0</version>
 		</dependency>-->
-
+		<!-- feign 上传文件 -->
+		<dependency>
+			<groupId>io.github.openfeign.form</groupId>
+			<artifactId>feign-form</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.openfeign.form</groupId>
+			<artifactId>feign-form-spring</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-jackson</artifactId>
+			<version>9.5.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
