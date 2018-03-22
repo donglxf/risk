@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 //@PropertySource("classpath:config.properties")
-@FeignClient(value = "eip-out",path = "/eip",configuration =MultipartSupportConfig.class,url="http://172.16.200.110:30406" )
+//@FeignClient(value = "eip-out",path = "/eip",configuration =MultipartSupportConfig.class,url="http://172.16.200.110:30406" )
 public interface StRpc {
 
     /**

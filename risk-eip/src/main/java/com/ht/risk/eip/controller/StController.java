@@ -38,7 +38,7 @@ import java.util.UUID;
 @Api(tags = "StController", description = "", hidden = true)
 public class StController {
 
-    @Autowired
+//    @Autowired
     StRpc stRpc;
 
 
