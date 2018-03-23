@@ -4,7 +4,9 @@ package com.ht.risk.eip.controller;
 import com.alibaba.fastjson.JSON;
 import com.ht.risk.api.model.eip.*;
 import com.ht.risk.eip.Rpc.StRpc;
+import com.ht.risk.eip.config.FeignBasicAuthRequestInterceptor;
 import com.ht.risk.eip.config.FeignSpringFormEncoder;
+import com.ht.risk.eip.inter.FileUploadResource;
 import com.ht.ussp.core.Result;
 import com.netflix.discovery.converters.Auto;
 import feign.Feign;
@@ -20,6 +22,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import sun.applet.Main;
 
 import java.io.File;
 import java.util.List;
@@ -35,7 +38,7 @@ import java.util.UUID;
 @Api(tags = "StController", description = "", hidden = true)
 public class StController {
 
-    @Autowired
+//    @Autowired
     StRpc stRpc;
 
 
@@ -50,32 +53,22 @@ public class StController {
         return result;
     }
 
-    @PostMapping(value="/faceCompare",produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value="/faceCompare")
+//    @PostMapping(value="/faceCompare",produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ApiOperation(value = "商汤公安人脸照比对", httpMethod = "POST")
     @ResponseBody
     public Result<FaceCompareDtoOut> faceCompare(FaceCompareReqDto input) throws Exception {
         System.out.println(">>>>>>>>>");
+        FileUploadResource fileUploadResource = Feign.builder()
+                .decoder(new JacksonDecoder())
+                .encoder(new FeignSpringFormEncoder())
+                .requestInterceptor(new FeignBasicAuthRequestInterceptor())
+                .target(FileUploadResource.class, "http://172.16.200.110:30406");
+        Result<FaceCompareDtoOut> result=fileUploadResource.faceCompare(input.getIdNumber(), input.getName(), "", "", "",input.getSelfieFile());
 
-//        Feign.Builder encoder = Feign.builder()
-//                .decoder(new JacksonDecoder())
-//                .encoder(new FeignSpringFormEncoder());
-//        stRpc= encoder.target(StRpc.class, "http://172.16.200.112:30101/");
-
-        // http://192.168.15.245:30406/eip/st/faceCompare
-        String url="http://172.16.200.112:30101/eip/st/faceCompare";
-        RestTemplate rest = new RestTemplate();
-        MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
-        param.add("fileImg", input.getSelfieFile());
-
-//        Object string = rest.postForObject(url, param, String.class);
-//        System.out.println(string);
-//
-//        HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<MultiValueMap<String,Object>>(param);
-//        ResponseEntity<String> result = rest.exchange(url, HttpMethod.POST, httpEntity, String.class);
 
         // 可用版本
-        Result<FaceCompareDtoOut> result = stRpc.faceCompare(input.getIdNumber(), input.getName(),
-                "", "", "",input.getSelfieFile());
+//        Result<FaceCompareDtoOut> result = stRpc.faceCompare(input.getIdNumber(), input.getName(), "", "", "",input.getSelfieFile());
 
 //        List result=uploadFile(input.getSelfieFile());
         System.out.println("<<<<<<<<<<<"+JSON.toJSONString(result));
@@ -84,7 +77,7 @@ public class StController {
 
     public List uploadFile(MultipartFile jarFile)throws Exception{
         RestTemplate restTemplate=new RestTemplate();
-        String url = "http://172.16.200.112:30101/eip/st/faceCompare";
+        String url = "http://172.16.200.110:30406/eip/st/faceCompare";
 //        String url = clientProperties.getApiUrl(URL_USER_UPLOAD);
         HttpHeaders headers = new HttpHeaders();
 
@@ -122,6 +115,5 @@ public class StController {
         System.out.println("<<<<<<<<<<<"+JSON.toJSONString(result));
         return result;
     }
-
 
 }
