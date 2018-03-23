@@ -39,8 +39,7 @@ public class ActExcuteTaskController {
             if(task != null){
                 long currentTime = System.currentTimeMillis();
                 task.setStatus(rpcActExcuteTask.getStatus());
-                Long spendTime = Math.abs(currentTime - task.getCreateTime().getTime());
-                task.setSpendTime(spendTime);
+                task.setSpendTime(rpcActExcuteTask.getSpendTime());
                 task.setOutParamter(rpcActExcuteTask.getOutParamter());
                 task.setUpdateTime(new Date(currentTime));
                 task.setProcInstId(rpcActExcuteTask.getProcInstId());

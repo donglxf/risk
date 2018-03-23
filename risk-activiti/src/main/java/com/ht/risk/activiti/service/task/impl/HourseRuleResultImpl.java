@@ -84,7 +84,8 @@ public class HourseRuleResultImpl implements HourseRuleResult {
             modelResult.setRuleResultList(resultMap);
         }
         //更新任务状态
-        updateTask(modelResult,taskId,execution.getProcessInstanceId());
+        long startTime = Long.parseLong(String.valueOf(execution.getVariable(ActivitiConstants.PROC_START_CURRENT_TIME)));
+        updateTask(modelResult,taskId,execution.getProcessInstanceId(),startTime);
         // MQ发送消息
         if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)) {// 服务类型
             topicSenderService.send(JSON.toJSONString(modelResult));
@@ -92,11 +93,13 @@ public class HourseRuleResultImpl implements HourseRuleResult {
         LOGGER.info("HourseRuleResultImpl execute method excute end...");
     }
     // 更新任务信息
-    private void updateTask(ModelExcuteResult modelResult,Long taskId,String procInstId){
+    private void updateTask(ModelExcuteResult modelResult,Long taskId,String procInstId,long startTime){
         RpcActExcuteTask task = new RpcActExcuteTask();
         task.setStatus(ActivitiConstants.PROC_STATUS_SUCCESS);
         task.setUpdateTime(new Date(System.currentTimeMillis()));
         task.setId(taskId);
+        long spendTime = System.currentTimeMillis()-startTime;
+        task.setSpendTime(spendTime);
         task.setOutParamter(JSON.toJSONString(modelResult));
         task.setProcInstId(procInstId);
         activitiConfigInterface.updateTask(task);

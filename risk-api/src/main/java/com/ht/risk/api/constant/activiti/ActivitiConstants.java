@@ -45,4 +45,6 @@ public class ActivitiConstants {
     public final static String PROC_TASK_ID_VAR_KEY = "proc_task_id";// 模型执行任务taskid在流程变量key值
 
     public final static String PROC_BUSINESS_KEY = "PROC_BUSINESS_KEY";// 流程业务
+
+    public final static String PROC_START_CURRENT_TIME= "PROC_START_CURRENT_TIME";// 流程业务
 }

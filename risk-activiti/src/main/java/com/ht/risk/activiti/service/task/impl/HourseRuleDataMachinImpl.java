@@ -44,6 +44,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
         LOGGER.info("HourseRuleDataMachinImpl execute method excute start...");
         StringBuffer msg = new StringBuffer("");
         Object dataObj = execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
+        execution.setVariable(ActivitiConstants.PROC_START_CURRENT_TIME,System.currentTimeMillis());
         Map dataMap = null;
         if(dataObj == null){
             dataMap = new HashMap();
@@ -215,6 +216,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             // 房产决策变量
             execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME+"hourse_hourseInfo",droolsData);
         }catch(Exception e){
+            LOGGER.error("数据加工异常;",e);
             msg.append("数据加工异常；");
         }
         return msg;
@@ -274,8 +276,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             }
             return  "1";
         } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("天行数科接口异常，identityCard:"+identityCard+";name:"+name +e.getMessage());
+            LOGGER.error("天行数科接口异常，identityCard:"+identityCard+";name:"+name +e.getMessage(),e);
             return   "3";
         }
     }
@@ -300,8 +301,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             }
             return  "1";
         } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("老赖接口异常，identityCard:"+identityCard+";name:"+name +e.getMessage());
+            LOGGER.error("老赖接口异常，identityCard:"+identityCard+";name:"+name +e.getMessage(),e);
             return "3";
         }
     }
