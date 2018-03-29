@@ -10,3 +10,5 @@ eureka:
     instance:
       prefer-ip-address: true
 
+ht.config.ui:
+  gatewayUrl: http://172.16.200.110:30111/
