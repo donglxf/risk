@@ -1,14 +1,13 @@
 package com.ht.risk.eip.dto;
 
+import com.ht.risk.api.model.eip.DianhuaCollectionMinDtoOut;
 import com.ht.risk.api.model.eip.NetLoanOut;
-import com.ht.risk.api.model.eip.OldLaiOut;
 import com.ht.ussp.core.Result;
-import org.apache.poi.ss.formula.functions.T;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class NetLoanOutResult<T> implements Serializable{
+public class DianhuaCollectionMinDtoOutResult<T> implements Serializable{
 
     private static final long serialVersionUID = 5699948896986873641L;
 
@@ -16,17 +15,17 @@ public class NetLoanOutResult<T> implements Serializable{
     private String returnCode;
     private String codeDesc;
     private String msg;
-    private NetLoanOut data;
+    private DianhuaCollectionMinDtoOut data;
     private Date createTime;
     private String funName;
-    private String identityCard;
+    private String uid;
     private String realName;
 
-    public NetLoanOutResult() {
+    public DianhuaCollectionMinDtoOutResult() {
 		super();
 	}
-    
-    public NetLoanOutResult(Result<NetLoanOut> result){
+
+    public DianhuaCollectionMinDtoOutResult(Result<DianhuaCollectionMinDtoOut> result){
         this.codeDesc = result.getCodeDesc();
         this.returnCode = result.getReturnCode();
         this.msg = result.getMsg();
@@ -66,11 +65,11 @@ public class NetLoanOutResult<T> implements Serializable{
         this.msg = msg;
     }
 
-    public NetLoanOut getData() {
+    public DianhuaCollectionMinDtoOut getData() {
         return data;
     }
 
-    public void setData(NetLoanOut data) {
+    public void setData(DianhuaCollectionMinDtoOut data) {
         this.data = data;
     }
 
@@ -90,12 +89,12 @@ public class NetLoanOutResult<T> implements Serializable{
         this.funName = funName;
     }
 
-    public String getIdentityCard() {
-        return identityCard;
+    public String getUid() {
+        return uid;
     }
 
-    public void setIdentityCard(String identityCard) {
-        this.identityCard = identityCard;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getRealName() {

@@ -1,12 +1,13 @@
 package com.ht.risk.api.model.eip;
 
+import com.ht.risk.api.comment.commEntryIn;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 @Data
 @ApiModel
-public class TaobaoJudicialAuctionReqDto{
+public class TaobaoJudicialAuctionReqDto extends commEntryIn {
 
 	@ApiModelProperty(value = "与查询号码通话的电话号码")
 	private String productType;

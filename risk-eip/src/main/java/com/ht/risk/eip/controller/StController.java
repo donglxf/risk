@@ -2,11 +2,12 @@ package com.ht.risk.eip.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.ht.risk.api.feign.eip.StRpc;
 import com.ht.risk.api.model.eip.*;
-import com.ht.risk.eip.Rpc.StRpc;
 import com.ht.risk.eip.config.FeignBasicAuthRequestInterceptor;
 import com.ht.risk.eip.config.FeignSpringFormEncoder;
 import com.ht.risk.eip.inter.FileUploadResource;
+import com.ht.risk.eip.logs.LogEntity;
 import com.ht.ussp.core.Result;
 import com.netflix.discovery.converters.Auto;
 import feign.Feign;
@@ -16,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import org.openxmlformats.schemas.spreadsheetml.x2006.main.STPageOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -25,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import sun.applet.Main;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,8 +41,11 @@ import java.util.UUID;
 @Api(tags = "StController", description = "", hidden = true)
 public class StController {
 
-//    @Autowired
+    @Autowired
     StRpc stRpc;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
 
 
@@ -48,8 +54,11 @@ public class StController {
     @ResponseBody
     public Result<IdVerifyRespDto> idVerify(@RequestBody IdVerifyReqDto input) throws Exception {
         System.out.println(">>>>>>>>>");
+        long startTime = System.currentTimeMillis();
         Result<IdVerifyRespDto> result = stRpc.idVerify(input);
         System.out.println("<<<<<<<<<<<"+JSON.toJSONString(result));
+        LogEntity logEntity = new LogEntity(input.getApp(),"idVerify","1",input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 

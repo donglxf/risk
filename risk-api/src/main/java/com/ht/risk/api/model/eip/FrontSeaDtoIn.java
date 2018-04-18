@@ -1,5 +1,6 @@
 package com.ht.risk.api.model.eip;
 
+import com.ht.risk.api.comment.commEntryIn;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -8,7 +9,7 @@ import java.io.Serializable;
 
 @Data
 @ApiModel
-public class FrontSeaDtoIn implements Serializable {
+public class FrontSeaDtoIn extends commEntryIn implements Serializable {
 
 	@ApiModelProperty(value = "主题名称")
 	private String realName;

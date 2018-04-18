@@ -51,8 +51,8 @@ public class BlackController {
     @Autowired
     private BlackAtiveUtil util;
 
-    @Autowired
-    private CommonLogService commonLogService;
+//    @Autowired
+//    private CommonLogService commonLogService;
 
     @PostMapping("/netLoan")
     @ApiOperation(value = "网贷黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -93,9 +93,9 @@ public class BlackController {
         long startTime = System.currentTimeMillis();
         Result<OldLaiOut> result =  tcRpc.oldLai(input);
         updateOldLaiResult(result,input.getIdentityCard());
-        commonLogService.insertLog("oldLai","1",input,result,System.currentTimeMillis()-startTime);
-        LogEntity logEntity = new LogEntity(input.getApp(),"netLoan","1",input,result,new Date(),System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"oldLai","1",input,result,new Date(),System.currentTimeMillis()-startTime);
         mongoTemplate.insert(logEntity);
+//        commonLogService.insertLog(logEntity);
         return result;
     }
 
@@ -105,7 +105,7 @@ public class BlackController {
         long startTime = System.currentTimeMillis();
         //查询本地该身份证是否存在黑白名单
         Query query = new Query(Criteria.where("identityCard").is(input.getIdentityCard()));
-        List<OldLaiOutResult> cacheResult =  mongoTemplate.find(query,OldLaiOutResult.class);
+        List<OldLaiOutResult> cacheResult = mongoTemplate.find(query,OldLaiOutResult.class) ; //mongoTemplate.find(query,OldLaiOutResult.class);
         Result<OldLaiOut> result = null;
         String type = "1";
         // 存在相关记录
@@ -116,7 +116,8 @@ public class BlackController {
             result =  tcRpc.oldLai(input);
             updateOldLaiResult(result,input.getIdentityCard());
         }
-        commonLogService.insertLog("oldLai",type,input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"oldLai",type,input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
@@ -137,7 +138,8 @@ public class BlackController {
             result =  tcRpc.self(input);
             updateSelfResult(result,input.getIdentityCard());
         }
-        commonLogService.insertLog("self",type,input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"self",type,input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
@@ -147,7 +149,9 @@ public class BlackController {
         long startTime = System.currentTimeMillis();
         Result<SelfDtoOut> result =  tcRpc.self(input);
         updateSelfResult(result,input.getIdentityCard());
-        commonLogService.insertLog("self","1",input,result,System.currentTimeMillis()-startTime);
+
+        LogEntity logEntity = new LogEntity(input.getApp(),"self","1",input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
@@ -168,7 +172,8 @@ public class BlackController {
             result =  tcRpc.frontSea(input);
             updateFrontSeaResult(result,input.getIdentityCard());
         }
-        commonLogService.insertLog("frontSea",type,input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"frontSea",type,input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
@@ -179,7 +184,8 @@ public class BlackController {
         long startTime = System.currentTimeMillis();
         Result<FrontSeaDtoOut> result =  tcRpc.frontSea(input);
         updateFrontSeaResult(result,input.getIdentityCard());
-        commonLogService.insertLog("frontSea","1",input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"frontSea","1",input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
@@ -200,7 +206,8 @@ public class BlackController {
             result =  tcRpc.baiqishi(input);
             updateBaiqishiResult(result,input.getIdentityCard());
         }
-        commonLogService.insertLog("baiqishi",type,input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"baiqishi",type,input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
@@ -210,7 +217,8 @@ public class BlackController {
         long startTime = System.currentTimeMillis();
         Result<BaiqishiDtoOut> result =  tcRpc.baiqishi(input);
         updateBaiqishiResult(result,input.getIdentityCard());
-        commonLogService.insertLog("oldLai","1",input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"baiqishi","1",input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
@@ -231,7 +239,8 @@ public class BlackController {
             result =  tcRpc.mobileValid(input);
             updateMobileValidResult(result,input.getIdentityCard());
         }
-        commonLogService.insertLog("mobileValid",type,input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"mobileValid",type,input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
@@ -241,7 +250,8 @@ public class BlackController {
         long startTime = System.currentTimeMillis();
         Result<MobileValidDtoOut> result =  tcRpc.mobileValid(input);
         updateMobileValidResult(result,input.getIdentityCard());
-        commonLogService.insertLog("mobileValid","1",input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"mobileValid","1",input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
@@ -262,7 +272,8 @@ public class BlackController {
             result =  tcRpc.klRiskBlack(input);
             updateKlRiskBlackResult(result,input.getIdentityCard());
         }
-        commonLogService.insertLog("klRiskBlack",type,input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"klRiskBlack",type,input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
@@ -272,7 +283,8 @@ public class BlackController {
         long startTime = System.currentTimeMillis();
         Result<KlRiskBlackListRespDto> result =  tcRpc.klRiskBlack(input);
         updateKlRiskBlackResult(result,input.getIdentityCard());
-        commonLogService.insertLog("klRiskBlack","1",input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"klRiskBlack","1",input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
