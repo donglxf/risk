@@ -138,7 +138,9 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
                 where: {
                     date: startDate,
                     endDate: endDate,
-                    logId:$('#logId').val()
+                    logId:$('#logId').val(),
+                    inParam:$('#inParam').val(),
+                    outParam:$('#outParam').val()
                 }
             });
         }
@@ -169,7 +171,9 @@ layui.use(['table', 'form','laydate','util','myutil','element'], function () {
                     date: startDate,
                     endDate:endDate ,
                     type:type,
-                    modId:$('#modId').val()
+                    modId:$('#modId').val(),
+                    inParam:$('#in_param').val(),
+                    outParam:$('#out_param').val()
                 }
             });
         }

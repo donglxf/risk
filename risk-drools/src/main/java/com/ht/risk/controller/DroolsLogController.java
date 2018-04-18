@@ -47,7 +47,7 @@ public class DroolsLogController {
 
 	@GetMapping("page")
 	@ApiOperation(value = "分页查询")
-	public PageResult<List<DroolsLog>> page(String date, String endDate, String logId,Integer page, Integer limit) {
+	public PageResult<List<DroolsLog>> page(String date, String endDate, String logId,String inParam,String outParam,Integer page, Integer limit) {
 
 		Wrapper<DroolsLog> wrapper = new EntityWrapper<>();
 		if (StringUtils.isNotBlank(date)) {
@@ -58,6 +58,12 @@ public class DroolsLogController {
 		}
 		if(StringUtils.isNotBlank(logId)){
 			wrapper.and().like("id",logId);
+		}
+		if(StringUtils.isNotBlank(inParam)){
+			wrapper.and().like("in_paramter",inParam);
+		}
+		if(StringUtils.isNotBlank(outParam)){
+			wrapper.and().like("out_paramter",outParam);
 		}
 		wrapper.orderBy("create_time",false);
 		Page<DroolsLog> pages = new Page<>();

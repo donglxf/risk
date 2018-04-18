@@ -42,6 +42,18 @@
                     </div>
                 </div>
                 <div class="layui-input-inline">
+                    <label class="layui-form-label">入参:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="inParam" id="inParam" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">出参:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="outParam" id="outParam" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-input-inline">
                     <button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
                 </div>
             </div>
@@ -52,9 +64,15 @@
             <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
 
                 <div class="layui-input-inline">
-                    <label class="layui-form-label">流水号:</label>
+                    <label class="layui-form-label">入参:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="modId" id="modId" autocomplete="off" class="layui-input">
+                        <input type="text" name="in_param" id="in_param" autocomplete="off" class="layui-input" >
+                    </div>
+                </div>
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">出参:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="out_param" id="out_param" autocomplete="off" class="layui-input" >
                     </div>
                 </div>
                 <div class="layui-input-inline">
@@ -72,7 +90,7 @@
                     <label class="layui-form-label">开始日期:</label>
                     <div class="layui-input-inline">
                         <input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-MM-dd hh:mm:ss"
-                               autocomplete="off" class="layui-input">
+                               autocomplete="off" class="layui-input" style="width:150px;">
                     </div>
                 </div>
                 <div class="layui-input-inline">
@@ -82,6 +100,13 @@
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">流水号:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="modId" id="modId" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
 
                 <!--<div class="layui-col-md1">
                     <label class="layui-form-label">结束日期:</label>
