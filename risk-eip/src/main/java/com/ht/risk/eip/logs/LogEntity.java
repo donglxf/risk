@@ -11,7 +11,8 @@ public class LogEntity implements Serializable {
         super();
     }
 
-    public LogEntity(String functionCode, String type, Object inParamter, Object outParamter, Date createTime,long spendTime) {
+    public LogEntity(String app,String functionCode, String type, Object inParamter, Object outParamter, Date createTime,long spendTime) {
+        this.app = app;
         this.functionCode = functionCode;
         this.outParamter = outParamter;
         this.inParamter = inParamter;
@@ -20,11 +21,42 @@ public class LogEntity implements Serializable {
         this.spendTime = spendTime;
     }
 
+
+    /**
+     * 接口编码，必填
+     */
     private String functionCode;
+    /**
+     * 接口描述，必填
+     */
+    private String functionDesc;
+    /**
+     * 系统编码，必填
+     */
+    private String app;
+    /**
+     * 业务编码，必填
+     */
+    private String businessType;
+    /**
+     * 调用类型，0 缓存获取，1 直接获取，必填
+     */
     private String type;
+    /**
+     *  出参，必填
+     */
     private Object outParamter;
+    /**
+     *  入参，必填
+     */
     private Object inParamter;
+    /**
+     * 创建时间，必填
+     */
     private Date createTime;
+    /**
+     *  消费时间，必填
+     */
     private Long spendTime;
 
     public String getFunctionCode() {
@@ -73,5 +105,29 @@ public class LogEntity implements Serializable {
 
     public void setSpendTime(Long spendTime) {
         this.spendTime = spendTime;
+    }
+
+    public String getApp() {
+        return app;
+    }
+
+    public void setApp(String app) {
+        this.app = app;
+    }
+
+    public String getBusinessType() {
+        return businessType;
+    }
+
+    public void setBusinessType(String businessType) {
+        this.businessType = businessType;
+    }
+
+    public String getFunctionDesc() {
+        return functionDesc;
+    }
+
+    public void setFunctionDesc(String functionDesc) {
+        this.functionDesc = functionDesc;
     }
 }

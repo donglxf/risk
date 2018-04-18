@@ -14,8 +14,7 @@ public class CommonLogService{
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public void insertLog(String functionCode,String type,Object inParamter,Object outParamter,long spendTime){
-        LogEntity logEntity = new LogEntity(functionCode,type,inParamter,outParamter,new Date(),spendTime);
+    public void insertLog(LogEntity logEntity){
         mongoTemplate.insert(logEntity);
     }
 }

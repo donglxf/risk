@@ -5,6 +5,7 @@ import com.ht.risk.api.feign.eip.BlackRpc;
 import com.ht.risk.api.model.eip.*;
 import com.ht.risk.eip.dto.*;
 import com.ht.risk.eip.logs.CommonLogService;
+import com.ht.risk.eip.logs.LogEntity;
 import com.ht.risk.eip.util.BlackAtiveUtil;
 import com.ht.ussp.core.Result;
 import com.ht.ussp.core.ReturnCodeEnum;
@@ -70,7 +71,8 @@ public class BlackController {
             result =  tcRpc.netLoan(input);
             updateNetLoanResult(result,input.getIdentityCard());
         }
-        commonLogService.insertLog("netLoan",type,input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"netLoan",type,input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
@@ -80,7 +82,8 @@ public class BlackController {
         long startTime = System.currentTimeMillis();
         Result<NetLoanOut> result =  tcRpc.netLoan(input);
         updateNetLoanResult(result,input.getIdentityCard());
-        commonLogService.insertLog("netLoan","1",input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"netLoan","1",input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
@@ -91,6 +94,8 @@ public class BlackController {
         Result<OldLaiOut> result =  tcRpc.oldLai(input);
         updateOldLaiResult(result,input.getIdentityCard());
         commonLogService.insertLog("oldLai","1",input,result,System.currentTimeMillis()-startTime);
+        LogEntity logEntity = new LogEntity(input.getApp(),"netLoan","1",input,result,new Date(),System.currentTimeMillis()-startTime);
+        mongoTemplate.insert(logEntity);
         return result;
     }
 
