@@ -50,7 +50,7 @@ public interface ActivitiConfigRpc {
      * @return
      */
     @RequestMapping("/verficationSingle")
-    public Result<Long> startInputValidateProcess(@RequestBody RpcStartParamter rpcStartParamter);
+    public Result<String> startInputValidateProcess(@RequestBody RpcStartParamter rpcStartParamter);
 
 
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -23,12 +24,12 @@ public class TestDroolsDetailLog extends Model<TestDroolsDetailLog> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId("id")
+    @TableId(value = "id",type = IdType.UUID)
 	@ApiModelProperty(required= true,value = "")
-	private Long id;
+	private String id;
 	@TableField("drools_logid")
 	@ApiModelProperty(required= true,value = "")
-	private Long droolsLogid;
+	private String droolsLogid;
     /**
      * 命中的规则
      */
@@ -37,19 +38,19 @@ public class TestDroolsDetailLog extends Model<TestDroolsDetailLog> {
 	private String executeRulename;
 
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Long getDroolsLogid() {
+	public String getDroolsLogid() {
 		return droolsLogid;
 	}
 
-	public void setDroolsLogid(Long droolsLogid) {
+	public void setDroolsLogid(String droolsLogid) {
 		this.droolsLogid = droolsLogid;
 	}
 

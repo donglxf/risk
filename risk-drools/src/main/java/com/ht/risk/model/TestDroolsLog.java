@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -24,15 +25,15 @@ public class TestDroolsLog extends Model<TestDroolsLog> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId("id")
+	@TableId(value="id",type = IdType.UUID)
 	@ApiModelProperty(required= true,value = "")
-	private Long id;
+	private String id;
     /**
      * 模型实例id
      */
 	@TableField("procinst_id")
 	@ApiModelProperty(required= true,value = "模型实例id")
-	private Long procinstId;
+	private String procinstId;
     /**
      * 模型名
      */
@@ -91,19 +92,19 @@ public class TestDroolsLog extends Model<TestDroolsLog> {
 		this.batchId = batchId;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Long getProcinstId() {
+	public String getProcinstId() {
 		return procinstId;
 	}
 
-	public void setProcinstId(Long procinstId) {
+	public void setProcinstId(String procinstId) {
 		this.procinstId = procinstId;
 	}
 

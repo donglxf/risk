@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class RpcModelVerfication implements Serializable{
 
     private Long batchId;
-    private Long taskId;
+    private String taskId;
     private Long procReleaseId;
 
 
@@ -17,11 +17,11 @@ public class RpcModelVerfication implements Serializable{
         this.batchId = batchId;
     }
 
-    public Long getTaskId() {
+    public String getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(Long taskId) {
+    public void setTaskId(String taskId) {
         this.taskId = taskId;
     }
 

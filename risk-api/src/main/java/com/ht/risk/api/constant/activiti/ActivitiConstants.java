@@ -47,4 +47,14 @@ public class ActivitiConstants {
     public final static String PROC_BUSINESS_KEY = "PROC_BUSINESS_KEY";// 流程业务
 
     public final static String PROC_START_CURRENT_TIME= "PROC_START_CURRENT_TIME";// 流程业务
+
+    /**
+     * 模型命中规则变量
+     */
+    public final static String PROC_EXCUTE_HIT_RULE_MSG = "PROC_EXCUTE_HIT_RULE_MSG";
+
+    /**
+     * 模型错误变量
+     */
+    public final static String PROC_EXCUTE_ERROR_MSG = "PROC_EXCUTE_ERROR_MSG";
 }

@@ -30,7 +30,7 @@ import java.util.*;
 @Service
 public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ModelVerificationController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ModelAnalysisSerivceImpl.class);
 
 
     @Resource
@@ -67,7 +67,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         return getProcHitRules(procInstIds);
     }
 
-    public Map<String,SenceParamterVo>  queryModeVerfDataInfo(Long taskId) {
+    public Map<String,SenceParamterVo>  queryModeVerfDataInfo(String taskId) {
         Map<String,SenceParamterVo> senceMap = new HashMap<String,SenceParamterVo>();
         //获取模型任务信息
         RpcModelVerfication rpcModelVerfication = new RpcModelVerfication();
@@ -138,7 +138,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
     }
 
     @Override
-    public VerficationResultVo queryTaskVerficationResult(Long taskId) {
+    public VerficationResultVo queryTaskVerficationResult(String taskId) {
         LOGGER.info("queryTaskVerficationResult method invoke start,paramter:"+taskId);
         VerficationResultVo resultVo = new VerficationResultVo();
         Map<String,SenceParamterVo> senceMap = new HashMap<String,SenceParamterVo>();
@@ -267,7 +267,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
     }
 
     @Override
-    public VerficationResultVo queryTaskServiceResult(Long taskId) {
+    public VerficationResultVo queryTaskServiceResult(String taskId) {
         LOGGER.info("queryTaskVerficationResult method invoke start,paramter:"+taskId);
         VerficationResultVo resultVo = new VerficationResultVo();
         Map<String,SenceParamterVo> senceMap = new HashMap<String,SenceParamterVo>();
@@ -436,7 +436,7 @@ public class ModelAnalysisSerivceImpl implements ModelAnalysisSerivce {
         }
         // 查询任务详情
         RpcModelVerfication rpcModelVerfication = new RpcModelVerfication();
-        rpcModelVerfication.setTaskId(Long.parseLong(taskId));
+        rpcModelVerfication.setTaskId(taskId);
         Result<RpcActExcuteTaskInfo> taskResult = activitiConfigRpc.getTaskInfoById(rpcModelVerfication);
         LOGGER.info("rpc:activitiConfigRpc.queryTasksByBatchId ,result:"+JSON.toJSONString(taskResult));
         if(taskResult == null || taskResult.getCode() != 0 ||  taskResult.getData() == null){

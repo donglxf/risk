@@ -35,7 +35,7 @@ public interface ModelAnalysisSerivce {
      * @param taskId
      * @return
      */
-    Map<String,SenceParamterVo> queryModeVerfDataInfo(Long taskId);
+    Map<String,SenceParamterVo> queryModeVerfDataInfo(String taskId);
 
 
     /**
@@ -43,14 +43,14 @@ public interface ModelAnalysisSerivce {
      * @param taskId
      * @return
      */
-    public VerficationResultVo queryTaskVerficationResult(Long taskId);
+    public VerficationResultVo queryTaskVerficationResult(String taskId);
 
     /**
      * 查询模型任务信息
      * @param taskId
      * @return
      */
-    public VerficationResultVo queryTaskServiceResult(Long taskId);
+    public VerficationResultVo queryTaskServiceResult(String taskId);
 
     public Long createBatchVerficationTask();
 

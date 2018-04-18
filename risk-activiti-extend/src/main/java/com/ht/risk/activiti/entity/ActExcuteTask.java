@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.enums.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -29,9 +30,9 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
     /**
      * 主键
      */
-    @TableId("id")
+    @TableId(value="id",type = IdType.UUID)
 	@ApiModelProperty(required= true,value = "主键")
-	private Long id;
+	private String id;
     /**
      * 批次号，验证任务调用时存在
      */
@@ -108,11 +109,11 @@ public class ActExcuteTask extends Model<ActExcuteTask> {
 	private Date updateTime;
 
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

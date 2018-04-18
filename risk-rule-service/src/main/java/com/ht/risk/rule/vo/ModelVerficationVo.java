@@ -11,7 +11,7 @@ public class ModelVerficationVo  extends Page implements Serializable{
     private Long batchId;
     private String modelName;
     private String modelVersion;
-    private Long taskId;
+    private String taskId;
 
     private Map<String,List<VariableVo>> variableMap;
 
@@ -47,11 +47,11 @@ public class ModelVerficationVo  extends Page implements Serializable{
         this.variableMap = variableMap;
     }
 
-    public Long getTaskId() {
+    public String getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(Long taskId) {
+    public void setTaskId(String taskId) {
         this.taskId = taskId;
     }
 }

@@ -9,7 +9,7 @@ public class ModelExcuteResult implements Serializable{
     private String code;
     private String msg;
     private String procInstId;
-    private Long taskId;
+    private String taskId;
     private String procMsg;
     private String businessKey;
     private Map<String,List<RuleExcuteDetail>> ruleResultList;
@@ -38,11 +38,11 @@ public class ModelExcuteResult implements Serializable{
         this.procInstId = procInstId;
     }
 
-    public Long getTaskId() {
+    public String getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(Long taskId) {
+    public void setTaskId(String taskId) {
         this.taskId = taskId;
     }
 

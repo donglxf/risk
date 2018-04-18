@@ -55,8 +55,9 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
     private ActProcReleaseMapper actProcReleaseMapper;
     @Resource
     private ActExcuteTaskMapper actExcuteTaskMapper;
-    @Resource
-    private RiskValidateBatchMapper riskValidateBatchMapper;
+
+   /* @Resource
+    private RiskValidateBatchMapper riskValidateBatchMapper;*/
 
     @Resource
     private ActivitiRpc activitiRpc;
@@ -104,7 +105,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         return Result.success(rpcDeployResult);
     }
 
-    @Override
+   /* @Override
     public String startProcess(RpcStartParamter rpcStartParamter, String userId) {
         Long releaseId = getProcReleaseId(rpcStartParamter.getProcDefId(), rpcStartParamter.getVersion());
         if (releaseId == null) {
@@ -123,7 +124,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
             updateTask(task);
             return null;
         }
-    }
+    }*/
 
     @Override
     public String startModel(ModelStartVo modelStartVo, String userId) {
@@ -150,15 +151,15 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
 
 
     @Override
-    public Long startInputValidateProcess(RpcStartParamter rpcStartParamter, String userId) throws Exception {
+    public String startInputValidateProcess(RpcStartParamter rpcStartParamter, String userId) throws Exception {
         LOGGER.info("startInputValidateProcess start... paramter:" + JSON.toJSONString(rpcStartParamter));
         // 获取模型版本信息
         Long releaseId = getProcReleaseId(rpcStartParamter.getProcDefId(), rpcStartParamter.getVersion());
         if (releaseId == null) {
             return null;
         }
-        RiskValidateBatch batch = saveBatchInfo(releaseId, userId);
-        rpcStartParamter.setBatchId(batch.getId());
+        //RiskValidateBatch batch = saveBatchInfo(releaseId, userId);
+        //rpcStartParamter.setBatchId(batch.getId());
         ActExcuteTask task = this.saveTask(releaseId, rpcStartParamter.getType(), rpcStartParamter.getBatchId(), JSON.toJSONString(rpcStartParamter), userId);
         Result<String> result = this.start(rpcStartParamter, task.getId());
         LOGGER.info("startInputValidateProcess complete... result:" + JSON.toJSONString(result));
@@ -169,17 +170,17 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
             task.setStatus("4");
         }
         updateTask(task);
-        return batch.getId();
+        return task.getId();
     }
 
-    @Override
+    /*@Override
     public Long startBatchValidateProcess(RpcStartParamter rpcStartParamter, String userId) throws Exception {
         // 获取模型版本信息
         Long releaseId = getProcReleaseId(rpcStartParamter.getProcDefId(), rpcStartParamter.getVersion());
         if (releaseId == null) {
             return null;
         }
-        RiskValidateBatch batch = saveBatchInfo(releaseId, userId);
+        //RiskValidateBatch batch = saveBatchInfo(releaseId, userId);
         for (int i = 0; i < batch.getBatchSize(); i++) {
             rpcStartParamter.setData(rpcStartParamter.getDatas().get(i));
             rpcStartParamter.setBatchId(batch.getId());
@@ -195,7 +196,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
             updateTask(task);
         }
         return batch.getId();
-    }
+    }*/
 
     @Override
     public RpcModelReleaseInfo convertRpcActExcuteTask(ActProcRelease release) {
@@ -288,7 +289,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
     }
 
     // 启动模型
-    private Result<String> start(RpcStartParamter rpcStartParamter, Long taskId) {
+    private Result<String> start(RpcStartParamter rpcStartParamter, String taskId) {
         Map<String, Object> data = rpcStartParamter.getData() == null ? new HashMap<String, Object>() : rpcStartParamter.getData();
         rpcStartParamter.setData(data);
         rpcStartParamter.setTaskId(taskId);
@@ -296,7 +297,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         return result;
     }
 
-    private RiskValidateBatch saveBatchInfo(Long releaseId, String userId) {
+   /* private RiskValidateBatch saveBatchInfo(Long releaseId, String userId) {
         RiskValidateBatch batch = new RiskValidateBatch();
         batch.setProcReleaseId(releaseId);
         batch.setBatchSize(1);
@@ -307,7 +308,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         batch.setStatus("0");
         riskValidateBatchMapper.insert(batch);
         return batch;
-    }
+    }*/
 
     private void updateTask(ActExcuteTask task) {
         actExcuteTaskMapper.updateById(task);

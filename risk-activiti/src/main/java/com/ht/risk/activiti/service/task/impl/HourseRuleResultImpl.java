@@ -68,7 +68,7 @@ public class HourseRuleResultImpl implements HourseRuleResult {
         }
         RuleExcuteDetail detail = null;
         String taskIdStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_TASK_ID_VAR_KEY));
-        Long taskId =taskIdStr != null ?Long.parseLong(taskIdStr):null;
+        String taskId =taskIdStr != null ?taskIdStr:null;
         modelResult.setCode("0");
         modelResult.setMsg("模型执行正常");
         modelResult.setProcInstId(execution.getProcessInstanceId());
@@ -93,7 +93,7 @@ public class HourseRuleResultImpl implements HourseRuleResult {
         LOGGER.info("HourseRuleResultImpl execute method excute end...");
     }
     // 更新任务信息
-    private void updateTask(ModelExcuteResult modelResult,Long taskId,String procInstId,long startTime){
+    private void updateTask(ModelExcuteResult modelResult,String taskId,String procInstId,long startTime){
         RpcActExcuteTask task = new RpcActExcuteTask();
         task.setStatus(ActivitiConstants.PROC_STATUS_SUCCESS);
         task.setUpdateTime(new Date(System.currentTimeMillis()));

@@ -25,7 +25,7 @@ public class RpcStartParamter implements Serializable {
      */
     private String type;
 
-    private Long taskId;
+    private String taskId;
 
     private Map<String,Object> data;
     /**
@@ -93,11 +93,11 @@ public class RpcStartParamter implements Serializable {
         this.datas = datas;
     }
 
-    public Long getTaskId() {
+    public String getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(Long taskId) {
+    public void setTaskId(String taskId) {
         this.taskId = taskId;
     }
 

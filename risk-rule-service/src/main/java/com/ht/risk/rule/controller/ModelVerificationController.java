@@ -142,11 +142,11 @@ public class ModelVerificationController extends BaseController{
         rpcStartParamter.setBatchSize(1);
         rpcStartParamter.setUserId(this.getUserId());
         LOGGER.info("createSingleVerficationTask mothod invoke,paramter:" + JSON.toJSONString(rpcStartParamter));
-        Result<Long> rpcResult = activitiConfigRpc.startInputValidateProcess(rpcStartParamter);
+        Result<String> rpcResult = activitiConfigRpc.startInputValidateProcess(rpcStartParamter);
         LOGGER.info("createSingleVerficationTask mothod invoke,paramter:" + JSON.toJSONString(rpcResult));
         if (rpcResult != null && rpcResult.getCode() == 0 && rpcResult.getData() != null) {
-            Long batchId = rpcResult.getData();
-            result = Result.success(batchId);
+            String taskId = rpcResult.getData();
+            result = Result.success(taskId);
         } else {
             result = Result.error(1, "创建模型验证任务失败");
         }

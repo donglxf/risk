@@ -27,13 +27,13 @@ public interface ActProcReleaseService extends BaseService<ActProcRelease> {
 
     Result<RpcDeployResult> proceDeploy(ModelParamter paramter,String userId);
 
-    String startProcess(RpcStartParamter rpcStartParamter,String userId);
+    /*String startProcess(RpcStartParamter rpcStartParamter,String userId);*/
 
     String startModel(ModelStartVo modelStartVo,String userId);
 
-    Long startInputValidateProcess(RpcStartParamter paramter,String userId)throws Exception;
+    String startInputValidateProcess(RpcStartParamter paramter,String userId)throws Exception;
 
-    Long startBatchValidateProcess(RpcStartParamter paramter,String userId)throws Exception;
+   /* Long startBatchValidateProcess(RpcStartParamter paramter,String userId)throws Exception;*/
 
     RpcModelReleaseInfo convertRpcActExcuteTask(ActProcRelease release);
 }

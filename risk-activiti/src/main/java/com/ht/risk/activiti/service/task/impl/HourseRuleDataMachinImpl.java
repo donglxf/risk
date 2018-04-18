@@ -17,6 +17,7 @@ import com.ht.risk.common.result.Result;
 import com.ht.risk.common.util.DateUtil;
 import com.ht.risk.common.util.ObjectUtils;
 import com.ht.risk.common.util.ProvinceUtil;
+import com.ht.ussp.core.ReturnCodeEnum;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -265,13 +266,13 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             NegativeSearchDtoIn negative = new NegativeSearchDtoIn();
             negative.setIdentityCard(identityCard);
             negative.setRealName(name);
-            Result<NegativeSearchDtoOut> neResult = eipServiceInterface.getNegativeSearch(negative);
+            com.ht.ussp.core.Result<NegativeSearchDtoOut> neResult = eipServiceInterface.getNegativeSearch(negative);
             LOGGER.info("HourseRuleDataMachinImpl getNegativeSearch neResult"+JSON.toJSONString(neResult));
             JSONObject str1 = JSONObject.parseObject(JSON.toJSONString(neResult));
             if(neResult != null && neResult.getData() != null && "1".equals(neResult.getData().getIsCrime())){
                 return "0";
             }
-            if(neResult == null || neResult.getCode() != 0){
+            if(neResult == null ||  !ReturnCodeEnum.SUCCESS.getReturnCode().equals(neResult.getReturnCode())){
                 return   "3";
             }
             return  "1";
@@ -296,7 +297,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             if(neResult != null && neResult.getData() != null && StringUtils.isNotEmpty(neResult.getData().getGistId())){
                 return "0";
             }
-            if(neResult == null || !"0000".equals(neResult.getReturnCode())){
+            if(neResult == null || !ReturnCodeEnum.SUCCESS.getReturnCode().equals(neResult.getReturnCode())){
                 return "3";
             }
             return  "1";

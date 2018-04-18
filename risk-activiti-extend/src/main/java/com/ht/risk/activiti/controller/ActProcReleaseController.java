@@ -82,7 +82,7 @@ public class ActProcReleaseController {
             return result;
         }
         // TODO 1 校验验证状态是否成功
-        Long taskId = Long.parseLong(actProcRelease.getTaskId());
+        String taskId = actProcRelease.getTaskId();
         ActExcuteTask task = actExcuteTaskService.selectById(taskId);
         if(task != null && ActivitiConstants.PROC_STATUS_SUCCESS.equals(task.getStatus())){
             ActProcRelease release = actProcReleaseService.selectById(actProcRelease);
@@ -137,7 +137,7 @@ public class ActProcReleaseController {
             result = Result.error(1,"参数异常！");
             return result;
         }
-        Long taskId = Long.parseLong(actProcRelease.getTaskId());
+        String taskId = actProcRelease.getTaskId();
         ActExcuteTask task = actExcuteTaskService.selectById(taskId);
         if(task == null || !ActivitiConstants.PROC_STATUS_SUCCESS.equals(task.getStatus())){
             result = Result.error(1,"该版本模型执行异常，无法提交审批！");

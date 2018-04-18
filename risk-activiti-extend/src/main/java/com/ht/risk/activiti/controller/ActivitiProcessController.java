@@ -99,7 +99,7 @@ public class ActivitiProcessController{
      * @param rpcStartParamter
      * @return
      */
-    @RequestMapping("/start")
+    /*@RequestMapping("/start")
     public Result startProcess(@RequestBody RpcStartParamter rpcStartParamter){
         LOGGER.info("startProcess invoke start,paramter:"+ JSON.toJSONString(rpcStartParamter));
         Result data = null;
@@ -118,7 +118,7 @@ public class ActivitiProcessController{
         LOGGER.info("startProcess invoke end ...;procInstId:"+procInstId);
         return data;
     }
-
+    */
     /**
      * 模型启动
      * @param modelStartVo
@@ -126,21 +126,21 @@ public class ActivitiProcessController{
      */
     @RequestMapping("/startModel")
     public Result startModel(@RequestBody ModelStartVo modelStartVo){
-        LOGGER.info("startProcess invoke start,paramter:"+ JSON.toJSONString(modelStartVo));
+        LOGGER.info("startModel invoke start,paramter:"+ JSON.toJSONString(modelStartVo));
         Result data = null;
         if(modelStartVo == null || StringUtils.isEmpty(modelStartVo.getModelCode())){
             data = Result.error(1,"参数异常！");
-            LOGGER.info("startProcess invoke start error,paramter exception...");
+            LOGGER.info("startModel invoke start error,paramter exception...");
             return data;
         }
         String taskid = actProcReleaseService.startModel(modelStartVo,StringUtils.isEmpty(modelStartVo.getUserId())?"admin-fk":modelStartVo.getUserId());
         if(StringUtils.isEmpty(taskid)){
             data = Result.error(1,"启动模型异常！");
-            LOGGER.info("startProcess invoke start error");
+            LOGGER.info("startModel invoke start error");
             return data;
         }
         data = Result.success(taskid);
-        LOGGER.info("startProcess invoke end ...;procInstId:"+taskid);
+        LOGGER.info("startModel invoke end ...;procInstId:"+taskid);
         return data;
     }
 
@@ -186,7 +186,7 @@ public class ActivitiProcessController{
             LOGGER.info("startInputValidateProcess invoke start error,paramter exception...");
             return data;
         }
-        Long batchId = null;
+        String batchId = null;
         try {
             batchId = actProcReleaseService.startInputValidateProcess(rpcStartParamter,rpcStartParamter.getUserId());
         } catch (Exception e) {

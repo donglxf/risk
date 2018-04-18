@@ -88,7 +88,7 @@ public class DroolsExcuteController {
             }
             DroolsLog entity = new DroolsLog();
             entity.setType(paramter.getType());
-            entity.setProcinstId(Long.parseLong(paramter.getProcessInstanceId()));
+            entity.setProcinstId(paramter.getProcessInstanceId());
             entity.setInParamter(JSON.toJSONString(paramter));
             entity.setSenceVersionid(String.valueOf(ruleVersion.getVersionId()));
             entity.setOutParamter(JSON.toJSONString(object));
@@ -96,7 +96,7 @@ public class DroolsExcuteController {
             entity.setModelName(paramter.getModelName());
             entity.setExecuteTime(executeTime);
             droolsLogService.insertOrUpdate(entity);
-            Long logId = entity.getId();
+            String logId = entity.getId();
             if (ObjectUtils.isNotEmpty(li)) {
                 for (String string : newList) {
                     DroolsDetailLog process = new DroolsDetailLog();
@@ -206,7 +206,7 @@ public class DroolsExcuteController {
                 RuleCallTypeEnum.model.getType().equals(paramter.getType())) {
             DroolsLog entity = new DroolsLog();
             entity.setType(paramter.getType());
-            entity.setProcinstId(StringUtil.strIsNotNull(paramter.getProcessInstanceId()) ? Long.parseLong(paramter.getProcessInstanceId()) : 0);
+            entity.setProcinstId(StringUtil.strIsNotNull(paramter.getProcessInstanceId()) ? paramter.getProcessInstanceId() : null);
             entity.setInParamter(JSON.toJSONString(paramter));
             entity.setSenceVersionid(String.valueOf(ruleVersion.getVersionId()));
             entity.setOutParamter(JSON.toJSONString(object));
@@ -214,7 +214,7 @@ public class DroolsExcuteController {
             entity.setModelName(paramter.getModelName());
             entity.setExecuteTime(executeTime);
             droolsLogService.insertOrUpdate(entity);
-            Long logId = entity.getId();
+            String logId = entity.getId();
             if (ObjectUtils.isNotEmpty(li)) {
                 for (String string : newList) {
                     DroolsDetailLog process = new DroolsDetailLog();
@@ -226,7 +226,7 @@ public class DroolsExcuteController {
         } else {
             TestDroolsLog entity = new TestDroolsLog();
             entity.setType(paramter.getType());
-            entity.setProcinstId(StringUtil.strIsNotNull(paramter.getProcessInstanceId()) ? Long.parseLong(paramter.getProcessInstanceId()) : 0);
+            entity.setProcinstId(StringUtil.strIsNotNull(paramter.getProcessInstanceId()) ? paramter.getProcessInstanceId(): null);
             entity.setInParamter(JSON.toJSONString(paramter));
             entity.setSenceVersionid(String.valueOf(ruleVersion.getVersionId()));
             entity.setOutParamter(JSON.toJSONString(object));
@@ -236,7 +236,7 @@ public class DroolsExcuteController {
                 entity.setBatchId(Long.parseLong(paramter.getBatchId())); // 批次号
             }
             testDroolsLogService.insertOrUpdate(entity);
-            Long logId = entity.getId();
+            String logId = entity.getId();
             if (ObjectUtils.isNotEmpty(li)) {
                 for (String string : newList) {
                     TestDroolsDetailLog process = new TestDroolsDetailLog();

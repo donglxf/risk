@@ -13,17 +13,9 @@ import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 @Configuration
 public class AmqpConfig {
 
-    public final static String ACTIVITI_SELF = "activiti.self";
     public final static String ACTIVITI_SERVICE = "activiti.service";
     public final static String ACTIVITI_ROUTING_KEY = "activiti.service";
-    public final static String ACTIVITI_ROUTING_ALL = "activiti.self";
     public final static String ACTIVITI_EXCHANGE = "activitiExchange";
-
-    //创建队列
-    @Bean
-    public Queue queueSelf() {
-        return new Queue(AmqpConfig.ACTIVITI_SELF);
-    }
 
     //创建队列
     @Bean
@@ -38,10 +30,6 @@ public class AmqpConfig {
     }
     //对列绑定并关联到ROUTINGKEY
 
-    @Bean
-    Binding bindingExchangeMessage(Queue queueSelf, TopicExchange exchange) {
-        return BindingBuilder.bind(queueSelf).to(exchange).with(AmqpConfig.ACTIVITI_ROUTING_ALL);
-    }
 
     //对列绑定并关联到ROUTINGKEY
     @Bean
