@@ -1,5 +1,6 @@
 package com.ht.risk.api.feign.eip;
 
+import com.ht.risk.api.comment.FeignConfig;
 import com.ht.risk.api.model.eip.TaobaoInfoDtoIn;
 import com.ht.risk.api.model.eip.TaobaoInfoDtoOut;
 import com.ht.risk.api.model.eip.TaobaoJudicialAuctionReqDto;
@@ -11,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(value = "eip-out",path = "/moxie")
+@FeignClient(value = "eip-out",path = "/moxie",configuration = FeignConfig.class,url = "http://172.16.200.110:30406/eip/taobao/getAll")
 public interface MoxieRpc {
 
     /**
@@ -19,6 +20,5 @@ public interface MoxieRpc {
      */
     @PostMapping(value = "/taobao/getAll",headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<TaobaoInfoDtoOut> taobaoGetAll(@RequestBody TaobaoInfoDtoIn input);
-
 
 }
