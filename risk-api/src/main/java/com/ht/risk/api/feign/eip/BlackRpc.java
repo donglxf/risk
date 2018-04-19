@@ -22,7 +22,7 @@ public interface BlackRpc {
      * @autor 张鹏
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/netLoan",headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/netLoan"/*,headers = { "app=FK", "content-type=application/json" }*/, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<NetLoanOut> netLoan(@RequestBody NetLoanIn input);
 
     /**

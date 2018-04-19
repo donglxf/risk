@@ -3,6 +3,7 @@ package com.ht.risk.eip.config;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -14,7 +15,7 @@ import java.util.Enumeration;
  *
  * @param * @param null
  * @author 张鹏
- * @return 
+ * @return
  * @date 2018/2/2 18:14
  */
 //@Configuration
@@ -28,17 +29,16 @@ public class HeadFiterConfig {
                         .getRequestAttributes();
                 HttpServletRequest request = attributes.getRequest();
                 //对head进行一个拦截
-				Enumeration<String> headerNames = request.getHeaderNames();
-				if (headerNames != null) {
-					while (headerNames.hasMoreElements()) {
-						//String name = headerNames.nextElement();
-						//String values = request.getHeader(name);
-						//requestTemplate.header(name, values);
-
-					}
-				}
-                requestTemplate.header("Content-Type","application/json");
-                requestTemplate.header("app","FK");
+                Enumeration<String> headerNames = request.getHeaderNames();
+                if (headerNames != null) {
+                    while (headerNames.hasMoreElements()) {
+                        String name = headerNames.nextElement();
+                        if("Content-Type".equals(name) || "app".equals(name)){
+                            String values = request.getHeader(name);
+                            requestTemplate.header(name, values);
+                        }
+                    }
+                }
             }
         };
     }

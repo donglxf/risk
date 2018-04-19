@@ -51,8 +51,6 @@ public class BlackController {
     @Autowired
     private BlackAtiveUtil util;
 
-//    @Autowired
-//    private CommonLogService commonLogService;
 
     @PostMapping("/netLoan")
     @ApiOperation(value = "网贷黑名单",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
