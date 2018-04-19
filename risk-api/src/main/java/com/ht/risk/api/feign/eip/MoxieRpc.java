@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(value = "eip-out",path = "/moxie",configuration = FeignConfig.class,url = "http://172.16.200.110:30406/eip/taobao/getAll")
+@FeignClient(value = "eip-out",path = "/eip",configuration = FeignConfig.class,url = "http://172.16.200.110:30406/eip/taobao/getAll")
 public interface MoxieRpc {
 
     /**
