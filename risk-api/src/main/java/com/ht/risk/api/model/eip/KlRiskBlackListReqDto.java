@@ -1,5 +1,6 @@
 package com.ht.risk.api.model.eip;
 
+import com.ht.risk.api.comment.commEntryIn;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -11,7 +12,7 @@ import java.io.Serializable;
  * @date: 2018/3/7
  */
 @Data
-public class KlRiskBlackListReqDto  implements Serializable {
+public class KlRiskBlackListReqDto  extends commEntryIn implements Serializable {
     private static final long serialVersionUID = 8460697605945497358L;
 
     /**

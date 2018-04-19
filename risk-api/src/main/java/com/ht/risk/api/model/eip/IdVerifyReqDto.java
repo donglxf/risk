@@ -1,12 +1,13 @@
 package com.ht.risk.api.model.eip;
 
+import com.ht.risk.api.comment.commEntryIn;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
 @ApiModel
-public class IdVerifyReqDto {
+public class IdVerifyReqDto extends commEntryIn {
     private static final long serialVersionUID = 4519808852267261707L;
 
     /**
