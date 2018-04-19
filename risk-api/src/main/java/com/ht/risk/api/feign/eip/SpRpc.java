@@ -1,7 +1,5 @@
 package com.ht.risk.api.feign.eip;
 
-import com.ht.risk.api.model.eip.QueryPhoneRecordDtoIn;
-import com.ht.risk.api.model.eip.QueryPhoneRecordDtoOut;
 import com.ht.risk.api.model.eip.sp.*;
 import com.ht.ussp.core.Result;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -9,9 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-//@FeignClient(value = "eip-out",path = "/eip/tc"+"/sp")
-@FeignClient(value = "eip",path = "/eip/tc"+"/sp",url="http://192.168.12.25" + 
-		":30406")
+@FeignClient(value = "eip-out",path = "/eip/tc"+"/sp",url = "http://172.16.200.110:30406")
 public interface SpRpc {
 
     /**

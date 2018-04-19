@@ -14,9 +14,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.CriteriaDefinition;
+import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author dyb
@@ -44,6 +49,13 @@ public class MoxieController {
         System.out.println("<<<<<<<<<<<" + JSON.toJSONString(result));
         LogEntity logEntity = new LogEntity(input.getApp(), "taobaoGetAll", "1", input, result, new Date(), System.currentTimeMillis() - startTime);
         mongoTemplate.insert(logEntity);
+//        org.springframework.data.mongodb.core.query.Query query =new org.springframework.data.mongodb.core.query.Query();
+//        query.addCriteria(Criteria.where("app").is(input.getApp()));
+//        List<LogEntity> t=mongoTemplate.find(query,LogEntity.class);
+//        t.forEach(s -> {
+//            System.out.println(s.getApp());
+//            System.out.println(s.getFunctionCode());
+//        });
         return result;
     }
 }

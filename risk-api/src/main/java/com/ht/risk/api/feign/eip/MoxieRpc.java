@@ -12,13 +12,13 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(value = "eip-out",path = "/eip",url = "http://172.16.200.110:30406/eip/taobao/getAll")
+@FeignClient(value = "eip-out",path = "/eip",url = "http://172.16.200.110:30406")
 public interface MoxieRpc {
 
     /**
      * 描述：魔蝎淘宝信息
      */
-    @PostMapping(value = "/taobao/getAll",headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/taobao/getAll",produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<TaobaoInfoDtoOut> taobaoGetAll(@RequestBody TaobaoInfoDtoIn input);
 
 }

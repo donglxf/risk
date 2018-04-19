@@ -1,5 +1,6 @@
 package com.ht.risk.eip.controller;
 
+import com.ht.risk.api.model.eip.sp.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,17 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ht.risk.api.feign.eip.SpRpc;
-import com.ht.risk.api.model.eip.QueryPhoneRecordDtoIn;
-import com.ht.risk.api.model.eip.QueryPhoneRecordDtoOut;
-import com.ht.risk.api.model.eip.sp.SendDynamicCodeDtoIn;
-import com.ht.risk.api.model.eip.sp.SpDetailOrderCodeDtoOut;
-import com.ht.risk.api.model.eip.sp.SpDynamicCodeDtoIn;
-import com.ht.risk.api.model.eip.sp.SpLoginDtoIn;
-import com.ht.risk.api.model.eip.sp.SpLoginDtoOut;
-import com.ht.risk.api.model.eip.sp.SpValidCodeDtoIn;
-import com.ht.risk.api.model.eip.sp.SpValidCodeDtoOut;
-import com.ht.risk.api.model.eip.sp.UserBaseInfoDtoIn;
-import com.ht.risk.api.model.eip.sp.UserBaseInfoDtoOut;
 import com.ht.ussp.core.Result;
 
 import io.swagger.annotations.Api;
