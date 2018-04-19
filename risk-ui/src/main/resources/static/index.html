@@ -67,21 +67,18 @@
                     </dd>
                 </dl>
             </li>
-            <li class="layui-nav-item">
-                <a id="userName" href="javascript:void(0);">
-                    <!--<img src="http://m.zhengjinfan.cn/images/0.jpg" class="layui-nav-img">-->
-                    无法用户信息
+             <li class="layui-nav-item">
+                <a href="javascript:;" id="userName">
                 </a>
-                <!--<dl class="layui-nav-child">-->
-                    <!--<dd>-->
-                        <!--<a href="javascript:;" kit-target-->
-                           <!--data-options="{url:'/html/user/userInfo.html',icon:'&#xe658;',title:'基本资料',id:'966'}"><span>基本资料</span></a>-->
-                    <!--</dd>-->
-                    <!--<dd>-->
-                        <!--<a href="javascript:;" kit-target-->
-                           <!--data-options="{url:'/html/user/changePwd.html',icon:'&#xe658;',title:'修改密码',id:'967'}">修改密码</a>-->
-                    <!--</dd>-->
-                <!--</dl>-->
+                <dl class="layui-nav-child">
+                    <dd>
+                       <a href="javascript:;"   id="userInfo"  ><span>基本资料</span></a>
+                        <!-- <a href="javascript:;" kit-target  data-options="{url:'/html/user/userInfo.html',icon:'&#xe658;',title:'基本资料',id:'966'}"><span>基本资料</span></a> -->
+                    </dd>
+                    <dd>
+                        <a href="javascript:;"   id="changePwd"  ><span>修改密码</span></a>
+                    </dd>
+                </dl>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;" id="login_out">
@@ -206,6 +203,32 @@
                     }
 
                 },'json');
+                
+                $("#changePwd").on("click", function () {
+              	  layer.open({
+                       type: 2,
+                       area: ['750px', '500px'],
+                       maxmin: true,
+                       shadeClose: true,
+                       title: "修改密码",
+                       content: 'http://172.16.200.110:30131/html/user/changePwdOther.html'+'?token='+cookie.getToken()+'&urls='+'http://172.16.200.110:30111/rule/ui/login.html'+'&isall=false',
+                       success: function (layero, index) {
+                       }
+                   })
+              });
+              $("#userInfo").on("click", function () {
+            	  layer.open({
+                     type: 2,
+                     area: ['750px', '600px'],
+                     maxmin: true,
+                     shadeClose: true,
+                     title: "修改用户信息",
+                     content: 'http://172.16.200.110:30131/html/user/userInfoOther.html'+'?token='+cookie.getToken(),
+                     success: function (layero, index) {
+                    	 
+                     }
+                 })
+            });
 
         });
     });
