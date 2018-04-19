@@ -38,7 +38,7 @@ public class FeignBasicAuthRequestInterceptor  implements RequestInterceptor {
                 template.header("app", "fk");
             }else{
                 log.info("apply set app:"+String.valueOf(appObj));
-                template.header("app", String.valueOf(appObj));
+                template.header("app", "fk-"+String.valueOf(appObj));
             }
             template.header("content-type", "application/json");
         } catch (Exception e) {
