@@ -2,6 +2,8 @@ package com.ht.risk.activiti.service.ownerloan.impl;
 
 import com.ht.risk.activiti.service.ownerloan.OwnerLoanRuleDataMachin;
 import com.ht.risk.activiti.service.task.impl.HourseRuleDataMachinImpl;
+import com.ht.risk.activiti.vo.OwnerLoanModelResult;
+import com.ht.risk.activiti.vo.OwnerLoanRuleInfo;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
@@ -48,7 +50,14 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
         }else{// 验证类型
             verficationDataMachin(dataMap,execution);
         }
-        execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg.toString());
+
+        Map borrowerMap = (Map)dataMap.get("borrorwerInfo");
+        String identityCard = String.valueOf(borrowerMap.get("identifyCard"));
+        String name= String.valueOf(borrowerMap.get("customerName"));
+        String mobilePhone = String.valueOf(borrowerMap.get("phoneNo"));
+
+        OwnerLoanModelResult result = initResultData(identityCard,name,mobilePhone);
+        execution.setVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE,result);
         LOGGER.error("OwnerLoanRuleDataMachinImpl execute method excute end...");
     }
 
@@ -59,14 +68,11 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
      * @return
      */
     private void verficationDataMachin(Map dataMap,DelegateExecution execution){
-        Map<String,Object> houseInfos = (Map<String,Object>)dataMap.get(ActivitiConstants.DROOLS_VARIABLE_NAME+"hourse_hourseInfo");
-        Map<String,Object> borrowers = ( Map<String,Object>)dataMap.get(ActivitiConstants.DROOLS_VARIABLE_NAME+"hourse_borrower");
-        List<Map<String,Object>> houseInfoList = new ArrayList<Map<String,Object>>();
-        houseInfoList.add(houseInfos);
-        List<Map<String,Object>> borrowerList = new ArrayList<Map<String,Object>>();
-        borrowerList.add(borrowers);
-        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME+"hourse_hourseInfo",houseInfoList);
-        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME+"hourse_borrower",borrowerList);
+        Map<String,String> borrowerMap = new HashMap<String,String>();
+        borrowerMap.put("identifyCard","110101196811041047");
+        borrowerMap.put("customerName","何瑞芬");
+        borrowerMap.put("phoneNo","13809885602");
+        dataMap.put("borrorwerInfo",borrowerMap);
     }
 
 
@@ -90,5 +96,18 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
             msg.append("房产信息为空;");
         }
         return msg;
+    }
+
+    private OwnerLoanModelResult initResultData(String identityCard,String realName,String mobilePhone){
+        String[] functionAry = {"10015001","10013001","10017002","10031004","10013003","10017001","10042002","10041002","10011002","10006003","10041001"};
+        String[] functionNameAry = {"白骑士风险黑名单","网贷黑名单","考拉手机号码认证","天行数科新","自有黑名单","考拉黑名单","商汤身份验证","微众法院信息","前海征信","百融多次申请","个人分类统计"};
+        OwnerLoanModelResult result = new OwnerLoanModelResult();
+        Map<String,OwnerLoanRuleInfo> interInfo = new HashMap<String,OwnerLoanRuleInfo>();
+        for(int i=0;i< functionAry.length;i++){
+            OwnerLoanRuleInfo ruleInfo = new OwnerLoanRuleInfo(identityCard,realName,mobilePhone, functionAry[i], functionNameAry[i], functionNameAry[i] );
+            interInfo.put(functionAry[i],ruleInfo);
+        }
+        result.setInterInfo(interInfo);
+        return result;
     }
 }

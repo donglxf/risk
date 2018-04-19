@@ -1,6 +1,8 @@
 package com.ht.risk.activiti.vo;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 public class OwnerLoanModelResult implements Serializable{
 
@@ -14,6 +16,8 @@ public class OwnerLoanModelResult implements Serializable{
     private String hitMsg;
     private String auditType;
     private Double quota;
+    private Map<String,OwnerLoanRuleInfo> interInfo;
+    private List<OwnerLoanRuleInfo> interInfos;
 
     public String getCode() {
         return code;
@@ -76,5 +80,25 @@ public class OwnerLoanModelResult implements Serializable{
     }
     public void setQuota(Double quota) {
         this.quota = quota;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Map<String, OwnerLoanRuleInfo> getInterInfo() {
+        return interInfo;
+    }
+
+    public void setInterInfo(Map<String, OwnerLoanRuleInfo> interInfo) {
+        this.interInfo = interInfo;
+    }
+
+    public List<OwnerLoanRuleInfo> getInterInfos() {
+        return interInfos;
+    }
+
+    public void setInterInfos(List<OwnerLoanRuleInfo> interInfos) {
+        this.interInfos = interInfos;
     }
 }

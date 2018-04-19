@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @FeignClient("risk-eip")
 public interface EipServiceInterface {
@@ -45,5 +46,47 @@ public interface EipServiceInterface {
 	 */
 	@PostMapping("/lawxp/personClassify")
 	public com.ht.ussp.core.Result<LawxpPersonClassifyDtoOut> personClassify(LawxpPersonClassifyDtoIn input);
+
+	/**
+	 * 身份证和真实姓名实名认证，商汤
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/st/idVerify")
+	public com.ht.ussp.core.Result<IdVerifyRespDto> idVerify(IdVerifyReqDto input);
+
+	/**
+	 * 手机号验证，考拉
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/mobileValid")
+	public com.ht.ussp.core.Result<MobileValidDtoOut> mobileValid(MobileValidDtoIn input);
+
+	/**
+	 * 白骑士黑名单
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/baiqishi")
+	public com.ht.ussp.core.Result<BaiqishiDtoOut> baiqishi(NetLoanIn input);
+
+	/**
+	 * 前海黑名单
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/frontSea")
+	public com.ht.ussp.core.Result<FrontSeaDtoOut> frontSea(FrontSeaDtoIn input);
+
+	/**
+	 * 微众法院
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/webank")
+	public com.ht.ussp.core.Result<LawxpWebankDtoOut> webank(LawxpWebankDtoIn input);
+
+
 
 }

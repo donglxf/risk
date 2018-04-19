@@ -58,4 +58,14 @@ public class ActivitiConstants {
      */
     public final static String PROC_EXCUTE_ERROR_MSG = "PROC_EXCUTE_ERROR_MSG";
 
+    /**
+     * 模型错误信息变量
+     */
+    public final static String OWNER_LOAN_APP_CODE = "1002";
+
+    /**
+     * 业主贷返回结果变量
+     */
+    public final static String PROC_OWNER_LOAN_RESULT_CODE = "1002";
+
 }

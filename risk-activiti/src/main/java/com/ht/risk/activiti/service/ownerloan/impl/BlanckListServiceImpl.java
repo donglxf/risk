@@ -1,10 +1,13 @@
 package com.ht.risk.activiti.service.ownerloan.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.ht.risk.activiti.rpc.EipServiceInterface;
-import com.ht.risk.activiti.service.impl.ActivitiServiceImpl;
 import com.ht.risk.activiti.service.ownerloan.BlanckListService;
+import com.ht.risk.activiti.vo.OwnerLoanModelResult;
+import com.ht.risk.activiti.vo.OwnerLoanRuleInfo;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.model.eip.*;
+import com.ht.risk.common.util.DateUtil;
 import com.ht.ussp.core.Result;
 import com.ht.ussp.core.ReturnCodeEnum;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -13,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -25,107 +29,155 @@ public class BlanckListServiceImpl implements BlanckListService {
     private EipServiceInterface eipServiceInterface;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BlanckListServiceImpl.class);
+    private static final String BAIQISHI_FUNCIONCODE = "10015001";
+    private static final String NETLOAN_FUNCIONCODE = "10013001";
+    private static final String SELF_FUNCIONCODE = "10013003";
+    private static final String KL_FUNCIONCODE = "10017001";
+    private static final String QIANHAI_FUNCIONCODE = "10011002";
+    private static final int MAX_SIZE = 3;
 
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         LOGGER.info("BlanckListServiceImpl excute start");
-        String ruleMsgStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG));
-        String msgStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_MSG));
-        StringBuffer ruleMsg = new StringBuffer(ruleMsgStr);
-        StringBuffer msg = new StringBuffer(msgStr);
+        OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
         Map dataMap  = (Map)execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
         Map borrowerMap = (Map)dataMap.get("borrorwerInfo");
-        if(borrowerMap == null){
-            execution.setVariable("flag","2");
-            return;
-        }
         String identityCard = String.valueOf(borrowerMap.get("identifyCard"));
         String name= String.valueOf(borrowerMap.get("customerName"));
         String mobilePhone = String.valueOf(borrowerMap.get("phoneNo"));
+        String flag = "1";//命中标识： 1 沒有命中，2 命中
         // 网贷
-        Result<NetLoanOut> netResult = clallNetLoan(identityCard,name,mobilePhone);
+        OwnerLoanRuleInfo netRuleInfo = ownerResult.getInterInfo().get(NETLOAN_FUNCIONCODE);
+        netRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
+        long startTime = System.currentTimeMillis();
+        Result<NetLoanOut> netResult = callNetLoan(identityCard,name,mobilePhone);
+        netRuleInfo.setCall_second((System.currentTimeMillis()-startTime)/1000);
+        netRuleInfo.setCallEndtime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
         if(netResult == null){
-            msg.append("身份证：").append(identityCard).append(",三次查询网贷黑名单失败；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg);
+            netRuleInfo.setInvokeSuccess(false);
+            netRuleInfo.setInterfaceResultCodeRemark("网贷黑名单接口调用失败");
+            netRuleInfo.setTsTarget(false);
         }
-        if(netResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(netResult.getReturnCode()) && netResult.getData() != null){
-            ruleMsg.append("身份证：").append(identityCard).append(",命中网贷黑名单；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,ruleMsg);
-            execution.setVariable("flag","2");
-            return;
-        }
-        // 老赖
-        Result<OldLaiOut> oldLaiOutResult = clallOldLai(identityCard,name);
-        if(oldLaiOutResult == null){
-            msg.append("身份证：").append(identityCard).append(",三次查询老赖黑名单失败；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg);
-        }
-        if(oldLaiOutResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(oldLaiOutResult.getReturnCode()) && oldLaiOutResult.getData() != null){
-            ruleMsg.append("身份证：").append(identityCard).append(",命中老赖黑名单；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,ruleMsg);
-            execution.setVariable("flag","2");
-            return;
+        if(netResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(netResult.getReturnCode())){
+            netRuleInfo.setInvokeSuccess(true);
+            netRuleInfo.setResultJson(JSON.toJSONString(netResult.getData()));
+            if(netResult.getData() != null){
+                netRuleInfo.setInterfaceResultCodeRemark("命中网贷黑名单");
+                netRuleInfo.setTsTarget(false);
+                flag = "2";
+            }else{
+                netRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
+                netRuleInfo.setTsTarget(false);
+            }
         }
         // 自有
-        Result<SelfDtoOut> selfDtoOutResult = clallSelf(identityCard,name);
+        OwnerLoanRuleInfo slefRuleInfo = ownerResult.getInterInfo().get(SELF_FUNCIONCODE);
+        slefRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
+        startTime = System.currentTimeMillis();
+        Result<SelfDtoOut> selfDtoOutResult = callSelf(identityCard,name);
+        slefRuleInfo.setCall_second((System.currentTimeMillis()-startTime)/1000);
+        slefRuleInfo.setCallEndtime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
         if(selfDtoOutResult == null){
-            msg.append("身份证：").append(identityCard).append(",三次查询自有黑名单失败；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg);
+            slefRuleInfo.setInvokeSuccess(false);
+            slefRuleInfo.setInterfaceResultCodeRemark("自有黑名单接口调用失败");
+            slefRuleInfo.setTsTarget(false);
         }
-        if(selfDtoOutResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(selfDtoOutResult.getReturnCode()) && selfDtoOutResult.getData() != null){
-            ruleMsg.append("身份证：").append(identityCard).append(",命中自有黑名单；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,ruleMsg);
-            execution.setVariable("flag","2");
-            return;
+        if(selfDtoOutResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(selfDtoOutResult.getReturnCode())){
+            slefRuleInfo.setInvokeSuccess(true);
+            slefRuleInfo.setResultJson(JSON.toJSONString(selfDtoOutResult.getData()));
+            if(selfDtoOutResult.getData() != null){
+                slefRuleInfo.setInterfaceResultCodeRemark("命中自有黑名单");
+                slefRuleInfo.setTsTarget(false);
+                flag = "2";
+            }else{
+                slefRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
+                slefRuleInfo.setTsTarget(false);
+            }
         }
         // 考拉
-        Result<KlRiskBlackListRespDto> klResult = clallKl(identityCard,name,mobilePhone);
+        OwnerLoanRuleInfo klRuleInfo = ownerResult.getInterInfo().get(KL_FUNCIONCODE);
+        klRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
+        startTime = System.currentTimeMillis();
+        Result<KlRiskBlackListRespDto> klResult = callKl(identityCard,name,mobilePhone);
+        klRuleInfo.setCall_second((System.currentTimeMillis()-startTime)/1000);
+        klRuleInfo.setCallEndtime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
         if(klResult == null){
-            msg.append("身份证：").append(identityCard).append(",三次查询考拉黑名单失败；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg);
+            klRuleInfo.setInvokeSuccess(false);
+            klRuleInfo.setInterfaceResultCodeRemark("考拉黑名单接口调用失败");
+            klRuleInfo.setTsTarget(false);
         }
-        if(klResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(klResult.getReturnCode()) && klResult.getData() != null){
-            ruleMsg.append("身份证：").append(identityCard).append(",命中考拉黑名单；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,ruleMsg);
-            execution.setVariable("flag","2");
-            return;
+        if(klResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(klResult.getReturnCode())){
+            klRuleInfo.setInvokeSuccess(true);
+            klRuleInfo.setResultJson(JSON.toJSONString(klResult.getData()));
+            if(klResult.getData() != null){
+                klRuleInfo.setInterfaceResultCodeRemark("命中考拉黑名单");
+                klRuleInfo.setTsTarget(false);
+            }else{
+                klRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
+                klRuleInfo.setTsTarget(false);
+
+            }
         }
-        // 汇法
-        Result<LawxpPersonClassifyDtoOut> personClassifyDtoOutResult = clallPersonClassify(identityCard,name,mobilePhone);
-        if(personClassifyDtoOutResult == null){
-            msg.append("身份证：").append(identityCard).append(",三次查询汇法个人信息统计接口失败；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg);
+        // 前海
+        OwnerLoanRuleInfo qianhaiRuleInfo = ownerResult.getInterInfo().get(QIANHAI_FUNCIONCODE);
+        qianhaiRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
+        startTime = System.currentTimeMillis();
+        Result<FrontSeaDtoOut> qianhaiResult = callQianhai(identityCard,name,mobilePhone);
+        qianhaiRuleInfo.setCall_second((System.currentTimeMillis()-startTime)/1000);
+        qianhaiRuleInfo.setCallEndtime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
+        if(qianhaiResult == null){
+            qianhaiRuleInfo.setInvokeSuccess(false);
+            qianhaiRuleInfo.setInterfaceResultCodeRemark("前海征信黑名单接口调用失败");
+            qianhaiRuleInfo.setTsTarget(false);
         }
-        if(personClassifyDtoOutResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(personClassifyDtoOutResult.getReturnCode()) && personClassifyDtoOutResult.getData() != null){
-            ruleMsg.append("身份证：").append(identityCard).append(",命中汇法个人信息失信规则；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,ruleMsg);
-            execution.setVariable("flag","2");
-            return;
+        if(qianhaiResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(qianhaiResult.getReturnCode())){
+            qianhaiRuleInfo.setInvokeSuccess(true);
+            qianhaiRuleInfo.setResultJson(JSON.toJSONString(qianhaiResult.getData()));
+            if(qianhaiResult.getData() != null){
+                qianhaiRuleInfo.setInterfaceResultCodeRemark("命中前海征信");
+                qianhaiRuleInfo.setTsTarget(false);
+            }else{
+                qianhaiRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
+                qianhaiRuleInfo.setTsTarget(false);
+
+            }
         }
-        // 天行数科
-        Result<NegativeSearchDtoOut> negativeSearchDtoOutResult = clallNegativeSearch(identityCard,name,mobilePhone);
-        if(negativeSearchDtoOutResult == null){
-            msg.append("身份证：").append(identityCard).append(",三次查询天行数科接口失败；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg);
+        // 白骑士
+        OwnerLoanRuleInfo baiqishiRuleInfo = ownerResult.getInterInfo().get(BAIQISHI_FUNCIONCODE);
+        baiqishiRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
+        startTime = System.currentTimeMillis();
+        Result<BaiqishiDtoOut> baiqishiResult = callBaiqishi(identityCard,name,mobilePhone);
+        baiqishiRuleInfo.setCall_second((System.currentTimeMillis()-startTime)/1000);
+        baiqishiRuleInfo.setCallEndtime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
+        if(baiqishiResult == null){
+            baiqishiRuleInfo.setInvokeSuccess(false);
+            baiqishiRuleInfo.setInterfaceResultCodeRemark("白骑士黑名单接口调用失败");
+            baiqishiRuleInfo.setTsTarget(false);
         }
-        if(negativeSearchDtoOutResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(negativeSearchDtoOutResult.getReturnCode()) && negativeSearchDtoOutResult.getData() != null){
-            ruleMsg.append("身份证：").append(identityCard).append(",命中天行数科负面消息记录规则；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,ruleMsg);
-            execution.setVariable("flag","2");
-            return;
+        if(baiqishiResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(baiqishiResult.getReturnCode())){
+            baiqishiRuleInfo.setInvokeSuccess(true);
+            baiqishiRuleInfo.setResultJson(JSON.toJSONString(baiqishiResult.getData()));
+            if(baiqishiResult.getData() != null){
+                baiqishiRuleInfo.setInterfaceResultCodeRemark("命中白骑士黑名单");
+                baiqishiRuleInfo.setTsTarget(false);
+            }else{
+                baiqishiRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
+                baiqishiRuleInfo.setTsTarget(false);
+
+            }
         }
-        execution.setVariable("flag","1");
+        execution.setVariable("flag",flag);
     }
 
     /**
-     * 调用网贷黑名单，重试次数3次
+     * 调用网贷黑名单，重试次数MAX_SIZE次
      * @param identityCard
      * @param name
      * @param mobilePhone
      * @return
      */
-    private Result<NetLoanOut> clallNetLoan(String identityCard,String name,String mobilePhone){
+    private Result<NetLoanOut> callNetLoan(String identityCard,String name,String mobilePhone){
         NetLoanIn in = new NetLoanIn();
         in.setIdentityCard(identityCard);
         in.setMobilePhone(mobilePhone);
@@ -133,18 +185,11 @@ public class BlanckListServiceImpl implements BlanckListService {
         Result<NetLoanOut> result = null;
         int count = 0;
         boolean successFlag = false;
-        while(count<3 && !successFlag){
+        while(count++<MAX_SIZE && !successFlag){
             try{
                 result = eipServiceInterface.netLoan(in);
-                count++;
-                if(!"0000".equals(result.getReturnCode())){
-                    successFlag = false;
-                    result = null;
-                }else{
-                    successFlag = true;
-                }
+                successFlag = true;
             }catch (Exception e){
-                count++;
                 LOGGER.error("第"+count+"次调用网贷黑名单失败",e);
                 successFlag = false;
             }
@@ -153,45 +198,12 @@ public class BlanckListServiceImpl implements BlanckListService {
     }
 
     /**
-     * 调用老赖黑名单，重试次数3次
+     * 调用自有黑名单，重试次数MAX_SIZE次
      * @param identityCard
      * @param name
      * @return
      */
-    private Result<OldLaiOut> clallOldLai(String identityCard, String name){
-        OldLaiIn in = new OldLaiIn();
-        in.setIdentityCard(identityCard);
-        in.setRealName(name);
-        in.setQueryType("1");
-        Result<OldLaiOut> result = null;
-        int count = 0;
-        boolean successFlag = false;
-        while(count<3 && !successFlag){
-            try{
-                result = eipServiceInterface.oldLai(in);
-                count++;
-                if(!"0000".equals(result.getReturnCode())){
-                    successFlag = false;
-                    result = null;
-                }else{
-                    successFlag = true;
-                }
-            }catch (Exception e){
-                count++;
-                LOGGER.error("第"+count+"次调用老赖黑名单失败",e);
-                successFlag = false;
-            }
-        }
-        return  result;
-    }
-
-    /**
-     * 调用自有黑名单，重试次数3次
-     * @param identityCard
-     * @param name
-     * @return
-     */
-    private Result<SelfDtoOut> clallSelf(String identityCard, String name){
+    private Result<SelfDtoOut> callSelf(String identityCard, String name){
         OldLaiIn in = new OldLaiIn();
         in.setIdentityCard(identityCard);
         in.setRealName(name);
@@ -199,18 +211,11 @@ public class BlanckListServiceImpl implements BlanckListService {
         Result<SelfDtoOut> result = null;
         int count = 0;
         boolean successFlag = false;
-        while(count<3 && !successFlag){
+        while(count++<MAX_SIZE && !successFlag){
             try{
                 result = eipServiceInterface.self(in);
-                count++;
-                if(!"0000".equals(result.getReturnCode())){
-                    successFlag = false;
-                    result = null;
-                }else{
-                    successFlag = true;
-                }
+                successFlag = true;
             }catch (Exception e){
-                count++;
                 LOGGER.error("第"+count+"次调用自有黑名单失败",e);
                 successFlag = false;
             }
@@ -219,12 +224,12 @@ public class BlanckListServiceImpl implements BlanckListService {
     }
 
     /**
-     * 调用考拉黑名单，重试次数3次
+     * 调用考拉黑名单，重试次数MAX_SIZE次
      * @param identityCard
      * @param name
      * @return
      */
-    private Result<KlRiskBlackListRespDto> clallKl(String identityCard, String name,String mobilePhone){
+    private Result<KlRiskBlackListRespDto> callKl(String identityCard, String name,String mobilePhone){
         KlRiskBlackListReqDto in = new KlRiskBlackListReqDto();
         in.setIdentityCard(identityCard);
         in.setRealName(name);
@@ -232,18 +237,11 @@ public class BlanckListServiceImpl implements BlanckListService {
         Result<KlRiskBlackListRespDto> result = null;
         int count = 0;
         boolean successFlag = false;
-        while(count<3 && !successFlag){
+        while(count++<MAX_SIZE && !successFlag){
             try{
                 result = eipServiceInterface.kl(in);
-                count++;
-                if(!"0000".equals(result.getReturnCode())){
-                    successFlag = false;
-                    result = null;
-                }else{
-                    successFlag = true;
-                }
+                successFlag = true;
             }catch (Exception e){
-                count++;
                 LOGGER.error("第"+count+"次调用考拉黑名单失败",e);
                 successFlag = false;
             }
@@ -251,65 +249,54 @@ public class BlanckListServiceImpl implements BlanckListService {
         return  result;
     }
 
+
     /**
-     * 调用汇法网接口，重试次数3次
+     * 调用白骑士黑名单，重试次数MAX_SIZE次
      * @param identityCard
      * @param name
      * @return
      */
-    private Result<LawxpPersonClassifyDtoOut> clallPersonClassify(String identityCard, String name,String mobilePhone){
-        LawxpPersonClassifyDtoIn in = new LawxpPersonClassifyDtoIn();
+    private Result<BaiqishiDtoOut> callBaiqishi(String identityCard, String name,String mobilePhone){
+        NetLoanIn in = new NetLoanIn();
+        in.setMobilePhone(mobilePhone);
         in.setIdentityCard(identityCard);
         in.setRealName(name);
-        Result<LawxpPersonClassifyDtoOut> result = null;
+        Result<BaiqishiDtoOut> result = null;
         int count = 0;
         boolean successFlag = false;
-        while(count<3 && !successFlag){
+        while(count++<MAX_SIZE && !successFlag){
             try{
-                result = eipServiceInterface.personClassify(in);
-                count++;
-                if(!"0000".equals(result.getReturnCode())){
-                    successFlag = false;
-                    result = null;
-                }else{
-                    successFlag = true;
-                }
+                result = eipServiceInterface.baiqishi(in);
+                successFlag = true;
             }catch (Exception e){
-                count++;
-                LOGGER.error("第"+count+"次调用汇法网接口失败",e);
+                LOGGER.error("第"+count+"次调用白骑士黑名单失败",e);
                 successFlag = false;
             }
         }
         return  result;
     }
 
-
     /**
-     * 调用天行数科，重试次数3次
+     * 调用前海黑名单，重试次数MAX_SIZE次
      * @param identityCard
      * @param name
      * @return
      */
-    private Result<NegativeSearchDtoOut> clallNegativeSearch(String identityCard, String name,String mobilePhone){
-        NegativeSearchDtoIn in = new NegativeSearchDtoIn();
+    private Result<FrontSeaDtoOut> callQianhai(String identityCard, String name,String mobilePhone){
+        FrontSeaDtoIn in = new FrontSeaDtoIn();
         in.setIdentityCard(identityCard);
+        in.setIdType("0");//身份证
+        in.setReasonNo("01");
         in.setRealName(name);
-        Result<NegativeSearchDtoOut> result = null;
+        Result<FrontSeaDtoOut> result = null;
         int count = 0;
         boolean successFlag = false;
-        while(count<3 && !successFlag){
+        while(count++<MAX_SIZE && !successFlag){
             try{
-                result = eipServiceInterface.getNegativeSearch(in);
-                count++;
-                if(!"0000".equals(result.getReturnCode())){
-                    successFlag = false;
-                    result = null;
-                }else{
-                    successFlag = true;
-                }
+                result = eipServiceInterface.frontSea(in);
+                successFlag = true;
             }catch (Exception e){
-                count++;
-                LOGGER.error("第"+count+"次调用天行数科失败",e);
+                LOGGER.error("第"+count+"次调用白前海黑名单失败",e);
                 successFlag = false;
             }
         }

@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -49,24 +50,26 @@ public class DistributionRatioServiceImpl implements DistributionRatioService {
         String ruleMsgStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG));
         String msg = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_MSG));
         String taskIdStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_TASK_ID_VAR_KEY));
+        OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
         LOGGER.info("DistributionRatioServiceImpl execute start,persionRatioStr:"+persionRatioStr);
         // 数据组装，人工和自动设置
         String type = randomRatio(persionRatioStr);
-        OwnerLoanModelResult result = new OwnerLoanModelResult();
-        result.setAuditType(type);
-        result.setCode("0");
-        result.setErrorMsg(errorMsgStr);
-        result.setHitMsg(ruleMsgStr);
-        result.setWarmMsg(StringUtils.isEmpty(msg)?"执行成功":msg);
-        result.setProcInstId(execution.getProcessInstanceId());
-        result.setTaskId(taskIdStr);
-        result.setQuota(0d);
+        ownerResult.setAuditType(type);
+        ownerResult.setCode("0");
+        ownerResult.setErrorMsg(errorMsgStr);
+        ownerResult.setHitMsg(ruleMsgStr);
+        ownerResult.setWarmMsg(StringUtils.isEmpty(msg)?"执行成功":msg);
+        ownerResult.setProcInstId(execution.getProcessInstanceId());
+        ownerResult.setTaskId(taskIdStr);
+        ownerResult.setQuota(0d);
+        ownerResult.setInterInfos(new ArrayList<>(ownerResult.getInterInfo().values()));
+        ownerResult.setInterInfo(null);
         //更新任务状态
         long startTime = Long.parseLong(String.valueOf(execution.getVariable(ActivitiConstants.PROC_START_CURRENT_TIME)));
-        updateTask(result,taskIdStr,execution.getProcessInstanceId(),startTime);
+        updateTask(ownerResult,taskIdStr,execution.getProcessInstanceId(),startTime);
         // MQ发送消息
         if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)) {// 服务类型
-            topicSenderService.send(JSON.toJSONString(result));
+            topicSenderService.sendOwnerLoan(JSON.toJSONString(ownerResult));
         }
         LOGGER.info("DistributionRatioServiceImpl execute end");
     }

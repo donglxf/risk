@@ -20,8 +20,10 @@ public class TopicSenderServiceImpl {
     public void send(String context) {
         LOGGER.info("send topicExchange,message is:"+context);
         this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.ACTIVITI_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_KEY, context);
-
-
     }
 
+    public void sendOwnerLoan(String context) {
+        LOGGER.info("send topicExchange,message is:"+context);
+        this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING__OWNERLOAN_KEY, context);
+    }
 }
