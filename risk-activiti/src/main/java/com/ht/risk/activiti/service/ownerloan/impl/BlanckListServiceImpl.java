@@ -1,98 +1,121 @@
 package com.ht.risk.activiti.service.ownerloan.impl;
 
 import com.ht.risk.activiti.rpc.EipServiceInterface;
+import com.ht.risk.activiti.service.impl.ActivitiServiceImpl;
 import com.ht.risk.activiti.service.ownerloan.BlanckListService;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.model.eip.*;
 import com.ht.ussp.core.Result;
 import com.ht.ussp.core.ReturnCodeEnum;
 import org.activiti.engine.delegate.DelegateExecution;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
+/**
+ * 黑名单，汇法网，天行数科规则
+ */
+@Service("blanckListService")
 public class BlanckListServiceImpl implements BlanckListService {
 
     @Autowired
     private EipServiceInterface eipServiceInterface;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(BlanckListServiceImpl.class);
+
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        String errorMsgStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_ERROR_MSG));
+        LOGGER.info("BlanckListServiceImpl excute start");
         String ruleMsgStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG));
-        StringBuffer errorMsg = new StringBuffer(errorMsgStr);
+        String msgStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_MSG));
         StringBuffer ruleMsg = new StringBuffer(ruleMsgStr);
-        //TODO 身份证，名称获取
-        String identityCard = null;
-        String name= null;
-        String mobilePhone = null;
+        StringBuffer msg = new StringBuffer(msgStr);
+        Map dataMap  = (Map)execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
+        Map borrowerMap = (Map)dataMap.get("borrorwerInfo");
+        if(borrowerMap == null){
+            execution.setVariable("flag","2");
+            return;
+        }
+        String identityCard = String.valueOf(borrowerMap.get("identifyCard"));
+        String name= String.valueOf(borrowerMap.get("customerName"));
+        String mobilePhone = String.valueOf(borrowerMap.get("phoneNo"));
         // 网贷
         Result<NetLoanOut> netResult = clallNetLoan(identityCard,name,mobilePhone);
         if(netResult == null){
-            errorMsg.append("身份证：").append(identityCard).append(",查询网贷黑名单失败；");
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_ERROR_MSG,errorMsg);
+            msg.append("身份证：").append(identityCard).append(",三次查询网贷黑名单失败；");
+            execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg);
         }
         if(netResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(netResult.getReturnCode()) && netResult.getData() != null){
             ruleMsg.append("身份证：").append(identityCard).append(",命中网贷黑名单；");
             execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,ruleMsg);
+            execution.setVariable("flag","2");
             return;
         }
         // 老赖
         Result<OldLaiOut> oldLaiOutResult = clallOldLai(identityCard,name);
         if(oldLaiOutResult == null){
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_ERROR_MSG,errorMsg);
-            errorMsg.append("身份证：").append(identityCard).append(",查询老赖黑名单失败；");
+            msg.append("身份证：").append(identityCard).append(",三次查询老赖黑名单失败；");
+            execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg);
         }
         if(oldLaiOutResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(oldLaiOutResult.getReturnCode()) && oldLaiOutResult.getData() != null){
             ruleMsg.append("身份证：").append(identityCard).append(",命中老赖黑名单；");
             execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,ruleMsg);
+            execution.setVariable("flag","2");
             return;
         }
         // 自有
         Result<SelfDtoOut> selfDtoOutResult = clallSelf(identityCard,name);
         if(selfDtoOutResult == null){
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_ERROR_MSG,errorMsg);
-            errorMsg.append("身份证：").append(identityCard).append(",查询自有黑名单失败；");
+            msg.append("身份证：").append(identityCard).append(",三次查询自有黑名单失败；");
+            execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg);
         }
         if(selfDtoOutResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(selfDtoOutResult.getReturnCode()) && selfDtoOutResult.getData() != null){
             ruleMsg.append("身份证：").append(identityCard).append(",命中自有黑名单；");
             execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,ruleMsg);
+            execution.setVariable("flag","2");
             return;
         }
         // 考拉
         Result<KlRiskBlackListRespDto> klResult = clallKl(identityCard,name,mobilePhone);
         if(klResult == null){
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_ERROR_MSG,errorMsg);
-            errorMsg.append("身份证：").append(identityCard).append(",查询考拉黑名单失败；");
+            msg.append("身份证：").append(identityCard).append(",三次查询考拉黑名单失败；");
+            execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg);
         }
         if(klResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(klResult.getReturnCode()) && klResult.getData() != null){
             ruleMsg.append("身份证：").append(identityCard).append(",命中考拉黑名单；");
             execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,ruleMsg);
+            execution.setVariable("flag","2");
             return;
         }
         // 汇法
         Result<LawxpPersonClassifyDtoOut> personClassifyDtoOutResult = clallPersonClassify(identityCard,name,mobilePhone);
         if(personClassifyDtoOutResult == null){
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_ERROR_MSG,errorMsg);
-            errorMsg.append("身份证：").append(identityCard).append(",查询汇法个人信息统计接口失败；");
+            msg.append("身份证：").append(identityCard).append(",三次查询汇法个人信息统计接口失败；");
+            execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg);
         }
         if(personClassifyDtoOutResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(personClassifyDtoOutResult.getReturnCode()) && personClassifyDtoOutResult.getData() != null){
             ruleMsg.append("身份证：").append(identityCard).append(",命中汇法个人信息失信规则；");
             execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,ruleMsg);
+            execution.setVariable("flag","2");
             return;
         }
         // 天行数科
         Result<NegativeSearchDtoOut> negativeSearchDtoOutResult = clallNegativeSearch(identityCard,name,mobilePhone);
         if(negativeSearchDtoOutResult == null){
-            execution.setVariable(ActivitiConstants.PROC_EXCUTE_ERROR_MSG,errorMsg);
-            errorMsg.append("身份证：").append(identityCard).append(",查询天行数科接口失败；");
+            msg.append("身份证：").append(identityCard).append(",三次查询天行数科接口失败；");
+            execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg);
         }
         if(negativeSearchDtoOutResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(negativeSearchDtoOutResult.getReturnCode()) && negativeSearchDtoOutResult.getData() != null){
             ruleMsg.append("身份证：").append(identityCard).append(",命中天行数科负面消息记录规则；");
             execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,ruleMsg);
+            execution.setVariable("flag","2");
             return;
         }
-
-
+        execution.setVariable("flag","1");
     }
 
     /**
@@ -122,6 +145,7 @@ public class BlanckListServiceImpl implements BlanckListService {
                 }
             }catch (Exception e){
                 count++;
+                LOGGER.error("第"+count+"次调用网贷黑名单失败",e);
                 successFlag = false;
             }
         }
@@ -154,6 +178,7 @@ public class BlanckListServiceImpl implements BlanckListService {
                 }
             }catch (Exception e){
                 count++;
+                LOGGER.error("第"+count+"次调用老赖黑名单失败",e);
                 successFlag = false;
             }
         }
@@ -186,6 +211,7 @@ public class BlanckListServiceImpl implements BlanckListService {
                 }
             }catch (Exception e){
                 count++;
+                LOGGER.error("第"+count+"次调用自有黑名单失败",e);
                 successFlag = false;
             }
         }
@@ -218,6 +244,7 @@ public class BlanckListServiceImpl implements BlanckListService {
                 }
             }catch (Exception e){
                 count++;
+                LOGGER.error("第"+count+"次调用考拉黑名单失败",e);
                 successFlag = false;
             }
         }
@@ -249,6 +276,7 @@ public class BlanckListServiceImpl implements BlanckListService {
                 }
             }catch (Exception e){
                 count++;
+                LOGGER.error("第"+count+"次调用汇法网接口失败",e);
                 successFlag = false;
             }
         }
@@ -281,6 +309,7 @@ public class BlanckListServiceImpl implements BlanckListService {
                 }
             }catch (Exception e){
                 count++;
+                LOGGER.error("第"+count+"次调用天行数科失败",e);
                 successFlag = false;
             }
         }
