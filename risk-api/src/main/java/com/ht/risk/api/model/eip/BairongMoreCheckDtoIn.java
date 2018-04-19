@@ -1,12 +1,13 @@
 package com.ht.risk.api.model.eip;
 
+import com.ht.risk.api.comment.commEntryIn;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 @Data
 @ApiModel
-public class BairongMoreCheckDtoIn{
+public class BairongMoreCheckDtoIn extends commEntryIn {
 
 	@ApiModelProperty(value = "真实姓名")
 	private String realName;

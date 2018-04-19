@@ -20,13 +20,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface BairongRpc {
 
     /**
-     * 描述：7.2.12百融多次申请核查V2
+     * 描述：百融多次申请核查V2
      * @param input
      * @return a
      * @autor 黄增猛
      * @date 2018/2/5 9:38
      */
-    @PostMapping(value = "/moreCheck" ,headers = { "app=FK", "content-type=application/json" }, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/moreCheck" , produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     Result<BairongMoreCheckDtoOut> moreCheck(@RequestBody BairongMoreCheckDtoIn input);
+
 
 }
