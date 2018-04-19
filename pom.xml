@@ -156,7 +156,6 @@
 	<modules>
 
 		<module>risk-common</module>
-		<module>risk-log</module>
 		<module>risk-api</module>
 		<module>risk-rule-service</module>
 		<module>risk-ui</module>
@@ -164,7 +163,6 @@
 		<module>risk-gate</module>
 		<module>risk-drools</module>
 		<module>risk-activiti</module>
-		<module>risk-esper</module>
 		<module>risk-activiti-extend</module>
 		<module>risk-eip</module>
 	</modules>

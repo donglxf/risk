@@ -54,7 +54,8 @@ public class ActivitiConstants {
     public final static String PROC_EXCUTE_HIT_RULE_MSG = "PROC_EXCUTE_HIT_RULE_MSG";
 
     /**
-     * 模型错误变量
+     * 模型错误信息变量
      */
     public final static String PROC_EXCUTE_ERROR_MSG = "PROC_EXCUTE_ERROR_MSG";
+
 }
