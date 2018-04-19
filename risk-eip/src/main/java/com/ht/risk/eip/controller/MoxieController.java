@@ -35,7 +35,7 @@ public class MoxieController {
     private MongoTemplate mongoTemplate;
 
     @PostMapping("/taobaoGetAll")
-    @ApiOperation(value = "淘宝司法拍卖", httpMethod = "POST")
+    @ApiOperation(value = "魔蝎淘宝", httpMethod = "POST")
     @ResponseBody
     public Result<TaobaoInfoDtoOut> taobaoGetAll(@RequestBody TaobaoInfoDtoIn input) throws Exception {
         System.out.println(">>>>>>>>>");
