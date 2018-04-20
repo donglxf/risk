@@ -176,7 +176,14 @@ public class VariableBindController extends BaseController {
         for (ModelSence sence : map) {
             List<VariableBind> li = sence.getData();
             for (VariableBind ls : li) {
-                data.put(ls.getVariableCode(), ls.getTmpValue());
+                if("Double".equals(ls.getDataType())){
+                    data.put(ls.getVariableCode(), Double.parseDouble(ls.getTmpValue()));
+                }else if("Integer".equals(ls.getDataType())){
+                    data.put(ls.getVariableCode(), Integer.parseInt(ls.getTmpValue()));
+                }else{
+                    data.put(ls.getVariableCode(), ls.getTmpValue());
+                }
+//                data.put(ls.getVariableCode(), ls.getTmpValue());
             }
         }
 //        drools.setVersion(String.valueOf(entityInfo.getSenceVersionId())); // 版本表id
