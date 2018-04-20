@@ -40,7 +40,7 @@ public class IdentityCheckServiceImpl implements IdentityCheckService {
         long startTime = System.currentTimeMillis();
 
         Map dataMap  = (Map)execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
-        Map borrowerMap = (Map)dataMap.get("borrorwerInfo");
+        Map borrowerMap = (Map)dataMap.get("borrowerInfo");
         if(borrowerMap == null){
             execution.setVariable("flag","2");
             return;

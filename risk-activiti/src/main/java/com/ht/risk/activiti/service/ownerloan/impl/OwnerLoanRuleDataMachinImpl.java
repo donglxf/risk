@@ -51,7 +51,7 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
             verficationDataMachin(dataMap,execution);
         }
 
-        Map borrowerMap = (Map)dataMap.get("borrorwerInfo");
+        Map borrowerMap = (Map)dataMap.get("borrowerInfo");
         String identityCard = String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
         String name= String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
         String mobilePhone = String.valueOf(borrowerMap.get("borrowerInfo_phoneNo"));
