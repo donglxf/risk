@@ -16,6 +16,7 @@ public class OwnerLoanModelResult implements Serializable{
     private String hitMsg;
     private String auditType;
     private Double quota;
+    private String businessKey;
     private Map<String,OwnerLoanRuleInfo> interInfo;
         private List<OwnerLoanRuleInfo> interInfos;
 
@@ -100,5 +101,13 @@ public class OwnerLoanModelResult implements Serializable{
 
     public void setInterInfos(List<OwnerLoanRuleInfo> interInfos) {
         this.interInfos = interInfos;
+    }
+
+    public String getBusinessKey() {
+        return businessKey;
+    }
+
+    public void setBusinessKey(String businessKey) {
+        this.businessKey = businessKey;
     }
 }

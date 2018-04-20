@@ -55,12 +55,14 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
         String identityCard = String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
         String name= String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
         String mobilePhone = String.valueOf(borrowerMap.get("borrowerInfo_phoneNo"));
+        String businessId = String.valueOf(dataMap.get("businessId"));
 
         borrowerMap.put("identifyCard",identityCard);
         borrowerMap.put("customerName",name);
         borrowerMap.put("phoneNo",mobilePhone);
 
         OwnerLoanModelResult result = initResultData(identityCard,name,mobilePhone);
+        result.setBusinessKey(businessId);
         execution.setVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE,result);
         LOGGER.error("OwnerLoanRuleDataMachinImpl execute method excute end...");
     }
