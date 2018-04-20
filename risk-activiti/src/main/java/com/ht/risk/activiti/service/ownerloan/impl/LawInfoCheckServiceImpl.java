@@ -60,7 +60,9 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
         if(persionResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(persionResult.getReturnCode())){
             persionRuleInfo.setInvokeSuccess(true);
             persionRuleInfo.setResultJson(JSON.toJSONString(persionResult.getData()));
-            if(persionResult.getData() != null){
+            //案例条数，失信条数，执行条数，税务条数，催欠条数，网贷条数
+            if(persionResult.getData() != null && (persionResult.getData().getAnli()>0 || persionResult.getData().getCuiqiannum()>0 || persionResult.getData().getShixinnum()>0||
+                    persionResult.getData().getShuiwunum() >0 || persionResult.getData().getWangdainum() >0 || persionResult.getData().getZhixingnum()>0) ){
                 persionRuleInfo.setInterfaceResultCodeRemark("命中汇法网个人分类信息");
                 persionRuleInfo.setTsTarget(false);
                 flag = "2";
@@ -73,7 +75,7 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
         OwnerLoanRuleInfo webBackRuleInfo = ownerResult.getInterInfo().get(WEIZHONG_FUNCIONCODE);
         webBackRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
         startTime = System.currentTimeMillis();
-        Result<LawxpPersonClassifyDtoOut> webBankResult = callPersonClassify(identityCard,name,mobilePhone);
+        Result<LawxpWebankDtoOut> webBankResult = callWebank(identityCard,name,mobilePhone);
         webBackRuleInfo.setCall_second((System.currentTimeMillis()-startTime)/1000);
         webBackRuleInfo.setCallEndtime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
         if(webBankResult == null){
@@ -84,7 +86,7 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
         if(webBankResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(webBankResult.getReturnCode())){
             webBackRuleInfo.setInvokeSuccess(true);
             webBackRuleInfo.setResultJson(JSON.toJSONString(webBankResult.getData()));
-            if(webBankResult.getData() != null){
+            if(webBankResult.getData() != null && webBankResult.getData().getTotalnumber() >0){
                 webBackRuleInfo.setInterfaceResultCodeRemark("命中微众（法院）");
                 webBackRuleInfo.setTsTarget(false);
                 flag = "2";
@@ -97,7 +99,7 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
         OwnerLoanRuleInfo crimeRuleInfo = ownerResult.getInterInfo().get(CRIME_FUNCIONCODE);
         crimeRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
         startTime = System.currentTimeMillis();
-        Result<LawxpPersonClassifyDtoOut> crimeResult = callPersonClassify(identityCard,name,mobilePhone);
+        Result<NegativeSearchDtoOut> crimeResult = callNegativeSearch(identityCard,name,mobilePhone);
         crimeRuleInfo.setCall_second((System.currentTimeMillis()-startTime)/1000);
         crimeRuleInfo.setCallEndtime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
         if(crimeResult == null){
@@ -108,7 +110,9 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
         if(crimeResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(crimeResult.getReturnCode())){
             crimeRuleInfo.setInvokeSuccess(true);
             crimeRuleInfo.setResultJson(JSON.toJSONString(crimeResult.getData()));
-            if(crimeResult.getData() != null){
+            //是否在逃,是否有前科,是否吸毒,是否涉毒
+            if(crimeResult.getData() != null && ("1".equals(crimeResult.getData().getIsCrime()) || "1".equals(crimeResult.getData().getIsDrug()) || "1".equals(crimeResult.getData().getIsDrugRelated())
+                || "1".equals(crimeResult.getData().getIsEscape()))){
                 crimeRuleInfo.setInterfaceResultCodeRemark("命中天行数科接口");
                 crimeRuleInfo.setTsTarget(false);
                 flag = "2";
