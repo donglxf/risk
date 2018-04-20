@@ -25,16 +25,37 @@ public interface EipServiceInterface {
 	@RequestMapping("/news/negativeSearch")
 	public com.ht.ussp.core.Result<NegativeSearchDtoOut> getNegativeSearch(NegativeSearchDtoIn paramter);
 
+	/**
+	 * 老赖黑名单
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping("/black/oldLai")
 	public com.ht.ussp.core.Result<OldLaiOut> oldLai(OldLaiIn input) throws Exception;
 
+	/**
+	 * 网贷黑名单
+	 * @param input
+	 * @return
+	 */
 	@PostMapping("/black/netLoan")
 	public com.ht.ussp.core.Result<NetLoanOut> netLoan(NetLoanIn input);
 
+	/**
+	 * 自有黑名单
+	 * @param input
+	 * @return
+	 */
 	@PostMapping("/black/self")
 	public com.ht.ussp.core.Result<SelfDtoOut> self(OldLaiIn input);
 
-	@PostMapping("/klRiskBlackList")
+	/**
+	 * 考拉黑名单
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/black//klRiskBlackList")
 	public com.ht.ussp.core.Result<KlRiskBlackListRespDto> kl(KlRiskBlackListReqDto input);
 
 
@@ -59,7 +80,7 @@ public interface EipServiceInterface {
 	 * @param input
 	 * @return
 	 */
-	@PostMapping("/mobileValid")
+	@PostMapping("/black/mobileValid")
 	public com.ht.ussp.core.Result<MobileValidDtoOut> mobileValid(MobileValidDtoIn input);
 
 	/**
@@ -67,7 +88,7 @@ public interface EipServiceInterface {
 	 * @param input
 	 * @return
 	 */
-	@PostMapping("/baiqishi")
+	@PostMapping("/black/baiqishi")
 	public com.ht.ussp.core.Result<BaiqishiDtoOut> baiqishi(NetLoanIn input);
 
 	/**
@@ -75,7 +96,7 @@ public interface EipServiceInterface {
 	 * @param input
 	 * @return
 	 */
-	@PostMapping("/frontSea")
+	@PostMapping("/black/frontSea")
 	public com.ht.ussp.core.Result<FrontSeaDtoOut> frontSea(FrontSeaDtoIn input);
 
 	/**
@@ -83,7 +104,7 @@ public interface EipServiceInterface {
 	 * @param input
 	 * @return
 	 */
-	@PostMapping("/webank")
+	@PostMapping("/lawxp/webank")
 	public com.ht.ussp.core.Result<LawxpWebankDtoOut> webank(LawxpWebankDtoIn input);
 
 
