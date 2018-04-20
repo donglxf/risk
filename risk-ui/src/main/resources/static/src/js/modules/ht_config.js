@@ -19,6 +19,7 @@ layui.define(['config'],function (exports) {
         , loginIndex:basePath+"rule/ui/login.html"
         , refreshTokenUrl: basePath + "uaa/auth/token"
         , changePwdUrl : changePwdUrl
+        , userInfoUpdate: userInfoUpdate
 
         , activitiConfigPath:"/config/" // 流程引擎配置模块根路径
         , activitiServicePath:"/activiti/" // 流程引擎配置模块根路径
