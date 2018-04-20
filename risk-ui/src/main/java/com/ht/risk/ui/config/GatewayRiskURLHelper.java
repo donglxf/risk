@@ -28,10 +28,19 @@ public class GatewayRiskURLHelper {
     @Value("${ht.config.ui.gatewayUrl:htt://localhost:30111}")
     private String gatewayUrl;
 
+    @Value("${ht.config.ui.changePwdUrl}")
+    private String changePwdUrl;
+
+    @Value("${ht.config.ui.userInfoUpdate}")
+    private String userInfoUpdate;
+
     @GetMapping(value = "/config.js", produces = "application/javascript")
     public String config() {
 
-        return String.format("var gatewayUrl='%s';", gatewayUrl)+" layui.define(function (exports) {\n" +
+        return String.format("var gatewayUrl='%s';", gatewayUrl)+
+                String.format("var changePwdUrl='%s';", changePwdUrl)+
+                String.format("var userInfoUpdate='%s';", userInfoUpdate)+
+                " layui.define(function (exports) {\n" +
                 "    var config = {};\n" +
                 "    exports('config', config);\n" +
                 "});";

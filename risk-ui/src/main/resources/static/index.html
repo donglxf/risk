@@ -137,7 +137,7 @@
     layui.config({
         base: '/rule/ui/src/js/modules/',
         version: false
-    }).use(['layer', 'ht_cookie'], function () {
+    }).use(['layer', 'ht_cookie','ht_config'], function () {
         var layer = layui.layer, cookie = layui.ht_cookie;
         var refreshToken = cookie.getRefreshToken();
         // 如果refreshToken失效，则直接跳转到登录页面
@@ -211,7 +211,7 @@
                        maxmin: true,
                        shadeClose: true,
                        title: "修改密码",
-                       content: 'http://172.16.200.110:30131/html/user/changePwdOther.html'+'?token='+cookie.getToken()+'&urls='+'http://172.16.200.110:30111/rule/ui/login.html'+'&isall=false',
+                       content: ht_config.changePwdUrl+'?token='+cookie.getToken()+'&urls='+ht_config.loginIndex+'?isall=false',
                        success: function (layero, index) {
                        }
                    })
@@ -223,7 +223,7 @@
                      maxmin: true,
                      shadeClose: true,
                      title: "修改用户信息",
-                     content: 'http://172.16.200.110:30131/html/user/userInfoOther.html'+'?token='+cookie.getToken(),
+                     content: ht_config.userInfoUpdate+'?token='+cookie.getToken(),
                      success: function (layero, index) {
                     	 
                      }
