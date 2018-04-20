@@ -55,7 +55,7 @@ public interface EipServiceInterface {
 	 * @param input
 	 * @return
 	 */
-	@PostMapping("/black/klRiskBlackList")
+	@PostMapping("/black/klRiskBlack")
 	public com.ht.ussp.core.Result<KlRiskBlackListRespDto> kl(KlRiskBlackListReqDto input);
 
 
