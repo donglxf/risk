@@ -78,7 +78,7 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
         borrowerMap.put("identifyCard","110101196811041047");
         borrowerMap.put("customerName","何瑞芬");
         borrowerMap.put("phoneNo","13809885602");
-        dataMap.put("borrorwerInfo",borrowerMap);
+        dataMap.put("borrowerInfo",borrowerMap);
     }
 
 
