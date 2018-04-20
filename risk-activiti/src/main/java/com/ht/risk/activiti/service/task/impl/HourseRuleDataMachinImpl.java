@@ -63,7 +63,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             msg.append(verficationDataMachin(dataMap,execution));
         }
         execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg.toString());
-        LOGGER.error("HourseRuleDataMachinImpl execute method excute end...");
+        LOGGER.info("HourseRuleDataMachinImpl execute method excute end...");
     }
     // 根据房产位置获取决策版本
     private int  getRuleVersionFlag(String address){
@@ -266,6 +266,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             NegativeSearchDtoIn negative = new NegativeSearchDtoIn();
             negative.setIdentityCard(identityCard);
             negative.setRealName(name);
+            negative.setApp(ActivitiConstants.PROC_HOURSE_LOAN_RESULT_CODE);
             com.ht.ussp.core.Result<NegativeSearchDtoOut> neResult = eipServiceInterface.getNegativeSearch(negative);
             LOGGER.info("HourseRuleDataMachinImpl getNegativeSearch neResult"+JSON.toJSONString(neResult));
             JSONObject str1 = JSONObject.parseObject(JSON.toJSONString(neResult));
@@ -289,6 +290,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
             input.setIdentityCard(identityCard);
             input.setRealName(name);
             input.setQueryType("1");
+            input.setApp(ActivitiConstants.PROC_HOURSE_LOAN_RESULT_CODE);
             Long startTime=System.currentTimeMillis();
             LOGGER.info("HourseRuleDataMachinImpl->getOldLai : "+startTime);
             com.ht.ussp.core.Result<OldLaiOut> neResult = eipServiceInterface.oldLai(input);

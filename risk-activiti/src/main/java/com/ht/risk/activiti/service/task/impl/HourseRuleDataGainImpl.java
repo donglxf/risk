@@ -25,7 +25,7 @@ public class HourseRuleDataGainImpl implements HourseRuleDataGain {
      */
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        LOGGER.error("HourseRuleDataGainImpl execute method excute start...");
+        LOGGER.info("HourseRuleDataGainImpl execute method excute start...");
         Object dataObj = execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
         Map dataMap = null;
         if(dataObj != null){
@@ -55,7 +55,7 @@ public class HourseRuleDataGainImpl implements HourseRuleDataGain {
             msg.append("担保信息为空;");
         }
         execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,msg.toString());
-        LOGGER.error("HourseRuleDataGainImpl execute method excute end...");
+        LOGGER.info("HourseRuleDataGainImpl execute method excute end...");
     }
     // TODO 待完善
     private Map gernerateModelData(){

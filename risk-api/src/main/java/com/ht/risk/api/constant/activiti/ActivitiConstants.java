@@ -61,10 +61,16 @@ public class ActivitiConstants {
     /**
      * 模型错误信息变量
      */
-    public final static String OWNER_LOAN_APP_CODE = "1002";
+    public final static String OWNER_LOAN_APP_CODE = "OWNER_LOAN_APP_CODE";
 
     /**
-     * 业主贷返回结果变量
+     * 房速贷贷编码
+     */
+    public final static String PROC_HOURSE_LOAN_RESULT_CODE = "1001";
+
+
+    /**
+     * 业主贷编码
      */
     public final static String PROC_OWNER_LOAN_RESULT_CODE = "1002";
 
