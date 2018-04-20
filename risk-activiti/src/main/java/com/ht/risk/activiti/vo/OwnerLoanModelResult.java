@@ -17,7 +17,7 @@ public class OwnerLoanModelResult implements Serializable{
     private String auditType;
     private Double quota;
     private Map<String,OwnerLoanRuleInfo> interInfo;
-    private List<OwnerLoanRuleInfo> interInfos;
+        private List<OwnerLoanRuleInfo> interInfos;
 
     public String getCode() {
         return code;

@@ -34,7 +34,6 @@ public interface EipServiceInterface {
 	@PostMapping("/black/self")
 	public com.ht.ussp.core.Result<SelfDtoOut> self(OldLaiIn input);
 
-
 	@PostMapping("/klRiskBlackList")
 	public com.ht.ussp.core.Result<KlRiskBlackListRespDto> kl(KlRiskBlackListReqDto input);
 
