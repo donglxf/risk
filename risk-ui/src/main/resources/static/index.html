@@ -135,8 +135,9 @@
     layui.config({
         base: '/rule/ui/src/js/modules/',
         version: false
-    }).use(['layer', 'ht_cookie','ht_config','app', 'message','ht_ajax', 'ht_cookie', 'ht_auth'], function () {
+    }).use(['layer', 'ht_cookie','ht_config','app', 'message','ht_ajax', 'ht_auth'], function () {
         var layer = layui.layer, cookie = layui.ht_cookie;
+        var ht_config = layui.ht_config;
         var refreshToken = cookie.getRefreshToken();
         // 如果refreshToken失效，则直接跳转到登录页面
         if (refreshToken == null || refreshToken == "") {
