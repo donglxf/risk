@@ -23,7 +23,7 @@ import java.util.Map;
 @Service("ownerLoanRuleDataMachin")
 public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HourseRuleDataMachinImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OwnerLoanRuleDataMachinImpl.class);
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {

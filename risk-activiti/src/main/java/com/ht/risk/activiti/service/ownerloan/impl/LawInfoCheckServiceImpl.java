@@ -36,8 +36,7 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-
-        LOGGER.info("BlanckListServiceImpl excute start");
+        LOGGER.info("LawInfoCheckServiceImpl excute start");
         OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
         Map dataMap  = (Map)execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
         Map borrowerMap = (Map)dataMap.get("borrorwerInfo");
@@ -122,6 +121,7 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
             }
         }
         execution.setVariable("flag",flag);
+        LOGGER.info("LawInfoCheckServiceImpl excute end");
     }
 
     /**

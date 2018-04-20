@@ -171,6 +171,7 @@ public class BlanckListServiceImpl implements BlanckListService {
             }
         }
         execution.setVariable("flag",flag);
+        LOGGER.info("BlanckListServiceImpl excute end");
     }
 
     /**

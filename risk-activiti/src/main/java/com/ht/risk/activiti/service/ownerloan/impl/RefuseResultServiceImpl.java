@@ -33,7 +33,7 @@ public class RefuseResultServiceImpl implements RefuseResultService {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        LOGGER.info("DistributionRatioServiceImpl execute start");
+        LOGGER.info("RefuseResultServiceImpl execute start");
         String modelType = String.valueOf(execution.getVariable(ActivitiConstants.PROC_MODEL_EXCUTE_TYPE_KEY));
         String errorMsgStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_ERROR_MSG));
         String ruleMsgStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG));
@@ -58,7 +58,7 @@ public class RefuseResultServiceImpl implements RefuseResultService {
         if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)) {// 服务类型
             topicSenderService.sendOwnerLoan(JSON.toJSONString(ownerResult));
         }
-        LOGGER.info("DistributionRatioServiceImpl execute end");
+        LOGGER.info("RefuseResultServiceImpl execute end");
     }
 
     // 更新任务信息

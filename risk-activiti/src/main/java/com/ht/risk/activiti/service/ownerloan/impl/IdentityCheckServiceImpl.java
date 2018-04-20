@@ -35,6 +35,7 @@ public class IdentityCheckServiceImpl implements IdentityCheckService {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
+        LOGGER.info("IdentityCheckServiceImpl execute start");
         OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
         long startTime = System.currentTimeMillis();
 
@@ -105,6 +106,8 @@ public class IdentityCheckServiceImpl implements IdentityCheckService {
             mobileRuleInfo.setTsTarget(false);
         }
         execution.setVariable("flag",flag);
+        LOGGER.info("IdentityCheckServiceImpl execute end");
+
     }
 
     /**

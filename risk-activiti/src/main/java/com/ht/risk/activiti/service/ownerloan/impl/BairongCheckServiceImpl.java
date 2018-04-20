@@ -26,7 +26,7 @@ import java.util.Map;
 public class BairongCheckServiceImpl implements BairongCheckService {
 
     private static final int MAX_SIZE = 3;
-    private static final Logger LOGGER = LoggerFactory.getLogger(IdentityCheckServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BairongCheckServiceImpl.class);
     private static final String BAIRONG_FUNCIONCODE = "10006003";
 
     @Autowired
