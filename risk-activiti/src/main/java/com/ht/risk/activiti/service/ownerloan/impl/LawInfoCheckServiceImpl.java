@@ -117,7 +117,7 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
                 crimeRuleInfo.setTsTarget(false);
             }
         }
-
+        execution.setVariable("flag",flag);
     }
 
     /**

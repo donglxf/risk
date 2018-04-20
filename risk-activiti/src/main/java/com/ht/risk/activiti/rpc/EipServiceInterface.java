@@ -107,6 +107,14 @@ public interface EipServiceInterface {
 	@PostMapping("/lawxp/webank")
 	public com.ht.ussp.core.Result<LawxpWebankDtoOut> webank(LawxpWebankDtoIn input);
 
+	/**
+	 * 百融多次申请核查V2
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/bairong/moreCheck")
+	public com.ht.ussp.core.Result<BairongMoreCheckDtoOut> moreCheck(BairongMoreCheckDtoIn input);
+
 
 
 }
