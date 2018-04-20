@@ -111,10 +111,8 @@
         <a href="#">鸿特信息</a>
     </div>
 </div>
-<!--<script src="plugins/layui/layui.js"></script>-->
 <script src="plugins/layui/layui.js"></script>
 
-<!--<script type="text/javascript" src="/plugins/bootstrap/js/bootstrap.min.js"></script>-->
 <script>
     var basepath = "http://localhost:9999/";
     Date.prototype.Format = function (fmt) { //author: meizz
@@ -137,8 +135,9 @@
     layui.config({
         base: '/rule/ui/src/js/modules/',
         version: false
-    }).use(['layer', 'ht_cookie'], function () {
+    }).use(['layer', 'ht_cookie','ht_config','app', 'message','ht_ajax', 'ht_auth'], function () {
         var layer = layui.layer, cookie = layui.ht_cookie;
+        var ht_config = layui.ht_config;
         var refreshToken = cookie.getRefreshToken();
         // 如果refreshToken失效，则直接跳转到登录页面
         if (refreshToken == null || refreshToken == "") {
@@ -148,10 +147,6 @@
             });
             return false;
         }
-        layui.config({
-            base: '/rule/ui/src/js/modules/',
-            version: false
-        }).use(['app', 'message', 'ht_ajax', 'ht_cookie', 'ht_auth'], function () {
             var app = layui.app,
                 $ = layui.jquery,
                 cookie = layui.ht_cookie,
@@ -211,7 +206,7 @@
                        maxmin: true,
                        shadeClose: true,
                        title: "修改密码",
-                       content: 'http://172.16.200.110:30131/html/user/changePwdOther.html'+'?token='+cookie.getToken()+'&urls='+'http://172.16.200.110:30111/rule/ui/login.html'+'&isall=false',
+                       content: ht_config.changePwdUrl+'?token='+cookie.getToken()+'&urls='+ht_config.loginIndex+'?isall=false',
                        success: function (layero, index) {
                        }
                    })
@@ -223,14 +218,12 @@
                      maxmin: true,
                      shadeClose: true,
                      title: "修改用户信息",
-                     content: 'http://172.16.200.110:30131/html/user/userInfoOther.html'+'?token='+cookie.getToken(),
+                     content: ht_config.userInfoUpdate+'?token='+cookie.getToken(),
                      success: function (layero, index) {
                     	 
                      }
                  })
             });
-
-        });
     });
 </script>
 </body>

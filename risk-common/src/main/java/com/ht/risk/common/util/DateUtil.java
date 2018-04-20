@@ -22,6 +22,8 @@ public class DateUtil
      */
     public static final String FULL_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 
+	public static final String SIMPLE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
 
 	/**

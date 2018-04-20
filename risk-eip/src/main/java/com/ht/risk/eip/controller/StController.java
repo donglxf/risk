@@ -53,10 +53,8 @@ public class StController {
     @ApiOperation(value = "商汤身份验证", httpMethod = "POST")
     @ResponseBody
     public Result<IdVerifyRespDto> idVerify(@RequestBody IdVerifyReqDto input) throws Exception {
-        System.out.println(">>>>>>>>>");
         long startTime = System.currentTimeMillis();
         Result<IdVerifyRespDto> result = stRpc.idVerify(input);
-        System.out.println("<<<<<<<<<<<"+JSON.toJSONString(result));
         LogEntity logEntity = new LogEntity(input.getApp(),"idVerify","1",input,result,new Date(),System.currentTimeMillis()-startTime);
         mongoTemplate.insert(logEntity);
         return result;
@@ -67,7 +65,6 @@ public class StController {
     @ApiOperation(value = "商汤公安人脸照比对", httpMethod = "POST")
     @ResponseBody
     public Result<FaceCompareDtoOut> faceCompare(FaceCompareReqDto input) throws Exception {
-        System.out.println(">>>>>>>>>");
         FileUploadResource fileUploadResource = Feign.builder()
                 .decoder(new JacksonDecoder())
                 .encoder(new FeignSpringFormEncoder())
@@ -80,7 +77,6 @@ public class StController {
 //        Result<FaceCompareDtoOut> result = stRpc.faceCompare(input.getIdNumber(), input.getName(), "", "", "",input.getSelfieFile());
 
 //        List result=uploadFile(input.getSelfieFile());
-        System.out.println("<<<<<<<<<<<"+JSON.toJSONString(result));
         return null;
     }
 
