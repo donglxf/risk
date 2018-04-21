@@ -38,7 +38,6 @@ public class IdentityCheckServiceImpl implements IdentityCheckService {
         LOGGER.info("IdentityCheckServiceImpl execute start");
         OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
         long startTime = System.currentTimeMillis();
-
         Map dataMap  = (Map)execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
         Map borrowerMap = (Map)dataMap.get("borrowerInfo");
         if(borrowerMap == null){
@@ -82,7 +81,7 @@ public class IdentityCheckServiceImpl implements IdentityCheckService {
         }
         // 手机号认证
         OwnerLoanRuleInfo mobileRuleInfo = ownerResult.getInterInfo().get(PHONE_FUNCIONCODE);
-        idetifyRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
+        mobileRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
         startTime = System.currentTimeMillis();
         Result<MobileValidDtoOut> mobileResult = clallKl(identityCard,name,mobilePhone);
         mobileRuleInfo.setCall_second((System.currentTimeMillis()-startTime)/1000);
