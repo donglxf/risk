@@ -27,7 +27,7 @@ public class TopicSenderServiceImpl {
     public void sendOwnerLoan(String context) {
         LOGGER.info("mq host is :"+rabbitMessagingTemplate.getRabbitTemplate().getConnectionFactory().getHost());
         LOGGER.info("send to quene [risk.model.ownerLoan] message is:"+context);
-        this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING__OWNERLOAN_KEY, context);
+        this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_OWNERLOAN_KEY, context);
         LOGGER.info("send to quene [risk.model.ownerLoan] message sucess");
     }
 }
