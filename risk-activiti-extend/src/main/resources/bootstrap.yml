@@ -2,7 +2,7 @@ spring:
   application:
     name: risk-activiti-extend
   autoconfigure:
-      exclude: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration,org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration.RabbitAnnotationDrivenConfiguration,org.springframework.cloud.config.client.ConfigClientAutoConfiguration
+      #exclude: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration,org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration.RabbitAnnotationDrivenConfiguration,org.springframework.cloud.config.client.ConfigClientAutoConfiguration
   cloud:
     config:
 #      name: risk-activiti-extend,base,rabbitmq,mongo,redis
@@ -12,7 +12,8 @@ spring:
       enabled: false
     bus:
       enabled: false
-  eureka:
-    client:
-        serviceUrl:
-          defaultZone: http://172.16.200.110:30101/eureka/  # 配置注册中心url
+eureka:
+  client:
+      serviceUrl:
+  #      defaultZone: http://192.168.12.195:30101/eureka/  # 配置注册中心url
+        defaultZone: http://172.16.200.110:30101/eureka/  # 配置注册中心url
