@@ -51,6 +51,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         // drools引擎执行
         RuleExcuteDetail detail = null;
         List<RuleExcuteDetail> details = new ArrayList<RuleExcuteDetail>();
+        String flag = "0";// 0：沒有命中規則，1：命中規則
         try{
             List<Map<String,Object>> datas = ( List<Map<String,Object>>)senceObj;
             if(datas != null &&  datas.size() > 0){
@@ -60,10 +61,12 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                         detail = matainExcuteDetail(result);
                         detail.setInParamter(datas.get(i));
                         details.add(detail);
+                        flag = "1";
                     }
                 }
             }
             delegateExecution.setVariable(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR+senceCode,details);
+            delegateExecution.setVariable("flag",flag);
         }catch (Exception e){
             LOGGER.info("决策编码为："+senceCode+",执行异常；",e);
             msg.append("决策编码为：").append(senceCode).append(",执行异常；");
