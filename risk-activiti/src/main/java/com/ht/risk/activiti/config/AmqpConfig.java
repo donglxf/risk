@@ -1,9 +1,6 @@
 package com.ht.risk.activiti.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -79,8 +76,8 @@ public class AmqpConfig {
     }
 
     @Bean
-    TopicExchange exchangeOwnerLoan() {
-        return new TopicExchange(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE);
+    DirectExchange exchangeOwnerLoan() {
+        return new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE);
     }
 
 
@@ -91,7 +88,7 @@ public class AmqpConfig {
     }
 
     @Bean
-    Binding bindingExchangeOwnerLoan(Queue queueOwnerLoan, TopicExchange exchangeOwnerLoan) {
+    Binding bindingExchangeOwnerLoan(Queue queueOwnerLoan, DirectExchange exchangeOwnerLoan) {
         return BindingBuilder.bind(queueOwnerLoan).to(exchangeOwnerLoan).with(AmqpConfig.ACTIVITI_ROUTING_OWNERLOAN_KEY);//*表示一个词,#表示零个或多个词
     }
 
