@@ -5,6 +5,7 @@ import com.ht.risk.activiti.mapper.ActExcuteTaskMapper;
 import com.ht.risk.activiti.rpc.ActivitiRpc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,30 +18,16 @@ public class ReceiverService {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ReceiverService.class);
 
-  /*  @Resource
-    private ActExcuteTaskMapper actExcuteTaskMapper;
-
-    @Resource
-    private ActivitiRpc activitiRpc;*/
-
     /*@RabbitListener(queues = "activiti.service")
     public void receiveMessage(String message) {
         LOGGER.info("ReceiverService receiveMessage from quene activiti-result-queue,message"+message);
-        *//*if(StringUtils.isNotEmpty(message)){
-            ModelExcuteResult modelResult = null;
-            try{
-                modelResult = JSON.parseObject(message,ModelExcuteResult.class);
-                updateTaskInfo(modelResult.getTaskId(),ActivitiConstants.PROC_STATUS_SUCCESS);
-            }catch (Exception e){
-                updateTaskInfo(modelResult.getTaskId(),ActivitiConstants.PROC_STATUS_EXCEPTION);
-            }
-        }*//*
-         *//*String proceInstId = message;
-        if(StringUtils.isNotEmpty(proceInstId)){
-            new Thread(new UpdateTaskStatusTask(proceInstId)).start();
-        }*//*
+    }
 
+    @RabbitListener(queues = "risk.model.ownerLoan1")
+    public void ownerLoanReceiveMessage(String message) {
+        LOGGER.info("ReceiverService receiveMessage from quene activiti-result-queue,message"+message);
     }*/
+
 
     /*private boolean updateTaskInfo(Long taskId,String status){
         if(taskId == null){

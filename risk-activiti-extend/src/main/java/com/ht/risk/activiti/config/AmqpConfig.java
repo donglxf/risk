@@ -22,11 +22,30 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 public class AmqpConfig implements RabbitListenerConfigurer {
 
     public final static String ACTIVITI_SELF = "activiti.service";
+    public final static String ACTIVITI_SERVICE_OWNERLOAN = "risk.model.ownerLoan1";
+
+    @Bean
+    public ConnectionFactory connectionFactory() {
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
+        connectionFactory.setHost("172.16.200.113");
+        connectionFactory.setPort(5672);
+        connectionFactory.setUsername("admin");
+        connectionFactory.setPassword("hongte888");
+        connectionFactory.setVirtualHost("/");
+        connectionFactory.setPublisherConfirms(true);
+        return connectionFactory;
+    }
 
     //创建队列
     @Bean
     public Queue queueSelf() {
         return new Queue(AmqpConfig.ACTIVITI_SELF);
+    }
+
+    //创建队列
+    @Bean
+    public Queue queueOwnerLoan() {
+        return new Queue(AmqpConfig.ACTIVITI_SERVICE_OWNERLOAN);
     }
 
     @Bean
