@@ -57,7 +57,14 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             if(datas != null &&  datas.size() > 0){
                 for(int i =0;i<datas.size();i++){
                     RuleExcuteResult result = this.excuteRules(senceCode,version,datas.get(i),delegateExecution.getProcessInstanceId(),ruleType);
-                    if(result != null && result.getData() != null && result.getData().getRuleList() != null && result.getData().getRuleList().size()>0){
+                    /*if(result != null && result.getData() != null && result.getData().getRuleList() != null && result.getData().getRuleList().size()>0){
+                        detail = matainExcuteDetail(result);
+                        detail.setInParamter(datas.get(i));
+                        details.add(detail);
+                        flag = "1";
+                    }*/
+
+                    if(result != null && result.getData() != null && result.getData()!= null){
                         detail = matainExcuteDetail(result);
                         detail.setInParamter(datas.get(i));
                         details.add(detail);
