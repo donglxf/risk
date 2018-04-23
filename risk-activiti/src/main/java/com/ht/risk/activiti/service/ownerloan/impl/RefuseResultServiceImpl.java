@@ -42,7 +42,7 @@ public class RefuseResultServiceImpl implements RefuseResultService {
         OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
         // 数据组装，人工和自动设置
         //ownerResult.setAuditType("2");
-        ownerResult.setAuditType("1");
+        ownerResult.setAuditType("0");
         ownerResult.setCode("0");
         ownerResult.setErrorMsg(errorMsgStr);
         ownerResult.setHitMsg(ruleMsgStr);

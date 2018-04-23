@@ -57,7 +57,7 @@ public class AmqpConfig {
     @Bean
     public Queue queueService(RabbitAdmin rabbitAdmin) {
         Queue queue = new Queue(AmqpConfig.ACTIVITI_SERVICE);
-        rabbitAdmin.declareQueue(queue);
+       // rabbitAdmin.declareQueue(queue);
         return queue;
     }
 
@@ -65,14 +65,14 @@ public class AmqpConfig {
     @Bean
     public Queue queueOwnerLoan(RabbitAdmin rabbitAdmin) {
         Queue queue = new Queue(AmqpConfig.ACTIVITI_SERVICE_OWNERLOAN);
-        rabbitAdmin.declareQueue(queue);
+     //   rabbitAdmin.declareQueue(queue);
         return queue;
     }
 
     //创建交换器
     @Bean
-    TopicExchange exchange() {
-        return new TopicExchange(AmqpConfig.ACTIVITI_EXCHANGE);
+    DirectExchange exchange() {
+        return new DirectExchange(AmqpConfig.ACTIVITI_EXCHANGE);
     }
 
     @Bean
@@ -83,7 +83,7 @@ public class AmqpConfig {
 
     //对列绑定并关联到ROUTINGKEY
     @Bean
-    Binding bindingExchangeMessages(Queue queueService, TopicExchange exchange) {
+    Binding bindingExchangeMessages(Queue queueService, DirectExchange exchange) {
         return BindingBuilder.bind(queueService).to(exchange).with(AmqpConfig.ACTIVITI_ROUTING_KEY);//*表示一个词,#表示零个或多个词
     }
 
