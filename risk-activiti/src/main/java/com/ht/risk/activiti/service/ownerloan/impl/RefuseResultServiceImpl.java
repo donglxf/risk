@@ -41,7 +41,8 @@ public class RefuseResultServiceImpl implements RefuseResultService {
         String taskIdStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_TASK_ID_VAR_KEY));
         OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
         // 数据组装，人工和自动设置
-        ownerResult.setAuditType("2");
+        //ownerResult.setAuditType("2");
+        ownerResult.setAuditType("1");
         ownerResult.setCode("0");
         ownerResult.setErrorMsg(errorMsgStr);
         ownerResult.setHitMsg(ruleMsgStr);
