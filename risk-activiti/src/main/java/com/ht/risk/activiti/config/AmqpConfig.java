@@ -71,19 +71,19 @@ public class AmqpConfig {
 
     //创建交换器
     @Bean
-    DirectExchange exchange() {
-        return new DirectExchange(AmqpConfig.ACTIVITI_EXCHANGE,true,false);
+    TopicExchange exchange() {
+        return new TopicExchange(AmqpConfig.ACTIVITI_EXCHANGE);
     }
 
     @Bean
     DirectExchange exchangeOwnerLoan() {
-        return new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE,true,false);
+        return new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE);
     }
 
 
     //对列绑定并关联到ROUTINGKEY
     @Bean
-    Binding bindingExchangeMessages(Queue queueService, DirectExchange exchange) {
+    Binding bindingExchangeMessages(Queue queueService, TopicExchange exchange) {
         return BindingBuilder.bind(queueService).to(exchange).with(AmqpConfig.ACTIVITI_ROUTING_KEY);//*表示一个词,#表示零个或多个词
     }
 
