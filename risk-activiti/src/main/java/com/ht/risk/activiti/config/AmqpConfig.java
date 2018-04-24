@@ -19,7 +19,7 @@ public class AmqpConfig {
 
     public final static String ACTIVITI_SERVICE = "activiti.service";
     public final static String ACTIVITI_ROUTING_KEY = "activiti.service";
-    public final static String ACTIVITI_EXCHANGE = "activitiExchange";
+    public final static String ACTIVITI_EXCHANGE = "activiti.service";
 
     public final static String ACTIVITI_SERVICE_OWNERLOAN = "risk.model.ownerLoan";
     public final static String ACTIVITI_ROUTING_OWNERLOAN_KEY = "risk.model.ownerLoan";
@@ -71,8 +71,8 @@ public class AmqpConfig {
 
     //创建交换器
     @Bean
-    TopicExchange exchange() {
-        return new TopicExchange(AmqpConfig.ACTIVITI_EXCHANGE,true,false);
+    DirectExchange exchange() {
+        return new DirectExchange(AmqpConfig.ACTIVITI_EXCHANGE,true,false);
     }
 
     @Bean
@@ -83,7 +83,7 @@ public class AmqpConfig {
 
     //对列绑定并关联到ROUTINGKEY
     @Bean
-    Binding bindingExchangeMessages(Queue queueService, TopicExchange exchange) {
+    Binding bindingExchangeMessages(Queue queueService, DirectExchange exchange) {
         return BindingBuilder.bind(queueService).to(exchange).with(AmqpConfig.ACTIVITI_ROUTING_KEY);//*表示一个词,#表示零个或多个词
     }
 
