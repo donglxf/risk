@@ -6,6 +6,7 @@ import com.ht.risk.activiti.service.impl.TopicSenderServiceImpl;
 import com.ht.risk.activiti.service.ownerloan.RefuseResultService;
 import com.ht.risk.activiti.vo.OwnerLoanModelResult;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.api.enums.AuditTypeEnum;
 import com.ht.risk.api.model.activiti.RpcActExcuteTask;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.apache.commons.lang3.StringUtils;
@@ -42,7 +43,7 @@ public class RefuseResultServiceImpl implements RefuseResultService {
         OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
         // 数据组装，人工和自动设置
         //ownerResult.setAuditType("2");
-        ownerResult.setAuditType("0");
+        ownerResult.setAuditType(AuditTypeEnum.PERSONAL.getCode());
         ownerResult.setCode("0");
         ownerResult.setErrorMsg(errorMsgStr);
         ownerResult.setHitMsg(ruleMsgStr);

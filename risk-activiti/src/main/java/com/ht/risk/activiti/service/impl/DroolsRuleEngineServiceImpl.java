@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.ht.risk.activiti.rpc.DroolsRuleEngineInterface;
 import com.ht.risk.activiti.service.DroolsRuleEngineService;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.api.enums.RuleHitEnum;
 import com.ht.risk.api.model.activiti.RuleExcuteDetail;
 import com.ht.risk.api.model.drools.DroolsParamter;
 import com.ht.risk.api.model.drools.RuleExcuteResult;
@@ -51,7 +52,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         // drools引擎执行
         RuleExcuteDetail detail = null;
         List<RuleExcuteDetail> details = new ArrayList<RuleExcuteDetail>();
-        String flag = "0";// 0：沒有命中規則，1：命中規則
+        String flag = RuleHitEnum.UNHIT.getCode();// 0：沒有命中規則，1：命中規則
         try{
             List<Map<String,Object>> datas = ( List<Map<String,Object>>)senceObj;
             if(datas != null &&  datas.size() > 0){
@@ -63,12 +64,11 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                         details.add(detail);
                         flag = "1";
                     }*/
-
                     if(result != null && result.getData() != null && result.getData()!= null){
                         detail = matainExcuteDetail(result);
                         detail.setInParamter(datas.get(i));
                         details.add(detail);
-                        flag = "1";
+                        flag = RuleHitEnum.HIT.getCode();
                     }
                 }
             }

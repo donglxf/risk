@@ -6,6 +6,7 @@ import com.ht.risk.activiti.service.ownerloan.IdentityCheckService;
 import com.ht.risk.activiti.vo.OwnerLoanModelResult;
 import com.ht.risk.activiti.vo.OwnerLoanRuleInfo;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.api.enums.RuleHitEnum;
 import com.ht.risk.api.model.eip.*;
 import com.ht.risk.common.util.DateUtil;
 import com.ht.ussp.core.Result;
@@ -40,15 +41,15 @@ public class IdentityCheckServiceImpl implements IdentityCheckService {
         long startTime = System.currentTimeMillis();
         Map dataMap  = (Map)execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
         Map borrowerMap = (Map)dataMap.get("borrowerInfo");
+        String flag = RuleHitEnum.UNHIT.getCode();
         if(borrowerMap == null){
-            execution.setVariable("flag","2");
+            flag = RuleHitEnum.HIT.getCode();
+            execution.setVariable("flag",flag);
             return;
         }
         String identityCard = String.valueOf(borrowerMap.get("identifyCard"));
         String name= String.valueOf(borrowerMap.get("customerName"));
         String mobilePhone = String.valueOf(borrowerMap.get("mobilePhone"));
-
-        String flag = "1";
 
         // 身份认证
         OwnerLoanRuleInfo idetifyRuleInfo = ownerResult.getInterInfo().get(IDVERIFY_FUNCIONCODE);
@@ -66,12 +67,12 @@ public class IdentityCheckServiceImpl implements IdentityCheckService {
             if( "2".equals(result.getData().getResult())){
                 idetifyRuleInfo.setInterfaceResultCodeRemark("身份证号码与姓名不一致");
                 idetifyRuleInfo.setTsTarget(true);
-                flag = "2";
+                flag = RuleHitEnum.HIT.getCode();
             }
             if( "3".equals(result.getData().getResult())){
                 idetifyRuleInfo.setInterfaceResultCodeRemark("无此身份证号");
                 idetifyRuleInfo.setTsTarget(true);
-                flag = "2";
+                flag = RuleHitEnum.HIT.getCode();
             }
         }
         if(result == null || !ReturnCodeEnum.SUCCESS.getReturnCode().equals(result.getReturnCode())){
@@ -96,7 +97,7 @@ public class IdentityCheckServiceImpl implements IdentityCheckService {
             else{
                 mobileRuleInfo.setInterfaceResultCodeRemark("手机号不存在");
                 mobileRuleInfo.setTsTarget(true);
-                flag = "2";
+                flag = RuleHitEnum.HIT.getCode();
             }
         }
         if(result == null || !ReturnCodeEnum.SUCCESS.getReturnCode().equals(result.getReturnCode())){

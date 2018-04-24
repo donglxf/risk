@@ -6,6 +6,7 @@ import com.ht.risk.activiti.service.impl.TopicSenderServiceImpl;
 import com.ht.risk.activiti.service.ownerloan.DistributionRatioService;
 import com.ht.risk.activiti.vo.OwnerLoanModelResult;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.api.enums.AuditTypeEnum;
 import com.ht.risk.api.model.activiti.ModelExcuteResult;
 import com.ht.risk.api.model.activiti.RpcActExcuteTask;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -95,17 +96,17 @@ public class DistributionRatioServiceImpl implements DistributionRatioService {
             double autoRation = 100 - ratio;
             // 如果配置錯誤，判定走人工
             if (ratio <= 0 || ratio > 100) {
-                return "0";
+                return AuditTypeEnum.PERSONAL.getCode();
             }
             Integer n = random.nextInt(100);
             if(n>0 && n< ratio){
-                return "0";
+                return AuditTypeEnum.PERSONAL.getCode();
             }
-            return "1";
+            return AuditTypeEnum.AUTO.getCode();
         }catch (Exception e){
             LOGGER.error("DistributionRatioServiceImpl randomRatio exception",e);
         }
-        return "0";
+        return AuditTypeEnum.PERSONAL.getCode();
     }
 
     public Expression getPersionRatioExp() {
