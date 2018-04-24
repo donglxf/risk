@@ -72,11 +72,11 @@ layui.use(['table', 'form','laydate','myutil'], function () {
                 field: 'version',
                 event: 'setItem',
                 title: '版本号'
-            }, {
-                field: 'isBindVar',
-                event: 'setItem',
-                templet: '#isBindVar',
-                title: '变量绑定'
+            // }, {
+            //     field: 'isBindVar',
+            //     event: 'setItem',
+            //     templet: '#isBindVar',
+            //     title: '变量绑定'
             }, {
                 field: 'testStatus',
                 event: 'setItem',
