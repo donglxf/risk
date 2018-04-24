@@ -72,12 +72,12 @@ public class AmqpConfig {
     //创建交换器
     @Bean
     DirectExchange exchange() {
-        return new DirectExchange(AmqpConfig.ACTIVITI_EXCHANGE,true,false);
+        return new DirectExchange(AmqpConfig.ACTIVITI_EXCHANGE,false,false);
     }
 
     @Bean
     DirectExchange exchangeOwnerLoan() {
-        return new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE,true,false);
+        return new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE,false,false);
     }
 
 
