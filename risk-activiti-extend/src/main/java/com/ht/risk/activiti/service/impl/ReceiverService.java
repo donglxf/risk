@@ -23,7 +23,7 @@ public class ReceiverService {
         LOGGER.info("ReceiverService receiveMessage from quene activiti-result-queue,message"+message);
     }
 
-    @RabbitListener(queues = "risk.model.ownerLoan1")
+    @RabbitListener(queues = "risk.model.ownerLoan")
     public void ownerLoanReceiveMessage(String message) {
         LOGGER.info("ReceiverService receiveMessage from quene activiti-result-queue,message"+message);
     }*/

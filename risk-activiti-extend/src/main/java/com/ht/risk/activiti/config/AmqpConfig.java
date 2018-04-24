@@ -22,7 +22,7 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 public class AmqpConfig implements RabbitListenerConfigurer {
 
     public final static String ACTIVITI_SELF = "activiti.service";
-    public final static String ACTIVITI_SERVICE_OWNERLOAN = "risk.model.ownerLoan1";
+    public final static String ACTIVITI_SERVICE_OWNERLOAN = "risk.model.ownerLoan";
 
     @Bean
     public ConnectionFactory connectionFactory() {
