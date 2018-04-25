@@ -94,11 +94,13 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
             // 数据校验
             String businessId = String.valueOf(dataMap.get("businessId"));
             if (StringUtils.isEmpty(businessId)) {
+                LOGGER.error("businessId 为空");
                 return false;
             }
             // 主借款人
             Object borrowerObj = dataMap.get("borrowerInfo");
             if (borrowerObj == null) {
+                LOGGER.error("borrowerInfo节点 为空");
                 return false;
             }
             Map borrowerMap = (Map) borrowerObj;
@@ -106,6 +108,7 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
             String name = String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
             String mobilePhone = String.valueOf(borrowerMap.get("borrowerInfo_phoneNo"));
             if (StringUtils.isEmpty(identityCard) || StringUtils.isEmpty(name) || StringUtils.isEmpty(mobilePhone)) {
+                LOGGER.error("身份证，姓名，电话号码节点 为空");
                 return false;
             }
         }catch (Exception e){
