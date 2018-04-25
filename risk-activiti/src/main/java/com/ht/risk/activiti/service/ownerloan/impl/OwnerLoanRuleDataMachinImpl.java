@@ -50,7 +50,7 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
             if(!dataValidate(dataMap)){
                 execution.setVariable("flag",RuleHitEnum.HIT.getCode());
                 OwnerLoanModelResult result = new OwnerLoanModelResult();
-                result.setErrorMsg("数据校验失败");
+                result.setErrorMsg(result.getErrorMsg()+"数据校验失败;");
                 LOGGER.info("OwnerLoanRuleDataMachinImpl execute method excute end...");
                 return;
             }
