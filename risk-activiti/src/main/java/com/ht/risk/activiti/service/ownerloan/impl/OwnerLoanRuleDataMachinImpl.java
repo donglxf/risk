@@ -97,7 +97,7 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
                 return false;
             }
             // 主借款人
-            Object borrowerObj = dataMap.get("borrorwerInfo");
+            Object borrowerObj = dataMap.get("borrowerInfo");
             if (borrowerObj == null) {
                 return false;
             }
