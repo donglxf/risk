@@ -68,7 +68,9 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
                         detail = matainExcuteDetail(result);
                         detail.setInParamter(datas.get(i));
                         details.add(detail);
-                        flag = RuleHitEnum.HIT.getCode();
+                        if(result.getData().getRuleList() != null && result.getData().getRuleList().size()>0){
+                            flag = RuleHitEnum.HIT.getCode();
+                        }
                     }
                 }
             }
