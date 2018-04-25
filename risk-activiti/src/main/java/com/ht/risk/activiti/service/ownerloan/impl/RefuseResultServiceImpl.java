@@ -1,6 +1,7 @@
 package com.ht.risk.activiti.service.ownerloan.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.ht.risk.activiti.ActivitiServiceApplication;
 import com.ht.risk.activiti.rpc.ActivitiConfigInterface;
 import com.ht.risk.activiti.rpc.RuleServiceInterface;
 import com.ht.risk.activiti.service.impl.TopicSenderServiceImpl;
@@ -18,6 +19,7 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -73,6 +75,7 @@ public class RefuseResultServiceImpl implements RefuseResultService {
                         if(hisVersions != null){
                             RpcRuleHisVersion version = null;
                             for(Iterator<RpcRuleHisVersion> vIterator = hisVersions.iterator();vIterator.hasNext();){
+                                version =vIterator.next();
                                 hitMsg.append(formatResultStr(version.getRuleDesc()));
                             }
                         }
@@ -81,18 +84,19 @@ public class RefuseResultServiceImpl implements RefuseResultService {
             }
         }
 
-
         // 数据组装，人工和自动设置
         //ownerResult.setAuditType("2");
         ownerResult.setAuditType(AuditTypeEnum.PERSONAL.getCode());
         ownerResult.setCode("0");
         //ownerResult.setErrorMsg(errorMsgStr);
         ownerResult.setHitMsg(hitMsg.toString());
-        ownerResult.setWarmMsg(StringUtils.isEmpty(msg)?"执行成功":msg);
+        ownerResult.setWarmMsg(StringUtils.isEmpty(ownerResult.getErrorMsg()) && StringUtils.isEmpty(msg) ?"执行成功":msg);
         ownerResult.setProcInstId(execution.getProcessInstanceId());
         ownerResult.setTaskId(taskIdStr);
         ownerResult.setQuota(0d);
-        ownerResult.setInterInfos(new ArrayList<>(ownerResult.getInterInfo().values()));
+        if(ownerResult.getInterInfo() != null && ownerResult.getInterInfo().size()>0){
+            ownerResult.setInterInfos(new ArrayList<>(ownerResult.getInterInfo().values()));
+        }
         ownerResult.setInterInfo(null);
         //更新任务状态
         long startTime = Long.parseLong(String.valueOf(execution.getVariable(ActivitiConstants.PROC_START_CURRENT_TIME)));
@@ -121,11 +125,16 @@ public class RefuseResultServiceImpl implements RefuseResultService {
         if(com.ht.risk.common.util.StringUtils.isEmpty(str)){
             return "";
         }
-        str = str.replaceAll("\\:","#").replaceAll("\\[输出\\]\\#","").replaceAll("\\(输出值\\)","").replaceAll("那么","");
+        str = str.replaceAll("\\:","#").replaceAll("\\[禁入\\]\\#","").replaceAll("\\(forbidden\\)","").replaceAll("那么","");
         while(str.contains("#")){
             str = str.replaceFirst("\\$(.*?)\\#","");
             str = str.replaceFirst("\\$","");
         }
         return str;
     }
+
+
+
+
+
 }

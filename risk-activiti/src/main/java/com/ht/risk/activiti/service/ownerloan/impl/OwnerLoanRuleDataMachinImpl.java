@@ -50,13 +50,16 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
             if(!dataValidate(dataMap)){
                 execution.setVariable("flag",RuleHitEnum.HIT.getCode());
                 OwnerLoanModelResult result = new OwnerLoanModelResult();
-                result.setErrorMsg(result.getErrorMsg()+"数据校验失败;");
+                result.setErrorMsg("数据校验不通过;");
                 LOGGER.info("OwnerLoanRuleDataMachinImpl execute method excute end...");
+                execution.setVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE,result);
                 return;
             }
         }else{// 验证类型
             verficationDataMachin(dataMap,execution);
         }
+        dataMachin(dataMap,execution);
+
         Map borrowerMap = (Map)dataMap.get("borrowerInfo");
         String identityCard = String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
         String name= String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
@@ -104,10 +107,10 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
                 return false;
             }
             Map borrowerMap = (Map) borrowerObj;
-            String identityCard = String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
-            String name = String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
-            String mobilePhone = String.valueOf(borrowerMap.get("borrowerInfo_phoneNo"));
-            if (StringUtils.isEmpty(identityCard) || StringUtils.isEmpty(name) || StringUtils.isEmpty(mobilePhone)) {
+            Object identityCard = borrowerMap.get("borrowerInfo_identifyCard");
+            Object name = borrowerMap.get("borrowerInfo_customerName");
+            Object mobilePhone = borrowerMap.get("borrowerInfo_phoneNo");
+            if (identityCard == null || name == null || mobilePhone == null){
                 LOGGER.error("身份证，姓名，电话号码节点 为空");
                 return false;
             }
@@ -121,7 +124,7 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
 
     // 数据处理
     private void dataMachin(Map dataMap,DelegateExecution execution){
-        Object borrowerObj = dataMap.get("borrorwerInfo");
+        Object borrowerObj = dataMap.get("borrowerInfo");
         Map borrowerMap = (Map)borrowerObj;
         String identityCard = String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
         String name = String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
