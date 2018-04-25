@@ -85,8 +85,8 @@ public class RefuseResultServiceImpl implements RefuseResultService {
         }
 
         // 数据组装，人工和自动设置
-        //ownerResult.setAuditType("2");
-        ownerResult.setAuditType(AuditTypeEnum.PERSONAL.getCode());
+        //ownerResult.setAuditType(AuditTypeEnum.PERSONAL.getCode());
+        ownerResult.setAuditType(AuditTypeEnum.REFUSE.getCode());
         ownerResult.setCode("0");
         //ownerResult.setErrorMsg(errorMsgStr);
         ownerResult.setHitMsg(hitMsg.toString());
