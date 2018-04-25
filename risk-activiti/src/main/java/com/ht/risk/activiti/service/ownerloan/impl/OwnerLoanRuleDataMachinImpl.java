@@ -33,6 +33,7 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
         execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,"");
         execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,"");
         StringBuffer msg = new StringBuffer("");
+        String flag = RuleHitEnum.UNHIT.getCode();
         Object dataObj = execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
         // 设置开始时间
         execution.setVariable(ActivitiConstants.PROC_START_CURRENT_TIME,System.currentTimeMillis());
@@ -65,10 +66,14 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
         String name= String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
         String mobilePhone = String.valueOf(borrowerMap.get("borrowerInfo_phoneNo"));
         String businessId = String.valueOf(dataMap.get("businessId"));
+        String isCompany = String.valueOf(borrowerMap.get("borrowerInfo_isCompany"));
+        if("1".equals(isCompany)){
+            flag = "2";//果然是企业，走企业流程
+        }
         OwnerLoanModelResult result = initResultData(identityCard,name,mobilePhone);
         result.setBusinessKey(businessId);
         execution.setVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE,result);
-        execution.setVariable("flag",RuleHitEnum.UNHIT.getCode());
+        execution.setVariable("flag",flag);
         LOGGER.info("OwnerLoanRuleDataMachinImpl execute method excute end...");
     }
 
