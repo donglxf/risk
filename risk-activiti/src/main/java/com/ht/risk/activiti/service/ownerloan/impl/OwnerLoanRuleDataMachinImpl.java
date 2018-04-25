@@ -5,6 +5,7 @@ import com.ht.risk.activiti.service.task.impl.HourseRuleDataMachinImpl;
 import com.ht.risk.activiti.vo.OwnerLoanModelResult;
 import com.ht.risk.activiti.vo.OwnerLoanRuleInfo;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.api.enums.RuleHitEnum;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.apache.commons.lang3.StringUtils;
@@ -45,26 +46,27 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
         // 数据校验
         String modelType = String.valueOf(execution.getVariable(ActivitiConstants.PROC_MODEL_EXCUTE_TYPE_KEY));
         if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)){// 服务类型
-            // 年龄和借款期限处理
-            msg.append(dataValidate(dataMap));
+            // 数据校验失败
+            if(!dataValidate(dataMap)){
+                execution.setVariable("flag",RuleHitEnum.HIT.getCode());
+                OwnerLoanModelResult result = new OwnerLoanModelResult();
+                result.setErrorMsg("数据校验失败");
+                LOGGER.info("OwnerLoanRuleDataMachinImpl execute method excute end...");
+                return;
+            }
         }else{// 验证类型
             verficationDataMachin(dataMap,execution);
         }
-
         Map borrowerMap = (Map)dataMap.get("borrowerInfo");
         String identityCard = String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
         String name= String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
         String mobilePhone = String.valueOf(borrowerMap.get("borrowerInfo_phoneNo"));
         String businessId = String.valueOf(dataMap.get("businessId"));
-
-        borrowerMap.put("identifyCard",identityCard);
-        borrowerMap.put("customerName",name);
-        borrowerMap.put("phoneNo",mobilePhone);
-
         OwnerLoanModelResult result = initResultData(identityCard,name,mobilePhone);
         result.setBusinessKey(businessId);
         execution.setVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE,result);
-        LOGGER.error("OwnerLoanRuleDataMachinImpl execute method excute end...");
+        execution.setVariable("flag",RuleHitEnum.UNHIT.getCode());
+        LOGGER.info("OwnerLoanRuleDataMachinImpl execute method excute end...");
     }
 
     /**
@@ -75,33 +77,63 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
      */
     private void verficationDataMachin(Map dataMap,DelegateExecution execution){
         Map<String,String> borrowerMap = new HashMap<String,String>();
-        borrowerMap.put("identifyCard","110101196811041047");
-        borrowerMap.put("customerName","何瑞芬");
-        borrowerMap.put("phoneNo","13809885602");
+        borrowerMap.put("borrowerInfo_identifyCard","110101196811041047");
+        borrowerMap.put("borrowerInfo_customerName","何瑞芬");
+        borrowerMap.put("borrowerInfo_phoneNo","13809885602");
+        borrowerMap.put("businessId","TXDDEMO001");
         dataMap.put("borrowerInfo",borrowerMap);
     }
 
 
     // 数据校验
-    private StringBuffer  dataValidate(Map dataMap){
-        // 获取流程变量
-        StringBuffer msg = new StringBuffer("");
-        // 数据校验
-        String businessId = String.valueOf(dataMap.get("businessId"));
-        if(StringUtils.isEmpty(businessId)){
-            msg.append("合同单号、是否标准件、申请期限必填信息为空;");
+    private boolean  dataValidate(Map dataMap){
+        boolean flag = true;
+        try {
+            // 获取流程变量
+            StringBuffer msg = new StringBuffer("");
+            // 数据校验
+            String businessId = String.valueOf(dataMap.get("businessId"));
+            if (StringUtils.isEmpty(businessId)) {
+                return false;
+            }
+            // 主借款人
+            Object borrowerObj = dataMap.get("borrorwerInfo");
+            if (borrowerObj == null) {
+                return false;
+            }
+            Map borrowerMap = (Map) borrowerObj;
+            String identityCard = String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
+            String name = String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
+            String mobilePhone = String.valueOf(borrowerMap.get("borrowerInfo_phoneNo"));
+            if (StringUtils.isEmpty(identityCard) || StringUtils.isEmpty(name) || StringUtils.isEmpty(mobilePhone)) {
+                return false;
+            }
+        }catch (Exception e){
+            LOGGER.error("数据校验异常",e);
+            return false;
         }
-        // 主借款人
+        return true;
+    }
+
+
+    // 数据处理
+    private void dataMachin(Map dataMap,DelegateExecution execution){
         Object borrowerObj = dataMap.get("borrorwerInfo");
-        if(borrowerObj == null){
-            msg.append("借款人信息为空;");
-        }
-        // 房产信息
-        Object houseInfoObj = dataMap.get("houseInfo");
-        if(houseInfoObj == null){
-            msg.append("房产信息为空;");
-        }
-        return msg;
+        Map borrowerMap = (Map)borrowerObj;
+        String identityCard = String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
+        String name = String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
+        String mobilePhone = String.valueOf(borrowerMap.get("borrowerInfo_phoneNo"));
+        String accountProvince = String.valueOf(borrowerMap.get("borrowerInfo_accountProvince"));
+        String borrowerAge = String.valueOf(borrowerMap.get("borrowerInfo_borrowerAge"));
+        List<Map<String,Object>> droolsData = new ArrayList<Map<String,Object>>();
+        Map<String,Object> guaranteeMap = new HashMap<String,Object>();
+        guaranteeMap.put("ownerLoanBorrower_ownerLoanAccountProvince",accountProvince);
+        guaranteeMap.put("ownerLoanBorrower_ownerLoanBorrowerAge",borrowerAge);
+        droolsData.add(guaranteeMap);
+        borrowerMap.put("identifyCard",identityCard);
+        borrowerMap.put("customerName",name);
+        borrowerMap.put("phoneNo",mobilePhone);
+        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME+"ownerLoanAdmittance",droolsData);
     }
 
     private OwnerLoanModelResult initResultData(String identityCard,String realName,String mobilePhone){
