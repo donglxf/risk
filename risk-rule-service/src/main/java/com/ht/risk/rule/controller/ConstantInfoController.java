@@ -51,6 +51,7 @@ public class ConstantInfoController extends BaseController {
 			wrapper.andNew().eq("business_id",businessId);
 		}
 		wrapper.andNew("con_type<>1");
+		wrapper.orderBy("cre_time",false);
 		Page<ConstantInfo> pages = new Page<>();
 		pages.setCurrent(page);
 		pages.setSize(limit);

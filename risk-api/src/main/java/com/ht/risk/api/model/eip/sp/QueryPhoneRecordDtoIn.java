@@ -12,7 +12,7 @@ public class QueryPhoneRecordDtoIn extends commEntryIn {
 	@ApiModelProperty(value = "真实姓名")
     private String realName;
 	
-	@ApiModelProperty(value = "真实姓名")
+	@ApiModelProperty(value = "身份证号码")
     private String identityCard;
 
 	@ApiModelProperty(value = "手机号码")

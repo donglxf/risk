@@ -195,6 +195,7 @@ public class EntityInfoController extends BaseController {
         if(businessId != null ){
             wrapper.andNew().eq("business_id",businessId);
         }
+        wrapper.orderBy("cre_time",false);
          Page<EntityInfo> pages = new Page<>();
          pages.setCurrent(page);
          pages.setSize(limit);

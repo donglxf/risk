@@ -1,6 +1,7 @@
 package com.ht.risk.activiti.rpc;
 
 import com.ht.risk.api.model.eip.*;
+import com.ht.risk.api.model.eip.sp.*;
 import com.ht.risk.api.model.eip.wanda.WDEnterpriseDetailReqDto;
 import com.ht.risk.common.result.Result;
 import io.swagger.annotations.ApiOperation;
@@ -114,6 +115,71 @@ public interface EipServiceInterface {
 	 */
 	@PostMapping("/bairong/moreCheck")
 	public com.ht.ussp.core.Result<BairongMoreCheckDtoOut> moreCheck(BairongMoreCheckDtoIn input);
+
+	/**
+	 * 魔蝎淘宝信息
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/moxie/taobaoGetAll")
+	public com.ht.ussp.core.Result<TaobaoInfoDtoOut> taobaoGetAll(TaobaoInfoDtoIn input);
+
+
+	/**
+	 *运营商 上传用户信息
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/sp/userBaseInfo")
+	public com.ht.ussp.core.Result<UserBaseInfoDtoOut> userBaseInfo(UserBaseInfoDtoIn input);
+
+	/**
+	 *运营商 校验验证码
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/sp/validCode")
+	public com.ht.ussp.core.Result<SpValidCodeDtoOut> validCode(SpValidCodeDtoIn input);
+
+	/**
+	 *运营商 登录
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/sp/login")
+	public com.ht.ussp.core.Result<SpLoginDtoOut> login(SpLoginDtoIn input);
+
+	/**
+	 *运营商 请求短信动态验证码
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/sp/reqDynamicCode")
+	public com.ht.ussp.core.Result<SpDetailOrderCodeDtoOut> reqDynamicCode(SpDynamicCodeDtoIn input);
+
+	/**
+	 *运营商 获取详单验证码
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/sp/getDetailOrderCode")
+	public com.ht.ussp.core.Result<SpDetailOrderCodeDtoOut> getDetailOrderCode(SpValidCodeDtoIn input);
+
+	/**
+	 *运营商 发送短信动态码
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/sp/sendDynamicCode")
+	public com.ht.ussp.core.Result<SpDetailOrderCodeDtoOut> sendDynamicCode(SendDynamicCodeDtoIn input);
+
+	/**
+	 *运营商 通话记录查询
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/sp/queryPhoneRecord")
+	public com.ht.ussp.core.Result<QueryPhoneRecordDtoOut> queryPhoneRecord(QueryPhoneRecordDtoIn input);
 
 
 

@@ -367,6 +367,8 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     private StringBuffer insertRuleInfo(StringBuffer ruleStr, BaseRuleInfo ruleInfo) throws Exception {
         // 1.拼接规则名称(默认带双引号)
         ruleStr.append(lineSeparator).append("rule").append(" ").append("\"").append(ruleInfo.getRuleName()).append("\"").append(lineSeparator);
+        ruleStr.append(lineSeparator).append("no-loop").append(" ").append("true").append(lineSeparator);
+        ruleStr.append(lineSeparator).append("lock-on-active").append(" ").append("true").append(lineSeparator);
         // 2.拼接自身属性
         List<BaseRulePropertyRelInfo> rulePropertyList = this.ruleInfoService.findRulePropertyListByRuleId(ruleInfo.getRuleId());
         if (StringUtil.listIsNotNull(rulePropertyList)) {
