@@ -20,10 +20,10 @@ public class HourseUnVersionImpl implements HourseUnVersion {
      */
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        LOGGER.error("HourseUnVersionImpl execute method excute start...");
+        LOGGER.info("HourseUnVersionImpl execute method excute start...");
         RuleExcuteResult result = new RuleExcuteResult();
         // 执行成功
         //execution.setVariable(senceCode+"-"+version,result);
-        LOGGER.error("HourseUnVersionImpl execute method excute end...");
+        LOGGER.info("HourseUnVersionImpl execute method excute end...");
     }
 }

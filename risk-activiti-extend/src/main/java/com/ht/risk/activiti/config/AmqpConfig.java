@@ -22,11 +22,19 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 public class AmqpConfig implements RabbitListenerConfigurer {
 
     public final static String ACTIVITI_SELF = "activiti.service";
+    public final static String ACTIVITI_SERVICE_OWNERLOAN = "risk.model.ownerLoan";
+
 
     //创建队列
     @Bean
     public Queue queueSelf() {
         return new Queue(AmqpConfig.ACTIVITI_SELF);
+    }
+
+    //创建队列
+    @Bean
+    public Queue queueOwnerLoan() {
+        return new Queue(AmqpConfig.ACTIVITI_SERVICE_OWNERLOAN);
     }
 
     @Bean

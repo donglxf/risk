@@ -5,6 +5,7 @@ import com.ht.risk.activiti.service.task.impl.HourseRuleDataMachinImpl;
 import com.ht.risk.activiti.vo.OwnerLoanModelResult;
 import com.ht.risk.activiti.vo.OwnerLoanRuleInfo;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.api.enums.RuleHitEnum;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.apache.commons.lang3.StringUtils;
@@ -23,7 +24,7 @@ import java.util.Map;
 @Service("ownerLoanRuleDataMachin")
 public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HourseRuleDataMachinImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OwnerLoanRuleDataMachinImpl.class);
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
@@ -32,6 +33,7 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
         execution.setVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG,"");
         execution.setVariable(ActivitiConstants.PROC_EXCUTE_MSG,"");
         StringBuffer msg = new StringBuffer("");
+        String flag = RuleHitEnum.UNHIT.getCode();
         Object dataObj = execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
         // 设置开始时间
         execution.setVariable(ActivitiConstants.PROC_START_CURRENT_TIME,System.currentTimeMillis());
@@ -45,26 +47,34 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
         // 数据校验
         String modelType = String.valueOf(execution.getVariable(ActivitiConstants.PROC_MODEL_EXCUTE_TYPE_KEY));
         if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)){// 服务类型
-            // 年龄和借款期限处理
-            msg.append(dataValidate(dataMap));
+            // 数据校验失败
+            if(!dataValidate(dataMap)){
+                execution.setVariable("flag",RuleHitEnum.HIT.getCode());
+                OwnerLoanModelResult result = new OwnerLoanModelResult();
+                result.setErrorMsg("数据校验不通过;");
+                LOGGER.info("OwnerLoanRuleDataMachinImpl execute method excute end...");
+                execution.setVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE,result);
+                return;
+            }
         }else{// 验证类型
             verficationDataMachin(dataMap,execution);
         }
+        dataMachin(dataMap,execution);
 
-        Map borrowerMap = (Map)dataMap.get("borrorwerInfo");
+        Map borrowerMap = (Map)dataMap.get("borrowerInfo");
         String identityCard = String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
         String name= String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
         String mobilePhone = String.valueOf(borrowerMap.get("borrowerInfo_phoneNo"));
         String businessId = String.valueOf(dataMap.get("businessId"));
-
-        borrowerMap.put("identifyCard",identityCard);
-        borrowerMap.put("customerName",name);
-        borrowerMap.put("phoneNo",mobilePhone);
-
+        String isCompany = String.valueOf(borrowerMap.get("borrowerInfo_isCompany"));
+        if("1".equals(isCompany)){
+            flag = "2";//果然是企业，走企业流程
+        }
         OwnerLoanModelResult result = initResultData(identityCard,name,mobilePhone);
         result.setBusinessKey(businessId);
         execution.setVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE,result);
-        LOGGER.error("OwnerLoanRuleDataMachinImpl execute method excute end...");
+        execution.setVariable("flag",flag);
+        LOGGER.info("OwnerLoanRuleDataMachinImpl execute method excute end...");
     }
 
     /**
@@ -75,33 +85,66 @@ public class OwnerLoanRuleDataMachinImpl implements OwnerLoanRuleDataMachin {
      */
     private void verficationDataMachin(Map dataMap,DelegateExecution execution){
         Map<String,String> borrowerMap = new HashMap<String,String>();
-        borrowerMap.put("identifyCard","110101196811041047");
-        borrowerMap.put("customerName","何瑞芬");
-        borrowerMap.put("phoneNo","13809885602");
-        dataMap.put("borrorwerInfo",borrowerMap);
+        borrowerMap.put("borrowerInfo_identifyCard","110101196811041047");
+        borrowerMap.put("borrowerInfo_customerName","何瑞芬");
+        borrowerMap.put("borrowerInfo_phoneNo","13809885602");
+        borrowerMap.put("businessId","TXDDEMO001");
+        dataMap.put("borrowerInfo",borrowerMap);
     }
 
 
     // 数据校验
-    private StringBuffer  dataValidate(Map dataMap){
-        // 获取流程变量
-        StringBuffer msg = new StringBuffer("");
-        // 数据校验
-        String businessId = String.valueOf(dataMap.get("businessId"));
-        if(StringUtils.isEmpty(businessId)){
-            msg.append("合同单号、是否标准件、申请期限必填信息为空;");
+    private boolean  dataValidate(Map dataMap){
+        boolean flag = true;
+        try {
+            // 获取流程变量
+            StringBuffer msg = new StringBuffer("");
+            // 数据校验
+            String businessId = String.valueOf(dataMap.get("businessId"));
+            if (StringUtils.isEmpty(businessId)) {
+                LOGGER.error("businessId 为空");
+                return false;
+            }
+            // 主借款人
+            Object borrowerObj = dataMap.get("borrowerInfo");
+            if (borrowerObj == null) {
+                LOGGER.error("borrowerInfo节点 为空");
+                return false;
+            }
+            Map borrowerMap = (Map) borrowerObj;
+            Object identityCard = borrowerMap.get("borrowerInfo_identifyCard");
+            Object name = borrowerMap.get("borrowerInfo_customerName");
+            Object mobilePhone = borrowerMap.get("borrowerInfo_phoneNo");
+            if (identityCard == null || name == null || mobilePhone == null){
+                LOGGER.error("身份证，姓名，电话号码节点 为空");
+                return false;
+            }
+        }catch (Exception e){
+            LOGGER.error("数据校验异常",e);
+            return false;
         }
-        // 主借款人
-        Object borrowerObj = dataMap.get("borrorwerInfo");
-        if(borrowerObj == null){
-            msg.append("借款人信息为空;");
-        }
-        // 房产信息
-        Object houseInfoObj = dataMap.get("houseInfo");
-        if(houseInfoObj == null){
-            msg.append("房产信息为空;");
-        }
-        return msg;
+        return true;
+    }
+
+
+    // 数据处理
+    private void dataMachin(Map dataMap,DelegateExecution execution){
+        Object borrowerObj = dataMap.get("borrowerInfo");
+        Map borrowerMap = (Map)borrowerObj;
+        String identityCard = String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
+        String name = String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
+        String mobilePhone = String.valueOf(borrowerMap.get("borrowerInfo_phoneNo"));
+        String accountProvince = String.valueOf(borrowerMap.get("borrowerInfo_accountProvince"));
+        String borrowerAge = String.valueOf(borrowerMap.get("borrowerInfo_borrowerAge"));
+        List<Map<String,Object>> droolsData = new ArrayList<Map<String,Object>>();
+        Map<String,Object> guaranteeMap = new HashMap<String,Object>();
+        guaranteeMap.put("ownerLoanBorrower_ownerLoanAccountProvince",accountProvince);
+        guaranteeMap.put("ownerLoanBorrower_ownerLoanBorrowerAge",borrowerAge);
+        droolsData.add(guaranteeMap);
+        borrowerMap.put("identifyCard",identityCard);
+        borrowerMap.put("customerName",name);
+        borrowerMap.put("phoneNo",mobilePhone);
+        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME+"ownerLoanAdmittance",droolsData);
     }
 
     private OwnerLoanModelResult initResultData(String identityCard,String realName,String mobilePhone){

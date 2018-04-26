@@ -26,7 +26,7 @@ import java.util.Map;
 public class BairongCheckServiceImpl implements BairongCheckService {
 
     private static final int MAX_SIZE = 3;
-    private static final Logger LOGGER = LoggerFactory.getLogger(IdentityCheckServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BairongCheckServiceImpl.class);
     private static final String BAIRONG_FUNCIONCODE = "10006003";
 
     @Autowired
@@ -37,7 +37,7 @@ public class BairongCheckServiceImpl implements BairongCheckService {
         LOGGER.info("BairongCheckServiceImpl excute start");
         OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
         Map dataMap  = (Map)execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
-        Map borrowerMap = (Map)dataMap.get("borrorwerInfo");
+        Map borrowerMap = (Map)dataMap.get("borrowerInfo");
         String identityCard = String.valueOf(borrowerMap.get("identifyCard"));
         String name= String.valueOf(borrowerMap.get("customerName"));
         String mobilePhone = String.valueOf(borrowerMap.get("phoneNo"));

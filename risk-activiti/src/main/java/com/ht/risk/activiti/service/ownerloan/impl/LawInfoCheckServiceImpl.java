@@ -6,6 +6,7 @@ import com.ht.risk.activiti.service.ownerloan.LawInfoCheckService;
 import com.ht.risk.activiti.vo.OwnerLoanModelResult;
 import com.ht.risk.activiti.vo.OwnerLoanRuleInfo;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.api.enums.RuleHitEnum;
 import com.ht.risk.api.model.eip.*;
 import com.ht.risk.common.util.DateUtil;
 import com.ht.ussp.core.Result;
@@ -36,15 +37,14 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-
-        LOGGER.info("BlanckListServiceImpl excute start");
+        LOGGER.info("LawInfoCheckServiceImpl excute start");
         OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
         Map dataMap  = (Map)execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
-        Map borrowerMap = (Map)dataMap.get("borrorwerInfo");
+        Map borrowerMap = (Map)dataMap.get("borrowerInfo");
         String identityCard = String.valueOf(borrowerMap.get("identifyCard"));
         String name= String.valueOf(borrowerMap.get("customerName"));
         String mobilePhone = String.valueOf(borrowerMap.get("phoneNo"));
-        String flag = "1";//命中标识： 1 沒有命中，2 命中
+        String flag = RuleHitEnum.UNHIT.getCode();;//命中标识： 1 沒有命中，2 命中
         // 汇法网个人分类信息接口
         OwnerLoanRuleInfo persionRuleInfo = ownerResult.getInterInfo().get(PERSION_FUNCIONCODE);
         persionRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
@@ -65,7 +65,7 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
                     persionResult.getData().getShuiwunum() >0 || persionResult.getData().getWangdainum() >0 || persionResult.getData().getZhixingnum()>0) ){
                 persionRuleInfo.setInterfaceResultCodeRemark("命中汇法网个人分类信息");
                 persionRuleInfo.setTsTarget(false);
-                flag = "2";
+                flag = RuleHitEnum.HIT.getCode();
             }else{
                 persionRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
                 persionRuleInfo.setTsTarget(false);
@@ -89,7 +89,7 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
             if(webBankResult.getData() != null && webBankResult.getData().getTotalnumber() >0){
                 webBackRuleInfo.setInterfaceResultCodeRemark("命中微众（法院）");
                 webBackRuleInfo.setTsTarget(false);
-                flag = "2";
+                flag = RuleHitEnum.HIT.getCode();
             }else{
                 webBackRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
                 webBackRuleInfo.setTsTarget(false);
@@ -115,13 +115,14 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
                 || "1".equals(crimeResult.getData().getIsEscape()))){
                 crimeRuleInfo.setInterfaceResultCodeRemark("命中天行数科接口");
                 crimeRuleInfo.setTsTarget(false);
-                flag = "2";
+                flag = RuleHitEnum.HIT.getCode();
             }else{
                 crimeRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
                 crimeRuleInfo.setTsTarget(false);
             }
         }
         execution.setVariable("flag",flag);
+        LOGGER.info("LawInfoCheckServiceImpl excute end");
     }
 
     /**

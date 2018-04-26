@@ -18,12 +18,16 @@ public class TopicSenderServiceImpl {
     private RabbitMessagingTemplate rabbitMessagingTemplate;
 
     public void send(String context) {
-        LOGGER.info("send topicExchange,message is:"+context);
+        LOGGER.info("mq host is :"+rabbitMessagingTemplate.getRabbitTemplate().getConnectionFactory().getHost());
+        LOGGER.info("send to quene [activiti.service] message is:"+context);
         this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.ACTIVITI_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_KEY, context);
+        LOGGER.info("send to quene [activiti.service] message sucess");
     }
 
     public void sendOwnerLoan(String context) {
-        LOGGER.info("send topicExchange,message is:"+context);
-        this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING__OWNERLOAN_KEY, context);
+        LOGGER.info("mq host is :"+rabbitMessagingTemplate.getRabbitTemplate().getConnectionFactory().getHost());
+        LOGGER.info("send to quene [risk.model.ownerLoan] message is:"+context);
+        this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_OWNERLOAN_KEY, context);
+        LOGGER.info("send to quene [risk.model.ownerLoan] message sucess");
     }
 }

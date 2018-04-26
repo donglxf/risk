@@ -3,6 +3,7 @@
  */
 layui.define(["ht_cookie", "ht_config"], function (exports) {
         var $ = layui.jquery, cookie = layui.ht_cookie, ht_config = layui.ht_config;
+        var loginUrl = "/rule/ui/login.html"
 
         var ht_ajax = {
                 config: {},
@@ -26,7 +27,7 @@ layui.define(["ht_cookie", "ht_config"], function (exports) {
                     // 如果refreshToken失效，则直接跳转到登录页面
                     if (refreshToken == null || refreshToken == "") {
                         layer.confirm('登录超时，请重新登录。', function (index) {
-                            top.location.href = "/login.html";
+                            top.location.href = loginUrl;
                             layer.close(index);
                         });
                         return false;
@@ -48,7 +49,7 @@ layui.define(["ht_cookie", "ht_config"], function (exports) {
                             success: function (data) {
                                 if (data == null || data["token"] == null || data["token"] == "") {
                                     layer.confirm('登录超时，请重新登录。', function (index) {
-                                        top.location.href = "/login.html";
+                                        top.location.href = loginUrl;
                                         layer.close(index);
                                     });
                                     return false;
@@ -59,7 +60,7 @@ layui.define(["ht_cookie", "ht_config"], function (exports) {
                             },
                             error: function () {
                                 layer.confirm('登录超时，请重新登录。', function (index) {
-                                    top.location.href = "/login.html";
+                                    top.location.href = loginUrl;
                                     layer.close(index);
                                 });
                                 return false;
@@ -122,7 +123,7 @@ layui.define(["ht_cookie", "ht_config"], function (exports) {
                                             case "9924"://授权失败
                                             case "9925"://TOKEN不能为空
                                                 layer.confirm(data['result_msg'] + '，请重新登录。', function (index) {
-                                                    top.location.href = "login.html";
+                                                    top.location.href = loginUrl;
                                                     layer.close(index);
                                                 });
                                                 return false;

@@ -6,6 +6,7 @@ import com.ht.risk.activiti.service.ownerloan.BlanckListService;
 import com.ht.risk.activiti.vo.OwnerLoanModelResult;
 import com.ht.risk.activiti.vo.OwnerLoanRuleInfo;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.api.enums.RuleHitEnum;
 import com.ht.risk.api.model.eip.*;
 import com.ht.risk.common.util.DateUtil;
 import com.ht.ussp.core.Result;
@@ -42,11 +43,11 @@ public class BlanckListServiceImpl implements BlanckListService {
         LOGGER.info("BlanckListServiceImpl excute start");
         OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
         Map dataMap  = (Map)execution.getVariable(ActivitiConstants.PROC_MODEL_DATA_KEY);
-        Map borrowerMap = (Map)dataMap.get("borrorwerInfo");
+        Map borrowerMap = (Map)dataMap.get("borrowerInfo");
         String identityCard = String.valueOf(borrowerMap.get("identifyCard"));
         String name= String.valueOf(borrowerMap.get("customerName"));
         String mobilePhone = String.valueOf(borrowerMap.get("phoneNo"));
-        String flag = "1";//命中标识： 1 沒有命中，2 命中
+        String flag = RuleHitEnum.UNHIT.getCode();//命中标识： 1 沒有命中，2 命中
         // 网贷
         OwnerLoanRuleInfo netRuleInfo = ownerResult.getInterInfo().get(NETLOAN_FUNCIONCODE);
         netRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
@@ -65,7 +66,7 @@ public class BlanckListServiceImpl implements BlanckListService {
             if(netResult.getData() != null){
                 netRuleInfo.setInterfaceResultCodeRemark("命中网贷黑名单");
                 netRuleInfo.setTsTarget(false);
-                flag = "2";
+                flag = RuleHitEnum.HIT.getCode();
             }else{
                 netRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
                 netRuleInfo.setTsTarget(false);
@@ -89,7 +90,7 @@ public class BlanckListServiceImpl implements BlanckListService {
             if(selfDtoOutResult.getData() != null && "1".equals(selfDtoOutResult.getData().getIsBlacklistUser())){
                 slefRuleInfo.setInterfaceResultCodeRemark("命中自有黑名单");
                 slefRuleInfo.setTsTarget(false);
-                flag = "2";
+                flag = RuleHitEnum.HIT.getCode();
             }else{
                 slefRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
                 slefRuleInfo.setTsTarget(false);
@@ -113,7 +114,7 @@ public class BlanckListServiceImpl implements BlanckListService {
             if(klResult.getData() != null && klResult.getData().getBlacklistDetail() != null){
                 klRuleInfo.setInterfaceResultCodeRemark("命中考拉黑名单");
                 klRuleInfo.setTsTarget(false);
-                flag = "2";
+                flag = RuleHitEnum.HIT.getCode();
             }else{
                 klRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
                 klRuleInfo.setTsTarget(false);
@@ -138,7 +139,7 @@ public class BlanckListServiceImpl implements BlanckListService {
             if(qianhaiResult.getData() != null && "1".equals(qianhaiResult.getData().getDataStatus())){
                 qianhaiRuleInfo.setInterfaceResultCodeRemark("命中前海征信");
                 qianhaiRuleInfo.setTsTarget(false);
-                flag = "2";
+                flag = RuleHitEnum.HIT.getCode();
             }else{
                 qianhaiRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
                 qianhaiRuleInfo.setTsTarget(false);
@@ -163,7 +164,7 @@ public class BlanckListServiceImpl implements BlanckListService {
             if(baiqishiResult.getData() != null && "Reject".equals(baiqishiResult.getData().getFinalDecision())){
                 baiqishiRuleInfo.setInterfaceResultCodeRemark("命中白骑士黑名单");
                 baiqishiRuleInfo.setTsTarget(false);
-                flag = "2";
+                flag = RuleHitEnum.HIT.getCode();
             }else{
                 baiqishiRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
                 baiqishiRuleInfo.setTsTarget(false);
@@ -171,6 +172,7 @@ public class BlanckListServiceImpl implements BlanckListService {
             }
         }
         execution.setVariable("flag",flag);
+        LOGGER.info("BlanckListServiceImpl excute end");
     }
 
     /**
