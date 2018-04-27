@@ -2,5 +2,5 @@ package com.ht.risk.activiti.service.homeloan;
 
 import org.activiti.engine.delegate.JavaDelegate;
 
-public interface CreditAuditService extends JavaDelegate{
+public interface GetCreditAuditResultService extends JavaDelegate{
 }

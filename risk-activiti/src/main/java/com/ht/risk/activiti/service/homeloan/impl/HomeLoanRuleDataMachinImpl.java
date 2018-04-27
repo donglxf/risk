@@ -86,7 +86,7 @@ public class HomeLoanRuleDataMachinImpl implements HomeLoanRuleDataMachin {
                 String firstTime = out.getUserinfo().getFirstOrdertime();
                 String realName = out.getUserinfo().getRealName();
                 if (!realName.equals(String.valueOf(dataMap.get("borrower"))) || false) {
-                    //TODO  新增条件  userinfo.authentication为ture
+                    //TODO  修改false条件：  userinfo.authentication为ture
                     homeLoanMap.put("HomeLoanAdmittance_Tbaccount", "否");
                 }
                 int method = DateUtils.minusMonths(sim.parse(firstTime), new Date());
@@ -102,7 +102,7 @@ public class HomeLoanRuleDataMachinImpl implements HomeLoanRuleDataMachin {
                     }
                 }
                 if (!bool || true) {
-                    //TODO 新增条件 收货人手机号码recentdeliveraddress.deliver_mobilephone与借款人申请借款的手机号码一致
+                    //TODO 修改true条件 收货人手机号码recentdeliveraddress.deliver_mobilephone与借款人申请借款的手机号码一致
                     homeLoanMap.put("HomeLoanAdmittance_tbtransactionrecord", "否");
                 }
             }
@@ -112,45 +112,9 @@ public class HomeLoanRuleDataMachinImpl implements HomeLoanRuleDataMachin {
         execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME + "homeLoan", list);
     }
 
-    /**
-     * 运营商接口流程
-     */
-    public boolean getSpInterface(Map dataMap) {
-        boolean bool=false;
-        SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        UserBaseInfoDtoIn in = new UserBaseInfoDtoIn();
-        String tempate=null;
-        try {
-            tempate=String.valueOf(sim.parse(sim.format(new Date())).getTime());
-            in.setCurrentTime(tempate);
-            in.setMobilePhone(String.valueOf(dataMap.get("mobilePhone"))); // 手机号 ，传入
-            in.setRealName(String.valueOf(dataMap.get("realName"))); // 真实姓名 ，传入
-            in.setUserId(String.valueOf(dataMap.get("userId"))); // userid ，传入
-        } catch (ParseException e) {
-            e.printStackTrace();
-            log.error("时间转换异常",e.getMessage());
-        }
-        Result<UserBaseInfoDtoOut> result = eipServiceInterface.userBaseInfo(in);
-        if(null != result && "0000".equals(result.getReturnCode())){
-            bool=true;
-        }
-        if(bool){
-            SpValidCodeDtoIn input=new SpValidCodeDtoIn();
-            input.setMobilePhone(String.valueOf(dataMap.get("mobilePhone")));
-            input.setCurrentTime(tempate);
-            input.setUserId(String.valueOf(dataMap.get("userId")));
-            Result<SpValidCodeDtoOut> validCode=eipServiceInterface.validCode(input);
-            if(null != validCode && "0000".equals(validCode.getReturnCode())){
-                SpValidCodeDtoOut out=validCode.getData();
-                if(out.isSms()){
-                    // TODO 短息动态验证码接口
 
-                }
-                SpLoginDtoIn loginIn=new SpLoginDtoIn();
-                Result<SpLoginDtoOut> login=eipServiceInterface.login(loginIn);
+    public void Machin(){
 
-            }
-        }
-        return bool;
     }
+
 }

@@ -5,5 +5,5 @@ import org.activiti.engine.delegate.JavaDelegate;
 /**
  * 中青信用
  */
-public interface ZqCreditService extends JavaDelegate{
+public interface GetBlackResultService extends JavaDelegate{
 }

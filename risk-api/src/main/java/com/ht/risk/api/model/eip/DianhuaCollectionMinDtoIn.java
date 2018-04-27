@@ -22,17 +22,3 @@ public class DianhuaCollectionMinDtoIn extends commEntryIn {
 
 }
 
-@Data
-class CallLog {
-    @ApiModelProperty(value = "与查询号码通话的电话号码")
-    private String call_tel;
-
-    @ApiModelProperty(value = "时间戳(秒)，通话发生时间")
-    private int call_time;
-
-    @ApiModelProperty(value = "通话时长（秒）")
-    private int call_duration;
-
-    @ApiModelProperty(value = "1：主叫，2：被叫")
-    private int call_method;
-}

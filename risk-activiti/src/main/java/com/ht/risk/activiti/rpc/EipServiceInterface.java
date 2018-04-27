@@ -181,6 +181,14 @@ public interface EipServiceInterface {
 	@PostMapping("/sp/queryPhoneRecord")
 	public com.ht.ussp.core.Result<QueryPhoneRecordDtoOut> queryPhoneRecord(QueryPhoneRecordDtoIn input);
 
+	/**
+	 * 电话邦催收分
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/dianhua/collectionMin")
+	public com.ht.ussp.core.Result<DianhuaCollectionMinDtoOut> collectionMin(DianhuaCollectionMinDtoIn input);
+
 
 
 }
