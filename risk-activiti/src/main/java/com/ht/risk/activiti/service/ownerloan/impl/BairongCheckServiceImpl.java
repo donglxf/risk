@@ -44,7 +44,7 @@ public class BairongCheckServiceImpl implements BairongCheckService {
         String mobilePhone = String.valueOf(borrowerMap.get("phoneNo"));
         String flag = RuleHitEnum.UNHIT.getCode();//命中标识： 1 沒有命中，2 命中
         // 汇法网个人分类信息接口
-        OwnerLoanRuleInfo moreCheckRuleInfo = ownerResult.getInterInfo().get(BAIRONG_FUNCIONCODE);
+       /* OwnerLoanRuleInfo moreCheckRuleInfo = ownerResult.getInterInfo().get(BAIRONG_FUNCIONCODE);
         moreCheckRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
         long startTime = System.currentTimeMillis();
         Result<BairongMoreCheckDtoOut> moreCheckResult = callBaiRongCheck(identityCard,name,mobilePhone);
@@ -66,7 +66,7 @@ public class BairongCheckServiceImpl implements BairongCheckService {
                 moreCheckRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
                 moreCheckRuleInfo.setTsTarget(false);
             }
-        }
+        }*/
         execution.setVariable("flag",flag);
         LOGGER.info("BairongCheckServiceImpl excute end");
 
