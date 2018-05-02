@@ -497,6 +497,7 @@ public class BlackController {
                 mongoTemplate.updateMulti(query, update, KlRiskBlackListRespDtoResult.class);
             }else{
                 KlRiskBlackListRespDtoResult outResult = new KlRiskBlackListRespDtoResult();
+                outResult.setIdentityCard(identityCard);
                 outResult.setCodeDesc(result.getCodeDesc());
                 outResult.setCreateTime(new Date(System.currentTimeMillis()));
                 outResult.setData(result.getData());
