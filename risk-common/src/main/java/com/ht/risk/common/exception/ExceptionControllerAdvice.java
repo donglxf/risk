@@ -34,8 +34,8 @@ public class ExceptionControllerAdvice {
      * @param ex
      * @return
      */
-    @ResponseBody
-    @ExceptionHandler(value = Exception.class)
+    // @ResponseBody
+    // @ExceptionHandler(value = Exception.class)
     public Map<String,Object > errorHandler(Exception ex) {
         //参数验证异常 MethodArgumentNotValidException
         if(ex instanceof ConstraintViolationException){
@@ -46,8 +46,7 @@ public class ExceptionControllerAdvice {
         map.put("msg", "系统异常:"+ex.getMessage());
         map.put("data", null);
         logger.error("=========打印日志开始============");
-        logger.error(ex.getMessage());
-        ex.printStackTrace();
+        logger.error("系统异常:"+ex.getMessage(),ex);
         logger.error("=========打印日志结束============");
         return map;
     }
