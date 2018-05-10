@@ -10,6 +10,6 @@ public class AuroraUserImgServiceImpl implements AuroraUserImgService {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-
+        delegateExecution.setVariable("flag","0");
     }
 }

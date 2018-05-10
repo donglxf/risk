@@ -40,6 +40,8 @@ public class BackValidServiceImpl implements BackValidService {
     }
 
     public void callInterface(Map dataMap, DelegateExecution execution) {
+//        List<Map<String, Object>> resultListMap = new ArrayList<Map<String, Object>>();
+        Map<String, Object> resultMap = new HashMap<>();
         try {
             boolean bool = false;  // true-黑名单命中 ，false-没命中 黑名单
             String identityCard = String.valueOf(dataMap.get("identityCard"));
@@ -53,6 +55,7 @@ public class BackValidServiceImpl implements BackValidService {
             if (ObjectUtils.isNotEmpty(result) && "0000".equals(result.getReturnCode())) {
                 if ("1".equals(result.getData().getIsBlacklistUser())) { // 命中黑名单
                     bool = true;
+                    resultMap.put("HitSelf", "Y");
                 }
             }
             if (!bool) {
@@ -68,6 +71,7 @@ public class BackValidServiceImpl implements BackValidService {
                     boolean b3 = (Integer.parseInt(out.getOverduepayout()) > 500 && Integer.parseInt(out.getMaxOverduedays()) >= 5) && (false);
                     if (b1 || b2 || b3) {
                         bool = true;
+                        resultMap.put("HitNetLoan", "Y");
                     }
                 }
             }
@@ -80,12 +84,18 @@ public class BackValidServiceImpl implements BackValidService {
                     OldLaiOut out = result1.getData();
                     if (ObjectUtils.isNotEmpty(out)) {
                         bool = true;
+                        resultMap.put("HitOldLai", "Y");
                     }
                 }
             }
 
-            // 电话邦
+            //TODO  电话邦通话记录  ，此处需要传20条以上记录。。。。。。
             List<CallLog> callLog = (List<CallLog>) dataMap.get("CallLog");
+            CallLog calog = new CallLog();
+            calog.setCall_method(1);
+            calog.setCall_tel(mobilePhone);
+            callLog.add(calog);
+
             DianhuaCollectionMinDtoIn dianhuaIn = new DianhuaCollectionMinDtoIn();
             dianhuaIn.setMobilePhone(mobilePhone);
             dianhuaIn.setCallLog(callLog);
@@ -96,11 +106,30 @@ public class BackValidServiceImpl implements BackValidService {
                 String callAvgDuration = out.getCsData().getOverview().getDunning().getCallAvgDuration();
                 if (Integer.parseInt(callTotalTime) > 5 && Integer.parseInt(callAvgDuration) > 200) {
                     // 命中规则
+                    resultMap.put("HitCollectionMin", "Y");
                 }
             }
 
-            // 汇法网
-
+            // 汇法网 失信记录
+            LawxpWebankDtoIn webIn = new LawxpWebankDtoIn();
+            webIn.setIdentityCard(identityCard);
+            webIn.setRealName(realName);
+            webIn.setStype("1");
+            Result<LawxpWebankDtoOut> webResult = eipServiceInterface.webank(webIn);
+            if (ObjectUtils.isNotEmpty(dhResult) && "0000".equals(dhResult.getReturnCode())) {
+                LawxpWebankDtoOut out = webResult.getData();
+                List<Allmsglist> msgList = out.getAllmsglist();
+                msgList.forEach(m -> {
+                    int bigType = m.getBigtype();
+                    String type = m.getType();
+                    if (bigType == 1 && ("暂缓执行".equals(type) || "执行中".equals(type) || "资产清理".equals(type))) {
+                        resultMap.put("HitWebank", "Y");
+                    }
+                    if (bigType == 12 || bigType == 13 || bigType == 14 || bigType == 17 || bigType == 19 || bigType == 21 || bigType == 20) {
+                        resultMap.put("HitWebank", "Y");
+                    }
+                });
+            }
 
             // 前海征信
             try {
@@ -110,7 +139,7 @@ public class BackValidServiceImpl implements BackValidService {
                 seaDtoIn.setRealName(realName);
                 seaDtoIn.setReasonNo("01");
                 Result<FrontSeaDtoOut> result1 = eipServiceInterface.frontSea(seaDtoIn);
-                List<Map<String,Object>> listMap=new ArrayList<>();
+                List<Map<String, Object>> listMap = new ArrayList<>();
                 if (ObjectUtils.isNotEmpty(result1) && "0000".equals(result1.getReturnCode())) {
                     FrontSeaDtoOut out = result1.getData();
                     boolean b1 = "B2".equals(out.getRskMark()) || "B1".equals(out.getRskMark());
@@ -119,13 +148,14 @@ public class BackValidServiceImpl implements BackValidService {
                     mapDate.put("homeloadfrontsea_belongexecutor", b1 ? "是" : "否");
                     mapDate.put("homeloadfrontsea_rskScore", out.getRskMark());
                     listMap.add(mapDate);
-                    execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME + "frontsea", listMap);
+                    execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME + "frontsea", listMap); // 赋值规则所需变量
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 log.error("前海征信执行异常+++++" + e.getMessage());
             }
-
+//            resultListMap.add(resultMap);
+            execution.setVariable(ActivitiConstants.PROC_HOME_LOAN_RESULT_CODE + "homeLoan", resultMap);
 
         } catch (Exception e) {
             log.error("执行异常+++++" + e.getMessage());

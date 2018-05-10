@@ -77,7 +77,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
     @Override
     public RuleExecutionObject excute1(RuleExecutionObject ruleExecutionObject, RuleSceneVersion ruleSceneVersionInfo) throws Exception {
         try {
-            return this.compileRuleAndexEcuteRuleEngine(ruleSceneVersionInfo.getRuleDrl(), ruleExecutionObject, new Long(ruleSceneVersionInfo.getSceneId()), ruleSceneVersionInfo.getVersionId());
+            return this.compileRuleAndexEcuteRuleEngine(ruleSceneVersionInfo.getRuleDrl(), ruleExecutionObject,new Long(ruleSceneVersionInfo.getSceneId()), ruleSceneVersionInfo.getVersionId());
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage(), e);
@@ -100,7 +100,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
             KieSession ksession = DroolsUtil.getInstance().getDrlSessionInCache(String.valueOf(sceneId));
             if (ksession != null) {
                 //直接执行
-                return executeRuleEngine(ksession, ruleExecutionObject, sceneId, null);
+                return executeRuleEngine(ksession, ruleExecutionObject, null);
             } else {
                 //重新编译规则，然后执行
                 return compileRule(ruleExecutionObject, sceneId);
@@ -122,7 +122,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param ruleExecutionObject 参数
      * @param scene               场景
      */
-    private RuleExecutionObject executeRuleEngine(KieSession session, RuleExecutionObject ruleExecutionObject, final Long sceneId, final Long versionId) throws Exception {
+    private RuleExecutionObject executeRuleEngine(KieSession session, RuleExecutionObject ruleExecutionObject, final Long versionId) throws Exception {
         try {
             // 1.插入全局对象
             Map<String, Object> globalMap = ruleExecutionObject.getGlobalMap();
@@ -201,18 +201,18 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
      * @param ruleExecutionObject 参数
      * @param scene               场景
      */
-    private RuleExecutionObject compileRuleAndexEcuteRuleEngine(String droolRuleStr, RuleExecutionObject ruleExecutionObject, final Long sceneId, final Long versionId) throws Exception {
+    private RuleExecutionObject compileRuleAndexEcuteRuleEngine(String droolRuleStr, RuleExecutionObject ruleExecutionObject,final Long sceneId, final Long versionId) throws Exception {
         //KieSession对象
         KieSession session;
         try {
             //编译规则脚本,返回KieSession对象
-            session = DroolsUtil.getInstance().getDrlSession(droolRuleStr, sceneId);
+            session = DroolsUtil.getInstance().getDrlSession(droolRuleStr,sceneId);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Drools初始化失败，请检查Drools语句！");
         }
         //执行规则
-        return this.executeRuleEngine(session, ruleExecutionObject, sceneId, versionId);
+        return this.executeRuleEngine(session, ruleExecutionObject, versionId);
     }
 
 

@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 
 import com.ht.risk.constant.DroolsConstant;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -50,19 +52,21 @@ public class DroolsUtil {
      * 方法说明:根据规则字符串重新编译规则，并将编译后的KieBase存入缓存
      *
      * @param rule  规则字符串
-     * @param scene 场景标识
+     * @param sceneId 场景标识
      */
-    public KieSession getDrlSession(final String rule, final Long sceneId) throws Exception {
+    public KieSession getDrlSession(final String rule,final Long sceneId) throws Exception {
 
         try {
             // 设置时间格式
             System.setProperty("drools.dateformat", "yyyy-MM-dd");
             //为防止规则文件名字重复，此处加上时间戳( 格式：场景标识+时间戳+.drl)
+            SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSSS");
+            String ruleName=String.valueOf(sim.parse(sim.format(new Date())).getTime());
             String ruleFileName = sceneId + ".drl";
-
+//            String ruleFileName = ruleName + ".drl";
             KieServices kieServices = KieServices.Factory.get();
             KieFileSystem kfs = kieServices.newKieFileSystem();
-            kfs.write(DroolsConstant.DRL_PATH  + ruleFileName, rule.getBytes("UTF-8"));
+            kfs.write(DroolsConstant.DRL_PATH + ruleFileName, rule.getBytes("UTF-8"));
             KieBuilder kieBuilder = kieServices.newKieBuilder(kfs).buildAll();
             if (kieBuilder.getResults().getMessages(Message.Level.ERROR).size() > 0) {
                 throw new RuntimeException(kieBuilder.getResults().getMessages().toString());
@@ -71,6 +75,7 @@ public class DroolsUtil {
             KieBase kBase = kieContainer.getKieBase();
             //放入缓存
             ruleMap.put(String.valueOf(sceneId), kBase);
+//            ruleMap.put(String.valueOf(ruleName), kBase);
             KieSession kieSession = kBase.newKieSession();
             kieSession.addEventListener(new DebugRuleRuntimeEventListener());
             return kieSession;

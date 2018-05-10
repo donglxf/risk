@@ -11,6 +11,15 @@ public class RuleStandardResult {
     private List<String> ruleList = new ArrayList<String>();
     private List<String> result = new ArrayList<>();
     private List<String> logIdList = new ArrayList<>();
+    private String scope; // 如果是评分卡，则保存最后总分
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
 
     public List<String> getResult() {
         return result;

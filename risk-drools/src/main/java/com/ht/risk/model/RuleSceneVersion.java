@@ -36,6 +36,13 @@ public class RuleSceneVersion extends Model<RuleSceneVersion> {
      */
 	@ApiModelProperty(required= true,value = "版本号 ")
 	private String version;
+
+	/**
+     * 正式版本号
+     */
+	@TableField("official_version")
+	@ApiModelProperty(required= true,value = "正式版本号 ")
+	private String officialVersion;
     /**
      * 类型：1决策或评分卡2模型
      */
@@ -195,6 +202,14 @@ public class RuleSceneVersion extends Model<RuleSceneVersion> {
 		return this.versionId;
 	}
 
+	public String getOfficialVersion() {
+		return officialVersion;
+	}
+
+	public void setOfficialVersion(String officialVersion) {
+		this.officialVersion = officialVersion;
+	}
+
 	@Override
 	public String toString() {
 		return "RuleSceneVersion{" +
@@ -210,6 +225,7 @@ public class RuleSceneVersion extends Model<RuleSceneVersion> {
 			", ruleDiv=" + ruleDiv +
 			", ruleDrl=" + ruleDrl +
 			", status=" + status +
+			", officialVersion=" + officialVersion +
 			"}";
 	}
 }

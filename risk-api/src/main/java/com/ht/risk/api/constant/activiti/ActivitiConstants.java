@@ -3,6 +3,7 @@ package com.ht.risk.api.constant.activiti;
 public class ActivitiConstants {
 
     public final static String DROOL_RULE_SERVICE_NAME = "${droolsRuleEngineService}";
+    public final static String MULIT_DROOL_RULE_SERVICE_NAME = "${mulitDroolsRuleEngineService}";
 
     public final static String DROOL_RULE_SERVICE_TYPE = "delegateExpression";
 
@@ -73,5 +74,10 @@ public class ActivitiConstants {
      * 业主贷编码
      */
     public final static String PROC_OWNER_LOAN_RESULT_CODE = "1002";
+
+    /**
+     * 家装贷编码
+     */
+    public final static String PROC_HOME_LOAN_RESULT_CODE = "1003";
 
 }

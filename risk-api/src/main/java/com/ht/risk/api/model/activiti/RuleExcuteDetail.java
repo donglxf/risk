@@ -16,6 +16,15 @@ public class RuleExcuteDetail implements Serializable{
     private List<RpcRuleDetail> ruleDetails;
     private List<String> ruleList;
     private Map<String,Object> inParamter;
+    private String scope;
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
 
     public String getSenceVersionId() {
         return senceVersionId;

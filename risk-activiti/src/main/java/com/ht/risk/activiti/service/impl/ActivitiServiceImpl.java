@@ -127,13 +127,13 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
     public String startProcess(RpcStartParamter paramter) {
         // 流程定义ID
         String procDefId = paramter.getProcDefId();
-        Map<String,Object> modelParamter = new HashMap<String,Object>();
+        Map<String, Object> modelParamter = new HashMap<String, Object>();
         // 模型运行所需数据
-        modelParamter.put(ActivitiConstants.PROC_MODEL_DATA_KEY,paramter.getData());
+        modelParamter.put(ActivitiConstants.PROC_MODEL_DATA_KEY, paramter.getData());
         // 模型执行类型：type:0 模型验证，1 业务调用
         modelParamter.put(ActivitiConstants.PROC_MODEL_EXCUTE_TYPE_KEY, paramter.getType());
         // 模型执行任务流水号
-        modelParamter.put(ActivitiConstants.PROC_TASK_ID_VAR_KEY,paramter.getTaskId());
+        modelParamter.put(ActivitiConstants.PROC_TASK_ID_VAR_KEY, paramter.getTaskId());
         ProcessInstance instance = runtimeService.startProcessInstanceById(procDefId, modelParamter);
         return instance.getId();
     }
@@ -179,7 +179,7 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
 
 
     public List<HistoricVariableInstance> getProcessVarByDeployIdAndName(String processId, String variableName) {
-        return  historyService.createHistoricVariableInstanceQuery().processInstanceId(processId).variableName(variableName).list();
+        return historyService.createHistoricVariableInstanceQuery().processInstanceId(processId).variableName(variableName).list();
 
     }
 
@@ -187,7 +187,7 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
         return historyService.createHistoricVariableInstanceQuery().processInstanceId(processId).variableNameLike(variableName).list();
     }
 
-    public void createRuleTask(Map<String, Object> map){
+    public void createRuleTask(Map<String, Object> map) {
         List<Map> childShapes = (List<Map>) map.get("childShapes");
         for (Map map1 : childShapes) {
             Map properties = (Map) map1.get("properties");
@@ -197,22 +197,22 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
                 String senceVersion = String.valueOf(properties.get("scene_version"));
                 String senceCode = String.valueOf(properties.get("sence_code"));
                 List<Map> fields = new ArrayList<Map>();
-                Map<String,String> codeFieldMap = new LinkedTreeMap<String,String>();
-                codeFieldMap.put("name","versionExp");
-                codeFieldMap.put("implementation",senceVersion);
-                codeFieldMap.put("stringValue","");
-                codeFieldMap.put("express","");
-                codeFieldMap.put("string",senceVersion);
-                Map<String,String> versionFieldMap = new LinkedTreeMap<String,String>();
-                versionFieldMap.put("name","senceCodeExp");
-                versionFieldMap.put("implementation",senceVersion);
-                versionFieldMap.put("stringValue","");
-                versionFieldMap.put("express","");
-                versionFieldMap.put("string",senceVersion);
+                Map<String, String> codeFieldMap = new LinkedTreeMap<String, String>();
+                codeFieldMap.put("name", "versionExp");
+                codeFieldMap.put("implementation", senceVersion);
+                codeFieldMap.put("stringValue", "");
+                codeFieldMap.put("express", "");
+                codeFieldMap.put("string", senceVersion);
+                Map<String, String> versionFieldMap = new LinkedTreeMap<String, String>();
+                versionFieldMap.put("name", "senceCodeExp");
+                versionFieldMap.put("implementation", senceVersion);
+                versionFieldMap.put("stringValue", "");
+                versionFieldMap.put("express", "");
+                versionFieldMap.put("string", senceVersion);
                 fields.add(codeFieldMap);
                 fields.add(versionFieldMap);
-                Map<String,Object> taskFieldMap = new LinkedTreeMap<String,Object>();
-                taskFieldMap.put("fields",fields);
+                Map<String, Object> taskFieldMap = new LinkedTreeMap<String, Object>();
+                taskFieldMap.put("fields", fields);
                 stencil.put("id", "ServiceTask");
                 properties.put("overrideid", "");
                 properties.put("name", "");
@@ -257,7 +257,7 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
                     implementation = task.getImplementation();
                     implementationType = task.getImplementationType();
                     fieldExtensions = task.getFieldExtensions();
-                    if (ActivitiConstants.DROOL_RULE_SERVICE_NAME.equals(implementation) && ActivitiConstants.DROOL_RULE_SERVICE_TYPE.equals(implementationType) && fieldExtensions.size() > 1) {
+                    if ((ActivitiConstants.DROOL_RULE_SERVICE_NAME.equals(implementation) || ActivitiConstants.MULIT_DROOL_RULE_SERVICE_NAME.equals(implementation)) && ActivitiConstants.DROOL_RULE_SERVICE_TYPE.equals(implementationType) && fieldExtensions.size() > 1) {
                         senceCode = fieldExtensions.get(0).getStringValue();
                         version = fieldExtensions.get(1).getStringValue();
                         senceInfo = new RpcSenceInfo();

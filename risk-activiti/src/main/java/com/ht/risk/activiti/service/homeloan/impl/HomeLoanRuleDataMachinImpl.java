@@ -46,7 +46,8 @@ public class HomeLoanRuleDataMachinImpl implements HomeLoanRuleDataMachin {
         msg.append(dataValid(dataMap));
 
         //  准入规则数据加工
-        zhurMachin(dataMap, execution);
+//        zhurMachin(dataMap, execution);
+        Machin(dataMap, execution);
     }
 
     public StringBuffer dataValid(Map dataMap) {
@@ -113,8 +114,25 @@ public class HomeLoanRuleDataMachinImpl implements HomeLoanRuleDataMachin {
     }
 
 
-    public void Machin(){
-
+    public void Machin(Map dataMap, DelegateExecution execution){
+        List<Map<String, Object>> list = new ArrayList();
+        Map<String, Object> homeLoanMap = new HashMap<String,Object>();
+        homeLoanMap.put("homeloanamount_registertime","5");
+        homeLoanMap.put("homeloanamount_addressstabilization","lmcconsistent");
+        homeLoanMap.put("homeloanamount_registermoney","2000");
+        homeLoanMap.put("homeloanamount_organizationtype","机关法人");
+        homeLoanMap.put("homeloanamount_homeloansex","男");
+        homeLoanMap.put("homeloanamount_homeloanage","31");
+        homeLoanMap.put("homeloanamount_idcardcity","cityTypeA");
+        homeLoanMap.put("homeloanamount_livecity","cityTypeC");
+        homeLoanMap.put("homeloanamount_tbtransactiontime","23");
+        homeLoanMap.put("homeloanamount_mobilenettime","3");
+        homeLoanMap.put("homeloanamount_callNum","20");
+        homeLoanMap.put("homeloanamount_addressstabilization","mcconsistent");
+        homeLoanMap.put("homeloanamount_creditbank","10");
+        homeLoanMap.put("homeloanamount_creditNoBank","10");
+        list.add(homeLoanMap);
+        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME + "homeloanscope", list);
     }
 
 }

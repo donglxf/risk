@@ -1,7 +1,7 @@
 package com.ht.risk.common.model;
 
+import com.ht.risk.api.model.drools.RuleStandardResult;
 import com.ht.risk.model.fact.RuleExecutionObject;
-import com.ht.risk.model.fact.RuleStandardResult;
 import io.swagger.annotations.ApiModelProperty;
 
 public class RuleExcuteResult {
@@ -11,7 +11,7 @@ public class RuleExcuteResult {
         super();
     }
 
-    public RuleExcuteResult(int code, String msg, RuleStandardResult data,String senceVersoionId) {
+    public RuleExcuteResult(int code, String msg, RuleStandardResult data, String senceVersoionId) {
         this.code = code;
         this.msg = msg;
         this.data = data;

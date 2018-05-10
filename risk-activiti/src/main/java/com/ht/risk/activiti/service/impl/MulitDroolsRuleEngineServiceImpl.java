@@ -5,8 +5,10 @@ import com.ht.risk.activiti.rpc.DroolsRuleEngineInterface;
 import com.ht.risk.activiti.service.DroolsRuleEngineService;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.enums.RuleHitEnum;
+import com.ht.risk.api.model.activiti.MulitRuleExcuteDetail;
 import com.ht.risk.api.model.activiti.RuleExcuteDetail;
 import com.ht.risk.api.model.drools.DroolsParamter;
+import com.ht.risk.api.model.drools.MulitDroolsParamter;
 import com.ht.risk.api.model.drools.RuleExcuteResult;
 import com.ht.risk.api.model.drools.RuleStandardResult;
 import com.ht.risk.common.comenum.RuleCallTypeEnum;
@@ -21,10 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Service("droolsRuleEngineService")
-public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
+@Service("mulitDroolsRuleEngineService")
+public class MulitDroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(DroolsRuleEngineServiceImpl.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(MulitDroolsRuleEngineServiceImpl.class);
 
     private Expression senceCodeExp;
     private Expression versionExp;
@@ -41,7 +43,7 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         if(versionExp != null){
             version = String.valueOf(versionExp.getValue(delegateExecution));
         }
-        LOGGER.info("drools excute start,senceCode：>>>>>>"+senceCode+";version:"+version);
+        LOGGER.info("drools excute start,senceCode："+senceCode+";version:"+version);
         // drools引擎所需数据
         Object senceObj = delegateExecution.getVariable(ActivitiConstants.DROOLS_VARIABLE_NAME+senceCode);
         // 模型执行模式
@@ -50,29 +52,23 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         String ruleType = getDroolsExcuteType(modelType);
         Map senceMap = null;
         // drools引擎执行
-        RuleExcuteDetail detail = null;
-        List<RuleExcuteDetail> details = new ArrayList<RuleExcuteDetail>();
+        MulitRuleExcuteDetail detail = null;
+        List<MulitRuleExcuteDetail> details = new ArrayList<MulitRuleExcuteDetail>();
         String flag = RuleHitEnum.UNHIT.getCode();// 0：沒有命中規則，1：命中規則
         try{
             List<Map<String,Object>> datas = ( List<Map<String,Object>>)senceObj;
             if(datas != null &&  datas.size() > 0){
-                for(int i =0;i<datas.size();i++){
-                    RuleExcuteResult result = this.excuteRules(senceCode,version,datas.get(i),delegateExecution.getProcessInstanceId(),ruleType);
-                    /*if(result != null && result.getData() != null && result.getData().getRuleList() != null && result.getData().getRuleList().size()>0){
-                        detail = matainExcuteDetail(result);
-                        detail.setInParamter(datas.get(i));
-                        details.add(detail);
-                        flag = "1";
-                    }*/
+//                for(int i =0;i<datas.size();i++){
+                    RuleExcuteResult result = this.excuteRules(senceCode,version,datas,delegateExecution.getProcessInstanceId(),ruleType);
                     if(result != null && result.getData() != null && result.getData()!= null){
                         detail = matainExcuteDetail(result);
-                        detail.setInParamter(datas.get(i));
+                        detail.setInParamters(datas);
                         details.add(detail);
                         if(result.getData().getRuleList() != null && result.getData().getRuleList().size()>0){
                             flag = RuleHitEnum.HIT.getCode();
                         }
                     }
-                }
+//                }
             }
             delegateExecution.setVariable(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR+senceCode,details);
             delegateExecution.setVariable("flag",flag);
@@ -95,27 +91,26 @@ public class DroolsRuleEngineServiceImpl implements DroolsRuleEngineService {
         }
     }
     // 包装返回结果
-    private RuleExcuteDetail matainExcuteDetail(RuleExcuteResult result){
-        RuleExcuteDetail detail = new RuleExcuteDetail();
+    private MulitRuleExcuteDetail matainExcuteDetail(RuleExcuteResult result){
+        MulitRuleExcuteDetail detail = new MulitRuleExcuteDetail();
         RuleStandardResult ruleInfo = result.getData();
         String logId = ruleInfo.getLogIdList() != null && ruleInfo.getLogIdList().size()>0 ? ruleInfo.getLogIdList().get(0):"";
         detail.setSenceVersionId(result.getSenceVersoionId());
         detail.setLogId(logId);
         detail.setRuleList(ruleInfo.getRuleList());
-        detail.setScope(ruleInfo.getScope());
         return  detail;
     }
     // 调用规则引擎执行规则
-    private RuleExcuteResult excuteRules(String senceCode,String version,Map<String,Object> data,String proceInstId,String type){
-        DroolsParamter paramter = new DroolsParamter();
+    private RuleExcuteResult excuteRules(String senceCode,String version,List<Map<String,Object>> data,String proceInstId,String type){
+        MulitDroolsParamter paramter = new MulitDroolsParamter();
         paramter.setSence(senceCode); // 决策code
         paramter.setVersion(version); // 版本
-        paramter.setData(data); // 决策运行所需数据
+        paramter.setMulitDate(data);// 决策运行所需数据
         paramter.setProcessInstanceId(proceInstId);
         paramter.setType(type);
         LOGGER.info("DroolsRuleEngineServiceImpl service paramter:"+ JSON.toJSONString(paramter));
         RuleExcuteResult result = null;
-        result = droolsRuleEngineInterface.excuteDroolsSceneValidation(paramter);
+        result = droolsRuleEngineInterface.mulitExcuteDroolsSceneValidation(paramter);
         return result;
     }
 

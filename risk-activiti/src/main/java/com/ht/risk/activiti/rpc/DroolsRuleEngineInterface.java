@@ -1,6 +1,7 @@
 package com.ht.risk.activiti.rpc;
 
 import com.ht.risk.api.model.drools.DroolsParamter;
+import com.ht.risk.api.model.drools.MulitDroolsParamter;
 import com.ht.risk.api.model.drools.RuleExcuteResult;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,14 @@ public interface DroolsRuleEngineInterface {
 
 	@RequestMapping("/excuteDroolsSceneValidation")
 	public RuleExcuteResult excuteDroolsSceneValidation(DroolsParamter paramter);
+
+	/**
+	 * 支持多组数据验证
+	 * @param paramter
+	 * @return
+	 */
+	@RequestMapping("/mulitExcuteDroolsScene")
+	public RuleExcuteResult mulitExcuteDroolsSceneValidation(MulitDroolsParamter paramter);
 
 	@RequestMapping("/batchExcuteRuleValidation")
 	public List<RuleExcuteResult> batchExcuteRuleValidation(List<DroolsParamter> paramters);
