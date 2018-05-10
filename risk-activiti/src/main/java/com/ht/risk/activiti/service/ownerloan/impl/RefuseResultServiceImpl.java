@@ -88,7 +88,7 @@ public class RefuseResultServiceImpl implements RefuseResultService {
         //ownerResult.setAuditType(AuditTypeEnum.PERSONAL.getCode());
         ownerResult.setAuditType(AuditTypeEnum.REFUSE.getCode());
         ownerResult.setCode("0");
-        //ownerResult.setErrorMsg(errorMsgStr);
+        ownerResult.setErrorMsg(errorMsgStr);
         ownerResult.setHitMsg(hitMsg.toString());
         ownerResult.setWarmMsg(StringUtils.isEmpty(ownerResult.getErrorMsg()) && StringUtils.isEmpty(msg) ?"执行成功":msg);
         ownerResult.setProcInstId(execution.getProcessInstanceId());

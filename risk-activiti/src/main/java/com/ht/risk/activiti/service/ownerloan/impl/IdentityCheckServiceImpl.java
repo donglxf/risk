@@ -49,7 +49,7 @@ public class IdentityCheckServiceImpl implements IdentityCheckService {
         }
         String identityCard = String.valueOf(borrowerMap.get("identifyCard"));
         String name= String.valueOf(borrowerMap.get("customerName"));
-        String mobilePhone = String.valueOf(borrowerMap.get("mobilePhone"));
+        String mobilePhone = String.valueOf(borrowerMap.get("phoneNo"));
 
         // 身份认证
         OwnerLoanRuleInfo idetifyRuleInfo = ownerResult.getInterInfo().get(IDVERIFY_FUNCIONCODE);

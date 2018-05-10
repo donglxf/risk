@@ -6,6 +6,7 @@ import com.ht.risk.activiti.service.ownerloan.BairongCheckService;
 import com.ht.risk.activiti.vo.OwnerLoanModelResult;
 import com.ht.risk.activiti.vo.OwnerLoanRuleInfo;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.api.enums.RuleHitEnum;
 import com.ht.risk.api.model.eip.*;
 import com.ht.risk.common.util.DateUtil;
 import com.ht.ussp.core.Result;
@@ -41,9 +42,9 @@ public class BairongCheckServiceImpl implements BairongCheckService {
         String identityCard = String.valueOf(borrowerMap.get("identifyCard"));
         String name= String.valueOf(borrowerMap.get("customerName"));
         String mobilePhone = String.valueOf(borrowerMap.get("phoneNo"));
-        String flag = "1";//命中标识： 1 沒有命中，2 命中
+        String flag = RuleHitEnum.UNHIT.getCode();//命中标识： 1 沒有命中，2 命中
         // 汇法网个人分类信息接口
-        OwnerLoanRuleInfo moreCheckRuleInfo = ownerResult.getInterInfo().get(BAIRONG_FUNCIONCODE);
+       /* OwnerLoanRuleInfo moreCheckRuleInfo = ownerResult.getInterInfo().get(BAIRONG_FUNCIONCODE);
         moreCheckRuleInfo.setCreateTime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
         long startTime = System.currentTimeMillis();
         Result<BairongMoreCheckDtoOut> moreCheckResult = callBaiRongCheck(identityCard,name,mobilePhone);
@@ -60,12 +61,12 @@ public class BairongCheckServiceImpl implements BairongCheckService {
             if(moreCheckResult.getData() != null){
                 moreCheckRuleInfo.setInterfaceResultCodeRemark("命中百融多次核查信息");
                 moreCheckRuleInfo.setTsTarget(false);
-                flag = "2";
+                //flag = RuleHitEnum.UNHIT.getCode();
             }else{
                 moreCheckRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
                 moreCheckRuleInfo.setTsTarget(false);
             }
-        }
+        }*/
         execution.setVariable("flag",flag);
         LOGGER.info("BairongCheckServiceImpl excute end");
 

@@ -307,6 +307,11 @@ public class BlackController {
             }else{
                 OldLaiOutResult outResult = new OldLaiOutResult(result);
                 outResult.setIdentityCard(identityCard);
+                outResult.setCodeDesc(result.getCodeDesc());
+                outResult.setCreateTime(new Date(System.currentTimeMillis()));
+                outResult.setData(result.getData());
+                outResult.setMsg(result.getMsg());
+                outResult.setReturnCode(result.getReturnCode());
                 mongoTemplate.insert(outResult);
             }
         }
@@ -334,6 +339,11 @@ public class BlackController {
             }else{
                 NetLoanOutResult outResult = new NetLoanOutResult(result);
                 outResult.setIdentityCard(identityCard);
+                outResult.setCodeDesc(result.getCodeDesc());
+                outResult.setCreateTime(new Date(System.currentTimeMillis()));
+                outResult.setData(result.getData());
+                outResult.setMsg(result.getMsg());
+                outResult.setReturnCode(result.getReturnCode());
                 mongoTemplate.insert(outResult);
             }
         }
@@ -361,6 +371,11 @@ public class BlackController {
             }else{
                 SelfDtoOutResult outResult = new SelfDtoOutResult(result);
                 outResult.setIdentityCard(identityCard);
+                outResult.setCodeDesc(result.getCodeDesc());
+                outResult.setCreateTime(new Date(System.currentTimeMillis()));
+                outResult.setData(result.getData());
+                outResult.setMsg(result.getMsg());
+                outResult.setReturnCode(result.getReturnCode());
                 mongoTemplate.insert(outResult);
             }
         }
@@ -388,6 +403,11 @@ public class BlackController {
             }else{
                 FrontSeaDtoOutResult outResult = new FrontSeaDtoOutResult(result);
                 outResult.setIdentityCard(identityCard);
+                outResult.setCodeDesc(result.getCodeDesc());
+                outResult.setCreateTime(new Date(System.currentTimeMillis()));
+                outResult.setData(result.getData());
+                outResult.setMsg(result.getMsg());
+                outResult.setReturnCode(result.getReturnCode());
                 mongoTemplate.insert(outResult);
             }
         }
@@ -413,6 +433,7 @@ public class BlackController {
                 mongoTemplate.updateMulti(query, update, BaiqishiDtoOutResult.class);
             }else{
                 BaiqishiDtoOutResult outResult = new BaiqishiDtoOutResult();
+                outResult.setIdentityCard(identityCard);
                 outResult.setCodeDesc(result.getCodeDesc());
                 outResult.setCreateTime(new Date(System.currentTimeMillis()));
                 outResult.setData(result.getData());
@@ -444,6 +465,7 @@ public class BlackController {
                 mongoTemplate.updateMulti(query, update, MobileValidDtoOutResult.class);
             }else{
                 MobileValidDtoOutResult outResult = new MobileValidDtoOutResult();
+                outResult.setIdentityCard(identityCard);
                 outResult.setCodeDesc(result.getCodeDesc());
                 outResult.setCreateTime(new Date(System.currentTimeMillis()));
                 outResult.setData(result.getData());
@@ -475,6 +497,7 @@ public class BlackController {
                 mongoTemplate.updateMulti(query, update, KlRiskBlackListRespDtoResult.class);
             }else{
                 KlRiskBlackListRespDtoResult outResult = new KlRiskBlackListRespDtoResult();
+                outResult.setIdentityCard(identityCard);
                 outResult.setCodeDesc(result.getCodeDesc());
                 outResult.setCreateTime(new Date(System.currentTimeMillis()));
                 outResult.setData(result.getData());

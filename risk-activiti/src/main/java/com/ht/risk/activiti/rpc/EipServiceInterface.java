@@ -114,7 +114,7 @@ public interface EipServiceInterface {
 	 * @return
 	 */
 	@PostMapping("/bairong/moreCheck")
-	public com.ht.ussp.core.Result<BairongMoreCheckDtoOut> moreCheck(BairongMoreCheckDtoIn input);
+	public com.ht.ussp.core.Result<BairongMoreCheckDtoOut> moreCheck(BairongMoreCheckDtoIn input) throws Exception;
 
 	/**
 	 * 魔蝎淘宝信息
