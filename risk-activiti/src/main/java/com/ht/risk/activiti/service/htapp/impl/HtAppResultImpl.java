@@ -88,7 +88,7 @@ public class HtAppResultImpl implements HtAppResult {
         // MQ发送消息
         if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)) {// 服务类型
             LOGGER.info("评分卡返回业务系统数据：>>>>>>>>"+JSON.toJSONString(modelResult));
-            topicSenderService.send(JSON.toJSONString(modelResult));
+            topicSenderService.sendHtappScore(JSON.toJSONString(modelResult));
         }
         LOGGER.info("HtAppResultImpl execute method excute end...");
     }

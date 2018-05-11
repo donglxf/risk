@@ -25,6 +25,10 @@ public class AmqpConfig {
     public final static String ACTIVITI_ROUTING_OWNERLOAN_KEY = "risk.model.ownerLoan";
     public final static String ACTIVITI_OWNERLOAN_EXCHANGE = "risk.model.ownerLoan";
 
+    public final static String ACTIVITI_SERVICE_HTAPPSCORE = "risk.hongteapp.htappscore";
+    public final static String ACTIVITI_HTAPPSCORE_EXCHANGE = "risk.hongteapp.htappscore";
+    public final static String ACTIVITI_ROUTING_HTAPPSCORE_KEY = "risk.hongteapp.htappscore";
+
     @Value("${spring.rabbitmq.host:}")
     private String host;
     @Value("${spring.rabbitmq.port:}")
@@ -69,6 +73,14 @@ public class AmqpConfig {
         return queue;
     }
 
+    //创建队列
+    @Bean
+    public Queue queueHtAppScore(RabbitAdmin rabbitAdmin) {
+        Queue queue = new Queue(AmqpConfig.ACTIVITI_SERVICE_HTAPPSCORE);
+        //rabbitAdmin.declareQueue(queue);
+        return queue;
+    }
+
     //创建交换器
     @Bean
     DirectExchange exchange() {
@@ -78,6 +90,11 @@ public class AmqpConfig {
     @Bean
     DirectExchange exchangeOwnerLoan() {
         return new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE,false,false);
+    }
+
+    @Bean
+    DirectExchange exchangeHtAppScore() {
+        return new DirectExchange(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE,false,false);
     }
 
 
@@ -90,6 +107,11 @@ public class AmqpConfig {
     @Bean
     Binding bindingExchangeOwnerLoan(Queue queueOwnerLoan, DirectExchange exchangeOwnerLoan) {
         return BindingBuilder.bind(queueOwnerLoan).to(exchangeOwnerLoan).with(AmqpConfig.ACTIVITI_ROUTING_OWNERLOAN_KEY);//*表示一个词,#表示零个或多个词
+    }
+
+    @Bean
+    Binding bindingExchangeHtAppScore(Queue queueOwnerLoan, DirectExchange exchangeOwnerLoan) {
+        return BindingBuilder.bind(queueOwnerLoan).to(exchangeOwnerLoan).with(AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY);//*表示一个词,#表示零个或多个词
     }
 
     @Bean

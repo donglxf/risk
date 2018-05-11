@@ -30,4 +30,11 @@ public class TopicSenderServiceImpl {
         this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_OWNERLOAN_KEY, context);
         LOGGER.info("send to quene [risk.model.ownerLoan] message sucess");
     }
+
+    public void sendHtappScore(String context) {
+        LOGGER.info("mq host is :"+rabbitMessagingTemplate.getRabbitTemplate().getConnectionFactory().getHost());
+        LOGGER.info("send to quene [risk.model.ownerLoan] message is:"+context);
+        this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY, context);
+        LOGGER.info("send to quene [risk.model.ownerLoan] message sucess");
+    }
 }
