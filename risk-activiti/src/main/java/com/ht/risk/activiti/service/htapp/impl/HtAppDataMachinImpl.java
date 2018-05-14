@@ -35,6 +35,7 @@ public class HtAppDataMachinImpl implements HtAppDataMachin {
             dataMap = (Map) dataObj;
         }
 
+        execution.setVariable(ActivitiConstants.PROC_BUSINESS_KEY,dataMap.get("businessId"));
         forbit(dataMap, execution);
         dataMachin(dataMap, execution);
 

@@ -74,7 +74,7 @@ public class HtAppResultImpl implements HtAppResult {
         modelResult.setTaskId(taskId);
         modelResult.setProcMsg(msg);
         String businessKey = String.valueOf(execution.getVariable(ActivitiConstants.PROC_BUSINESS_KEY));
-        modelResult.setBusinessKey(businessKey);
+        modelResult.setBusinessId(businessKey);
         if(details.size()>0){
             for(Iterator<RuleExcuteDetail> iterator = details.iterator(); iterator.hasNext();){
                 detail = iterator.next();
