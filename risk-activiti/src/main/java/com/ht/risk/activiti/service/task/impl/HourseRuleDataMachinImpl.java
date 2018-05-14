@@ -162,7 +162,7 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                 // 是否有前科
                 String name = borrowerMap.get("borrowerInfo_customerName") == null?null:String.valueOf(borrowerMap.get("borrowerInfo_customerName"));
                 String identityCard = borrowerMap.get("borrowerInfo_identifyCard") == null ?null:String.valueOf(borrowerMap.get("borrowerInfo_identifyCard"));
-                if(StringUtils.isNotEmpty(identityCard) && StringUtils.isNotEmpty(name)){
+                /*if(StringUtils.isNotEmpty(identityCard) && StringUtils.isNotEmpty(name)){
                     String negativeStr = getNegativeSearch(identityCard,name);
                     if("0".equals(negativeStr)){
                         borrowerMap.put("borrowerInfo_newNegative","是");
@@ -172,7 +172,8 @@ public class HourseRuleDataMachinImpl implements HourseRuleDataGain {
                     else{
                         borrowerMap.put("borrowerInfo_newNegative","否");
                     }
-                }
+                }*/
+                borrowerMap.put("borrowerInfo_newNegative","否");
                 droolsData.add(borrowerMap);
             }
             // 借款人决策变量
