@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.converter.MessageConverter;
+import org.springframework.messaging.converter.SimpleMessageConverter;
 import org.springframework.stereotype.Service;
 
 @Service("topicSenderService")
@@ -16,6 +18,9 @@ public class TopicSenderServiceImpl {
 
     @Autowired
     private RabbitMessagingTemplate rabbitMessagingTemplate;
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     public void send(String context) {
         LOGGER.info("mq host is :"+rabbitMessagingTemplate.getRabbitTemplate().getConnectionFactory().getHost());
@@ -32,9 +37,13 @@ public class TopicSenderServiceImpl {
     }
 
     public void sendHtappScore(String context) {
-        LOGGER.info("mq host is :"+rabbitMessagingTemplate.getRabbitTemplate().getConnectionFactory().getHost());
-        LOGGER.info("send to quene [risk.model.ownerLoan] message is:"+context);
-        this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY, context);
+        LOGGER.info("amqp host is :");
+        LOGGER.info("send to quene [risk.hongteapp.htappscore] message is:"+context);
+//        MessageConverter con=new SimpleMessageConverter();
+//        con.toMessage()
+//        rabbitMessagingTemplate.setMessageConverter(con);
+//        this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY, context);
+        this.amqpTemplate.convertAndSend(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY, context);
         LOGGER.info("send to quene [risk.model.ownerLoan] message sucess");
     }
 }

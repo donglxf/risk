@@ -4,6 +4,7 @@ import com.ht.risk.activiti.rpc.RuleServiceInterface;
 import com.ht.risk.activiti.service.htapp.HtAppDataMachin;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.common.result.Result;
+import com.ht.risk.common.util.ObjectUtils;
 import lombok.extern.log4j.Log4j2;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,9 @@ public class HtAppDataMachinImpl implements HtAppDataMachin {
     private void forbit(Map dataMap, DelegateExecution execution) {
         List<Map<String, Object>> listDate = new ArrayList<>();
         Map<String, Object> foribt = (Map<String, Object>) dataMap.get("borrowerInfo"); // 准入
+        if(ObjectUtils.isEmpty(foribt)){
+            return ;
+        }
         listDate.add(foribt);
         execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME + "hongteapp", listDate);
     }
@@ -54,6 +58,9 @@ public class HtAppDataMachinImpl implements HtAppDataMachin {
 
         List<Map<String, Object>> listDate = new ArrayList<>();
         Map<String, Object> map = (Map<String, Object>) dataMap.get("htappcredit"); // 评分卡
+        if(ObjectUtils.isEmpty(map)){
+            return ;
+        }
         String sex = (String) map.get("hongteappedu_htsex");
         Double driverflow = (Double) map.get("hongteappedu_driverflow");
         String education = (String) map.get("hongteappedu_hteducation");
