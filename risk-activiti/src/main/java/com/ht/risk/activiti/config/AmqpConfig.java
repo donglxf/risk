@@ -110,8 +110,8 @@ public class AmqpConfig {
     }
 
     @Bean
-    Binding bindingExchangeHtAppScore(Queue queueOwnerLoan, DirectExchange exchangeOwnerLoan) {
-        return BindingBuilder.bind(queueOwnerLoan).to(exchangeOwnerLoan).with(AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY);//*表示一个词,#表示零个或多个词
+    Binding bindingExchangeHtAppScore(Queue queueHtAppScore, DirectExchange exchangeHtAppScore) {
+        return BindingBuilder.bind(queueHtAppScore).to(exchangeHtAppScore).with(AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY);//*表示一个词,#表示零个或多个词
     }
 
     @Bean
