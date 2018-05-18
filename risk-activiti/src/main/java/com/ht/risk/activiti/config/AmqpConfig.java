@@ -77,7 +77,7 @@ public class AmqpConfig {
     @Bean
     public Queue queueHtAppScore(RabbitAdmin rabbitAdmin) {
         Queue queue = new Queue(AmqpConfig.ACTIVITI_SERVICE_HTAPPSCORE);
-        //rabbitAdmin.declareQueue(queue);
+        rabbitAdmin.declareQueue(queue);
         return queue;
     }
 
