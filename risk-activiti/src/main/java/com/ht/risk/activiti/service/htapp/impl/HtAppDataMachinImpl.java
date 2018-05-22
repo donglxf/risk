@@ -36,20 +36,105 @@ public class HtAppDataMachinImpl implements HtAppDataMachin {
             dataMap = (Map) dataObj;
         }
 
-        execution.setVariable(ActivitiConstants.PROC_BUSINESS_KEY,dataMap.get("businessId"));
+        execution.setVariable(ActivitiConstants.PROC_BUSINESS_KEY, dataMap.get("businessId"));
         forbit(dataMap, execution);
         dataMachin(dataMap, execution);
-
+        houseDataMachIn(dataMap,execution);
+        carDataMachIn(dataMap,execution);
     }
 
     private void forbit(Map dataMap, DelegateExecution execution) {
         List<Map<String, Object>> listDate = new ArrayList<>();
         Map<String, Object> foribt = (Map<String, Object>) dataMap.get("borrowerInfo"); // 准入
-        if(ObjectUtils.isEmpty(foribt)){
-            return ;
+        if (ObjectUtils.isEmpty(foribt)) {
+            return;
         }
         listDate.add(foribt);
         execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME + "hongteapp", listDate);
+    }
+
+    /**
+     * 房产数据处理
+     *
+     * @param dataMap
+     * @param execution
+     */
+    public void houseDataMachIn(Map dataMap, DelegateExecution execution) {
+        List<Map<String, Object>> ListMap = (List<Map<String, Object>>) dataMap.get("houseInfo"); // 评分卡
+        if (ObjectUtils.isEmpty(ListMap)) {
+            return;
+        }
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        ListMap.forEach(map -> {
+            String housetype = (String) map.get("hongteappedu_hthousetype");
+            if ("商品房".equals(housetype)) {
+                housetype = "commodityhouse";
+            } else if ("别墅".equals(housetype)) {
+                housetype = "Villa";
+            } else if ("写字楼".equals(housetype)) {
+                housetype = "officeBuilding";
+            } else if ("公寓".equals(housetype)) {
+                housetype = "apartment";
+            } else if ("商铺".equals(housetype)) {
+                housetype = "shop";
+            } else if ("其他".equals(housetype)) {
+                housetype = "other";
+            }
+            map.put("hongteappedu_hthousetype", housetype);
+
+            Result<String> str = ruleServiceInterface.getCityTypeByCityName(String.valueOf(map.get("hongteappedu_hthouseCityType")));
+            String type = str.getData();
+            if ("1".equals(type)) {
+                type = "cityTypeA";
+            } else if ("2".equals(type)) {
+                type = "cityTypeB";
+            } else if ("3".equals(type)) {
+                type = "cityTypeC";
+            }
+            map.put("hongteappedu_hthouseCityType", type);
+
+            list.add(map);
+
+        });
+        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME + "htapphouseInfo", list);
+
+
+    }
+
+    /**
+     * 车辆数据处理
+     *
+     * @param dataMap
+     * @param execution
+     */
+    public void carDataMachIn(Map dataMap, DelegateExecution execution) {
+        List<Map<String, Object>> listMap = (List<Map<String, Object>>) dataMap.get("carInfo"); // 评分卡
+        if (ObjectUtils.isEmpty(listMap)) {
+            return;
+        }
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        listMap.forEach(map -> {
+//            Double driverflow = (Double) map.get("hongteappedu_driverflow"); // 行驶里程
+//            if (driverflow < 1) {
+//                map.put("hongteappedu_driverflow", 1);
+//            }
+
+
+            Result<String> str = ruleServiceInterface.getCityTypeByCityName(String.valueOf(map.get("hongteappedu_carcity")));
+            String type = str.getData();
+            if ("1".equals(type)) {
+                type = "cityTypeA";
+            } else if ("2".equals(type)) {
+                type = "cityTypeB";
+            } else if ("3".equals(type)) {
+                type = "cityTypeC";
+            }
+            map.put("hongteappedu_carcity", type);
+            list.add(map);
+
+        });
+        execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME + "htappCarInfo", list);
+
     }
 
     // 数据处理
@@ -58,22 +143,24 @@ public class HtAppDataMachinImpl implements HtAppDataMachin {
 
         List<Map<String, Object>> listDate = new ArrayList<>();
         Map<String, Object> map = (Map<String, Object>) dataMap.get("htappcredit"); // 评分卡
-        if(ObjectUtils.isEmpty(map)){
-            return ;
+        if (ObjectUtils.isEmpty(map)) {
+            return;
         }
         String sex = (String) map.get("hongteappedu_htsex");
-        Double driverflow = (Double) map.get("hongteappedu_driverflow");
+        Double workyear = Double.parseDouble(String.valueOf(map.get("hongteappedu_workyear")));
         String education = (String) map.get("hongteappedu_hteducation");
-        String housetype = (String) map.get("hongteappedu_hthousetype");
+
         String merry = (String) map.get("hongteappedu_htmerry");
         if ("女".equals(sex)) {
             map.put("hongteappedu_htsex", "women");
         } else {
             map.put("hongteappedu_htsex", "humen");
         }
-        if (driverflow < 1) {
-            map.put("hongteappedu_driverflow", 1);
+
+        if(workyear<=1){
+            map.put("hongteappedu_workyear",1);
         }
+
         if ("大专".equals(education)) {
             education = "junior";
         } else if ("本科".equals(education)) {
@@ -86,35 +173,10 @@ public class HtAppDataMachinImpl implements HtAppDataMachin {
         map.put("hongteappedu_hteducation", education);
 
 
-        if ("商品房".equals(housetype)) {
-            housetype = "commodityhouse";
-        } else if ("别墅".equals(housetype)) {
-            housetype = "Villa";
-        } else if ("写字楼".equals(housetype)) {
-            housetype = "officeBuilding";
-        } else if ("公寓".equals(housetype)) {
-            housetype = "apartment";
-        } else if ("商铺".equals(housetype)) {
-            housetype = "shop";
-        } else if ("其他".equals(housetype)) {
-            housetype = "other";
-        }
-        map.put("hongteappedu_hthousetype", housetype);
-
         if ("已婚".equals(merry) || "再婚".equals(merry)) {
             map.put("hongteappedu_htmerry", "married");
         }
 
-        Result<String> str = ruleServiceInterface.getCityTypeByCityName(String.valueOf(map.get("hongteappedu_hthouseCityType")));
-        String type = str.getData();
-        if ("1".equals(type)) {
-            type = "cityTypeA";
-        } else if ("2".equals(type)) {
-            type = "cityTypeB";
-        } else if ("3".equals(type)) {
-            type = "cityTypeC";
-        }
-        map.put("hongteappedu_hthouseCityType", type);
 
         listDate.add(map);
         execution.setVariable(ActivitiConstants.DROOLS_VARIABLE_NAME + "htappscore", listDate);

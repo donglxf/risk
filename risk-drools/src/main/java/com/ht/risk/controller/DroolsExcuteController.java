@@ -262,7 +262,7 @@ public class DroolsExcuteController {
         RuleExecutionResult res = (RuleExecutionResult) object.getGlobalMap().get("_result");
         List<String> reulst = (List<String>) res.getMap().get("result"); // 规则计算返回结果(输出提示类动作)
         List<String> li = (List<String>) res.getMap().get("ruleList"); // 命中规则名列表
-        String scrope = String.valueOf( res.getMap().get("scrope")); // 如果是评分卡，存放最后评分
+        String scrope = String.valueOf(res.getMap().get("scope")); // 如果是评分卡，存放最后评分
         List<String> newList = new ArrayList();
         if (ObjectUtils.isNotEmpty(li)) { // 去掉重复命中规则名
             Set set = new HashSet();
