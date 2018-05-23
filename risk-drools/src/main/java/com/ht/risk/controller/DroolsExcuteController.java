@@ -262,7 +262,7 @@ public class DroolsExcuteController {
             log.error("规则执行异常：======》", e);
             data = new RuleExcuteResult(1, e.getMessage(), null, paramter.getVersion(),null);
         }
-        log.info("rule exe result>>>：" + JSON.toJSONString(data));
+        log.info("mulitRule exe result>>>："+paramter.getSence()+">>>>>>" + JSON.toJSONString(data));
         return data;
     }
 

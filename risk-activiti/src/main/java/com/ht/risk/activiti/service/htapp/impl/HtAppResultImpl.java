@@ -73,13 +73,18 @@ public class HtAppResultImpl implements HtAppResult {
         modelResult.setProcInstId(execution.getProcessInstanceId());
         modelResult.setTaskId(taskId);
         modelResult.setProcMsg(msg);
+
         String businessKey = String.valueOf(execution.getVariable(ActivitiConstants.PROC_BUSINESS_KEY));
         modelResult.setBusinessId(businessKey);
         if(details.size()>0){
+            double scope=0L;
             for(Iterator<RuleExcuteDetail> iterator = details.iterator(); iterator.hasNext();){
                 detail = iterator.next();
+                String s =StringUtils.isNotEmpty(detail.getScope()) ? String.valueOf(detail.getScope()) : "0";
+                scope+=Double.parseDouble(s);
                 getRulesDesc(detail);
             }
+            modelResult.setScope(String.valueOf(scope));
             modelResult.setRuleResultList(resultMap);
         }
 
