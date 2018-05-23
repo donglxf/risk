@@ -82,6 +82,7 @@ public class HtAppResultImpl implements HtAppResult {
             }
             modelResult.setRuleResultList(resultMap);
         }
+
         //更新任务状态
         long startTime = Long.parseLong(String.valueOf(execution.getVariable(ActivitiConstants.PROC_START_CURRENT_TIME)));
         updateTask(modelResult,taskId,execution.getProcessInstanceId(),startTime);

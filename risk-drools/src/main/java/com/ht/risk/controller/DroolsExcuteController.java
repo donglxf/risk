@@ -23,6 +23,7 @@ import com.ht.risk.common.model.RuleExcuteResult;
 import com.ht.risk.common.util.ObjectUtils;
 import com.ht.risk.model.fact.RuleExecutionObject;
 import com.ht.risk.model.fact.RuleExecutionResult;
+import sun.reflect.generics.scope.Scope;
 
 @RestController
 public class DroolsExcuteController {
@@ -239,20 +240,27 @@ public class DroolsExcuteController {
             object.setGlobal("_result", result);
             List<String> logList = new ArrayList<>();
             List<Map<String, Object>> mapData = paramter.getMulitDate();
+            double totalScope=0l;
             for (int i = 0; i < mapData.size(); i++) {
                 object.addFactObject(mapData.get(i));
                 object = this.droolsRuleEngineService.excute1(object, ruleVersion);
                 Long endTime = System.currentTimeMillis();
                 Long executeTime = endTime - startTime;
                 logList.addAll(batchSaveLog(object, paramter, ruleVersion, executeTime));
+                RuleExecutionResult res = (RuleExecutionResult) object.getGlobalMap().get("_result");
+                String scope=String.valueOf(res.getMap().get("scope"));
+                if(StringUtil.strIsNotNull(scope)){
+                    Double scrope = Double.parseDouble(scope);
+                    totalScope+=scrope;
+                }
                 log.info("mulitRule exec time》》》》》" + String.valueOf(executeTime));
             }
 
-            data = new RuleExcuteResult(0, "success", batchResultPro(object, logList), paramter.getVersion());
+            data = new RuleExcuteResult(0, "success", batchResultPro(object, logList), paramter.getVersion(),String.valueOf(totalScope));
             data.setSenceVersoionId(String.valueOf(ruleVersion.getVersionId()));
         } catch (Exception e) {
             log.error("规则执行异常：======》", e);
-            data = new RuleExcuteResult(1, e.getMessage(), null, paramter.getVersion());
+            data = new RuleExcuteResult(1, e.getMessage(), null, paramter.getVersion(),null);
         }
         log.info("rule exe result>>>：" + JSON.toJSONString(data));
         return data;
@@ -273,7 +281,7 @@ public class DroolsExcuteController {
         ruleResult.setLogIdList(logIdList);
         ruleResult.setRuleList(newList);
         ruleResult.setResult(reulst);
-        ruleResult.setScope(null == scrope ? "" : String.valueOf(scrope));
+//        ruleResult.setScope(null == scrope ? "" : String.valueOf(scrope));
         return ruleResult;
     }
 

@@ -63,6 +63,7 @@ public class MulitDroolsRuleEngineServiceImpl implements DroolsRuleEngineService
                     if(result != null && result.getData() != null && result.getData()!= null){
                         detail = matainExcuteDetail(result);
                         detail.setInParamters(datas);
+                        detail.setScope(result.getScope());
                         details.add(detail);
                         if(result.getData().getRuleList() != null && result.getData().getRuleList().size()>0){
                             flag = RuleHitEnum.HIT.getCode();
@@ -98,6 +99,7 @@ public class MulitDroolsRuleEngineServiceImpl implements DroolsRuleEngineService
         detail.setSenceVersionId(result.getSenceVersoionId());
         detail.setLogId(logId);
         detail.setRuleList(ruleInfo.getRuleList());
+        detail.setScope(result.getScope());
         return  detail;
     }
     // 调用规则引擎执行规则

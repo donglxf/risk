@@ -7,15 +7,23 @@ import io.swagger.annotations.ApiModelProperty;
 public class RuleExcuteResult {
 
 
-    public RuleExcuteResult(){
+    public RuleExcuteResult() {
         super();
+    }
+
+    public RuleExcuteResult(int code, String msg, RuleStandardResult data, String senceVersoionId, String totalScope) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+        this.senceVersoionId = senceVersoionId;
+        this.scope = totalScope;
     }
 
     public RuleExcuteResult(int code, String msg, RuleStandardResult data, String senceVersoionId) {
         this.code = code;
         this.msg = msg;
         this.data = data;
-        this.senceVersoionId=senceVersoionId;
+        this.senceVersoionId = senceVersoionId;
     }
 
     /**
@@ -37,6 +45,16 @@ public class RuleExcuteResult {
 
     @ApiModelProperty(value = "决策版本")
     private String senceVersoionId;
+
+    private String scope;
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
 
     public int getCode() {
         return code;
