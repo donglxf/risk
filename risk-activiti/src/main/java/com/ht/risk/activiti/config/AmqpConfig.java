@@ -110,8 +110,10 @@ public class AmqpConfig {
     }
 
     @Bean
-    Binding bindingExchangeHtAppScore(Queue queueHtAppScore, DirectExchange exchangeHtAppScore) {
-        return BindingBuilder.bind(queueHtAppScore).to(exchangeHtAppScore).with(AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY);//*表示一个词,#表示零个或多个词
+    Binding bindingExchangeHtAppScore(Queue queueHtAppScore, DirectExchange exchangeHtAppScore,RabbitAdmin rabbitAdmin) {
+        Binding binding = BindingBuilder.bind(queueHtAppScore).to(exchangeHtAppScore).with(AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY);
+        rabbitAdmin.declareBinding(binding);
+        return binding;//*表示一个词,#表示零个或多个词
     }
 
     @Bean

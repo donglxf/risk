@@ -69,6 +69,9 @@ public class RefuseResultServiceImpl implements RefuseResultService {
                     RpcRuleHisVersionParamter vo = new RpcRuleHisVersionParamter();
                     vo.setVersionId(Long.parseLong(detail.getSenceVersionId()));
                     vo.settRuleName(detail.getRuleList());
+                    if(detail == null || detail.getRuleList() == null || detail.getRuleList().size()==0){
+                        continue;
+                    }
                     Result<List<RpcRuleHisVersion>> ruleDescResult = ruleServiceInterface.getHisVersionListByVidName(vo);
                     if(ruleDescResult != null && ruleDescResult.getCode() == 0 && ruleDescResult.getData() != null){
                         List<RpcRuleHisVersion>  hisVersions = ruleDescResult.getData();
