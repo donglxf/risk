@@ -44,6 +44,6 @@ public class TopicSenderServiceImpl {
 //        rabbitMessagingTemplate.setMessageConverter(con);
 //        this.rabbitMessagingTemplate.convertAndSend(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY, context);
         this.amqpTemplate.convertAndSend(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY, context);
-        LOGGER.info("send to quene [risk.model.ownerLoan] message sucess");
+        LOGGER.info("send to quene [risk.hongteapp.htappscore] message sucess");
     }
 }

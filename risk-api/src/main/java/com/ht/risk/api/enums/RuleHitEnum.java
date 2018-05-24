@@ -2,8 +2,8 @@ package com.ht.risk.api.enums;
 
 public enum RuleHitEnum {
 
-    HIT("1","没有命中"),
-    UNHIT("0","命中");
+    HIT("1","有命中"),
+    UNHIT("0","没命中");
 
     protected String code;
     protected String codeDesc;
