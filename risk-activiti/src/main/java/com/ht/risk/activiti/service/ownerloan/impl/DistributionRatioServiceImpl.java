@@ -70,7 +70,11 @@ public class DistributionRatioServiceImpl implements DistributionRatioService {
         updateTask(ownerResult,taskIdStr,execution.getProcessInstanceId(),startTime);
         // MQ发送消息
         if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)) {// 服务类型
-            topicSenderService.sendOwnerLoan(JSON.toJSONString(ownerResult));
+            if("CLS_APP".equals(execution.getVariable(ActivitiConstants.PROC_CHANNEL_TYPE))){ // 鸿特app端调用
+                topicSenderService.sendClsAppOwnerLoan(JSON.toJSONString(ownerResult));
+            }else {
+                topicSenderService.sendOwnerLoan(JSON.toJSONString(ownerResult));
+            }
         }
         LOGGER.info("DistributionRatioServiceImpl execute end");
     }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Service("companyRuleService")
-public class CompanyRuleServiceImpl  implements CompanyRuleService {
+public class CompanyRuleServiceImpl implements CompanyRuleService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyRuleServiceImpl.class);
 
@@ -32,7 +32,7 @@ public class CompanyRuleServiceImpl  implements CompanyRuleService {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         LOGGER.info("companyRuleService execute start");
-        OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
+        OwnerLoanModelResult ownerResult = (OwnerLoanModelResult) execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
         String taskIdStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_TASK_ID_VAR_KEY));
         String modelType = String.valueOf(execution.getVariable(ActivitiConstants.PROC_MODEL_EXCUTE_TYPE_KEY));
         // 数据组装，人工和自动设置
@@ -48,21 +48,27 @@ public class CompanyRuleServiceImpl  implements CompanyRuleService {
         ownerResult.setInterInfo(null);
         //更新任务状态
         long startTime = Long.parseLong(String.valueOf(execution.getVariable(ActivitiConstants.PROC_START_CURRENT_TIME)));
-        updateTask(ownerResult,taskIdStr,execution.getProcessInstanceId(),startTime);
+        updateTask(ownerResult, taskIdStr, execution.getProcessInstanceId(), startTime);
         // MQ发送消息
-        if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)) {// 服务类型
-            topicSenderService.sendOwnerLoan(JSON.toJSONString(ownerResult));
+        if (ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)) {// 服务类型
+            LOGGER.info("htapp hourseOwnerLoanModel channelType:>>>>>>"+execution.getVariable(ActivitiConstants.PROC_CHANNEL_TYPE));
+            if ("CLS_APP".equals(execution.getVariable(ActivitiConstants.PROC_CHANNEL_TYPE))) { // 鸿特app端调用
+                topicSenderService.sendClsAppOwnerLoan(JSON.toJSONString(ownerResult));
+            } else {
+                topicSenderService.sendOwnerLoan(JSON.toJSONString(ownerResult));
+            }
         }
         LOGGER.info("companyRuleService execute end");
     }
 
     // 更新任务信息
-    private void updateTask(OwnerLoanModelResult modelResult, String taskId, String procInstId, long startTime){
+
+    private void updateTask(OwnerLoanModelResult modelResult, String taskId, String procInstId, long startTime) {
         RpcActExcuteTask task = new RpcActExcuteTask();
         task.setStatus(ActivitiConstants.PROC_STATUS_SUCCESS);
         task.setUpdateTime(new Date(System.currentTimeMillis()));
         task.setId(taskId);
-        long spendTime = System.currentTimeMillis()-startTime;
+        long spendTime = System.currentTimeMillis() - startTime;
         task.setSpendTime(spendTime);
         task.setOutParamter(JSON.toJSONString(modelResult));
         task.setProcInstId(procInstId);

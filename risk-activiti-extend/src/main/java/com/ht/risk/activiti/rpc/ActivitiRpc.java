@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@FeignClient("risk-activiti-service")
+@FeignClient(value = "risk-activiti-service",url = "http://localhost:30516")
 public interface ActivitiRpc {
 
     @RequestMapping("/deploy")

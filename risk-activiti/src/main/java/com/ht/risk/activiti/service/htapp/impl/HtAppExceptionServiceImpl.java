@@ -83,6 +83,8 @@ public class HtAppExceptionServiceImpl implements HtAppExceptionService {
         modelResult.setProcInstId(execution.getProcessInstanceId());
         modelResult.setTaskId(taskId);
         modelResult.setProcMsg(msg);
+        String businessKey = String.valueOf(execution.getVariable(ActivitiConstants.PROC_BUSINESS_KEY));
+        modelResult.setBusinessKey(businessKey);
 
         RuleExcuteDetail detail = null;
         if (details.size() > 0) {

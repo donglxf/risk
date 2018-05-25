@@ -240,7 +240,7 @@ public class DroolsExcuteController {
             object.setGlobal("_result", result);
             List<String> logList = new ArrayList<>();
             List<Map<String, Object>> mapData = paramter.getMulitDate();
-            double totalScope=0l;
+            double totalScope = 0l;
             for (int i = 0; i < mapData.size(); i++) {
                 object.addFactObject(mapData.get(i));
                 object = this.droolsRuleEngineService.excute1(object, ruleVersion);
@@ -248,21 +248,21 @@ public class DroolsExcuteController {
                 Long executeTime = endTime - startTime;
                 logList.addAll(batchSaveLog(object, paramter, ruleVersion, executeTime));
                 RuleExecutionResult res = (RuleExecutionResult) object.getGlobalMap().get("_result");
-                String scope=String.valueOf(res.getMap().get("scope"));
-                if(StringUtil.strIsNotNull(scope)){
+                String scope = String.valueOf(res.getMap().get("scope"));
+                if (StringUtil.strIsNotNull(scope)) {
                     Double scrope = Double.parseDouble(scope);
-                    totalScope+=scrope;
+                    totalScope += scrope;
                 }
                 log.info("mulitRule exec time》》》》》" + String.valueOf(executeTime));
             }
 
-            data = new RuleExcuteResult(0, "success", batchResultPro(object, logList), paramter.getVersion(),String.valueOf(totalScope));
+            data = new RuleExcuteResult(0, "success", batchResultPro(object, logList), paramter.getVersion(), String.valueOf(totalScope));
             data.setSenceVersoionId(String.valueOf(ruleVersion.getVersionId()));
         } catch (Exception e) {
             log.error("规则执行异常：======》", e);
-            data = new RuleExcuteResult(1, e.getMessage(), null, paramter.getVersion(),null);
+            data = new RuleExcuteResult(1, e.getMessage(), null, paramter.getVersion(), null);
         }
-        log.info("mulitRule exe result>>>："+paramter.getSence()+">>>>>>" + JSON.toJSONString(data));
+        log.info("mulitRule exe result>>>：" + paramter.getSence() + ">>>>>>" + JSON.toJSONString(data));
         return data;
     }
 

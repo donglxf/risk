@@ -12,7 +12,6 @@ public class ModelExcuteResult implements Serializable{
     private String taskId;
     private String procMsg;
     private String businessKey;
-    private String businessId;
     private Map<String,List<RuleExcuteDetail>> ruleResultList;
     private String scope;
 
@@ -22,14 +21,6 @@ public class ModelExcuteResult implements Serializable{
 
     public void setScope(String scope) {
         this.scope = scope;
-    }
-
-    public String getBusinessId() {
-        return businessId;
-    }
-
-    public void setBusinessId(String businessId) {
-        this.businessId = businessId;
     }
 
     public String getCode() {

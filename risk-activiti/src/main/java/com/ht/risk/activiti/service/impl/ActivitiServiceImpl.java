@@ -134,6 +134,8 @@ public class ActivitiServiceImpl implements ActivitiService, ModelDataJsonConsta
         modelParamter.put(ActivitiConstants.PROC_MODEL_EXCUTE_TYPE_KEY, paramter.getType());
         // 模型执行任务流水号
         modelParamter.put(ActivitiConstants.PROC_TASK_ID_VAR_KEY, paramter.getTaskId());
+        // 模型调用源
+        modelParamter.put(ActivitiConstants.PROC_CHANNEL_TYPE, paramter.getChannelType());
         ProcessInstance instance = runtimeService.startProcessInstanceById(procDefId, modelParamter);
         return instance.getId();
     }

@@ -144,6 +144,7 @@ public class ActProcReleaseServiceImpl extends BaseServiceImpl<ActProcReleaseMap
         rpcStartParamter.setProcDefId(release.getModelProcdefId());
         rpcStartParamter.setType(ActivitiConstants.EXCUTE_TYPE_SERVICE);
         rpcStartParamter.setData(modelStartVo.getData());
+        rpcStartParamter.setChannelType(modelStartVo.getChannelType());
         // TODO 启动模型
         this.SycnStart(rpcStartParamter, task);
         return String.valueOf(task.getId());

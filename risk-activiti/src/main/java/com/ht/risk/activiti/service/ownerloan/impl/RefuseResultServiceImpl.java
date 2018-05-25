@@ -26,7 +26,7 @@ import javax.annotation.Resource;
 import java.util.*;
 
 /**
- *  拒绝结果处理
+ * 拒绝结果处理
  */
 @Service("refuseResultService")
 public class RefuseResultServiceImpl implements RefuseResultService {
@@ -50,32 +50,32 @@ public class RefuseResultServiceImpl implements RefuseResultService {
         String ruleMsgStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_HIT_RULE_MSG));
         String msg = String.valueOf(execution.getVariable(ActivitiConstants.PROC_EXCUTE_MSG));
         String taskIdStr = String.valueOf(execution.getVariable(ActivitiConstants.PROC_TASK_ID_VAR_KEY));
-        OwnerLoanModelResult ownerResult = (OwnerLoanModelResult)execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
+        OwnerLoanModelResult ownerResult = (OwnerLoanModelResult) execution.getVariable(ActivitiConstants.PROC_OWNER_LOAN_RESULT_CODE);
 
         // 获取执行结果
-        Map<String,Object> result = execution.getVariables();
+        Map<String, Object> result = execution.getVariables();
         Set<String> nameKey = result.keySet();
         String name = null;
         List<RuleExcuteDetail> returnDetail = null;
 
-        Map<String,List<RuleExcuteDetail>> resultMap = new HashMap<String,List<RuleExcuteDetail>>();
+        Map<String, List<RuleExcuteDetail>> resultMap = new HashMap<String, List<RuleExcuteDetail>>();
         StringBuffer hitMsg = new StringBuffer("");
-        for(Iterator<String> iterator = nameKey.iterator(); iterator.hasNext();){
+        for (Iterator<String> iterator = nameKey.iterator(); iterator.hasNext(); ) {
             name = iterator.next();
-            if(name.startsWith(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR) && result.get(name) != null){
-                returnDetail = (List<RuleExcuteDetail>)result.get(name);
-                if(returnDetail.size()>0){
+            if (name.startsWith(ActivitiConstants.SENCE_EXCUTE_RESULT_VAR) && result.get(name) != null) {
+                returnDetail = (List<RuleExcuteDetail>) result.get(name);
+                if (returnDetail.size() > 0) {
                     RuleExcuteDetail detail = returnDetail.get(0);
                     RpcRuleHisVersionParamter vo = new RpcRuleHisVersionParamter();
                     vo.setVersionId(Long.parseLong(detail.getSenceVersionId()));
                     vo.settRuleName(detail.getRuleList());
                     Result<List<RpcRuleHisVersion>> ruleDescResult = ruleServiceInterface.getHisVersionListByVidName(vo);
-                    if(ruleDescResult != null && ruleDescResult.getCode() == 0 && ruleDescResult.getData() != null){
-                        List<RpcRuleHisVersion>  hisVersions = ruleDescResult.getData();
-                        if(hisVersions != null){
+                    if (ruleDescResult != null && ruleDescResult.getCode() == 0 && ruleDescResult.getData() != null) {
+                        List<RpcRuleHisVersion> hisVersions = ruleDescResult.getData();
+                        if (hisVersions != null) {
                             RpcRuleHisVersion version = null;
-                            for(Iterator<RpcRuleHisVersion> vIterator = hisVersions.iterator();vIterator.hasNext();){
-                                version =vIterator.next();
+                            for (Iterator<RpcRuleHisVersion> vIterator = hisVersions.iterator(); vIterator.hasNext(); ) {
+                                version = vIterator.next();
                                 hitMsg.append(formatResultStr(version.getRuleDesc()));
                             }
                         }
@@ -90,51 +90,53 @@ public class RefuseResultServiceImpl implements RefuseResultService {
         ownerResult.setCode("0");
         ownerResult.setErrorMsg(errorMsgStr);
         ownerResult.setHitMsg(hitMsg.toString());
-        ownerResult.setWarmMsg(StringUtils.isEmpty(ownerResult.getErrorMsg()) && StringUtils.isEmpty(msg) ?"执行成功":msg);
+        ownerResult.setWarmMsg(StringUtils.isEmpty(ownerResult.getErrorMsg()) && StringUtils.isEmpty(msg) ? "执行成功" : msg);
         ownerResult.setProcInstId(execution.getProcessInstanceId());
         ownerResult.setTaskId(taskIdStr);
         ownerResult.setQuota(0d);
-        if(ownerResult.getInterInfo() != null && ownerResult.getInterInfo().size()>0){
+        if (ownerResult.getInterInfo() != null && ownerResult.getInterInfo().size() > 0) {
             ownerResult.setInterInfos(new ArrayList<>(ownerResult.getInterInfo().values()));
         }
         ownerResult.setInterInfo(null);
         //更新任务状态
         long startTime = Long.parseLong(String.valueOf(execution.getVariable(ActivitiConstants.PROC_START_CURRENT_TIME)));
-        updateTask(ownerResult,taskIdStr,execution.getProcessInstanceId(),startTime);
+        updateTask(ownerResult, taskIdStr, execution.getProcessInstanceId(), startTime);
         // MQ发送消息
-        if(ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)) {// 服务类型
-            topicSenderService.sendOwnerLoan(JSON.toJSONString(ownerResult));
+        if (ActivitiConstants.EXCUTE_TYPE_SERVICE.equals(modelType)) {// 服务类型
+            LOGGER.info("htapp hourseOwnerLoanModel channelType:>>>>>>"+execution.getVariable(ActivitiConstants.PROC_CHANNEL_TYPE));
+            if ("CLS_APP".equals(execution.getVariable(ActivitiConstants.PROC_CHANNEL_TYPE))) { // 鸿特app端调用
+                topicSenderService.sendClsAppOwnerLoan(JSON.toJSONString(ownerResult));
+            } else {
+                topicSenderService.sendOwnerLoan(JSON.toJSONString(ownerResult));
+            }
         }
         LOGGER.info("RefuseResultServiceImpl execute end");
     }
 
     // 更新任务信息
-    private void updateTask(OwnerLoanModelResult modelResult, String taskId, String procInstId, long startTime){
+    private void updateTask(OwnerLoanModelResult modelResult, String taskId, String procInstId, long startTime) {
         RpcActExcuteTask task = new RpcActExcuteTask();
         task.setStatus(ActivitiConstants.PROC_STATUS_SUCCESS);
         task.setUpdateTime(new Date(System.currentTimeMillis()));
         task.setId(taskId);
-        long spendTime = System.currentTimeMillis()-startTime;
+        long spendTime = System.currentTimeMillis() - startTime;
         task.setSpendTime(spendTime);
         task.setOutParamter(JSON.toJSONString(modelResult));
         task.setProcInstId(procInstId);
         activitiConfigInterface.updateTask(task);
     }
 
-    private static String formatResultStr(String str){
-        if(com.ht.risk.common.util.StringUtils.isEmpty(str)){
+    private static String formatResultStr(String str) {
+        if (com.ht.risk.common.util.StringUtils.isEmpty(str)) {
             return "";
         }
-        str = str.replaceAll("\\:","#").replaceAll("\\[禁入\\]\\#","").replaceAll("\\(forbidden\\)","").replaceAll("那么","");
-        while(str.contains("#")){
-            str = str.replaceFirst("\\$(.*?)\\#","");
-            str = str.replaceFirst("\\$","");
+        str = str.replaceAll("\\:", "#").replaceAll("\\[禁入\\]\\#", "").replaceAll("\\(forbidden\\)", "").replaceAll("那么", "");
+        while (str.contains("#")) {
+            str = str.replaceFirst("\\$(.*?)\\#", "");
+            str = str.replaceFirst("\\$", "");
         }
         return str;
     }
-
-
-
 
 
 }

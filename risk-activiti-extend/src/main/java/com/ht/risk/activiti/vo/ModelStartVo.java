@@ -23,12 +23,25 @@ public class ModelStartVo implements Serializable{
      * 渠道号
      */
     private String channelNo;
+
+    /**
+     * 渠道类型
+     */
+    private String channelType; // 区分调用来源, htapp
     /**
      * 业务数据
      */
     private Map<String,Object> data;
 
     private String userId;
+
+    public String getChannelType() {
+        return channelType;
+    }
+
+    public void setChannelType(String channelType) {
+        this.channelType = channelType;
+    }
 
     public String getModelCode() {
         return modelCode;

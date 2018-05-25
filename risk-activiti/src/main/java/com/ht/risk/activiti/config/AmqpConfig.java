@@ -21,9 +21,17 @@ public class AmqpConfig {
     public final static String ACTIVITI_ROUTING_KEY = "activiti.service";
     public final static String ACTIVITI_EXCHANGE = "activiti.service";
 
+    public final static String ACTIVITI_HTAPP_SERVICE = "activiti.htapp.service";
+    public final static String ACTIVITI_HTAPP_ROUTING_KEY = "activiti.htapp.service";
+    public final static String ACTIVITI_HTAPP_EXCHANGE = "activiti.htapp.service";
+
     public final static String ACTIVITI_SERVICE_OWNERLOAN = "risk.model.ownerLoan";
     public final static String ACTIVITI_ROUTING_OWNERLOAN_KEY = "risk.model.ownerLoan";
     public final static String ACTIVITI_OWNERLOAN_EXCHANGE = "risk.model.ownerLoan";
+
+    public final static String ACTIVITI_SERVICE_HTAPP_OWNERLOAN = "risk.htapp.ownerLoan";
+    public final static String ACTIVITI_ROUTING_HTAPP_OWNERLOAN_KEY = "risk.htapp.ownerLoan";
+    public final static String ACTIVITI_OWNERLOAN_HTAPP_EXCHANGE = "risk.htapp.ownerLoan";
 
     public final static String ACTIVITI_SERVICE_HTAPPSCORE = "risk.hongteapp.htappscore";
     public final static String ACTIVITI_HTAPPSCORE_EXCHANGE = "risk.hongteapp.htappscore";
@@ -51,7 +59,6 @@ public class AmqpConfig {
     }
 
 
-
     @Bean
     RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
         return new RabbitAdmin(connectionFactory);
@@ -67,6 +74,14 @@ public class AmqpConfig {
 
     //创建队列
     @Bean
+    public Queue queueHtAppService(RabbitAdmin rabbitAdmin) {
+        Queue queue = new Queue(AmqpConfig.ACTIVITI_HTAPP_SERVICE);
+        //rabbitAdmin.declareQueue(queue);
+        return queue;
+    }
+
+    //创建队列
+    @Bean
     public Queue queueOwnerLoan(RabbitAdmin rabbitAdmin) {
         Queue queue = new Queue(AmqpConfig.ACTIVITI_SERVICE_OWNERLOAN);
         //rabbitAdmin.declareQueue(queue);
@@ -75,26 +90,45 @@ public class AmqpConfig {
 
     //创建队列
     @Bean
+    public Queue queueHtAppOwnerLoan(RabbitAdmin rabbitAdmin) {
+        Queue queue = new Queue(AmqpConfig.ACTIVITI_SERVICE_HTAPP_OWNERLOAN);
+//        rabbitAdmin.declareQueue(queue);
+        return queue;
+    }
+
+    //创建队列
+    @Bean
     public Queue queueHtAppScore(RabbitAdmin rabbitAdmin) {
         Queue queue = new Queue(AmqpConfig.ACTIVITI_SERVICE_HTAPPSCORE);
-        rabbitAdmin.declareQueue(queue);
+//        rabbitAdmin.declareQueue(queue);
         return queue;
     }
 
     //创建交换器
     @Bean
     DirectExchange exchange() {
-        return new DirectExchange(AmqpConfig.ACTIVITI_EXCHANGE,false,false);
+        return new DirectExchange(AmqpConfig.ACTIVITI_EXCHANGE, false, false);
+    }
+
+    //创建交换器
+    @Bean
+    DirectExchange exchangeHtApp() {
+        return new DirectExchange(AmqpConfig.ACTIVITI_HTAPP_EXCHANGE, false, false);
     }
 
     @Bean
     DirectExchange exchangeOwnerLoan() {
-        return new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE,false,false);
+        return new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE, false, false);
+    }
+
+    @Bean
+    DirectExchange exchangeHtAppOwnerLoan() {
+        return new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_HTAPP_EXCHANGE, false, false);
     }
 
     @Bean
     DirectExchange exchangeHtAppScore() {
-        return new DirectExchange(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE,false,false);
+        return new DirectExchange(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE, false, false);
     }
 
 
@@ -104,11 +138,24 @@ public class AmqpConfig {
         return BindingBuilder.bind(queueService).to(exchange).with(AmqpConfig.ACTIVITI_ROUTING_KEY);//*表示一个词,#表示零个或多个词
     }
 
+    //// 鸿特app房速贷
+    @Bean
+    Binding bindingExchangeMessagesHtAPP(Queue queueHtAppService, DirectExchange exchangeHtApp) {
+        return BindingBuilder.bind(queueHtAppService).to(exchangeHtApp).with(AmqpConfig.ACTIVITI_HTAPP_ROUTING_KEY);//*表示一个词,#表示零个或多个词
+    }
+
     @Bean
     Binding bindingExchangeOwnerLoan(Queue queueOwnerLoan, DirectExchange exchangeOwnerLoan) {
         return BindingBuilder.bind(queueOwnerLoan).to(exchangeOwnerLoan).with(AmqpConfig.ACTIVITI_ROUTING_OWNERLOAN_KEY);//*表示一个词,#表示零个或多个词
     }
 
+    // 鸿特app业主贷
+    @Bean
+    Binding bindingExchangeHtAppOwnerLoan(Queue queueHtAppOwnerLoan, DirectExchange exchangeHtAppOwnerLoan) {
+        return BindingBuilder.bind(queueHtAppOwnerLoan).to(exchangeHtAppOwnerLoan).with(AmqpConfig.ACTIVITI_ROUTING_HTAPP_OWNERLOAN_KEY);//*表示一个词,#表示零个或多个词
+    }
+
+    // 鸿特app个人贷
     @Bean
     Binding bindingExchangeHtAppScore(Queue queueHtAppScore, DirectExchange exchangeHtAppScore) {
         return BindingBuilder.bind(queueHtAppScore).to(exchangeHtAppScore).with(AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY);//*表示一个词,#表示零个或多个词
@@ -122,6 +169,7 @@ public class AmqpConfig {
 
     /**
      * 生产者用
+     *
      * @return
      */
     @Bean

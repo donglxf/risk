@@ -32,10 +32,25 @@ public class RpcStartParamter implements Serializable {
      * 批次大小,批量调用时需要传递
      */
     private int batchSize;
+
+    /**
+     * 渠道类型
+     */
+    private String channelType; // 区分调用来源, htapp
+
+
     /**
      * 批量调用流程参数
      */
     private List<Map<String,Object>> datas;
+
+    public String getChannelType() {
+        return channelType;
+    }
+
+    public void setChannelType(String channelType) {
+        this.channelType = channelType;
+    }
 
     public String getVersion() {
         return version;
