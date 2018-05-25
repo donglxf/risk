@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@FeignClient(value = "risk-drools",url = "http://localhost:30511")
+@FeignClient(value = "risk-drools")
 public interface DroolsRuleEngineInterface {
 
 	@GetMapping("/excuteDroolsScene")
