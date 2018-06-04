@@ -6,6 +6,7 @@ import com.ht.risk.activiti.rpc.RuleServiceInterface;
 import com.ht.risk.activiti.service.impl.TopicSenderServiceImpl;
 import com.ht.risk.activiti.service.task.HourseRuleResult;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.api.enums.AuditTypeEnum;
 import com.ht.risk.api.model.activiti.ModelExcuteResult;
 import com.ht.risk.api.model.activiti.RpcActExcuteTask;
 import com.ht.risk.api.model.activiti.RuleExcuteDetail;
@@ -73,6 +74,7 @@ public class HourseRuleResultImpl implements HourseRuleResult {
         modelResult.setProcInstId(execution.getProcessInstanceId());
         modelResult.setTaskId(taskId);
         modelResult.setProcMsg(msg);
+        modelResult.setAuditType(AuditTypeEnum.PERSONAL.getCode());
         String businessKey = String.valueOf(execution.getVariable(ActivitiConstants.PROC_BUSINESS_KEY));
         modelResult.setBusinessKey(businessKey);
         if (details.size() > 0) {

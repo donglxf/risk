@@ -14,6 +14,15 @@ public class ModelExcuteResult implements Serializable{
     private String businessKey;
     private Map<String,List<RuleExcuteDetail>> ruleResultList;
     private String scope;
+    private String auditType ;
+
+    public String getAuditType() {
+        return auditType;
+    }
+
+    public void setAuditType(String auditType) {
+        this.auditType = auditType;
+    }
 
     public String getScope() {
         return scope;

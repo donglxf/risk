@@ -6,6 +6,7 @@ import com.ht.risk.activiti.rpc.RuleServiceInterface;
 import com.ht.risk.activiti.service.htapp.HtAppExceptionService;
 import com.ht.risk.activiti.service.impl.TopicSenderServiceImpl;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.api.enums.AuditTypeEnum;
 import com.ht.risk.api.model.activiti.ModelExcuteResult;
 import com.ht.risk.api.model.activiti.RpcActExcuteTask;
 import com.ht.risk.api.model.activiti.RuleExcuteDetail;
@@ -79,6 +80,7 @@ public class HtAppExceptionServiceImpl implements HtAppExceptionService {
         modelResult.setProcInstId(execution.getProcessInstanceId());
         modelResult.setTaskId(taskId);
         modelResult.setProcMsg(msg);
+        modelResult.setAuditType(AuditTypeEnum.REFUSE.getCode());
         String businessKey = String.valueOf(execution.getVariable(ActivitiConstants.PROC_BUSINESS_KEY));
         modelResult.setBusinessKey(businessKey);
 
