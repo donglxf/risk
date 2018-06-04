@@ -76,7 +76,7 @@ public class AmqpConfig {
     @Bean
     public Queue queueHtAppService(RabbitAdmin rabbitAdmin) {
         Queue queue = new Queue(AmqpConfig.ACTIVITI_HTAPP_SERVICE);
-        //rabbitAdmin.declareQueue(queue);
+        rabbitAdmin.declareQueue(queue);
         return queue;
     }
 
@@ -92,7 +92,7 @@ public class AmqpConfig {
     @Bean
     public Queue queueHtAppOwnerLoan(RabbitAdmin rabbitAdmin) {
         Queue queue = new Queue(AmqpConfig.ACTIVITI_SERVICE_HTAPP_OWNERLOAN);
-//        rabbitAdmin.declareQueue(queue);
+        rabbitAdmin.declareQueue(queue);
         return queue;
     }
 
@@ -100,7 +100,7 @@ public class AmqpConfig {
     @Bean
     public Queue queueHtAppScore(RabbitAdmin rabbitAdmin) {
         Queue queue = new Queue(AmqpConfig.ACTIVITI_SERVICE_HTAPPSCORE);
-//        rabbitAdmin.declareQueue(queue);
+        rabbitAdmin.declareQueue(queue);
         return queue;
     }
 
@@ -140,8 +140,10 @@ public class AmqpConfig {
 
     //// 鸿特app房速贷
     @Bean
-    Binding bindingExchangeMessagesHtAPP(Queue queueHtAppService, DirectExchange exchangeHtApp) {
-        return BindingBuilder.bind(queueHtAppService).to(exchangeHtApp).with(AmqpConfig.ACTIVITI_HTAPP_ROUTING_KEY);//*表示一个词,#表示零个或多个词
+    Binding bindingExchangeMessagesHtAPP(Queue queueHtAppService, DirectExchange exchangeHtApp, RabbitAdmin rabbitAdmin) {
+        Binding binding = BindingBuilder.bind(queueHtAppService).to(exchangeHtApp).with(AmqpConfig.ACTIVITI_HTAPP_ROUTING_KEY);
+        rabbitAdmin.declareBinding(binding);
+        return binding; //*表示一个词,#表示零个或多个词
     }
 
     @Bean
@@ -151,13 +153,15 @@ public class AmqpConfig {
 
     // 鸿特app业主贷
     @Bean
-    Binding bindingExchangeHtAppOwnerLoan(Queue queueHtAppOwnerLoan, DirectExchange exchangeHtAppOwnerLoan) {
-        return BindingBuilder.bind(queueHtAppOwnerLoan).to(exchangeHtAppOwnerLoan).with(AmqpConfig.ACTIVITI_ROUTING_HTAPP_OWNERLOAN_KEY);//*表示一个词,#表示零个或多个词
+    Binding bindingExchangeHtAppOwnerLoan(Queue queueHtAppOwnerLoan, DirectExchange exchangeHtAppOwnerLoan, RabbitAdmin rabbitAdmin) {
+        Binding binding = BindingBuilder.bind(queueHtAppOwnerLoan).to(exchangeHtAppOwnerLoan).with(AmqpConfig.ACTIVITI_ROUTING_HTAPP_OWNERLOAN_KEY);
+        rabbitAdmin.declareBinding(binding);
+        return binding;//*表示一个词,#表示零个或多个词
     }
 
     // 鸿特app个人贷
     @Bean
-    Binding bindingExchangeHtAppScore(Queue queueHtAppScore, DirectExchange exchangeHtAppScore,RabbitAdmin rabbitAdmin) {
+    Binding bindingExchangeHtAppScore(Queue queueHtAppScore, DirectExchange exchangeHtAppScore, RabbitAdmin rabbitAdmin) {
         Binding binding = BindingBuilder.bind(queueHtAppScore).to(exchangeHtAppScore).with(AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY);
         rabbitAdmin.declareBinding(binding);
         return binding;//*表示一个词,#表示零个或多个词
