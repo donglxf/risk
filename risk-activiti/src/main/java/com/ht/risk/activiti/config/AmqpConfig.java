@@ -68,7 +68,7 @@ public class AmqpConfig {
     @Bean
     public Queue queueService(RabbitAdmin rabbitAdmin) {
         Queue queue = new Queue(AmqpConfig.ACTIVITI_SERVICE);
-        //rabbitAdmin.declareQueue(queue);
+        rabbitAdmin.declareQueue(queue);
         return queue;
     }
 
@@ -84,7 +84,7 @@ public class AmqpConfig {
     @Bean
     public Queue queueOwnerLoan(RabbitAdmin rabbitAdmin) {
         Queue queue = new Queue(AmqpConfig.ACTIVITI_SERVICE_OWNERLOAN);
-        //rabbitAdmin.declareQueue(queue);
+        rabbitAdmin.declareQueue(queue);
         return queue;
     }
 
@@ -106,36 +106,49 @@ public class AmqpConfig {
 
     //创建交换器
     @Bean
-    DirectExchange exchange() {
-        return new DirectExchange(AmqpConfig.ACTIVITI_EXCHANGE, false, false);
+    DirectExchange exchange(RabbitAdmin rabbitAdmin) {
+        DirectExchange exchange = new DirectExchange(AmqpConfig.ACTIVITI_EXCHANGE, false, false);
+        rabbitAdmin.declareExchange(exchange);
+        return exchange;
     }
 
     //创建交换器
     @Bean
-    DirectExchange exchangeHtApp() {
-        return new DirectExchange(AmqpConfig.ACTIVITI_HTAPP_EXCHANGE, false, false);
+    DirectExchange exchangeHtApp(RabbitAdmin rabbitAdmin) {
+        DirectExchange exchange =new DirectExchange(AmqpConfig.ACTIVITI_HTAPP_EXCHANGE, false, false);
+        rabbitAdmin.declareExchange(exchange);
+        return exchange;
     }
 
     @Bean
-    DirectExchange exchangeOwnerLoan() {
-        return new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE, false, false);
+    DirectExchange exchangeOwnerLoan(RabbitAdmin rabbitAdmin) {
+        DirectExchange exchange = new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_EXCHANGE, false, false);
+        rabbitAdmin.declareExchange(exchange);
+        return exchange;
+
     }
 
     @Bean
-    DirectExchange exchangeHtAppOwnerLoan() {
-        return new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_HTAPP_EXCHANGE, false, false);
+    DirectExchange exchangeHtAppOwnerLoan(RabbitAdmin rabbitAdmin) {
+        DirectExchange exchange = new DirectExchange(AmqpConfig.ACTIVITI_OWNERLOAN_HTAPP_EXCHANGE, false, false);
+        rabbitAdmin.declareExchange(exchange);
+        return exchange;
     }
 
     @Bean
-    DirectExchange exchangeHtAppScore() {
-        return new DirectExchange(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE, false, false);
+    DirectExchange exchangeHtAppScore(RabbitAdmin rabbitAdmin) {
+        DirectExchange exchange = new DirectExchange(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE, false, false);
+        rabbitAdmin.declareExchange(exchange);
+        return exchange;
     }
 
 
     //对列绑定并关联到ROUTINGKEY
     @Bean
-    Binding bindingExchangeMessages(Queue queueService, DirectExchange exchange) {
-        return BindingBuilder.bind(queueService).to(exchange).with(AmqpConfig.ACTIVITI_ROUTING_KEY);//*表示一个词,#表示零个或多个词
+    Binding bindingExchangeMessages(Queue queueService, DirectExchange exchange,RabbitAdmin rabbitAdmin) {
+        Binding binding = BindingBuilder.bind(queueService).to(exchange).with(AmqpConfig.ACTIVITI_ROUTING_KEY);
+        rabbitAdmin.declareBinding(binding);
+        return binding;//*表示一个词,#表示零个或多个词
     }
 
     //// 鸿特app房速贷
@@ -147,8 +160,10 @@ public class AmqpConfig {
     }
 
     @Bean
-    Binding bindingExchangeOwnerLoan(Queue queueOwnerLoan, DirectExchange exchangeOwnerLoan) {
-        return BindingBuilder.bind(queueOwnerLoan).to(exchangeOwnerLoan).with(AmqpConfig.ACTIVITI_ROUTING_OWNERLOAN_KEY);//*表示一个词,#表示零个或多个词
+    Binding bindingExchangeOwnerLoan(Queue queueOwnerLoan, DirectExchange exchangeOwnerLoan,RabbitAdmin rabbitAdmin) {
+        Binding binding = BindingBuilder.bind(queueOwnerLoan).to(exchangeOwnerLoan).with(AmqpConfig.ACTIVITI_ROUTING_OWNERLOAN_KEY);
+        rabbitAdmin.declareBinding(binding);
+        return binding;//*表示一个词,#表示零个或多个词
     }
 
     // 鸿特app业主贷
