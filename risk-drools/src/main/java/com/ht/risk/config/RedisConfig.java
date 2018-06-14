@@ -30,8 +30,8 @@ import java.util.Map;
  * @auther 张鹏
  * @create
  */
-@Configuration
-@EnableCaching
+//@Configuration
+//@EnableCaching
 public class RedisConfig {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
