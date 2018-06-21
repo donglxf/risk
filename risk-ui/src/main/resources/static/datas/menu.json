@@ -172,5 +172,22 @@
         "children": []
       }
     ]
+  },
+  {
+    "id": "FK_M07",
+    "icon": "fa fa-sitemap",
+    "spread": true,
+    "title": "接口查询",
+    "url": null,
+    "children": [
+      {
+        "id": "FK_M0701",
+        "icon": "fa fa-table",
+        "spread": true,
+        "title": "接口查询",
+        "url": "faceSearch/index",
+        "children": []
+      }
+    ]
   }
 ]
