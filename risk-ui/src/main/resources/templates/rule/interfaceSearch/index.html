@@ -9,41 +9,608 @@
 <body>
 <div class="layui-tab layui-tab-card">
     <ul class="layui-tab-title">
-        <li class="layui-this">网站设置</li>
-        <li>用户管理</li>
-        <li>权限分配</li>
-        <li>商品管理</li>
-        <li>订单管理</li>
+        <li class="layui-this">考拉黑名单</li>
+        <li>网贷黑名单</li>
+        <li>自有黑名单</li>
+        <li>老赖黑名单</li>
+        <li>汇法网</li>
     </ul>
     <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">
             <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
-
                 <div class="layui-col-md2">
-                    <input type="text" name="modelName" id="modelName" required placeholder="请输入决策名称" autocomplete="off"
+                    <input type="text" name="realName" id="realName" required placeholder="请输入真实姓名" autocomplete="off"
                            class="layui-input">
                 </div>
-
-                <div class="layui-form layui-col-md1">
-
-                    <select id="isBusinessType" class="layui-select" name="businessType" lay-verify="">
-                        <option value="">选择决策类型</option>
-                        <option value="1">决策表</option>
-                        <option value="2">评分卡</option>
-                    </select>
+                <div class="layui-col-md2">
+                    <input type="text" name="identityCard" id="identityCard" required placeholder="请输入证件证号"
+                           autocomplete="off"
+                           class="layui-input">
                 </div>
-
-                <div class="layui-form layui-col-md1">
-                    <label id="business_ser"></label>
+                <div class="layui-col-md2">
+                    <input type="text" name="mobilePhone" id="mobilePhone" required placeholder="请输入手机号码"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-col-md1">
+                    <button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
+                </div>
+                <div>
+                    <table id="demo" lay-filter="entityTable"></table>
+                </div>
+            </div>
+        </div>
+        <div class="layui-tab-item">
+            <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
+                <div class="layui-col-md2">
+                    <input type="text" name="realName" id="realName1" required placeholder="请输入真实姓名" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-col-md2">
+                    <input type="text" name="identityCard" id="identityCard1" required placeholder="请输入证件证号"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-col-md2">
+                    <input type="text" name="mobilePhone" id="mobilePhone1" required placeholder="请输入手机号码"
+                           autocomplete="off"
+                           class="layui-input">
                 </div>
                 <div class="layui-col-md1">
                     <button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
                 </div>
             </div>
+            <div class="layui-fluid" style="text-align: center;font-size: 15px;">
+                <div class="layui-row" style="width: 80%;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">黑名单用户名
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="user" id="user"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">黑名单身份证号码
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="identityCard" id="identityCard2"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">黑名单用户身份证地址
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="birthAddress" id="birthAddress"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%;margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">性别
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="sex" id="sex"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">黑名单用户email
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="email" id="email"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">黑名单真实姓名
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="name" id="name"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%;margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">累计已还金额
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="refundmoney" id="refundmoney"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">其他联系人
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="linkManName" id="linkManName"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">其他联系人关系
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="linkManRelation" id="linkManRelation"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%;margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">其他联系人号码
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="linkManMobileNo" id="linkManMobileNo"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">现住址
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="livingAddress" id="livingAddress"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">黑名单移动电话
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="mobilephone" id="mobilephone"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%;margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">座机号码
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="phone" id="phone"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">出借方
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="lenders" id="lenders"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">累计借入总额
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="totalborrowamount" id="totalborrowamount"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%;margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">所在公司名
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="companyName" id="companyName"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">平台垫付
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="cumulateadvancement" id="cumulateadvancement"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">所在公司地址
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="companyAddress" id="companyAddress"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%;margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">所在公司电话
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="companyPhone" id="companyPhone"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">逾期笔数
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="overdueno" id="overdueno"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">逾期总金额
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="overduepayout" id="overduepayout"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%;margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">待还滞纳金
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="alsoLateFee" id="alsoLateFee"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">待还催收费用
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="alsoUrgentFee" id="alsoUrgentFee"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">最长逾期天数
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="maxOverduedays" id="maxOverduedays"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%;margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">最近一笔逾期的借款时间
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="lastOverdueborrowdate"
+                                                      id="lastOverdueborrowdate"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">应还款时间
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="shouldpaymentsdate" id="shouldpaymentsdate"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">借款期数
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="lastBorrowtime" id="lastBorrowtime"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%;margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">数据更新时间
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="updatedate" id="updatedate"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">所在url
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="referenceLink" id="referenceLink"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">爬取时间
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="crawldataupdatedate" id="crawldataupdatedate"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%;margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">首次爬取时间
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="crawlCreate_time" id="crawlCreate_time"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">贷款平台
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="loanPlatform" id="loanPlatform"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">爬虫平台
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="spiderName" id="spiderName"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="layui-tab-item">2</div>
-        <div class="layui-tab-item">3</div>
-        <div class="layui-tab-item">4</div>
+        <div class="layui-tab-item">
+            <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
+                <div class="layui-col-md2">
+                    <input type="text" name="selfidentityCard" id="selfidentityCard" required placeholder="请输入证件证号"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-col-md2">
+                    <input type="text" name="selfmobilePhone" id="selfmobilePhone" required placeholder="请输入手机号码"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-col-md1">
+                    <button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
+                </div>
+            </div>
+            <div class="layui-row layui-col-space12">
+                <div class="layui-col-md2"
+                     style="text-align: right;padding-right: 5px;line-height: 2.5;font-size: 15px;">是否黑名单
+                </div>
+                <div class="layui-col-md2">
+                    <input type="text" name="isBlacklistUser" id="isBlacklistUser" autocomplete="off"
+                           class="layui-input" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-tab-item">
+            <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
+                <div class="layui-col-md2">
+                    <input type="text" name="realName" id="oldLaiRealName" required placeholder="请输入真实姓名"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-col-md2">
+                    <input type="text" name="selfmobilePhone" id="oldLaiIdentityCard" required placeholder="请输入证件号码"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-col-md1">
+                    <button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
+                </div>
+            </div>
+            <div class="layui-fluid" style="text-align: center;font-size: 15px;">
+                <div class="layui-row" style="width: 80%;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">记录ID
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="globalId" id="globalId"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">真实姓名
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="partyName" id="partyName"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">身份证号
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="partyIdentityCard" id="partyIdentityCard"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%; margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">创建时间
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="createTime" id="createTime"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">执行法院
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="courtName" id="courtName"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">省份
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="areaName" id="areaName"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%; margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">执行依据文号
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="gistId" id="gistId"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">立案时间
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="regDate" id="regDate"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">案号
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="caseCode" id="caseCode"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%; margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">做出执行依据单位
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="gistUnit" id="gistUnit"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">生效法律文书确定的义务
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="duty" id="duty"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">被执行人的履行情况
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="performance" id="performance"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+                <div class="layui-row" style="width: 80%; margin-top: 5px;">
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5">失信被执行人行为具体情形
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="disruptTypeName" id="disruptTypeName"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo grid-demo-bg1"
+                             style="text-align: right;padding-right: 5px;line-height: 2.5;">发布时间
+                        </div>
+                    </div>
+                    <div class="layui-col-sm2">
+                        <div class="grid-demo"><input type="text" name="publishDate" id="publishDate"
+                                                      autocomplete="off"
+                                                      class="layui-input" readonly></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="layui-tab-item">5</div>
         <div class="layui-tab-item">6</div>
     </div>
@@ -51,6 +618,6 @@
 
 <script src="/rule/ui/plugins/layui/layui.js"></script>
 <script src="/rule/ui/src/js/rule/rule_util.js"></script>
-<script src="/rule/ui/src/js/rule/intefaceSearch/index.js"></script>
+<script src="/rule/ui/src/js/rule/intefaceSearch/intefaceSearch.js"></script>
 </body>
 </html>
