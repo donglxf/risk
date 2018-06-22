@@ -611,13 +611,31 @@
                 </div>
             </div>
         </div>
-        <div class="layui-tab-item">5</div>
+        <div class="layui-tab-item">
+            <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
+                <div class="layui-col-md2">
+                    <input type="text" name="realName" id="webankIdentityCard" required placeholder="请输入证件号码"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-col-md2">
+                    <input type="text" name="selfmobilePhone" id="webankRealName" required placeholder="请输入真实姓名"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-col-md1">
+                    <button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
+                </div>
+            </div>
+            <div>
+                <table id="webankDemo" lay-filter="webankDemo"></table>
+            </div>
+        </div>
         <div class="layui-tab-item">6</div>
     </div>
 </div>
 
 <script src="/rule/ui/plugins/layui/layui.js"></script>
-<script src="/rule/ui/src/js/rule/rule_util.js"></script>
 <script src="/rule/ui/src/js/rule/intefaceSearch/intefaceSearch.js"></script>
 </body>
 </html>
