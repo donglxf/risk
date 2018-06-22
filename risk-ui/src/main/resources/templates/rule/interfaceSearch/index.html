@@ -16,6 +16,7 @@
         <li>汇法网</li>
     </ul>
     <div class="layui-tab-content">
+        <!-- 考拉黑名单 -->
         <div class="layui-tab-item layui-show">
             <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
                 <div class="layui-col-md2">
@@ -40,7 +41,8 @@
                 </div>
             </div>
         </div>
-        <div class="layui-tab-item">
+        <!-- 网贷黑名单 -->
+        <div class="layui-tab-item" id="netLoanBlack">
             <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
                 <div class="layui-col-md2">
                     <input type="text" name="realName" id="realName1" required placeholder="请输入真实姓名" autocomplete="off"
@@ -57,7 +59,7 @@
                            class="layui-input">
                 </div>
                 <div class="layui-col-md1">
-                    <button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
+                    <button class="layui-btn" data-type="reload" onclick="netLoan.reload()">查 询</button>
                 </div>
             </div>
             <div class="layui-fluid" style="text-align: center;font-size: 15px;">
@@ -184,7 +186,7 @@
                         </div>
                     </div>
                     <div class="layui-col-sm2">
-                        <div class="grid-demo"><input type="text" name="mobilephone" id="mobilephone"
+                        <div class="grid-demo"><input type="text" name="mobilephone" id="oldLaiMobilephone"
                                                       autocomplete="off"
                                                       class="layui-input" readonly></div>
                     </div>
@@ -293,8 +295,7 @@
                     </div>
                     <div class="layui-col-sm2">
                         <div class="grid-demo"><input type="text" name="alsoLateFee" id="alsoLateFee"
-                                                      autocomplete="off"
-                                                      class="layui-input" readonly></div>
+                                                      class="layui-input"></div>
                     </div>
                     <div class="layui-col-sm2">
                         <div class="grid-demo grid-demo-bg1"
@@ -416,6 +417,7 @@
                 </div>
             </div>
         </div>
+        <!-- 自有黑名单 -->
         <div class="layui-tab-item">
             <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
                 <div class="layui-col-md2">
@@ -429,7 +431,7 @@
                            class="layui-input">
                 </div>
                 <div class="layui-col-md1">
-                    <button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
+                    <button class="layui-btn" data-type="reload" onclick="self.reload()">查 询</button>
                 </div>
             </div>
             <div class="layui-row layui-col-space12">
@@ -442,6 +444,7 @@
                 </div>
             </div>
         </div>
+        <!-- 老赖黑名单 -->
         <div class="layui-tab-item">
             <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
                 <div class="layui-col-md2">
@@ -455,7 +458,7 @@
                            class="layui-input">
                 </div>
                 <div class="layui-col-md1">
-                    <button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
+                    <button class="layui-btn" data-type="reload" onclick="oldlai.reload()">查 询</button>
                 </div>
             </div>
             <div class="layui-fluid" style="text-align: center;font-size: 15px;">
@@ -611,6 +614,7 @@
                 </div>
             </div>
         </div>
+        <!-- 汇法网 -->
         <div class="layui-tab-item">
             <div class="layui-row layui-col-space12" style="margin-top: 10px;margin-left: auto ">
                 <div class="layui-col-md2">
@@ -624,7 +628,7 @@
                            class="layui-input">
                 </div>
                 <div class="layui-col-md1">
-                    <button class="layui-btn" data-type="reload" onclick="active.reload()">查 询</button>
+                    <button class="layui-btn" data-type="reload" onclick="webank.reload()">查 询</button>
                 </div>
             </div>
             <div>

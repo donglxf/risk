@@ -1,9 +1,7 @@
 package com.ht.risk.rule.rpc;
 
-import com.ht.risk.api.model.eip.KlRiskBlackListReqDto;
-import com.ht.risk.api.model.eip.KlRiskBlackListRespDto;
-import com.ht.risk.api.model.eip.NetLoanIn;
-import com.ht.risk.api.model.eip.NetLoanOut;
+import com.ht.risk.api.model.eip.*;
+import com.ht.risk.rule.vo.OldLaiInVo;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +30,36 @@ public interface EipIntefaceRpc {
      */
     @RequestMapping("/black/noCacheNetLoan")
     public com.ht.risk.common.result.Result<NetLoanOut> noCacheNetLoan(@RequestBody NetLoanIn input) throws Exception;
+
+    /**
+     * 自有黑名单
+     *
+     * @param input
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/black/noCacheSelf")
+    public com.ht.risk.common.result.Result<SelfDtoOut> noCacheSelf(@RequestBody OldLaiInVo input) throws Exception;
+
+    /**
+     * 老赖黑名单
+     *
+     * @param input
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/black/noCacheOldLai")
+    public com.ht.risk.common.result.Result<OldLaiOut> noCacheOldLai(@RequestBody OldLaiIn input) throws Exception;
+
+    /**
+     * 汇法网
+     *
+     * @param input
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/lawxp/webank")
+    public com.ht.risk.common.result.Result<LawxpWebankDtoOut> noCacheWebank(@RequestBody LawxpWebankDtoIn input) throws Exception;
 
 
 }
