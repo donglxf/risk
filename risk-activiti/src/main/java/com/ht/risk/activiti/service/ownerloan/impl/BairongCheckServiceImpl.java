@@ -1,23 +1,19 @@
 package com.ht.risk.activiti.service.ownerloan.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.ht.risk.activiti.rpc.EipServiceInterface;
 import com.ht.risk.activiti.service.ownerloan.BairongCheckService;
 import com.ht.risk.activiti.vo.OwnerLoanModelResult;
-import com.ht.risk.activiti.vo.OwnerLoanRuleInfo;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
 import com.ht.risk.api.enums.RuleHitEnum;
 import com.ht.risk.api.model.eip.*;
-import com.ht.risk.common.util.DateUtil;
+import com.ht.risk.api.model.eip.bairong.BairongMoreCheckDtoOut;
 import com.ht.ussp.core.Result;
-import com.ht.ussp.core.ReturnCodeEnum;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.Map;
 
 /**

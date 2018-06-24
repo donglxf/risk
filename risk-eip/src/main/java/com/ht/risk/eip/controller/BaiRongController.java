@@ -1,12 +1,10 @@
 package com.ht.risk.eip.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.ht.risk.api.feign.eip.BairongRpc;
 import com.ht.risk.api.model.eip.BairongMoreCheckDtoIn;
-import com.ht.risk.api.model.eip.BairongMoreCheckDtoOut;
+import com.ht.risk.api.model.eip.bairong.BairongMoreCheckDtoOut;
 import com.ht.risk.eip.logs.LogEntity;
 import com.ht.ussp.core.Result;
-import com.sun.tools.javac.Main;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

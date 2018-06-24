@@ -1,7 +1,11 @@
 package com.ht.risk.rule.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.ht.risk.api.comment.FrontSeaRskMarkEnum;
+import com.ht.risk.api.comment.FrontSeaSourceIdEnum;
 import com.ht.risk.api.comment.SeflBlackStatusEnum;
 import com.ht.risk.api.model.eip.*;
+import com.ht.risk.api.model.eip.bairong.BairongMoreCheckDtoOut;
 import com.ht.risk.rule.rpc.EipIntefaceRpc;
 import com.ht.risk.rule.service.TempDataContainsService;
 import com.ht.risk.common.result.Result;
@@ -119,11 +123,15 @@ public class RpcController {
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
             Result<OldLaiOut> result = eipIntefaceRpc.noCacheOldLai(dto);
-            OldLaiOut rdto = result.getData();
-            if (null == rdto) {
-                return Result.error(1, "无信息！！");
+            if (0 == result.getCode()) {
+                OldLaiOut rdto = result.getData();
+                if (null == rdto) {
+                    return Result.error(1, "无信息！！");
+                }
+                return Result.success(rdto);
+            } else {
+                return Result.error(1, "查询失败！！");
             }
-            return Result.success(rdto);
         } catch (Exception e) {
             log.error("老赖黑名单异常！！！", e);
         }
@@ -138,17 +146,89 @@ public class RpcController {
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
             Result<LawxpWebankDtoOut> result = eipIntefaceRpc.noCacheWebank(dto);
-            LawxpWebankDtoOut rdto = result.getData();
-            List<Allmsglist> resultList = rdto.getAllmsglist();
-            if (null == resultList) {
-                return Result.error(1, "无信息！！");
+            if (0 == result.getCode()) {
+                LawxpWebankDtoOut rdto = result.getData();
+                List<Allmsglist> resultList = rdto.getAllmsglist();
+                if (null == resultList) {
+                    return Result.error(1, "无信息！！");
+                }
+                return Result.success(resultList);
+            } else {
+                return Result.error(1, "查询失败！！");
             }
-            return Result.success(resultList);
         } catch (Exception e) {
             log.error("汇法网微众异常！！！", e);
         }
         return null;
     }
 
+    @GetMapping("/frontSea")
+    @ApiOperation(value = "前海征信黑名单")
+    public Result<FrontSeaDtoOut> frontSea(String realName, String identityCard, String idType, String reasonNo) {
+        try {
+            FrontSeaDtoIn dto = new FrontSeaDtoIn();
+            dto.setRealName(realName);
+            dto.setIdentityCard(identityCard);
+            dto.setReasonNo(reasonNo);
+            dto.setIdType(idType);
+            Result<FrontSeaDtoOut> result = eipIntefaceRpc.noCacheFrontSea(dto);
+            if (0 == result.getCode()) {
+                FrontSeaDtoOut rdto = result.getData();
+                if (null == rdto) {
+                    return Result.error(1, "无信息！！");
+                }
+                if (FrontSeaSourceIdEnum.A.getValue().equals(rdto.getSourceId())) {
+                    rdto.setSourceId(FrontSeaSourceIdEnum.A.getName());
+                } else if (FrontSeaSourceIdEnum.B.getValue().equals(rdto.getSourceId())) {
+                    rdto.setSourceId(FrontSeaSourceIdEnum.B.getName());
+                } else if (FrontSeaSourceIdEnum.C.getValue().equals(rdto.getSourceId())) {
+                    rdto.setSourceId(FrontSeaSourceIdEnum.C.getName());
+                } else if (FrontSeaSourceIdEnum.D.getValue().equals(rdto.getSourceId())) {
+                    rdto.setSourceId(FrontSeaSourceIdEnum.D.getName());
+                }
+                if (FrontSeaRskMarkEnum.B1.getValue().equals(rdto.getRskMark())) {
+                    rdto.setRskMark(FrontSeaRskMarkEnum.B1.getName());
+                } else if (FrontSeaRskMarkEnum.B2.getValue().equals(rdto.getRskMark())) {
+                    rdto.setRskMark(FrontSeaRskMarkEnum.B2.getName());
+                } else if (FrontSeaRskMarkEnum.B3.getValue().equals(rdto.getRskMark())) {
+                    rdto.setRskMark(FrontSeaRskMarkEnum.B3.getName());
+                } else if (FrontSeaRskMarkEnum.C1.getValue().equals(rdto.getRskMark())) {
+                    rdto.setRskMark(FrontSeaRskMarkEnum.C1.getName());
+                } else if (FrontSeaRskMarkEnum.C2.getValue().equals(rdto.getRskMark())) {
+                    rdto.setRskMark(FrontSeaRskMarkEnum.C2.getName());
+                } else if (FrontSeaRskMarkEnum.C3.getValue().equals(rdto.getRskMark())) {
+                    rdto.setRskMark(FrontSeaRskMarkEnum.C3.getName());
+                } else if (FrontSeaRskMarkEnum.C4.getValue().equals(rdto.getRskMark())) {
+                    rdto.setRskMark(FrontSeaRskMarkEnum.C4.getName());
+                } else if (FrontSeaRskMarkEnum.N99.getValue().equals(rdto.getRskMark())) {
+                    rdto.setRskMark(FrontSeaRskMarkEnum.N99.getName());
+                }
+                return Result.success(rdto);
+            } else {
+                return Result.error(1, result.getMsg());
+            }
+        } catch (Exception e) {
+            log.error("前海征信黑名单异常！！！", e);
+        }
+        return null;
+    }
+
+    @GetMapping("/bairong")
+    @ApiOperation(value = "百融核查")
+    public Result<BairongMoreCheckDtoOut> bairong(String realName, String identityCard, String mobilePhone) {
+        try {
+            BairongMoreCheckDtoIn dto = new BairongMoreCheckDtoIn();
+            dto.setRealName(realName);
+            dto.setIdentityCard(identityCard);
+            dto.setMobilePhone(mobilePhone);
+            Result<BairongMoreCheckDtoOut> result = eipIntefaceRpc.moreCheck(dto);
+            BairongMoreCheckDtoOut rdto = result.getData();
+            log.info(JSON.toJSONString(rdto));
+            return Result.success(rdto);
+        } catch (Exception e) {
+            log.error("百融核查异常！！！", e);
+        }
+        return null;
+    }
 
 }

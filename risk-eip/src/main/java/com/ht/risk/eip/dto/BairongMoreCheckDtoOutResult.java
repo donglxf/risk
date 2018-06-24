@@ -3,7 +3,7 @@ package com.ht.risk.eip.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.ht.risk.api.model.eip.BairongMoreCheckDtoOut;
+import com.ht.risk.api.model.eip.bairong.BairongMoreCheckDtoOut;
 import com.ht.ussp.core.Result;
 
 public class BairongMoreCheckDtoOutResult implements Serializable {

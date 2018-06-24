@@ -7,7 +7,7 @@ package com.ht.risk.api.feign.eip;
  */
 
 import com.ht.risk.api.model.eip.BairongMoreCheckDtoIn;
-import com.ht.risk.api.model.eip.BairongMoreCheckDtoOut;
+import com.ht.risk.api.model.eip.bairong.BairongMoreCheckDtoOut;
 import com.ht.ussp.core.Result;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.context.annotation.PropertySource;

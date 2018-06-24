@@ -1,6 +1,7 @@
 package com.ht.risk.rule.rpc;
 
 import com.ht.risk.api.model.eip.*;
+import com.ht.risk.api.model.eip.bairong.BairongMoreCheckDtoOut;
 import com.ht.risk.rule.vo.OldLaiInVo;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,6 +61,26 @@ public interface EipIntefaceRpc {
      */
     @RequestMapping("/lawxp/webank")
     public com.ht.risk.common.result.Result<LawxpWebankDtoOut> noCacheWebank(@RequestBody LawxpWebankDtoIn input) throws Exception;
+
+    /**
+     * 前海征信黑名单
+     *
+     * @param input
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/black/noCacheFrontSea")
+    public com.ht.risk.common.result.Result<FrontSeaDtoOut> noCacheFrontSea(@RequestBody FrontSeaDtoIn input) throws Exception;
+
+    /**
+     * 百融多次核查
+     *
+     * @param input
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/bairong/moreCheck")
+    public com.ht.risk.common.result.Result<BairongMoreCheckDtoOut> moreCheck(@RequestBody BairongMoreCheckDtoIn input) throws Exception;
 
 
 }
