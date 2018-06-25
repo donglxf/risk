@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@FeignClient(value = "risk-eip", url = "http://localhost:30526")
+@FeignClient(value = "risk-eip")
 public interface EipIntefaceRpc {
 
     /**

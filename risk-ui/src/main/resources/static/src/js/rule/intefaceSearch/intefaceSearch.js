@@ -67,165 +67,159 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
     }
 
     // 考拉黑名单查询
-    active = {
-        reload: function () {
-            $.ajax({
-                cache: true,
-                type: "GET",
-                url: preUrl + 'riskBlack',
-                data: {
-                    "realName": $('#realName').val()
-                    , "identityCard": $("#identityCard").val()
-                    , "mobilePhone": $("#mobilePhone").val()
-                },
-                async: false,
-                error: function (request) {
-                    alert("Connection error");
-                },
-                success: function (da) {
-                    if (da.code == 0) {
-                        resultTab(da.data);
-                    } else {
-                        layer.msg(da.msg);
-                    }
+    form.on('submit(formDemo)', function(data){
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: preUrl + 'riskBlack',
+            data: {
+                "realName": $('#realName').val()
+                , "identityCard": $("#identityCard").val()
+                , "mobilePhone": $("#mobilePhone").val()
+            },
+            async: false,
+            error: function (request) {
+                alert("Connection error");
+            },
+            success: function (da) {
+                if (da.code == 0) {
+                    resultTab(da.data);
+                } else {
+                    layer.msg(da.msg);
                 }
-            });
-        }
-    };
+            }
+        });
+    });
 
     // 网贷黑名单查询
-    netLoan = {
-        reload: function () {
-            $.ajax({
-                cache: true,
-                type: "GET",
-                url: preUrl + 'netLoan',
-                data: {
-                    "realName": $('#realName1').val()
-                    , "identityCard": $("#identityCard1").val()
-                    , "mobilePhone": $("#mobilePhone1").val()
-                },
-                async: false,
-                error: function (request) {
-                    alert("Connection error");
-                },
-                success: function (da) {
-                    if (da.code == 0) {
-                        setFromValues(da.data);
-                    } else {
-                        layer.msg(da.msg);
-                    }
+    form.on('submit(netLoanForm)', function(data){
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: preUrl + 'netLoan',
+            data: {
+                "realName": $('#realName1').val()
+                , "identityCard": $("#identityCard1").val()
+                , "mobilePhone": $("#mobilePhone1").val()
+            },
+            async: false,
+            error: function (request) {
+                alert("Connection error");
+            },
+            success: function (da) {
+                if (da.code == 0) {
+                    setFromValues(da.data);
+                } else {
+                    layer.msg(da.msg);
                 }
-            });
-        }
-    };
+            }
+        });
+    });
 
     // 自有黑名单查询
-    self = {
-        reload: function () {
-            $.ajax({
-                cache: true,
-                type: "GET",
-                url: preUrl + 'self',
-                data: {
-                    "identityCard": $("#selfidentityCard").val()
-                    , "mobilePhone": $("#selfmobilePhone").val()
-                },
-                async: false,
-                error: function (request) {
-                    alert("Connection error");
-                },
-                success: function (da) {
-                    if (da.code == 0) {
-                        setFromValues(da.data);
-                    } else {
-                        layer.msg(da.msg);
-                    }
+    form.on('submit(selfForm)', function(data){
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: preUrl + 'self',
+            data: {
+                "identityCard": $("#selfidentityCard").val()
+                , "mobilePhone": $("#selfmobilePhone").val()
+            },
+            async: false,
+            error: function (request) {
+                alert("Connection error");
+            },
+            success: function (da) {
+                if (da.code == 0) {
+                    setFromValues(da.data);
+                } else {
+                    layer.msg(da.msg);
                 }
-            });
-        }
-    };
+            }
+        });
+        return false;
+    });
 
     // 老赖黑名单查询
-    oldlai = {
-        reload: function () {
-            $.ajax({
-                cache: true,
-                type: "GET",
-                url: preUrl + 'oldLai',
-                data: {
-                    "realName": $("#oldLaiRealName").val()
-                    , "identityCard": $("#oldLaiIdentityCard").val()
-                },
-                async: false,
-                error: function (request) {
-                    alert("Connection error");
-                },
-                success: function (da) {
-                    if (da.code == 0) {
-                        setFromValues(da.data);
-                    } else {
-                        layer.msg(da.msg);
-                    }
+    form.on('submit(oldLaiForm)', function(data){
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: preUrl + 'oldLai',
+            data: {
+                "realName": $("#oldLaiRealName").val()
+                , "identityCard": $("#oldLaiIdentityCard").val()
+            },
+            async: false,
+            error: function (request) {
+                alert("Connection error");
+            },
+            success: function (da) {
+                if (da.code == 0) {
+                    setFromValues(da.data);
+                } else {
+                    layer.msg(da.msg);
                 }
-            });
-        }
-    };
+            }
+        });
+        return false;
+    });
 
     // 汇法网黑名单查询
-    webank = {
-        reload: function () {
-            $.ajax({
-                cache: true,
-                type: "GET",
-                url: preUrl + 'webank',
-                data: {
-                    "realName": $("#webankRealName").val()
-                    , "identityCard": $("#webankIdentityCard").val()
-                },
-                async: false,
-                error: function (request) {
-                    alert("Connection error");
-                },
-                success: function (da) {
-                    if (da.code == 0) {
-                        renderTab(da.data);
-                    } else {
-                        layer.msg(da.msg);
-                    }
+    form.on('submit(webankForm)', function(data){
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: preUrl + 'webank',
+            data: {
+                "realName": $("#webankRealName").val()
+                , "identityCard": $("#webankIdentityCard").val()
+            },
+            async: false,
+            error: function (request) {
+                alert("Connection error");
+            },
+            success: function (da) {
+                if (da.code == 0) {
+                    renderTab(da.data);
+                } else {
+                    layer.msg(da.msg);
                 }
-            });
-        }
-    };
+            }
+        });
+        return false;
+    });
 
     // 前海征信黑名单查询
-    frontSea = {
-        reload: function () {
-            $.ajax({
-                cache: true,
-                type: "GET",
-                url: preUrl + 'frontSea',
-                data: {
-                    "realName": $("#frontSeaRealName").val()
-                    , "identityCard": $("#frontSeaIdentityCard").val()
-                    , "idType": $("#idType").val()
-                    , "reasonNo": $("#reasonNo").val()
-                },
-                async: false,
-                error: function (request) {
-                    alert("Connection error");
-                },
-                success: function (da) {
-                    if (da.code == 0) {
-                        setFromValues(da.data);
-                    } else {
-                        $("#errMsg").val(da.msg);
-                        // layer.msg(da.msg);
-                    }
+    form.on('submit(frontSeaForm)', function(data){
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: preUrl + 'frontSea',
+            data: {
+                "realName": $("#frontSeaRealName").val()
+                , "identityCard": $("#frontSeaIdentityCard").val()
+                , "idType": $("#idType").val()
+                , "reasonNo": $("#reasonNo").val()
+            },
+            async: false,
+            error: function (request) {
+                alert("Connection error");
+            },
+            success: function (da) {
+                if (da.code == 0) {
+                    setFromValues(da.data);
+                } else {
+                    $("#errMsg").val(da.msg);
+                    // layer.msg(da.msg);
                 }
-            });
-        }
-    };
+            }
+        });
+        return false;
+    });
+
+
 
     // 多级表头tab，需完善
     // table.render({
@@ -243,35 +237,34 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
 
 
     // 百融查询
-    bairong = {
-        reload: function () {
-            $.ajax({
-                cache: true,
-                type: "GET",
-                url: preUrl + 'bairong',
-                data: {
-                    "realName": $("#brRealName").val()
-                    , "identityCard": $("#brIdentityCard").val()
-                    , "mobilePhone": $("#brMobilePhone").val()
-                },
-                async: false,
-                error: function (request) {
-                    alert("Connection error");
-                },
-                success: function (da) {
-                    if (da.code == 0) {
-                        var bank = renderBarRongTabBank(da.data);
-                        var nBank = renderBarRongTabNoBank(da.data);
-                        $("#bankTempTr").replaceWith(bank);
-                        $("#nBankTempTr").replaceWith(nBank);
-                    } else {
-                        $("#errMsg").val(da.msg);
-                        // layer.msg(da.msg);
-                    }
+    form.on('submit(baiRongform)', function(data){
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: preUrl + 'bairong',
+            data: {
+                "realName": $("#brRealName").val()
+                , "identityCard": $("#brIdentityCard").val()
+                , "mobilePhone": $("#brMobilePhone").val()
+            },
+            async: false,
+            error: function (request) {
+                alert("Connection error");
+            },
+            success: function (da) {
+                if (da.code == 0) {
+                    var bank = renderBarRongTabBank(da.data);
+                    var nBank = renderBarRongTabNoBank(da.data);
+                    $("#bankTempTr").replaceWith(bank);
+                    $("#nBankTempTr").replaceWith(nBank);
+                } else {
+                    $("#errMsg").val(da.msg);
+                    // layer.msg(da.msg);
                 }
-            });
-        }
-    };
+            }
+        });
+        return false;
+    });
 
     function renderBarRongTabBank(da) {
         var applyLoanStr = da.applyLoanStr;
