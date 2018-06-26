@@ -141,6 +141,7 @@ public class RpcController {
             OldLaiIn dto = new OldLaiIn();
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
+            dto.setQueryType("1");
             log.info("老赖黑名单===>" + JSON.toJSONString(dto));
             com.ht.ussp.core.Result<OldLaiOut> result = eipIntefaceRpc.noCacheOldLai(dto);
             log.info("老赖黑名单结果===>" + JSON.toJSONString(result));
