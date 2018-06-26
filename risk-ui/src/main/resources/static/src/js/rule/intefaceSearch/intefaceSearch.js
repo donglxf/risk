@@ -258,8 +258,8 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
                     $("#bankTempTr").replaceWith(bank);
                     $("#nBankTempTr").replaceWith(nBank);
                 } else {
-                    $("#errMsg").val(da.msg);
-                    // layer.msg(da.msg);
+                    // $("#errMsg").val(da.msg);
+                    layer.msg(da.msg);
                 }
             }
         });

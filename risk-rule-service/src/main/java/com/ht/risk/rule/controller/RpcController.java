@@ -55,16 +55,24 @@ public class RpcController {
             dto.setIdentityCard(identityCard);
             dto.setMobilePhone(mobilePhone);
             Result<KlRiskBlackListRespDto> result = eipIntefaceRpc.noCacheKlRiskBlack(dto);
-            KlRiskBlackListRespDto rdto = result.getData();
-            List<BlacklistDetail> list = rdto.getBlacklistDetail();
-            if (null == list) {
-                return Result.error(1, "无信息！！");
+            if (0 == result.getCode()) {
+                KlRiskBlackListRespDto rdto = result.getData();
+                if (null == rdto) {
+                    return Result.error(1, "无信息！！");
+                }
+                List<BlacklistDetail> list = rdto.getBlacklistDetail();
+                if (null == list) {
+                    return Result.error(1, "无信息！！");
+                }
+                return Result.success(list);
+            } else {
+                return Result.error(1, result.getMsg());
             }
-            return Result.success(list);
+
         } catch (Exception e) {
             log.error("考拉黑名单异常！！！", e);
         }
-        return null;
+        return Result.error(1, "异常!");
     }
 
     @GetMapping("/netLoan")
@@ -76,19 +84,20 @@ public class RpcController {
             dto.setIdentityCard(identityCard);
             dto.setMobilePhone(mobilePhone);
             Result<NetLoanOut> result = eipIntefaceRpc.noCacheNetLoan(dto);
-            NetLoanOut rdto = result.getData();
-            if (null == rdto) {
-//                rdto=new NetLoanOut();
-//                rdto.setAlsoLateFee("asdfafd");
-//                rdto.setAlsoUrgentFee("dfdf");
-//                rdto.setBirthAddress("dddddddddddddddddd");
-                return Result.error(1, "无信息！！");
+            if (0 == result.getCode()) {
+                NetLoanOut rdto = result.getData();
+                if (null == rdto) {
+                    return Result.error(1, "无信息！！");
+                }
+                return Result.success(rdto);
+            } else {
+                return Result.error(1, result.getMsg());
             }
-            return Result.success(rdto);
+
         } catch (Exception e) {
             log.error("网贷黑名单异常！！！", e);
         }
-        return null;
+        return Result.error(1, "异常!");
     }
 
     @GetMapping("/self")
@@ -99,16 +108,20 @@ public class RpcController {
             dto.setMobilePhone(mobilePhone);
             dto.setIdentityCard(identityCard);
             Result<SelfDtoOut> result = eipIntefaceRpc.noCacheSelf(dto);
-            SelfDtoOut rdto = result.getData();
-            if (null == rdto) {
-                return Result.error(1, "无信息！！");
+            if (0 == result.getCode()) {
+                SelfDtoOut rdto = result.getData();
+                if (null == rdto) {
+                    return Result.error(1, "无信息！！");
+                }
+                if (SeflBlackStatusEnum.noBlack.getValue().equals(rdto.getIsBlacklistUser())) {
+                    rdto.setIsBlacklistUser(SeflBlackStatusEnum.noBlack.getName());
+                } else if (SeflBlackStatusEnum.yesBlack.getValue().equals(rdto.getIsBlacklistUser())) {
+                    rdto.setIsBlacklistUser(SeflBlackStatusEnum.yesBlack.getName());
+                }
+                return Result.success(rdto);
+            } else {
+                return Result.error(1, result.getMsg());
             }
-            if (SeflBlackStatusEnum.noBlack.getValue().equals(rdto.getIsBlacklistUser())) {
-                rdto.setIsBlacklistUser(SeflBlackStatusEnum.noBlack.getName());
-            } else if (SeflBlackStatusEnum.yesBlack.getValue().equals(rdto.getIsBlacklistUser())) {
-                rdto.setIsBlacklistUser(SeflBlackStatusEnum.yesBlack.getName());
-            }
-            return Result.success(rdto);
         } catch (Exception e) {
             log.error("自有黑名单异常！！！", e);
         }
@@ -130,7 +143,7 @@ public class RpcController {
                 }
                 return Result.success(rdto);
             } else {
-                return Result.error(1, "查询失败！！");
+                return Result.error(1, result.getMsg());
             }
         } catch (Exception e) {
             log.error("老赖黑名单异常！！！", e);
@@ -148,13 +161,16 @@ public class RpcController {
             Result<LawxpWebankDtoOut> result = eipIntefaceRpc.noCacheWebank(dto);
             if (0 == result.getCode()) {
                 LawxpWebankDtoOut rdto = result.getData();
+                if (rdto == null) {
+                    return Result.error(1, "无信息！！");
+                }
                 List<Allmsglist> resultList = rdto.getAllmsglist();
                 if (null == resultList) {
                     return Result.error(1, "无信息！！");
                 }
                 return Result.success(resultList);
             } else {
-                return Result.error(1, "查询失败！！");
+                return Result.error(1, result.getMsg());
             }
         } catch (Exception e) {
             log.error("汇法网微众异常！！！", e);
@@ -222,13 +238,17 @@ public class RpcController {
             dto.setIdentityCard(identityCard);
             dto.setMobilePhone(mobilePhone);
             Result<BairongMoreCheckDtoOut> result = eipIntefaceRpc.moreCheck(dto);
-            BairongMoreCheckDtoOut rdto = result.getData();
-            log.info(JSON.toJSONString(rdto));
-            return Result.success(rdto);
+            if (0 == result.getCode()) {
+                BairongMoreCheckDtoOut rdto = result.getData();
+                log.info(JSON.toJSONString(rdto));
+                return Result.success(rdto);
+            } else {
+                return Result.error(1, result.getMsg());
+            }
         } catch (Exception e) {
             log.error("百融核查异常！！！", e);
         }
-        return null;
+        return Result.error(1, "无信息");
     }
 
 }
