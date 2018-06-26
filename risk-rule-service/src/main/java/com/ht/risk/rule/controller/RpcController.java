@@ -54,7 +54,9 @@ public class RpcController {
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
             dto.setMobilePhone(mobilePhone);
+            log.info("考拉黑名单入参===>" + JSON.toJSONString(dto));
             com.ht.ussp.core.Result<KlRiskBlackListRespDto> result = eipIntefaceRpc.noCacheKlRiskBlack(dto);
+            log.info("考拉黑名单===>" + JSON.toJSONString(result));
             if ("0000".equals(result.getReturnCode())) {
                 KlRiskBlackListRespDto rdto = result.getData();
                 if (null == rdto) {
@@ -72,7 +74,7 @@ public class RpcController {
         } catch (Exception e) {
             log.error("考拉黑名单异常！！！", e);
         }
-        return Result.error(1, "异常!");
+        return null;
     }
 
     @GetMapping("/netLoan")
@@ -83,7 +85,9 @@ public class RpcController {
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
             dto.setMobilePhone(mobilePhone);
+            log.info("网贷黑名单===>" + JSON.toJSONString(dto));
             com.ht.ussp.core.Result<NetLoanOut> result = eipIntefaceRpc.noCacheNetLoan(dto);
+            log.info("网贷黑名单结果===>" + JSON.toJSONString(result));
             if ("0000".equals(result.getReturnCode())) {
                 NetLoanOut rdto = result.getData();
                 if (null == rdto) {
@@ -97,7 +101,7 @@ public class RpcController {
         } catch (Exception e) {
             log.error("网贷黑名单异常！！！", e);
         }
-        return Result.error(1, "异常!");
+        return null;
     }
 
     @GetMapping("/self")
@@ -107,7 +111,9 @@ public class RpcController {
             OldLaiInVo dto = new OldLaiInVo();
             dto.setMobilePhone(mobilePhone);
             dto.setIdentityCard(identityCard);
+            log.info("自有黑名单===>" + JSON.toJSONString(dto));
             com.ht.ussp.core.Result<SelfDtoOut> result = eipIntefaceRpc.noCacheSelf(dto);
+            log.info("自有黑名单返回结果===>" + JSON.toJSONString(result));
             if ("0000".equals(result.getReturnCode())) {
                 SelfDtoOut rdto = result.getData();
                 if (null == rdto) {
@@ -135,7 +141,9 @@ public class RpcController {
             OldLaiIn dto = new OldLaiIn();
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
+            log.info("老赖黑名单===>" + JSON.toJSONString(dto));
             com.ht.ussp.core.Result<OldLaiOut> result = eipIntefaceRpc.noCacheOldLai(dto);
+            log.info("老赖黑名单结果===>" + JSON.toJSONString(result));
             if ("0000".equals(result.getReturnCode())) {
                 OldLaiOut rdto = result.getData();
                 if (null == rdto) {
@@ -158,7 +166,9 @@ public class RpcController {
             LawxpWebankDtoIn dto = new LawxpWebankDtoIn();
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
+            log.info("汇法网微众入参===>" + JSON.toJSONString(dto));
             com.ht.ussp.core.Result<LawxpWebankDtoOut> result = eipIntefaceRpc.noCacheWebank(dto);
+            log.info("汇法网微众结果===>" + JSON.toJSONString(result));
             if ("0000".equals(result.getReturnCode())) {
                 LawxpWebankDtoOut rdto = result.getData();
                 if (rdto == null) {
@@ -187,7 +197,9 @@ public class RpcController {
             dto.setIdentityCard(identityCard);
             dto.setReasonNo(reasonNo);
             dto.setIdType(idType);
+            log.info("前海征信黑名单入参===>" + JSON.toJSONString(dto));
             com.ht.ussp.core.Result<FrontSeaDtoOut> result = eipIntefaceRpc.noCacheFrontSea(dto);
+            log.info("前海征信黑名单结果===>" + JSON.toJSONString(dto));
             if ("0000".equals(result.getReturnCode())) {
                 FrontSeaDtoOut rdto = result.getData();
                 if (null == rdto) {
@@ -237,7 +249,9 @@ public class RpcController {
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
             dto.setMobilePhone(mobilePhone);
+            log.info("百融核查入参===>" + JSON.toJSONString(dto));
             com.ht.ussp.core.Result<BairongMoreCheckDtoOut> result = eipIntefaceRpc.moreCheck(dto);
+            log.info("百融核查结果===>" + JSON.toJSONString(dto));
             if ("0000".equals(result.getReturnCode())) {
                 BairongMoreCheckDtoOut rdto = result.getData();
                 log.info(JSON.toJSONString(rdto));

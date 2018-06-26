@@ -105,7 +105,7 @@ public class BlanckListServiceImpl implements BlanckListService {
         klRuleInfo.setCallEndtime(DateUtil.formatDate(DateUtil.SIMPLE_TIME_FORMAT,new Date()));
         if(klResult == null){
             klRuleInfo.setInvokeSuccess(false);
-            klRuleInfo.setInterfaceResultCodeRemark("考拉黑名单接口调用失败");
+            klRuleInfo.setInterfaceResultCodeRemark("考拉");
             klRuleInfo.setTsTarget(false);
         }
         if(klResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(klResult.getReturnCode())){
