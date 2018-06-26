@@ -54,13 +54,13 @@ public class RpcController {
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
             dto.setMobilePhone(mobilePhone);
-            Result<KlRiskBlackListRespDto> result = eipIntefaceRpc.noCacheKlRiskBlack(dto);
-            if (0 == result.getCode()) {
+            com.ht.ussp.core.Result<KlRiskBlackListRespDto> result = eipIntefaceRpc.noCacheKlRiskBlack(dto);
+            if ("0000".equals(result.getReturnCode())) {
                 KlRiskBlackListRespDto rdto = result.getData();
                 if (null == rdto) {
                     return Result.error(1, "无信息！！");
                 }
-                List<BlacklistDetail> list = rdto.getBlacklistDetail();
+                List<BlacklistDetail> list = rdto.getBlacklistDetailList();
                 if (null == list) {
                     return Result.error(1, "无信息！！");
                 }
@@ -83,8 +83,8 @@ public class RpcController {
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
             dto.setMobilePhone(mobilePhone);
-            Result<NetLoanOut> result = eipIntefaceRpc.noCacheNetLoan(dto);
-            if (0 == result.getCode()) {
+            com.ht.ussp.core.Result<NetLoanOut> result = eipIntefaceRpc.noCacheNetLoan(dto);
+            if ("0000".equals(result.getReturnCode())) {
                 NetLoanOut rdto = result.getData();
                 if (null == rdto) {
                     return Result.error(1, "无信息！！");
@@ -107,8 +107,8 @@ public class RpcController {
             OldLaiInVo dto = new OldLaiInVo();
             dto.setMobilePhone(mobilePhone);
             dto.setIdentityCard(identityCard);
-            Result<SelfDtoOut> result = eipIntefaceRpc.noCacheSelf(dto);
-            if (0 == result.getCode()) {
+            com.ht.ussp.core.Result<SelfDtoOut> result = eipIntefaceRpc.noCacheSelf(dto);
+            if ("0000".equals(result.getReturnCode())) {
                 SelfDtoOut rdto = result.getData();
                 if (null == rdto) {
                     return Result.error(1, "无信息！！");
@@ -135,8 +135,8 @@ public class RpcController {
             OldLaiIn dto = new OldLaiIn();
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
-            Result<OldLaiOut> result = eipIntefaceRpc.noCacheOldLai(dto);
-            if (0 == result.getCode()) {
+            com.ht.ussp.core.Result<OldLaiOut> result = eipIntefaceRpc.noCacheOldLai(dto);
+            if ("0000".equals(result.getReturnCode())) {
                 OldLaiOut rdto = result.getData();
                 if (null == rdto) {
                     return Result.error(1, "无信息！！");
@@ -158,8 +158,8 @@ public class RpcController {
             LawxpWebankDtoIn dto = new LawxpWebankDtoIn();
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
-            Result<LawxpWebankDtoOut> result = eipIntefaceRpc.noCacheWebank(dto);
-            if (0 == result.getCode()) {
+            com.ht.ussp.core.Result<LawxpWebankDtoOut> result = eipIntefaceRpc.noCacheWebank(dto);
+            if ("0000".equals(result.getReturnCode())) {
                 LawxpWebankDtoOut rdto = result.getData();
                 if (rdto == null) {
                     return Result.error(1, "无信息！！");
@@ -187,8 +187,8 @@ public class RpcController {
             dto.setIdentityCard(identityCard);
             dto.setReasonNo(reasonNo);
             dto.setIdType(idType);
-            Result<FrontSeaDtoOut> result = eipIntefaceRpc.noCacheFrontSea(dto);
-            if (0 == result.getCode()) {
+            com.ht.ussp.core.Result<FrontSeaDtoOut> result = eipIntefaceRpc.noCacheFrontSea(dto);
+            if ("0000".equals(result.getReturnCode())) {
                 FrontSeaDtoOut rdto = result.getData();
                 if (null == rdto) {
                     return Result.error(1, "无信息！！");
@@ -237,8 +237,8 @@ public class RpcController {
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
             dto.setMobilePhone(mobilePhone);
-            Result<BairongMoreCheckDtoOut> result = eipIntefaceRpc.moreCheck(dto);
-            if (0 == result.getCode()) {
+            com.ht.ussp.core.Result<BairongMoreCheckDtoOut> result = eipIntefaceRpc.moreCheck(dto);
+            if ("0000".equals(result.getReturnCode())) {
                 BairongMoreCheckDtoOut rdto = result.getData();
                 log.info(JSON.toJSONString(rdto));
                 return Result.success(rdto);

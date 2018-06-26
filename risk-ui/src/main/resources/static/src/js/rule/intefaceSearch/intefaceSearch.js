@@ -219,23 +219,6 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
         return false;
     });
 
-
-
-    // 多级表头tab，需完善
-    // table.render({
-    //     elem: '#testdemo'
-    //     , cols: [[ //标题栏
-    //         {field: 'casenum', event: 'setItem', title: '案件编号',rowspan:2}
-    //         , {field: 'type', event: 'setItem', title: '案件类型'}
-    //         , {field: 'datetime', event: 'setItem', title: '案件时间'}
-    //         , {field: 'address', event: 'setItem', title: '案件地点'}
-    //         , {field: 'money', event: 'setItem', title: '涉案金额'}
-    //     ]]
-    //     , data: arr
-    //     , even: true
-    // });
-
-
     // 百融查询
     form.on('submit(baiRongform)', function(data){
         $.ajax({

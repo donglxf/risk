@@ -111,7 +111,7 @@ public class BlanckListServiceImpl implements BlanckListService {
         if(klResult != null && ReturnCodeEnum.SUCCESS.getReturnCode().equals(klResult.getReturnCode())){
             klRuleInfo.setInvokeSuccess(true);
             klRuleInfo.setResultJson(JSON.toJSONString(klResult.getData()));
-            if(klResult.getData() != null && klResult.getData().getBlacklistDetail() != null){
+            if(klResult.getData() != null && klResult.getData().getBlacklistDetailList() != null){
                 klRuleInfo.setInterfaceResultCodeRemark("命中考拉黑名单");
                 klRuleInfo.setTsTarget(false);
                 flag = RuleHitEnum.HIT.getCode();
