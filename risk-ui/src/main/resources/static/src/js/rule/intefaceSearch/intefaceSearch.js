@@ -20,7 +20,11 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
      * @param el
      * @param data
      */
-    function setFromValues(data) {
+    function setFromValues(obj, data) {
+        $("#" + obj).find('input').each(function () {
+            $(this).val("");
+        });
+
         for (var p in data) {
             // $("#" + el).find("input[name='" + p + "']").val(data[p]);
             $("#" + p).val(data[p]);
@@ -67,7 +71,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
     }
 
     // 考拉黑名单查询
-    form.on('submit(formDemo)', function(data){
+    form.on('submit(formDemo)', function (data) {
         $.ajax({
             cache: true,
             type: "GET",
@@ -92,7 +96,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
     });
 
     // 网贷黑名单查询
-    form.on('submit(netLoanForm)', function(data){
+    form.on('submit(netLoanForm)', function (data) {
         $.ajax({
             cache: true,
             type: "GET",
@@ -108,8 +112,9 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             },
             success: function (da) {
                 if (da.code == 0) {
-                    setFromValues(da.data);
+                    setFromValues('netLoanDiv',da.data);
                 } else {
+                    setFromValues('netLoanDiv');
                     layer.msg(da.msg);
                 }
             }
@@ -117,7 +122,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
     });
 
     // 自有黑名单查询
-    form.on('submit(selfForm)', function(data){
+    form.on('submit(selfForm)', function (data) {
         $.ajax({
             cache: true,
             type: "GET",
@@ -132,8 +137,9 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             },
             success: function (da) {
                 if (da.code == 0) {
-                    setFromValues(da.data);
+                    setFromValues('selfDiv',da.data);
                 } else {
+                    setFromValues('selfDiv');
                     layer.msg(da.msg);
                 }
             }
@@ -142,7 +148,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
     });
 
     // 老赖黑名单查询
-    form.on('submit(oldLaiForm)', function(data){
+    form.on('submit(oldLaiForm)', function (data) {
         $.ajax({
             cache: true,
             type: "GET",
@@ -157,8 +163,9 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             },
             success: function (da) {
                 if (da.code == 0) {
-                    setFromValues(da.data);
+                    setFromValues('oldLaiDiv',da.data);
                 } else {
+                    setFromValues('oldLaiDiv');
                     layer.msg(da.msg);
                 }
             }
@@ -167,7 +174,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
     });
 
     // 汇法网黑名单查询
-    form.on('submit(webankForm)', function(data){
+    form.on('submit(webankForm)', function (data) {
         $.ajax({
             cache: true,
             type: "GET",
@@ -192,7 +199,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
     });
 
     // 前海征信黑名单查询
-    form.on('submit(frontSeaForm)', function(data){
+    form.on('submit(frontSeaForm)', function (data) {
         $.ajax({
             cache: true,
             type: "GET",
@@ -208,11 +215,13 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
                 alert("Connection error");
             },
             success: function (da) {
+                debugger ;
                 if (da.code == 0) {
-                    setFromValues(da.data);
+                    setFromValues('frontSeaDiv',da.data);
                 } else {
+                    setFromValues('frontSeaDiv',da.data);
+                    layer.msg(da.msg);
                     $("#errMsg").val(da.msg);
-                    // layer.msg(da.msg);
                 }
             }
         });
@@ -220,7 +229,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
     });
 
     // 百融查询
-    form.on('submit(baiRongform)', function(data){
+    form.on('submit(baiRongform)', function (data) {
         $.ajax({
             cache: true,
             type: "GET",
@@ -235,6 +244,9 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
                 alert("Connection error");
             },
             success: function (da) {
+                $("#bankTempTr").replaceWith("");
+                $("#nBankTempTr").replaceWith("");
+               alert(123);
                 if (da.code == 0) {
                     var bank = renderBarRongTabBank(da.data);
                     var nBank = renderBarRongTabNoBank(da.data);
