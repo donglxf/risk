@@ -255,6 +255,9 @@ public class RpcController {
             log.info("百融核查结果===>" + JSON.toJSONString(result));
             if ("0000".equals(result.getReturnCode())) {
                 BairongMoreCheckDtoOut rdto = result.getData();
+                if (null == rdto) {
+                    return Result.error(1, "无信息");
+                }
                 log.info(JSON.toJSONString(rdto));
                 return Result.success(rdto);
             } else {
@@ -263,7 +266,7 @@ public class RpcController {
         } catch (Exception e) {
             log.error("百融核查异常！！！", e);
         }
-        return Result.error(1, "无信息");
+        return null;
     }
 
 }
