@@ -816,8 +816,8 @@
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
                         <div class="layui-table-body layui-table-main">
-                            <table cellpadding="0" cellspacing="0" class="layui-table">
-                                <tr>
+                            <table cellpadding="0" cellspacing="0" class="layui-table" id="bankTempTr">
+                                <tr >
                                     <th width="50px;"><span>序号</span></th>
                                     <th width="200px;"><span>查询时间跨度</span></th>
                                     <th><span>在本机构的申请次数</span></th>
@@ -833,7 +833,7 @@
                                     <th>夜间申请机构数</th>
                                     <th>查询依据</th>
                                 </tr>
-                                <tr id="bankTempTr"></tr>
+                                <!--<tr id="bankTempTr"></tr>-->
                                 <!--<tr>-->
                                 <!--<td rowspan="2">1</td>-->
                                 <!--<td rowspan="2">近7天在百融的虚拟信贷联盟(银行、非银、非银细分类型)中的多次信贷申请情况</td>-->
@@ -898,8 +898,8 @@
                         </div>
                     </div>
                     <div class="layui-tab-item">
-                        <table cellpadding="0" cellspacing="0" class="layui-table" width="1800px;">
-                            <tr>
+                        <table cellpadding="0" cellspacing="0" class="layui-table" width="1800px;" id="nBankTempTr">
+                            <tr >
                                 <th width="50px;"><span>序号</span></th>
                                 <th width="100px;"><span>查询时间跨度</span></th>
                                 <th><span>在本机构申请次数</span></th>
@@ -934,7 +934,7 @@
                                 <th>周末申请次数</th>
                                 <th>查询依据</th>
                             </tr>
-                            <tr id="nBankTempTr"></tr>
+
                         </table>
                     </div>
                 </div>

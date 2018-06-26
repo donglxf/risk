@@ -228,6 +228,9 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
         return false;
     });
 
+    var localHtml = null;
+    var localHtml2 = null;
+
     // 百融查询
     form.on('submit(baiRongform)', function (data) {
         $.ajax({
@@ -244,17 +247,20 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
                 alert("Connection error");
             },
             success: function (da) {
-                $("#bankTempTr").replaceWith("");
-                $("#nBankTempTr").replaceWith("");
-               alert(123);
-               console.log(da);
+                if(localHtml){
+                    $("#bankTempTr").html(localHtml);
+                    $("#nBankTempTr").html(localHtml2);
+                }
+                localHtml = $("#bankTempTr").html();
+                localHtml2 = $("#nBankTempTr").html();
                 if (da.code == 0) {
                     var bank = renderBarRongTabBank(da.data);
                     var nBank = renderBarRongTabNoBank(da.data);
-                    $("#bankTempTr").replaceWith(bank);
-                    $("#nBankTempTr").replaceWith(nBank);
+                    $("#bankTempTr").html(localHtml+bank);
+                    $("#nBankTempTr").html(localHtml2+nBank);
                 } else {
-                    // $("#errMsg").val(da.msg);
+                    $("#bankTempTr").html(localHtml);
+                    $("#nBankTempTr").html(localHtml2);
                     layer.msg(da.msg);
                 }
             }
