@@ -580,7 +580,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
         noBank += "<td rowspan=\"2\">近7天在百融的虚拟信贷联盟(银行、非银、非银细分类型)中的多次信贷申请情况</td>";
         var d7IdObj = d7.id; // 身份证查询
         if (d7IdObj) {
-            var d7Bk = d7Id.nbank;
+            var d7Bk = d7IdObj.nbank;
             if (d1Bk) {
                 noBank += gerationNoBankStr(d7Bk);
             } else {
