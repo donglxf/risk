@@ -32,13 +32,21 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
     }
 
     function resultTab(da) {
-        var html = '[';
-        for (var i = 0; i < da.length; i++) {
-            if (i == da.length - 1) {
-                html += "{\"borrowDate\":\"" + da[i].borrowDate + "\",\"borrowAmount\":\"" + da[i].borrowAmount + "\",\"borrowPeriod\":\"" + da[i].borrowPeriod + "\",\"overdueDate\":\"" + da[i].overdueDate + "\",\"overdueLevel\":\"" + da[i].overdueLevel + "\",\"overdueAmount\":\"" + da[i].overdueAmount + "\"}";
-            } else {
-                html += "{\"borrowDate\":\"" + da[i].borrowDate + "\",\"borrowAmount\":\"" + da[i].borrowAmount + "\",\"borrowPeriod\":\"" + da[i].borrowPeriod + "\",\"overdueDate\":\"" + da[i].overdueDate + "\",\"overdueLevel\":\"" + da[i].overdueLevel + "\",\"overdueAmount\":\"" + da[i].overdueAmount + "\"},";
-            }
+        if(!da){
+            table.render({
+                elem: '#demo'
+                , cols: [[ //标题栏
+                    {field: 'borrowDate', event: 'setItem', title: '借款日期', templet: '#chairConvert'}
+                    , {field: 'borrowAmount', event: 'setItem', title: '借款金额'}
+                    , {field: 'borrowPeriod', event: 'setItem', title: '借款期限'}
+                    , {field: 'overdueDate', event: 'setItem', title: '逾期日期'}
+                    , {field: 'overdueLevel', event: 'setItem', title: '逾期级别'}
+                    , {field: 'overdueAmount', event: 'setItem', title: '逾期金额'}
+                ]]
+                , data: new Array()
+                , even: true
+            });
+            return;
         }
         var arr = new Array(da.length);
         for (var i = 0; i < da.length; i++) {
@@ -52,8 +60,6 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             };
             arr[i] = opt;
         }
-        html += "]";
-        html = JSON.parse(html);
         table.render({
             elem: '#demo'
             , cols: [[ //标题栏
@@ -86,9 +92,12 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
                 alert("Connection error");
             },
             success: function (da) {
+                console.log(da);
                 if (da.code == 0) {
+                    console.log(da.data);
                     resultTab(da.data);
                 } else {
+                    resultTab(da.data);
                     layer.msg(da.msg);
                 }
             }
@@ -112,7 +121,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             },
             success: function (da) {
                 if (da.code == 0) {
-                    setFromValues('netLoanDiv',da.data);
+                    setFromValues('netLoanDiv', da.data);
                 } else {
                     setFromValues('netLoanDiv');
                     layer.msg(da.msg);
@@ -137,7 +146,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             },
             success: function (da) {
                 if (da.code == 0) {
-                    setFromValues('selfDiv',da.data);
+                    setFromValues('selfDiv', da.data);
                 } else {
                     setFromValues('selfDiv');
                     layer.msg(da.msg);
@@ -163,7 +172,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             },
             success: function (da) {
                 if (da.code == 0) {
-                    setFromValues('oldLaiDiv',da.data);
+                    setFromValues('oldLaiDiv', da.data);
                 } else {
                     setFromValues('oldLaiDiv');
                     layer.msg(da.msg);
@@ -215,11 +224,11 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
                 alert("Connection error");
             },
             success: function (da) {
-                debugger ;
+                debugger;
                 if (da.code == 0) {
-                    setFromValues('frontSeaDiv',da.data);
+                    setFromValues('frontSeaDiv', da.data);
                 } else {
-                    setFromValues('frontSeaDiv',da.data);
+                    setFromValues('frontSeaDiv', da.data);
                     layer.msg(da.msg);
                     $("#errMsg").val(da.msg);
                 }
@@ -247,7 +256,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
                 alert("Connection error");
             },
             success: function (da) {
-                if(localHtml){
+                if (localHtml) {
                     $("#bankTempTr").html(localHtml);
                     $("#nBankTempTr").html(localHtml2);
                 }
@@ -256,8 +265,8 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
                 if (da.code == 0) {
                     var bank = renderBarRongTabBank(da.data);
                     var nBank = renderBarRongTabNoBank(da.data);
-                    $("#bankTempTr").html(localHtml+bank);
-                    $("#nBankTempTr").html(localHtml2+nBank);
+                    $("#bankTempTr").html(localHtml + bank);
+                    $("#nBankTempTr").html(localHtml2 + nBank);
                 } else {
                     $("#bankTempTr").html(localHtml);
                     $("#nBankTempTr").html(localHtml2);
