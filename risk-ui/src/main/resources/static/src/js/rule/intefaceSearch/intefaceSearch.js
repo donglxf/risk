@@ -302,10 +302,10 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             if (d7Cell) {
                 bank += gerationBankStr(d7Cell); //手机号查询
             } else {
-                bank += gerationBankNullStr(bank);
+                bank += gerationBankNullStr();
             }
         } else {
-            bank += gerationBankNullStr(bank);
+            bank += gerationBankNullStr();
         }
         bank += "<td>手机号查询</td>";
         bank += "</tr><tr>";
@@ -319,10 +319,10 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             if (d15Id) {
                 bank += gerationBankStr(d15Id);
             } else {
-                bank += gerationBankNullStr(bank);
+                bank += gerationBankNullStr();
             }
         } else {
-            bank += gerationBankNullStr(bank);
+            bank += gerationBankNullStr();
         }
         bank += "<td>身份证查询</td>";
         bank += "</tr><tr>";
@@ -332,10 +332,10 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             if (d15Cell) {
                 bank += gerationBankStr(d15Cell);
             } else {
-                bank += gerationBankNullStr(bank);
+                bank += gerationBankNullStr();
             }
         } else {
-            bank += gerationBankNullStr(bank);
+            bank += gerationBankNullStr();
         }
         bank += "<td>手机号查询</td>";
         bank += "</tr><tr>";
@@ -349,10 +349,10 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             if (m1Id) {
                 bank += gerationBankStr(m1Id);
             } else {
-                bank += gerationBankNullStr(bank);
+                bank += gerationBankNullStr();
             }
         } else {
-            bank += gerationBankNullStr(bank);
+            bank += gerationBankNullStr();
         }
         bank += "<td>身份证查询</td>";
         bank += "</tr><tr>";
@@ -362,10 +362,10 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             if (m1Cell) {
                 bank += gerationBankStr(m1Cell);
             } else {
-                bank += gerationBankNullStr(bank);
+                bank += gerationBankNullStr();
             }
         } else {
-            bank += gerationBankNullStr(bank);
+            bank += gerationBankNullStr();
         }
         bank += "<td>手机号查询</td>";
         bank += "</tr><tr>";
@@ -379,10 +379,10 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             if (m3Id) {
                 bank += gerationBankStr(m3Id);
             } else {
-                bank += gerationBankNullStr(bank);
+                bank += gerationBankNullStr();
             }
         } else {
-            bank += gerationBankNullStr(bank);
+            bank += gerationBankNullStr();
         }
         bank += "<td>身份证查询</td>";
         bank += "</tr><tr>";
@@ -392,10 +392,10 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             if (m3Cell) {
                 bank += gerationBankStr(m3Cell);
             } else {
-                bank += gerationBankNullStr(bank);
+                bank += gerationBankNullStr();
             }
         } else {
-            bank += gerationBankNullStr(bank);
+            bank += gerationBankNullStr();
         }
         bank += "<td>手机号查询</td>";
         bank += "</tr><tr>";
@@ -409,10 +409,10 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             if (m6Id) {
                 bank += gerationBankStr(m6Id);
             } else {
-                bank += gerationBankNullStr(bank);
+                bank += gerationBankNullStr();
             }
         } else {
-            bank += gerationBankNullStr(bank);
+            bank += gerationBankNullStr();
         }
         bank += "<td>身份证查询</td>";
         bank += "</tr><tr>";
@@ -422,10 +422,10 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             if (m6Cell) {
                 bank += gerationBankStr(m6Cell);
             } else {
-                bank += gerationBankNullStr(bank);
+                bank += gerationBankNullStr();
             }
         } else {
-            bank += gerationBankNullStr(bank);
+            bank += gerationBankNullStr();
         }
         bank += "<td>手机号查询</td>";
         bank += "</tr><tr>";
@@ -438,10 +438,10 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             if (m12Id) {
                 bank += gerationBankStr(m12Id);
             } else {
-                bank += gerationBankNullStr(bank);
+                bank += gerationBankNullStr();
             }
         } else {
-            bank += gerationBankNullStr(bank);
+            bank += gerationBankNullStr();
         }
         bank += "<td>身份证查询</td>";
         bank += "</tr><tr>";
@@ -451,10 +451,10 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
             if (m12Cell) {
                 bank += gerationBankStr(m12Cell);
             } else {
-                bank += gerationBankNullStr(bank);
+                bank += gerationBankNullStr();
             }
         } else {
-            bank += gerationBankNullStr(bank);
+            bank += gerationBankNullStr();
         }
         bank += "<td>手机号查询</td>";
         bank += "</tr>";
@@ -581,7 +581,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
         var d7IdObj = d7.id; // 身份证查询
         if (d7IdObj) {
             var d7Bk = d7IdObj.nbank;
-            if (d1Bk) {
+            if (d7Bk) {
                 noBank += gerationNoBankStr(d7Bk);
             } else {
                 noBank += gerationNoBankNullStr();
