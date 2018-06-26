@@ -200,7 +200,7 @@ public class RpcController {
             dto.setIdType(idType);
             log.info("前海征信黑名单入参===>" + JSON.toJSONString(dto));
             com.ht.ussp.core.Result<FrontSeaDtoOut> result = eipIntefaceRpc.noCacheFrontSea(dto);
-            log.info("前海征信黑名单结果===>" + JSON.toJSONString(dto));
+            log.info("前海征信黑名单结果===>" + JSON.toJSONString(result));
             if ("0000".equals(result.getReturnCode())) {
                 FrontSeaDtoOut rdto = result.getData();
                 if (null == rdto) {
@@ -252,7 +252,7 @@ public class RpcController {
             dto.setMobilePhone(mobilePhone);
             log.info("百融核查入参===>" + JSON.toJSONString(dto));
             com.ht.ussp.core.Result<BairongMoreCheckDtoOut> result = eipIntefaceRpc.moreCheck(dto);
-            log.info("百融核查结果===>" + JSON.toJSONString(dto));
+            log.info("百融核查结果===>" + JSON.toJSONString(result));
             if ("0000".equals(result.getReturnCode())) {
                 BairongMoreCheckDtoOut rdto = result.getData();
                 log.info(JSON.toJSONString(rdto));
