@@ -247,6 +247,7 @@ layui.use(['table', 'form', 'myutil', 'element'], function () {
                 $("#bankTempTr").replaceWith("");
                 $("#nBankTempTr").replaceWith("");
                alert(123);
+               console.log(da);
                 if (da.code == 0) {
                     var bank = renderBarRongTabBank(da.data);
                     var nBank = renderBarRongTabNoBank(da.data);
