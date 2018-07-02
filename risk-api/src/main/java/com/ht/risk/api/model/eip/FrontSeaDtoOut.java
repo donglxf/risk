@@ -35,5 +35,9 @@ public class FrontSeaDtoOut{
 	@ApiModelProperty(value = "风险标记,请参考风险标记")
 	private String rskMark;
 
+	private String erCode ;
+
+	private String erMsg ;
+
 
 }

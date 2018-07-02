@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@FeignClient(value = "risk-eip", url = "http://localhost:30526")
+@FeignClient(value = "risk-eip")
 public interface EipIntefaceRpc {
 
     /**
@@ -20,7 +20,7 @@ public interface EipIntefaceRpc {
      * @throws Exception
      */
     @RequestMapping("/black/noCacheKlRiskBlack")
-    public com.ht.risk.common.result.Result<KlRiskBlackListRespDto> noCacheKlRiskBlack(@RequestBody KlRiskBlackListReqDto input) throws Exception;
+    public com.ht.ussp.core.Result<KlRiskBlackListRespDto> noCacheKlRiskBlack(@RequestBody KlRiskBlackListReqDto input) throws Exception;
 
     /**
      * 网贷黑名单
@@ -30,7 +30,7 @@ public interface EipIntefaceRpc {
      * @throws Exception
      */
     @RequestMapping("/black/noCacheNetLoan")
-    public com.ht.risk.common.result.Result<NetLoanOut> noCacheNetLoan(@RequestBody NetLoanIn input) throws Exception;
+    public com.ht.ussp.core.Result<NetLoanOut> noCacheNetLoan(@RequestBody NetLoanIn input) throws Exception;
 
     /**
      * 自有黑名单
@@ -40,7 +40,7 @@ public interface EipIntefaceRpc {
      * @throws Exception
      */
     @RequestMapping("/black/noCacheSelf")
-    public com.ht.risk.common.result.Result<SelfDtoOut> noCacheSelf(@RequestBody OldLaiInVo input) throws Exception;
+    public com.ht.ussp.core.Result<SelfDtoOut> noCacheSelf(@RequestBody OldLaiInVo input) throws Exception;
 
     /**
      * 老赖黑名单
@@ -50,7 +50,7 @@ public interface EipIntefaceRpc {
      * @throws Exception
      */
     @RequestMapping("/black/noCacheOldLai")
-    public com.ht.risk.common.result.Result<OldLaiOut> noCacheOldLai(@RequestBody OldLaiIn input) throws Exception;
+    public com.ht.ussp.core.Result<OldLaiOut> noCacheOldLai(@RequestBody OldLaiIn input) throws Exception;
 
     /**
      * 汇法网
@@ -60,7 +60,7 @@ public interface EipIntefaceRpc {
      * @throws Exception
      */
     @RequestMapping("/lawxp/webank")
-    public com.ht.risk.common.result.Result<LawxpWebankDtoOut> noCacheWebank(@RequestBody LawxpWebankDtoIn input) throws Exception;
+    public com.ht.ussp.core.Result<LawxpWebankDtoOut> noCacheWebank(@RequestBody LawxpWebankDtoIn input) throws Exception;
 
     /**
      * 前海征信黑名单
@@ -70,7 +70,7 @@ public interface EipIntefaceRpc {
      * @throws Exception
      */
     @RequestMapping("/black/noCacheFrontSea")
-    public com.ht.risk.common.result.Result<FrontSeaDtoOut> noCacheFrontSea(@RequestBody FrontSeaDtoIn input) throws Exception;
+    public com.ht.ussp.core.Result<FrontSeaDtoOut> noCacheFrontSea(@RequestBody FrontSeaDtoIn input) throws Exception;
 
     /**
      * 百融多次核查
@@ -80,7 +80,7 @@ public interface EipIntefaceRpc {
      * @throws Exception
      */
     @RequestMapping("/bairong/moreCheck")
-    public com.ht.risk.common.result.Result<BairongMoreCheckDtoOut> moreCheck(@RequestBody BairongMoreCheckDtoIn input) throws Exception;
+    public com.ht.ussp.core.Result<BairongMoreCheckDtoOut> moreCheck(@RequestBody BairongMoreCheckDtoIn input) throws Exception;
 
 
 }

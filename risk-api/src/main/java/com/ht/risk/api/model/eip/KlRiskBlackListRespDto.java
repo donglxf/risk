@@ -29,5 +29,5 @@ public class KlRiskBlackListRespDto implements Serializable {
     /**
      *黑名单详细列表
      */
-    private List<BlacklistDetail> blacklistDetail;
+    private List<BlacklistDetail> blacklistDetailList;
 }

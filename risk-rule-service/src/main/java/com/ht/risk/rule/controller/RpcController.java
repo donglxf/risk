@@ -54,13 +54,23 @@ public class RpcController {
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
             dto.setMobilePhone(mobilePhone);
-            Result<KlRiskBlackListRespDto> result = eipIntefaceRpc.noCacheKlRiskBlack(dto);
-            KlRiskBlackListRespDto rdto = result.getData();
-            List<BlacklistDetail> list = rdto.getBlacklistDetail();
-            if (null == list) {
-                return Result.error(1, "无信息！！");
+            log.info("考拉黑名单入参===>" + JSON.toJSONString(dto));
+            com.ht.ussp.core.Result<KlRiskBlackListRespDto> result = eipIntefaceRpc.noCacheKlRiskBlack(dto);
+            log.info("考拉黑名单===>" + JSON.toJSONString(result));
+            if ("0000".equals(result.getReturnCode())) {
+                KlRiskBlackListRespDto rdto = result.getData();
+                if (null == rdto) {
+                    return Result.error(1, "无信息！！");
+                }
+                List<BlacklistDetail> list = rdto.getBlacklistDetailList();
+                if (null == list) {
+                    return Result.error(1, "无信息！！");
+                }
+                return Result.success(list);
+            } else {
+                return Result.error(1, result.getMsg());
             }
-            return Result.success(list);
+
         } catch (Exception e) {
             log.error("考拉黑名单异常！！！", e);
         }
@@ -75,16 +85,19 @@ public class RpcController {
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
             dto.setMobilePhone(mobilePhone);
-            Result<NetLoanOut> result = eipIntefaceRpc.noCacheNetLoan(dto);
-            NetLoanOut rdto = result.getData();
-            if (null == rdto) {
-//                rdto=new NetLoanOut();
-//                rdto.setAlsoLateFee("asdfafd");
-//                rdto.setAlsoUrgentFee("dfdf");
-//                rdto.setBirthAddress("dddddddddddddddddd");
-                return Result.error(1, "无信息！！");
+            log.info("网贷黑名单===>" + JSON.toJSONString(dto));
+            com.ht.ussp.core.Result<NetLoanOut> result = eipIntefaceRpc.noCacheNetLoan(dto);
+            log.info("网贷黑名单结果===>" + JSON.toJSONString(result));
+            if ("0000".equals(result.getReturnCode())) {
+                NetLoanOut rdto = result.getData();
+                if (null == rdto) {
+                    return Result.error(1, "无信息！！");
+                }
+                return Result.success(rdto);
+            } else {
+                return Result.error(1, result.getMsg());
             }
-            return Result.success(rdto);
+
         } catch (Exception e) {
             log.error("网贷黑名单异常！！！", e);
         }
@@ -98,17 +111,23 @@ public class RpcController {
             OldLaiInVo dto = new OldLaiInVo();
             dto.setMobilePhone(mobilePhone);
             dto.setIdentityCard(identityCard);
-            Result<SelfDtoOut> result = eipIntefaceRpc.noCacheSelf(dto);
-            SelfDtoOut rdto = result.getData();
-            if (null == rdto) {
-                return Result.error(1, "无信息！！");
+            log.info("自有黑名单===>" + JSON.toJSONString(dto));
+            com.ht.ussp.core.Result<SelfDtoOut> result = eipIntefaceRpc.noCacheSelf(dto);
+            log.info("自有黑名单返回结果===>" + JSON.toJSONString(result));
+            if ("0000".equals(result.getReturnCode())) {
+                SelfDtoOut rdto = result.getData();
+                if (null == rdto) {
+                    return Result.error(1, "无信息！！");
+                }
+                if (SeflBlackStatusEnum.noBlack.getValue().equals(rdto.getIsBlacklistUser())) {
+                    rdto.setIsBlacklistUser(SeflBlackStatusEnum.noBlack.getName());
+                } else if (SeflBlackStatusEnum.yesBlack.getValue().equals(rdto.getIsBlacklistUser())) {
+                    rdto.setIsBlacklistUser(SeflBlackStatusEnum.yesBlack.getName());
+                }
+                return Result.success(rdto);
+            } else {
+                return Result.error(1, result.getMsg());
             }
-            if (SeflBlackStatusEnum.noBlack.getValue().equals(rdto.getIsBlacklistUser())) {
-                rdto.setIsBlacklistUser(SeflBlackStatusEnum.noBlack.getName());
-            } else if (SeflBlackStatusEnum.yesBlack.getValue().equals(rdto.getIsBlacklistUser())) {
-                rdto.setIsBlacklistUser(SeflBlackStatusEnum.yesBlack.getName());
-            }
-            return Result.success(rdto);
         } catch (Exception e) {
             log.error("自有黑名单异常！！！", e);
         }
@@ -122,15 +141,18 @@ public class RpcController {
             OldLaiIn dto = new OldLaiIn();
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
-            Result<OldLaiOut> result = eipIntefaceRpc.noCacheOldLai(dto);
-            if (0 == result.getCode()) {
+            dto.setQueryType("1");
+            log.info("老赖黑名单===>" + JSON.toJSONString(dto));
+            com.ht.ussp.core.Result<OldLaiOut> result = eipIntefaceRpc.noCacheOldLai(dto);
+            log.info("老赖黑名单结果===>" + JSON.toJSONString(result));
+            if ("0000".equals(result.getReturnCode())) {
                 OldLaiOut rdto = result.getData();
                 if (null == rdto) {
                     return Result.error(1, "无信息！！");
                 }
                 return Result.success(rdto);
             } else {
-                return Result.error(1, "查询失败！！");
+                return Result.error(1, result.getMsg());
             }
         } catch (Exception e) {
             log.error("老赖黑名单异常！！！", e);
@@ -145,16 +167,21 @@ public class RpcController {
             LawxpWebankDtoIn dto = new LawxpWebankDtoIn();
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
-            Result<LawxpWebankDtoOut> result = eipIntefaceRpc.noCacheWebank(dto);
-            if (0 == result.getCode()) {
+            log.info("汇法网微众入参===>" + JSON.toJSONString(dto));
+            com.ht.ussp.core.Result<LawxpWebankDtoOut> result = eipIntefaceRpc.noCacheWebank(dto);
+            log.info("汇法网微众结果===>" + JSON.toJSONString(result));
+            if ("0000".equals(result.getReturnCode())) {
                 LawxpWebankDtoOut rdto = result.getData();
+                if (rdto == null) {
+                    return Result.error(1, "无信息！！");
+                }
                 List<Allmsglist> resultList = rdto.getAllmsglist();
                 if (null == resultList) {
                     return Result.error(1, "无信息！！");
                 }
                 return Result.success(resultList);
             } else {
-                return Result.error(1, "查询失败！！");
+                return Result.error(1, result.getMsg());
             }
         } catch (Exception e) {
             log.error("汇法网微众异常！！！", e);
@@ -171,10 +198,12 @@ public class RpcController {
             dto.setIdentityCard(identityCard);
             dto.setReasonNo(reasonNo);
             dto.setIdType(idType);
-            Result<FrontSeaDtoOut> result = eipIntefaceRpc.noCacheFrontSea(dto);
-            if (0 == result.getCode()) {
+            log.info("前海征信黑名单入参===>" + JSON.toJSONString(dto));
+            com.ht.ussp.core.Result<FrontSeaDtoOut> result = eipIntefaceRpc.noCacheFrontSea(dto);
+            log.info("前海征信黑名单结果===>" + JSON.toJSONString(result));
+            if ("0000".equals(result.getReturnCode())) {
                 FrontSeaDtoOut rdto = result.getData();
-                if (null == rdto) {
+                if (null == rdto || !"E000000".equals(rdto.getErCode())) {
                     return Result.error(1, "无信息！！");
                 }
                 if (FrontSeaSourceIdEnum.A.getValue().equals(rdto.getSourceId())) {
@@ -221,10 +250,20 @@ public class RpcController {
             dto.setRealName(realName);
             dto.setIdentityCard(identityCard);
             dto.setMobilePhone(mobilePhone);
-            Result<BairongMoreCheckDtoOut> result = eipIntefaceRpc.moreCheck(dto);
-            BairongMoreCheckDtoOut rdto = result.getData();
-            log.info(JSON.toJSONString(rdto));
-            return Result.success(rdto);
+            log.info("百融核查入参===>" + JSON.toJSONString(dto));
+//            Object obj=eipIntefaceRpc.moreCheck(dto);
+            com.ht.ussp.core.Result<BairongMoreCheckDtoOut> result = eipIntefaceRpc.moreCheck(dto);
+            log.info("百融核查结果===>" + JSON.toJSONString(result));
+            if ("0000".equals(result.getReturnCode())) {
+                BairongMoreCheckDtoOut rdto = result.getData();
+                if (null == rdto) {
+                    return Result.error(1, "无信息");
+                }
+                log.info(JSON.toJSONString(rdto));
+                return Result.success(rdto);
+            } else {
+                return Result.error(1, result.getMsg());
+            }
         } catch (Exception e) {
             log.error("百融核查异常！！！", e);
         }
