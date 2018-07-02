@@ -20,4 +20,9 @@ public class RuleIntefaceSearchController {
         return "rule/interfaceSearch/index";
     }
 
+    @RequestMapping(value = "/appUserInfo", method = RequestMethod.GET)
+    public String appUserInfo() {
+        return "rule/interfaceSearch/user_info";
+    }
+
 }
