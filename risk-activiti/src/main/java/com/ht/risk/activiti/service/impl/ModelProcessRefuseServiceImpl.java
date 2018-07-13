@@ -1,7 +1,6 @@
 package com.ht.risk.activiti.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.ht.risk.activiti.config.SpringContextUtils;
 import com.ht.risk.activiti.rpc.ActivitiConfigInterface;
 import com.ht.risk.activiti.rpc.RuleServiceInterface;
 import com.ht.risk.activiti.service.ModelProcessRefuseService;
