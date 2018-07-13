@@ -3,6 +3,10 @@ package com.ht.risk.activiti.service.htapp.impl;
 import com.ht.risk.activiti.rpc.RuleServiceInterface;
 import com.ht.risk.activiti.service.htapp.HtAppDataMachin;
 import com.ht.risk.api.constant.activiti.ActivitiConstants;
+import com.ht.risk.common.comenum.CityTypeEnum;
+import com.ht.risk.common.comenum.HouseTYpeEnum;
+import com.ht.risk.common.comenum.MerryEnum;
+import com.ht.risk.common.comenum.SexEnum;
 import com.ht.risk.common.result.Result;
 import com.ht.risk.common.util.ObjectUtils;
 import lombok.extern.log4j.Log4j2;
@@ -39,8 +43,8 @@ public class HtAppDataMachinImpl implements HtAppDataMachin {
         execution.setVariable(ActivitiConstants.PROC_BUSINESS_KEY, dataMap.get("businessId"));
         forbit(dataMap, execution);
         dataMachin(dataMap, execution);
-        houseDataMachIn(dataMap,execution);
-        carDataMachIn(dataMap,execution);
+        houseDataMachIn(dataMap, execution);
+        carDataMachIn(dataMap, execution);
     }
 
     private void forbit(Map dataMap, DelegateExecution execution) {
@@ -67,29 +71,29 @@ public class HtAppDataMachinImpl implements HtAppDataMachin {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         ListMap.forEach(map -> {
             String housetype = (String) map.get("hongteappedu_hthousetype");
-            if ("商品房".equals(housetype)) {
+            if (HouseTYpeEnum.commodityhouse.getName().equals(housetype)) {
                 housetype = "commodityhouse";
-            } else if ("别墅".equals(housetype)) {
+            } else if (HouseTYpeEnum.villa.getName().equals(housetype)) {
                 housetype = "Villa";
-            } else if ("写字楼".equals(housetype)) {
+            } else if (HouseTYpeEnum.officeBuilding.getName().equals(housetype)) {
                 housetype = "officeBuilding";
-            } else if ("公寓".equals(housetype)) {
+            } else if (HouseTYpeEnum.apartment.getName().equals(housetype)) {
                 housetype = "apartment";
-            } else if ("商铺".equals(housetype)) {
+            } else if (HouseTYpeEnum.shop.getName().equals(housetype)) {
                 housetype = "shop";
-            } else if ("其他".equals(housetype)) {
+            } else if (HouseTYpeEnum.other.getName().equals(housetype)) {
                 housetype = "other";
             }
             map.put("hongteappedu_hthousetype", housetype);
 
             Result<String> str = ruleServiceInterface.getCityTypeByCityName(String.valueOf(map.get("hongteappedu_hthouseCityType")));
             String type = str.getData();
-            if ("1".equals(type)) {
-                type = "cityTypeA";
-            } else if ("2".equals(type)) {
-                type = "cityTypeB";
-            } else if ("3".equals(type)) {
-                type = "cityTypeC";
+            if (CityTypeEnum.cityTypeA.getCode().equals(type)) {
+                type = CityTypeEnum.cityTypeA.getName();
+            } else if (CityTypeEnum.cityTypeB.getCode().equals(type)) {
+                type = CityTypeEnum.cityTypeB.getName();
+            } else if (CityTypeEnum.cityTypeC.getCode().equals(type)) {
+                type = CityTypeEnum.cityTypeC.getName();
             }
             map.put("hongteappedu_hthouseCityType", type);
 
@@ -122,12 +126,12 @@ public class HtAppDataMachinImpl implements HtAppDataMachin {
 
             Result<String> str = ruleServiceInterface.getCityTypeByCityName(String.valueOf(map.get("hongteappedu_carcity")));
             String type = str.getData();
-            if ("1".equals(type)) {
-                type = "cityTypeA";
-            } else if ("2".equals(type)) {
-                type = "cityTypeB";
-            } else if ("3".equals(type)) {
-                type = "cityTypeC";
+            if (CityTypeEnum.cityTypeA.getCode().equals(type)) {
+                type = CityTypeEnum.cityTypeA.getName();
+            } else if (CityTypeEnum.cityTypeB.getCode().equals(type)) {
+                type = CityTypeEnum.cityTypeB.getName();
+            } else if (CityTypeEnum.cityTypeC.getCode().equals(type)) {
+                type = CityTypeEnum.cityTypeC.getName();
             }
             map.put("hongteappedu_carcity", type);
             list.add(map);
@@ -151,14 +155,14 @@ public class HtAppDataMachinImpl implements HtAppDataMachin {
         String education = (String) map.get("hongteappedu_hteducation");
 
         String merry = (String) map.get("hongteappedu_htmerry");
-        if ("女".equals(sex)) {
-            map.put("hongteappedu_htsex", "women");
+        if (SexEnum.women.getName().equals(sex)) {
+            map.put("hongteappedu_htsex", SexEnum.women.getCode());
         } else {
-            map.put("hongteappedu_htsex", "humen");
+            map.put("hongteappedu_htsex", SexEnum.human.getCode());
         }
 
-        if(workyear<=1){
-            map.put("hongteappedu_workyear",1);
+        if (workyear <= 1) {
+            map.put("hongteappedu_workyear", 1);
         }
 
         if ("大专".equals(education)) {
@@ -173,8 +177,8 @@ public class HtAppDataMachinImpl implements HtAppDataMachin {
         map.put("hongteappedu_hteducation", education);
 
 
-        if ("已婚".equals(merry) || "再婚".equals(merry)) {
-            map.put("hongteappedu_htmerry", "married");
+        if (MerryEnum.married.getName().equals(merry) || MerryEnum.remarry.getName().equals(merry)) {
+            map.put("hongteappedu_htmerry", MerryEnum.married.getCode());
         }
 
 

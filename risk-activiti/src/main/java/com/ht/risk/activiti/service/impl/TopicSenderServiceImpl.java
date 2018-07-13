@@ -32,7 +32,7 @@ public class TopicSenderServiceImpl {
     public void sendHtApp(String context) {
         LOGGER.info("mq host is :" + rabbitMessagingTemplate.getRabbitTemplate().getConnectionFactory().getHost());
         LOGGER.info("send to quene [activiti.htapp.service] message is:" + context);
-        this.amqpTemplate. convertAndSend(AmqpConfig.ACTIVITI_HTAPP_EXCHANGE, AmqpConfig.ACTIVITI_HTAPP_ROUTING_KEY, context);
+        this.amqpTemplate.convertAndSend(AmqpConfig.ACTIVITI_HTAPP_EXCHANGE, AmqpConfig.ACTIVITI_HTAPP_ROUTING_KEY, context);
 //        this.amqpTemplate.send();
         LOGGER.info("send to quene [activiti.htapp.service] message sucess");
     }
@@ -55,5 +55,12 @@ public class TopicSenderServiceImpl {
         LOGGER.info("send to quene [risk.hongteapp.htappscore] message is:" + context);
         this.amqpTemplate.convertAndSend(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY, context);
         LOGGER.info("send to quene [risk.hongteapp.htappscore] message sucess");
+    }
+
+    public void sendInSys(String context) {
+        LOGGER.info("inSys amqp host is :");
+        LOGGER.info("send to quene [risk.insys.score] message is:");
+        this.amqpTemplate.convertAndSend(AmqpConfig.ACTIVITI_INSYS_EXCHANGE, AmqpConfig.ACTIVITI_ROUTING_INSYS_KEY, context);
+        LOGGER.info("inSys send to quene [risk.insys.score] message sucess");
     }
 }

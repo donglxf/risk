@@ -37,6 +37,11 @@ public class AmqpConfig {
     public final static String ACTIVITI_HTAPPSCORE_EXCHANGE = "risk.hongteapp.htappscore";
     public final static String ACTIVITI_ROUTING_HTAPPSCORE_KEY = "risk.hongteapp.htappscore";
 
+    // 进件系统
+    public final static String ACTIVITI_SERVICE_INSYS = "risk.insys.service";
+    public final static String ACTIVITI_INSYS_EXCHANGE = "risk.insys.service";
+    public final static String ACTIVITI_ROUTING_INSYS_KEY = "risk.insys.service";
+
     @Value("${spring.rabbitmq.host:}")
     private String host;
     @Value("${spring.rabbitmq.port:}")
@@ -104,6 +109,14 @@ public class AmqpConfig {
         return queue;
     }
 
+    //创建队列
+    @Bean
+    public Queue queueInSys(RabbitAdmin rabbitAdmin) {
+        Queue queue = new Queue(AmqpConfig.ACTIVITI_SERVICE_INSYS);
+        rabbitAdmin.declareQueue(queue);
+        return queue;
+    }
+
     //创建交换器
     @Bean
     DirectExchange exchange(RabbitAdmin rabbitAdmin) {
@@ -138,6 +151,13 @@ public class AmqpConfig {
     @Bean
     DirectExchange exchangeHtAppScore(RabbitAdmin rabbitAdmin) {
         DirectExchange exchange = new DirectExchange(AmqpConfig.ACTIVITI_HTAPPSCORE_EXCHANGE, false, false);
+        rabbitAdmin.declareExchange(exchange);
+        return exchange;
+    }
+
+    @Bean
+    DirectExchange exchangeInSys(RabbitAdmin rabbitAdmin) {
+        DirectExchange exchange = new DirectExchange(AmqpConfig.ACTIVITI_INSYS_EXCHANGE, false, false);
         rabbitAdmin.declareExchange(exchange);
         return exchange;
     }
@@ -178,6 +198,14 @@ public class AmqpConfig {
     @Bean
     Binding bindingExchangeHtAppScore(Queue queueHtAppScore, DirectExchange exchangeHtAppScore, RabbitAdmin rabbitAdmin) {
         Binding binding = BindingBuilder.bind(queueHtAppScore).to(exchangeHtAppScore).with(AmqpConfig.ACTIVITI_ROUTING_HTAPPSCORE_KEY);
+        rabbitAdmin.declareBinding(binding);
+        return binding;//*表示一个词,#表示零个或多个词
+    }
+
+    // 进件系统队列
+    @Bean
+    Binding bindingExchangeInSys(Queue queueInSys, DirectExchange exchangeInSys, RabbitAdmin rabbitAdmin) {
+        Binding binding = BindingBuilder.bind(queueInSys).to(exchangeInSys).with(AmqpConfig.ACTIVITI_ROUTING_INSYS_KEY);
         rabbitAdmin.declareBinding(binding);
         return binding;//*表示一个词,#表示零个或多个词
     }
