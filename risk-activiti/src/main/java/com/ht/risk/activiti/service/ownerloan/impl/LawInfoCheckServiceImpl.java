@@ -64,7 +64,7 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
             if(persionResult.getData() != null && (persionResult.getData().getAnli()>0 || persionResult.getData().getCuiqiannum()>0 || persionResult.getData().getShixinnum()>0||
                     persionResult.getData().getShuiwunum() >0 || persionResult.getData().getWangdainum() >0 || persionResult.getData().getZhixingnum()>0) ){
                 persionRuleInfo.setInterfaceResultCodeRemark("命中汇法网个人分类信息");
-                persionRuleInfo.setTsTarget(false);
+                persionRuleInfo.setTsTarget(true);
                 flag = RuleHitEnum.HIT.getCode();
             }else{
                 persionRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
@@ -88,7 +88,7 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
             webBackRuleInfo.setResultJson(JSON.toJSONString(webBankResult.getData()));
             if(webBankResult.getData() != null && webBankResult.getData().getTotalnumber() >0){
                 webBackRuleInfo.setInterfaceResultCodeRemark("命中微众（法院）");
-                webBackRuleInfo.setTsTarget(false);
+                webBackRuleInfo.setTsTarget(true);
                 flag = RuleHitEnum.HIT.getCode();
             }else{
                 webBackRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
@@ -114,7 +114,7 @@ public class LawInfoCheckServiceImpl implements LawInfoCheckService {
             if(crimeResult.getData() != null && ("1".equals(crimeResult.getData().getIsCrime()) || "1".equals(crimeResult.getData().getIsDrug()) || "1".equals(crimeResult.getData().getIsDrugRelated())
                 || "1".equals(crimeResult.getData().getIsEscape()))){
                 crimeRuleInfo.setInterfaceResultCodeRemark("命中天行数科接口");
-                crimeRuleInfo.setTsTarget(false);
+                crimeRuleInfo.setTsTarget(true);
                 flag = RuleHitEnum.HIT.getCode();
             }else{
                 crimeRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");

@@ -65,7 +65,7 @@ public class BlanckListServiceImpl implements BlanckListService {
             netRuleInfo.setResultJson(JSON.toJSONString(netResult.getData()));
             if(netResult.getData() != null){
                 netRuleInfo.setInterfaceResultCodeRemark("命中网贷黑名单");
-                netRuleInfo.setTsTarget(false);
+                netRuleInfo.setTsTarget(true);
                 flag = RuleHitEnum.HIT.getCode();
             }else{
                 netRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
@@ -89,7 +89,7 @@ public class BlanckListServiceImpl implements BlanckListService {
             slefRuleInfo.setResultJson(JSON.toJSONString(selfDtoOutResult.getData()));
             if(selfDtoOutResult.getData() != null && "1".equals(selfDtoOutResult.getData().getIsBlacklistUser())){
                 slefRuleInfo.setInterfaceResultCodeRemark("命中自有黑名单");
-                slefRuleInfo.setTsTarget(false);
+                slefRuleInfo.setTsTarget(true);
                 flag = RuleHitEnum.HIT.getCode();
             }else{
                 slefRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
@@ -113,7 +113,7 @@ public class BlanckListServiceImpl implements BlanckListService {
             klRuleInfo.setResultJson(JSON.toJSONString(klResult.getData()));
             if(klResult.getData() != null && klResult.getData().getBlacklistDetailList() != null){
                 klRuleInfo.setInterfaceResultCodeRemark("命中考拉黑名单");
-                klRuleInfo.setTsTarget(false);
+                klRuleInfo.setTsTarget(true);
                 flag = RuleHitEnum.HIT.getCode();
             }else{
                 klRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
@@ -138,7 +138,7 @@ public class BlanckListServiceImpl implements BlanckListService {
             qianhaiRuleInfo.setResultJson(JSON.toJSONString(qianhaiResult.getData()));
             if(qianhaiResult.getData() != null && "1".equals(qianhaiResult.getData().getDataStatus())){
                 qianhaiRuleInfo.setInterfaceResultCodeRemark("命中前海征信");
-                qianhaiRuleInfo.setTsTarget(false);
+                qianhaiRuleInfo.setTsTarget(true);
                 flag = RuleHitEnum.HIT.getCode();
             }else{
                 qianhaiRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
@@ -163,7 +163,7 @@ public class BlanckListServiceImpl implements BlanckListService {
             baiqishiRuleInfo.setResultJson(JSON.toJSONString(baiqishiResult.getData()));
             if(baiqishiResult.getData() != null && "Reject".equals(baiqishiResult.getData().getFinalDecision())){
                 baiqishiRuleInfo.setInterfaceResultCodeRemark("命中白骑士黑名单");
-                baiqishiRuleInfo.setTsTarget(false);
+                baiqishiRuleInfo.setTsTarget(true);
                 flag = RuleHitEnum.HIT.getCode();
             }else{
                 baiqishiRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");

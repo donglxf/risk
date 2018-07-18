@@ -56,7 +56,7 @@ public class BairongCheckServiceImpl implements BairongCheckService {
             moreCheckRuleInfo.setResultJson(JSON.toJSONString(moreCheckResult.getData()));
             if(moreCheckResult.getData() != null){
                 moreCheckRuleInfo.setInterfaceResultCodeRemark("命中百融多次核查信息");
-                moreCheckRuleInfo.setTsTarget(false);
+                moreCheckRuleInfo.setTsTarget(true);
                 //flag = RuleHitEnum.UNHIT.getCode();
             }else{
                 moreCheckRuleInfo.setInterfaceResultCodeRemark("执行成功，没有命中");
